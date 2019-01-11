@@ -4,7 +4,7 @@
 This plugin requires node `>= 6.0.0` and npm `>= 1.4.15` (latest stable is recommended).
 
 ```shell
-> git clone https://github.com/BoodskapPlatform/boodskap-base-template 
+> git clone https://github.com/BoodskapPlatform/boodskap-ui
 ```
 
 Once the repository has been cloned:
