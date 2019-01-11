@@ -1,0 +1,651 @@
+var domainTable = null;
+var MENU_LINKS = ['/home', '/dashboard', '/message-definition', "/record-definition", "/rules-engine", "/script-console",
+    "/machine-learning", "/block-chain", "/templates", "/events", "/geofence", "/mobile-platform",
+    "/device-management", "/firmware-management", "/asset-management", "/user-management", "/dashboard-editor", "/event-logs",
+    "/messages", "/log-console", "/marketplace", "/domain-audit", "/files", "/code-editor", "/alexa", "/query-console", "/sql-query-console",
+    "/sql-templates","/sql-table","/db-table","/db-query-console","/db-templates","/plugin-management"]; //upto 32
+
+
+$(document).ready(function () {
+
+    $(".currentTime").html('<i class="fa fa-clock"></i> <span class="curTime">' + moment().format('MM/DD/YYYY hh:mm:ss A') + '</span>')
+    setInterval(function () {
+        $(".curTime").html(moment().format('MM/DD/YYYY hh:mm:ss A'))
+    }, 10)
+
+
+    $("body").removeClass('bg-white');
+    // $(".homeMenuList").append($("#logConsole").html());
+    if (ADMIN_ACCESS) {
+
+        $(".loginAs").append($("#loginAs").html());
+    }
+
+    var dkey = new ClipboardJS('.domainKey');
+    var akey = new ClipboardJS('.apiKey');
+    var tkey = new ClipboardJS('.apiToken');
+
+    $(".specPath").attr('href', API_BASE_PATH + '/spec/')
+
+    dkey.on('success', function (e) {
+        successMsg('Domain Key Copied Successfully')
+    });
+    akey.on('success', function (e) {
+        successMsg('API Key Copied Successfully')
+    });
+    tkey.on('success', function (e) {
+        successMsg('Session Token Copied Successfully')
+    });
+
+    var fullName = (USER_OBJ.user.firstName ? USER_OBJ.user.firstName : 'Admin') + ' ' + (USER_OBJ.user.lastName ? USER_OBJ.user.lastName : "");
+
+    if (!Cookies.get('greetings')) {
+        showNotification('<label>Greetings from Boodskap,</label><p>Hey <b>' + fullName + '</b>, Welcome back!</p>', 'platform', 3000);
+        Cookies.set('greetings', 'true');
+        playSound();
+    }
+
+});
+
+
+function mqttCancelSubscribe(id) {
+
+    if (!id) {
+        id = CURRENT_ID;
+    }
+
+    try {
+
+        mqttUnsubscribe("/" + USER_OBJ.domainKey + "/log/#");
+
+    }
+    catch (e) {
+    }
+
+}
+
+
+function toggleKeys(id, type) {
+    if (type === 'domainToggle') {
+
+        if (id === 1) {
+            $(".domain_key_show").addClass('hide');
+            $(".domain_key").removeClass('hide');
+            $(".domainToggle").html('<i class="fa fa-eye-slash"></i>');
+            $(".domainToggle").attr('onclick', "toggleKeys(2,'domainToggle')");
+        } else {
+            $(".domain_key").addClass('hide');
+            $(".domain_key_show").removeClass('hide');
+            $(".domainToggle").html('<i class="fa fa-eye"></i>');
+            $(".domainToggle").attr('onclick', "toggleKeys(1,'domainToggle')");
+        }
+
+    }
+    else if (type === 'tokenToggle') {
+
+        if (id === 1) {
+            $(".api_token_show").addClass('hide');
+            $(".api_token").removeClass('hide');
+            $(".tokenToggle").html('<i class="fa fa-eye-slash"></i>');
+            $(".tokenToggle").attr('onclick', "toggleKeys(2,'tokenToggle')");
+        } else {
+            $(".api_token").addClass('hide');
+            $(".api_token_show").removeClass('hide');
+            $(".tokenToggle").html('<i class="fa fa-eye"></i>');
+            $(".tokenToggle").attr('onclick', "toggleKeys(1,'tokenToggle')");
+        }
+
+    }
+    else {
+        if (id === 1) {
+            $(".api_key_show").addClass('hide');
+            $(".api_key").removeClass('hide');
+            $(".apiToggle").html('<i class="fa fa-eye-slash"></i>');
+            $(".apiToggle").attr('onclick', "toggleKeys(2,'apiToggle')");
+        } else {
+            $(".api_key").addClass('hide');
+            $(".api_key_show").removeClass('hide');
+            $(".apiToggle").html('<i class="fa fa-eye"></i>');
+            $(".apiToggle").attr('onclick', "toggleKeys(1,'apiToggle')");
+        }
+    }
+}
+
+function loadMenu(id) {
+    if (id === 18 || id === 19) {
+        window.open(MENU_LINKS[id], "_blank");
+    } else {
+        document.location = MENU_LINKS[id];
+    }
+
+}
+
+function openLinkModal() {
+    $("#linkModal form")[0].reset();
+    $("#linkModal").modal('show');
+    domainList();
+
+}
+
+function domainList() {
+    $(".domainList").html("");
+    $(".linked_domains").html("");
+    if(USER_OBJ.linkedDomains) {
+        for (var i = 0; i < USER_OBJ.linkedDomains.length; i++) {
+
+            $(".linked_domains").append('<label class="label label-default" onclick="openLinkedDomain(\'' + USER_OBJ.linkedDomains[i].domainKey + '\')">' + USER_OBJ.linkedDomains[i].label + '</label><br>')
+
+            $(".domainList").append('<tr>' +
+                '<td>' + USER_OBJ.linkedDomains[i].label + '</td>' +
+                '<td>' + USER_OBJ.linkedDomains[i].domainKey + '</td>' +
+                '<td>' + USER_OBJ.linkedDomains[i].apiKey + '</td>' +
+                '<td>' +
+                '<button class="btn btn-xs btn-default" title="Unlink Domain" ' +
+                'onclick="unlinkDomainCall(\'' + USER_OBJ.linkedDomains[i].domainKey + '\')"><i class="icon-unlink"></i></button>' +
+                '<button class="btn btn-xs btn-default ml-2" title="View Domain Dashboard" ' +
+                'onclick="openLinkedDomain(\'' + USER_OBJ.linkedDomains[i].domainKey + '\')"><i class="icon-play"></i> view</button>' +
+                '</td>' +
+                '</tr>')
+        }
+    }
+}
+
+function openLinkedDomain(key) {
+    window.open('/linkeddomain?domainKey=' + key, "_blank");
+}
+
+
+function linkDomainCall() {
+    var obj = {
+        apiKey: $.trim($("#apiKey").val()),
+        domainKey: $.trim($("#domainKey").val()),
+        label: $.trim($("#labelText").val())
+    };
+
+    linkDomain(obj, function (status, data) {
+        if (status) {
+            USER_OBJ.linkedDomains.push(data);
+            Cookies.set('user_details', USER_OBJ);
+            domainList();
+            $("#linkModal form")[0].reset();
+            successMsg('Domain Linked Successfully!')
+        } else {
+            errorMsg('Error in Linking Domain (or) Domain Not Exist')
+        }
+    })
+}
+
+function unlinkDomainCall(id) {
+    var obj = {
+        domainKey: id
+    };
+
+    unlinkDomain(obj, function (status, data) {
+        if (status) {
+
+            var linkedDomain = [];
+
+            for (var i = 0; i < USER_OBJ.linkedDomains.length; i++) {
+                if (id !== USER_OBJ.linkedDomains[i].domainKey) {
+                    linkedDomain.push(USER_OBJ.linkedDomains[i]);
+                }
+            }
+
+            USER_OBJ.linkedDomains = linkedDomain;
+            Cookies.set('user_details', USER_OBJ);
+            domainList();
+            successMsg('Domain Un-Linked Successfully!')
+        } else {
+            errorMsg('Error in Un-Linking Domain')
+        }
+    })
+}
+
+function openDomainModal() {
+    loadDomains();
+    $("#domainModal").modal('show')
+}
+
+
+function loadDomains() {
+
+    if (domainTable) {
+        domainTable.destroy();
+        $("#domainTable").html("");
+    }
+
+
+    var domainKeyJson = {"match": {"domainKey": DOMAIN_KEY}};
+
+    var queryParams = {
+        query: {
+            "bool": {
+                "must": [],
+            }
+        },
+    };
+
+
+    var fields = [
+        {
+            mData: 'domainKey',
+            sTitle: 'Domain Key',
+            mRender: function (data, type, row) {
+                var sqlstr = '<a href="javascript:void(0)" onclick="checkSQL(\''+data+'\')" ' +
+                    'style="display:block;color:#333;font-size:11px;" class="c_'+data+'"><i class="icon-database2"></i> Check SQL Access</a>'
+                var dbstr = '<a href="javascript:void(0)" onclick="checkDB(\''+data+'\')" ' +
+                    'style="display:block;color:#333;font-size:11px;" class="d_'+data+'"><i class="icon-database2"></i> Check DB Access</a>'
+
+                return data+sqlstr+dbstr;
+            }
+        },
+        {
+            mData: 'email',
+            sTitle: 'Email ID'
+        },
+        {
+            mData: 'action',
+            sTitle: 'Action',
+            mRender: function (data, type, row) {
+                var str = '<button class="btn btn-xs btn-default" onclick="loginAs(\'' + row['domainKey'] + '\',\'' + row['email'] + '\')">' +
+                    '<i class="icon-sign-in"></i> Login</button>'
+                return str;
+            }
+        }
+
+    ];
+
+
+    var tableOption = {
+        fixedHeader: {
+            header: true,
+            headerOffset: -5
+        },
+        pagingType: 'simple',
+        responsive: true,
+        paging: true,
+        searching: true,
+        "ordering": false,
+        iDisplayLength: 10,
+        lengthMenu: [[10, 50, 100], [10, 50, 100]],
+        aoColumns: fields,
+        "bProcessing": true,
+        "bServerSide": true,
+        "sAjaxSource": API_BASE_PATH + '/elastic/search/query/' + API_TOKEN,
+        "fnServerData": function (sSource, aoData, fnCallback, oSettings) {
+
+
+            queryParams['size'] = oSettings._iDisplayLength;
+            queryParams['from'] = oSettings._iDisplayStart;
+
+            var searchText = oSettings.oPreviousSearch.sSearch;
+
+            if (searchText) {
+                var searchJson = {
+                    "multi_match": {
+                        "query": '*' + searchText + '*',
+                        "type": "phrase_prefix",
+                        "fields": ['domainKey', 'email']
+                    }
+                };
+
+
+                queryParams.query['bool']['must'] = [searchJson];
+
+            } else {
+                queryParams.query['bool']['must'] = [];
+            }
+
+
+            var ajaxObj = {
+                "method": "GET",
+                "extraPath": "",
+                "query": JSON.stringify(queryParams),
+                "params": [],
+                type : 'DOMAIN'
+            };
+
+
+            oSettings.jqXHR = $.ajax({
+                "dataType": 'json',
+                "contentType": 'application/json',
+                "type": "POST",
+                "url": sSource,
+                "data": JSON.stringify(ajaxObj),
+                success: function (data) {
+
+                    var resultData = QueryFormatter(data).data;
+                    resultData['draw'] = oSettings.iDraw;
+                    $(".domainsCount").html(resultData.recordsTotal);
+
+                    fnCallback(resultData);
+                }
+            });
+        }
+
+    };
+
+    domainTable = $("#domainTable").DataTable(tableOption);
+}
+
+function loginAs(key, email) {
+
+    if ($.trim($("#adminPwd").val()) === '') {
+        errorMsg('Password cannot be empty');
+        return false;
+    }
+
+    loginAsCall(USER_OBJ.user.email, $("#adminPwd").val(), key, email, function (status, data) {
+        if (status) {
+
+            removeCookies();
+
+            Cookies.set('user_details', data);
+
+            var roles = data.user.roles;
+            var flag = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roles[i] === 'user') {
+                    flag = true;
+                }
+            }
+            if (flag) {
+                document.location = '/dashboard';
+            } else {
+                document.location = '/home';
+            }
+
+        } else {
+            errorMsg('Error in login!')
+        }
+    })
+
+}
+
+
+function checkSQL(dkey) {
+    checkSQLAccess(dkey,function (status,data) {
+        if(status){
+
+            if(data.state){
+                $(".c_"+dkey).html('<span style="color:forestgreen"><i class="icon-check"></i> Already SQL Access Granted!</span><br>' +
+                    '<span style="cursor: pointer;color:#333;text-decoration: underline" onclick="sqlAccess(\''+dkey+'\',\''+false+'\')">click here to revoke access</span>');
+
+                $(".c_"+dkey).css('text-decoration','none')
+                $(".c_"+dkey).removeAttr('onclick');
+            }else{
+                $(".c_"+dkey).html('<span style="color:orangered"><i class="icon-close2"></i> No SQL Access!</span><br>' +
+                    '<span style="cursor: pointer;color:#333;text-decoration: underline" onclick="sqlAccess(\''+dkey+'\',\''+true+'\')">' +
+                    'click here to grant access</span>');
+
+                $(".c_"+dkey).css('text-decoration','none')
+                $(".c_"+dkey).removeAttr('onclick');
+            }
+
+
+
+        }else{
+            errorMsg('Error in Execution')
+        }
+    })
+}
+
+
+
+function sqlAccess(dkey, state) {
+
+    setSQLAccess(dkey, state, function (status, data) {
+        if(status){
+
+
+            if(data.state){
+                $(".c_"+dkey).html('<span style="color:forestgreen"><i class="icon-check"></i> Already SQL Access Granted!</span><br>' +
+                    '<span style="cursor: pointer;color:#333;text-decoration: underline" onclick="sqlAccess(\''+dkey+'\',\''+false+'\')">click here to revoke access</span>');
+
+                $(".c_"+dkey).css('text-decoration','none')
+                $(".c_"+dkey).removeAttr('onclick');
+            }else{
+                $(".c_"+dkey).html('<span style="color:orangered"><i class="icon-close2"></i> No SQL Access!</span><br>' +
+                    '<span style="cursor: pointer;color:#333;text-decoration: underline" onclick="sqlAccess(\''+dkey+'\',\''+true+'\')">' +
+                    'click here to grant access</span>');
+
+                $(".c_"+dkey).css('text-decoration','none')
+                $(".c_"+dkey).removeAttr('onclick');
+            }
+
+            if(dkey === DOMAIN_KEY){
+                Cookies.set('sql_access',data.state);
+                document.location = "/";
+            }
+
+
+        }else{
+            console.log('Error in execution')
+        }
+    })
+
+}
+
+function checkDB(dkey) {
+    checkDBAccess(dkey,function (status,data) {
+        if(status){
+
+            if(data.state){
+                $(".d_"+dkey).html('<span style="color:forestgreen"><i class="icon-check"></i> Already DB Access Granted!</span><br>' +
+                    '<span style="cursor: pointer;color:#333;text-decoration: underline" onclick="dbAccess(\''+dkey+'\',\''+false+'\')">click here to revoke access</span>');
+
+                $(".d_"+dkey).css('text-decoration','none')
+                $(".d_"+dkey).removeAttr('onclick');
+            }else{
+                $(".d_"+dkey).html('<span style="color:orangered"><i class="icon-close2"></i> No DB Access!</span><br>' +
+                    '<span style="cursor: pointer;color:#333;text-decoration: underline" onclick="dbAccess(\''+dkey+'\',\''+true+'\')">' +
+                    'click here to grant access</span>');
+
+                $(".d_"+dkey).css('text-decoration','none')
+                $(".d_"+dkey).removeAttr('onclick');
+            }
+
+
+
+        }else{
+            errorMsg('Error in Execution')
+        }
+    })
+}
+
+
+function dbAccess(dkey, state) {
+
+    setDBAccess(dkey, state, function (status, data) {
+        if(status){
+
+
+            if(data.state){
+                $(".d_"+dkey).html('<span style="color:forestgreen"><i class="icon-check"></i> Already DB Access Granted!</span><br>' +
+                    '<span style="cursor: pointer;color:#333;text-decoration: underline" onclick="dbAccess(\''+dkey+'\',\''+false+'\')">click here to revoke access</span>');
+
+                $(".d_"+dkey).css('text-decoration','none')
+                $(".d_"+dkey).removeAttr('onclick');
+            }else{
+                $(".d_"+dkey).html('<span style="color:orangered"><i class="icon-close2"></i> No DB Access!</span><br>' +
+                    '<span style="cursor: pointer;color:#333;text-decoration: underline" onclick="dbAccess(\''+dkey+'\',\''+true+'\')">' +
+                    'click here to grant access</span>');
+
+                $(".d_"+dkey).css('text-decoration','none')
+                $(".d_"+dkey).removeAttr('onclick');
+            }
+
+            if(dkey === DOMAIN_KEY){
+                Cookies.set('db_access',data.state);
+                document.location = "/";
+            }
+
+
+        }else{
+            console.log('Error in execution')
+        }
+    })
+
+}
+
+function startTour() {
+    // Instance the tour
+    platformTour = new Tour({
+        backdrop: true,
+        backdropContainer: 'body',
+        backdropPadding: 3,
+        storage : false,
+        template: `
+        
+        <div class='popover tour'>
+          <div class='arrow'></div>
+          <h3 class='popover-title' style="background-color: #FF9800;border-bottom: 1px solid #FF9800;color: #fff;"></h3>
+          <div class='popover-content'></div>
+          <div class='popover-navigation'>
+            <button class='btn btn-default btn-xs' data-role='prev'>« Prev</button>
+            <button class='btn btn-default btn-xs' data-role='next'>Next »</button>
+            <button class='btn btn-danger btn-xs' data-role='end'>End tour</button>
+          </div>
+        </div>
+        
+        `,
+        steps: [
+            {
+                element: ".hmarketplace",
+                title: "Marketplace",
+                content: "Marketplace have a wealth of UI widget library & Vertical Solutions, you can simply import " +
+                "widget/vertical to a domain. You could have as many dashboards you want and connect with your\n" +
+                " sensor data with just few clicks"
+            },
+            {
+                element: ".hdashboard",
+                title: "Dashboard",
+                content: "Showcase the widgets with data in dashboard, you can also share the dashboard with public / embed the dashboard in your website"
+            },
+            {
+                element: ".hdasheditor",
+                title: "Dashboard Editor",
+                content: "Create your own stunning and appealing IoT application dashboards in few minutes by simply import widgets from Marketplace and " +
+                "connect them with your remote sensors and devices"
+            },
+            {
+                element: ".hmobile",
+                title: "Mobile Platform",
+                content: "Simply import widgets from Marketplace and " +
+                "drag & drop to the mobile UI and configure it, then just login to the mobile app, you can see the widgets live " +
+                "without updating from Playstore/Appstore. Boodskap Mobile Platform renders the mobile UI dynamic"
+            },
+            {
+                element: ".hmsgdef",
+                title: "Message Definition",
+                content: "Dynamically import your sensor/device message specifications, no more encoding/decoding clutter, just " +
+                "define, the platform will start receiving messages from your IoT devices."
+            },
+            {
+                element: ".hrecdef",
+                title: "Record Definition",
+                content: "Define your own data model, underlying big data engine will take care of the rest, no more SQL Joins and" +
+                " Merges, just one simple API to store and retrieve custom data structure"
+            },
+            {
+                element: ".hrules",
+                title: "Rules Engine",
+                content: "Add more intelligence to your application using the rules engine, dynamically introspect with your" +
+                " sensor data, machine learn, image analyze, voice recognize, predictive/preventative analysis, raise" +
+                " events/notification and much more."
+            },
+            {
+                element: ".hscript",
+                title: "Script Console",
+                content: "Interact with the platform from a Bash like web console, practice your rules here before you persist or" +
+                "                schedule them. 100s of platform components are exposes as functions."
+            },
+            {
+                element: ".hmachine",
+                title: "Machine Learning",
+                content: "Powerful machine learning algorithms are integrated with the core platform. You can simply import/create" +
+                " and train your own models on the fly and make use of the models to predict things. Logistic Regression," +
+                " Naive Bayes, Decision Tree, k-NearestNeighbors, Support Vector Machines, and 70 more classifications are" +
+                " available for your model training"
+            },
+            {
+                element: ".htemplates",
+                title: "Templates",
+                content: "A simple yet powerful tool to reduce lot of redundant jobs like sending a email with custom content, " +
+                "querying the elastic-search/records can be simplified with creating and executing templates dynamically."
+            },
+            {
+                element: ".hevents",
+                title: "Events & Notification",
+                content: "Define your custom events with dynamic message content, users and devices can register for events " +
+                "using various channels like Email, SMS, Voice, GCM/FCM, APN, etc. Just raise the desired event(s) through rules to " +
+                "automatically broadcast to the registered parties "
+            },
+            {
+                element: ".hgeofence",
+                title: "Geofence Editor",
+                content: "Location Based applications can be built in just few clicks and drags, off the shelf geofence editor" +
+                " allows you to define your own geographical locations as virtual fences and setup alerts to watch the" +
+                " activities like, in-out of vehicle, dwelling, the nearest spots and much more..."
+            },
+            {
+                element: ".hdevice",
+                title: "Device Management",
+                content: "Group and Tag your devices for easy administration, upload device configurations to your remote" +
+                " sensors/device with a push of a button, update firmware for a single device or a group or all devices" +
+                " matching a model/version, etc"
+            },
+            {
+                element: ".hfirmware",
+                title: "Firmware Management",
+                content: "Have different makes and models of devices? Simply upload your binary firmware into the platform," +
+                " Boodskap can deliver it to your remote devices using any standard protocols like HTTP, FTP/SFTP/TFTP," +
+                " etc. You will have the full control of your fleet and its integrity"
+            },
+            {
+                element: ".hassets",
+                title: "Asset Management",
+                content: "Multi device based assets can be easily administered, large number of devices and assets can be grouped" +
+                " and tagged for easy administration, alerts and notifications are made simple, just raise an event on a" +
+                " group, the platform will automatically broadcast to all of its devices/users/associated parties, etc."
+            },
+            {
+                element: ".husers",
+                title: "User Management",
+                content: "Manage your users and groups, assign rights and ownership in one single integrated portal. " +
+                "Integrate with your existing infrastructure to import users and groups"
+            },
+            {
+                element: ".heventlogs",
+                title: "Event Logs",
+                content: "Keep track and monitor the events triggered like SMS, EMAIL, FCM & Commands"
+            },
+            {
+                element: ".hmessages",
+                title: "Messages",
+                content: "View all your defined message data in compact/minimal manner (Grid View)"
+            },
+            {
+                element: ".hlogs",
+                title: "Application Logs",
+                content: "Real time monitor, all your application logs."
+            },
+            {
+                element: ".hamazon",
+                title: "Amazon Alexa",
+                content: "Define your actions as voice commands. Perform the commands via Amazon Alexa."
+            }
+        ]
+    });
+
+// Initialize the tour
+    platformTour.init();
+
+// Start the tour
+    platformTour.start();
+
+
+}
+
+

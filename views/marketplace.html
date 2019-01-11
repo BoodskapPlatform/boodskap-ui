@@ -1,0 +1,148 @@
+
+
+<style>
+
+
+    .bodyContainer{
+        background-color: rgba(238, 238, 238, 0);
+        border: 1px solid rgba(62, 59, 59, 0.35);
+        padding-bottom: 50px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        /*height: 604px;*/
+        box-shadow: 2px -2px 8px 0px #3e3b3b2e;
+    }
+
+   .panel-body{
+       border:1px solid #ccc;
+   }
+
+    .verticalContent{
+        border: 1px dotted #ccc;
+        padding:5px;
+        text-align: center;
+        background-color:#f0f3f4;
+    }
+
+    .verticalContent h4{
+        font-size:16px;
+        color: #212529c4;
+    }
+
+    .verticalContent:hover{
+        background-color: #ffc10754;
+        cursor: pointer;
+    }
+    .verticalContent:hover h4, .verticalContent:hover p, .verticalContent:hover small, .verticalContent:hover b{
+        /*color:#fff !important;*/
+    }
+
+    .widgetContent{
+        height: 165px;
+        border: 1px dotted #ccc;
+        padding:5px;
+        text-align: center;
+        background-color:#f0f3f4;
+    }
+
+    .widgetContent img{
+        height: 75px;
+    }
+    .widgetContent h4{
+        margin-top: 10px;
+        font-size:14px;
+        color: #212529c4;
+    }
+
+    .widgetContent p {
+        font-size:12px;
+    }
+
+    .widgetContent:hover{
+        background-color: #ffc10754;
+        cursor: pointer;
+    }
+    .widgetContent:hover h4, .widgetContent:hover p, .widgetContent:hover small, .widgetContent:hover b{
+        /*color:#fff !important;*/
+    }
+
+
+</style>
+
+
+<div class="container-fluid mt-3">
+
+    <h1 class="page-header"><img src="/images/menu/market-place.png" width="32" /> Marketplace</h1>
+
+    <div class="panel">
+        <div class="panel-body bodyContainer" style="">
+
+            <div class="row">
+               <!-- <div class="col-lg-2" style="">
+
+                    <div class="panel panel-inverse" data-sortable-id="ui-widget-7">
+                        <div class="panel-heading ui-sortable-handle">
+                            <h4 class="panel-title"><i class="icon-line-chart"></i> Statistics</h4>
+                        </div>
+                        <div class="panel-body text-center">
+                            <h4 style="border-bottom: 1px dashed #eee;padding-bottom: 20px;">
+                                <span class="verticalCount"></span> <br>
+                                <small>VERTICALS</small>
+                            </h4>
+                            <h4 style="margin-top: 20px;">
+                                <span class="widgetCount"></span><br>
+                                <small>WIDGETS</small>
+                            </h4>
+                        </div>
+                    </div>
+
+                </div>-->
+                <div class="col-lg-12">
+
+                    <div class="panel panel-inverse" data-sortable-id="ui-widget-7">
+                        <div class="panel-heading ui-sortable-handle">
+                            <div class="panel-heading-btn">
+                                <a href="/marketplace/addvertical" class="btn btn-xs btn-warning"><i class="icon-cloud-upload2"></i> Publish Vertical</a>
+                                <a href="/marketplace/verticals" class="btn btn-xs btn-success">Show All</a>
+                            </div>
+                            <h4 class="panel-title">Verticals Library (<span class="verticalCount"></span>)</h4>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row verticalList">
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row mt-2">
+                <div class="col-lg-12">
+
+                    <div class="panel panel-inverse" data-sortable-id="ui-widget-7">
+                        <div class="panel-heading ui-sortable-handle">
+                            <div class="panel-heading-btn">
+                                <a href="/marketplace/addwidget" class="btn btn-xs btn-warning"><i class="icon-cloud-upload2"></i> Publish Widget</a>
+                                <a href="/marketplace/widgets" class="btn btn-xs btn-success">Show All</a>
+                            </div>
+                            <h4 class="panel-title">Widgets Library (<span class="widgetCount"></span>)</h4>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row widgetList">
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
+
+
+<script src="/controllers/marketplace.js" type="text/javascript"></script>

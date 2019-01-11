@@ -1,0 +1,63 @@
+<footer class="footer">
+    <div class="container-fluid">
+        <p class="text-muted mt-1" style="color: #666 !important;">
+            &copy; <span class="currentYear"></span>. All rights reserved.
+
+            <span class="text-center footerInfo" style="font-size: 11px;color:#ccc">
+                Dashboard Version: <b><span class="webVersion"></span></b>
+                <span style="color:#ccc">|</span>
+                Platform Version: <b><span class="apiVersion"></span></b>
+            </span>
+
+            <img src="" class="powered-by pull-right poweredBy" style="height: 30px;"/>
+
+        </p>
+    </div>
+</footer>
+
+
+
+<div id="privacyModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">We're updated the Privacy & Policy</h4>
+            </div>
+            <div class="modal-body">
+                <p>A change in our <a href="https://boodskap.io/privacy-policy" target="_blank">Privacy Policy</a> takes effect from
+                May 24, 2018. Please read them carefully and proceed. Thanks for using Boodskap IoT Platform!</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btnModal" onclick="proceedPrivacy()">Accept & Continue</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+<div id="domainNameModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><i class="icon-globe"></i> Domain Information</h4>
+            </div>
+            <form action="javascript:void(0)" onsubmit="saveDomainName()">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Domain Name</label> <br>
+                            <input type="text" id="domainName" class="form-control input-sm" required/>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btnModal">Save & Continue</button>
+            </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

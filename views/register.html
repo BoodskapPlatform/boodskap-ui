@@ -1,0 +1,165 @@
+
+<!DOCTYPE html>
+<html lang="en" class="ie8">
+<head>
+    <meta charset="utf-8" />
+
+    <title>Boodskap - Highly Scalable IoT Platform | Register</title>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" name="viewport" />
+
+    <meta name="description" content="Boodskap is a disruptive (IoT) Platform helps to quickly connect any hardware devices and to rapidly build connected applications in a cost efficient manner" />
+    <meta name="keywords" content="boodskap.io, boodskap inc, boodskap, boodskap platform,iot starter kit, iot, internet of things, iot devices,what is internet of things,iot platform,iot applications,iot sensors,iot internet of things,industrial iot,industrial internet of things, m2m">
+    <meta content="Boodskap Inc.," name="author" />
+
+    <meta name="theme-color" content="#fac300" />
+
+    <meta name="google-play-app" content="app-id=io.boodskap.platform">
+    <meta name="apple-itunes-app" content="app-id=1398841657">
+
+    <!-- Facebook Share -->
+    <meta property="og:url" content="https://platform.boodskap.io" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Boodskap - Highly Scalable IoT Platform" />
+    <meta property="og:description" content="Boodskap is a disruptive (IoT) Platform helps to quickly connect any hardware devices and to rapidly build connected applications in a cost efficient manner" />
+    <meta property="og:image" content="https://boodskap.io/images/boodskap-logo.png" />
+
+
+    <script type="application/ld+json">
+        {
+            "@context": "http://schema.org",
+            "@type": "Organization",
+            "url": "https://platform.boodskap.io",
+            "logo": "https://boodskap.io/images/boodskap-logo.png",
+            "name": "Boodskap - Highly Scalable IoT Platform",
+            "description": "Boodskap is a disruptive (IoT) Platform helps to quickly connect any hardware devices and to rapidly build connected applications in a cost efficient manner",
+            "contactPoint": {
+                "@type": "ContactPoint",
+                "telephone": "+1-833-266-3752",
+                "contactType": "Customer Service"
+              },
+              "sameAs": [
+                "https://www.facebook.com/boodskapiot",
+                "https://twitter.com/boodskapIOT",
+                "https://www.linkedin.com/company/16180585",
+                "https://www.youtube.com/channel/UC1yOEmlV7mBfKI1aHSMk3GQ"
+              ]
+        }
+    </script>
+
+
+    <link href="images/favicon.ico" rel="icon">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+    <link href="/css/jquery-ui.min.css" rel="stylesheet" />
+    <link href="/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/css/animate.min.css" rel="stylesheet" />
+    <link href="/css/style.min.css" rel="stylesheet" />
+    <link href="/css/style-responsive.min.css" rel="stylesheet" />
+    <link href="/css/default.css" rel="stylesheet" id="theme" />
+    <link href="/css/fontawesome-all.min.css" rel="stylesheet"  />
+    <script src="/libraries/pace.min.js"></script>
+</head>
+<body class="pace-top bg-white">
+<div id="page-loader" class="fade show"><span class="spinner"></span></div>
+<div id="page-container" class="fade">
+    <div class="login login-with-news-feed">
+        <div class="news-feed" style="border-right:1px solid #eee;background-color: #fac300;">
+            <div class="col-lg-12 loginCustom" style="display: none">
+
+                <% include text-slider.html %>
+
+            </div>
+            <div class="news-caption leftBottomBg">
+                <h4 class="caption-title titleName"></h4>
+                <p class="sloganText">
+
+                </p>
+            </div>
+            <!-- <div class="col-lg-12 m-t-20">
+
+             </div>-->
+        </div>
+        <div class="right-content">
+
+
+            <div class="login-header" style="text-align: center">
+                <div class="brand">
+                    <a href="/login"><img src="" class="loginLogo" style="width: 175px" /></a>
+                </div>
+            </div>
+            <div class="login-content"  style="">
+                <form action="javascript:void(0)" id="registerForm" class="margin-bottom-0"  onsubmit="register()">
+                    <div class="form-group m-b-15">
+                        <label>First Name</label>
+                        <input type="text" class="form-control form-control-lg" id="firstname" placeholder="" required />
+                    </div>
+                    <div class="form-group m-b-15">
+                        <label>Last Name</label>
+                        <input type="text" class="form-control form-control-lg" id="lastname" placeholder="" required />
+                    </div>
+                    <div class="form-group m-b-15">
+                        <label>Email</label>
+                        <input type="email" class="form-control form-control-lg" id="email" placeholder="" required />
+                    </div>
+                    <div class="form-group m-b-15">
+                        <label>Password</label>
+                        <input type="password" class="form-control form-control-lg" id="password" placeholder="" required />
+                    </div>
+                    <div class="form-group m-b-15">
+                        <label>Confirm Password</label>
+                        <input type="password" class="form-control form-control-lg" id="confirmpassword" placeholder="" required />
+                    </div>
+                    <div class="form-group m-b-15">
+
+                        <small>By clicking Register, you agree to our <a href="https://boodskap.io/terms-conditions" target="_blank">Terms & Conditions</a> and  <a href="https://boodskap.io/privacy-policy" target="_blank">Privacy Policy</a>.
+                        </small>
+                    </div>
+                    <div class="login-buttons">
+                        <button type="submit" class="btn btn-warning btn-block btn-lg" id="submitButton">Register</button>
+                    </div>
+                    <div class="m-t-20 m-b-40 p-b-40 text-inverse">
+                        Already a member? Click <a href="/login" class="text-warning loginHref textColor">here</a> to login.
+                    </div>
+                    <hr />
+                    <p class="text-center text-grey-darker" style="margin-bottom: 20px;">
+                        &copy; <span class="currentYear"></span> All rights reserved. <a href="https://boodskap.io" target="_blank" class="text-warning poweredBy"></a>
+                    </p>
+                    <p class="text-center" style="font-size: 11px;color:#ccc">Dashboard Version: <b><span class="webVersion"></span></b>
+                        <span style="color:#ccc">|</span> Platform Version: <b><span class="apiVersion"></span></b></p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<div id="snackbar"></div>
+<% include cookies.html %>
+
+<script src="/libraries/jquery-3.2.1.min.js"></script>
+<script src="/libraries/jquery-ui.min.js"></script>
+<script src="/libraries/bootstrap.bundle.min.js"></script>
+<script src="/libraries/html5shiv.js"></script>
+<script src="/libraries/respond.min.js"></script>
+<script src="/libraries/excanvas.min.js"></script>
+<script src="/libraries/jquery.slimscroll.min.js"></script>
+<script src="/libraries/js.cookie.js"></script>
+<script src="/libraries/default.min.js"></script>
+<script src="/libraries/apps.min.js"></script>
+<script src="/js/moment.js"></script>
+
+<script src="/platform-config.js"></script>
+<script src="/controllers/const-varibales.js"></script>
+<script src="/controllers/utils.js"></script>
+<script src="/controllers/api-calls.js"></script>
+<script src="/controllers/custom-login.js"></script>
+
+<script src="/controllers/login.js"></script>
+<script>
+    $(document).ready(function() {
+        App.init();
+    });
+</script>
+</body>
+</html>
+

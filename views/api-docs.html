@@ -1,0 +1,39 @@
+
+<div class="container mt-3 platformBody">
+    <!-- begin breadcrumb -->
+    <ol class="breadcrumb pull-right">
+        <li class="breadcrumb-item"><a href="/dashboard">Domain</a></li>
+        <li class="breadcrumb-item active">API Docs</li>
+    </ol>
+    <!-- end breadcrumb -->
+    <!-- begin page-header -->
+    <h1 class="page-header">Boodskap API Documentation  <a href="javascript:void(0)" class="tokenKey text-warning" style="text-decoration: none"
+                                                           title="Click here to copy API Auth Token Key"><i class="icon-copy2"></i></a></h1>
+    <!-- end page-header -->
+
+    <!-- begin panel -->
+    <div class="panel panel-inverse">
+        <div class="panel-body iFrame" style="background-color: #eeeeee00;border: 1px solid #eee;padding-bottom:30px;">
+
+
+
+        </div>
+    </div>
+    <!-- end panel -->
+
+</div>
+
+<script>
+
+    var tokenKey = new ClipboardJS('.tokenKey');
+    $(".tokenKey").attr('data-clipboard-text',API_TOKEN);
+
+    tokenKey.on('success', function(e) {
+        successMsg('API Auth Token Key Copied Successfully')
+    });
+
+    var str = '<iframe src="/api" width="100%" id="apiIframe" style="border:0px;height:'+($(window).height()-180+'px')+'" />'
+
+  $(".iFrame").html(str);
+</script>
+

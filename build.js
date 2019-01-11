@@ -1,0 +1,114 @@
+const async = require('async');
+const PropertiesReader = require('properties-reader');
+const fs = require('fs');
+const replace = require('replace-in-file');
+
+
+const prop = PropertiesReader('boodskap.properties');
+
+//Get the property value
+getProperty = (pty) => {
+    return prop.get(pty);
+}
+console.log("***************************************" +
+    "\nBoodskap IoT Platform\n" +
+    "***************************************")
+async.series({
+    'serverConfig': function (scbk) {
+
+        /****************************
+         1] Configuring Server Properties
+         ****************************/
+
+        let server_config = {
+            web: {
+                port: Number(getProperty('server.port'))
+            }
+        };
+
+        let txt = 'module.exports = ' + JSON.stringify(server_config);
+        fs.writeFile('conf.js', txt, (err) => {
+            if (err) {
+                console.error('Error in configuring server properties')
+                scbk(null, null);
+            } else {
+                console.error('1] Setting server properties success')
+                scbk(null, null);
+            }
+        });
+
+    },
+    'webConfig': function (wcbk) {
+
+        /****************************
+         2] Configuring Web Properties
+         ****************************/
+
+        let platform_config = {
+            web: getProperty('web.domain'),
+            api: getProperty('boodskap.api'),
+            mqtt: {
+                hostName: getProperty('mqtt.host'),
+                portNo: Number(getProperty('mqtt.port')),
+                ssl: getProperty('mqtt.ssl')
+            },
+            logo: getProperty('branding.logo'),
+            loginLogo: getProperty('branding.loginLogo'),
+            poweredBy: getProperty('branding.poweredBy'),
+            debug: getProperty('web.debug'),
+            googleAnalytics: getProperty('google.analytics.id') ? getProperty('google.analytics.id') : '',
+            version: getProperty('web.version'),
+            cdnPath: getProperty('boodskap.cdnPath'),
+            fitbit: {
+                clientId: getProperty('fitbit.clientId'),
+                clientSecret: getProperty('fitbit.clientSecret'),
+                callbackUrl: getProperty('fitbit.callbackUrl'),
+                oAuthAuthorizationURL: 'https://www.fitbit.com/oauth2/authorize',
+                oAuthAccessTokenURL: 'https://api.fitbit.com/oauth2/token',
+                expire: 600618,
+                scopes: ['activity', 'heartrate', 'location', 'nutrition', 'profile', 'settings', 'sleep', 'social', 'weight']
+            }
+        }
+
+        let txt = 'var CONFIG=' + JSON.stringify(platform_config);
+        fs.writeFile('./webapps/platform-config.js', txt, (err) => {
+            if (err) {
+                console.error('Error in configuring web properties')
+                wcbk(null, null);
+            } else {
+                console.error('2] Setting web properties success')
+                wcbk(null, null);
+            }
+        });
+
+    },
+    'apiConfig': function (acbk) {
+
+        /****************************
+         3] Configuring API YAML File
+         ****************************/
+
+        const options = {
+            files: './yaml/api.yaml',
+            from: /host:(.*)/g,
+            to: 'host: '+getProperty('boodskap.api').split("//")[1],
+        };
+
+        replace(options)
+            .then(changes => {
+                acbk(null, null);
+            })
+            .catch(error => {
+                acbk(null, null);
+            });
+
+
+
+    }
+}, function (err, result) {
+    console.log(new Date() + ' | Boodskap UI Build Success');
+    console.log('Now execute > npm start');
+})
+
+
+

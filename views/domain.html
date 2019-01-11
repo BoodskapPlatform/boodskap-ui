@@ -1,0 +1,601 @@
+<link rel="stylesheet" href="/css/bootstrap-colorpicker.min.css"/>
+
+
+<style>
+    .domainList {
+        text-align: center;
+        border: 1px solid #eee;
+        padding: 20px;
+        cursor: pointer;
+        height: 155px;
+    }
+
+    .domainList:hover, .domainList label:hover, .domainList h1:hover, .domainList small:hover {
+        color: #009688 !important;
+        background-color: #eee;
+    }
+
+    .divPanel {
+        border: 1px solid #eee;
+        /* margin-top: 23px; */
+        width: 50%;
+        height: 100px;
+        margin: 12px auto;
+    }
+    .sp-container {
+       z-index: 9999994;
+    }
+    .colorpicker-visible{
+        z-index: 9999994 !important;
+    }
+</style>
+
+<script>
+    $("body").removeClass('bg-white');
+
+</script>
+<div class="container mt-2 platformBody">
+    <ol class="breadcrumb pull-right">
+        <li class="breadcrumb-item"><a href="/home">Home</a></li>
+        <li class="breadcrumb-item active">Domain Configurations</li>
+    </ol>
+
+    <h1 class="page-header"><i class="icon-cogs2"></i> Domain Configuration</h1>
+    <div class="panel panel-inverse" style="">
+        <div class="panel-body" style="border: 1px solid #eee;padding-bottom:30px">
+            <div class="row" style="">
+
+                <div class="col-lg-12">
+
+                    <div class="panel panel-inverse" data-sortable-id="index-1">
+                        <div class="panel-body">
+
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <div class="domainList" onclick="openModal(1)">
+                                        <h1><i class="icon-image3"></i></h1>
+                                        <label>Branding</label><br>
+                                        <small>Change Platform Logo</small>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <div class="domainList" onclick="openModal(7)">
+                                        <h1><i class="icon-paint-brush"></i></h1>
+                                        <label>Theme & Layout</label><br>
+                                        <small>Change the website theme</small>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <div class="domainList" onclick="openModal(2)">
+                                        <h1><i class="icon-envelope"></i></h1>
+                                        <label>Email gateway</label><br>
+                                        <small>Configure Email</small>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="domainList" onclick="openModal(3)">
+                                        <h1><i class="icon-phone"></i></h1>
+                                        <label>Twilio gateway</label><br>
+                                        <small>Configure SMS & Voice</small>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="domainList" onclick="openModal(4)">
+                                        <h1><i class="icon-mobile-phone"></i></h1>
+                                        <label>FCM gateway</label><br>
+                                        <small>Configure push notification</small>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="domainList" onclick="openModal(5)">
+                                        <h1><i class="icon-th-list"></i></h1>
+                                        <label>UDP Gateway</label><br>
+                                        <small>Configure UDP</small>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="row mt-4">
+
+                                <div class="col-lg-2">
+                                    <div class="domainList" onclick="openModal(12)">
+                                        <h1><i class="icon-globe"></i></h1>
+                                        <label>Custom URL</label><br>
+                                        <small>Custom URL Re-routing</small>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <div class="domainList" onclick="openModal(8)">
+                                        <h1><i class="icon-sign-in"></i></h1>
+                                        <label>Custom Login</label><br>
+                                        <small>Change the Login Screen</small>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <div class="domainList" onclick="openModal(9)">
+                                        <h1><i class="icon-map-marker"></i></h1>
+                                        <label>Google Map</label><br>
+                                        <small>Set Google Map Api Key</small>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <div class="domainList" onclick="openModal(10)">
+                                        <h1><i class="icon-map5"></i></h1>
+                                        <label>Open Weather Map</label><br>
+                                        <small>Set Open Weather Map Api Key</small>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <div class="domainList" onclick="openModal(11)">
+                                        <h1><i class="icon-file-code-o"></i></h1>
+                                        <label>DarkSky</label><br>
+                                        <small>Set Dark Sky Api Key to lookup weather data</small>
+                                    </div>
+                                </div>
+
+                                <!-- <div class="col-lg-2">
+                                     <div class="domainList"  onclick="successMsg('Not Enabled')">
+                                         <h1><i class="icon-lock2"></i></h1>
+                                         <label>ADS Authentication</label><br>
+                                         <small>To enable ADS login</small>
+                                     </div>
+                                 </div>-->
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<script src="/js/bootstrap-colorpicker.min.js"></script>
+
+<script src="/controllers/domain.js"></script>
+
+
+<div id="domainModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <form action="javascript:void(0)" onsubmit="proceedSave()" autocomplete="off">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"></h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body modalBody">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btnModal"><i class="icon-save"></i> Save</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </form>
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script type="text/html" id="logoBranding">
+    <div class="row">
+        <div class="col-md-6"
+             style="background-color: #4b4a49;padding: 5px;text-align: center;height:50px;overflow: hidden">
+            <img src="" class="domain_logo_m" style="height:40px;"/>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <input type="file" id="logoFile" onchange="uploadImage()" required/> <br><br>
+                <span class="grey" style="font-size:11px">
+                    <b>Criteria:</b><br>
+                    * Only PNG & JPG supported<br>
+                    * Width should be less than 200px<br>
+                    * Height should be less than 50px.
+                </span>
+            </div>
+        </div>
+    </div>
+</script>
+<script type="text/html" id="emailGateway">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Host</label>
+                <input type="text" id="hostName" class="form-control input-sm" required autocomplete="off" />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Port</label>
+                <input type="number" id="portNo" class="form-control input-sm" required/>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Username</label>
+                <input type="email" id="euserName" class="form-control input-sm" required autocomplete="off"/>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Password <a href="javascript:void(0)" class="emailpwd" style="text-decoration: none"
+                                   title="Click here to copy Email Password"><i class="icon-copy2"></i></a></label>
+                <input type="password" id="epassword" class="form-control input-sm" required autocomplete="off"/>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Primary Email</label>
+                <input type="email" id="primaryEmail" class="form-control input-sm" required/>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Bounce Email</label>
+                <input type="email" id="bounceEmail" class="form-control input-sm" required/>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-1">
+            <div class="form-group">
+                <label>SSL</label>
+                <input type="checkbox" id="ssl" value="true"/>
+            </div>
+        </div>
+        <div class="col-md-1">
+            <div class="form-group">
+                <label>TLS</label>
+                <input type="checkbox" id="tls" value="true"/>
+            </div>
+        </div>
+        <div class="col-md-1">
+            <div class="form-group">
+                <label>Debug</label>
+                <input type="checkbox" id="debug" value="true"/>
+            </div>
+        </div>
+    </div>
+</script>
+<script type="text/html" id="twilioGateway">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>SID</label>
+                <input type="text" id="sid" class="form-control input-sm" required autocomplete="off"/>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>Token <a href="javascript:void(0)" style="color:#333"
+                                onclick="toggleBox('token',this)" class="btn btn-icon btn-xs"><i class="icon-eye4"></i></a>
+                    <a href="javascript:void(0)" class="tokenKey" style="text-decoration: none"
+                       title="Click here to copy Twilio Token"><i class="icon-copy2"></i></a>
+                </label>
+                <input type="password" id="token" class="form-control input-sm" required autocomplete="off"/>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Primary Phone</label>
+                <input type="text" id="primaryPhone" class="form-control input-sm" required/>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>Debug</label> <br>
+                <input type="checkbox" id="debug" value="true"/>
+            </div>
+        </div>
+    </div>
+</script>
+<script type="text/html" id="fcmGateway">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>API Key <a href="javascript:void(0)" style="color:#333"
+                                  onclick="toggleBox('apiKey',this)" class="btn btn-icon btn-xs"><i
+                        class="icon-eye4"></i></a>
+                    <a href="javascript:void(0)" class="fcmKey" style="text-decoration: none"
+                       title="Click here to copy FCM API Key"><i class="icon-copy2"></i></a>
+                </label>
+                <input type="password" id="apiKey" class="form-control input-sm" required autocomplete="off"/>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>Debug</label> <br>
+                <input type="checkbox" id="debug" value="true"/>
+            </div>
+        </div>
+    </div>
+</script>
+<script type="text/html" id="udpGateway">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Host</label>
+                <input type="number" id="portNo" class="form-control input-sm" readonly required/>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Port</label>
+                <input type="number" id="threads" class="form-control input-sm" readonly required/>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>Decorder Code</label>
+                <small>Groovy Code</small>
+                <textarea id="decoderCode" class="form-control" style="height: 200px;"></textarea>
+            </div>
+        </div>
+    </div>
+</script>
+<script type="text/html" id="adsAuthentication"></script>
+<script type="text/html" id="platformTheme">
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Header Background</label> <br>
+                <!--<input type="text" id="headerBg"/>-->
+
+                <div id="headerBg" class="input-group colorpicker-component">
+                    <input type="text" value="" class="form-control" />
+                    <span class="input-group-addon"><i></i></span>
+                </div>
+
+            </div>
+            <div class="form-group">
+                <label>Sub Header Background</label><br>
+                <!--<input type="text" id="subHeaderBg"/>-->
+
+                <div id="subHeaderBg" class="input-group colorpicker-component">
+                    <input type="text" value="" class="form-control" />
+                    <span class="input-group-addon"><i></i></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Header & Sub Header Text Color</label> <br>
+                <!--<input type="text" id="textColor"/>-->
+
+                <div id="textColor" class="input-group colorpicker-component">
+                    <input type="text" value="" class="form-control" />
+                    <span class="input-group-addon"><i></i></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Body Background</label> <br>
+                <!--<input type="text" id="bodyBg"/>-->
+
+                <div id="bodyBg" class="input-group colorpicker-component">
+                    <input type="text" value="" class="form-control" />
+                    <span class="input-group-addon"><i></i></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Panel Header Background</label><br>
+                <!--<input type="text" id="panelHeaderBg"/>-->
+
+                <div id="panelHeaderBg" class="input-group colorpicker-component">
+                    <input type="text" value="" class="form-control" />
+                    <span class="input-group-addon"><i></i></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-default btn-sm" type="button" onclick="previewTheme()">Preview</button>
+                <button class="btn btn-default btn-sm" type="button" onclick="resetDefault()">Reset to Default</button>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+
+                <div class="col-lg-12 bodyBg" style="border:1px solid #eee;height:200px;padding:0px;">
+                    <div class="headerBg">Header</div>
+                    <div class="subHeaderBg">Sub Header</div>
+                    <div class="divPanel" style="background-color: #fff">
+                        <div class="panelHeaderBg">Panel Header</div>
+                    </div>
+                </div>
+                <div class="col-lg-12 mt-2">
+                    <div class="form-group">
+                        <label>Layout</label><br>
+                        <select class="form-control input-sm" id="bodyLayout" onchange="changeLayout(this.value)">
+                            <option value="container">Boxed</option>
+                            <option value="container-fluid">Full Width</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+<script type="text/html" id="loginScreen">
+    <div class="row">
+        <div class="col-md-6"
+             style="background-color: #fff;padding: 5px;text-align: center;height:50px;overflow: hidden">
+            <img src="" class="domain_logo_m" style="height:50px;"/>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <input type="file" id="logoFile" onchange="uploadImage()"/> <br><br>
+                <span class="grey" style="font-size:11px">
+                    <b>Criteria:</b><br>
+                    * Only PNG & JPG supported<br>
+                    * Width should be less than 200px<br>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Left Side Background Color</label> <br>
+                <!--<input type="text" id="leftBg" class="form-control input-sm"/>-->
+
+                <div id="leftBg" class="input-group colorpicker-component">
+                    <input type="text" value="" class="form-control" />
+                    <span class="input-group-addon"><i></i></span>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Left Side Bottom Background Color</label> <br>
+                <!--<input type="text" id="leftBottomBg" class="form-control input-sm"/>-->
+
+                <div id="leftBottomBg" class="input-group colorpicker-component">
+                    <input type="text" value="" class="form-control" />
+                    <span class="input-group-addon"><i></i></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Text Highlight Color</label> <br>
+                <!--<input type="text" id="textColor" class="form-control input-sm"/>-->
+
+                <div id="textColor" class="input-group colorpicker-component">
+                    <input type="text" value="" class="form-control" />
+                    <span class="input-group-addon"><i></i></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Button Color</label> <br>
+                <!--<input type="text" id="buttonColor" class="form-control input-sm"/>-->
+
+                <div id="buttonColor" class="input-group colorpicker-component">
+                    <input type="text" value="" class="form-control" />
+                    <span class="input-group-addon"><i></i></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>Title Text</label> <br>
+                <input type="text" id="titleName" class="form-control input-sm"/>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>Slogan Text</label> <br>
+                <input type="text" id="sloganText" class="form-control input-sm"/>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>HTML Code</label> <br>
+                <textarea id="customHtml" class="form-control input-sm" style="height: 200px"/>
+                <small>Note: write html code with inline styles</small>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <p>Login URL: <a href="javascript:void(0)" class="domainURL"></a> <a href="javascript:void(0)" class="redirectURL" style="text-decoration: none"
+                                                  title="Click here to copy URL Address"><i class="icon-copy2"></i></a></p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <button class="btn btn-xs btn-default pull-right" onclick="setCustomLoginDefault()" type="button">Reset to Default</button>
+        </div>
+    </div>
+
+</script>
+<script type="text/html" id="googleMap">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>API Key <a href="javascript:void(0)" style="color:#333"
+                                  onclick="toggleBox('apiKey',this)" class="btn btn-icon btn-xs"><i
+                        class="icon-eye4"></i></a>
+                    <a href="javascript:void(0)" class="apiKey" style="text-decoration: none"
+                       title="Click here to copy Google API Key"><i class="icon-copy2"></i></a>
+                </label>
+                <input type="password" id="apiKey" class="form-control input-sm" required autocomplete="off"/>
+            </div>
+        </div>
+    </div>
+</script>
+<script type="text/html" id="openWeatherMap">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>API Key <a href="javascript:void(0)" style="color:#333"
+                                  onclick="toggleBox('apiKey',this)" class="btn btn-icon btn-xs"><i
+                        class="icon-eye4"></i></a>
+                    <a href="javascript:void(0)" class="apiKey" style="text-decoration: none"
+                       title="Click here to copy Open Weather Map API Key"><i class="icon-copy2"></i></a>
+                </label>
+                <input type="password" id="apiKey" class="form-control input-sm" required autocomplete="off"/>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/html" id="darkSkyMap">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>API Key <a href="javascript:void(0)" style="color:#333"
+                                  onclick="toggleBox('apiKey',this)" class="btn btn-icon btn-xs"><i
+                        class="icon-eye4"></i></a>
+                    <a href="javascript:void(0)" class="apiKey" style="text-decoration: none"
+                       title="Click here to copy Dark Sky API Key"><i class="icon-copy2"></i></a>
+                </label>
+                <input type="password" id="apiKey" class="form-control input-sm" required autocomplete="off"/>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/html" id="customUrl">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>Point this URL</label>
+                <p><span class="domainURL"></span> <a href="javascript:void(0)" class="redirectURL" style="text-decoration: none"
+                                                      title="Click here to copy URL Address"><i class="icon-copy2"></i></a></p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label>Protocol</label>
+                <select class="form-control input-sm" id="protocol">
+                    <option value="https">https://</option>
+                    <option value="http">http://</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <label>URL Address</label>
+            <input type="text" id="urlAddress" class="form-control input-sm" required autocomplete="off"/>
+        </div>
+
+
+    </div>
+</script>

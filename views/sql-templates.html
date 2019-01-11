@@ -1,0 +1,157 @@
+<!--<div class="row-fluid">
+    <ul class="nav submenu" style="">
+        <li class=""><a href="/home"><i class="fa fa-home"></i> </a></li>
+        <li class=""><a href="/dashboard">Dashboard</a></li>
+        <li class="active"><a href="/templates">Templates</a></li>
+    </ul>
+</div>-->
+<div class="container mt-3 msgDef platformBody">
+    <!-- begin breadcrumb -->
+    <ol class="breadcrumb pull-right">
+        <li class="breadcrumb-item"><a href="/dashboard">Domain</a></li>
+        <li class="breadcrumb-item active">Templates</li>
+    </ol>
+    <!-- end breadcrumb -->
+    <!-- begin page-header -->
+    <h1 class="page-header">Manage SQL Templates</h1>
+
+    <!-- end page-header -->
+
+    <!-- begin panel -->
+    <div class="panel panel-inverse">
+        <div class="panel-heading">
+            <div class="panel-heading-btn">
+                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-success" data-click="panel-reload" onclick="loadTemplates()"><i class="fa fa-redo"></i></a>
+                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-warning" title="Help"><i class="icon-help"></i></a>
+            </div>
+
+            <h4 class="panel-title">Total Templates: <b><span class="templateCount"></span></b></h4>
+        </div>
+        <div class="panel-body" style="background-color: #eeeeee00;border: 1px solid #eee;padding-bottom: 30px;">
+
+            <div class="btn-group btn-group-justified pull-right">
+                <a class="btn btn-default" onclick="openModal(1)"><i class="fa fa-plus-square"></i> <span class="hidden-xs">Add Template</span></a>
+                <a class="btn btn-default" data-click="panel-reload" onclick="loadTemplates()"><i class="fa fa-refresh"></i></a>
+            </div>
+
+
+            <table class="table table-bordered responsive no-wrap" id="templateTable"  cellspacing="0" width="100%">
+
+            </table>
+
+
+        </div>
+    </div>
+    <!-- end panel -->
+
+</div>
+
+<script src="/js/beautify.min.js" type="text/javascript"></script>
+
+
+<script src="controllers/sql-templates.js" type="text/javascript"></script>
+
+
+
+
+
+<div id="addTemplate" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><span class="templateAction"></span> Template</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <form action="javascript:void(0)">
+                <div class="modal-body">
+                    <div  class="row">
+                        <div  class="col-md-6">
+                            <div  class="form-group">
+                                <label  class="inputLabel">Name</label>
+                                <input  class="form-control input-sm" placeholder="" type="text" id="template_name" required>
+                            </div>
+                        </div>
+                        <div  class="col-md-6">
+                            <div  class="form-group">
+                                <label  class="inputLabel">Query Type</label>
+                                <select class="form-control input-sm" id="template_lang" required>
+                                    <option value="SELECT">SELECT</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div  class="row">
+                        <div  class="col-md-12">
+                            <div  class="form-group">
+                                <label  class="inputLabel">Template</label>
+                                <textarea  class="form-control input-sm" placeholder="" type="text"  id="template_code" style="height: 300px;" required></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btnModal btnSubmit">Proceed</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+<div id="deleteModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Delete Template</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure want to delete <b><span class="templateName"></span></b> template?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btnModal" onclick="proceedDelete()">Proceed</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+
+<div id="execTemplate" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Execute Query</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <code style="width:100%" class="template_code"></code>
+
+                <div class="row m-t-20">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Parameters <small>JSON value</small></label>
+                            <textarea class="form-control" id="temp_param" style="height: 250px;resize: none;"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Output</label>
+                            <div id="result_data" style="height: 250px;width:100%;"></div>
+
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="btn btnModal" onclick="executeTempQuery()">Execute</button>
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+

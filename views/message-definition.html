@@ -1,0 +1,178 @@
+<!--<div class="row-fluid">
+    <ul class="nav submenu" style="">
+        <li class=""><a href="/home"><i class="fa fa-home"></i> </a></li>
+        <li class=""><a href="/dashboard">Dashboard</a></li>
+        <li class="active"><a href="/message-definition">Message Definition</a></li>
+    </ul>
+</div>-->
+<div class="container mt-3 msgDef platformBody">
+    <!-- begin breadcrumb -->
+    <ol class="breadcrumb pull-right">
+        <li class="breadcrumb-item"><a href="/dashboard">Domain</a></li>
+        <li class="breadcrumb-item"><a href="/message-definition">Message Definition</a></li>
+        <li class="breadcrumb-item active">Define Message</li>
+    </ol>
+    <!-- end breadcrumb -->
+    <!-- begin page-header -->
+    <h1 class="page-header">Message Definition</h1>
+    <!-- end page-header -->
+
+    <!-- begin panel -->
+    <div class="panel panel-inverse">
+        <div class="panel-heading">
+            <div class="panel-heading-btn">
+                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-success" data-click="panel-reload" onclick="loadMessageDef()"><i class="fa fa-redo"></i></a>
+                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-warning" title="Help" onclick="startTour()"><i class="icon-help"></i></a>
+
+            </div>
+            <h4 class="panel-title">Total Defined Messages: <b><span class="messageCount"></span></b></h4>
+        </div>
+        <div class="panel-body" style="background-color: #eeeeee00;border: 1px solid #eee;padding-bottom: 30px">
+
+            <div class="btn-group btn-group-justified pull-right">
+                <a class="btn btn-default btnDefine" onclick="openModal()"><i class="fa fa-plus-square"></i> <span class="hidden-xs">Define Message</span></a>
+                <a class="btn btn-default btnDefine" id="exportMsg"><i class="fa fa-download"></i> <span class="hidden-xs">Export Definition</span></a>
+                <a class="btn btn-default btnDefine" id="importMsg" onclick="importMsg()"><i class="fa fa-upload"></i> <span class="hidden-xs">Import Definition</span></a>
+                <a class="btn btn-default" data-click="panel-reload" onclick="loadMessageDef()"><i class="fa fa-refresh"></i></a>
+            </div>
+
+
+            <table class="table table-bordered responsive no-wrap" id="messageTable"  cellspacing="0" width="100%">
+
+            </table>
+
+
+        </div>
+    </div>
+    <!-- end panel -->
+
+</div>
+
+
+<script src="/js/editor/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="/js/editor/src-noconflict/ext-language_tools.js" type="text/javascript" charset="utf-8"></script>
+<script src="/js/editor/src-noconflict/ext-searchbox.js" type="text/javascript" charset="utf-8"></script>
+<script src="/js/editor/src-noconflict/ext-beautify.js"    type="text/javascript" charset="utf-8"></script>
+<script src="/js/editor/src-noconflict/snippets/javascript.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/beautify.min.js" type="text/javascript"></script>
+
+<script src="controllers/message-definition.js" type="text/javascript"></script>
+
+
+
+<div id="addMessageRule" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Define Message</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <form action="javascript:void(0)" onsubmit="addMessageRule();">
+                <div class="modal-body">
+                    <div  class="row">
+                        <div  class="col-md-6 msg_id">
+                            <div  class="form-group">
+                                <label  class="inputLabel">Message ID *</label>
+                                <input  class="form-control input-sm" placeholder="" type="number" id="msg_id"  required>
+                                <small>ID Range from <b><span class="idRange"></span></b></small>
+                            </div>
+                        </div>
+                        <div  class="col-md-6 msg_name">
+                            <div  class="form-group">
+                                <label  class="inputLabel">Message Name *</label>
+                                <input  class="form-control input-sm" placeholder="" type="text" id="msg_name" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div  class="row">
+                        <div  class="col-md-12 msg_desc">
+                            <div  class="form-group">
+                                <label  class="inputLabel">Description *</label>
+                                <textarea  class="form-control input-sm" placeholder="" type="text"  id="msg_desc" required></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div  class="row" style="height: 250px;overflow:auto;overflow-x: hidden">
+                        <div class="col-md-12">
+                            <table class="table table-border">
+                                <thead>
+                                <tr>
+                                    <th>Field Name</th><th>DataType</th><th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody class="msgFieldBody">
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btnModal btnSubmit">Proceed</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+<div id="deleteModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Delete <span class="delete_rule_name"></span> Rule</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <h5>Are you sure want to delete <b><span class="delete_rule_id"></span> <span class="delete_rule_name"></span></b> Rule?</h5>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btnModal" onclick="proceedDelete()">Proceed</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+
+<div id="importModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="">
+            <div class="modal-header">
+                <h4 class="modal-title">Import Definition</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <form action="javascript:void(0)" onsubmit="importContent()">
+                <div class="modal-body">
+                    <div  class="row">
+                        <div  class="col-md-12">
+                            <div  class="form-group">
+                                <label  class="inputLabel">Choose File</label>
+                                <input  class="form-control input-sm" placeholder="" type="file" id="importFile"  required/>
+                            </div>
+                        </div>
+                    </div>
+                    <div  class="row">
+                        <div  class="col-md-12 msg_desc">
+                            <div  class="form-group">
+                                <label  class="inputLabel">Imported Content</label>
+                                <!--<textarea style="height: 300px;" class="form-control input-sm" placeholder="" type="text"  id="imported_content" required></textarea>-->
+
+                                <div id="imported_content" style="width:100%;height: 300px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btnModal btnSubmit">Proceed</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

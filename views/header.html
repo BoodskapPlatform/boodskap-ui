@@ -1,0 +1,251 @@
+<style>
+.priceLabel{
+    display: block;
+    text-align: center;
+    width: 100%;
+    font-size: 14px;
+    /* padding-right: 26px; */
+    line-height: 46px;
+    color: #242a30;
+    background-color: #f2f3f5;
+}
+</style>
+
+<div id="header" class="header navbar-inverse">
+    <!-- begin navbar-header -->
+    <div class="navbar-header">
+
+        <span class="barmenu" onclick="openNav()"><i class="icon-bars"></i></span>
+
+        <a href="javascript:void(0)" class="navbar-brand" style="margin-left: 25px;padding: 5px 25px;">
+            <img src="" class="domain_logo" style="height:40px"  onclick="openNav()" > </a>
+
+        <button type="button"  class="navbar-toggle btn btn-circle btn-danger btn-sm btnMobile" onclick="logout()">
+            <i class="icon-sign-out"></i>
+        </button>
+
+        <a  class="navbar-toggle btn btn-circle btn-warning btn-sm btnMobile" style="right:20px;" href="/profile">
+            <i class="icon-user"></i>
+        </a>
+    </div>
+    <!-- end navbar-header -->
+
+    <ul class="navbar-nav navbar-right hidden-xs hidden">
+        <!--<li>
+            <form class="navbar-form" action="/search">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="query" placeholder="Search">
+                    <button type="submit" class="btn btn-search"><i class="fa fa-search"></i></button>
+                </div>
+            </form>
+        </li>-->
+       <!-- <li class="menulink">
+            <a href="/home">Platform Home</a>
+        </li>-->
+        <li class="googletranslate hidden-sm">
+
+
+            <div id="google_translate_element"  style="margin-top: 10px;"></div><script type="text/javascript">
+            function googleTranslateElementInit() {
+                new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'da,de,en,es,fr,ga,hi,id,it,ja,ms,nl,pt,ro,ru,sv,ta,ur,zh-CN', layout: google.translate.TranslateElement.InlineLayout.SIMPLE, multilanguagePage: true}, 'google_translate_element');
+            }
+        </script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+
+        </li>
+        <li class="verticalsolutions">
+
+
+
+        </li>
+        <li class="dropdown menulink">
+            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+                Boodskap Platform <b class="caret"></b>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" style="min-width: 22rem">
+
+                <div class="row">
+                    <div class="col-lg-6" style="border-right: 1px solid #eee;">
+                        <a href="/home" class="dropdown-item"><i class="icon-home"></i> Home</a>
+                        <div class="dropdown-divider"></div>
+                        <label style="margin-left: 10px;">Platform</label>
+                        <a href="/dashboard" class="dropdown-item">Dashboard</a>
+                        <a href="/userevents" class="dropdown-item">Event Subscriptions</a>
+
+                        <div class="dropdown-divider"></div>
+                        <label style="margin-left: 10px;">Marketplace</label>
+                        <a href="/marketplace/widgets" class="dropdown-item">Widgets</a>
+                        <a href="/marketplace/verticals" class="dropdown-item">Verticals</a>
+
+
+                        <div class="dropdown-divider"></div>
+                        <label style="margin-left: 10px;">Utilities</label>
+                        <a href="/files" class="dropdown-item">File Storage</a>
+                        <a href="/query-console" class="dropdown-item">Elastic Search Query</a>
+                        <a href="/db-query-console" class="dropdown-item db">DB Search Query</a>
+                        <a href="/sql-query-console" class="dropdown-item sqlquery">Ignite SQL Query</a>
+                        <a href="/messages"  class="dropdown-item">Messages</a>
+                        <a href="/event-logs" class="dropdown-item">Event Logs</a>
+                        <a href="/log-console" target="_blank" class="dropdown-item">Application Logs</a>
+
+                        <div class="dropdown-divider"></div>
+                        <label style="margin-left: 10px;">Plugins</label>
+                        <a href="/alexa" class="dropdown-item"><i class="icon-microphone"></i> Amazon Alexa </a>
+
+                    </div>
+                    <div class="col-lg-6">
+                        <label style="margin-left: 10px;">Developer Modules</label>
+                        <a href="/dashboard-editor" class="dropdown-item">Dashboard Editor Studio</a>
+                        <a href="/mobile-platform" class="dropdown-item">Mobile Editor Studio</a>
+                        <a href="/message-definition" class="dropdown-item">Message Definition</a>
+                        <a href="/record-definition" class="dropdown-item">Record Definition</a>
+                        <a href="/sql-table" class="dropdown-item sqlquery">SQL Table</a>
+                        <a href="/db-table" class="dropdown-item dbquery">DB Table</a>
+                        <a href="/rules-engine" class="dropdown-item">Rules Engine</a>
+                        <a href="/script-console" class="dropdown-item">Script Console</a>
+                        <a href="/machine-learning" class="dropdown-item">Machine Learning</a>
+                        <a href="/templates" class="dropdown-item">Plaform Templates</a>
+                        <a href="/sql-templates" class="dropdown-item sqlquery">SQL Templates</a>
+                        <a href="/db-templates" class="dropdown-item dbquery">DB Templates</a>
+                        <a href="/events" class="dropdown-item">Events & Notification</a>
+                        <a href="/code-editor" class="dropdown-item">Code Editor</a>
+                        <div class="dropdown-divider"></div>
+                        <label style="margin-left: 10px;">Administration</label>
+                        <a href="/user-management" class="dropdown-item">User Management</a>
+                        <a href="/device-management" class="dropdown-item">Device Management</a>
+                        <a href="/asset-management" class="dropdown-item">Asset Management</a>
+                        <a href="/firmware-management" class="dropdown-item">Firmware Management</a>
+                        <a href="/geofence" class="dropdown-item">Geofence Management</a>
+
+                        <a href="/plugin-management" class="dropdown-item">Plugin Management</a>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </li>
+
+
+        <!--<li class="dropdown">
+            <a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle f-s-14">
+                <i class="icon-shopping-bag"></i>
+                <span class="label" style="background: #009688">1</span>
+            </a>
+            &lt;!&ndash;<ul class="dropdown-menu media-list dropdown-menu-right" style="width: 350px;">
+                <li class="dropdown-header">Shopping Bag (1)</li>
+                <li class="media">
+                    <div class="cart-body">
+                        <ul class="cart-item">
+                            <li>
+                                <div class="cart-item-image"><img src="/images/menu/widget.png" alt=""></div>
+                                <div class="cart-item-info">
+                                    <h4>Visitor Management System</h4>
+                                    <p class="price">$100.00</p>
+                                </div>
+                                <div class="cart-item-close">
+                                    <a href="#" data-toggle="tooltip" data-title="Remove" data-original-title="" title="">×</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="media">
+                    <label class="priceLabel">Total: $100.00</label>
+                </li>
+                <li class="dropdown-footer text-center">
+                    <div class="cart-footer">
+                        <div class="row row-space-10">
+                            <div class="col-xs-6">
+                                <a href="/view-cart" class="btn btn-default btn-block">View Cart</a>
+                            </div>
+                            <div class="col-xs-6">
+                                <a href="/checkout" class="btn btn-inverse btn-block">Checkout</a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>&ndash;&gt;
+        </li>-->
+
+        <li class="dropdown menulink">
+            <a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle f-s-14">
+                <i class="fa fa-bell"></i>
+                <!--<span class="label">5</span>-->
+            </a>
+            <ul class="dropdown-menu media-list dropdown-menu-right hide">
+                <li class="dropdown-header">NOTIFICATIONS (5)</li>
+                <li class="media">
+                    <a href="javascript:;">
+                        <div class="media-left">
+                            <i class="fa fa-bug media-object bg-silver-darker"></i>
+                        </div>
+                        <div class="media-body">
+                            <h6 class="media-heading">Server Error Reports <i class="fa fa-exclamation-circle text-danger"></i></h6>
+                            <div class="text-muted f-s-11">3 minutes ago</div>
+                        </div>
+                    </a>
+                </li>
+                <li class="media">
+                    <a href="javascript:;">
+                        <div class="media-left">
+                            <i class="fa fa-plus media-object bg-silver-darker"></i>
+                        </div>
+                        <div class="media-body">
+                            <h6 class="media-heading"> New User Registered</h6>
+                            <div class="text-muted f-s-11">1 hour ago</div>
+                        </div>
+                    </a>
+                </li>
+                <li class="media">
+                    <a href="javascript:;">
+                        <div class="media-left">
+                            <i class="fa fa-envelope media-object bg-silver-darker"></i>
+                            <i class="fab fa-google text-warning media-object-icon f-s-14"></i>
+                        </div>
+                        <div class="media-body">
+                            <h6 class="media-heading"> New Email From John</h6>
+                            <div class="text-muted f-s-11">2 hour ago</div>
+                        </div>
+                    </a>
+                </li>
+                <li class="dropdown-footer text-center">
+                    <a href="javascript:;">View more</a>
+                </li>
+            </ul>
+        </li>
+
+        <li class="dropdown navbar-user">
+            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+                <img src="" alt="" class="user_profile_picture">
+                <span class="d-none d-md-inline"></span><span class="user_profile_name"></span> <b class="caret"></b>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" style="border-top: 0px;padding-top: 0px;">
+                <div class="userRoles menulink" style="padding: 5px;text-transform: capitalize;color: #fff;">
+                </div>
+                <a href="/profile" class="dropdown-item"><i class="icon-edit2"></i> Edit Profile</a>
+                <!--<a href="/myaccount" class="dropdown-item">My Account</a>-->
+                <a href="/domain" class="dropdown-item menulink"><i class="icon-globe"></i> Domain Settings</a>
+                <a href="#" class="dropdown-item menulink"><i class="icon-question-circle"></i> Help & Support</a>
+                <div class="dropdown-divider"></div>
+                <a href="javascript:;" class="dropdown-item" onclick="logout()"><i class="icon-sign-out"></i> Log Out</a>
+            </div>
+        </li>
+
+        <li class="menulink" title="Live Data">
+            <a href="javascript:;" class="f-s-14" onclick="showLiveNotification()">
+                <i class="icon-bolt iconLiveStatus"></i>
+            </a>
+        </li>
+    </ul>
+    <!-- end header navigation right -->
+</div>
+
+
+
+<% include right-sidebar.html %>
+
+
+
+
+

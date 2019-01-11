@@ -1,0 +1,735 @@
+<link href="css/layout-default-latest.css" rel=stylesheet>
+
+<link href="css/rules-engine.css" rel=stylesheet>
+<!--<link href="css/Aimara.css" rel=stylesheet>-->
+<link href="css/jsCronUI.css" rel=stylesheet>
+<link href="css/multiple-select.css" rel=stylesheet>
+
+<style>
+    .nav-tabs-long {
+        overflow-x: auto;
+        overflow-y: hidden;
+        display: -webkit-box;
+        display: -moz-box;
+    }
+
+    .nav-tabs-long > li {
+        float: none;
+        border: 1px solid #cccccc57;
+        background-color: #fff;
+        padding: 5px;
+    }
+
+    .nav-tabs > li > a {
+        text-decoration: none;
+    }
+
+    .tab-content {
+        padding: 0px;
+    }
+
+    #codeEditor {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
+
+    table tr td {
+        padding: 2px !important;
+    }
+
+    .panel-title {
+        font-size: 11px;
+        font-weight: bold;
+    }
+
+    .rightSide .nav-tabs .nav-items.active {
+        border-top: 2px solid #FF9800;
+        background-color: #eeeeee59;
+        font-weight: bold;
+    }
+
+    .centerBlock{
+        background: rgb(51, 51, 51) !important;
+    }
+
+    #tree{
+        list-style: none;
+        margin-left: 0px;
+        padding-left: 0px;
+    }
+
+    .classFolder{
+        overflow: auto;
+        overflow-x: hidden;
+        word-wrap: break-word;
+    }
+
+    #tree li img:hover{
+        cursor: pointer;
+    }
+
+    #tree li a:hover{
+        cursor: pointer;
+        background-color: #eee;
+    }
+
+   /* img.exp_col{
+        position: relative;
+        margin-left: -15px;
+    }
+*/
+</style>
+
+<!--<div class="row-fluid">
+    <ul class="nav submenu" style="">
+        <li class=""><a href="/home"><i class="fa fa-home"></i> </a></li>
+        <li class=""><a href="/dashboard">Dashboard</a></li>
+        <li class="active"><a href="/rules-engine">Rules Engine</a></li>
+    </ul>
+</div>-->
+<div class="row-fluid loaderBlock">
+    <h1 style="color:#fff;text-align: center;margin-top: 15%"><i class="fa fa-spinner fa-spin"></i> <span
+            style="font-size: 25px;">Please Wait...</span></h1>
+</div>
+<div class="row-fluid ">
+    <div class="col-lg-12 mainwindow" style="    background-color: #3e3e3ee8;padding:5px; display: none">
+        <div class="ui-layout-center centerBlock" style="">
+
+            <div class="row-fluid" style="">
+
+                <button class="btn btn-sm btn-default" id="btnMax" style="position: absolute;right:2px;top:2px"
+                        title="Full Screen" onclick="resizeEditor()">
+                    <i class="fa fa-arrows-alt"></i>
+                </button>
+
+
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs nav-tabs-long editorBar" role="tablist">
+                    <li role="presentation" class="active domainTab">
+                        <a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab"
+                           onclick="loadDomainRule()">Domain Rule</a>
+                    </li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content tabBody">
+                    <div role="tabpanel" class="tab-pane active" id="editorContent"
+                         style="font-size: 13px;padding:10px;position: relative;">
+
+                        <div id="codeEditor" style=""></div>
+
+
+                    </div>
+                </div>
+
+
+            </div>
+
+
+        </div>
+        <!--<div class="pane ui-layout-north"></div>-->
+        <div class="ui-layout-south bottomSide">
+
+
+
+            <div class="row">
+
+                <div class="col-lg-1">
+                    <ul class="nav">
+                        <li style="color: #fff">
+                            <p style="">Server Status: <span class="serverStatus"><span class="label label-danger">Not Connected</span></span>
+                            </p>
+                        </li>
+                        <li style="color: #fff">
+                            <p style="margin-bottom: 5px;">
+                                Debug:<br>
+                                <label style="color:#fff;"><input type="radio" name="debugStatus" value="true" checked
+                                                                  onclick="debugEnable()"/> Enable</label>
+                                <label style="color:#fff;"><input type="radio" name="debugStatus" value="false"
+                                                                  onclick="debugEnable()"/> Disable</label>
+                            </p>
+
+                            <p class="enableLogs" style="margin-bottom: 0px">
+                                <label style="color: #fff"><input type="checkbox" value="true" class="allLogs mt-1"
+                                                                  onclick="enableLogs()"> Enable all logs </label>
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-11" style="position:relative">
+<span style="position: absolute;top:0px;right:0px;cursor: pointer;z-index:99999999">
+                            <button class="btn btn-icon btn-sm btn-default" onclick="clearLogs()" title="Clear Logs"><i
+                                    class="icon-trash-o"></i></button>
+                            <button class="btn btn-icon btn-sm btn-default" id="consoleMax" title="Full Screen"><i
+                                    class="fa fa-arrows-alt"></i></button>
+                        </span>
+                    <div class="consoleBox" style="position: relative">
+
+                        <div class="loggerHtml"></div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="ui-layout-east rightSide">
+
+            <div class="row-fluid" style="margin-bottom: 5px;margin-top: 10px;">
+
+                <ul class="nav nav-tabs ">
+                    <li class="nav-items active">
+                        <a href="#default-tab-1" data-toggle="tab" class="nav-link active show">
+                            <span class="d-sm-none">Rules Details</span>
+                            <span class="d-sm-block d-none">Rules Details</span>
+                        </a>
+                    </li>
+                    <li class="nav-items">
+                        <a href="#default-tab-2" data-toggle="tab" class="nav-link">
+                            <span class="d-sm-none">Class</span>
+                            <span class="d-sm-block d-none">Class</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="tab-content" style="margin-bottom: 0px;">
+                    <!-- begin tab-pane -->
+                    <div class="tab-pane fade active show" id="default-tab-1">
+
+                        <div id="accordion" class="card-accordion">
+                            <!-- begin card -->
+                            <div class="card detailsBlock">
+                                <div class="card-header bg-black text-white pointer-cursor" data-toggle="collapse"
+                                     data-target="#collapseOne" aria-expanded="true">
+                                    Rules Details
+                                </div>
+                                <div id="collapseOne" class="collapse show" data-parent="#accordion" style="">
+                                    <div class="card-body">
+                                        <table class="table msg-def-table">
+                                            <tbody>
+                                            <tr>
+                                                <td>Name</td>
+                                                <td><label class="ruleName"></label></td>
+                                            </tr>
+                                            <tr>
+                                                <td>RuleType</td>
+                                                <td><label class="ruleType"></label></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Language</td>
+                                                <td><label class="ruleLanguage label label-default"></label></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2" style="text-align: center">
+                                                    <a href="javascript:void(0)"  id="exportMsg"
+                                                       class="btn btn-secondary btn-sm mt-2 exportBtn"><i class="fa fa-download"></i> Export Rule</a>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        <div style="text-align: center;margin-bottom:10px;">
+                                        <button class="btn btn-block btn-sm btn-danger deleteBtn" style="display: none;" onclick="openDeleteModal()"><i
+                                                class="fa fa-trash"></i> Delete</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end card -->
+                            <!-- begin card -->
+                            <div class="card messageFields" style="display: none">
+                                <div class="card-header bg-black text-white pointer-cursor collapsed"
+                                     data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false">
+                                    Message Fields
+                                </div>
+                                <div id="collapseTwo" class="collapse" data-parent="#accordion" style="">
+                                    <div class="card-body">
+                                        <table class="table">
+                                            <thead>
+                                            <th>Field</th>
+                                            <th>DataType</th>
+                                            </thead>
+                                            <tbody>
+
+                                            </tbody>
+                                        </table>
+                                        <div style="text-align: center;margin-bottom:10px;">
+
+                                            <button class="btn btn-default btn-sm btn-block simulateBtn"><i class="fa fa-play"></i> Simulate</button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end card -->
+                            <!-- begin card -->
+                            <div class="card defaultFields" style="display: none">
+                                <div class="card-header bg-black text-white pointer-cursor collapsed"
+                                     data-toggle="collapse" data-target="#collapseThree">
+                                    Default Fields
+                                </div>
+                                <div id="collapseThree" class="collapse" data-parent="#accordion">
+                                    <div class="card-body">
+                                        <table class="table">
+                                            <thead>
+                                            <th>Field</th>
+                                            <th>DataType</th>
+                                            </thead>
+                                            <tbody>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end tab-pane -->
+                    <!-- begin tab-pane -->
+                    <div class="tab-pane fade" id="default-tab-2">
+
+                        <div class="tab-content treeBody" style="margin-bottom: 0px;background-color: #eeeeee6b;padding: 5px;">
+
+                            <!--<label>Select: </label>
+                            <label style="font-weight: normal;margin-right:5px">
+                                <input type="radio" name="codeType" value="CLASS" onclick="loadCodeType()" checked/>
+                                Groovy Class
+                            </label>
+                            <label style="font-weight: normal">
+                                <input type="radio" name="codeType" value="JAR" onclick="loadCodeType()"/> JAR
+                            </label>-->
+
+                            <button class="btn btn-block btn-sm"
+                                    style="margin: 5px 0px;background-color: #404040;color:#fff"
+                                    onclick="openModalClasses()">
+                                <i class="fa fa-cloud-upload"></i> Import Class/JAR
+                            </button>
+
+                            <form action="javascript:void(0)" onsubmit="loadCodeType()">
+
+                                <select id="codeType" style="margin-bottom: 5px;" onchange="loadCodeType()">
+                                    <option value="CLASS">Groovy Class</option>
+                                    <option value="JAR">JAR</option>
+                                </select> <br>
+
+                                <label style="margin-right: 10px;"><input type="radio" name="fileType" value="PUBLIC_GROOVY" onclick="loadCodeType()"> Public</label>
+                                <label><input type="radio" name="fileType" value="GROOVY" checked onclick="loadCodeType()"> Private</label>
+
+                                <div class="input-group mb-3">
+                                    <input type="text" id="searchText" autocomplete="off" class="form-control"
+                                           placeholder="Search Package,Class,Method Name">
+                                    <div class="input-group-prepend">
+                                        <button class="btn btn-secondary" type="submit"><i class="icon-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <div class="classFolder" style="border: 1px dotted #ccc;background-color: #fff"></div>
+
+
+
+                        </div>
+
+                    </div>
+                    <!-- end tab-pane -->
+                </div>
+
+
+            </div>
+
+            <!--<div style="position: fixed;background-color: #fff;z-index:9999;top: 60px;">
+
+                <button class="btn btn-block btn-sm" style="margin: 5px 0px;background-color: #404040;color:#fff" onclick="openModalClasses()">
+                    <i class="fa fa-cloud-upload"></i> Import Class</button>
+
+
+                <ul class="nav nav-tabs nav-tabs-long rightSideBar" role="tablist">
+                    <li role="presentation" class="active">
+                        <a  href="#groovyRight" aria-controls="groovyRight" role="tab" data-toggle="tab" onclick="">Groovy Class</a>
+                    </li>
+                    <li role="presentation">
+                        <a  href="#jarRight" aria-controls="jarRight" role="tab" data-toggle="tab" onclick="">JAR Class</a>
+                    </li>
+                </ul>
+
+            </div>
+
+            &lt;!&ndash; Tab panes &ndash;&gt;
+            -->
+
+
+        </div>
+        <div class="ui-layout-west leftSide" style="">
+
+            <div class="row-fluid">
+                <button class="btn btn-sm pull-right"
+                        style="margin: 5px 0px;background-color: #424242;color: #fff;padding: 0px 5px;"
+                        onclick="openModal()"><i class="fa fa-plus"></i> Add Rule</button>
+                <button class="btn btn-sm pull-right"
+                        style="margin: 5px 5px;background-color: #424242;color: #fff;padding: 0px 5px;"
+                        onclick="reloadRules()"><span class="btnRefresh"><i class="fa fa-refresh"></i></span></button>
+                <button class="btn btn-sm pull-right"
+                        style="margin: 5px 5px;background-color: #424242;color: #fff;padding: 0px 5px;" title="Upload Rule"
+                        onclick="uploadRuleModal()"><span class=""><i class="fa fa-upload"></i></span></button>
+            </div>
+
+            <div class="" style="margin-bottom: 5px;">
+                <label>Choose the rule</label>
+                <select class="input-sm form-control" onchange="loadRules(this.value)" id="rulesType">
+                    <option value="1">Message Rules</option>
+                    <option value="2">Named Rules</option>
+                    <option value="3">Scheduled Rules</option>
+                    <option value="6">Binary Rules</option>
+                    <!--<option value="4">Groovy Class</option>-->
+                    <!--<option value="5">JAR Class</option>-->
+                </select>
+            </div>
+
+            <div class=""
+                 style="clear: both;background-color: #5f5d5d66;color: #fff;border: 1px solid #eee;">
+                <label style="margin:5px;"><i class="fa fa-search"></i> Search</label>
+                <input type="text" class="form-control input-sm" style="background-color: #fffded"
+                       placeholder="Search by ID or Name" id="searchInput" onkeyup="searchFunction()"/>
+            </div>
+
+            <div class="listHeight"
+                 style="border:1px solid #4242424d;clear:both;background-color: #fff;overflow: auto;overflow-x: hidden">
+                <ul class="rulesList"></ul>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/jquery-ui-latest.js"></script>
+<script src="js/jquery.layout-latest.js"></script>
+
+<script src="js/Aimara.js" type="text/javascript"></script>
+<script src="js/editor/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/editor/src-noconflict/ext-language_tools.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/editor/src-noconflict/ext-searchbox.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/editor/src-noconflict/snippets/groovy.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jsCronUI.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jsCronUI-template.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/multiple-select.js" type="text/javascript" charset="utf-8"></script>
+<script src="controllers/folder-menu.js" type="text/javascript"></script>
+<script src="controllers/rules-engine.js" type="text/javascript"></script>
+
+
+<div id="addMessageRule" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Define Message</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="javascript:void(0)" onsubmit="addMessageRule();">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="inputLabel">Message ID</label>
+                                <input class="form-control input-sm" placeholder="" type="number" id="msg_id" required>
+                                <small>ID Range from <b><span class="idRange"></span></b></small>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="inputLabel">Message Name</label>
+                                <input class="form-control input-sm" placeholder="" type="text" id="msg_name" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="inputLabel">Description</label>
+                                <textarea class="form-control input-sm" placeholder="" type="text" id="msg_desc"
+                                          required></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="height: 250px;overflow:auto;overflow-x: hidden">
+                        <div class="col-md-12">
+                            <table class="table table-border">
+                                <thead>
+                                <tr>
+                                    <th>Field Name</th>
+                                    <th>DataType</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody class="msgFieldBody">
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btnModal btnSubmit">Proceed</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div id="deleteModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Delete <span class="delete_rule_name"></span> Rule</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure want to delete <b><span class="delete_rule_id"></span> <span
+                        class="delete_rule_name"></span></b> Rule?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btnModal" onclick="proceedDelete()">Proceed</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div id="addNamedRule" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form action="javascript:void(0)" onsubmit="addNamedRule()">
+                <div class="modal-header">
+                    <h4 class="modal-title">Add Named Rule</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="inputLabel">Rule Name</label>
+                                <input class="form-control input-sm" onkeyup="avoidSpaces(this)" placeholder=""
+                                       type="text" id="rule_id" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="inputLabel">Language</label>
+                                <select class="form-control input-sm" id="rule_language">
+                                    <option value="GROOVY">GROOVY</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btnModal">Save changes</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+<div id="addBinaryRule" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form action="javascript:void(0)" onsubmit="addBinaryRule()">
+                <div class="modal-header">
+                    <h4 class="modal-title">Add Binary Rule</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="inputLabel">Rule Name</label>
+                                <input class="form-control input-sm" onkeyup="avoidSpaces(this)" placeholder=""
+                                       type="text" id="binary_rule" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="inputLabel">Language</label>
+                                <select class="form-control input-sm" id="binary_lang">
+                                    <option value="GROOVY">GROOVY</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btnModal">Save changes</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div id="addScheduleRule" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form action="javascript:void(0)" onsubmit="addScheduleRule()">
+                <div class="modal-header">
+                    <h4 class="modal-title">Add Schedule Rule</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="inputLabel">Rule ID</label>
+                                <input class="form-control input-sm" placeholder="" type="number" id="sch_id" required>
+                                <small>ID Range from <b><span class="idRange"></span></b></small>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="inputLabel">Language</label>
+                                <select class="form-control input-sm" id="sch_language">
+                                    <option value="GROOVY">GROOVY</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="inputLabel">Pattern</label>
+                                <input class="form-control input-sm" placeholder="" onkeyup="validateCron()" type="text"
+                                       id="sch_pattern" value="0 0 0 ? * * *" required>
+                                <div id="pattren_desc"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <% include cron-template.html %>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btnModal">Save changes</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div id="addClass" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form action="javascript:void(0)" onsubmit="uploadClassFile()">
+                <div class="modal-header">
+                    <h4 class="modal-title">Import Class/JAR</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="inputLabel">Select Type</label>
+                                <select class="form-control input-sm" id="class_type" required
+                                        onchange="loadClassTemplate(this.value)">
+                                    <option value=""></option>
+                                    <option value="GROOVY">Groovy Class</option>
+                                    <option value="JAR">JAR File</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+
+                        </div>
+                    </div>
+                    <di class="row classTemplate">
+
+                    </di>
+
+                    <div class="row">
+
+                        <div class="col-md-12 logResult">
+
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btnModal">Save changes</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="simulatorModal">
+
+</div>
+
+
+
+<!--<div id="simulatorModal" class="modal fade draggable" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form action="javascript:void(0)" onsubmit="sendTestMsg()">
+                <div class="modal-header simulateHeader">
+                    <h4 class="modal-title">Simulate Message</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btnModal"></button>
+                </div>
+            </form>
+        </div>&lt;!&ndash; /.modal-content &ndash;&gt;
+    </div>&lt;!&ndash; /.modal-dialog &ndash;&gt;
+</div>&lt;!&ndash; /.modal &ndash;&gt;-->
+
+
+
+
+<div id="importModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="">
+            <div class="modal-header">
+                <h4 class="modal-title">Import Rule</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <form action="javascript:void(0)">
+                <div class="modal-body">
+                    <div  class="row">
+                        <div  class="col-md-12">
+                            <div  class="form-group">
+                                <label  class="inputLabel">Choose File</label>
+                                <input  class="form-control input-sm" placeholder="" type="file" id="importFile"  required/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

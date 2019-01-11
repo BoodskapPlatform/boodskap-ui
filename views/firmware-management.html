@@ -1,0 +1,193 @@
+<div class="row-fluid">
+    <ul class="nav submenu" style="">
+        <li class=""><a href="/home"><i class="fa fa-home"></i> </a></li>
+        <li class=""><a href="/dashboard">Dashboard</a></li>
+        <li class="active"><a href="/firmware-management">Manage Firmwares</a></li>
+        <li><a href="/firmware/ota-upgrade">OTA Upgrade</a></li>
+    </ul>
+</div>
+<div class="container platformBody mt-3">
+    <!-- begin breadcrumb -->
+    <ol class="breadcrumb pull-right">
+        <li class="breadcrumb-item"><a href="/dashboard">Domain</a></li>
+        <li class="breadcrumb-item"><a href="/firmware-management">Firmware Management</a></li>
+        <li class="breadcrumb-item active">Manage Firmwares</li>
+    </ol>
+    <!-- end breadcrumb -->
+    <!-- begin page-header -->
+    <h1 class="page-header">Manage Firmwares</h1>
+    <!-- end page-header -->
+
+    <!-- begin panel -->
+    <div class="panel panel-inverse">
+        <div class="panel-heading">
+            <div class="panel-heading-btn">
+                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-success" data-click="panel-reload" onclick="loadFirmwareList()"><i class="fa fa-redo"></i></a>
+                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-warning" title="Help"><i class="icon-help"></i></a>
+
+            </div>
+            <h4 class="panel-title">Total Firmware: <b><span class="firmwareCount"></span></b></h4>
+        </div>
+        <div class="panel-body" style="background-color: #eeeeee00;border: 1px solid #eee;padding-bottom: 30px;">
+
+            <div class="well well-sm">
+                <div class="row">
+                    <div class="col-md-3 col-sm-8 col-xs-6">
+                        <div class="form-group">
+                        <label>Choose Device Model</label>
+                        <select id="deviceModel" class="ml-1 mr-1 form-control input-sm" onchange="loadFirmwareList()">
+                            <option value=""></option>
+                        </select>
+                        </div>
+                    </div>
+                    <div class="col-md-9 col-sm-4 col-xs-6">
+                        <div class="btn-group btn-group-justified pull-right">
+                            <a class="btn btn-default" onclick="openModal(1)"><i class="icon-upload"></i> <span class="hidden-xs">Upload Firmware</span></a>
+                            <a class="btn btn-default"  data-click="panel-reload" onclick="loadFirmwareList()"><i class="fa fa-refresh"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <table class="table table-bordered table-hover responsive no-wrap" id="firmwareTable"  cellspacing="0" width="100%" style="clear: both">
+
+            </table>
+
+
+        </div>
+    </div>
+    <!-- end panel -->
+
+</div>
+
+<script src="controllers/firmware.js" type="text/javascript"></script>
+
+
+<div id="addFirmware" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><span class="templateAction"></span> Firmware</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <form action="javascript:void(0)" onsubmit="addFirmware()">
+                <div class="modal-body">
+                    <div  class="row">
+                        <div  class="col-md-6">
+                            <div  class="form-group">
+                                <label  class="inputLabel">Model ID</label>
+                                <select class="form-control input-sm" id="f_device_model" required>
+                                </select>
+                            </div>
+                        </div>
+                        <div  class="col-md-6">
+                            <div  class="form-group">
+                                <label  class="inputLabel">Firmware Version</label>
+                                <input  class="form-control input-sm" placeholder="" type="text" id="firmware_version" required>
+                            </div>
+                        </div>
+                        <div  class="col-md-12">
+                            <div  class="form-group">
+                                <label  class="inputLabel">Description</label>
+                                <textarea class="form-control input-sm" id="firmware_desc" required></textarea>
+                            </div>
+                        </div>
+                        <div  class="col-md-12">
+                            <div  class="form-group">
+                                <label  class="inputLabel" style="display: block">Choose Firmware File</label>
+                                <input type="file" name="tfile" id="firmwareFile" required>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btnModal btnSubmit">Proceed</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div id="deleteModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Delete Firmware</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <h5>Are you sure want to delete <b><span class="firmwareVersion"></span></b> version firmware file?</h5>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btnModal" onclick="proceedDelete()">Proceed</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+
+<div id="uploadDevice" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><span class="templateAction"></span> Device</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <form action="javascript:void(0)" onsubmit="uploadDevice()">
+                <div class="modal-body">
+                    <div  class="row">
+                        <div  class="col-md-6">
+                            <div  class="form-group">
+                                <label  class="inputLabel">Model ID</label>
+                                <p class="modelId"></p>
+                            </div>
+                        </div>
+                        <div  class="col-md-6">
+                            <div  class="form-group">
+                                <label  class="inputLabel">Firmware Version</label>
+                                <p class="firmwareVersion"></p>
+                            </div>
+                        </div>
+                        <div  class="col-md-12">
+                            <div  class="form-group">
+                                <label  class="inputLabel">Choose Device ID</label>
+                                <div class="dropdown">
+                                    <div class="btn btn-sm dropdown-toggle" style="width: 100%;border: 1px solid #3e373738;" type="" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                        <input type="text" style="" class="input-sm inputDevice"
+                                               placeholder="Search by device id, name, model, version" id="deviceID" onkeyup="loadDeviceList(this.value)">
+                                    </div>
+                                    <ul class="dropdown-menu deviceListUl" aria-labelledby="dropdownMenu1">
+                                        <!--<li class="deviceListLi" onclick="setDeviceId()">
+                                            {{device.name ? device.name : device.id}} | {{device.modelId}} [<b>{{device.version}}</b>]
+                                        </li>-->
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div  class="col-md-12">
+                            <div  class="form-group">
+                                <div class="timer_result" style="overflow: auto;overflow-x: hidden">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btnModal btnSubmit">Proceed</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

@@ -1,0 +1,758 @@
+<link rel="stylesheet" type="text/css" href="/css/select2.min.css">
+<link rel="stylesheet" href="/css/bootstrap-colorpicker.min.css"/>
+
+<style>
+    .panelHeader{
+        padding: 10px 15px;
+        border: none;
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px;
+        background-color: #6d6d6d;
+        color:#fff
+    }
+    .panel{
+        margin-bottom: 0px;
+    }
+    .panel-body{
+        border: 1px solid #eee;
+    }
+    .dashboardBody{
+        overflow: auto;
+        overflow-x: hidden;
+    }
+    body{
+        /*background-color: #9e9e9ea3 !important;*/
+    }
+    .widgetHeader{
+        font-size: 13px;
+        background-color: #6d6d6d;
+        padding: 5px;
+        color: #fff;
+    }
+
+    .dashboardContent {
+        /*background: #eeeeee38;*/
+        border: 1px solid #eee;
+        padding: 5px;
+    }
+
+    .grid-stack-item-content {
+        color: #2c3e50;
+        text-align: center;
+        background-color: #fff;
+        border: 1px solid #33333330;
+    }
+    .grid-stack-item-content img{
+        width: 64px;
+        height:64px;
+    }
+    .dashboardList{
+        padding: 0px;
+        list-style: none;
+    }
+
+    .dashboardList li{
+        line-height: 25px;
+        padding: 5px;
+        cursor: pointer;
+        padding-left: 10px;
+    }
+
+    .dashboardList li a{
+        text-decoration: none;
+        color:#333;
+    }
+
+    .dashboardList li:hover{
+        background-color: #eeeeeec2;
+    }
+
+    .dashboardList li.active{
+        background-color: #eeeeeec2;
+        font-weight: bold;
+        border: 1px solid #cccccc70;
+        border-left: 2px solid #FF9800;
+        border-right: 3px solid #FF9800;
+    }
+
+    .widgetsBox{
+        border: 1px solid #ddd;
+        text-align: center;
+        padding: 10px;
+        -webkit-box-shadow: 0 0 31px -3px #ddd;
+        box-shadow: 0 0 31px -3px #ddd;
+        cursor: pointer;
+        background-color: #fff;
+    }
+
+    .widgetsBox img{
+        width: 64px;
+        height: 64px;
+    }
+    .widgetsBox label{
+        display: block;
+        margin: 5px 0px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    .custom-dropdown-item {
+        padding: 3px 10px;
+        font-weight: 400;
+        color: #373a3c;
+        text-align: inherit;
+        white-space: nowrap;
+        background: none;
+        border: 1px solid #eee;
+        margin: 3px;
+        display: inline-block;
+        cursor: pointer;
+        font-size: 22px;
+    }
+
+
+    #editorModal.modal {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        overflow: hidden;
+    }
+
+    .modal-dialog-big {
+        position: fixed;
+        margin: 0;
+        width: 100%;
+        max-width: 100%;
+        height: 100%;
+        padding: 0;
+    }
+
+    #editorModal.modal-content {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    .nav-tabs {
+        background: #4b4a49;
+        border-radius: 0px;
+    }
+
+    .tab-content {
+        border:1px solid #4a494961;
+        padding:3px;
+    }
+
+    .nav-tabs .nav-link {
+        color: #d0d0d0;
+    }
+
+    .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+        color: #FFC107;
+        background-color: #272822;
+        border-color: #dee2e6 #dee2e6 #fff;
+        border-radius: 0px;
+        font-weight: bold;
+    }
+
+    .nav-tabs .nav-link:hover{
+        color: #FFC107;
+        background-color: #272822;
+        border-color: #dee2e6 #dee2e6 #fff;
+        border-radius: 0px;
+    }
+
+    .widgetLiveHeader{
+        background-color: #4a4949;
+        color: #fff;
+        font-size: 14px;
+        padding: 6px;
+    }
+
+    .updateTag{
+        margin-bottom: 0px;
+        font-size: 9px;
+        margin-top: 5px;
+        color: #28a745;
+    }
+
+    .colorpicker-visible{
+        z-index: 9999994 !important;
+    }
+
+</style>
+
+<link rel="stylesheet" href="/css/gridstack.css"/>
+<link rel="stylesheet" href="/css/gridstack-extra.css"/>
+
+<div class="container-fluid msgDef platformBody" style="padding: 3px 5px;">
+
+    <!-- begin panel -->
+    <div class="panel panel-inverse">
+        <div class="panel-heading">
+            <div class="panel-heading-btn hidden-xs">
+                <a href="javascript:;" style="text-decoration: none" class="dashboardStatus"></a>
+                <a href="javascript:;" class="btn btn-xs btn-circle btn-default" data-click="panel-expand"><i class="icon-expand2"></i></a>
+                <a href="javascript:;" class="btn btn-xs btn-circle btn-default" data-click="panel-reload"><i class="fa fa-redo"></i></a>
+                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-warning" title="Help"><i class="icon-help"></i></a>
+
+            </div>
+            <h4 class="panel-title">
+                <i class="icon-edit2"></i> Dashboard Editor Studio
+            </h4>
+        </div>
+        <div class="panel-body dashboardBody" style="background-color: #eeeeee00;border: 1px solid #eee;">
+           <div class="row">
+               <div class="col-lg-2" style="padding: 0px;">
+                   <div class="panel panel-inverse col-lg-12" style="padding: 0px">
+                       <div class="panel-heading">
+                           <div class="panel-heading-btn">
+                               <a href="javascript:;" onclick="openDashboardModal(1)" class="btn btn-sm btn-icon btn-circle btn-default"><i class="fa fa-plus"></i></a>
+                               <a href="javascript:void(0)" data-click="panel-reload" onclick="loadDashboardlist()" class="btn btn-sm btn-icon btn-circle btn-default">
+                                   <i class="fa fa-refresh"></i></a>
+                           </div>
+                           <h4 class="panel-title">Dashboard's</h4>
+                       </div>
+                       <div class="panel-body dashboardListBody" style="border: 1px solid #eee;background-color: #eeeeee73;padding:1px;overflow: auto;overflow-x: hidden">
+
+
+                           <ul class="dashboardList"></ul>
+
+
+                       </div>
+                   </div>
+               </div>
+               <div class="col-lg-8">
+                   <div class="row">
+
+                       <div class="col-lg-12">
+                           <h4 class=" pull-left" style="color:#666"><span class="dashboardIcon"></span> <span class="dashboardName"></span>
+
+                               <a href="javascript:void(0)" class="ml-3 btn btn-sm btn-icon btn-circle btn-default" onclick="openDashboardModal(2)"><i class="icon-edit2"></i></a>
+                               <a href="javascript:void(0)" class="btn btn-sm btn-icon btn-circle btn-default" onclick="openDashboardModal(3)"><i class="icon-trash4"></i></a>
+
+                           </h4>
+
+                           <div class="btn-group btn-group-justified pull-right">
+                               <button class="btn btn-default" onclick="previewDashboard()"><i class="icon-eye4" ></i> Preview</button>
+                               <button class="btn btn-default" data-click="panel-reload" onclick="saveDashboard()"><i class="icon-save"></i> Save</button>
+                           </div>
+
+                       </div>
+                   </div>
+                   <div class="dashboardContent" style="overflow: auto;overflow-x: hidden;padding-top:10px;">
+                    <div class="grid-stack" style=""></div>
+                   </div>
+               </div>
+               <div class="col-lg-2" style="padding: 0px;">
+                   <div class="panel panel-inverse col-lg-12" style="padding: 0px">
+                       <div class="panel-heading" >
+                           <div class="panel-heading-btn">
+                               <!--<a href="/marketplace/widgets" title="Add widgets from marketplace" target="_blank" class="btn btn-sm btn-icon btn-circle btn-default">-->
+                                   <!--<i class="icon-download4"></i></a>-->
+                               <a href="javascript:void(0)"  data-click="panel-reload" onclick="loadImportedWidgets()" class="btn btn-sm btn-icon btn-circle btn-default">
+                                   <i class="fa fa-refresh"></i></a>
+                           </div>
+                           <h4 class="panel-title"><i class="icon-th"></i> Imported Widgets</h4>
+                       </div>
+                       <div class="panel-body " style="border: 1px solid #eee;overflow-x: hidden;overflow: auto;background-color: #f7f7f7;">
+                           <div style="text-align: center;margin-bottom: 10px;">
+                               <a  href="/marketplace/addwidget" target="_blank" style="text-decoration: none;display: block" class="text-warning">
+                                   <i class="icon-plus-circle"></i> Add New Widget
+                               </a>
+
+                               <br>
+                               <small>Download/Publish widgets from </small><br>
+                               <a  href="/marketplace/widgets" target="_blank" style="text-decoration: none" class="text-warning">
+                                   <img src="images/menu/market-place.png" style="width: 24px"> Marketplace
+                               </a>
+
+
+                           </div>
+
+                                <form action="javascript:void(0)"  onsubmit="loadImportedWidgets()">
+                                   <div class="input-group mb-3">
+                                       <input type="text" id="searchText" class="form-control" placeholder="Search Widget's" aria-label="Username" aria-describedby="basic-addon1">
+                                       <div class="input-group-prepend">
+                                           <button class="btn btn-secondary" type="submit"><i class="icon-search"></i> </button>
+                                       </div>
+                                   </div>
+                                </form>
+
+                            <label>Total Widgets: <span class="widgetCount"></span></label>
+
+                            <div class="widgetBody" style="overflow: auto;overflow-x: hidden"></div>
+                       </div>
+                   </div>
+               </div>
+           </div>
+        </div>
+    </div>
+    <!-- end panel -->
+
+</div>
+
+
+<script src="/js/jquery-ui.js"></script>
+<script src="/js/gridstack.js"></script>
+<script src="/js/gridstack.jQueryUI.js"></script>
+<script src="/js/bootstrap-colorpicker.min.js"></script>
+
+
+<script src="/js/editor/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="/js/editor/src-noconflict/ext-language_tools.js" type="text/javascript" charset="utf-8"></script>
+<script src="/js/editor/src-noconflict/ext-searchbox.js" type="text/javascript" charset="utf-8"></script>
+<script src="/js/editor/src-noconflict/snippets/html.js" type="text/javascript" charset="utf-8"></script>
+<script src="/js/editor/src-noconflict/snippets/css.js" type="text/javascript" charset="utf-8"></script>
+<script src="/js/editor/src-noconflict/snippets/javascript.js" type="text/javascript" charset="utf-8"></script>
+<script src="/js/select2.min.js" type="text/javascript"></script>
+
+<script src="/controllers/dashboard-editor.js"></script>
+
+
+<div id="addDashboard" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><span class="dashboardAction"></span> Dashboard</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <form action="javascript:void(0)">
+                <div class="modal-body">
+                    <div  class="row">
+                        <div  class="col-md-8">
+                            <div  class="form-group">
+                                <label  class="inputLabel">Dashboard Name</label>
+                                <input  class="form-control input-sm" placeholder="" type="text" id="dashboard_name" required>
+                                <small>Can embed <b>HTML</b> code also</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div  class="row">
+                        <div  class="col-md-8">
+                            <div  class="form-group">
+                                <label  class="inputLabel">Dashboard Icon</label>
+
+                                <div class="dropdown">
+                                    <div class="btn btn-sm dropdown-toggle" style="width: 100%;border: 1px solid #3e373738;" type="" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                        <input type="text" style="" class="input-sm inputDevice"
+                                               placeholder="Search by name, tags" id="imageID" onkeyup="loadImageList(this.value)">
+                                    </div>
+                                    <ul class="dropdown-menu imageListUl" aria-labelledby="dropdownMenu2">
+                                        <!--<li class="deviceListLi" onclick="setDeviceId()">
+                                            {{device.name ? device.name : device.id}} | {{device.modelId}} [<b>{{device.version}}</b>]
+                                        </li>-->
+                                    </ul>
+                                </div>
+                                <small>* List only public images</small>
+
+
+                                <!--<div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-defaul btn-block dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="iconClass" id="dashboard_icon"></span>
+                                    </button>
+                                    <div class="dropdown-menu open-left arrow iconList" style="height:200px;overflow: scroll;overflow-x: hidden;width:50px;">
+                                        &lt;!&ndash;<a class="custom-dropdown-item" style="" (click)="dashboard.setIconClass(icon)"><i class="{{icon}}"></i></a>&ndash;&gt;
+                                    </div>
+                                </div>-->
+                            </div>
+                        </div>
+                        <div  class="col-md-4">
+                            <div  class="form-group imageHtml" style="text-align: center;">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div  class="row">
+                        <div  class="col-md-4">
+                            <div  class="form-group">
+                                <label  class="inputLabel">Background Color</label> <br>
+                                <!--<input id="dashboard_bg" required></input>-->
+                                <div id="dashboard_bg" class="input-group colorpicker-component">
+                                    <input type="text" value="" class="form-control" />
+                                    <span class="input-group-addon"><i></i></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div  class="col-md-4">
+                            <div  class="form-group">
+                                <label  class="inputLabel">Title Background Color</label> <br>
+                                <!--<input id="dashboard_bg" required></input>-->
+                                <div id="dashboard_title_bg" class="input-group colorpicker-component">
+                                    <input type="text" value="" class="form-control" />
+                                    <span class="input-group-addon"><i></i></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div  class="col-md-4">
+                            <div  class="form-group">
+                                <label  class="inputLabel">Title Text Color</label> <br>
+                                <!--<input id="dashboard_bg" required></input>-->
+                                <div id="dashboard_title_text_bg" class="input-group colorpicker-component">
+                                    <input type="text" value="" class="form-control" />
+                                    <span class="input-group-addon"><i></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btnModal btnSubmit">Proceed</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+<div id="deleteModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Delete Dashboard</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <h5>Are you sure want to delete <b><span class="dashboardDeleteName"></span> dashboard</b>?</h5>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btnModal" onclick="deleteDashboard()">Proceed</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div id="deleteWidgetModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Delete Widget</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <h5>Are you sure want to delete the <b><span class="widgetImportName"></span></b> widget from the domain?</h5>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btnModal" onclick="deleteImportedWidget()">Proceed</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+<div id="editorModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-big" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><button type="button" class="btn btn-xs btn-default"
+                                                style="margin-right:10px;" data-dismiss="modal"><i class="icon-chevron-left2"></i> Back</button>
+                    Widget Settings</h4>
+
+                <button type="button" class="btn btn-sm btn-success" onclick="saveCode()"><i class="icon-save"></i> Save Widget</button>
+            </div>
+            <div class="modal-body" style="overflow: auto;overflow-x: hidden;background-color: #3e3b3c3d">
+
+                <div class="row mt-2">
+                    <div class="col-lg-6" style="position: relative">
+                        <button class="btn btn-sm btn-warning" onclick="codeLivePreview()" style="position: absolute;top: 5px;right: 15px;"><i class="icon-play"></i> Run</button>
+                        <ul class="nav nav-tabs">
+                            <li class="nav-items">
+                                <a href="#default-tab-0" data-toggle="tab" class="nav-link active show">
+                                    <span class="d-sm-none">Widget</span>
+                                    <span class="d-sm-block d-none">Widget</span>
+                                </a>
+                            </li>
+                            <li class="nav-items">
+                                <a href="#default-tab-1" data-toggle="tab" class="nav-link">
+                                    <span class="d-sm-none">HTML</span>
+                                    <span class="d-sm-block d-none">HTML</span>
+                                </a>
+                            </li>
+                            <li class="nav-items">
+                                <a href="#default-tab-2" data-toggle="tab" class="nav-link">
+                                    <span class="d-sm-none">JS</span>
+                                    <span class="d-sm-block d-none">Javascript</span>
+                                </a>
+                            </li>
+                            <li class="">
+                                <a href="#default-tab-3" data-toggle="tab" class="nav-link">
+                                    <span class="d-sm-none">CSS</span>
+                                    <span class="d-sm-block d-none">CSS</span>
+                                </a>
+                            </li>
+                            <li class="">
+                                <a href="#default-tab-4" data-toggle="tab" class="nav-link">
+                                    <span class="d-sm-none">Resources</span>
+                                    <span class="d-sm-block d-none">Resources</span>
+                                </a>
+                            </li>
+                            <li class="hide">
+                                <a href="#default-tab-5" data-toggle="tab" class="nav-link">
+                                    <span class="d-sm-none">Amazon Alexa</span>
+                                    <span class="d-sm-block d-none">Amazon Alexa</span>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+
+                            <div class="tab-pane fade active show" id="default-tab-0" style="padding: 10px;">
+
+                                <div class="resourceTab">
+                                    <div class="col-md-7">
+                                        <div class="form-group">
+                                            <label>Widget Title</label>
+                                            <input type="text" class="form-control input-sm" id="widgetTitle">
+                                            <small>Can embed <b>HTML</b> code also</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Title Background Color</label>
+                                            <div id="widget_bg" class="input-group colorpicker-component">
+                                                <input type="text" value="" class="form-control" />
+                                                <span class="input-group-addon"><i></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Title Text Color</label>
+                                            <div id="widget_text" class="input-group colorpicker-component">
+                                                <input type="text" value="" class="form-control" />
+                                                <span class="input-group-addon"><i></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-7"></div>
+                                    <div class="col-md-7 assetBox idBox">
+                                        <div class="form-group">
+                                            <label>Choose Asset</label>
+                                            <select class="form-control input-sm" id="assetList" required></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-7 messageBox idBox">
+                                        <div class="form-group">
+                                        <label class="inputLabel">Choose Message</label>
+                                        <select class="form-control input-sm" id="messageList" required onchange="loadMsgFields()"></select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12 mb-2 messageBox idBox">
+                                        <code class="messageFields">
+
+                                        </code>
+                                    </div>
+
+                                    <div class="col-md-7 deviceBox idBox">
+                                        <div  class="form-group">
+                                            <label  class="inputLabel">Choose Device</label>
+                                            <div class="dropdown">
+                                                <div class="btn btn-sm dropdown-toggle" style="width: 100%;border: 1px solid #3e373738;" type="" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                    <input type="text" style="" class="input-sm inputDevice"
+                                                           placeholder="Search by device id, name, model, version" id="deviceID" onkeyup="loadDeviceList(this.value)">
+                                                </div>
+                                                <ul class="dropdown-menu deviceListUl" aria-labelledby="dropdownMenu1">
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-7 recordBox idBox">
+                                        <div class="form-group">
+                                            <label>Choose Record</label>
+                                            <select class="form-control input-sm" id="recordList" required onchange="loadRecFields()"></select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12 mb-2 recordBox idBox">
+                                        <code class="recordFields">
+
+                                        </code>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <!-- begin tab-pane -->
+                            <div class="tab-pane fade" id="default-tab-1">
+                                <div id="htmlEditor"></div>
+                            </div>
+                            <!-- end tab-pane -->
+                            <!-- begin tab-pane -->
+                            <div class="tab-pane fade" id="default-tab-2">
+                                <div id="jsEditor"></div>
+                            </div>
+                            <!-- end tab-pane -->
+                            <!-- begin tab-pane -->
+                            <div class="tab-pane fade" id="default-tab-3">
+                                <div id="cssEditor"></div>
+                            </div>
+                            <!-- end tab-pane -->
+                            <!-- begin tab-pane -->
+                            <div class="tab-pane fade" id="default-tab-4">
+                                <div class="col-lg-12">
+                                    <div class="row resourceTab" style="overflow: auto;overflow-x: hidden">
+                                        <div class="col-lg-4 inbuildContent" style="background-color: #eee;display: none">
+                                            <div class="form-group" style="">
+                                                <label class="inputLabel">In-Build CSS:</label><br>
+                                                <small class="defaultCss" style="white-space: pre-wrap"></small>
+                                                <br><br>
+                                                <label class="inputLabel">In-Build Javascript:</label><br>
+                                                <small class="defaultJs" style="white-space: pre-wrap"></small>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-8">
+                                            <div class="form-group hide">
+                                                <label class="inputLabel">Do you need to include in-build CSS?</label> <br>
+                                                <label style="font-weight: normal"><input type="radio" placeholder=""  name="inbuildcss" value="true" checked/> Yes</label>
+                                                <label style="font-weight: normal"><input type="radio" placeholder=""  name="inbuildcss" value="false"/> No</label>
+
+                                            </div>
+                                            <div class="form-group hide">
+                                                <label class="inputLabel">Do you need to include in-build Javascript?</label> <br>
+                                                <label style="font-weight: normal"><input type="radio" placeholder="" name="inbuildjs" value="true" checked/> Yes</label>
+                                                <label style="font-weight: normal"><input type="radio" placeholder="" name="inbuildjs" value="false"/> No</label>
+
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="inputLabel" style="display: block">Add External Javascript</label>
+                                                <textarea class="form-control input-sm" placeholder="" type="text" id="jsResource" style="height: 200px;"></textarea>
+                                                <small class="grey">Enter the URL line by line <br>
+                                                    Ex: <br>
+                                                    https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js<br>
+                                                    https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js
+                                                </small>
+
+                                            </div>
+                                            <hr>
+                                            <div class="form-group">
+                                                <label class="inputLabel"  style="display: block">Add External Stylesheet</label>
+                                                <textarea class="form-control input-sm" placeholder="" type="text" id="cssResource" style="height: 200px;"></textarea>
+                                                <small class="grey">Enter the URL line by line <br>
+                                                    Ex: <br>
+                                                    https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css<br>
+                                                    https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css
+                                                </small>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end tab-pane -->
+                            <!-- begin tab-pane -->
+                            <div class="tab-pane fade hide" id="default-tab-5">
+                                <div class="resourceTab">
+                                    <div class="col-md-12 mb-1 messageBox idBox">
+                                       <label>Message Definition Fields</label><br>
+                                        <code class="messageFields"></code>
+                                    </div>
+                                    <div class="col-md-12 mt-2 mb-1 recordBox idBox">
+                                        <label>Record Definition Fields</label><br>
+                                        <code class="recordFields">
+
+                                        </code>
+                                    </div>
+
+                                    <div class="col-md-12 mt-2 mb-1 messageBox idBox">
+                                        <div class="form-group" style="background-color: #eeeeee40;padding: 10px;border: 1px solid #eee;">
+                                            <label>Enable Alexa</label>
+
+                                            <p>
+                                                <label><input type="radio" name="enableAlexa" value="true"> True</label>
+                                                <label><input type="radio" name="enableAlexa" value="false" checked> False</label>
+                                            </p>
+
+                                            <label>To Invoke this intent in alexa, </label>
+
+                                            <p>
+                                                Say, <input type="text" style="border: 1px dashed #ccc;width: 75%;color: #333;font-size: 14px;" id="intentName" /> Widget!
+                                            </p>
+
+                                            <label>Build your response in alexa, </label>
+
+                                            <p>
+                                                <input type="text" style="border:1px dashed #ccc;width: 100%;color: #333;font-size: 14px;" id="responseName" /> <br>
+                                                <small>Ex:
+                                                    <br>To bind message definition field, Current Temperature is {{msg_< FIELDNAME >}} degree celcius
+                                                    <br>To bind record definition field, Current Temperature is {{rec_< FIELDNAME >}} degree celcius
+                                                    <br> During runtime fieldname value rendered.
+                                                </small>
+                                            </p>
+
+                                            <button class="btn btn-info btn-sm" onclick="errorMsg('Not Implemented')"><i class="icon-save"></i> Save Alexa Settings</button>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <!-- end tab-pane -->
+                        </div>
+                    </div>
+                    <div class="col-lg-6" style="padding: 0px;">
+
+
+                        <div class="panel panel-inverse">
+                            <div class="panel-heading widgetLiveHeader">
+                                <div class="panel-heading-btn">
+                                    <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-success" data-click="panel-reload" onclick="codeLivePreview()"><i class="fa fa-redo"></i></a>
+                                </div>
+                                <h4 class="panel-title widgetLiveTitle">Untitled Widget</h4>
+
+                            </div>
+                            <div class="panel-body widgetLiveBody" style="border: 1px solid #eee;padding:0px">
+                                <div style="border: 1px solid #ccc;" id="livePanel">
+                                    <iframe id="previewCode" style="width: 100%;border:0px;"></iframe>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+
+<div id="shareModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Share Widget</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <h5><label><input type="radio" id="enableBtn" name="shareBtn" onclick="shareWidget()" value="enable"/> Enable</label></h5>
+                <h5><label><input type="radio" id="disableBtn" name="shareBtn" onclick="shareWidget()" value="disbale"/> Disable</label></h5>
+
+                <h5 class="mt-2 shareLink" style="width:100%;word-wrap:break-word"></h5>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

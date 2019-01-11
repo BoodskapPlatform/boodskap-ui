@@ -1,0 +1,166 @@
+<!-- Google Map Library -->
+<link href="/css/geofence.css" rel="stylesheet"  />
+
+<div class="container mt-3 msgDef platformBody">
+
+    <div class="row mt-2">
+        <div class="col-lg-5" style="">
+
+            <!-- begin breadcrumb -->
+            <ol class="breadcrumb pull-right">
+                <li class="breadcrumb-item"><a href="/dashboard">Domain</a></li>
+                <li class="breadcrumb-item active">Geofence Management</li>
+            </ol>
+            <!-- end breadcrumb -->
+            <!-- begin page-header -->
+            <h1 class="page-header">Geofence Editor</h1>
+            <!-- end page-header -->
+
+            <!-- begin panel -->
+
+
+            <div class="panel panel-inverse">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                        <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                        <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-success" data-click="panel-reload" onclick="loadGeofence()"><i class="fa fa-redo"></i></a>
+                        <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-warning" title="Help"><i class="icon-help"></i></a>
+
+                    </div>
+                    <h4 class="panel-title">Total Geofence: <b><span class="geofenceCount"></span></b></h4>
+                </div>
+                <div class="panel-body geoListBody" style="background-color: #eeeeee00;border: 1px solid #eee;overflow: auto;overflow-x: hidden">
+
+                    <div class="form-group">
+                        <label>Choose Geofence Type</label>
+                        <select class="form-control input-sm" id="geoType" onchange="loadGeofence()">
+                            <option value="ENTITY">Entity</option>
+                            <option value="ASSET">Asset</option>
+                            <option value="DEVICE">Device</option>
+                        </select>
+                    </div>
+
+                    <table class="table table-bordered responsive no-wrap" id="geofenceTable"  cellspacing="0" width="100%">
+
+                    </table>
+
+
+                </div>
+            </div>
+
+
+           <!-- <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true" onclick="loadGeofenceList()"><i class="fa fa-square"></i> Entity</a>
+                    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false" onclick="loadAssetGeofenceList()"><i class="fa fa-archive"></i> Asset</a>
+                    <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false" onclick="loadDeviceGeofenceList()"><i class="fa fa-hdd"></i> Device</a>
+                </div>
+            </nav>
+            <div class="tab-content" id="geo-nav-tabContent">
+                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+
+                    <div class="g-m-box">
+                        <div class="tool-head panel-heading" id="geoGridList" style="min-width: 300px;">
+                            <span>Entity Geofence List (<span id="entityGeoCount">0</span>)</span>
+                            <span class="pull-right g-list-tools" style="margin-left: 30px;">
+                            <button class="min-tool-btn btn" onclick="loadGeofenceList()"> <i class="icon-refresh" aria-hidden="true"></i> </button>
+                            <a href="javascript:void(0)" onclick="geofenceNavigate('ENTITY')" style="text-decoration: none;padding-right: 10px;" class="min-tool-btn btn widgetButton" > <i class="icon-plus" aria-hidden="true"></i> Create Geofence</a>
+                          </span>
+                        </div>
+                        <div style="padding: 10px;" class="geo-list-cover">
+                            <table class="table table-bordered table-hover responsive no-wrap" id="geofenceTable" cellspacing="0" width="100%"></table>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+
+                    <div class="g-m-box">
+                        <div class="tool-head panel-heading" id="asset_geoGridList" style="min-width: 300px;">
+                            <span>Asset Geofence List (<span id="asset_GeoCount">0</span>)</span>
+                            <span class="pull-right g-list-tools" style="margin-left: 30px;">
+                            <button class="min-tool-btn btn" onclick="loadAssetGeofenceList()"> <i class="icon-refresh" aria-hidden="true"></i> </button>
+                            <a href="javascript:void(0)" onclick="geofenceNavigate('ASSET')"  style="text-decoration: none;padding-right: 10px;" class="min-tool-btn btn widgetButton" > <i class="icon-plus" aria-hidden="true"></i> Create Geofence</a>
+                          </span>
+                        </div>
+                        <div style="padding: 10px;" class="geo-list-cover">
+                            <table class="table table-bordered table-hover responsive no-wrap" id="asset_geofenceTable" cellspacing="0" width="100%"></table>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+
+                    <div class="g-m-box">
+                        <div class="tool-head panel-heading" id="device_geoGridList" style="min-width: 300px;">
+                            <span>Device Geofence List (<span id="device_GeoCount">0</span>)</span>
+                            <span class="pull-right g-list-tools" style="margin-left: 30px;">
+                            <button class="min-tool-btn btn" onclick="loadDeviceGeofenceList()"> <i class="icon-refresh" aria-hidden="true"></i> </button>
+                            <a href="javascript:void(0)" onclick="geofenceNavigate('DEVICE')" style="text-decoration: none;padding-right: 10px;" class="min-tool-btn btn widgetButton" > <i class="icon-plus" aria-hidden="true"></i> Create Geofence</a>
+                          </span>
+                        </div>
+                        <div style="padding: 10px;" class="geo-list-cover">
+                            <table class="table table-bordered table-hover responsive no-wrap" id="device_geofenceTable" cellspacing="0" width="100%"></table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>-->
+
+
+            <!--<a class="btn map-btn" href="/geofence-create"><i class="fa fa-plus"></i> Create Geofence</a>-->
+        </div>
+
+        <div class="col-lg-7" style="">
+
+            <div class="panel panel-inverse">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                        <!--<a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>-->
+                        <!--<a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-success" data-click="panel-reload" onclick="loadGeofenceList()"><i class="fa fa-redo"></i></a>-->
+                        <!--<a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-warning" title="Help"><i class="icon-help"></i></a>-->
+                        <a class="btn btn-warning btn-xs " href="/geofence/create"><i class="fa fa-plus-square"></i> <span class="hidden-xs">Create Geofence</span></a>
+
+
+                    </div>
+                    <h4 class="panel-title">Map View</h4>
+                </div>
+                <div class="panel-body" style="background-color: #eeeeee00;border: 1px solid #eee;padding:0px">
+
+                    <div id="geoMap" style="width: 100%"></div>
+
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <div id="deleteModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Delete Geofence</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <h5 style="text-align: center;">
+                        Are you sure want to delete
+                        <br>
+                        <code style="margin-top: 4px;display: inline-block;margin-bottom: 5px;"><span class="geofenceId"></span></code>
+                        <br>
+                        Geofence?
+                    </h5>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btnModal" onclick="proceedDelete()">Proceed</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+</div>
+
+<script src="/js/markerclusterer.js"></script>
+<script src="/controllers/geofence.js"></script>

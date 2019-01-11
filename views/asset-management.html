@@ -1,0 +1,177 @@
+<!--<div class="row-fluid">
+    <ul class="nav submenu" style="">
+        <li class=""><a href="/home"><i class="fa fa-home"></i> </a></li>
+        <li class=""><a href="/dashboard">Dashboard</a></li>
+        <li class="active"><a href="/asset-management">Manage Assets</a></li>
+    </ul>
+</div>-->
+<div class="container mt-3 platformBody">
+    <!-- begin breadcrumb -->
+    <ol class="breadcrumb pull-right">
+        <li class="breadcrumb-item"><a href="/dashboard">Domain</a></li>
+        <li class="breadcrumb-item"><a href="/user-management">Asset Management</a></li>
+        <li class="breadcrumb-item active">Manage Assets</li>
+    </ol>
+    <!-- end breadcrumb -->
+    <!-- begin page-header -->
+    <h1 class="page-header">Manage Assets</h1>
+    <!-- end page-header -->
+
+    <!-- begin panel -->
+    <div class="panel panel-inverse">
+        <div class="panel-heading">
+            <div class="panel-heading-btn">
+                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-success" data-click="panel-reload" onclick="loadAssetList()"><i class="fa fa-redo"></i></a>
+                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-warning" title="Help"><i class="icon-help"></i></a>
+
+            </div>
+            <h4 class="panel-title">Total Assets: <b><span class="assetCount"></span></b></h4>
+        </div>
+        <div class="panel-body" style="background-color: #eeeeee00;border: 1px solid #eee;padding-bottom:30px;">
+
+            <div class="btn-group btn-group-justified pull-right">
+                <a class="btn btn-default" onclick="openModal(1)"><i class="fa fa-plus-square"></i> <span class="hidden-xs">Add New Asset</span></a>
+                <a class="btn btn-default" data-click="panel-reload" onclick="loadAssetList()"><i class="fa fa-refresh"></i></a>
+            </div>
+
+
+            <table class="table table-bordered table-hover responsive no-wrap" id="assetTable"  cellspacing="0" width="100%">
+
+            </table>
+
+
+        </div>
+    </div>
+    <!-- end panel -->
+
+</div>
+
+<script src="controllers/asset.js" type="text/javascript"></script>
+
+
+
+<div id="addAsset" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><span class="templateAction"></span> Asset</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <form action="javascript:void(0)">
+                <div class="modal-body">
+                    <div  class="row">
+                        <div  class="col-md-6">
+                            <div  class="form-group">
+                                <label  class="inputLabel">Asset Id</label>
+                                <input  class="form-control input-sm" placeholder="" type="text" id="asset_id" required>
+                            </div>
+                        </div>
+                        <div  class="col-md-6">
+                            <div  class="form-group">
+                                <label  class="inputLabel">Asset Name</label>
+                                <input  class="form-control input-sm" placeholder="" type="text" id="asset_name" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div  class="row">
+                        <div  class="col-md-12">
+                            <div  class="form-group">
+                                <label  class="inputLabel">Description</label>
+                                <textarea class="form-control input-sm" id="asset_desc" required ></textarea>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btnModal btnSubmit">Proceed</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div id="deleteModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Delete Asset</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <h5>Are you sure want to delete <b><span class="assetId"></span> asset</b>?</h5>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btnModal" onclick="proceedDelete()">Proceed</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div id="linkModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Link Devices to <span class="assetId"></span></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+
+                <div class="row">
+                    <div  class="col-md-8">
+                        <div  class="form-group">
+                            <label  class="inputLabel">Choose Device ID</label>
+                            <div class="dropdown">
+                                <div class="btn btn-sm dropdown-toggle" style="width: 100%;border: 1px solid #3e373738;" type="" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    <input type="text" style="" class="input-sm inputDevice"
+                                           placeholder="Search by device id, name, model, version" id="deviceID" onkeyup="loadDeviceList(this.value)">
+                                </div>
+                                <ul class="dropdown-menu deviceListUl" aria-labelledby="dropdownMenu1">
+                                    <!--<li class="deviceListLi" onclick="setDeviceId()">
+                                        {{device.name ? device.name : device.id}} | {{device.modelId}} [<b>{{device.version}}</b>]
+                                    </li>-->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label  class="inputLabel">&nbsp;</label>
+                        <button class="btn btn-warning btn-block" onclick="linkDevice()">Link Device</button>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <table class="table table-bordered" id="linkedTable">
+                            <thead>
+                                <tr>
+                                    <th>Device ID</th>
+                                    <th>Model ID</th>
+                                    <th>Version</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </div>
+
+
+
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
