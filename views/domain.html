@@ -22,19 +22,23 @@
         height: 100px;
         margin: 12px auto;
     }
+
     .sp-container {
-       z-index: 9999994;
+        z-index: 9999994;
     }
-    .colorpicker-visible{
+
+    .colorpicker-visible {
         z-index: 9999994 !important;
     }
+
+
 </style>
 
 <script>
     $("body").removeClass('bg-white');
 
 </script>
-<div class="container mt-2 platformBody">
+<div class="container mt-2 platformBody domainPage">
     <ol class="breadcrumb pull-right">
         <li class="breadcrumb-item"><a href="/home">Home</a></li>
         <li class="breadcrumb-item active">Domain Configurations</li>
@@ -140,6 +144,15 @@
                                     </div>
                                 </div>
 
+                               <!-- <div class="col-lg-2">
+                                    <div class="domainList" onclick="openModal(13)">
+                                        <h1><i class="icon-dollar"></i></h1>
+                                        <label>Billing</label><br>
+                                        <small>Configure billing & invoice details</small>
+                                    </div>
+                                </div>-->
+
+
                                 <!-- <div class="col-lg-2">
                                      <div class="domainList"  onclick="successMsg('Not Enabled')">
                                          <h1><i class="icon-lock2"></i></h1>
@@ -188,6 +201,7 @@
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
+
 <script type="text/html" id="logoBranding">
     <div class="row">
         <div class="col-md-6"
@@ -212,7 +226,7 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label>Host</label>
-                <input type="text" id="hostName" class="form-control input-sm" required autocomplete="off" />
+                <input type="text" id="hostName" class="form-control input-sm" required autocomplete="off"/>
             </div>
         </div>
         <div class="col-md-6">
@@ -360,7 +374,7 @@
                 <!--<input type="text" id="headerBg"/>-->
 
                 <div id="headerBg" class="input-group colorpicker-component">
-                    <input type="text" value="" class="form-control" />
+                    <input type="text" value="" class="form-control"/>
                     <span class="input-group-addon"><i></i></span>
                 </div>
 
@@ -370,7 +384,7 @@
                 <!--<input type="text" id="subHeaderBg"/>-->
 
                 <div id="subHeaderBg" class="input-group colorpicker-component">
-                    <input type="text" value="" class="form-control" />
+                    <input type="text" value="" class="form-control"/>
                     <span class="input-group-addon"><i></i></span>
                 </div>
             </div>
@@ -379,7 +393,7 @@
                 <!--<input type="text" id="textColor"/>-->
 
                 <div id="textColor" class="input-group colorpicker-component">
-                    <input type="text" value="" class="form-control" />
+                    <input type="text" value="" class="form-control"/>
                     <span class="input-group-addon"><i></i></span>
                 </div>
             </div>
@@ -388,7 +402,7 @@
                 <!--<input type="text" id="bodyBg"/>-->
 
                 <div id="bodyBg" class="input-group colorpicker-component">
-                    <input type="text" value="" class="form-control" />
+                    <input type="text" value="" class="form-control"/>
                     <span class="input-group-addon"><i></i></span>
                 </div>
             </div>
@@ -397,7 +411,7 @@
                 <!--<input type="text" id="panelHeaderBg"/>-->
 
                 <div id="panelHeaderBg" class="input-group colorpicker-component">
-                    <input type="text" value="" class="form-control" />
+                    <input type="text" value="" class="form-control"/>
                     <span class="input-group-addon"><i></i></span>
                 </div>
             </div>
@@ -453,7 +467,7 @@
                 <!--<input type="text" id="leftBg" class="form-control input-sm"/>-->
 
                 <div id="leftBg" class="input-group colorpicker-component">
-                    <input type="text" value="" class="form-control" />
+                    <input type="text" value="" class="form-control"/>
                     <span class="input-group-addon"><i></i></span>
                 </div>
 
@@ -465,7 +479,7 @@
                 <!--<input type="text" id="leftBottomBg" class="form-control input-sm"/>-->
 
                 <div id="leftBottomBg" class="input-group colorpicker-component">
-                    <input type="text" value="" class="form-control" />
+                    <input type="text" value="" class="form-control"/>
                     <span class="input-group-addon"><i></i></span>
                 </div>
             </div>
@@ -476,7 +490,7 @@
                 <!--<input type="text" id="textColor" class="form-control input-sm"/>-->
 
                 <div id="textColor" class="input-group colorpicker-component">
-                    <input type="text" value="" class="form-control" />
+                    <input type="text" value="" class="form-control"/>
                     <span class="input-group-addon"><i></i></span>
                 </div>
             </div>
@@ -487,7 +501,7 @@
                 <!--<input type="text" id="buttonColor" class="form-control input-sm"/>-->
 
                 <div id="buttonColor" class="input-group colorpicker-component">
-                    <input type="text" value="" class="form-control" />
+                    <input type="text" value="" class="form-control"/>
                     <span class="input-group-addon"><i></i></span>
                 </div>
             </div>
@@ -514,14 +528,19 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <p>Login URL: <a href="javascript:void(0)" class="domainURL"></a> <a href="javascript:void(0)" class="redirectURL" style="text-decoration: none"
-                                                  title="Click here to copy URL Address"><i class="icon-copy2"></i></a></p>
+            <p>Login URL: <a href="javascript:void(0)" class="domainURL"></a> <a href="javascript:void(0)"
+                                                                                 class="redirectURL"
+                                                                                 style="text-decoration: none"
+                                                                                 title="Click here to copy URL Address"><i
+                    class="icon-copy2"></i></a></p>
         </div>
     </div>
 
     <div class="row">
         <div class="col-md-12">
-            <button class="btn btn-xs btn-default pull-right" onclick="setCustomLoginDefault()" type="button">Reset to Default</button>
+            <button class="btn btn-xs btn-default pull-right" onclick="setCustomLoginDefault()" type="button">Reset to
+                Default
+            </button>
         </div>
     </div>
 
@@ -578,8 +597,10 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label>Point this URL</label>
-                <p><span class="domainURL"></span> <a href="javascript:void(0)" class="redirectURL" style="text-decoration: none"
-                                                      title="Click here to copy URL Address"><i class="icon-copy2"></i></a></p>
+                <p><span class="domainURL"></span> <a href="javascript:void(0)" class="redirectURL"
+                                                      style="text-decoration: none"
+                                                      title="Click here to copy URL Address"><i class="icon-copy2"></i></a>
+                </p>
             </div>
         </div>
         <div class="col-md-3">

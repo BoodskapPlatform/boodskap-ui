@@ -724,10 +724,21 @@ function pushData(obj,id) {
 
     if(selectedData.length > 0){
         exportTables()
-        $(".selectedData").html('<b>'+selectedData.length+'</b> Table\'s Selected')
+        $(".selectedData").html('<b>'+selectedData.length+'</b> Table\'s Selected. <a href="javascript:void(0)" onclick="clearData()">clear all</a>')
     }else{
         $(".selectedData").html('')
     }
+}
+
+function clearData() {
+
+    for(var i=0;i<selectedData.length;i++){
+        $("#"+selectedData[i]._id).prop('checked', false);
+    }
+    selectedData=[];
+
+    $(".selectedData").html('')
+
 }
 
 
@@ -738,7 +749,7 @@ function checkSelectedData() {
 
     if(selectedData.length > 0){
         exportTables()
-        $(".selectedData").html('<b>'+selectedData.length+'</b> Table\'s Selected')
+        $(".selectedData").html('<b>'+selectedData.length+'</b> Table\'s Selected. <a href="javascript:void(0)" onclick="clearData()">clear all</a>')
     }else{
         $(".selectedData").html('')
     }
@@ -753,7 +764,6 @@ function exportTables() {
     for(var i=0;i<selectedData.length;i++){
         tmp.push(selectedData[i]);
     }
-
 
     saveAndDownload(JSON.stringify(tmp), 'sql-tables-'+DOMAIN_KEY+'.json', 'application/json', 'exportMsg')
 
@@ -820,6 +830,7 @@ function importContent() {
     },function (err, result) {
         successMsg('Table Imported Successfully');
         loadSQLTable();
+        $("#importModal").modal('hide')
         $(".btnSubmit").removeAttr('disabled');
         $(".btnSubmit").html('Proceed');
     })

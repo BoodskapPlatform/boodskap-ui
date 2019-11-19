@@ -1,17 +1,34 @@
 <style>
 
-    .box-label{
+    #splashIOS{
+        height: 100%;
+        background: center top no-repeat url(/images/devices-sprite-ios.jpg);
+        background-size: 70%;
+        position: relative;
+    }
+    #demo-splash-ios{
+        background: white;
+        height: 63%;
+        border: 1px solid #ccc;
+        position: absolute;
+        width: 60%;
+        left: 20%;
+        top: 72px;
+    }
+    .box-label {
         color: #fff;
         font-weight: 800;
         margin-bottom: 0;
     }
-    .box-title{
+    
+    .box-title {
         margin-bottom: 0;
         background: #ff8000;
         padding: 10px;
         color: #ffffff;
     }
-    .box-cover{
+    
+    .box-cover {
         /*padding: 10px;*/
         border: 1px solid #ddd;
         border-radius: 3px;
@@ -20,8 +37,8 @@
         box-shadow: 0.5px 0.7px 3px #ccc;
         min-height: 204px;
     }
-
-    .mob-preparing{
+    
+    .mob-preparing {
         text-align: center;
         margin: 0 auto;
         margin-top: 25%;
@@ -29,7 +46,7 @@
         position: absolute;
         left: 44%;
     }
-
+    
     #editorModal.modal {
         position: fixed;
         top: 0;
@@ -38,7 +55,7 @@
         left: 0;
         overflow: hidden;
     }
-
+    
     .modal-dialog-big {
         position: fixed;
         margin: 0;
@@ -47,7 +64,7 @@
         height: 100%;
         padding: 0;
     }
-
+    
     #editorModal.modal-content {
         position: absolute;
         top: 0;
@@ -57,42 +74,44 @@
         border-radius: 0;
         box-shadow: none;
     }
-
+    
     .nav-tabs {
         background: #4b4a49;
         border-radius: 0px;
     }
-
+    
     .tab-content {
-        border:1px solid #4a494961;
-        padding:3px;
+        border: 1px solid #4a494961;
+        padding: 3px;
     }
-
+    
     .nav-tabs .nav-link {
         color: #d0d0d0;
     }
-
-    .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    
+    .nav-tabs .nav-item.show .nav-link,
+    .nav-tabs .nav-link.active {
         color: #FFC107;
         background-color: #272822;
         border-color: #dee2e6 #dee2e6 #fff;
         border-radius: 0px;
         font-weight: bold;
     }
-
-    .nav-tabs .nav-link:hover{
+    
+    .nav-tabs .nav-link:hover {
         color: #FFC107;
         background-color: #272822;
         border-color: #dee2e6 #dee2e6 #fff;
         border-radius: 0px;
     }
-
-    .widgetLiveHeader{
+    
+    .widgetLiveHeader {
         background-color: #4a4949;
         color: #fff;
         font-size: 14px;
         padding: 6px;
     }
+    
     #editorModal.modal-content {
         position: absolute;
         top: 0;
@@ -102,6 +121,7 @@
         border-radius: 0;
         box-shadow: none;
     }
+    
     .modal-dialog-big {
         position: fixed;
         margin: 0;
@@ -110,7 +130,8 @@
         height: 100%;
         padding: 0;
     }
-    .info-tutorial{
+    
+    .info-tutorial {
         position: absolute;
         background: #fff;
         border: 1px solid #ddd;
@@ -122,20 +143,24 @@
         padding-left: 15px;
         box-shadow: -0.5px 0.6px 5px #ddd;
     }
-    .widget-steps{
+    
+    .widget-steps {
         list-style: none;
         margin-top: 10px;
         padding: 0;
     }
-    .widget-steps li .step-circle{
+    
+    .widget-steps li .step-circle {
         padding-top: 1px;
     }
-    .widget-steps li{
+    
+    .widget-steps li {
         padding: 10px;
         color: #777;
         cursor: pointer;
     }
-    .step-circle{
+    
+    .step-circle {
         height: 20px;
         width: 20px;
         border-radius: 50%;
@@ -145,7 +170,8 @@
         display: inline-block;
         vertical-align: top;
     }
-    .widget-remove-pos{
+    
+    .widget-remove-pos {
         display: inline-block;
         vertical-align: top;
         position: absolute;
@@ -153,7 +179,8 @@
         right: 10px;
         color: #666;
     }
-    .comm-widgets{
+    
+    .comm-widgets {
         background: #ffffff;
         /*height: 100px;*/
         width: 100%;
@@ -163,13 +190,15 @@
         box-shadow: 0.5px 0.6px 2px #bbb;
         padding-top: 20px;
     }
-    .remove-action:hover{
+    
+    .remove-action:hover {
         background: #e67e22;
         color: #ffffff;
         border: 1px solid #e67e22;
         box-shadow: 0.5px 0.3px 0.5px #e67e22;
     }
-    .remove-action{
+    
+    .remove-action {
         position: absolute;
         top: 2px;
         right: 3px;
@@ -179,7 +208,8 @@
         background: #f6f6f6;
         cursor: pointer;
     }
-    .widget-style{
+    
+    .widget-style {
         position: relative;
         text-align: center;
         width: 100px;
@@ -191,9 +221,11 @@
         padding: 3px;
         margin: 7px;
     }
+    
     #mobilePlatformActions {
         display: inline-block;
     }
+    
     #mobilePlatform #mobilePlatformActions {
         display: -webkit-box;
         display: -ms-flexbox;
@@ -206,7 +238,8 @@
         background: rgb(238, 238, 238);
         /*border: 1px solid #cccccc !important;*/
     }
-    #mobilePlatform #mobilePlatformActions > li {
+    
+    #mobilePlatform #mobilePlatformActions>li {
         -webkit-writing-mode: vertical-lr;
         -ms-writing-mode: tb-lr;
         writing-mode: vertical-lr;
@@ -216,34 +249,39 @@
         transform-origin: center center;
         list-style-type: none;
     }
-    #mobilePlatform #mobilePlatformActions > li > a {
+    
+    #mobilePlatform #mobilePlatformActions>li>a {
         display: block;
         padding: 0.6rem 1rem;
         background-color: #6d6d6d;
         text-decoration: none;
         color: #ffffff;
-        border:1px solid #ffffff !important;
+        border: 1px solid #ffffff !important;
         margin: 0;
     }
-    #mobilePlatform #mobilePlatformActions > li.active > a {
+    
+    #mobilePlatform #mobilePlatformActions>li.active>a {
         background-color: #eee;
         color: #dc691d;
         border: 1px solid #ccc !important;
-        border-left: 0!important;
+        border-left: 0 !important;
         font-weight: 600;
     }
-    #mobilePlatform #mobilePlatformActions > li > a :hover{
+    
+    #mobilePlatform #mobilePlatformActions>li>a :hover {
         color: #ffffff;
     }
-
-    #demo-device-ios, #demo-device-android, #demo-device-windows {
+    
+    #demo-device-ios,
+    #demo-device-android,
+    #demo-device-windows {
         width: 442px;
         height: 800px;
         background: center top no-repeat url(/images/devices-sprite.jpg);
         background-size: 430px;
         margin: 0 auto;
     }
-
+    
     #developmentArea {
         width: 395px;
         height: 762px;
@@ -251,20 +289,24 @@
         background-size: 450px;
         margin: 0 auto;
     }
-    #previewCode{
+    
+    #previewCode {
         width: 80%;
         height: 72%;
         border: 0;
         margin-left: 40px;
         margin-top: 87px;
     }
-    #demo-device-ios iframe, #demo-device-android iframe, #demo-device-windows iframe {
+    
+    #demo-device-ios iframe,
+    #demo-device-android iframe,
+    #demo-device-windows iframe {
         margin-top: 85px;
         margin-left: 77px;
         width: 292px;
         height: 528px;
     }
-
+    
     #liveMobPreview {
         width: 467px;
         height: 800px;
@@ -272,75 +314,84 @@
         background-size: 467px;
         margin: 0 auto;
     }
+    
     #liveMobPreview iframe {
         margin-top: 85px;
         margin-left: 77px;
         width: 320px;
         height: 568px;
     }
-
-    .panelHeader{
+    
+    .panelHeader {
         padding: 10px 15px;
         border: none;
         border-top-left-radius: 3px;
         border-top-right-radius: 3px;
         background-color: #6d6d6d;
-        color:#fff
+        color: #fff
     }
-    .panel-body{
+    
+    .panel-body {
         border: 1px solid #eee;
     }
-    .dashboardBody{
+    
+    .dashboardBody {
         overflow: auto;
         overflow-x: hidden;
         background-color: #eeeeee00;
         border: 1px solid #eee;
     }
-    body{
+    
+    body {
         background-color: #9e9e9ea3 !important;
     }
-    .widgetHeader{
+    
+    .widgetHeader {
         font-size: 13px;
         background-color: #6d6d6d;
         padding: 5px;
         color: #fff;
     }
-
+    
     .dashboardContent {
         /*background: #eeeeee38;*/
         border: 1px solid #eee;
         padding: 5px;
     }
-
+    
     .grid-stack-item-content {
         color: #2c3e50;
         text-align: center;
         background-color: #fff;
         border: 1px solid #33333330;
     }
-    .grid-stack-item-content img{
+    
+    .grid-stack-item-content img {
         width: 64px;
-        height:64px;
+        height: 64px;
     }
-    .dashboardList{
+    
+    .dashboardList {
         padding: 0;
         list-style: none;
         margin-top: 10px;
         /*text-align: center;*/
     }
-
-    .dashboardList li .d-delete:hover{
+    
+    .dashboardList li .d-delete:hover {
         color: #333;
         background: #cccccc;
     }
-    .dashboardList li .d-delete{
+    
+    .dashboardList li .d-delete {
         position: absolute;
         right: 0px;
         top: 0px;
         padding: 0 3px;
     }
-    .dashboardList li{
- /*       line-height: 25px;
+    
+    .dashboardList li {
+        /*       line-height: 25px;
         padding: 5px;
         cursor: pointer;
         padding-left: 10px;*/
@@ -357,25 +408,25 @@
         position: relative;
         color: #666;
     }
-
-    .dashboardList li a{
+    
+    .dashboardList li a {
         text-decoration: none;
         /*color:#333;*/
     }
-
-    .dashboardList li p{
+    
+    .dashboardList li p {
         font-size: 28px;
         text-align: center;
         /*color: #666;*/
         margin-bottom: 5px;
         margin-top: 4px;
     }
-
-    .dashboardList li:hover{
+    
+    .dashboardList li:hover {
         background-color: #eeeeeec2;
     }
-
-    .dashboardList li .d-name{
+    
+    .dashboardList li .d-name {
         white-space: nowrap;
         width: 62px;
         overflow: hidden;
@@ -386,8 +437,8 @@
         font-size: 12px;
         display: inline-block;
     }
-
-    .dashboardList li.active{
+    
+    .dashboardList li.active {
         background-color: #FF9800;
         font-weight: bold;
         border: 1px solid #cccccc70;
@@ -395,29 +446,30 @@
         border-right: 3px solid #FF9800;
         color: #fff;
     }
-
-    .widgetsBox{
+    
+    .widgetsBox {
         border: 1px solid #ddd;
         text-align: center;
         padding: 10px;
         -webkit-box-shadow: 0 0 31px -3px #ddd;
         box-shadow: 0 0 31px -3px #ddd;
         cursor: pointer;
-        margin-top:10px;
+        margin-top: 10px;
     }
-
-    .widgetsBox img{
+    
+    .widgetsBox img {
         width: 64px;
         height: 64px;
     }
-    .widgetsBox label{
+    
+    .widgetsBox label {
         display: block;
         margin: 5px 0px;
         text-overflow: ellipsis;
         overflow: hidden;
         white-space: nowrap;
     }
-
+    
     .custom-dropdown-item {
         padding: 3px 10px;
         font-weight: 400;
@@ -431,19 +483,23 @@
         cursor: pointer;
         font-size: 22px;
     }
-    .widgets-loader #widgetsList{
+    
+    .widgets-loader #widgetsList {
         padding: 0;
         list-style: none;
     }
-    .widgets-loader #widgetsList li{
+    
+    .widgets-loader #widgetsList li {
         cursor: move;
     }
-    .widgets-loader{
+    
+    .widgets-loader {
         /*background: #ddd;*/
         /*height: 70vh;*/
         /*border-left: 1px solid #ddd;*/
     }
-    .d-title{
+    
+    .d-title {
         text-align: center;
         font-weight: 600;
         padding: 7px 10px 10px 10px;
@@ -451,25 +507,97 @@
         color: #fff;
         font-size: 14px;
     }
-    .dashboard-loader{
+    
+    .dashboard-loader {
         background: #f9f9f9;
     }
-
-    .tab-content{
+    
+    .tab-content {
         margin-bottom: 0px;
     }
-
-    .colorpicker-visible{
+    
+    .colorpicker-visible {
         z-index: 9999994 !important;
     }
+    
+    .firstInput {
+        width: 70%;
+        display: inline-block;
+        float: left;
+        border-bottom-right-radius: 0;
+        border-top-right-radius: 0;
+    }
+    
+    .secondInput {
+        height: 34px;
+        width: 30%;
+        display: inline-block;
+        float: left;
+        border-bottom-left-radius: 0;
+        border-top-left-radius: 0;
+        border-left: 0px;
+    }
+    
+    .panel-default {
+        text-align: center;
+        cursor: pointer;
+        font-family: 'Raleway', sans-serif;
+    }
+    
+    .panel-default>.panel-footer {
+        color: #fff;
+        display: none;
+        text-shadow: 1px 1px 1px rgba(150, 150, 150, 1);
+    }
+    
+    .panel-default i {
+        font-size: 5em;
+    }
 
+    @media (min-width: 480px) and (max-width: 767px) {
+        #demo-splash-ios{
+            height: 50%;
+        }
+    }
+
+    @media (min-width: 768px) and (max-width: 1023px) {
+        #demo-splash-ios{
+            height: 50%;
+        }
+    }
+
+    @media (min-width: 1024px) and (max-width: 1441px) {
+        #demo-splash-ios{
+            height: 35%;
+        }
+        #demo-splash-ios {
+            background: white;
+            border: 1px solid #ccc;
+            position: absolute;
+            width: 60%;
+            left: 20%;
+            top: 32px;
+        }
+    }
+
+    @media (min-width: 1440px) and (max-width: 1679px) {
+        #demo-splash-ios{
+            height: 50%;
+        }
+    }
+
+    @media (min-width: 1680px) and (max-width: 1920px) {
+        #demo-splash-ios{
+            height: 60%;
+        }
+    }
 </style>
 
-<link rel="stylesheet" href="/libraries/gridstack-new/gridstack.css"/>
-<link rel="stylesheet" href="/libraries/gridstack-new/gridstack-extra.css"/>
-<link rel="stylesheet" href="/css/spectrum.css"/>
+<link rel="stylesheet" href="/libraries/gridstack-new/gridstack.css" />
+<link rel="stylesheet" href="/libraries/gridstack-new/gridstack-extra.css" />
+<link rel="stylesheet" href="/css/spectrum.css" />
 <link rel="stylesheet" type="text/css" href="/css/select2.min.css">
-<link rel="stylesheet" href="/css/bootstrap-colorpicker.min.css"/>
+<link rel="stylesheet" href="/css/bootstrap-colorpicker.min.css" />
 
 <div class="container msgDef platformBody" id="mobilePlatform" style="padding: 3px 5px;">
 
@@ -478,8 +606,10 @@
         <div class="panel-heading">
             <div class="panel-heading-btn hidden-xs">
                 <a href="javascript:void(0);" style="text-decoration: none" class="dashboardStatus"></a>
-                <a href="javascript:void(0);" class="btn btn-xs btn-circle btn-default" data-click="panel-expand"><i class="icon-expand2"></i></a>
-                <a href="javascript:void(0);" class="btn btn-xs btn-circle btn-default" data-click="panel-reload"><i class="fa fa-redo"></i></a>
+                <a href="javascript:void(0);" class="btn btn-xs btn-circle btn-default" data-click="panel-expand"><i
+                        class="icon-expand2"></i></a>
+                <a href="javascript:void(0);" class="btn btn-xs btn-circle btn-default" data-click="panel-reload"><i
+                        class="fa fa-redo"></i></a>
             </div>
             <h4 class="panel-title">
                 <i class="icon-mobile"></i> Mobile Editor Studio
@@ -494,9 +624,15 @@
                         <div class="col-lg-12" style="position: relative;">
 
                             <ul class="nav nav-tabs" id="mobilePlatformActions" style="position: absolute;left: 12px;top: 0;">
-                                <li role="presentation" id="mobileAction" class="active"><a href="javascript:void(0)"><i class="icon-cubes"></i> Mobile Menus</a></li>
-                                <li role="presentation" id="themeAction" ><a href="javascript:void(0)"><i class="icon-paint-brush"></i> Mobile Theme</a></li>
+                                <li role="presentation" id="mobileAction" class="active"><a href="javascript:void(0)"><i
+                                            class="icon-cubes"></i> Mobile Menus</a></li>
+                                <li role="presentation" id="themeAction"><a href="javascript:void(0)"><i
+                                            class="icon-paint-brush"></i> Mobile Theme</a></li>
                                 <li role="presentation" id="settingsAction" onclick="mobilePlatformSettings()"><a href="javascript:void(0)"><i class="icon-cog"></i> Mobile Settings</a></li>
+                                <li role="presentation" id="splashAction" o><a href="javascript:void(0)"><i
+                                            class="icon-mobile"
+                                            style="transform: rotate(90deg);display: inline-block;"></i> Mobile
+                                        Splash</a></li>
                             </ul>
 
                             <div class="tab-content" id="myTabContent" style="background: #eeeeee;margin-left: 55px;border: 1px solid #ccc;">
@@ -506,7 +642,7 @@
                                         <div class="panel-heading">
                                             <div class="panel-heading-btn">
                                                 <!--<a href="javascript:void(0);" onclick="openDashboardModal(1)" title="Add Dashboard" class="btn btn-sm btn-icon btn-rect btn-default"><i class="fa fa-plus"></i> Add</a>-->
-                                                <a href="javascript:void(0)" data-click="panel-reload" onclick="loadDashboardlist()" title="Refresh Dashboard Lis"  class="btn btn-sm btn-icon btn-rect btn-default">
+                                                <a href="javascript:void(0)" data-click="panel-reload" onclick="loadDashboardlist()" title="Refresh Dashboard Lis" class="btn btn-sm btn-icon btn-rect btn-default">
                                                     <i class="fa fa-refresh"></i> Refresh</a>
                                                 <a href="javascript:void(0);" onclick="saveDashboard()" title="Save Dashboard" class="btn btn-sm btn-icon btn-rect btn-default">
                                                     <i class="icon-save"></i> Save
@@ -518,10 +654,11 @@
 
                                             <div class="row">
                                                 <div class="col-lg-6">
-                                                    <div class="dashboard-loader">
+                                                    <div class="dashboard-loader" style="overflow: auto;">
 
                                                         <div class="d-title" style="text-align: center;font-weight: 600;">
-                                                            <div style="display: inline-block;vertical-align: top;float: left;"><i class="icon-bars"></i></div>
+                                                            <div style="display: inline-block;vertical-align: top;float: left;">
+                                                                <i class="icon-bars"></i></div>
                                                             <div style="display: inline-block;vertical-align: top;"><i class="icon-home"></i> Home <span class="dashboards-count"></span></div>
                                                             <div style="display: inline-block;vertical-align: top;float: right;cursor: pointer;" onclick="openDashboardModal(1)">+ Add Dashboard</div>
                                                         </div>
@@ -529,7 +666,8 @@
                                                         <ul class="dashboardList"></ul>
 
                                                         <div style="text-align: center;color: #999;" id="noDashboards">
-                                                            <h3><img src="images/add-dash.svg" style="height: 35px;"></h3>
+                                                            <h3><img src="images/add-dash.svg" style="height: 35px;">
+                                                            </h3>
                                                             <p>Add Your First Dashboard</p>
                                                         </div>
                                                     </div>
@@ -538,10 +676,13 @@
                                                     <div class="widgets-loader">
                                                         <!--<p style="text-align: center;font-weight: 600;">Widgets <span class="widgets-count"></span></p>-->
                                                         <div style="padding: 10px;background: #666;color: #fff;font-weight: 800;">
-                                                            <div style="display: inline-block;vertical-align:top;text-align: left;font-weight: 600;"><span class="dashboardName" style="text-transform: capitalize;font-size: 13px;font-weight: 800;">Widgets</span> <span class="widgets-count"></span></div>
+                                                            <div style="display: inline-block;vertical-align:top;text-align: left;font-weight: 600;">
+                                                                <span class="dashboardName" style="text-transform: capitalize;font-size: 13px;font-weight: 800;">Widgets</span>
+                                                                <span class="widgets-count"></span></div>
                                                             <div style="display: inline-block;float: right;">
                                                                 <b id="addWidgetBtn" title="Add Widget" style="display: none;vertical-align:top;text-align: left;font-weight: 600;cursor: pointer;" onclick="addWidgetModal()">+ Add Widget</b>
-                                                                <b id="editWidgetBtn" title="Edit Dashboard" style="display: none;vertical-align:top;text-align: left;font-weight: 600;float: right;cursor: pointer;margin-left: 13px;"  onclick="editDashboardModal()"><i class="icon-pencil"></i> Edit</b>
+                                                                <b id="editWidgetBtn" title="Edit Dashboard" style="display: none;vertical-align:top;text-align: left;font-weight: 600;float: right;cursor: pointer;margin-left: 13px;" onclick="editDashboardModal()"><i
+                                                                        class="icon-pencil"></i> Edit</b>
                                                             </div>
                                                         </div>
 
@@ -550,13 +691,16 @@
                                                             <div id="dashboardCreateTutorial">
                                                                 <ul class="widget-steps" style="list-style: none;">
                                                                     <li onclick="openDashboardModal(1)">
-                                                                        <div class="step-circle">1</div> <span>Create a Dashboard</span>
+                                                                        <div class="step-circle">1</div> <span>Create a
+                                                                            Dashboard</span>
                                                                     </li>
                                                                     <li onclick="addWidgetModal()">
-                                                                        <div class="step-circle">2</div> <span>Add a Widgets</span>
+                                                                        <div class="step-circle">2</div> <span>Add a
+                                                                            Widgets</span>
                                                                     </li>
                                                                     <li>
-                                                                        <div class="step-circle">3</div> <span>Configure Widget Settings</span>
+                                                                        <div class="step-circle">3</div> <span>Configure
+                                                                            Widget Settings</span>
                                                                     </li>
                                                                 </ul>
                                                             </div>
@@ -564,13 +708,17 @@
                                                             <div id="noWidgets" style="display: none;">
                                                                 <ul class="widget-steps" style="list-style: none;">
                                                                     <li>
-                                                                        <div class="step-circle" style="background: #3FC380;padding-top: 2px;"><i class="icon-check"></i></div> <span>Create a Dashboard</span>
+                                                                        <div class="step-circle" style="background: #3FC380;padding-top: 2px;">
+                                                                            <i class="icon-check"></i></div>
+                                                                        <span>Create a Dashboard</span>
                                                                     </li>
                                                                     <li onclick="addWidgetModal()">
-                                                                        <div class="step-circle">2</div> <span>Add a Widgets</span>
+                                                                        <div class="step-circle">2</div> <span>Add a
+                                                                            Widgets</span>
                                                                     </li>
                                                                     <li>
-                                                                        <div class="step-circle">3</div> <span>Configure Widget Settings</span>
+                                                                        <div class="step-circle">3</div> <span>Configure
+                                                                            Widget Settings</span>
                                                                     </li>
                                                                 </ul>
                                                             </div>
@@ -599,7 +747,7 @@
 
                                 <div class="tab-pane pages-nav fade" id="page_themeAction" role="tabpanel" aria-labelledby="profile-tab">
                                     <div class="panel panel-inverse col-lg-12" style="padding: 0px;">
-                                        <div class="panel-heading" >
+                                        <div class="panel-heading">
                                             <div class="panel-heading-btn">
 
                                                 <a href="javascript:void(0)" data-click="panel-reload" title="Theme Reset" onclick="mobThemeReset()" class="btn btn-sm btn-icon btn-rect btn-default">
@@ -626,7 +774,8 @@
                                                     <div class="box-cover">
 
                                                         <div class="form-group box-title">
-                                                            <label class="box-label"><i class="icon-object-ungroup"></i> Dashboard Components</label> <br>
+                                                            <label class="box-label"><i class="icon-object-ungroup"></i>
+                                                                Dashboard Components</label> <br>
                                                         </div>
 
                                                         <div style="padding: 10px;">
@@ -636,29 +785,29 @@
                                                                 <div class="col-md-6">
                                                                     <div class="form-group">
                                                                         <label>Dashboard Icons & Text</label><br>
-                                                                        <input type="text" id="dashboardIconsAndText"/>
+                                                                        <input type="text" id="dashboardIconsAndText" />
                                                                     </div>
                                                                     <div class="form-group">
                                                                         <label>Dashboard Menu Background</label> <br>
-                                                                        <input type="text" id="dashboardMenuBg"/>
+                                                                        <input type="text" id="dashboardMenuBg" />
                                                                     </div>
                                                                     <div class="form-group">
                                                                         <label>Dashboard Menu Border</label> <br>
-                                                                        <input type="text" id="dashboardMenuBorder"/>
+                                                                        <input type="text" id="dashboardMenuBorder" />
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-6">
                                                                     <div class="form-group">
                                                                         <label>Dashboard Background</label> <br>
-                                                                        <input type="text" id="dashboardBg"/>
+                                                                        <input type="text" id="dashboardBg" />
                                                                     </div>
                                                                     <div class="form-group">
                                                                         <label>Tool Bar Background</label> <br>
-                                                                        <input type="text" id="toolBar"/>
+                                                                        <input type="text" id="toolBar" />
                                                                     </div>
                                                                     <div class="form-group">
                                                                         <label>Tool Bar Text Color</label><br>
-                                                                        <input type="text" id="toolBarText"/>
+                                                                        <input type="text" id="toolBarText" />
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -670,23 +819,24 @@
                                                     <div class="box-cover">
 
                                                         <div class="form-group box-title">
-                                                            <label class="box-label"><i class="icon-object-ungroup"></i> Side Menu Components</label> <br>
+                                                            <label class="box-label"><i class="icon-object-ungroup"></i>
+                                                                Side Menu Components</label> <br>
                                                         </div>
 
                                                         <div style="padding: 10px;">
 
                                                             <div class="form-group">
                                                                 <label>Side Menu List Text</label> <br>
-                                                                <input type="text" id="sideMenuListText"/>
+                                                                <input type="text" id="sideMenuListText" />
                                                             </div>
 
                                                             <div class="form-group">
                                                                 <label>Side Menu Profile Background Color</label> <br>
-                                                                <input type="text" id="sideMenuProfile"/>
+                                                                <input type="text" id="sideMenuProfile" />
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>Side Menu Profile Text Color</label> <br>
-                                                                <input type="text" id="sideMenuProfileBgText"/>
+                                                                <input type="text" id="sideMenuProfileBgText" />
                                                             </div>
 
                                                         </div>
@@ -701,7 +851,7 @@
                                 <div class="tab-pane pages-nav fade" id="page_settingsAction" role="tabpanel" aria-labelledby="contact-tab">
 
                                     <div class="panel panel-inverse col-lg-12" style="padding: 0px;">
-                                        <div class="panel-heading" >
+                                        <div class="panel-heading">
                                             <div class="panel-heading-btn">
                                                 <a href="javascript:void(0)" data-click="panel-reload" title="Save Mobile Settings" onclick="proceedMobileThemeSave()" class="btn btn-sm btn-icon btn-default btn-rect">
                                                     <i class="icon-save"></i> Save
@@ -717,7 +867,8 @@
                                                     <div class="box-cover">
 
                                                         <div class="form-group box-title">
-                                                            <label class="box-label"><i class="icon-tag"></i> Mobile App Branding</label> <br>
+                                                            <label class="box-label"><i class="icon-tag"></i> Mobile App
+                                                                Branding</label> <br>
                                                         </div>
 
                                                         <div style="padding: 10px;">
@@ -727,13 +878,13 @@
                                                                 </div>
                                                                 <div class="col-md-6">
                                                                     <div class="form-group">
-                                                                        <input type="file" id="mobLogoFile" onchange="mobBrandingLogoUploadImage()" required/> <br><br>
+                                                                        <input type="file" id="mobLogoFile" onchange="mobBrandingLogoUploadImage()" required /> <br><br>
                                                                         <span class="grey" style="font-size:11px">
-                                                                        <b >Criteria:</b><br >
-                                                                        * Only PNG & JPG supported<br >
-                                                                        * Width should be less than 200px<br >
-                                                                        * Height should be less than 50px.
-                                                                    </span>
+                                                                            <b>Criteria:</b><br>
+                                                                            * Only PNG & JPG supported<br>
+                                                                            * Width should be less than 200px<br>
+                                                                            * Height should be less than 50px.
+                                                                        </span>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -748,27 +899,224 @@
                                                     <div class="box-cover">
 
                                                         <div class="form-group box-title">
-                                                            <label class="box-label"><i class="icon-paper-plane"></i> Configure Push Notification</label> <br>
+                                                            <label class="box-label"><i class="icon-paper-plane"></i>
+                                                                Configure Push Notification</label> <br>
                                                         </div>
 
                                                         <div style="padding: 10px;">
                                                             <div class="row" style="margin: 5px;">
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
-                                                                        <label>FCM API Key <a  title="Show Key" href="javascript:void(0)" style="color:#333"
-                                                                                               onclick="toggleBox('apiKey',this)" class="btn btn-icon btn-xs"><i class="icon-eye4"></i></a></label>
-                                                                        <input type="password" id="apiKey" class="form-control input-sm" required/>
+                                                                        <label>FCM API Key <a title="Show Key"
+                                                                                href="javascript:void(0)"
+                                                                                style="color:#333"
+                                                                                onclick="toggleBox('apiKey',this)"
+                                                                                class="btn btn-icon btn-xs"><i
+                                                                                    sideMenuProfile
+                                                                                    class="icon-eye4"></i></a></label>
+                                                                        <input type="password" id="apiKey" classs="form-control input-sm" required />
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
-                                                                        <label>Do you want to receive push notification for your mobile app?</label> <br>
-                                                                        <input type="checkbox" id="debug" value="true"/> Yes, to enable.
+                                                                        <label>Do you want to receive push notification
+                                                                            for your mobile app?</label> <br>
+                                                                        <input type="checkbox" id="debug" value="true" /> Yes, to enable.
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
+
+                                                </div>
+                                            </div>
+
+
+
+
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="tab-pane pages-nav fade" id="page_splashAction" role="tabpanel" aria-labelledby="contact-tab">
+
+                                    <div class="panel panel-inverse col-lg-12" style="padding: 0px;">
+                                        <div class="panel-heading">
+                                            <div class="panel-heading-btn">
+                                                <button class="btn btn-sm btn-icon btn-default btn-rect" onclick="splashScreenPreview()">Preview</button>
+
+                                                <a href="javascript:void(0)" style="margin-left: 10px;" data-click="panel-reload" title="Save Mobile Settings" onclick="mobSplashLogoUpdate()" class="btn btn-sm btn-icon btn-default btn-rect">
+                                                    <i class="icon-save"></i> Save
+                                                </a>
+                                            </div>
+                                            <h4 class="panel-title"><i class="icon-cog"></i> Mobile Splash</h4>
+                                        </div>
+                                        <div class="panel-body widgetBody" style="border: 1px solid #eee;overflow: auto;background: #ffffff;overflow-x: hidden;">
+
+
+                                            <div class="row">
+                                                <div class="col-md-6 col-sm-12">
+                                                    <div id="splashIOS">
+                                                        <div id="demo-splash-ios"></div>
+
+
+                                                        <!--<iframe id="demo-splash-ios" style="background: white;
+                                                            margin-left: 33px;
+                                                            margin-top: 65px;
+                                                            height: 80%;" frameborder="0">
+                                                        </iframe>-->
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-md-6 col-sm-12">
+                                                    <div class="box-cover">
+
+                                                        <div class="form-group box-title">
+                                                            <label class="box-label"><i class="icon-tag"></i> Configure
+                                                                Splash Screen</label> <br>
+                                                        </div>
+
+                                                        <div style="padding: 10px;">
+                                                            <div class="row" style="margin: 5px;">
+                                                                <div class="col-md-6" style="background-color: #4b4a49;padding: 5px;text-align: center;height:50px;overflow: hidden">
+                                                                    <img src="" class="mob_splash_domain_logo_m" style="height:40px;" />
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <input type="file" id="mobSplashLogoFile" onchange="mobsplashLogoUploadImage()" required /> <br><br>
+                                                                        <span class="grey" style="font-size:11px">
+                                                                            <b>Criteria:</b><br>
+                                                                            * Only PNG & JPG supported<br>
+                                                                            * Width should be less than 200px<br>
+                                                                            * Height should be less than 50px.
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div style="padding: 10px;">
+                                                            <div class="row" style="margin: 5px;">
+                                                                <div class="col-md-12">
+                                                                    <label for="logoPosition">Position</label>
+                                                                    <label for="splashBackground" style="float: right;">Background Color</label>
+                                                                    <div class="form-group">
+
+                                                                        <select style="height: 30px !important;" class="form-control input-sm firstInput" name="category" id="logoPosition" required>
+                                                                            <option value="0%">Top</option>
+                                                                            <option value="25%">Center</option>
+                                                                            <option value="75%">Bottom</option>
+                                                                        </select>
+                                                                        <input type="text" class="secondInput" id="splashBackground" />
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-md-12">
+                                                                    <label>Title </label>
+                                                                    <div class="form-group">
+
+                                                                        <input type="text" id="splashTitle" style="height: 30px !important;" class="form-control input-sm firstInput" required />
+                                                                        <input type="text" class="secondInput" id="titleColor" />
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-12">
+                                                                    <label>Powered By</label>
+                                                                    <div class="form-group">
+
+                                                                        <input type="text" style="height: 30px !important;" id="splashPoweredBy" class="form-control input-sm firstInput" required />
+                                                                        <input type="text" class="secondInput" id="poweredByColor" />
+                                                                    </div>
+                                                                </div>
+                                                               <!-- <div class="col-md-12">
+                                                                    <label>Theme</label>
+                                                                </div>
+
+                                                                <div class="col-md-4">
+                                                                    <div class="panel panel-default" style="background: rgb(253, 99, 164)">
+                                                                        <div class="panel-body" onclick="changeTheme('strawberry')" style="padding:0px">
+                                                                            <h5 style="color: white;margin: 10px;">Strawberry </h5>
+                                                                            <p></p>
+                                                                        </div>
+                                                                        &lt;!&ndash; <div class="panel-footer cursor"><a onclick="changeTheme('strawberry')"><span
+                                                                                    class="badge cursor"><i
+                                                                                        class="icon-eye"
+                                                                                        style=" font-size: 15px;"></i></span></a>
+                                                                        </div> &ndash;&gt;
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="panel panel-default" style="background: rgb(98, 212, 255)">
+                                                                        <div class="panel-body" onclick="changeTheme('skyblue')" style="padding:0px">
+                                                                            <h5 style="color:#515451;margin: 10px;">Skyblue </h5>
+                                                                            <p> </p>
+                                                                        </div>
+                                                                        &lt;!&ndash; <div class="panel-footer cursor"><a onclick="changeTheme('skyblue')"><span
+                                                                                    class="badge cursor"><i
+                                                                                        class="icon-eye"
+                                                                                        style=" font-size: 15px;"></i></span></a>
+                                                                        </div> &ndash;&gt;
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="panel panel-default">
+                                                                        <div class="panel-body" onclick="changeTheme('jasmine')" style="padding:0px">
+                                                                            <h5 style="color:#619465;margin: 10px;">Jasmine</h5>
+                                                                            <p> </p>
+                                                                        </div>
+                                                                        &lt;!&ndash; <div class="panel-footer cursor"><a onclick="changeTheme('jasmine')"><span
+                                                                                    class="badge cursor"><i
+                                                                                        class="icon-eye"
+                                                                                        style="    font-size: 15px;"></i></span></a>
+                                                                        </div> &ndash;&gt;
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="panel panel-default" style="background: orange">
+                                                                        <div class="panel-body" onclick="changeTheme('orange')" style="padding:0px">
+                                                                            <h5 style="color:white;margin: 10px;">Orange</h5>
+                                                                            <p> </p>
+                                                                        </div>
+                                                                        &lt;!&ndash; <div class="panel-footer cursor"><a onclick="changeTheme('jasmine')"><span
+                                                                                    class="badge cursor"><i
+                                                                                        class="icon-eye"
+                                                                                        style="    font-size: 15px;"></i></span></a>
+                                                                        </div> &ndash;&gt;
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="panel panel-default" style="background: rgb(223, 223, 156)">
+                                                                        <div class="panel-body" onclick="changeTheme('banana')" style="padding:0px">
+                                                                            <h5 style="color:#bf6a6a;margin: 10px;">Banana</h5>
+                                                                            <p> </p>
+                                                                        </div>
+                                                                        &lt;!&ndash; <div class="panel-footer cursor"><a onclick="changeTheme('jasmine')"><span
+                                                                                    class="badge cursor"><i
+                                                                                        class="icon-eye"
+                                                                                        style="    font-size: 15px;"></i></span></a>
+                                                                        </div> &ndash;&gt;
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="panel panel-default" style="background: rgb(213, 246, 166)">
+                                                                        <div class="panel-body" onclick="changeTheme('kiwi')" style="padding:0px">
+                                                                            <h5 style="color:#b87c7c ;margin: 10px;">Kiwi</h5>
+                                                                            <p> </p>
+                                                                        </div>
+                                                                        &lt;!&ndash; <div class="panel-footer cursor"><a onclick="changeTheme('jasmine')"><span
+                                                                                    class="badge cursor"><i
+                                                                                        class="icon-eye"
+                                                                                        style="    font-size: 15px;"></i></span></a>
+                                                                        </div> &ndash;&gt;
+                                                                    </div>
+                                                                </div>-->
+
+
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
 
                                                 </div>
                                             </div>
@@ -821,14 +1169,14 @@
 <script src="/controllers/mobile-platform.js"></script>
 
 <script>
-    $(".mobileimg").css('max-height',$(window).height()-150);
+    $(".mobileimg").css('max-height', $(window).height() - 150);
     var $mobPlatActionList = $("#mobilePlatformActions li");
-    $mobPlatActionList.click(function () {
+    $mobPlatActionList.click(function() {
         $mobPlatActionList.removeClass('active');
         $(".pages-nav").removeClass('show active');
 
-        $("#"+this.id).addClass('active');
-        $("#page_"+this.id).addClass('show active');
+        $("#" + this.id).addClass('active');
+        $("#page_" + this.id).addClass('show active');
     });
 </script>
 
@@ -843,26 +1191,30 @@
                 <div style="padding: 10px 20px;background: #eee;">
                     <b>Added Widgets</b>
                     <span style="float: right;">
-                            <a href="/marketplace/widgets" style="color: #666;" title="Create or Add more widgets from Marketplace"><img src="images/menu/market-place.png" style="height: 18px;"> <span>Create / Add More Widgets</span></a>
-                        </span>
+                        <a href="/marketplace/widgets" style="color: #666;"
+                            title="Create or Add more widgets from Marketplace"><img src="images/menu/market-place.png"
+                                style="height: 18px;"> <span>Create / Add More Widgets</span></a>
+                    </span>
                 </div>
 
                 <div class="modal-body">
 
-                     <div class="row">
-                            <div class="panel panel-inverse col-lg-12" style="padding: 0px">
-                                <form action="javascript:void(0)" onsubmit="loadImportedWidgets()">
-                                    <div class="input-group mb-3">
-                                        <input type="search" id="searchText" class="form-control" onkeyup="loadImportedWidgets()" placeholder="Search Widgets" aria-label="Username" aria-describedby="basic-addon1">
-                                        <div class="input-group-prepend">
-                                            <button class="btn btn-secondary" type="button" onclick="loadImportedWidgets()"><i class="icon-search"></i> Search Widget </button>
-                                        </div>
+                    <div class="row">
+                        <div class="panel panel-inverse col-lg-12" style="padding: 0px">
+                            <form action="javascript:void(0)" onsubmit="loadImportedWidgets()">
+                                <div class="input-group mb-3">
+                                    <input type="search" id="searchText" class="form-control" onkeyup="loadImportedWidgets()" placeholder="Search Widgets" aria-label="Username" aria-describedby="basic-addon1">
+                                    <div class="input-group-prepend">
+                                        <button class="btn btn-secondary" type="button" onclick="loadImportedWidgets()"><i class="icon-search"></i> Search Widget
+                                        </button>
                                     </div>
-                                </form>
+                                </div>
+                            </form>
 
-                                <div class="importedWidgets row" style="overflow: auto;overflow-x: hidden;padding: 10px;"></div>
+                            <div class="importedWidgets row" style="overflow: auto;overflow-x: hidden;padding: 10px;">
                             </div>
                         </div>
+                    </div>
 
                     <!--<div class="row">
                         <div class="col-lg-4">
@@ -875,45 +1227,48 @@
                     </div>-->
 
                 </div>
-<!--
+                <!--
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     <button type="button" class="btn btnModal" data-dismiss="modal">Proceed</button>
                 </div>
 -->
             </form>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
 <div id="addDashboard" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title"><span class="dashboardAction"></span> Dashboard</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
             </div>
             <form action="javascript:void(0)">
                 <div class="modal-body">
-                    <div  class="row">
-                        <div  class="col-md-6">
-                            <div  class="form-group">
-                                <label  class="inputLabel">Dashboard Name</label>
-                                <input  class="form-control input-sm" placeholder="" type="text" id="dashboard_name" required>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="inputLabel">Dashboard Name</label>
+                                <input class="form-control input-sm" placeholder="" type="text" id="dashboard_name" required>
                             </div>
                         </div>
                     </div>
 
 
-                    <div  class="row">
-                        <div  class="col-md-8">
-                            <div  class="form-group">
-                                <label  class="inputLabel">Dashboard Icon</label>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label class="inputLabel">Dashboard Icon</label>
 
                                 <div class="dropdown">
                                     <div class="btn btn-sm dropdown-toggle" style="width: 100%;border: 1px solid #3e373738;" type="" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                        <input type="text" style="" class="input-sm inputDevice"
-                                               placeholder="Search by name, tags" id="imageID" onkeyup="loadImageList(this.value)">
+                                        <input type="text" style="" class="input-sm inputDevice" placeholder="Search by name, tags" id="imageID" onkeyup="loadImageList(this.value)">
                                     </div>
                                     <ul class="dropdown-menu imageListUl" aria-labelledby="dropdownMenu2">
                                         <!--<li class="deviceListLi" onclick="setDeviceId()">
@@ -934,17 +1289,17 @@
                                 </div>-->
                             </div>
                         </div>
-                        <div  class="col-md-4">
-                            <div  class="form-group imageHtml" style="text-align: center;">
+                        <div class="col-md-4">
+                            <div class="form-group imageHtml" style="text-align: center;">
 
                             </div>
                         </div>
                     </div>
 
-                    <div  class="row">
-                        <div  class="col-md-6">
-                            <div  class="form-group">
-                                <label  class="inputLabel">Background Color</label> <br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="inputLabel">Background Color</label> <br>
                                 <!--<input id="dashboard_bg" required>-->
 
                                 <div id="dashboard_bg" class="input-group colorpicker-component">
@@ -961,16 +1316,20 @@
                     <button type="submit" class="btn btnModal btnSubmit">Proceed</button>
                 </div>
             </form>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
 <div id="deleteModal" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Delete Dashboard</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
                 <h5>Are you sure want to delete <b><span class="dashboardDeleteName"></span> dashboard</b>?</h5>
@@ -979,27 +1338,35 @@
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btnModal" onclick="deleteDashboard()">Proceed</button>
             </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
 <div id="deleteWidgetModal" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Delete Widget</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
-                <h5>Are you sure want to delete the <b><span class="widgetImportName"></span></b> widget from the domain?</h5>
+                <h5>Are you sure want to delete the <b><span class="widgetImportName"></span></b> widget from the domain?
+                </h5>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btnModal" onclick="deleteImportedWidget()">Proceed</button>
             </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
 <!--<div id="editorModal" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-dialog-big" role="document">
@@ -1212,11 +1579,10 @@
     <div class="modal-dialog modal-dialog-big" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title"><button type="button" class="btn btn-xs btn-default"
-                                                style="margin-right:10px;" data-dismiss="modal"><i class="icon-chevron-left2"></i> Back</button>
-                    Widget Settings</h4>
+                <h4 class="modal-title"><button type="button" class="btn btn-xs btn-default" style="margin-right:10px;" data-dismiss="modal"><i class="icon-chevron-left2"></i> Back</button> Widget Settings</h4>
 
-                <button type="button" class="btn btn-sm btn-success" onclick="saveCode()"><i class="icon-save"></i> Save Widget</button>
+                <button type="button" class="btn btn-sm btn-success" onclick="saveCode()"><i class="icon-save"></i> Save
+                    Widget</button>
             </div>
             <div class="modal-body" style="overflow: auto;overflow-x: hidden;background-color: #3e3b3c3d">
 
@@ -1312,12 +1678,11 @@
                                     </div>
 
                                     <div class="col-md-7 deviceBox idBox">
-                                        <div  class="form-group">
-                                            <label  class="inputLabel">Choose Device</label>
+                                        <div class="form-group">
+                                            <label class="inputLabel">Choose Device</label>
                                             <div class="dropdown">
                                                 <div class="btn btn-sm dropdown-toggle" style="width: 100%;border: 1px solid #3e373738;" type="" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                    <input type="text" style="" class="input-sm inputDevice"
-                                                           placeholder="Search by device id, name, model, version" id="deviceID" onkeyup="loadDeviceList(this.value)">
+                                                    <input type="text" style="" class="input-sm inputDevice" placeholder="Search by device id, name, model, version" id="deviceID" onkeyup="loadDeviceList(this.value)">
                                                 </div>
                                                 <ul class="dropdown-menu deviceListUl" aria-labelledby="dropdownMenu1">
                                                 </ul>
@@ -1373,20 +1738,27 @@
 
                                         <div class="col-lg-8">
                                             <div class="form-group hide">
-                                                <label class="inputLabel">Do you need to include in-build CSS?</label> <br>
-                                                <label style="font-weight: normal"><input type="radio" placeholder=""  name="inbuildcss" value="true" checked/> Yes</label>
-                                                <label style="font-weight: normal"><input type="radio" placeholder=""  name="inbuildcss" value="false"/> No</label>
+                                                <label class="inputLabel">Do you need to include in-build CSS?</label>
+                                                <br>
+                                                <label style="font-weight: normal"><input type="radio" placeholder=""
+                                                        name="inbuildcss" value="true" checked /> Yes</label>
+                                                <label style="font-weight: normal"><input type="radio" placeholder=""
+                                                        name="inbuildcss" value="false" /> No</label>
 
                                             </div>
                                             <div class="form-group hide">
-                                                <label class="inputLabel">Do you need to include in-build Javascript?</label> <br>
-                                                <label style="font-weight: normal"><input type="radio" placeholder="" name="inbuildjs" value="true" checked/> Yes</label>
-                                                <label style="font-weight: normal"><input type="radio" placeholder="" name="inbuildjs" value="false"/> No</label>
+                                                <label class="inputLabel">Do you need to include in-build
+                                                    Javascript?</label> <br>
+                                                <label style="font-weight: normal"><input type="radio" placeholder=""
+                                                        name="inbuildjs" value="true" checked /> Yes</label>
+                                                <label style="font-weight: normal"><input type="radio" placeholder=""
+                                                        name="inbuildjs" value="false" /> No</label>
 
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="inputLabel" style="display: block">Add External Javascript</label>
+                                                <label class="inputLabel" style="display: block">Add External
+                                                    Javascript</label>
                                                 <textarea class="form-control input-sm" placeholder="" type="text" id="jsResource" style="height: 200px;"></textarea>
                                                 <small class="grey">Enter the URL line by line <br>
                                                     Ex: <br>
@@ -1397,7 +1769,8 @@
                                             </div>
                                             <hr>
                                             <div class="form-group">
-                                                <label class="inputLabel"  style="display: block">Add External Stylesheet</label>
+                                                <label class="inputLabel" style="display: block">Add External
+                                                    Stylesheet</label>
                                                 <textarea class="form-control input-sm" placeholder="" type="text" id="cssResource" style="height: 200px;"></textarea>
                                                 <small class="grey">Enter the URL line by line <br>
                                                     Ex: <br>
@@ -1431,7 +1804,8 @@
 
                                             <p>
                                                 <label><input type="radio" name="enableAlexa" value="true"> True</label>
-                                                <label><input type="radio" name="enableAlexa" value="false" checked> False</label>
+                                                <label><input type="radio" name="enableAlexa" value="false" checked>
+                                                    False</label>
                                             </p>
 
                                             <label>To Invoke this intent in alexa, </label>
@@ -1445,13 +1819,16 @@
                                             <p>
                                                 <input type="text" style="border:1px dashed #ccc;width: 100%;color: #333;font-size: 14px;" id="responseName" /> <br>
                                                 <small>Ex:
-                                                    <br>To bind message definition field, Current Temperature is {{msg_< FIELDNAME >}} degree celcius
-                                                    <br>To bind record definition field, Current Temperature is {{rec_< FIELDNAME >}} degree celcius
+                                                    <br>To bind message definition field, Current Temperature is
+                                                    {{msg_< FIELDNAME >}} degree celcius
+                                                    <br>To bind record definition field, Current Temperature is
+                                                    {{rec_< FIELDNAME >}} degree celcius
                                                     <br> During runtime fieldname value rendered.
                                                 </small>
                                             </p>
 
-                                            <button class="btn btn-info btn-sm" onclick="errorMsg('Not Implemented')"><i class="icon-save"></i> Save Alexa Settings</button>
+                                            <button class="btn btn-info btn-sm" onclick="errorMsg('Not Implemented')"><i
+                                                    class="icon-save"></i> Save Alexa Settings</button>
 
                                         </div>
                                     </div>
@@ -1467,7 +1844,8 @@
                         <div class="panel panel-inverse">
                             <div class="panel-heading widgetLiveHeader">
                                 <div class="panel-heading-btn">
-                                    <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-success" data-click="panel-reload" onclick="codeLivePreview()"><i class="fa fa-redo"></i></a>
+                                    <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-success" data-click="panel-reload" onclick="codeLivePreview()"><i
+                                            class="fa fa-redo"></i></a>
                                 </div>
                                 <h4 class="panel-title widgetLiveTitle">Untitled Widget</h4>
 
@@ -1487,9 +1865,9 @@
                 </div>
 
             </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-
-
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

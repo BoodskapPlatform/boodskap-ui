@@ -27,7 +27,7 @@ $(document).ready(function () {
         var val = USER_OBJ.partDomains[i];
         if(i===0){
             if(DOMAIN_KEY !== val.domainKey){
-                $(".primaryDomain").remove();
+                // $(".primaryDomain").remove();
             }
         }
         $("#primaryDomain").append('<option value="'+val.domainKey+'">'+(val.label ? val.label : val.domainKey)+'</option>')

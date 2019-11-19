@@ -44,7 +44,6 @@ var controllerOptions = {
         res.set('x-timestamp', Date.now());
     }
 };
-
 app.use('/css', express.static(__dirname + '/webapps/css', options));
 app.use('/images', express.static(__dirname + '/webapps/images', options));
 app.use('/js', express.static(__dirname + '/webapps/js', options));
@@ -90,7 +89,7 @@ var server = require('http').Server(app);
 app.conf = conf;
 
 console.log("************************************************************");
-console.log(new Date() + ' | Boodskap IoT Platform UI Listening on ' + conf['web']['port']);
+console.log(new Date() + ' | Boodskap UI Portal Listening on ' + conf['web']['port']);
 console.log("************************************************************");
 
 server.listen(conf['web']['port']);

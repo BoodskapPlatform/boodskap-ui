@@ -1360,8 +1360,8 @@ function openModal() {
 
         $("#addMessageRule form")[0].reset();
 
-        $("#msg_id").attr('min', USER_OBJ.domain.startId)
-        $("#msg_id").attr('max', USER_OBJ.domain.startId + ID_RANGE_COUNT)
+        // $("#msg_id").attr('min', USER_OBJ.domain.startId)
+        // $("#msg_id").attr('max', USER_OBJ.domain.startId + ID_RANGE_COUNT)
         $(".msgFieldBody").html("");
         $("#addMessageRule").modal('show');
 
@@ -1370,11 +1370,16 @@ function openModal() {
         $("#addNamedRule form")[0].reset();
         $("#addNamedRule").modal('show');
     } else if (id === 3) {
-        $("#addScheduleRule form")[0].reset();
-        $('#pattren_desc').html("");
-        $("#sch_id").attr('min', USER_OBJ.domain.startId)
-        $("#sch_id").attr('max', USER_OBJ.domain.startId + ID_RANGE_COUNT)
-        $("#addScheduleRule").modal('show');
+
+        if(ADMIN_ACCESS) {
+            $("#addScheduleRule form")[0].reset();
+            $('#pattren_desc').html("");
+            // $("#sch_id").attr('min', USER_OBJ.domain.startId)
+            // $("#sch_id").attr('max', USER_OBJ.domain.startId + ID_RANGE_COUNT)
+            $("#addScheduleRule").modal('show');
+        }else{
+            errorMsg('Access Denied!')
+        }
     } else if (id === 4) {
         $("#addGroovyClass").modal('show');
     } else if (id === 5) {

@@ -153,8 +153,8 @@ function openModal() {
 
     $("#msg_id").removeAttr('disabled');
 
-    $("#msg_id").attr('min',USER_OBJ.domain.startId)
-    $("#msg_id").attr('max',USER_OBJ.domain.startId+ID_RANGE_COUNT)
+    // $("#msg_id").attr('min',USER_OBJ.domain.startId)
+    // $("#msg_id").attr('max',USER_OBJ.domain.startId+ID_RANGE_COUNT)
 
     $("#addMessageRule").modal({
         backdrop: 'static',
@@ -179,8 +179,8 @@ function openEditModal(id) {
     $("#msg_name").val(message_obj.name)
     $("#msg_desc").val(message_obj.description)
 
-    $("#msg_id").attr('min',USER_OBJ.domain.startId)
-    $("#msg_id").attr('max',USER_OBJ.domain.startId+ID_RANGE_COUNT)
+    // $("#msg_id").attr('min',USER_OBJ.domain.startId)
+    // $("#msg_id").attr('max',USER_OBJ.domain.startId+ID_RANGE_COUNT)
     $("#msg_id").attr('disabled','disabled');
 
     $("#addMessageRule").modal({

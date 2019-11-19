@@ -46,14 +46,14 @@ $(document).ready(function () {
 
 function loadLoginMenu() {
 
-    var dKey = 'HXMUTFFHYU';
+    var dKey = '';
 
     getGlobalPropertyWithKey(ADMIN_DOMAIN_BRANDING_PROPERTY, dKey,function (status, data) {
         if (status) {
             var src = data.data;
             $(".loginLogo").attr('src', API_BASE_PATH + '/files/public/download/' +src);
         } else {
-            $(".loginLogo").attr('src', DEFAULT_LOGO_PATH);
+            $(".loginLogo").attr('src', DEFAULT_LOGIN_LOGO_PATH);
         }
 
     })

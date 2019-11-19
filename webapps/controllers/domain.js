@@ -334,62 +334,65 @@ function getCustomURL() {
     $("#domainModal").modal('show');
 }
 
+
 function openModal(id) {
 
     selectedId = id;
-    $(".modal-body").html('');
+    $(".modalBody").html('');
 
     if (id === 1) {
         $(".modal-title").html('Logo Branding');
-        $(".modal-body").html($("#logoBranding").html());
+        $(".modalBody").html($("#logoBranding").html());
         getDomainBranding();
     } else if (id === 2) {
         $(".modal-title").html('Email Gateway');
-        $(".modal-body").html($("#emailGateway").html());
+        $(".modalBody").html($("#emailGateway").html());
         getGatewaySettings('email');
 
     } else if (id === 3) {
         $(".modal-title").html('Twilio Gateway');
-        $(".modal-body").html($("#twilioGateway").html());
+        $(".modalBody").html($("#twilioGateway").html());
         getGatewaySettings('twilio');
 
     } else if (id === 4) {
         $(".modal-title").html('FCM Gateway');
-        $(".modal-body").html($("#fcmGateway").html());
+        $(".modalBody").html($("#fcmGateway").html());
         getGatewaySettings('fcm');
 
     } else if (id === 5) {
         $(".modal-title").html('UDP Gateway');
-        $(".modal-body").html($("#udpGateway").html());
+        $(".modalBody").html($("#udpGateway").html());
         getGatewaySettings('udp');
 
     } else if (id === 6) {
         $(".modal-title").html('ADS Authentication');
 
     } else if (id === 7) {
-        $(".modal-body").html($("#platformTheme").html());
+        $(".modalBody").html($("#platformTheme").html());
         $(".modal-title").html('Platform Theme');
         getDomainTheme();
     } else if (id === 8) {
-        $(".modal-body").html($("#loginScreen").html());
+        $(".modalBody").html($("#loginScreen").html());
         $(".modal-title").html('Custom Login');
         getLoginLogo();
     } else if (id === 9) {
-        $(".modal-body").html($("#googleMap").html());
+        $(".modalBody").html($("#googleMap").html());
         $(".modal-title").html('Google Map API Key');
         getGoogleMapApiKey();
     } else if (id === 10) {
-        $(".modal-body").html($("#openWeatherMap").html());
+        $(".modalBody").html($("#openWeatherMap").html());
         $(".modal-title").html('Open Weather Map API Key');
         getOpenMapApiKey();
     } else if (id === 11) {
-        $(".modal-body").html($("#darkSkyMap").html());
+        $(".modalBody").html($("#darkSkyMap").html());
         $(".modal-title").html('Dark Sky API Key');
         getDarkSkyApiKey();
     } else if (id === 12) {
-        $(".modal-body").html($("#customUrl").html());
+        $(".modalBody").html($("#customUrl").html());
         $(".modal-title").html('Custom URL Address');
         getCustomURL();
+    } else if (id === 13) {
+        getBillingConfig();
     }
 
 
@@ -834,3 +837,6 @@ function setCustomLoginDefault(){
     $("#titleName").val(DEFAULT_LOGIN_THEME.titleName);
     $("#sloganText").val(DEFAULT_LOGIN_THEME.sloganText);
 }
+
+
+

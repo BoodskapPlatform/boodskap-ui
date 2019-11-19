@@ -3,7 +3,7 @@ var MENU_LINKS = ['/home', '/dashboard', '/message-definition', "/record-definit
     "/machine-learning", "/block-chain", "/templates", "/events", "/geofence", "/mobile-platform",
     "/device-management", "/firmware-management", "/asset-management", "/user-management", "/dashboard-editor", "/event-logs",
     "/messages", "/log-console", "/marketplace", "/domain-audit", "/files", "/code-editor", "/alexa", "/query-console", "/sql-query-console",
-    "/sql-templates","/sql-table","/db-table","/db-query-console","/db-templates","/plugin-management"]; //upto 32
+    "/sql-templates","/sql-table","/db-table","/db-query-console","/db-templates","/plugin-management","/manage-billing"]; //upto 33
 
 
 $(document).ready(function () {
@@ -19,6 +19,7 @@ $(document).ready(function () {
     if (ADMIN_ACCESS) {
 
         $(".loginAs").append($("#loginAs").html());
+        $(".billingManagement").append($("#billingManagement").html());
     }
 
     var dkey = new ClipboardJS('.domainKey');

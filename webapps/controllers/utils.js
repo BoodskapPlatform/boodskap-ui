@@ -4,6 +4,8 @@ var boodskapEditor = false;
 $(document).ready(function () {
     loadGoogleAnalytics();
     loadStatistics();
+
+
 });
 
 if (!DEBUG) {
@@ -15,21 +17,26 @@ if (!DEBUG) {
 }
 
 
-if(USER_OBJ){
+var DOMAIN_ADMIN_ACCESS = false;
+
+if (USER_OBJ) {
     USER_OBJ = JSON.parse(USER_OBJ);
     API_TOKEN = USER_OBJ.token;
     DOMAIN_KEY = USER_OBJ.domainKey;
     API_KEY = USER_OBJ.apiKey;
-    USER_ROLE = USER_OBJ.user? USER_OBJ.user.roles : [];
+    USER_ROLE = USER_OBJ.user ? USER_OBJ.user.roles : [];
 
-    for(var i=0;i<USER_ROLE.length;i++){
-        if('admin' === USER_ROLE[i]){
+    for (var i = 0; i < USER_ROLE.length; i++) {
+        if ('admin' === USER_ROLE[i]) {
             ADMIN_ACCESS = true;
+        }
+        if ('domainadmin' === USER_ROLE[i]) {
+            DOMAIN_ADMIN_ACCESS = true;
         }
     }
 
-}else{
-    if($.trim($('#isPublic').val()) === 'false') {
+} else {
+    if ($.trim($('#isPublic').val()) === 'false') {
         var current_location = window.location.href;
         if (current_location.indexOf('login') === -1) {
             if (current_location.indexOf('register') === -1) {
@@ -40,17 +47,17 @@ if(USER_OBJ){
 }
 
 
-function showNotification(msg,type,time) {
+function showNotification(msg, type, time) {
 
-    if(!time) time = 2500;
+    if (!time) time = 2500;
 
     // create the notification
     var notification = new NotificationFx({
-        message : msg,
-        layout : 'growl',
-        effect : 'jelly',
-        type : type, // notice, warning, error or success
-        ttl : time
+        message: msg,
+        layout: 'growl',
+        effect: 'jelly',
+        type: type, // notice, warning, error or success
+        ttl: time
     });
 
     // show the notification
@@ -58,15 +65,15 @@ function showNotification(msg,type,time) {
 }
 
 //Notifications
-function errorMsg(msg){
+function errorMsg(msg) {
 
     // $(".errorFeedBack").html("<i class='fa fa-exclamation-triangle'></i> "+msg);
-    $("#snackbar").html("<i class='fa fa-exclamation-triangle'></i> "+msg);
+    $("#snackbar").html("<i class='fa fa-exclamation-triangle'></i> " + msg);
     var width = $(".errorFeedBack").outerWidth();
     var totalWidth = $(document).width();
     var position = (parseInt(totalWidth) - parseInt(width)) / 2;
     $(".errorFeedBack").css({
-        'left':position - 10
+        'left': position - 10
     });
 
     var $window = $(window),
@@ -84,18 +91,20 @@ function errorMsg(msg){
 
 function snackBar() {
     $("#snackbar").addClass('show');
-    setTimeout(function(){ $("#snackbar").removeClass('show'); }, 2000);
+    setTimeout(function () {
+        $("#snackbar").removeClass('show');
+    }, 2000);
 }
 
-function errorMsgBorder(msg,id){
+function errorMsgBorder(msg, id) {
 
     // $(".errorFeedBack").html("<i class='fa fa-exclamation-triangle'></i> "+msg);
-    $("#snackbar").html("<i class='fa fa-exclamation-triangle'></i> "+msg);
+    $("#snackbar").html("<i class='fa fa-exclamation-triangle'></i> " + msg);
     var width = $(".errorFeedBack").outerWidth();
     var totalWidth = $(document).width();
     var position = (parseInt(totalWidth) - parseInt(width)) / 2;
     $(".errorFeedBack").css({
-        'left':position - 25
+        'left': position - 25
     });
 
     var $window = $(window),
@@ -106,19 +115,19 @@ function errorMsgBorder(msg,id){
 
     $(".errorFeedBack").show().delay(2500).fadeOut();
 
-    $("#"+id).css("border","1px solid red");
+    $("#" + id).css("border", "1px solid red");
 
-    setTimeout(function(){
-        $("#"+id).css("border","1px solid #ccc");
+    setTimeout(function () {
+        $("#" + id).css("border", "1px solid #ccc");
 
-    },2000);
+    }, 2000);
     snackBar();
 
 }
 
-function successMsg(feedText){
+function successMsg(feedText) {
     // $(".feedBack").html('<i class="fa fa-check"></i>  '+feedText);
-    $("#snackbar").html('<i class="fa fa-check"></i>  '+feedText);
+    $("#snackbar").html('<i class="fa fa-check"></i>  ' + feedText);
     positionFeedback();
 
     var $window = $(window),
@@ -141,7 +150,7 @@ function successMsg(feedText){
     snackBar();
 }
 
-function feedback(feedText){
+function feedback(feedText) {
 
     // $(".feedBack").html(feedText);
     $("#snackbar").html(feedText);
@@ -168,7 +177,6 @@ function feedback(feedText){
 }
 
 
-
 function loading(feedText) {
     $(".feedBack").html('<img src="images/loader/loader.png" style="margin-top:-2px;" border="0" alt=""> &nbsp;Loading...');
     positionFeedback();
@@ -189,7 +197,7 @@ function closeLoading() {
 
 function preLoading(feedText) {
 
-    $(".monitorFeedBack").html('<i class="fa fa-spinner fa-spin"></i> &nbsp;'+feedText);
+    $(".monitorFeedBack").html('<i class="fa fa-spinner fa-spin"></i> &nbsp;' + feedText);
     positionFeedback();
 
     var $window = $(window),
@@ -204,19 +212,17 @@ function closePreLoading() {
 }
 
 
-
-
-function positionFeedback(){
+function positionFeedback() {
     var width = $(".feedBack").outerWidth();
     var totalWidth = $(document).width();
     var position = (parseInt(totalWidth) - parseInt(width)) / 2;
     $(".feedBack").css({
-        'left':position - 25
+        'left': position - 25
     });
 }
 
 jQuery.fn.center = function () {
-    this.css("left", ( $(document).width() - this.width() ) / 2.2 +$(window).scrollLeft() + "px");
+    this.css("left", ($(document).width() - this.width()) / 2.2 + $(window).scrollLeft() + "px");
     return this;
 }
 
@@ -251,10 +257,10 @@ function validateCron() {
 }
 
 function openNav() {
-    if($("#mySidenav").hasClass('barwidth')){
+    if ($("#mySidenav").hasClass('barwidth')) {
         $(".barmenu").html('<i class="icon-bars"></i>')
         $("#mySidenav").removeClass('barwidth')
-    }else{
+    } else {
         $(".barmenu").html('<i class="icon-close2"></i>')
         $("#mySidenav").addClass('barwidth')
     }
@@ -283,12 +289,10 @@ function guid() {
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
 }
 
-function getUrlVars()
-{
+function getUrlVars() {
     var vars = [], hash;
     var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-    for(var i = 0; i < hashes.length; i++)
-    {
+    for (var i = 0; i < hashes.length; i++) {
         hash = hashes[i].split('=');
         vars.push(hash[0]);
         vars[hash[0]] = hash[1];
@@ -298,20 +302,19 @@ function getUrlVars()
 
 function qs(key) {
     key = key.replace(/[*+?^$.\[\]{}()|\\\/]/g, "\\$&"); // escape RegEx meta chars
-    var match = location.search.match(new RegExp("[?&]"+key+"=([^&]+)(&|$)"));
+    var match = location.search.match(new RegExp("[?&]" + key + "=([^&]+)(&|$)"));
     return match && decodeURIComponent(match[1].replace(/\+/g, " "));
 }
 
-$(document).ready(function()
-{
-    $('.container-fluid').click(function(e) {
-        if($("#mySidenav").hasClass('barwidth')){
+$(document).ready(function () {
+    $('.container-fluid').click(function (e) {
+        if ($("#mySidenav").hasClass('barwidth')) {
             $(".barmenu").html('<i class="icon-bars"></i>')
             $("#mySidenav").removeClass('barwidth')
         }
     });
-    $('.container').click(function(e) {
-        if($("#mySidenav").hasClass('barwidth')){
+    $('.container').click(function (e) {
+        if ($("#mySidenav").hasClass('barwidth')) {
             $(".barmenu").html('<i class="icon-bars"></i>')
             $("#mySidenav").removeClass('barwidth')
         }
@@ -321,7 +324,7 @@ $(document).ready(function()
 
 if (!Array.prototype.includes) {
     Object.defineProperty(Array.prototype, 'includes', {
-        value: function(searchElement, fromIndex) {
+        value: function (searchElement, fromIndex) {
 
             if (this == null) {
                 throw new TypeError('"this" is null or not defined');
@@ -374,28 +377,36 @@ if (!Array.prototype.includes) {
 function loadGoogleAnalytics() {
     var ga_token = GOOGLE_ANALYTICS_COCDE;
     (function (i, s, o, g, r, a, m) {
-        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
     ga('create', ga_token, 'auto');
     ga('send', 'pageview');
 }
 
 
-
-
-
-
 function loadStatistics() {
     $(".webVersion").html(WEB_VERSION)
     $.ajax({
         url: API_BASE_PATH + "/cluster/statistics",
-        cache:false,
+        cache: false,
         type: 'GET',
+        global: false,
+        crossDomain: true,
+        "headers": {
+            "accept": "application/json",
+            "Access-Control-Allow-Origin": "*"
+        },
         success: function (data) {
-            if(data) {
+            if (data) {
                 $('.apiVersion').html(data.version)
             }
         },
@@ -406,46 +417,38 @@ function loadStatistics() {
 }
 
 
-
 function mobileOrWeb() {
     var isiPad = /ipad/i.test(navigator.userAgent.toLowerCase());
-    if (isiPad)
-    {
+    if (isiPad) {
         return false;
     }
     var isiPhone = /iphone/i.test(navigator.userAgent.toLowerCase());
-    if (isiPhone)
-    {
+    if (isiPhone) {
         return false;
     }
     var isiDevice = /ipad|iphone|ipod/i.test(navigator.userAgent.toLowerCase());
 
-    if (isiDevice)
-    {
+    if (isiDevice) {
         return false;
     }
     var isAndroid = /android/i.test(navigator.userAgent.toLowerCase());
 
-    if (isAndroid)
-    {
+    if (isAndroid) {
         return false;
     }
     var isBlackBerry = /blackberry/i.test(navigator.userAgent.toLowerCase());
 
-    if (isBlackBerry)
-    {
+    if (isBlackBerry) {
         return false;
     }
     var isWebOS = /webos/i.test(navigator.userAgent.toLowerCase());
 
-    if (isWebOS)
-    {
+    if (isWebOS) {
         return false;
     }
     var isWindowsPhone = /windows phone/i.test(navigator.userAgent.toLowerCase());
 
-    if (isWindowsPhone)
-    {
+    if (isWindowsPhone) {
         return false;
     }
 
@@ -475,10 +478,10 @@ function isJSON(str) {
 }
 
 function forceLower(str) {
-    str.value=str.value.toLowerCase();
+    str.value = str.value.toLowerCase();
 }
 
-function isUUID(s){
+function isUUID(s) {
     var regex = '^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$';
 
     return new RegExp(regex).test(s);

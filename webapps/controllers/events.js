@@ -257,8 +257,8 @@ function openModal(type, id, channel) {
         $("#addEvent").modal('show');
 
 
-        $("#event_id").attr('min',USER_OBJ.domain.startId)
-        $("#event_id").attr('max',USER_OBJ.domain.startId+ID_RANGE_COUNT)
+        // $("#event_id").attr('min',USER_OBJ.domain.startId)
+        // $("#event_id").attr('max',USER_OBJ.domain.startId+ID_RANGE_COUNT)
 
         $("#addEvent form").attr('onsubmit', 'addEvent()')
     } else if (type === 2) {
@@ -273,8 +273,8 @@ function openModal(type, id, channel) {
         }
         // $("#event_id").attr('readonly', 'readonly');
 
-        $("#event_id").attr('min',USER_OBJ.domain.startId)
-        $("#event_id").attr('max',USER_OBJ.domain.startId+ID_RANGE_COUNT)
+        // $("#event_id").attr('min',USER_OBJ.domain.startId)
+        // $("#event_id").attr('max',USER_OBJ.domain.startId+ID_RANGE_COUNT)
 
         $("#event_id").val(obj.id);
         $("#event_id").attr('disabled','disabled');

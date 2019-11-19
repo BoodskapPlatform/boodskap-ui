@@ -88,14 +88,14 @@ function loadPlugins() {
 
                     }
 
-                    if(ADMIN_ACCESS){
+                    // if(ADMIN_ACCESS){
                         if(val.sysprops.length > 0){
                             subStr += '<li  data-jstree=\'{ "icon" : "icon-file-text" }\'><span onclick="loadData(6,\''+val.id+'\')">System Properties</span></li>';
                         }
                         if(val.syslookups.length > 0){
                             subStr += '<li  data-jstree=\'{ "icon" : "icon-file-text" }\'><span onclick="loadData(7,\''+val.id+'\')">System Lookups</li>';
                         }
-                    }
+                    // }
 
                     if(val.readme){
                         subStr += '<li data-jstree=\'{ "icon" : "icon-file-text" }\'><span onclick="loadData(8,\''+val.id+'\')">Readme</li>';
@@ -335,6 +335,8 @@ function loadData(type,id) {
 }*/
 
 function formatRow(d) {
+
+    console.log(d)
     var id = d.id
     var htmlStr = '<div class="pluginRow plugin_'+id+'"><h4 style="text-align: center"><i class="fa fa-spinner fa-spin"></i> <Loading></Loading></h4></div>';
 
@@ -408,9 +410,9 @@ function formatRow(d) {
     `;
     setTimeout(function () {
         $(".plugin_"+id).html(str);
-        if(!ADMIN_ACCESS){
-            $(".admin_"+id).remove()
-        }else{
+        // if(!ADMIN_ACCESS){
+        //     $(".admin_"+id).remove()
+        // }else{
             if(d.sysprops.length > 0){
                 loadSysProperties(d);
             }else{
@@ -422,7 +424,7 @@ function formatRow(d) {
             }else{
                 $(".4_"+id).remove()
             }
-        }
+        // }
 
         if(d.config){
             loadConfiguration(d);
@@ -535,7 +537,7 @@ function loadSysProperties(d) {
                        <input class="form-control input-sm" type="text" id="`+d.contextId+`_sp_`+i+`" value="" style="width: 100%">  
                     </div>
                 </div>
-               <div class="col-md-3">
+               <div class="col-md-3 onlyAdmin">
                     <div class="form-group">
                        <button class="btn btn-sm btn-warning" onclick="updateSysProp('`+d.contextId+`','`+props[i]+`',`+i+`)">Update Property</button>         
                     </div>
@@ -543,6 +545,9 @@ function loadSysProperties(d) {
             </div>
         `;
         $(".contentBlock").append(str);
+        if(!DOMAIN_ADMIN_ACCESS){
+            $(".onlyAdmin").remove()
+        }
         loadSysPropertyKey(d.contextId,props[i],i)
     }
 }
@@ -642,7 +647,7 @@ function loadSysLookups(d) {
                        <input class="form-control input-sm" type="text" id="`+d.contextId+`_sl_`+i+`" value="" style="width: 100%">  
                     </div>
                 </div>
-               <div class="col-md-3">
+               <div class="col-md-3 onlyAdmin">
                     <div class="form-group">
                        <button class="btn btn-sm btn-warning" onclick="updateSysLookup('`+d.contextId+`','`+lookups[i]+`',`+i+`)">Update Lookup</button>         
                     </div>
@@ -650,6 +655,9 @@ function loadSysLookups(d) {
             </div>
         `;
         $(".contentBlock").append(str);
+        if(!DOMAIN_ADMIN_ACCESS){
+            $(".onlyAdmin").remove()
+        }
         loadSysLookupKey(d.contextId,lookups[i],i)
     }
 }

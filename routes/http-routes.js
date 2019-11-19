@@ -77,6 +77,23 @@ Routes.prototype.init = function () {
         }
     };
 
+    var billingModuleCheck = function (req, res, next) {
+        var userObj = req.cookies['user_details'];
+        if(userObj) {
+            var role = JSON.parse(userObj).user.roles;
+            req.session.userObj = JSON.parse(userObj);
+
+            if (role.indexOf('admin') !== -1) {
+                next();
+            } else {
+                console.log(new Date() + " | unauthorized access");
+                res.sendStatus(401)
+            }
+        }else{
+            res.redirect('/login');
+        }
+    };
+
     var sqlCheck = function (req, res, next) {
         var sql = req.cookies['sql_access'];
         if(sql) {
@@ -373,37 +390,24 @@ Routes.prototype.init = function () {
     });
 
 
-
-    <!-- Delete Later -->
-    self.app.get('/module-profile', function (req, res) {
-        res.render('dummypage.html',{layout:'',userRole:req.session.role});
-    });
-    self.app.get('/module-attributes', function (req, res) {
-        res.render('dummypage.html',{layout:'',userRole:req.session.role});
-    });
-    self.app.get('/device-profile', function (req, res) {
-        res.render('dummypage.html',{layout:'',userRole:req.session.role});
-    });
-    self.app.get('/sensor-profile-attributes', function (req, res) {
-        res.render('dummypage.html',{layout:'',userRole:req.session.role});
-    });
-    self.app.get('/message-services-profile', function (req, res) {
-        res.render('dummypage.html',{layout:'',userRole:req.session.role});
-    });
-    self.app.get('/carrier-profile', function (req, res) {
-        res.render('dummypage.html',{layout:'',userRole:req.session.role});
-    });
-
-    self.app.get('/user-roles', function (req, res) {
-        res.render('user-role.html',{layout:'',userRole:req.session.role});
-    });
-
     //Plugins
-    self.app.get('/plugin-management', function (req, res) {
+    self.app.get('/plugin-management', roleCheck,function (req, res) {
         res.render('plugins.html',{layout:'',userRole:req.session.role});
     });
 
 
+    //Billing
+    self.app.get('/manage-billing', billingModuleCheck, function (req, res) {
+        res.render('billing-management.html',{layout:'',userRole:req.session.role});
+    });
+    self.app.get('/invoice', roleCheck, function (req, res) {
+        res.render('invoice.html',{layout:'',userRole:req.session.role});
+    });
+
+
+    self.app.get('/status',function (req, res) {
+        res.render('public-status.html',{layout:false});
+    });
 
 
     self.app.get('/404', roleCheck,function (req, res) {

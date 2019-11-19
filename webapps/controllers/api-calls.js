@@ -10,7 +10,17 @@ $(document).ajaxError(function myErrorHandler(event, xhr, ajaxOptions, thrownErr
     }
 
 });
+$(document).ready(function () {
 
+    // $.ajaxSetup({
+    //     global: false,
+    //     crossDomain: true,
+    //     "headers": {
+    //         "accept": "application/json",
+    //         "Access-Control-Allow-Origin": "*"
+    //     }
+    // })
+});
 
 //login, register, forget password
 
@@ -3392,3 +3402,128 @@ function getLookup(data, cbk) {
         }
     });
 }
+
+
+
+
+//Record insert/update/delete
+
+function insertRecord(id, data,cbk){
+    $.ajax({
+        url: API_BASE_PATH + "/record/insert/dynamic/" + API_TOKEN + '/' + id,
+        data: JSON.stringify(data),
+        contentType: "text/plain",
+        type: 'POST',
+        success: function (data) {
+            cbk(true,data)
+        },
+        error: function (e) {
+            cbk(false,e)
+        }
+    });
+}
+
+function updateRecord(rid, id, data,cbk){
+    $.ajax({
+        url: API_BASE_PATH + "/record/insert/static/" + API_TOKEN + '/' + rid +'/'+id,
+        data: JSON.stringify(data),
+        contentType: "text/plain",
+        type: 'POST',
+        success: function (data) {
+            cbk(true,data)
+        },
+        error: function (e) {
+            cbk(false,e)
+        }
+    });
+}
+
+function deleteRecord(rid, id,cbk){
+    $.ajax({
+        url: API_BASE_PATH + "/record/delete/" + API_TOKEN + '/' + rid + '/' + id,
+        type: 'DELETE',
+        success: function (data) {
+            cbk(true,data)
+        },
+        error: function (e) {
+            cbk(false,e)
+        }
+    });
+}
+
+
+
+
+function upsertBillingRecord(data,cbk){
+    $.ajax({
+        url: API_BASE_PATH + "/billing/schedule/upsert/" + API_TOKEN,
+        data: JSON.stringify(data),
+        contentType: "application/json",
+        type: 'POST',
+        success: function (data) {
+            cbk(true,data)
+        },
+        error: function (e) {
+            cbk(false,e)
+        }
+    });
+}
+
+function deleteBillingRecord(id,cbk){
+    $.ajax({
+        url: API_BASE_PATH + "/billing/schedule/delete/" + API_TOKEN + '/' + id,
+        type: 'DELETE',
+        success: function (data) {
+            cbk(true,data)
+        },
+        error: function (e) {
+            cbk(false,e)
+        }
+    });
+}
+
+
+
+function upsertContactRecord(data,cbk){
+    $.ajax({
+        url: API_BASE_PATH + "/billing/contact/upsert/" + API_TOKEN,
+        data: JSON.stringify(data),
+        contentType: "application/json",
+        type: 'POST',
+        success: function (data) {
+            cbk(true,data)
+        },
+        error: function (e) {
+            cbk(false,e)
+        }
+    });
+}
+
+function deleteContactRecord(id,cbk){
+    $.ajax({
+        url: API_BASE_PATH + "/billing/contact/delete/" + API_TOKEN + '/' + id,
+        type: 'DELETE',
+        success: function (data) {
+            cbk(true,data)
+        },
+        error: function (e) {
+            cbk(false,e)
+        }
+    });
+}
+
+
+
+function deleteInvoiceRecord(id,cbk){
+    $.ajax({
+        url: API_BASE_PATH + "/billing/invoice/delete/" + API_TOKEN + '/' + id,
+        type: 'DELETE',
+        success: function (data) {
+            cbk(true,data)
+        },
+        error: function (e) {
+            cbk(false,e)
+        }
+    });
+}
+

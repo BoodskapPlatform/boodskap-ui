@@ -26,12 +26,14 @@ var PRIVACY_POLICY = "privacy.policy";
 var PROFILE_PICTURE_PROPERTY = "user.picture";
 var DOMAIN_BRANDING_PROPERTY = "domain.logobranding";
 var MOBILE_APP_DOMAIN_BRANDING_PROPERTY = "domain.mobile.logobranding";
+var MOBILE_APP_DOMAIN_SPLASH_PROPERTY = "domain.mobile.splash";
 var DOMAIN_THEME_PROPERTY = "domain.theme";
 var DASHBOARD_LIST_PROPERTY = "domain.dashboard.list";
 var FITBIT_BAND_PROPERTY = "fitbit.band.config";
 var GOOGLE_API_PROPERTY = "google.map.key";
 var OPENWEATHER_API_PROPERTY = "openweather.map.key";
 var DARKSKY_API_PROPERTY = "darksky.api.key";
+var BILLING_PROPERTY = "billing.property";
 
 var MOBILE_DOMAIN_THEME_PROPERTY = "domain.mobile.theme";
 var MOBILE_DASHBOARD_LIST_PROPERTY = "domain.mobile.dashboard.list";
@@ -100,10 +102,10 @@ var TEMPLATES = {
     'DEVICE_OTA_CMD' : 'device_ota_cmd',
 };
 
-var INDEX_MODELS = ['ACCESS',"ALEXA","ASSET","ASSET_GROUP","AUDIT",'CONNECTION_POOL',"COMMAND",'DB_METADATA','DB_TEMPLATE',"DEVICE",
+var INDEX_MODELS = ['ACCESS',"ALEXA","ASSET","ASSET_GROUP","AUDIT",'BILLING','CONTACT','CONNECTION_POOL',"COMMAND",'DB_METADATA','DB_TEMPLATE',"DEVICE",
     "DEVICE_GROUP","DEVICE_MODEL","DOMAIN","DOMAIN_ASSET_GROUP","DOMAIN_DEVICE_GROUP","DOMAIN_USER_GROUP","DOMAIN_USER_GROUP_MEMBER",
-    "EMAIL","EVENT","EVENT_REGISTRATION","FCM","FCM_DEVICE","FILE","FILE_PUBLIC","FIRMWARE","GEOFENCE","GROOVY","GROOVY_JAR",
-    "PUBLIC_GROOVY_JAR",'LOG',"LOCATION","NOTIFICATION","OBJECT","PUBLIC_GROOVY","PUBLIC_NOTIFICATION","PLUGIN","REPORTED_DEVICE","RULE_FAILURE","SCREEN","SCREEN_VERSION","SCREEN_IMPORTED","SMS","SQL_TABLE","SQL_TEMPLATE","USER","USER_ASSET_GROUP","USER_DEVICE_GROUP","USER_GROUP","VERTICAL","VERTICAL_IMPORTED","VERTICAL_PUBLISHED","VERTICAL_VERSION","VOICE","WIDGET","WIDGET_IMPORTED","WIDGET_PUBLISHED","WIDGET_VERSION"];
+    "EMAIL","EVENT","EVENT_REGISTRATION","FCM","FCM_DEVICE","FILE","FILE_PUBLIC","FIRMWARE","INVOICE","GEOFENCE","GROOVY","GROOVY_JAR",
+    "PUBLIC_GROOVY_JAR",'LOG',"LOCATION","LOCATION_HISTORY","NOTIFICATION","OBJECT","PUBLIC_GROOVY","PUBLIC_NOTIFICATION","PLUGIN","REPORTED_DEVICE","RULE_FAILURE","SCREEN","SCREEN_VERSION","SCREEN_IMPORTED","SMS","SQL_TABLE","SQL_TEMPLATE","USER","USER_ASSET_GROUP","USER_DEVICE_GROUP","USER_GROUP","VERTICAL","VERTICAL_IMPORTED","VERTICAL_PUBLISHED","VERTICAL_VERSION","VOICE","WIDGET","WIDGET_IMPORTED","WIDGET_PUBLISHED","WIDGET_VERSION"];
 
 var DEFAULT_FIELDS = [{name: "deliveredstamp", dataType: 'TIMESTAMP'},  { name: "deviceid", dataType: 'VARCHAR'},
     {name: "channel", dataType: 'VARCHAR'}, {name: "receivedstamp", dataType: 'TIMESTAMP'}, {name: "dmdl", dataType: 'VARCHAR'},
@@ -140,3 +142,31 @@ var WIDGET_CATEGORY = ['Charts & Graphs', 'Grids & Tables', 'Industry 4.0', 'Hom
     'Agriculture', 'Controllers', 'Statistics', 'AI & Machine Learning', 'Security & Emergency', 'Others'];
 
 var VERTICAL_CATEGORY = ['Smart Homes','Transportation & Logistics', 'Healthcare', 'Vehicle Tracking', 'Agriculture', 'Finance', 'Smart City', 'Ecommerce', 'Oil & Gas', 'Industry 4.0', 'Others'];
+
+
+var BILLING_ITEMS = [
+    {name:'Cost Per CPU', quantity:1, price:0, tax:0, description:'', code:'ITEM01'},
+    {name:'Cost Per Core', quantity:1, price:0,  tax:0, description:'',code:'ITEM02'},
+    {name:'Cost Per Worker Core', quantity:1, price:0,  tax:0, description:'',code:'ITEM03'},
+    {name:'Cost Per User', quantity:1, price:0,  tax:0, description:'',code:'ITEM04'},
+    {name:'Cost Per Device', quantity:1, price:0,  tax:0, description:'',code:'ITEM05'},
+    {name:'Cost Per Asset', quantity:1, price:0,  tax:0, description:'',code:'ITEM06'},
+    {name:'Cost Per Message(s)', quantity:1, price:0,  tax:0, description:'',code:'ITEM07'},
+    {name:'Cost Per Record(s)', quantity:1, price:0,  tax:0, description:'',code:'ITEM08'},
+    {name:'Text Message(s)', quantity:1, price:0,  tax:0, description:'',code:'ITEM09'},
+    {name:'Voice Minute(s)', quantity:1, price:0,  tax:0, description:'',code:'ITEM10'},
+    {name:'FCM Push', quantity:1, price:0,  tax:0, description:'',code:'ITEM11'},
+    {name:'Email', quantity:1, price:0,  tax:0, description:'',code:'ITEM12'}
+]
+
+var BILLING_FREQUENCY={
+    'adhoc' : 'AdHoc',
+    'hourly' : 'Hourly',
+    'daily' : 'Daily',
+    'weekly' : 'Weekly',
+    'monthly' : 'Monthly',
+    'quarterly' : 'Quarterly',
+    'semianually' : 'Half Yearly',
+    'annually' : 'Yearly'
+}
+

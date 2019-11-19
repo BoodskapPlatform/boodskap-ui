@@ -62,6 +62,10 @@ $(document).ready(function () {
 
 function restrictAccess() {
 
+    if (USER_ROLE.indexOf('admin') === -1){
+        $(".adminMenu").remove();
+    }
+
 
 
     if (USER_ROLE.indexOf('admin') === -1 && USER_ROLE.indexOf('domainadmin') === -1 && USER_ROLE.indexOf('developer') === -1) {
