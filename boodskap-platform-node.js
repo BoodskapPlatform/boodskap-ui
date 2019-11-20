@@ -80,7 +80,7 @@ var options = {
 
 };
 const swaggerDocument = YAML.load('./yaml/api.yaml');
-app.use('/api', swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
+app.use('/apidocs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
 
 
 var server = require('http').Server(app);
