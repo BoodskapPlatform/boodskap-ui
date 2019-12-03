@@ -25,10 +25,20 @@ $(document).ready(function () {
 //login, register, forget password
 
 function loginCall(email, password, cbk) {
-    var str = DOMAIN_KEY ? '?targetDomainKey=' + DOMAIN_KEY : '';
+
+    var data = {
+        "email": email,
+        "password": password,
+    };
+
+    DOMAIN_KEY ? data['targetDomainKey']= DOMAIN_KEY : '';
+
     $.ajax({
-        url: API_BASE_PATH + "/domain/login/" + email + "/" + password + str,
-        type: 'GET',
+        url: API_BASE_PATH + "/domain/login",
+        type: 'POST',
+        type: 'POST',
+        contentType: "application/json",
+        data: JSON.stringify(data),
         success: function (data) {
             //called when successful
             cbk(true, data);

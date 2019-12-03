@@ -24,6 +24,7 @@ $(document).ready(function () {
     }
 });
 
+
 function mqttListen() {
 
     if (MQTT_STATUS) {

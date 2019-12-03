@@ -443,7 +443,7 @@ function loadBillingItems(data) {
 
         $(".billingItems").append('<tr class="row_' + i + '">' +
             '<td>' + data[i].name +
-            '<input type="hidden" id="item_name_' + i + '" class="input-sm form-control form-control-sm" value="' + data[i].name + '" /></td>' +
+            '<input type="hidden" id="item_name_' + i + '" class="input-sm form-control form-control-sm" value="' + data[i].code + '" /></td>' +
             '<td>' + data[i].quantity + '</td>' +
             '<td><input type="number" id="aprice_' + i + '" class="input-sm form-control form-control-sm" value="' + data[i].aprice + '" onkeyup="checkTotal('+i+')" min="0"/></td>' +
             '<td><input type="number" id="pprice_' + i + '" class="input-sm form-control form-control-sm" value="' + data[i].pprice + '"  onkeyup="checkTotal('+i+')" min="0"/></td>' +
@@ -458,18 +458,18 @@ function loadBillingItems(data) {
     }
     totalItem++;
 
-    addItemRecord()
+    // addItemRecord()
 }
 
 function addItemRecord() {
     $(".billingItems").append('<tr class="row_' + totalItem + '">' +
         '<td><select id="item_name_' + totalItem + '" class="input-sm form-control form-control-sm" onchange="checkItem(this.value,'+totalItem+')"></select></td>' +
         '<td>1</td>' +
-        '<td><input type="number" id="aprice_' + totalItem + '" class="input-sm form-control form-control-sm" value="" onkeyup="checkTotal('+totalItem+')" min="0"/></td>' +
-        '<td><input type="number" id="pprice_' + totalItem + '" class="input-sm form-control form-control-sm" value="" onkeyup="checkTotal('+totalItem+')" min="0"/></td>' +
-        '<td><input type="number" readonly id="price_' + totalItem + '" class="input-sm form-control form-control-sm" value=""  placeholder="Price"  min="0"/></td>' +
-        '<td><input type="number" id="tax_' + totalItem + '" class="input-sm form-control form-control-sm" value="" placeholder="Tax" onkeyup="checkTotal('+totalItem+')"  min="0"/></td>' +
-        '<td><input type="number" readonly id="total_' + totalItem + '" class="input-sm form-control form-control-sm" value=""  min="0"/></td>' +
+        '<td><input type="number" id="aprice_' + totalItem + '" class="input-sm form-control form-control-sm" value="0" onkeyup="checkTotal('+totalItem+')" min="0"/></td>' +
+        '<td><input type="number" id="pprice_' + totalItem + '" class="input-sm form-control form-control-sm" value="0" onkeyup="checkTotal('+totalItem+')" min="0"/></td>' +
+        '<td><input type="number" readonly id="price_' + totalItem + '" class="input-sm form-control form-control-sm" value="0"  placeholder=""  min="0"/></td>' +
+        '<td><input type="number" id="tax_' + totalItem + '" class="input-sm form-control form-control-sm" value="0" placeholder="" onkeyup="checkTotal('+totalItem+')"  min="0"/></td>' +
+        '<td><input type="number" readonly id="total_' + totalItem + '" class="input-sm form-control form-control-sm" value="0"  min="0"/></td>' +
         '<td><button class="btn btn-sm btn-default" type="button" onclick="removeItemRecord('+totalItem+')"><i class="fa fa-trash"></i></button></td>'+
         '</tr>');
     selected_billing_item.push(totalItem);
@@ -484,6 +484,9 @@ function checkItem(val,id) {
         if(val === BILLING_ITEMS[i].code){
             $("#price_"+id).val(BILLING_ITEMS[i].price)
             $("#tax_"+id).val(BILLING_ITEMS[i].tax)
+            $("#total_"+id).val(BILLING_ITEMS[i].total)
+            $("#aprice_"+id).val(BILLING_ITEMS[i].aprice)
+            $("#pprice_"+id).val(BILLING_ITEMS[i].pprice)
         }
     }
 
@@ -635,9 +638,9 @@ function saveBillingConfig() {
                 price: Number($("#price_" + id).val()),
                 tax: Number($("#tax_" + id).val()),
                 code: $("#item_name_" + id).val(),
-                aprice: Number($("#aprice_" + i).val()),
-                pprice: Number($("#pprice_" + i).val()),
-                total: Number($("#total_" + i).val())
+                aprice: Number($("#aprice_" + id).val()),
+                pprice: Number($("#pprice_" + id).val()),
+                total: Number($("#total_" + id).val())
             }
             items.push(obj)
         }
@@ -875,9 +878,9 @@ function updateBilling() {
                 price: Number($("#price_" + id).val()),
                 tax: Number($("#tax_" + id).val()),
                 code: $("#item_name_" + id).val(),
-                aprice: Number($("#aprice_" + i).val()),
-                pprice: Number($("#pprice_" + i).val()),
-                total: Number($("#total_" + i).val())
+                aprice: Number($("#aprice_" + id).val()),
+                pprice: Number($("#pprice_" + id).val()),
+                total: Number($("#total_" + id).val())
             }
             items.push(obj)
         }
@@ -1035,11 +1038,11 @@ function viewInvoice(id) {
             $(".billingItemsView").append('<tr>' +
                 '<td>' + data[i].name + '</td>' +
                 '<td>' + data[i].quantity + '</td>' +
-                '<td><b>' + obj.currency + ' ' + data[i].aprice + '</b></td>' +
-                '<td><b>' + obj.currency + ' ' + data[i].pprice + '</b></td>' +
+                '<td><b>' + obj.currency + ' ' + checkNull(data[i].aprice) + '</b></td>' +
+                '<td><b>' + obj.currency + ' ' + checkNull(data[i].pprice) + '</b></td>' +
                 '<td><b>' + obj.currency + ' ' + data[i].price + '</b></td>' +
                 '<td><b>' + obj.currency + ' ' + data[i].tax + '</b></td>' +
-                '<td><b>' + obj.currency + ' ' + data[i].total + '</b></td>' +
+                '<td><b>' + obj.currency + ' ' + checkNull(data[i].total.toFixed(5)) + '</b></td>' +
                 '</tr>');
     }
 
@@ -1052,6 +1055,11 @@ function viewInvoice(id) {
     $("#viewInvoice").modal('show');
 }
 
+function checkNull(val) {
+
+    return val ? val : '-';
+
+}
 
 var master_list = {};
 
@@ -1251,7 +1259,7 @@ function checkFrequency() {
     var freq = $("#frequency").val();
 
     if(freq === 'adhoc'){
-        $(".btnInvoice").html('<i class="icon-file-pdf"></i> Generate')
+        $(".btnInvoice").html('<i class="icon-file-pdf"></i> Save & Generate')
         $(".freqOpt").html('<span class="text-danger">*</span>')
     }else{
         $(".btnInvoice").html('<i class="icon-save"></i> Save')
@@ -1274,3 +1282,4 @@ function checkTotal(id) {
     $("#total_"+id).val(price+(price * tax))
 
 }
+

@@ -41,6 +41,7 @@ var MOBILE_DASHBOARD_LIST_PROPERTY = "domain.mobile.dashboard.list";
 var BRANDING_LOGO_ID = '711bd379-8c6c-4042-8a7b-36ea6ef2d14e';
 var PROFILE_PIC_ID = '4a02a73c-85ba-11e8-adc0-fa7ae01bbebc';
 var ADMIN_DOMAIN_BRANDING_PROPERTY = '612b8370-e384-11e8-b568-0800200c9a66'
+var USER_GEOFENCE = 'USER-GEOFENCE'
 
 var DEFAULT_DASHBOARD_BG = '#ffffff';
 var DEFAULT_DASHBOARD_TITLE_BG = '#6d6d6d';
@@ -145,7 +146,7 @@ var VERTICAL_CATEGORY = ['Smart Homes','Transportation & Logistics', 'Healthcare
 
 
 var BILLING_ITEMS = [
-    {name:'Cost Per CPU', quantity:1, price:0, tax:0, description:'', code:'ITEM01'},
+    {name:'Cost Per CPU', quantity:1, aprice:0,pprice:0,price:0, tax:0,total:0, description:'', code:'ITEM01'},
     {name:'Cost Per Core', quantity:1, price:0,  tax:0, description:'',code:'ITEM02'},
     {name:'Cost Per Worker Core', quantity:1, price:0,  tax:0, description:'',code:'ITEM03'},
     {name:'Cost Per User', quantity:1, price:0,  tax:0, description:'',code:'ITEM04'},

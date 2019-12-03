@@ -9,6 +9,7 @@ var geoStatus = "label";
 var drawingManager;
 var minMaximizeFlag = true;
 var geofenceObj = {
+        "group": USER_GEOFENCE,
         "name": "",
         "geoType": "POINT",
         "label": "",
@@ -112,6 +113,7 @@ function mapInit() {
 
 function restoreRecord(){
     geofenceObj = {
+        "group":USER_GEOFENCE,
         "name": "",
         "geoType": "",
         "label": "",
@@ -160,21 +162,21 @@ function singleGeoSnapshot(obj){
 
 
 function createNewGeofence() {
+    upsertEntityGeofence()
+    // var type = $("#geofenceCreateType").val();
 
-    var type = $("#geofenceCreateType").val();
+    // if(type === 'ENTITY'){
 
-    if(type === 'ENTITY'){
+    //     upsertEntityGeofence();
 
-        upsertEntityGeofence();
+    // }else if(type === 'ASSET'){
 
-    }else if(type === 'ASSET'){
+    //     upsertAssetGeofence();
 
-        upsertAssetGeofence();
+    // }else if(type === 'DEVICE'){
 
-    }else if(type === 'DEVICE'){
-
-        upsertDeviceGeofence();
-    }
+    //     upsertDeviceGeofence();
+    // }
 }
 
 function upsertEntityGeofence(){
@@ -206,15 +208,15 @@ function upsertEntityGeofence(){
         geoInputObj['coordinates'] = [];
         geoInputObj.coordinates.push(geofenceObj.coordinatesGroup);
     }
-
     geofenceObj.name = $("#geoCreateForm #name").val();
     geofenceObj.label = $("#geoCreateForm #label").val();
     geofenceObj.description = $("#geoCreateForm #description").val();
-    geofenceObj.category1 = $("#geoCreateForm #category1").val();
+    // geofenceObj.category1 = $("#geoCreateForm #category1").val();
 
     geoInputObj['domainKey'] = DOMAIN_KEY;
     // geoInputObj['name'] = geofenceObj.name ? (geofenceObj.name.replace(/\s+/g, '+')) :"";
     // geoInputObj['name'] = geofenceObj.name ? encodeURIComponent(geofenceObj.name) :"";
+    geoInputObj['group'] = USER_GEOFENCE;
     geoInputObj['name'] = geofenceObj.name ? geofenceObj.name :"";
     geoInputObj['geoType'] = geofenceObj.geoType;
     geoInputObj['label'] = geofenceObj.label;
@@ -223,14 +225,14 @@ function upsertEntityGeofence(){
     geoInputObj['createdAt'] = new Date().getTime();
     geoInputObj['entityId'] = guid();
 
-    geoInputObj['category1'] = geofenceObj.category1;
+    // geoInputObj['category1'] = geofenceObj.category1;
     geoInputObj['geometries']['type'] = geoInputObj.geoType;
     geoInputObj['geometries']['coordinates'] = geoInputObj.coordinates;
     geoInputObj['geometries'] = JSON.stringify(geoInputObj.geometries);
 
     $("input").css({"border":"1px solid #ccc","background":"#fff"});
 
-    if(!geofenceObj.name){
+   if(!geofenceObj.name){
 
         $("#name").css({"border":"1px solid red","background":"#ff00000d"}).focus();
         errorMsg('Geofence Name is Required');
@@ -245,22 +247,17 @@ function upsertEntityGeofence(){
         $("#label").css({"border":"1px solid red","background":"#ff00000d"}).focus();
         errorMsg('Label is Required');
 
-    }else if(!geofenceObj.category1){
-
-        $("#category1").css({"border":"1px solid red","background":"#ff00000d"}).focus();
-        errorMsg('Category is Required');
-
-    }else{
+    } else{
 
         if(geofenceObj.geoType === 'POINTS'){
 
-            if($("#pointLat").val()){
+            if(!$("#pointLat").val()){
 
                 $("#pointLat").css({"border":"1px solid red","background":"#ff00000d"}).focus();
                 errorMsg('Lat. is required for points');
                 return false;
 
-            }else if($("#pointLong").val()){
+            }else if(!$("#pointLong").val()){
 
                 $("#pointLong").css({"border":"1px solid red","background":"#ff00000d"}).focus();
                 errorMsg('Long. is required for points');
@@ -270,29 +267,25 @@ function upsertEntityGeofence(){
 
         }else if(geofenceObj.geoType === 'CIRCLE'){
 
-            if($("#bskpLat").val()){
+            if(!$("#bskpLat").val()){
 
                 $("#bskpLat").css({"border":"1px solid red","background":"#ff00000d"}).focus();
                 errorMsg('Lat. is required for circle');
                 return false;
 
-            }else if($("#bskpLong").val()){
+            }else if(!$("#bskpLong").val()){
 
                 $("#bskpLong").css({"border":"1px solid red","background":"#ff00000d"}).focus();
                 errorMsg('Long. is required for circle');
                 return false;
 
-            }else if($("#bskpCircleRadius").val()){
+            }else if(!$("#bskpCircleRadius").val()){
 
                 $("#bskpCircleRadius").css({"border":"1px solid red","background":"#ff00000d"}).focus();
                 errorMsg('Radius is required for circle');
                 return false;
 
             }
-
-        }else if(geofenceObj.geoType === 'LINESTRING'){
-
-        }else if(geofenceObj.geoType === 'POLYGON'){
 
         }
 
@@ -311,7 +304,7 @@ function upsertEntityGeofence(){
 
 
                 $.ajax({
-                    url: API_BASE_PATH + "/geofence/entity/upsert/" + API_TOKEN+"?geotype="+geoInputObj.geoType,
+                    url: API_BASE_PATH + "/geofence/upsert/" + API_TOKEN+"?geotype="+geoInputObj.geoType,
                     data: JSON.stringify(geoInputObj),
                     contentType: "application/json",
                     type: 'POST',
@@ -377,15 +370,15 @@ function upsertAssetGeofence(){
         geoInputObj['coordinates'] = [];
         geoInputObj.coordinates.push(geofenceObj.coordinatesGroup);
     }
-
     geofenceObj.name = $("#geoCreateForm #name").val();
     geofenceObj.label = $("#geoCreateForm #label").val();
     geofenceObj.description = $("#geoCreateForm #description").val();
-    geofenceObj.category1 = $("#geoCreateForm #category1").val();
+    // geofenceObj.category1 = $("#geoCreateForm #category1").val();
 
     geoInputObj['domainKey'] = DOMAIN_KEY;
     // geoInputObj['name'] = geofenceObj.name ? (geofenceObj.name.replace(/\s+/g, '+')) :"";
     // geoInputObj['name'] = geofenceObj.name ? encodeURIComponent(geofenceObj.name) :"";
+    geoInputObj['group'] = USER_GEOFENCE;
     geoInputObj['name'] = geofenceObj.name ? geofenceObj.name :"";
     geoInputObj['geoType'] = geofenceObj.geoType;
     geoInputObj['label'] = geofenceObj.label;
@@ -394,7 +387,7 @@ function upsertAssetGeofence(){
     geoInputObj['createdAt'] = new Date().getTime();
     geoInputObj['entityId'] = guid();
 
-    geoInputObj['category1'] = geofenceObj.category1;
+    // geoInputObj['category1'] = geofenceObj.category1;
     geoInputObj['geometries']['type'] = geoInputObj.geoType;
     geoInputObj['geometries']['coordinates'] = geoInputObj.coordinates;
     geoInputObj['geometries'] = JSON.stringify(geoInputObj.geometries);
@@ -416,22 +409,24 @@ function upsertAssetGeofence(){
         $("#label").css({"border":"1px solid red","background":"#ff00000d"}).focus();
         errorMsg('Label is Required');
 
-    }else if(!geofenceObj.category1){
+    }
+    // else if(!geofenceObj.category1){
 
-        $("#category1").css({"border":"1px solid red","background":"#ff00000d"}).focus();
-        errorMsg('Category is Required');
+    //     $("#category1").css({"border":"1px solid red","background":"#ff00000d"}).focus();
+    //     errorMsg('Category is Required');
 
-    }else{
+    // }
+    else{
 
         if(geofenceObj.geoType === 'POINTS'){
 
-            if(!$("#pointLat").val()){
+            if($("#pointLat").val()){
 
                 $("#pointLat").css({"border":"1px solid red","background":"#ff00000d"}).focus();
                 errorMsg('Lat. is required for points');
                 return false;
 
-            }else if(!$("#pointLong").val()){
+            }else if($("#pointLong").val()){
 
                 $("#pointLong").css({"border":"1px solid red","background":"#ff00000d"}).focus();
                 errorMsg('Long. is required for points');
@@ -441,19 +436,19 @@ function upsertAssetGeofence(){
 
         }else if(geofenceObj.geoType === 'CIRCLE'){
 
-            if(!$("#bskpLat").val()){
+            if($("#bskpLat").val()){
 
                 $("#bskpLat").css({"border":"1px solid red","background":"#ff00000d"}).focus();
                 errorMsg('Lat. is required for circle');
                 return false;
 
-            }else if(!$("#bskpLong").val()){
+            }else if($("#bskpLong").val()){
 
                 $("#bskpLong").css({"border":"1px solid red","background":"#ff00000d"}).focus();
                 errorMsg('Long. is required for circle');
                 return false;
 
-            }else if(!$("#bskpCircleRadius").val()){
+            }else if($("#bskpCircleRadius").val()){
 
                 $("#bskpCircleRadius").css({"border":"1px solid red","background":"#ff00000d"}).focus();
                 errorMsg('Radius is required for circle');
@@ -482,7 +477,7 @@ function upsertAssetGeofence(){
 
 
                 $.ajax({
-                    url: API_BASE_PATH + "/geofence/asset/upsert/" + API_TOKEN+"?geotype="+geoInputObj.geoType,
+                    url: API_BASE_PATH + "/geofence/upsert/" + API_TOKEN+"?geotype="+geoInputObj.geoType,
                     data: JSON.stringify(geoInputObj),
                     contentType: "application/json",
                     type: 'POST',
@@ -548,15 +543,15 @@ function upsertDeviceGeofence(){
         geoInputObj['coordinates'] = [];
         geoInputObj.coordinates.push(geofenceObj.coordinatesGroup);
     }
-
     geofenceObj.name = $("#geoCreateForm #name").val();
     geofenceObj.label = $("#geoCreateForm #label").val();
     geofenceObj.description = $("#geoCreateForm #description").val();
-    geofenceObj.category1 = $("#geoCreateForm #category1").val();
+    // geofenceObj.category1 = $("#geoCreateForm #category1").val();
 
     geoInputObj['domainKey'] = DOMAIN_KEY;
     // geoInputObj['name'] = geofenceObj.name ? (geofenceObj.name.replace(/\s+/g, '+')) :"";
     // geoInputObj['name'] = geofenceObj.name ? encodeURIComponent(geofenceObj.name) :"";
+    geoInputObj['group'] = USER_GEOFENCE;
     geoInputObj['name'] = geofenceObj.name ? geofenceObj.name :"";
     geoInputObj['geoType'] = geofenceObj.geoType;
     geoInputObj['label'] = geofenceObj.label;
@@ -565,14 +560,14 @@ function upsertDeviceGeofence(){
     geoInputObj['createdAt'] = new Date().getTime();
     geoInputObj['entityId'] = guid();
 
-    geoInputObj['category1'] = geofenceObj.category1;
+    // geoInputObj['category1'] = geofenceObj.category1;
     geoInputObj['geometries']['type'] = geoInputObj.geoType;
     geoInputObj['geometries']['coordinates'] = geoInputObj.coordinates;
     geoInputObj['geometries'] = JSON.stringify(geoInputObj.geometries);
 
     $("input").css({"border":"1px solid #ccc","background":"#fff"});
 
-    if(!geofenceObj.name){
+   if(!geofenceObj.name){
 
         $("#name").css({"border":"1px solid red","background":"#ff00000d"}).focus();
         errorMsg('Geofence Name is Required');
@@ -587,15 +582,10 @@ function upsertDeviceGeofence(){
         $("#label").css({"border":"1px solid red","background":"#ff00000d"}).focus();
         errorMsg('Label is Required');
 
-    }else if(!geofenceObj.category1){
-
-        $("#category1").css({"border":"1px solid red","background":"#ff00000d"}).focus();
-        errorMsg('Category is Required');
-
     }else{
 
         if(geofenceObj.geoType === 'POINTS'){
-
+          
             if($("#pointLat").val()){
 
                 $("#pointLat").css({"border":"1px solid red","background":"#ff00000d"}).focus();
@@ -764,15 +754,15 @@ function loadGeofenceList() {
                 return data ? data : '-';
             }
         },
-        {
-            mData: 'category1',
-            sTitle: 'Category',
-            orderable: false,
-            sWidth: '5%',
-            mRender: function (data, type, row) {
-                return data ? data : '-';
-            }
-        },
+        // {
+        //     mData: 'category1',
+        //     sTitle: 'Category',
+        //     orderable: false,
+        //     sWidth: '5%',
+        //     mRender: function (data, type, row) {
+        //         return data ? data : '-';
+        //     }
+        // },
         {
             mData: 'createdAt',
             sTitle: 'CreatedAt',
@@ -842,7 +832,7 @@ function loadGeofenceList() {
                     "multi_match": {
                         "query": '*' + searchText + '*',
                         "type": "phrase_prefix",
-                        "fields": ['name','category1','label','geoType']
+                        "fields": ['name', 'label','geoType']
                     }
                 };
 
@@ -1450,7 +1440,7 @@ function removeThisMarker(newMark,markerId){
 }
 
 function mapTools(flag){
-
+    resetAll()
     $(".map-top-tools .min-tool-btn").removeClass("active");
     $("#"+flag).addClass("active");
     $("#geoType").val(flag);

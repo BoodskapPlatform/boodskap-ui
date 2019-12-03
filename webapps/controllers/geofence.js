@@ -9,18 +9,19 @@ var geoStatus = "label";
 var drawingManager;
 var minMaximizeFlag = true;
 var geofenceObj = {
-        "name": "",
-        "geoType": "POINT",
-        "label": "",
-        "description": "",
-        "coordinates": "",
-        "radius": 50,
-        "geometries": "",
-        "locationSearch": "",
-        "coordinatesGroup": "",
-        "lat": "",
-        "lng": ""
-    };
+    "group": "group",
+    "name": "",
+    "geoType": "POINT",
+    "label": "",
+    "description": "",
+    "coordinates": "",
+    "radius": 50,
+    "geometries": "",
+    "locationSearch": "",
+    "coordinatesGroup": "",
+    "lat": "",
+    "lng": ""
+};
 
 var geofenceCount = [];
 var msgPagination = false;
@@ -28,38 +29,38 @@ var msgPageSize = 5;
 var msgPageNo = 1;
 var geoListLoader = false;
 
-var isActive ;
-var geoMapio ;
-var geodata  = [];
-var newGeoMarker ;
-var newGeoCircle ;
-var newGeoPolygon ;
-var newGeoPolyline ;
+var isActive;
+var geoMapio;
+var geodata = [];
+var newGeoMarker;
+var newGeoCircle;
+var newGeoPolygon;
+var newGeoPolyline;
 
-var markersGroup  = [];
-var circlesGroup  = [];
-var polygonGroup  = [];
-var polylineGroup  = [];
-var markerCluster ;
+var markersGroup = [];
+var circlesGroup = [];
+var polygonGroup = [];
+var polylineGroup = [];
+var markerCluster;
 
-var place ={};
-var geofence  = {
-    latlng : "",
-    address : "",
-    title : "Test"
+var place = {};
+var geofence = {
+    latlng: "",
+    address: "",
+    title: "Test"
 };
 var mapHgt;
 
 
-$(document).ready(function () {
+$(document).ready(function() {
 
-    $("#geoMap").css('height',$(window).height()-150);
-    $(".geoListBody").css('height',$(window).height()-195);
+    $("#geoMap").css('height', $(window).height() - 150);
+    $(".geoListBody").css('height', $(window).height() - 195);
     $("body").removeClass('bg-white');
 
 
-    $("#geoType").on('change',function (e) {
-       mapTools(e.target.value);
+    $("#geoType").on('change', function(e) {
+        mapTools(e.target.value);
     });
 
 
@@ -69,7 +70,7 @@ $(document).ready(function () {
 
 
 function loadGoogleApiKey() {
-    getDomainProperty(GOOGLE_API_PROPERTY, function (status, data) {
+    getDomainProperty(GOOGLE_API_PROPERTY, function(status, data) {
         if (status) {
             var obj = JSON.parse(data.value);
             loadGoogleMaps(obj.apiKey);
@@ -90,7 +91,7 @@ function loadGoogleMaps(key) {
 
 
 function mapInit() {
-    var uluru = {lat: -25.363, lng: 131.044};
+    var uluru = { lat: -25.363, lng: 131.044 };
     var map = new google.maps.Map(document.getElementById('geoMap'), {
         zoom: 4,
         center: uluru
@@ -101,8 +102,9 @@ function mapInit() {
     });
 }
 
-function restoreRecord(){
+function restoreRecord() {
     geofenceObj = {
+        "group": "group",
         "name": "",
         "geoType": "",
         "label": "",
@@ -118,28 +120,28 @@ function restoreRecord(){
     $("#locationSearch").val("");
 }
 
-function singleGeoSnapshot(obj){
+function singleGeoSnapshot(obj) {
 
     var oneGeoObj = JSON.parse(decodeURIComponent(obj));
     oneGeoObj.geoType = oneGeoObj.geoType.toUpperCase();
-    var center= {};
+    var center = {};
 
-    if(oneGeoObj.geoType == "POINT"){
-
-        center["lat"] = oneGeoObj.location.coordinates[0];
-        center["lng"] = oneGeoObj.location.coordinates[1];
-
-    }else if(oneGeoObj.geoType == "CIRCLE"){
+    if (oneGeoObj.geoType == "POINT") {
 
         center["lat"] = oneGeoObj.location.coordinates[0];
         center["lng"] = oneGeoObj.location.coordinates[1];
 
-    }else if(oneGeoObj.geoType == "LINESTRING"){
+    } else if (oneGeoObj.geoType == "CIRCLE") {
+
+        center["lat"] = oneGeoObj.location.coordinates[0];
+        center["lng"] = oneGeoObj.location.coordinates[1];
+
+    } else if (oneGeoObj.geoType == "LINESTRING") {
 
         center["lat"] = oneGeoObj.location.coordinates[0][0];
         center["lng"] = oneGeoObj.location.coordinates[0][1];
 
-    }else if(oneGeoObj.geoType == "POLYGON"){
+    } else if (oneGeoObj.geoType == "POLYGON") {
 
         center["lat"] = oneGeoObj.location.coordinates[0][0][0];
         center["lng"] = oneGeoObj.location.coordinates[0][0][1];
@@ -149,9 +151,9 @@ function singleGeoSnapshot(obj){
     geoMapio.setZoom(17);
 }
 
-function upsertGeofence(){
+function upsertGeofence() {
 
-    var geoInputObj  = {};
+    var geoInputObj = {};
     geoInputObj['coordinates'] = [];
     geoInputObj['description'] = geofenceObj.description;
 
@@ -160,20 +162,20 @@ function upsertGeofence(){
         "coordinates": []
     };
 
-    if(geofenceObj.geoType == 'POINT'){
+    if (geofenceObj.geoType == 'POINT') {
 
-        geoInputObj['coordinates'] = [geofenceObj.lat,geofenceObj.lng];
+        geoInputObj['coordinates'] = [geofenceObj.lat, geofenceObj.lng];
 
-    }else if(geofenceObj.geoType == 'LINESTRING'){
+    } else if (geofenceObj.geoType == 'LINESTRING') {
 
         geoInputObj['coordinates'] = geofenceObj.coordinatesGroup;
 
-    }else if(geofenceObj.geoType == 'CIRCLE'){
+    } else if (geofenceObj.geoType == 'CIRCLE') {
 
-        geoInputObj['coordinates'] = [geofenceObj.lat,geofenceObj.lng];
+        geoInputObj['coordinates'] = [geofenceObj.lat, geofenceObj.lng];
         geoInputObj['radius'] = geofenceObj.radius;
 
-    }else if(geofenceObj.geoType == 'POLYGON'){
+    } else if (geofenceObj.geoType == 'POLYGON') {
 
         geoInputObj['coordinates'] = [];
         geoInputObj.coordinates.push(geofenceObj.coordinatesGroup);
@@ -187,7 +189,7 @@ function upsertGeofence(){
     geoInputObj['domainKey'] = DOMAIN_KEY;
     // geoInputObj['name'] = geofenceObj.name ? (geofenceObj.name.replace(/\s+/g, '+')) :"";
     // geoInputObj['name'] = geofenceObj.name ? encodeURIComponent(geofenceObj.name) :"";
-    geoInputObj['name'] = geofenceObj.name ? geofenceObj.name :"";
+    geoInputObj['name'] = geofenceObj.name ? geofenceObj.name : "";
     geoInputObj['geoType'] = geofenceObj.geoType;
     geoInputObj['label'] = geofenceObj.label;
     geoInputObj['description'] = geofenceObj.description;
@@ -201,27 +203,27 @@ function upsertGeofence(){
     geoInputObj['geometries'] = JSON.stringify(geoInputObj.geometries);
 
 
-    if(!geofenceObj.name){
+    if (!geofenceObj.name) {
 
         $("#name").focus();
         errorMsg('Geofence Name is Required');
 
-    }else if(!geofenceObj.geoType){
+    } else if (!geofenceObj.geoType) {
 
         $("#geoType").focus();
         errorMsg('Geofence Type is Required');
 
-    }else if(!geofenceObj.label){
+    } else if (!geofenceObj.label) {
 
         $("#label").focus();
         errorMsg('Label is Required');
 
-    }else if(!geofenceObj.category1){
+    } else if (!geofenceObj.category1) {
 
         $("#category1").focus();
         errorMsg('Category is Required');
 
-    }else{
+    } else {
 
         Swal({
             title: 'Confirmation',
@@ -232,18 +234,18 @@ function upsertGeofence(){
             cancelButtonText: 'No, Edit',
             closeOnConfirm: false,
             closeOnCancel: false
-        }).then(function(result){
+        }).then(function(result) {
 
             if (result.value) {
 
 
                 $.ajax({
-                    url: API_BASE_PATH + "/geofence/entity/upsert/" + API_TOKEN+"?geotype="+geoInputObj.geoType,
+                    url: API_BASE_PATH + "/geofence/entity/upsert/" + API_TOKEN + "?geotype=" + geoInputObj.geoType,
                     data: JSON.stringify(geoInputObj),
                     contentType: "application/json",
                     type: 'POST',
-                    success: function (res) {
-                        if(res){
+                    success: function(res) {
+                        if (res) {
 
                             $("#geoCreateForm #name").val("");
                             $("#geoCreateForm #label").val("");
@@ -252,19 +254,19 @@ function upsertGeofence(){
                             $("#geoCreateForm #category1").val("");
                             mapTools("DEFAULT")
 
-                            setTimeout(function () {
+                            setTimeout(function() {
                                 loadGeofenceList();
-                            },1000);
+                            }, 1000);
                             Swal("Created!", "Your Geofence has been Created.", "success");
                             resetAll();
-                        }else{
+                        } else {
                             Swal("Error", "Try Again", "error");
                         }
                     },
-                    error: function (err) {
+                    error: function(err) {
                         console.log(err.message);
-                        if(err.status === 417){
-                            Swal("417 Error", "Invalid Parameters, Check Your Geofence Details!"+err, "error");
+                        if (err.status === 417) {
+                            Swal("417 Error", "Invalid Parameters, Check Your Geofence Details!" + err, "error");
                         }
                     }
                 });
@@ -277,24 +279,24 @@ function upsertGeofence(){
 }
 
 
-function resetAll(){
+function resetAll() {
 
-    if(newGeoMarker){
+    if (newGeoMarker) {
         newGeoMarker.setMap(null); //Reset Map Markers
     }
 
-    if(newGeoCircle){
+    if (newGeoCircle) {
         newGeoCircle.setMap(null); //Reset Map Circles
     }
 
-    if(newGeoPolygon){
+    if (newGeoPolygon) {
         newGeoPolygon.setMap(null); //Reset Map Circles
     }
-    if(newGeoPolyline){
+    if (newGeoPolyline) {
         newGeoPolyline.setMap(null); //Reset Map Circles
     }
 
-    if(drawingManager){
+    if (drawingManager) {
         drawingManager.setDrawingMode(null); //Reset Drawing Mode
         // drawingManager.setMap(null);//Reset Drawing Tool
     }
@@ -303,11 +305,11 @@ function resetAll(){
 function loadGeofence() {
     var geoType = $("#geoType").val();
 
-    if(geoType === 'ENTITY'){
+    if (geoType === 'ENTITY') {
         loadGeofenceList();
-    }else if(geoType === 'ASSET'){
+    } else if (geoType === 'ASSET') {
         loadAssetGeofenceList();
-    }else{
+    } else {
         loadDeviceGeofenceList();
     }
 }
@@ -319,15 +321,14 @@ function loadGeofenceList() {
         $("#geofenceTable").html("");
     }
 
-    var fields = [
-        {
+    var fields = [{
             mData: 'name',
             sTitle: 'Geofence Name',
             orderable: false,
-            mRender: function (data, type, row) {
+            mRender: function(data, type, row) {
 
-                return '<span onclick="singleGeoSnapshot(\'' + encodeURIComponent(JSON.stringify(row)) + '\')" style="cursor: pointer;">'+data + ' <i class="icon-eye"></i><br>' +
-                    '<small class="text-grey">'+(row['name'] ? ''+row['description'] : '')+'</small>' +
+                return '<span onclick="singleGeoSnapshot(\'' + encodeURIComponent(JSON.stringify(row)) + '\')" style="cursor: pointer;">' + data + ' <i class="icon-eye"></i><br>' +
+                    '<small class="text-grey">' + (row['name'] ? '' + row['description'] : '') + '</small>' +
                     '</span>';
             }
         },
@@ -335,16 +336,16 @@ function loadGeofenceList() {
             mData: 'geoType',
             sTitle: 'Type',
             orderable: false,
-            mRender: function (data, type, row) {
+            mRender: function(data, type, row) {
 
 
-                if(row['geoType'] == "POINT"){
+                if (row['geoType'] == "POINT") {
 
-                }else if(row['geoType'] == "CIRCLE"){
+                } else if (row['geoType'] == "CIRCLE") {
 
-                }else if(row['geoType'] == "POLYGON"){
+                } else if (row['geoType'] == "POLYGON") {
 
-                }else if(row['geoType'] == "POINT"){
+                } else if (row['geoType'] == "POINT") {
 
                 }
 
@@ -359,25 +360,25 @@ function loadGeofenceList() {
             sTitle: 'Label',
             orderable: false,
             sWidth: '5%',
-            mRender: function (data, type, row) {
+            mRender: function(data, type, row) {
                 return data ? data : '-';
             }
         },
-        {
-            mData: 'category1',
-            sTitle: 'Category',
-            orderable: false,
-            sWidth: '5%',
-            mRender: function (data, type, row) {
-                return data ? data : '-';
-            }
-        },
+        // {
+        //     mData: 'category1',
+        //     sTitle: 'Category',
+        //     orderable: false,
+        //     sWidth: '5%',
+        //     mRender: function(data, type, row) {
+        //         return data ? data : '-';
+        //     }
+        // },
         {
             mData: 'createdAt',
             sTitle: 'Created Time',
             orderable: true,
             sWidth: '5%',
-            mRender: function (data, type, row) {
+            mRender: function(data, type, row) {
                 return data ? moment(data).format('MM/DD/YYYY hh:mm a') : '-';
             }
         },
@@ -386,16 +387,17 @@ function loadGeofenceList() {
             sTitle: 'Action',
             orderable: false,
             sWidth: '10%',
-            mRender: function (data, type, row) {
-                return '<div style="white-space: nowrap;"><button class="btn btn-xs btn-default" onclick="openModal(3,\'' + row['_id'] + '\')"><i class="icon-trash-o"></i> Delete</button>' +
-                '</div>';
+            mRender: function(data, type, row) {
+                return '<div style="white-space: nowrap;"><button class="btn btn-xs btn-default" onclick="openModal(3,\'' + row['name'] + '\')"><i class="icon-trash-o"></i> Delete</button>' +
+                    '</div>';
             }
         }
 
     ];
 
-    var domainKeyJson = {"match": {"domainKey": DOMAIN_KEY}};
-    var defaultSorting = [{"reported": {"order": "desc"}}];
+    var domainKeyJson = { "match": { "domainKey": DOMAIN_KEY, } };
+
+    var defaultSorting = { "reported": { "order": "desc" } };
 
     var queryParams = {
         query: {
@@ -403,8 +405,9 @@ function loadGeofenceList() {
                 "must": []
             }
         },
-        sort: []
+        sort: [defaultSorting]
     };
+
 
 
     var tableOption = {
@@ -415,21 +418,26 @@ function loadGeofenceList() {
         responsive: true,
         paging: true,
         searching: true,
-        aaSorting: [[4, 'desc']],
+        aaSorting: [
+            [3, 'desc']
+        ],
         "ordering": true,
         iDisplayLength: 5,
-        pagingType:'simple',
-        lengthMenu: [[5, 10, 50, 100], [5, 10, 50, 100]],
+        pagingType: 'simple',
+        lengthMenu: [
+            [5, 10, 50, 100],
+            [5, 10, 50, 100]
+        ],
         aoColumns: fields,
         "bProcessing": true,
         "bServerSide": true,
         "sAjaxSource": API_BASE_PATH + '/elastic/search/query/' + API_TOKEN,
-        "fnServerData": function (sSource, aoData, fnCallback, oSettings) {
+        "fnServerData": function(sSource, aoData, fnCallback, oSettings) {
 
             var keyName = fields[oSettings.aaSorting[0][0]];
 
             var sortingJson = {};
-            sortingJson[keyName['mData']] = {"order": oSettings.aaSorting[0][1]};
+            sortingJson[keyName['mData']] = { "order": oSettings.aaSorting[0][1] };
             queryParams.sort = [sortingJson];
 
             queryParams['size'] = oSettings._iDisplayLength;
@@ -442,7 +450,7 @@ function loadGeofenceList() {
                     "multi_match": {
                         "query": '*' + searchText + '*',
                         "type": "phrase_prefix",
-                        "fields": ['name','category1','label','geoType']
+                        "fields": ['name', 'category1', 'label', 'geoType']
                     }
                 };
 
@@ -458,7 +466,7 @@ function loadGeofenceList() {
                 "extraPath": "",
                 "query": JSON.stringify(queryParams),
                 "params": [],
-                type : 'GEOFENCE'
+                type: 'GEOFENCE'
             };
 
 
@@ -468,13 +476,11 @@ function loadGeofenceList() {
                 "type": "POST",
                 "url": sSource,
                 "data": JSON.stringify(ajaxObj),
-                success: function (data) {
+                success: function(data) {
 
                     var fullObj = searchQueryFormatter(data);
                     var resultData = fullObj.data;
-                    geofence_list =resultData.data;
-
-
+                    geofence_list = resultData.data;
 
                     geodata = resultData.data;
                     geofenceMapManagement();
@@ -494,12 +500,12 @@ function loadGeofenceList() {
 
     geofenceTable = $("#geofenceTable").DataTable(tableOption);
 
-    geofenceTable.on( 'draw', function () {
-        var body = $( geofenceTable.table().body() );
+    geofenceTable.on('draw', function() {
+        var body = $(geofenceTable.table().body());
 
         body.unhighlight();
-        body.highlight( geofenceTable.search() );
-    } );
+        body.highlight(geofenceTable.search());
+    });
 }
 
 function loadAssetGeofenceList() {
@@ -509,15 +515,14 @@ function loadAssetGeofenceList() {
         $("#geofenceTable").html("");
     }
 
-    var fields = [
-        {
+    var fields = [{
             mData: 'name',
             sTitle: 'Geofence Name',
             orderable: false,
-            mRender: function (data, type, row) {
+            mRender: function(data, type, row) {
 
-                return '<span onclick="singleGeoSnapshot(\'' + encodeURIComponent(JSON.stringify(row)) + '\')" style="cursor: pointer;">'+data + ' <i class="icon-eye"></i><br>' +
-                    '<small class="text-grey">'+(row['name'] ? ''+row['description'] : '')+'</small>' +
+                return '<span onclick="singleGeoSnapshot(\'' + encodeURIComponent(JSON.stringify(row)) + '\')" style="cursor: pointer;">' + data + ' <i class="icon-eye"></i><br>' +
+                    '<small class="text-grey">' + (row['name'] ? '' + row['description'] : '') + '</small>' +
                     '</span>';
             }
         },
@@ -525,16 +530,16 @@ function loadAssetGeofenceList() {
             mData: 'geoType',
             sTitle: 'Type',
             orderable: false,
-            mRender: function (data, type, row) {
+            mRender: function(data, type, row) {
 
 
-                if(row['geoType'] == "POINT"){
+                if (row['geoType'] == "POINT") {
 
-                }else if(row['geoType'] == "CIRCLE"){
+                } else if (row['geoType'] == "CIRCLE") {
 
-                }else if(row['geoType'] == "POLYGON"){
+                } else if (row['geoType'] == "POLYGON") {
 
-                }else if(row['geoType'] == "POINT"){
+                } else if (row['geoType'] == "POINT") {
 
                 }
 
@@ -549,25 +554,25 @@ function loadAssetGeofenceList() {
             sTitle: 'Label',
             orderable: false,
             sWidth: '5%',
-            mRender: function (data, type, row) {
+            mRender: function(data, type, row) {
                 return data ? data : '-';
             }
         },
-        {
-            mData: 'category1',
-            sTitle: 'Category',
-            orderable: false,
-            sWidth: '5%',
-            mRender: function (data, type, row) {
-                return data ? data : '-';
-            }
-        },
+        // {
+        //     mData: 'category1',
+        //     sTitle: 'Category',
+        //     orderable: false,
+        //     sWidth: '5%',
+        //     mRender: function(data, type, row) {
+        //         return data ? data : '-';
+        //     }
+        // },
         {
             mData: 'createdAt',
             sTitle: 'Created Time',
             orderable: true,
             sWidth: '5%',
-            mRender: function (data, type, row) {
+            mRender: function(data, type, row) {
                 return data ? moment(data).format('MM/DD/YYYY hh:mm a') : '-';
             }
         },
@@ -576,16 +581,16 @@ function loadAssetGeofenceList() {
             sTitle: 'Action',
             orderable: false,
             sWidth: '10%',
-            mRender: function (data, type, row) {
-                return '<div style="white-space: nowrap;"><button class="btn btn-xs btn-default" onclick="openModal(3,\'' + row['_id'] + '\')"><i class="icon-trash-o"></i> Delete</button>' +
+            mRender: function(data, type, row) {
+                return '<div style="white-space: nowrap;"><button class="btn btn-xs btn-default" onclick="openModal(3,\'' + row['name'] + '\')"><i class="icon-trash-o"></i> Delete</button>' +
                     '</div>';
             }
         }
 
     ];
 
-    var domainKeyJson = {"match": {"domainKey": DOMAIN_KEY}};
-    var defaultSorting = [{"reported": {"order": "desc"}}];
+    var domainKeyJson = { "match": { "domainKey": DOMAIN_KEY } };
+    var defaultSorting = [{ "reported": { "order": "desc" } }];
 
     var queryParams = {
         query: {
@@ -605,21 +610,26 @@ function loadAssetGeofenceList() {
         responsive: true,
         paging: true,
         searching: true,
-        aaSorting: [[4, 'desc']],
+        aaSorting: [
+            [3, 'desc']
+        ],
         "ordering": true,
-        pagingType:'simple',
+        pagingType: 'simple',
         iDisplayLength: 5,
-        lengthMenu: [[5, 10, 50, 100], [5, 10, 50, 100]],
+        lengthMenu: [
+            [5, 10, 50, 100],
+            [5, 10, 50, 100]
+        ],
         aoColumns: fields,
         "bProcessing": true,
         "bServerSide": true,
         "sAjaxSource": API_BASE_PATH + '/elastic/search/query/' + API_TOKEN,
-        "fnServerData": function (sSource, aoData, fnCallback, oSettings) {
+        "fnServerData": function(sSource, aoData, fnCallback, oSettings) {
 
             var keyName = fields[oSettings.aaSorting[0][0]];
 
             var sortingJson = {};
-            sortingJson[keyName['mData']] = {"order": oSettings.aaSorting[0][1]};
+            sortingJson[keyName['mData']] = { "order": oSettings.aaSorting[0][1] };
             queryParams.sort = [sortingJson];
 
             queryParams['size'] = oSettings._iDisplayLength;
@@ -632,7 +642,7 @@ function loadAssetGeofenceList() {
                     "multi_match": {
                         "query": '*' + searchText + '*',
                         "type": "phrase_prefix",
-                        "fields": ['name','category1','label','geoType']
+                        "fields": ['name', 'category1', 'label', 'geoType']
                     }
                 };
 
@@ -648,7 +658,7 @@ function loadAssetGeofenceList() {
                 "extraPath": "",
                 "query": JSON.stringify(queryParams),
                 "params": [],
-                type : 'ASSET_GEOFENCE'
+                type: 'GEOFENCE'
             };
 
 
@@ -658,11 +668,11 @@ function loadAssetGeofenceList() {
                 "type": "POST",
                 "url": sSource,
                 "data": JSON.stringify(ajaxObj),
-                success: function (data) {
+                success: function(data) {
 
                     var fullObj = searchQueryFormatter(data);
                     var resultData = fullObj.data;
-                    geofence_list =resultData.data;
+                    geofence_list = resultData.data;
 
                     geodata = resultData.data;
                     geofenceMapManagement();
@@ -682,12 +692,12 @@ function loadAssetGeofenceList() {
 
     geofenceTable = $("#geofenceTable").DataTable(tableOption);
 
-    geofenceTable.on( 'draw', function () {
-        var body = $( geofenceTable.table().body() );
+    geofenceTable.on('draw', function() {
+        var body = $(geofenceTable.table().body());
 
         body.unhighlight();
-        body.highlight( geofenceTable.search() );
-    } );
+        body.highlight(geofenceTable.search());
+    });
 }
 
 function loadDeviceGeofenceList() {
@@ -697,15 +707,14 @@ function loadDeviceGeofenceList() {
         $("#geofenceTable").html("");
     }
 
-    var fields = [
-        {
+    var fields = [{
             mData: 'name',
             sTitle: 'Geofence Name',
             orderable: false,
-            mRender: function (data, type, row) {
+            mRender: function(data, type, row) {
 
-                return '<span onclick="singleGeoSnapshot(\'' + encodeURIComponent(JSON.stringify(row)) + '\')" style="cursor: pointer;">'+data + ' <i class="icon-eye"></i><br>' +
-                    '<small class="text-grey">'+(row['name'] ? ''+row['description'] : '')+'</small>' +
+                return '<span onclick="singleGeoSnapshot(\'' + encodeURIComponent(JSON.stringify(row)) + '\')" style="cursor: pointer;">' + data + ' <i class="icon-eye"></i><br>' +
+                    '<small class="text-grey">' + (row['name'] ? '' + row['description'] : '') + '</small>' +
                     '</span>';
             }
         },
@@ -713,16 +722,16 @@ function loadDeviceGeofenceList() {
             mData: 'geoType',
             sTitle: 'Type',
             orderable: false,
-            mRender: function (data, type, row) {
+            mRender: function(data, type, row) {
 
 
-                if(row['geoType'] == "POINT"){
+                if (row['geoType'] == "POINT") {
 
-                }else if(row['geoType'] == "CIRCLE"){
+                } else if (row['geoType'] == "CIRCLE") {
 
-                }else if(row['geoType'] == "POLYGON"){
+                } else if (row['geoType'] == "POLYGON") {
 
-                }else if(row['geoType'] == "POINT"){
+                } else if (row['geoType'] == "POINT") {
 
                 }
 
@@ -737,25 +746,25 @@ function loadDeviceGeofenceList() {
             sTitle: 'Label',
             orderable: false,
             sWidth: '5%',
-            mRender: function (data, type, row) {
+            mRender: function(data, type, row) {
                 return data ? data : '-';
             }
         },
-        {
-            mData: 'category1',
-            sTitle: 'Category',
-            orderable: false,
-            sWidth: '5%',
-            mRender: function (data, type, row) {
-                return data ? data : '-';
-            }
-        },
+        // {
+        //     mData: 'category1',
+        //     sTitle: 'Category',
+        //     orderable: false,
+        //     sWidth: '5%',
+        //     mRender: function(data, type, row) {
+        //         return data ? data : '-';
+        //     }
+        // },
         {
             mData: 'createdAt',
             sTitle: 'Created Time',
             orderable: true,
             sWidth: '5%',
-            mRender: function (data, type, row) {
+            mRender: function(data, type, row) {
                 return data ? moment(data).format('MM/DD/YYYY hh:mm a') : '-';
             }
         },
@@ -764,16 +773,16 @@ function loadDeviceGeofenceList() {
             sTitle: 'Action',
             orderable: false,
             sWidth: '10%',
-            mRender: function (data, type, row) {
-                return '<div style="white-space: nowrap;"><button class="btn btn-xs btn-default" onclick="openModal(3,\'' + row['_id'] + '\')"><i class="icon-trash-o"></i> Delete</button>' +
+            mRender: function(data, type, row) {
+                return '<div style="white-space: nowrap;"><button class="btn btn-xs btn-default" onclick="openModal(3,\'' + row['name'] + '\')"><i class="icon-trash-o"></i> Delete</button>' +
                     '</div>';
             }
         }
 
     ];
 
-    var domainKeyJson = {"match": {"domainKey": DOMAIN_KEY}};
-    var defaultSorting = [{"reported": {"order": "desc"}}];
+    var domainKeyJson = { "match": { "domainKey": DOMAIN_KEY } };
+    var defaultSorting = [{ "reported": { "order": "desc" } }];
 
     var queryParams = {
         query: {
@@ -793,21 +802,26 @@ function loadDeviceGeofenceList() {
         responsive: true,
         paging: true,
         searching: true,
-        aaSorting: [[4, 'desc']],
+        aaSorting: [
+            [3, 'desc']
+        ],
         "ordering": true,
-        pagingType:'simple',
+        pagingType: 'simple',
         iDisplayLength: 5,
-        lengthMenu: [[5, 10, 50, 100], [5, 10, 50, 100]],
+        lengthMenu: [
+            [5, 10, 50, 100],
+            [5, 10, 50, 100]
+        ],
         aoColumns: fields,
         "bProcessing": true,
         "bServerSide": true,
         "sAjaxSource": API_BASE_PATH + '/elastic/search/query/' + API_TOKEN,
-        "fnServerData": function (sSource, aoData, fnCallback, oSettings) {
+        "fnServerData": function(sSource, aoData, fnCallback, oSettings) {
 
             var keyName = fields[oSettings.aaSorting[0][0]];
 
             var sortingJson = {};
-            sortingJson[keyName['mData']] = {"order": oSettings.aaSorting[0][1]};
+            sortingJson[keyName['mData']] = { "order": oSettings.aaSorting[0][1] };
             queryParams.sort = [sortingJson];
 
             queryParams['size'] = oSettings._iDisplayLength;
@@ -820,7 +834,7 @@ function loadDeviceGeofenceList() {
                     "multi_match": {
                         "query": '*' + searchText + '*',
                         "type": "phrase_prefix",
-                        "fields": ['name','category1','label','geoType']
+                        "fields": ['name', 'category1', 'label', 'geoType']
                     }
                 };
 
@@ -836,7 +850,7 @@ function loadDeviceGeofenceList() {
                 "extraPath": "",
                 "query": JSON.stringify(queryParams),
                 "params": [],
-                type : 'DEVICE_GEOFENCE'
+                type: 'GEOFENCE'
             };
 
 
@@ -846,11 +860,11 @@ function loadDeviceGeofenceList() {
                 "type": "POST",
                 "url": sSource,
                 "data": JSON.stringify(ajaxObj),
-                success: function (data) {
+                success: function(data) {
 
                     var fullObj = searchQueryFormatter(data);
                     var resultData = fullObj.data;
-                    geofence_list =resultData.data;
+                    geofence_list = resultData.data;
 
                     geodata = resultData.data;
                     geofenceMapManagement();
@@ -870,16 +884,16 @@ function loadDeviceGeofenceList() {
 
     geofenceTable = $("#geofenceTable").DataTable(tableOption);
 
-    geofenceTable.on( 'draw', function () {
-        var body = $( geofenceTable.table().body() );
+    geofenceTable.on('draw', function() {
+        var body = $(geofenceTable.table().body());
 
         body.unhighlight();
-        body.highlight( geofenceTable.search() );
-    } );
+        body.highlight(geofenceTable.search());
+    });
 }
 
 function geofenceNavigate(geoCreateType) {
-    document.location='/geofence-create/'+geoCreateType;
+    document.location = '/geofence-create/' + geoCreateType;
 }
 
 function locateGeofence(obj) {
@@ -887,42 +901,42 @@ function locateGeofence(obj) {
     var locateData = JSON.parse(decodeURIComponent(obj));
 }
 
-function openModal(type,id) {
+function openModal(type, id) {
     if (type === 1) {
         loadDeviceModels();
         $("#device_id").removeAttr('readonly');
         $(".templateAction").html('Create');
         $("#addDevice form")[0].reset();
         $("#addDevice").modal('show');
-        $("#addDevice form").attr('onsubmit','addDevice()')
-    }else if (type === 2) {
+        $("#addDevice form").attr('onsubmit', 'addDevice()')
+    } else if (type === 2) {
         loadDeviceModels();
         $(".templateAction").html('Update');
-        var obj ={};
+        var obj = {};
         current_geofence_id = id;
 
-        for(var i=0;i<geofence_list.length;i++){
-            if(id === geofence_list[i].id){
+        for (var i = 0; i < geofence_list.length; i++) {
+            if (id === geofence_list[i].id) {
                 obj = geofence_list[i];
             }
         }
-        $("#device_id").attr('readonly','readonly');
+        $("#device_id").attr('readonly', 'readonly');
         $("#device_id").val(obj.id);
         $("#device_name").val(obj.name);
         $("#device_model").val(obj.modelId);
         $("#device_version").val(obj.version);
         $("#addDevice").modal('show');
-        $("#addDevice form").attr('onsubmit','updateDevice()')
-    }else if (type === 3) {
+        $("#addDevice form").attr('onsubmit', 'updateDevice()')
+    } else if (type === 3) {
         current_geofence_id = id;
         $(".geofenceId").html(id)
         $("#deleteModal").modal('show');
-    }else if (type === 4) {
+    } else if (type === 4) {
         current_geofence_id = id;
-        retrieveDeviceProperty(id, DEVICE_PROPERTY_NAME[$("input[name='configType']:checked").val()],function (status, data) {
+        retrieveDeviceProperty(id, DEVICE_PROPERTY_NAME[$("input[name='configType']:checked").val()], function(status, data) {
             if (status) {
                 $("#board_config").val(data.value);
-            }else{
+            } else {
                 $("#board_config").val("");
             }
             $("#deviceSettings").modal('show');
@@ -931,11 +945,11 @@ function openModal(type,id) {
 }
 
 function proceedDelete() {
-    deleteEntityGeofence(current_geofence_id,function (status, data) {
+    deleteGeofence(current_geofence_id, function(status, data) {
         if (status) {
+            $("#deleteModal").modal('hide');
             successMsg('Geofence Deleted Successfully');
             loadGeofenceList();
-            $("#deleteModal").modal('hide');
         } else {
             errorMsg('Error in delete')
         }
@@ -973,7 +987,7 @@ function searchQueryFormatter(data) {
                 "data": _.pluck(records, '_source')
             },
             aggregations: aggregations
-            // data : _.pluck(records, '_source')
+                // data : _.pluck(records, '_source')
         }
 
         $(".deviceCount").html(totalRecords);
@@ -988,15 +1002,15 @@ function searchQueryFormatter(data) {
 
 }
 
-function  loadPrevMsg() {
+function loadPrevMsg() {
     if (msgPageNo > 1) {
         msgPageNo--;
         loadGeofenceList('PREV', geodata[0].name);
     }
 }
 
-function  loadNxtMsg() {
-     var pages = Math.ceil(geofenceCount / msgPageSize);
+function loadNxtMsg() {
+    var pages = Math.ceil(geofenceCount / msgPageSize);
     if (msgPageNo < pages) {
         msgPageNo++;
         loadGeofenceList('NEXT', geodata[geodata.length - 1].name);
@@ -1004,7 +1018,7 @@ function  loadNxtMsg() {
 }
 
 
-function getGeofenceList(){
+function getGeofenceList() {
 
     var pageSize = 100;
 
@@ -1012,35 +1026,35 @@ function getGeofenceList(){
         url: API_BASE_PATH + "/geofence/list/" + API_TOKEN + "/" + pageSize,
         data: data,
         type: 'GET',
-        success: function (data) {
+        success: function(data) {
 
             geodata = res;
             geofenceMapManagement();
             google.maps.event.trigger(geoMapio, 'resize'); // Refresh Map
             restoreRecord();
         },
-        error: function (e) {
+        error: function(e) {
             console.log(e.message);
         }
     });
 }
 
-function openSlider(){
+function openSlider() {
     $("#geofenceSlider").slideReveal("show");
 }
 
 function overlayClickListener(overlay) {
 
-    google.maps.event.addListener(overlay, "mouseup", function(event){
+    google.maps.event.addListener(overlay, "mouseup", function(event) {
         // $('#bskpCoordinatesBox').val(overlay.getPath().getArray());
         $('#bskpCoordinatesBox').val(JSON.stringify(geofenceObj.coordinatesGroup));
     });
 }
 
-function googleMapDrawingTool(){
+function googleMapDrawingTool() {
 
-     var map = geoMapio;
-     var drawingStyle = {
+    var map = geoMapio;
+    var drawingStyle = {
         strokeWeight: 2,
         fillOpacity: 0.45,
         editable: true,
@@ -1077,16 +1091,16 @@ function googleMapDrawingTool(){
     });
     drawingManager.setMap(map);
 
-         // var drawingManager = drawingManager;
+    // var drawingManager = drawingManager;
 
     //Common OverlayComplete Listener
     google.maps.event.addListener(drawingManager, "overlaycomplete", function(event) {
         $("#widgetButton").click();
         overlayClickListener(event.overlay);
-         var newShape = event.overlay;
+        var newShape = event.overlay;
         newShape.type = event.type;
 
-        if(geofenceObj.geoType == "POINT"){  //POINT
+        if (geofenceObj.geoType == "POINT") { //POINT
 
             var centerLtlg = event.overlay.position;
             var markerId = getMarkerUniqueId(centerLtlg.lat(), centerLtlg.lng());
@@ -1099,13 +1113,13 @@ function googleMapDrawingTool(){
             google.maps.event.addListener(newShape, 'rightclick', function(e) {
 
                 var newMark2 = markersGroup[markerId];
-                removeThisMarker(newMark2,markerId);
+                removeThisMarker(newMark2, markerId);
             });
 
             drawingManager.setDrawingMode(null);
 
-        }else if(geofenceObj.geoType == "CIRCLE"){  //CIRCLE
-             var newShape = event.overlay;
+        } else if (geofenceObj.geoType == "CIRCLE") { //CIRCLE
+            var newShape = event.overlay;
             newGeoCircle = newShape;
 
             var lat = newGeoCircle.getCenter().lat();
@@ -1117,13 +1131,13 @@ function googleMapDrawingTool(){
             $("#bskpLong").val(lng);
             // openCreateGeoModal();
             //Common Circle Drag Listener
-            newGeoCircle.addListener('radius_changed', function(event){
+            newGeoCircle.addListener('radius_changed', function(event) {
                 geofenceObj.radius = newGeoCircle.getRadius();
                 $("#bskpCircleRadius").val(geofenceObj.radius);
             });
 
             //Common Circle Drag Listener
-            newGeoCircle.addListener('center_changed', function(event){
+            newGeoCircle.addListener('center_changed', function(event) {
 
                 var lat = newGeoCircle.getCenter().lat();
                 var lng = newGeoCircle.getCenter().lng();
@@ -1133,12 +1147,12 @@ function googleMapDrawingTool(){
                 $("#bskpLong").val(lng);
             });
 
-            if(newGeoMarker){
+            if (newGeoMarker) {
 
                 newGeoCircle.bindTo('center', newGeoMarker, 'position');
                 newGeoMarker._myCircle = newGeoCircle;
 
-                newGeoMarker.addListener('dragend', function(event){
+                newGeoMarker.addListener('dragend', function(event) {
                     geofenceObj.lat = event.latLng.lat();
                     geofenceObj.lng = event.latLng.lng();
 
@@ -1149,20 +1163,19 @@ function googleMapDrawingTool(){
             }
 
             drawingManager.setDrawingMode(null)
-        }
-        else if(geofenceObj.geoType == "POLYGON"){ //POLYGON
+        } else if (geofenceObj.geoType == "POLYGON") { //POLYGON
 
             newGeoPolygon = newShape;
-            var temp=[];
-            _.each(event.overlay.getPath().getArray(),function(val,i){
+            var temp = [];
+            _.each(event.overlay.getPath().getArray(), function(val, i) {
 
-                 var st2 = [];
+                var st2 = [];
                 st2.push(val.lat());
                 st2.push(val.lng());
                 temp.push(st2);
             });
 
-            if(!(_.isEqual(temp[0],temp[temp.length-1]))){  //Add polygon close coordinate check
+            if (!(_.isEqual(temp[0], temp[temp.length - 1]))) { //Add polygon close coordinate check
                 temp.push(temp[0]);
             }
             geofenceObj.coordinatesGroup = temp;
@@ -1170,15 +1183,14 @@ function googleMapDrawingTool(){
 
             drawingManager.setDrawingMode(null)
 
-        }
-        else if(geofenceObj.geoType == "LINESTRING"){ //LINESTRING
+        } else if (geofenceObj.geoType == "LINESTRING") { //LINESTRING
 
             newGeoPolyline = newShape;
 
-             var temp=[];
-            _.each(event.overlay.getPath().getArray(),function(val,i){
+            var temp = [];
+            _.each(event.overlay.getPath().getArray(), function(val, i) {
 
-                 var st2 = [];
+                var st2 = [];
                 st2.push(val.lat());
                 st2.push(val.lng());
                 temp.push(st2);
@@ -1200,82 +1212,81 @@ function getMarkerUniqueId(lat, lng) {
     return lat + '_' + lng;
 }
 
-function removeThisMarker(newMark,markerId){
+function removeThisMarker(newMark, markerId) {
 
     newMark.setMap(null); // set markers setMap to null to remove it from map
     delete markersGroup[markerId];
 }
 
-function mapTools(flag){
-
+function mapTools(flag) {
     $(".map-top-tools .min-tool-btn").removeClass("active");
-    $("#"+flag).addClass("active");
+    $("#" + flag).addClass("active");
     $("#geoType").val(flag);
 
-    if(flag == "DEFAULT"){
+    if (flag == "DEFAULT") {
 
         drawingManager.setDrawingMode(null);
 
-    }else{
+    } else {
 
         $(".geo-type-fields").hide();
-        $("#GEOTYPE_"+flag).show();
+        $("#GEOTYPE_" + flag).show();
 
 
-        if(flag == "POINT"){    //Draw Point Tool
+        if (flag == "POINT") { //Draw Point Tool
             drawingManager.setDrawingMode(google.maps.drawing.OverlayType.MARKER);
             geofenceObj.geoType = "POINT";
 
-        }else if(flag == "CIRCLE"){     //Draw Circle Tool
+        } else if (flag == "CIRCLE") { //Draw Circle Tool
             drawingManager.setDrawingMode(google.maps.drawing.OverlayType.CIRCLE);
             geofenceObj.geoType = "CIRCLE";
 
-        }else if(flag == "POLYGON"){    //Draw Polygon Tool
+        } else if (flag == "POLYGON") { //Draw Polygon Tool
             drawingManager.setDrawingMode(google.maps.drawing.OverlayType.POLYGON);
             geofenceObj.geoType = "POLYGON";
 
-        }else if(flag == "LINESTRING"){    //Draw Linestring Tool
+        } else if (flag == "LINESTRING") { //Draw Linestring Tool
             drawingManager.setDrawingMode(google.maps.drawing.OverlayType.POLYLINE);
             geofenceObj.geoType = "LINESTRING";
 
-        }else if(flag == "ENVELOPE"){    //Draw Envelope Tool
+        } else if (flag == "ENVELOPE") { //Draw Envelope Tool
             drawingManager.setDrawingMode(google.maps.drawing.OverlayType.RECTANGLE);
             geofenceObj.geoType = "ENVELOPE";
 
-        }else{    //Select
+        } else { //Select
 
             drawingManager.setDrawingMode(null);
         }
     }
 }
 
-function drawingMode($event){
+function drawingMode($event) {
 
 
-    if(geofenceObj.geoType == "CIRCLE"){
+    if (geofenceObj.geoType == "CIRCLE") {
         drawingManager.setDrawingMode(google.maps.drawing.OverlayType.CIRCLE);
 
-    }else if(geofenceObj.geoType == "POLYGON"){
+    } else if (geofenceObj.geoType == "POLYGON") {
         drawingManager.setDrawingMode(google.maps.drawing.OverlayType.POLYGON);
 
-    }else if(geofenceObj.geoType == "LINESTRING"){
+    } else if (geofenceObj.geoType == "LINESTRING") {
         drawingManager.setDrawingMode(google.maps.drawing.OverlayType.POLYLINE);
 
-    }else if(geofenceObj.geoType == "ENVELOPE"){
+    } else if (geofenceObj.geoType == "ENVELOPE") {
         drawingManager.setDrawingMode(google.maps.drawing.OverlayType.RECTANGLE);
     }
 }
 
 function searchLocationAPI() {
 
-     var map = geoMapio;
+    var map = geoMapio;
     var input = document.getElementById('locationSearch');
 
     var autocomplete = new google.maps.places.Autocomplete(input);
     autocomplete.bindTo('bounds', map);
 
     autocomplete.addListener('place_changed', function() {
-         var place = autocomplete.getPlace();
+        var place = autocomplete.getPlace();
 
         geofenceObj.autocomplete = autocomplete;
         geofenceObj['lat'] = place.geometry.location.lat();
@@ -1287,12 +1298,12 @@ function searchLocationAPI() {
 }
 
 
-function mapPreview(){
+function mapPreview() {
 
     var place = geofenceObj.autocomplete.getPlace();
-     var geofence = geofenceObj.autocomplete.getPlace();
-     var map = geoMapio;
-     // var geofenceObj = geofenceObj;
+    var geofence = geofenceObj.autocomplete.getPlace();
+    var map = geoMapio;
+    // var geofenceObj = geofenceObj;
 
     google.maps.event.trigger(map, 'resize'); // Refresh Map
 
@@ -1316,19 +1327,19 @@ function mapPreview(){
     geofence.address = place.formatted_address;
 
     var val = {
-        title : geofenceObj.name,
-        description : geofenceObj.description,
-        location : geofence.address,
-        lat : geofence.latlng.lat(),
-        lng : geofence.latlng.lng(),
+        title: geofenceObj.name,
+        description: geofenceObj.description,
+        location: geofence.address,
+        lat: geofence.latlng.lat(),
+        lng: geofence.latlng.lng(),
         strokeColor: "#08c",
         radius: geofence.radius,
         fillColor: "#08c"
     };
 
-    var center= {
-        lat : val.lat,
-        lng : val.lng
+    var center = {
+        lat: val.lat,
+        lng: val.lng
     };
 
 
@@ -1338,15 +1349,15 @@ function mapPreview(){
         title: geofenceObj.name,
         animation: google.maps.Animation.DROP,
         draggable: true,
-        icon : icon
+        icon: icon
     });
 
     var html =
-        '<b>'+val.location ? val.location : ''+'</b> <br>' +
-        '<b>'+val.location ? val.location : ''+'</b>';
+        '<b>' + val.location ? val.location : '' + '</b> <br>' +
+        '<b>' + val.location ? val.location : '' + '</b>';
 
     var infowindow = new google.maps.InfoWindow({
-        content:html
+        content: html
 
     });
 
@@ -1359,12 +1370,12 @@ function mapPreview(){
 
     infowindow.open(map, newGeoMarker);
 
-    if(geofenceObj.geoType == "POINT"){
+    if (geofenceObj.geoType == "POINT") {
 
         $("#pointLat").val(center.lat);
         $("#pointLong").val(center.lng);
 
-    }else if(geofenceObj.geoType == "CIRCLE"){
+    } else if (geofenceObj.geoType == "CIRCLE") {
         $("#bskpLat").val(center.lat);
         $("#bskpLong").val(center.lng);
         $("#bskpCircleRadius").val(50);
@@ -1387,12 +1398,12 @@ function mapPreview(){
         newGeoMarker._myCircle = newGeoCircle;
 
         //Common Circle Radius Listener
-        google.maps.event.addListener(newGeoCircle, 'radius_changed', function () {
+        google.maps.event.addListener(newGeoCircle, 'radius_changed', function() {
             geofenceObj.radius = newGeoCircle.getRadius();
             $("#bskpCircleRadius").val(geofenceObj.radius);
         });
 
-        newGeoMarker.addListener('dragend', function(event){
+        newGeoMarker.addListener('dragend', function(event) {
             geofenceObj.lat = event.latLng.lat();
             geofenceObj.lng = event.latLng.lng();
 
@@ -1400,22 +1411,22 @@ function mapPreview(){
             $("#bskpLong").val(geofenceObj.lng);
         });
 
-    }else if(geofenceObj.geoType == "LINESTRING"){
+    } else if (geofenceObj.geoType == "LINESTRING") {
 
 
-    }else if(geofenceObj.geoType == "POLYGON"){
+    } else if (geofenceObj.geoType == "POLYGON") {
 
     }
 
     // mapTools('DEFAULT');
 }
 
-function minMaximize(){
-    if(minMaximizeFlag){
+function minMaximize() {
+    if (minMaximizeFlag) {
         $(".geo-list-cover").hide();
         $("#minMaxGeoList").html('<i class="icon-expand"></i>');
         minMaximizeFlag = false;
-    }else{
+    } else {
         $(".geo-list-cover").show();
         $("#minMaxGeoList").html('<i class="icon-compress"></i>');
         minMaximizeFlag = true;
@@ -1447,27 +1458,27 @@ function initialize() {
 }
 
 
-function geofenceMapManagement(){
-    if(markersGroup.length > 0){
-        _.each(markersGroup,function(marker,i){
+function geofenceMapManagement() {
+    if (markersGroup.length > 0) {
+        _.each(markersGroup, function(marker, i) {
             marker.setMap(null);
         });
     }
 
-    if(circlesGroup.length > 0){
-        _.each(circlesGroup,function(circle,i){
+    if (circlesGroup.length > 0) {
+        _.each(circlesGroup, function(circle, i) {
             circle.setMap(null);
         });
     }
 
-    if(polygonGroup.length > 0){
-        _.each(polygonGroup,function(polygon,i){
+    if (polygonGroup.length > 0) {
+        _.each(polygonGroup, function(polygon, i) {
             polygon.setMap(null);
         });
     }
 
-    if(polylineGroup.length > 0){
-        _.each(polylineGroup,function(polyline,i){
+    if (polylineGroup.length > 0) {
+        _.each(polylineGroup, function(polyline, i) {
             polyline.setMap(null);
         });
     }
@@ -1477,20 +1488,20 @@ function geofenceMapManagement(){
     markersGroup = [];
     resetAll();
 
-    _.each(geodata,function (val,i) {
+    _.each(geodata, function(val, i) {
 
         val.geoType = val.geoType.toUpperCase();
 
-        if(val.geoType){
+        if (val.geoType) {
 
-            if(val.geoType == "POINT") {
+            if (val.geoType == "POINT") {
 
                 val.location["coordinates"] = val.location.coordinates;
                 val["description"] = val.description;
 
-                var center= {
-                    lat : val.location.coordinates[0],
-                    lng : val.location.coordinates[1]
+                var center = {
+                    lat: val.location.coordinates[0],
+                    lng: val.location.coordinates[1]
                 };
 
                 var icon = {
@@ -1498,14 +1509,13 @@ function geofenceMapManagement(){
                 };
 
                 var infowindow = new google.maps.InfoWindow({
-                    content:
-                    "<div><b style='text-transform: capitalize;font-size: 16px;color: #F62459;'>"+val.name+"</b></br>" +
-                    "<p style='font-size: 13px;color: #767676;margin-top:8px;text-transform: capitalize;margin-bottom:0px;width:200px;'><img src='images/map/location-pin.png' >"+val.description+"</p>"+
-                    "<div style='margin-top:10px;'>" +
-                    "<p style='font-size: 11px;color: #888;display:inline-block;padding: 3px 6px;background: #eee;border-radius: 3px;margin-right: 5px;margin-bottom: 0px;'>"+val.label+"</p>" +
-                    "<p style='font-size: 13px;color: #767676;margin-top:8px;'><img src='images/map/pin.png' > POINT</p>"+
-                    "</div>" +
-                    "</div>"
+                    content: "<div><b style='text-transform: capitalize;font-size: 16px;color: #F62459;'>" + val.name + "</b></br>" +
+                        "<p style='font-size: 13px;color: #767676;margin-top:8px;text-transform: capitalize;margin-bottom:0px;width:200px;'><img src='images/map/location-pin.png' >" + val.description + "</p>" +
+                        "<div style='margin-top:10px;'>" +
+                        "<p style='font-size: 11px;color: #888;display:inline-block;padding: 3px 6px;background: #eee;border-radius: 3px;margin-right: 5px;margin-bottom: 0px;'>" + val.label + "</p>" +
+                        "<p style='font-size: 13px;color: #767676;margin-top:8px;'><img src='images/map/pin.png' > POINT</p>" +
+                        "</div>" +
+                        "</div>"
                 });
 
                 // Create marker
@@ -1514,7 +1524,7 @@ function geofenceMapManagement(){
                     position: new google.maps.LatLng(center),
                     title: val.name,
                     animation: google.maps.Animation.DROP,
-                    icon:icon
+                    icon: icon
                 });
                 marker.addListener('click', function() {
                     infowindow.open(geoMapio, marker);
@@ -1524,14 +1534,13 @@ function geofenceMapManagement(){
 
                 infowindow.open(geoMapio, marker);
 
-            }
-            else if(val.geoType == "CIRCLE"){  //DRAW CIRCLE
+            } else if (val.geoType == "CIRCLE") { //DRAW CIRCLE
 
                 val.location["coordinates"] = val.location.coordinates;
 
-                var center= {
-                    lat : val.location.coordinates[0],
-                    lng : val.location.coordinates[1]
+                var center = {
+                    lat: val.location.coordinates[0],
+                    lng: val.location.coordinates[1]
                 };
 
                 var icon = {
@@ -1539,14 +1548,13 @@ function geofenceMapManagement(){
                 };
 
                 var infowindow = new google.maps.InfoWindow({
-                    content:
-                    "<div><b style='text-transform: capitalize;font-size: 16px;color: #F62459;'>"+val.name+"</b></br>" +
-                    "<p style='font-size: 13px;color: #767676;margin-top:8px;text-transform: capitalize;margin-bottom:0px;width:200px;'><img src='images/map/location-pin.png' >"+val.description+"</p>"+
-                    "<div style='margin-top:10px;'>" +
-                    "<p style='font-size: 11px;color: #888;display:inline-block;padding: 3px 6px;background: #eee;border-radius: 3px;margin-right: 5px;margin-bottom: 0px;'>"+val.label+"</p>" +
-                    "<p style='font-size: 13px;color: #767676;margin-top:8px;'><img src='images/map/oval.png' > CIRCLE</p>"+
-                    "</div>" +
-                    "</div>"
+                    content: "<div><b style='text-transform: capitalize;font-size: 16px;color: #F62459;'>" + val.name + "</b></br>" +
+                        "<p style='font-size: 13px;color: #767676;margin-top:8px;text-transform: capitalize;margin-bottom:0px;width:200px;'><img src='images/map/location-pin.png' >" + val.description + "</p>" +
+                        "<div style='margin-top:10px;'>" +
+                        "<p style='font-size: 11px;color: #888;display:inline-block;padding: 3px 6px;background: #eee;border-radius: 3px;margin-right: 5px;margin-bottom: 0px;'>" + val.label + "</p>" +
+                        "<p style='font-size: 13px;color: #767676;margin-top:8px;'><img src='images/map/oval.png' > CIRCLE</p>" +
+                        "</div>" +
+                        "</div>"
                 });
                 // Create marker
                 var marker = new google.maps.Marker({
@@ -1554,7 +1562,7 @@ function geofenceMapManagement(){
                     position: new google.maps.LatLng(center),
                     title: val.name,
                     animation: google.maps.Animation.DROP,
-                    icon:icon
+                    icon: icon
                 });
                 marker.addListener('click', function() {
                     infowindow.open(geoMapio, marker);
@@ -1575,15 +1583,14 @@ function geofenceMapManagement(){
 
                 circlesGroup.push(geofenceCircle);
 
-            }
-            else if(val.geoType == "LINESTRING"){  //DRAW LINESTRING
+            } else if (val.geoType == "LINESTRING") { //DRAW LINESTRING
 
 
                 val.location["coordinates"] = val.location.coordinates;
 
-                var center= {
-                    lat : val.location.coordinates[0][0],
-                    lng : val.location.coordinates[0][1]
+                var center = {
+                    lat: val.location.coordinates[0][0],
+                    lng: val.location.coordinates[0][1]
                 };
 
                 var icon = {
@@ -1591,15 +1598,14 @@ function geofenceMapManagement(){
                 };
 
                 var infowindow = new google.maps.InfoWindow({
-                    content:
-                    "<div>" +
-                    "<b style='text-transform: capitalize;font-size: 16px;color: #F62459;'>"+val.name+"</b></br>" +
-                    "<p style='font-size: 13px;color: #767676;margin-top:8px;text-transform: capitalize;margin-bottom:0px;width:200px;'><img src='images/map/location-pin.png' >"+val.description+"</p>"+
-                    "<div style='margin-top:10px;'>" +
-                    "<p style='font-size: 11px;color: #888;display:inline-block;padding: 3px 6px;background: #eee;border-radius: 3px;margin-right: 5px;margin-bottom: 0px;'>"+val.label+"</p>" +
-                    "<p style='font-size: 13px;color: #767676;margin-top:8px;'><img src='images/map/polyline.png' > LINESTRING</p>"+
-                    "</div>" +
-                    "</div>"
+                    content: "<div>" +
+                        "<b style='text-transform: capitalize;font-size: 16px;color: #F62459;'>" + val.name + "</b></br>" +
+                        "<p style='font-size: 13px;color: #767676;margin-top:8px;text-transform: capitalize;margin-bottom:0px;width:200px;'><img src='images/map/location-pin.png' >" + val.description + "</p>" +
+                        "<div style='margin-top:10px;'>" +
+                        "<p style='font-size: 11px;color: #888;display:inline-block;padding: 3px 6px;background: #eee;border-radius: 3px;margin-right: 5px;margin-bottom: 0px;'>" + val.label + "</p>" +
+                        "<p style='font-size: 13px;color: #767676;margin-top:8px;'><img src='images/map/polyline.png' > LINESTRING</p>" +
+                        "</div>" +
+                        "</div>"
                 });
 
                 // Create marker
@@ -1608,7 +1614,7 @@ function geofenceMapManagement(){
                     position: new google.maps.LatLng(center),
                     title: val.name,
                     animation: google.maps.Animation.DROP,
-                    icon:icon
+                    icon: icon
                 });
                 marker.addListener('click', function() {
                     infowindow.open(geoMapio, marker);
@@ -1618,7 +1624,7 @@ function geofenceMapManagement(){
                 infowindow.open(geoMapio, marker);
 
                 var lineCoords = [];
-                _.each(val.location.coordinates,function(val,i){
+                _.each(val.location.coordinates, function(val, i) {
 
                     var oneCoord = {};
                     oneCoord["lat"] = val[0];
@@ -1635,14 +1641,13 @@ function geofenceMapManagement(){
                 geoLineString.setMap(geoMapio);
                 polylineGroup.push(geoLineString);
 
-            }
-            else if(val.geoType == "POLYGON"){  //DRAW POLYGON
+            } else if (val.geoType == "POLYGON") { //DRAW POLYGON
 
                 val.location["coordinates"] = val.location.coordinates;
 
-                var center= {
-                    lat : val.location.coordinates[0][0][0],
-                    lng : val.location.coordinates[0][0][1]
+                var center = {
+                    lat: val.location.coordinates[0][0][0],
+                    lng: val.location.coordinates[0][0][1]
                 };
 
                 var icon = {
@@ -1650,14 +1655,13 @@ function geofenceMapManagement(){
                 };
 
                 var infowindow = new google.maps.InfoWindow({
-                    content:
-                    "<div><b style='text-transform: capitalize;font-size: 16px;color: #F62459;'>"+val.name+"</b></br>" +
-                    "<p style='font-size: 13px;color: #767676;margin-top:8px;text-transform: capitalize;margin-bottom:0px;width:200px;'><img src='images/map/location-pin.png' >"+val.description+"</p>"+
-                    "<div style='margin-top:10px;'>" +
-                    "<p style='font-size: 11px;color: #888;display:inline-block;padding: 3px 6px;background: #eee;border-radius: 3px;margin-right: 5px;margin-bottom: 0px;'>"+val.label+"</p>" +
-                    "<p style='font-size: 13px;color: #767676;margin-top:8px;'><img src='images/map/polygon.png' > POLYGON</p>"+
-                    "</div>" +
-                    "</div>"
+                    content: "<div><b style='text-transform: capitalize;font-size: 16px;color: #F62459;'>" + val.name + "</b></br>" +
+                        "<p style='font-size: 13px;color: #767676;margin-top:8px;text-transform: capitalize;margin-bottom:0px;width:200px;'><img src='images/map/location-pin.png' >" + val.description + "</p>" +
+                        "<div style='margin-top:10px;'>" +
+                        "<p style='font-size: 11px;color: #888;display:inline-block;padding: 3px 6px;background: #eee;border-radius: 3px;margin-right: 5px;margin-bottom: 0px;'>" + val.label + "</p>" +
+                        "<p style='font-size: 13px;color: #767676;margin-top:8px;'><img src='images/map/polygon.png' > POLYGON</p>" +
+                        "</div>" +
+                        "</div>"
                 });
 
                 // Create marker
@@ -1666,7 +1670,7 @@ function geofenceMapManagement(){
                     position: new google.maps.LatLng(center),
                     title: val.name,
                     animation: google.maps.Animation.DROP,
-                    icon:icon
+                    icon: icon
                 });
                 marker.addListener('click', function() {
                     infowindow.open(geoMapio, marker);
@@ -1676,7 +1680,7 @@ function geofenceMapManagement(){
                 infowindow.open(geoMapio, marker);
 
                 var polyCoords = [];
-                _.each(val.location.coordinates[0],function(val,i){
+                _.each(val.location.coordinates[0], function(val, i) {
 
                     var oneCoord = {};
                     oneCoord["lat"] = val[0];
@@ -1707,12 +1711,12 @@ function geofenceMapManagement(){
         geoMapio,
         markersGroup,
         // {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'}
-        {imagePath: 'images/map/m'}
+        { imagePath: 'images/map/m' }
     );
 };
 
-function deleteAGeofence(oneGeo){
-
+function deleteAGeofence() {
+    console.log("***********************");
     swal({
         title: "Confirmation",
         text: "Do you want to Delete this Geofence?",
@@ -1723,26 +1727,29 @@ function deleteAGeofence(oneGeo){
         cancelButtonText: "No, Edit",
         closeOnConfirm: false,
         closeOnCancel: false
-    }, function(isConfirm) {
-        if (isConfirm) {
+
+    }).then(function(result) {
+
+        if (result.value) {
 
             $.ajax({
-                url: API_BASE_PATH + "/geofence/delete/" + API_TOKEN+"/"+oneGeo.name,
+                url: API_BASE_PATH + "/geofence/delete/" + API_TOKEN + "/" + USER_GEOFENCE + "/" + current_geofence_id,
                 // data:  JSON.stringify(data),
-                contentType: "application/json",
+                // contentType: "application/json",
                 type: 'DELETE',
-                success: function (data) {
-                    if(res){
+                success: function(res) {
+                    if (res) {
 
                         swal("Deleted!", "Geofence has been Deleted Successfully.", "success");
                         // getGeofenceList();
-                        loadGeofenceList(null,null);
+                        loadGeofenceList(null, null);
+                        $("#deleteModal").modal('hide');
 
-                    }else{
+                    } else {
                         swal("Error", "Try Again", "error");
                     }
                 },
-                error: function (e) {
+                error: function(e) {
                     //called when there is an error
                     console.log(e.message);
                 }
@@ -1751,18 +1758,19 @@ function deleteAGeofence(oneGeo){
         } else {
             swal("Error", "Back to the list", "info");
         }
-    });
+    })
+
 }
 
-function openCreateGeoModal(){
+function openCreateGeoModal() {
     $("#createGeoModal").modal({
-        keyboard : true,
-        show : true,
-        backdrop:false
+        keyboard: true,
+        show: true,
+        backdrop: false
     });
 }
 
-function geofenceInit(){
+function geofenceInit() {
 
     $('#geofenceSlider').slideReveal({
         push: false,

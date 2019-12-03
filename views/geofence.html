@@ -31,14 +31,14 @@
                 </div>
                 <div class="panel-body geoListBody" style="background-color: #eeeeee00;border: 1px solid #eee;overflow: auto;overflow-x: hidden">
 
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label>Choose Geofence Type</label>
                         <select class="form-control input-sm" id="geoType" onchange="loadGeofence()">
                             <option value="ENTITY">Entity</option>
                             <option value="ASSET">Asset</option>
                             <option value="DEVICE">Device</option>
                         </select>
-                    </div>
+                    </div> -->
 
                     <table class="table table-bordered responsive no-wrap" id="geofenceTable"  cellspacing="0" width="100%">
 
@@ -155,7 +155,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btnModal" onclick="proceedDelete()">Proceed</button>
+                    <button type="button" class="btn btnModal" onclick="deleteAGeofence()">Proceed</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->

@@ -362,7 +362,7 @@ Routes.prototype.init = function () {
         res.render('files.html',{layout:'',userRole:req.session.role});
     });
 
-    self.app.get('/api-doc', roleCheck, function (req, res) {
+    self.app.get('/documentation', roleCheck, function (req, res) {
         res.render('api-docs.html',{layout:'',userRole:req.session.role});
     });
 

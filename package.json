@@ -10,10 +10,10 @@
     "email": "info@boodskap.com",
     "url": "https://boodskap.io"
   },
-  "homepage": "https://github.com/BoodskapPlatform/boodskap-ui",
+  "homepage": "https://github.com/BoodskapPlatform/boodskap-iot-platform-web",
   "repository": {
     "type": "git",
-    "url": "https://github.com/BoodskapPlatform/boodskap-ui"
+    "url": "https://github.com/BoodskapPlatform/boodskap-iot-platform-web"
   },
   "engines": {
     "node": ">=6.0.0"

@@ -3,15 +3,8 @@ const PropertiesReader = require('properties-reader');
 const fs = require('fs');
 const replace = require('replace-in-file');
 
-var prop=null;
-try {
-    prop = PropertiesReader(process.env.HOME + '/config/boodskapui.properties');
-    console.log('* Fetching from config file => '+process.env.HOME + '/config/boodskapui.properties')
-}
-catch(e){
-    prop = PropertiesReader('boodskapui.properties');
-    console.log('* Fetching from default config file => boodskapui.properties')
-}
+
+const prop = PropertiesReader('boodskap.properties');
 
 //Get the property value
 getProperty = (pty) => {
@@ -87,29 +80,6 @@ async.series({
                 wcbk(null, null);
             }
         });
-
-    },
-    'apiConfig': function (acbk) {
-
-        /****************************
-         3] Configuring API YAML File
-         ****************************/
-
-        const options = {
-            files: './yaml/api.yaml',
-            from: /host:(.*)/g,
-            to: 'host: '+getProperty('boodskap.api').split("//")[1],
-        };
-
-        replace(options)
-            .then(changes => {
-                acbk(null, null);
-            })
-            .catch(error => {
-                acbk(null, null);
-            });
-
-
 
     }
 }, function (err, result) {

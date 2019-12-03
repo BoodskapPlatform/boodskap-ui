@@ -72,14 +72,14 @@
                                         <form name="form" action="javascript:void(0);" onsubmit="createNewGeofence()" id="geoCreateForm" class="login-form">
 
                                             <div class="geoBody" style="overflow: auto;overflow-x: hidden">
-                                            <div class="form-group">
+                                            <!-- <div class="form-group">
                                                 <label for="name">Geofence Type <sup>*</sup></label>
                                                 <select class="selectBox" name="geofenceCreateType" id="geofenceCreateType" required>
                                                     <option value="ENTITY">Entity Geofence</option>
                                                     <option value="ASSET">Asset Geofence</option>
                                                     <option value="DEVICE">Device Geofence</option>
                                                 </select>
-                                            </div>
+                                            </div> -->
 
                                             <div class="search-panel">
                                                 <div class="form-group">
@@ -114,11 +114,12 @@
                                                 <label for="name">Label <sup>*</sup></label>
                                                 <input type="text" class="form-control geo-input" placeholder="label" name="locationSearch" id="label" required>
                                             </div>
+                                            
 
-                                            <div class="form-group">
+                                            <!-- <div class="form-group">
                                                 <label for="category1">Geofence Category <sup>*</sup></label>
                                                 <input type="text" class="form-control geo-input" placeholder="category" name="category1" id="category1" required>
-                                            </div>
+                                            </div> -->
 
                                             <div class="coordinates">
 
@@ -131,7 +132,7 @@
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <label for="name">Latitude <sup>*</sup></label>
+                                                        <label for="name">Longitude <sup>*</sup></label>
                                                         <input type="text" class="form-control geo-input" placeholder="Longitude" name="lng"  id="pointLong">
                                                     </div>
                                                 </div>
@@ -191,9 +192,8 @@
                                             </div>
                                             <div class="btn-group btn-group-justified pull-right">
                                                 <button type="button" class="btn btn-default" onclick="mapPreview()"><i class="icon-eye"></i> Preview</button>
-                                                <button type="submit" class="btn btn-default" onclick="loadMessageDef()"><i class="icon-plus-square"></i> Create</button>
+                                                <button type="submit" class="btn btn-default" onclick="createNewGeofence()"><i class="icon-plus-square"></i> Create</button>
                                             </div>
-
 
 
 

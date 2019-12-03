@@ -79,8 +79,8 @@ var options = {
     customJs: '/swagger.js'
 
 };
-const swaggerDocument = YAML.load('./yaml/api.yaml');
-app.use('/apidocs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
+const swaggerDocument = YAML.load('./yaml/api.yml');
+app.use('/swagger-doc', swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
 
 
 var server = require('http').Server(app);
@@ -89,7 +89,7 @@ var server = require('http').Server(app);
 app.conf = conf;
 
 console.log("************************************************************");
-console.log(new Date() + ' | Boodskap UI Portal Listening on ' + conf['web']['port']);
+console.log(new Date() + ' | Boodskap Portal Listening on ' + conf['web']['port']);
 console.log("************************************************************");
 
 server.listen(conf['web']['port']);
