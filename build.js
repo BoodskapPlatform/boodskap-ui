@@ -4,7 +4,16 @@ const fs = require('fs');
 const replace = require('replace-in-file');
 
 
-const prop = PropertiesReader('boodskap.properties');
+
+var prop=null;
+try {
+    prop = PropertiesReader(process.env.HOME + '/config/boodskapui.properties');
+    console.log('* Fetching from config file => '+process.env.HOME + '/config/boodskapui.properties')
+}
+catch(e){
+    prop = PropertiesReader('boodskapui.properties');
+    console.log('* Fetching from default config file => boodskapui.properties')
+}
 
 //Get the property value
 getProperty = (pty) => {
