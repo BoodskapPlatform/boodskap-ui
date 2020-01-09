@@ -394,7 +394,7 @@ function loadImportedVerticals() {
         console.log(status, data);
         if (status) {
 
-            var result = searchQueryFormatter(data)['data'];
+            var result = searchQueryFormatterNew(data)['data'];
             $(".verticalsCount").html(result.recordsTotal);
             if (result.recordsTotal === 0) {
                 VERTICAL_LIST = [];
@@ -639,7 +639,7 @@ function getVerticalVersion() {
 
         if (status) {
 
-            var result = searchQueryFormatter(data)['data']['data'];
+            var result = searchQueryFormatterNew(data)['data']['data'];
 
             var resData = _.indexBy(result, 'verticalid');
 
@@ -1592,7 +1592,6 @@ function getMobileAppDomainBranding() {
 
 function searchQueryFormatter(data) {
 
-    console.log(data);
 
     var resultObj = {
         total: 0,
@@ -1623,8 +1622,6 @@ function searchQueryFormatter(data) {
             aggregations: aggregations
         };
 
-        console.log("resultObj--------");
-        console.log(resultObj);
         return resultObj;
 
     } else {

@@ -136,7 +136,7 @@ function loadImportedVerticals() {
     searchByQuery('', 'VERTICAL_IMPORTED', searchQuery, function (status, data) {
         if (status) {
 
-            var result = searchQueryFormatter(data)['data'];
+            var result = searchQueryFormatterNew(data)['data'];
             $(".verticalsCount").html(result.recordsTotal);
             if (result.recordsTotal === 0) {
                 VERTICAL_LIST = [];
@@ -436,7 +436,7 @@ function getVerticalVersion() {
 
             if (status) {
 
-                var result = searchQueryFormatter(data)['data']['data'];
+                var result = searchQueryFormatterNew(data)['data']['data'];
 
                 var resData = _.indexBy(result, 'verticalid');
 
@@ -503,7 +503,7 @@ function verticalUpdate(id) {
     searchByQuery('', 'VERTICAL_IMPORTED', searchQuery, function (status, data) {
         if (status) {
 
-            var result = searchQueryFormatter(data)['data'];
+            var result = searchQueryFormatterNew(data)['data'];
             $(".verticalsCount").html(result.recordsTotal);
             if (result.recordsTotal === 0) {
                 VERTICAL_LIST = [];

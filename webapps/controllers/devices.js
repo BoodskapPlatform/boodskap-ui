@@ -173,7 +173,7 @@ function loadDeviceList() {
                     "data": JSON.stringify(ajaxObj),
                     success: function (data) {
 
-                        var resultData = searchQueryFormatter(data).data;
+                        var resultData = searchQueryFormatterNew(data).data;
                         device_list =resultData.data;
                         resultData['draw'] = oSettings.iDraw;
 

@@ -287,7 +287,7 @@ function loadMessages(id) {
                 "data": JSON.stringify(ajaxObj),
                 success: function (data) {
 
-                    var resData = searchQueryFormatter(data);
+                    var resData = searchQueryFormatterNew(data);
                     msgAggData = resData.aggregations;
 
 

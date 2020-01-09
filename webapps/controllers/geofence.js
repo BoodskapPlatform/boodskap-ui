@@ -478,7 +478,7 @@ function loadGeofenceList() {
                 "data": JSON.stringify(ajaxObj),
                 success: function(data) {
 
-                    var fullObj = searchQueryFormatter(data);
+                    var fullObj = searchQueryFormatterNew(data);
                     var resultData = fullObj.data;
                     geofence_list = resultData.data;
 
@@ -670,7 +670,7 @@ function loadAssetGeofenceList() {
                 "data": JSON.stringify(ajaxObj),
                 success: function(data) {
 
-                    var fullObj = searchQueryFormatter(data);
+                    var fullObj = searchQueryFormatterNew(data);
                     var resultData = fullObj.data;
                     geofence_list = resultData.data;
 
@@ -862,7 +862,7 @@ function loadDeviceGeofenceList() {
                 "data": JSON.stringify(ajaxObj),
                 success: function(data) {
 
-                    var fullObj = searchQueryFormatter(data);
+                    var fullObj = searchQueryFormatterNew(data);
                     var resultData = fullObj.data;
                     geofence_list = resultData.data;
 

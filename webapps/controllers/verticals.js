@@ -207,7 +207,7 @@ function loadVerticals() {
                 "data": JSON.stringify(ajaxObj),
                 success: function (data) {
 
-                    var resultData = searchQueryFormatter(data).data;
+                    var resultData = searchQueryFormatterNew(data).data;
                     vertical_list =resultData.data;
                     $(".verticalsCount").html(resultData.recordsTotal);
 
@@ -353,7 +353,7 @@ function loadVerticalVersion(vid, id) {
     searchByQuery('', 'VERTICAL_VERSION', ajaxObj, function (status, data) {
         if (status) {
 
-            var result = searchQueryFormatter(data).data;
+            var result = searchQueryFormatterNew(data).data;
 
 
         }else{

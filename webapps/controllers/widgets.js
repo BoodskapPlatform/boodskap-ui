@@ -198,7 +198,7 @@ function loadWidgets() {
                 "data": JSON.stringify(ajaxObj),
                 success: function (data) {
 
-                    var resultData = searchQueryFormatter(data).data;
+                    var resultData = searchQueryFormatterNew(data).data;
                     widgets_list = resultData.data;
                     resultData['draw'] = oSettings.iDraw;
                     $(".widgetsCount").html(resultData.recordsTotal);

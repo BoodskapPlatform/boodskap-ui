@@ -684,7 +684,7 @@ function loadDeviceList(searchText) {
     searchDevice(searchQuery, function (status, res) {
         if (status) {
 
-            var resultData = searchQueryFormatter(res).data;
+            var resultData = searchQueryFormatterNew(res).data;
             device_list = resultData['data'];
 
             for (var i = 0; i < device_list.length; i++) {

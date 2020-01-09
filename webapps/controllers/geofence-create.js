@@ -860,7 +860,7 @@ function loadGeofenceList() {
                 "data": JSON.stringify(ajaxObj),
                 success: function (data) {
 
-                    var fullObj = searchQueryFormatter(data);
+                    var fullObj = searchQueryFormatterNew(data);
                     var resultData = fullObj.data;
                     geofence_list =resultData.data;
 
@@ -1130,7 +1130,7 @@ function searchQueryFormatter(data) {
                 "data": JSON.stringify(ajaxObj),
                 success: function (data) {
 
-                    var resultData = searchQueryFormatter(data).data;
+                    var resultData = searchQueryFormatterNew(data).data;
                     geofence_list =resultData.data;
                     resultData['draw'] = oSettings.iDraw;
 
