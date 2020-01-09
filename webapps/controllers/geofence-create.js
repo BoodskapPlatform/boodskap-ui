@@ -965,7 +965,7 @@ function searchQueryFormatter(data) {
 
         var arrayData = JSON.parse(data.result);
 
-        var totalRecords = arrayData.hits.total;
+        var totalRecords = arrayData.hits.total ? arrayData.hits.total.value : 0;
         var records = arrayData.hits.hits;
 
         var aggregations = arrayData.aggregations ? arrayData.aggregations : {};

@@ -21,7 +21,7 @@ Once the repository has been cloned:
 ## Configuration
 
 ### Properties
-In `boodskap.properties` file,
+In `boodskapui.properties` file,
 ```shell
 #default property
 
