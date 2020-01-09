@@ -356,21 +356,31 @@ function QueryFormatter(data) {
 
         var aggregations = arrayData.aggregations ? arrayData.aggregations : {};
 
+        var count = 0;
+
+        var tempData = []
 
         for (var i = 0; i < records.length; i++) {
-            records[i]['_source']['_id'] = records[i]['_id'];
+            if( records[i]['_id'] != '_search') {
+                records[i]['_source']['_id'] = records[i]['_id'];
+                tempData.push(records[i]['_source']);
+            }else{
+                count++;
+            }
         }
 
+        totalRecords = totalRecords > 0 ? totalRecords-count : 0
         resultObj = {
             "total": totalRecords,
             "data": {
                 "recordsTotal": totalRecords,
                 "recordsFiltered": totalRecords,
-                "data": _.pluck(records, '_source')
+                "data": tempData
             },
             aggregations: aggregations
             // data : _.pluck(records, '_source')
         }
+
 
         return resultObj;
 
