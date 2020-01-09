@@ -507,9 +507,12 @@ function searchQueryFormatterNew(data) {
 
         var count = 0;
 
+        var tempData = []
+
         for (var i = 0; i < records.length; i++) {
             if( records[i]['_source']['_id'] != '_search') {
                 records[i]['_source']['_id'] = records[i]['_id'];
+                tempData.push(records[i]['_source']);
             }else{
                 count++;
             }
@@ -521,7 +524,7 @@ function searchQueryFormatterNew(data) {
             "data": {
                 "recordsTotal": totalRecords,
                 "recordsFiltered": totalRecords,
-                "data": _.pluck(records, '_source')
+                "data": tempData
             },
             aggregations: aggregations
             // data : _.pluck(records, '_source')
