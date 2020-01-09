@@ -510,7 +510,7 @@ function searchQueryFormatterNew(data) {
         var tempData = []
 
         for (var i = 0; i < records.length; i++) {
-            if( records[i]['_source']['_id'] != '_search') {
+            if( records[i]['_id'] != '_search') {
                 records[i]['_source']['_id'] = records[i]['_id'];
                 tempData.push(records[i]['_source']);
             }else{
