@@ -39,10 +39,10 @@ function mqttConnect() {
             $(".dashboardStatus").html('');
             console.log(new Date() + " | MQTT Connection failed: " + message.errorMessage);
             $(".loggerHtml").append("<div style='font-size: 12px;'>" +
-                "<span class='label label-danger'" +
+                "<span class='label label-warning'" +
                 "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>error</span>  " +
                 "<b style='color: #9e9e9e8a'>" + moment().format('MM/DD/YYYY hh:mm:ss a') + "</b> " +
-                "<span style='white-space: pre-wrap;padding-left: 10px;'>Server Connection Failed...!</span></div>");
+                "<span style='white-space: pre-wrap;padding-left: 10px;'>Reconnecting...!</span></div>");
             mqttConnect();
         }
     };
@@ -66,10 +66,10 @@ function mqttConnect() {
         MQTT_STATUS = false;
         console.log(new Date() + " | MQTT connection lost: " + responseObject.errorMessage);
         $(".loggerHtml").append("<div style='font-size: 12px;'>" +
-            "<span class='label label-danger'" +
-            "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>error</span>  " +
+            "<span class='label label-warning'" +
+            "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>warn</span>  " +
             "<b style='color: #9e9e9e8a'>" + moment().format('MM/DD/YYYY hh:mm:ss a') + "</b> " +
-            "<span style='white-space: pre-wrap;padding-left: 10px;'>Server Connection Lost...!</span></div>");
+            "<span style='white-space: pre-wrap;padding-left: 10px;'>Reconnecting...!</span></div>");
         $(".loggerHtml").append("<div style='font-size: 12px;'>" +
             "<span class='label label-warning'" +
             "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>warn</span>  " +
