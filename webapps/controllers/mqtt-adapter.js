@@ -21,11 +21,11 @@ function mqttConnect() {
             console.log(new Date() + " | MQTT connection established");
 
 
-            $(".loggerHtml").append("<div style='font-size: 12px;'>" +
-                "<span class='label label-info'" +
-                "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>info</span>  " +
-                "<b style='color: #9e9e9e8a'>" + moment().format('MM/DD/YYYY hh:mm:ss a') + "</b> " +
-                "<span style='white-space: pre-wrap;padding-left: 10px;'>Server Connection Established...!</span></div>");
+            // $(".loggerHtml").append("<div style='font-size: 12px;'>" +
+            //     "<span class='label label-info'" +
+            //     "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>info</span>  " +
+            //     "<b style='color: #9e9e9e8a'>" + moment().format('MM/DD/YYYY hh:mm:ss a') + "</b> " +
+            //     "<span style='white-space: pre-wrap;padding-left: 10px;'>Server Connection Established...!</span></div>");
 
             try {
                 mqttListen();
@@ -35,14 +35,14 @@ function mqttConnect() {
             // $(".mqttClass").css('background-color', '#37BC9B');
         },
         onFailure: function (message) {
-            $(".serverStatus").html('<span class="label label-danger">Not Connected</span>');
+            $(".serverStatus").html('<span class="label label-danger">Reconnecting...</span>');
             $(".dashboardStatus").html('');
             console.log(new Date() + " | MQTT Connection failed: " + message.errorMessage);
-            $(".loggerHtml").append("<div style='font-size: 12px;'>" +
-                "<span class='label label-warning'" +
-                "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>error</span>  " +
-                "<b style='color: #9e9e9e8a'>" + moment().format('MM/DD/YYYY hh:mm:ss a') + "</b> " +
-                "<span style='white-space: pre-wrap;padding-left: 10px;'>Reconnecting...!</span></div>");
+            // $(".loggerHtml").append("<div style='font-size: 12px;'>" +
+            //     "<span class='label label-warning'" +
+            //     "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>error</span>  " +
+            //     "<b style='color: #9e9e9e8a'>" + moment().format('MM/DD/YYYY hh:mm:ss a') + "</b> " +
+            //     "<span style='white-space: pre-wrap;padding-left: 10px;'>Reconnecting...!</span></div>");
             mqttConnect();
         }
     };
@@ -61,20 +61,20 @@ function mqttConnect() {
 
     mqtt_client.onConnectionLost = function (responseObject) {
         // $(".mqttClass").css('background-color', '#da4453');
-        $(".serverStatus").html('<span class="label label-danger">Not Connected</span>');
+        $(".serverStatus").html('<span class="label label-danger">Reconnecting...</span>');
         $(".dashboardStatus").html('');
         MQTT_STATUS = false;
         console.log(new Date() + " | MQTT connection lost: " + responseObject.errorMessage);
-        $(".loggerHtml").append("<div style='font-size: 12px;'>" +
-            "<span class='label label-warning'" +
-            "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>warn</span>  " +
-            "<b style='color: #9e9e9e8a'>" + moment().format('MM/DD/YYYY hh:mm:ss a') + "</b> " +
-            "<span style='white-space: pre-wrap;padding-left: 10px;'>Reconnecting...!</span></div>");
-        $(".loggerHtml").append("<div style='font-size: 12px;'>" +
-            "<span class='label label-warning'" +
-            "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>warn</span>  " +
-            "<b style='color: #9e9e9e8a'>" + moment().format('MM/DD/YYYY hh:mm:ss a') + "</b> " +
-            "<span style='white-space: pre-wrap;padding-left: 10px;'>Reconnecting...!</span></div>");
+        // $(".loggerHtml").append("<div style='font-size: 12px;'>" +
+        //     "<span class='label label-warning'" +
+        //     "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>warn</span>  " +
+        //     "<b style='color: #9e9e9e8a'>" + moment().format('MM/DD/YYYY hh:mm:ss a') + "</b> " +
+        //     "<span style='white-space: pre-wrap;padding-left: 10px;'>Reconnecting...!</span></div>");
+        // $(".loggerHtml").append("<div style='font-size: 12px;'>" +
+        //     "<span class='label label-warning'" +
+        //     "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>warn</span>  " +
+        //     "<b style='color: #9e9e9e8a'>" + moment().format('MM/DD/YYYY hh:mm:ss a') + "</b> " +
+        //     "<span style='white-space: pre-wrap;padding-left: 10px;'>Reconnecting...!</span></div>");
         mqttConnect();
 
     }
