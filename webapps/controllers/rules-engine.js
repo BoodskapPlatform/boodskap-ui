@@ -2162,7 +2162,7 @@ function exportRule(type) {
         data = {
             lang: 'GROOVY',
             code: consoleText,
-            id: CURRENT_ID,
+            type: CURRENT_ID,
         }
 
     }
