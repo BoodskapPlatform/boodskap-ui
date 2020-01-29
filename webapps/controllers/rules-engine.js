@@ -87,7 +87,7 @@ $(document).ready(function () {
                         $('#codeEditor').height(($(".ui-layout-center").height() - 40) + 'px');
                         codeEditor.resize();
                     }, 500);
-                    $(".consoleBox").height(($(".ui-layout-south").height()-20) + 'px')
+                    $(".consoleBox").height(($(".ui-layout-south").height()-30) + 'px')
                 }
 
             },
@@ -121,7 +121,7 @@ $(document).ready(function () {
             loadDomainCode();
             // closePreLoading();
             $(".loaderBlock").css('display', 'none');
-            $(".classFolder").css('height', $(".rightSide").height() - 210)
+            $(".classFolder").css('height', $(".rightSide").height() - 200)
             $(".consoleBox").height(($(".ui-layout-south").height()-20) + 'px')
 
             loadCodeType();
@@ -157,9 +157,9 @@ function mqttListen() {
             var nodeClass = new Date().getTime();
             var color = 'default';
 
-            // console.log('Log Enabled :',$(".allLogs").is(":checked"))
-            // console.log('parsedData :',parsedData)
-            // console.log(CURRENT_TYPE ,"====",topicName);
+            console.log('Log Enabled :',$(".allLogs").is(":checked"))
+            console.log('parsedData :',parsedData)
+            console.log(CURRENT_TYPE ,"====",topicName);
 
             if ($(".allLogs").is(":checked")) {
 
@@ -224,11 +224,25 @@ function mqttDomainRule(topicName, parsedData) {
 
         if (parsedData.data !== '__ALL_DONE__') {
 
-            $(".loggerHtml").append("<div class='" + nodeClass + "' style='font-size: 12px;'>" +
-                "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
-                "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
-                "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " +
-                "<span style='white-space: pre-wrap;padding-left: 10px;'>" + parsedData.data + "</span></div>");
+            var level = parsedData.level;
+
+            if($("."+level.toLowerCase()).is(":checked")) {
+
+                var fields = '';
+
+                if($(".node").is(":checked")){
+                    fields+= ' ['+parsedData.node+'] '
+                }
+                if($(".session").is(":checked")){
+                    fields+= ' ['+parsedData.session+'] '
+                }
+
+                $(".loggerHtml").append("<div class='" + nodeClass + "' style='font-size: 12px;'>" +
+                    "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
+                    "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
+                    "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " + fields+
+                    "<span style='white-space: pre-wrap;padding-left: 10px;'>" + parsedData.data + "</span></div>");
+            }
 
         }
         if (parsedData.data === '__ALL_DONE__') {
@@ -249,11 +263,25 @@ function mqttMesageRule(topicName, parsedData) {
 
         if (parsedData.data !== '__ALL_DONE__') {
 
-            $(".loggerHtml").append("<div class='" + nodeClass + "' style='font-size: 12px;'>" +
-                "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
-                "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
-                "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " +
-                "<span style='white-space: pre-wrap;padding-left: 10px;'>" + parsedData.data + "</span></div>");
+            var level = parsedData.level;
+
+            if($("."+level.toLowerCase()).is(":checked")) {
+
+                var fields = '';
+
+                if($(".node").is(":checked")){
+                    fields+= ' ['+parsedData.node+'] '
+                }
+                if($(".session").is(":checked")){
+                    fields+= ' ['+parsedData.session+'] '
+                }
+
+                $(".loggerHtml").append("<div class='" + nodeClass + "' style='font-size: 12px;'>" +
+                    "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
+                    "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
+                    "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " + fields +
+                    "<span style='white-space: pre-wrap;padding-left: 10px;'>" + parsedData.data + "</span></div>");
+            }
 
         }
         if (parsedData.data === '__ALL_DONE__') {
@@ -274,11 +302,25 @@ function mqttNamedRule(topicName, parsedData) {
 
         if (parsedData.data !== '__ALL_DONE__') {
 
-            $(".loggerHtml").append("<div class='" + nodeClass + "' style='font-size: 12px;'>" +
-                "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
-                "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
-                "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " +
-                "<span style='white-space: pre-wrap;padding-left: 10px;'>" + parsedData.data + "</span></div>");
+            var level = parsedData.level;
+
+            if($("."+level.toLowerCase()).is(":checked")) {
+
+                var fields = '';
+
+                if($(".node").is(":checked")){
+                    fields+= ' ['+parsedData.node+'] '
+                }
+                if($(".session").is(":checked")){
+                    fields+= ' ['+parsedData.session+'] '
+                }
+
+                $(".loggerHtml").append("<div class='" + nodeClass + "' style='font-size: 12px;'>" +
+                    "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
+                    "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
+                    "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " + fields +
+                    "<span style='white-space: pre-wrap;padding-left: 10px;'>" + parsedData.data + "</span></div>");
+            }
 
         }
         if (parsedData.data === '__ALL_DONE__') {
@@ -299,11 +341,25 @@ function mqttScheduleRule(topicName, parsedData) {
 
         if (parsedData.data !== '__ALL_DONE__') {
 
-            $(".loggerHtml").append("<div class='" + nodeClass + "' style='font-size: 12px;'>" +
-                "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
-                "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
-                "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " +
-                "<span style='white-space: pre-wrap;padding-left: 10px;'>" + parsedData.data + "</span></div>");
+            var level = parsedData.level;
+
+            if($("."+level.toLowerCase()).is(":checked")) {
+
+                var fields = '';
+
+                if($(".node").is(":checked")){
+                    fields+= ' ['+parsedData.node+'] '
+                }
+                if($(".session").is(":checked")){
+                    fields+= ' ['+parsedData.session+'] '
+                }
+
+                $(".loggerHtml").append("<div class='" + nodeClass + "' style='font-size: 12px;'>" +
+                    "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
+                    "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
+                    "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " + fields +
+                    "<span style='white-space: pre-wrap;padding-left: 10px;'>" + parsedData.data + "</span></div>");
+            }
 
         }
         if (parsedData.data === '__ALL_DONE__') {
@@ -324,12 +380,25 @@ function mqttBinaryRule(topicName, parsedData) {
     if (topicName.includes("/log/brule")) {
 
         if (parsedData.data !== '__ALL_DONE__') {
+            var level = parsedData.level;
 
-            $(".loggerHtml").append("<div class='" + nodeClass + "' style='font-size: 12px;'>" +
-                "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
-                "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
-                "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " +
-                "<span style='white-space: pre-wrap;padding-left: 10px;'>" + parsedData.data + "</span></div>");
+            if($("."+level.toLowerCase()).is(":checked")) {
+
+                var fields = '';
+
+                if($(".node").is(":checked")){
+                    fields+= ' ['+parsedData.node+'] '
+                }
+                if($(".session").is(":checked")){
+                    fields+= ' ['+parsedData.session+'] '
+                }
+
+                $(".loggerHtml").append("<div class='" + nodeClass + "' style='font-size: 12px;'>" +
+                    "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
+                    "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
+                    "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " + fields +
+                    "<span style='white-space: pre-wrap;padding-left: 10px;'>" + parsedData.data + "</span></div>");
+            }
 
         }
         if (parsedData.data === '__ALL_DONE__') {
@@ -363,18 +432,18 @@ function enableLogs() {
 
 function debugEnable(obj) {
 
-    var status = $("input[name='debugStatus']:checked").val();
-
-
-    if (status === 'false') {
-        mqttCancelSubscribe();
-        // $(obj).removeClass('active');
-        feedback('Debugging Disabled!')
-    } else {
-        mqttListen();
-        // $(obj).addClass('active');
-        feedback('Debugging Enabled!')
-    }
+    // var status = $("input[name='debugStatus']:checked").val();
+    //
+    //
+    // if (status === 'false') {
+    //     mqttCancelSubscribe();
+    //     // $(obj).removeClass('active');
+    //     feedback('Debugging Disabled!')
+    // } else {
+    //     mqttListen();
+    //     // $(obj).addClass('active');
+    //     feedback('Debugging Enabled!')
+    // }
 }
 
 function clearLogs() {
@@ -917,7 +986,7 @@ function loadDomainRule() {
 
     $("#editorContent").html('<div id="codeEditor"></div>');
     $("#codeEditor").html('');
-    loadEdtior(CHANGED_DEFAULT_TEXT ? CHANGED_DEFAULT_TEXT : domain_rule_obj.code);
+    loadEdtior(CHANGED_DEFAULT_TEXT ? CHANGED_DEFAULT_TEXT : domain_rule_obj.code, 'domainTab');
     CURRENT_ID = null;
     CURRENT_TYPE = 0;
 
@@ -951,7 +1020,7 @@ function loadGroovyClass(id) {
         }
     }
 
-    loadEdtior(obj.code);
+    loadEdtior(obj.code, 'groovyTab_'+id);
     CURRENT_ID = id;
     CURRENT_TYPE = 4;
 
@@ -978,7 +1047,7 @@ function loadJarClass(id) {
         }
     }
 
-    loadEdtior(obj.code);
+    loadEdtior(obj.code,'jarTab_'+id);
     CURRENT_ID = id;
     CURRENT_TYPE = 5;
 
@@ -997,7 +1066,7 @@ function loadMessageRule(id) {
     $("#editorContent").html('<div id="codeEditor"></div>');
     var data = returnObj(id, 1);
     $("#codeEditor").html('');
-    loadEdtior(data ? data.code : '');
+    loadEdtior(data ? data.code : '', 'messageTab_'+id);
     CURRENT_ID = id;
     CURRENT_TYPE = 1;
 
@@ -1036,7 +1105,7 @@ function loadNamedRule(id) {
     $("#editorContent").html('<div id="codeEditor"></div>');
     var data = returnObj(id, 2);
     $("#codeEditor").html('');
-    loadEdtior(data ? data.code : '');
+    loadEdtior(data ? data.code : '', 'namedTab_'+id);
     CURRENT_ID = id;
     CURRENT_TYPE = 2;
 
@@ -1068,7 +1137,7 @@ function loadBinaryRule(id) {
     $("#editorContent").html('<div id="codeEditor"></div>');
     var data = returnObj(id, 6);
     $("#codeEditor").html('');
-    loadEdtior(data ? data.code : '');
+    loadEdtior(data ? data.code : '', 'binaryTab_'+id);
     CURRENT_ID = id;
     CURRENT_TYPE = 6;
 
@@ -1099,7 +1168,7 @@ function loadScheduleRule(id) {
     $("#editorContent").html('<div id="codeEditor"></div>');
     var data = returnObj(id, 3);
     $("#codeEditor").html('');
-    loadEdtior(data ? data.code : '');
+    loadEdtior(data ? data.code : '', 'scheduleTab_'+id);
     CURRENT_ID = id;
     CURRENT_TYPE = 3;
 
@@ -1124,7 +1193,9 @@ function loadScheduleRule(id) {
     // }, 1000);
 }
 
-function loadEdtior(code) {
+var editorLine = {};
+
+function loadEdtior(code, tabid) {
 
     editorChange = false;
 
@@ -1163,7 +1234,12 @@ function loadEdtior(code) {
     //Get the number of lines
     var count = session.getLength();
     //Go to end of the last line
-    codeEditor.gotoLine(count, session.getLine(count - 1).length);
+
+    if(editorLine[tabid]){
+        codeEditor.gotoLine(editorLine[tabid]['row'], editorLine[tabid]['column']);
+    }else{
+        codeEditor.gotoLine(count, session.getLine(count - 1).length);
+    }
 
 
     $('#codeEditor').height(($(".ui-layout-center").height() - 40) + 'px');
@@ -1178,6 +1254,10 @@ function loadEdtior(code) {
 
 
     codeEditor.on("blur", function (obj) {
+
+        editorLine[tabid] = codeEditor.getCursorPosition();
+        editorLine[tabid]['row']++;
+
         if (editorChange) {
             editorChange = false;
 

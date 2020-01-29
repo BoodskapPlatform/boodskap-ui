@@ -135,31 +135,36 @@
 
 
 
-            <div class="row">
+            <div class="row" style="font-size: 11px !important;">
 
-                <div class="col-lg-1">
-                    <ul class="nav">
-                        <li style="color: #fff">
-                            <p style="">Live Status: <span class="serverStatus"><span class="label label-danger">Not Connected</span></span>
-                            </p>
-                        </li>
-                        <li style="color: #fff">
-                            <p style="margin-bottom: 5px;">
-                                Debug:<br>
-                                <label style="color:#fff;"><input type="radio" name="debugStatus" value="true" checked
-                                                                  onclick="debugEnable()"/> Enable</label>
-                                <label style="color:#fff;"><input type="radio" name="debugStatus" value="false"
-                                                                  onclick="debugEnable()"/> Disable</label>
-                            </p>
+                <div class="col-md-2">
+                    <p style="margin-bottom: 5px">Live Status: <span class="serverStatus"><span class="label label-danger">Not Connected</span></span>
 
-                            <p class="enableLogs" style="margin-bottom: 0px">
-                                <label style="color: #fff"><input type="checkbox" value="true" class="allLogs mt-1"
-                                                                  onclick="enableLogs()"> Enable all logs </label>
-                            </p>
-                        </li>
-                    </ul>
+                    </p>
+                    <table style="width: 100%;border:0px">
+                        <tr>
+                            <td style="width: 40%">
+                                <p style="margin-bottom: 5px;">Logs Filter:<br>
+                                    <label style="color: #fff;display: block;margin-bottom: 0px"><input type="checkbox" value="true" class="error mt-1" checked> Error</label>
+                                    <label style="color: #fff;display: block;margin-bottom: 0px"><input type="checkbox" value="true" class="info mt-1" checked> Info</label>
+                                    <label style="color: #fff;display: block;margin-bottom: 0px"><input type="checkbox" value="true" class="warn mt-1" checked> Warn</label>
+                                    <label style="color: #fff;display: block;margin-bottom: 0px"><input type="checkbox" value="true" class="debug mt-1" checked> Debug</label>
+                                    <label style="color: #fff;display: block;margin-bottom: 0px"><input type="checkbox" value="true" class="trace mt-1" checked> Trace</label>
+                                    <label style="color: #fff;display: block;margin-bottom: 0px"><input type="checkbox" value="true" class="fatal mt-1" checked> Fatal</label>
+                                </p>
+                            </td>
+                            <td style="vertical-align: text-top">
+                                <label style="color: #fff;"><input type="checkbox" value="true" class="allLogs mt-1" checked
+                                                                   onclick="enableLogs()"> All rules logs </label>
+                                <p style="margin-bottom: 5px;">Fields Filter:<br>
+                                    <label style="color: #fff;display: block;margin-bottom: 0px"><input type="checkbox" value="true" class="node mt-1"> Node</label>
+                                    <label style="color: #fff;display: block;margin-bottom: 0px"><input type="checkbox" value="true" class="session mt-1"> Session</label>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
-                <div class="col-lg-11" style="position:relative">
+                <div class="col-lg-10" style="position:relative">
 <span style="position: absolute;top:0px;right:0px;cursor: pointer;z-index:99999999">
                             <button class="btn btn-icon btn-sm btn-default" onclick="clearLogs()" title="Clear Logs"><i
                                     class="icon-trash-o"></i></button>
