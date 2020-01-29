@@ -1,12 +1,12 @@
 swagger: "2.0"
 basePath: /api
 schemes: 
-  - http
   - https
+  - http
 produces: 
   - "application/json"
 info: 
-  version: "2.1.1"
+  version: "3.0.0"
   title: "Boodskap API"
   description: "Boodskap IoT Platform API"
   termsOfService: "https://boodskap.io/terms-conditions"
@@ -2597,6 +2597,37 @@ paths:
           description: successful operation
           schema: 
             $ref: "#/definitions/Success"
+        "417":
+          description: "API Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/domain/key/reset/{atoken}': 
+    get: 
+      description: "Reset a Domains's API Key"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      tags:
+        - Reset API Key
+      summary: Rest API Key (domainadmin access)
+      operationId: "resetApiKey"
+      parameters:
+        - name: atoken
+          in: path
+          description: Auth token of the logged in user
+          required: true
+          type: string
+        - name: targetDomainKey
+          in: query
+          description: Reset another domain's api key (admin access)
+          required: false
+          type: string
+      responses: 
+        '200':
+          description: successful operation
+          schema: 
+            $ref: "#/definitions/ApiKey"
         "417":
           description: "API Error"
           schema: 
@@ -7811,7 +7842,7 @@ paths:
         - name: format
           in: query
           description: data decoding format
-          required: true
+          required: false
           type: string
           enum:
             - TEXT
@@ -7820,7 +7851,7 @@ paths:
         - name: contentType
           in: query
           description: content type, ex filename.jpg
-          required: true
+          required: false
           type: string
         - name: properties
           in: query
@@ -9077,6 +9108,99 @@ paths:
           in: path
           required: true
           type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/SearchResult'
+        '417':
+          description: 'API Error'
+          schema: 
+            $ref: '#/definitions/ApiError'
+  '/elastic/search/query/{atoken}':
+    post:
+      tags:
+        - Search By Query
+      summary: Search By Query
+      operationId: searchByQuery
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          description: Auth token of the logged in user
+          required: true
+          type: string
+        - name: query
+          in: body
+          description: SearchQuery JSON
+          required: true
+          schema:
+            $ref: '#/definitions/SearchQuery'
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/SearchResult'
+        '417':
+          description: 'API Error'
+          schema: 
+            $ref: '#/definitions/ApiError'
+  '/elastic/update/query/{atoken}':
+    post:
+      tags:
+        - Update By Query
+      summary: Update By Query
+      operationId: updateByQuery
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          description: Auth token of the logged in user
+          required: true
+          type: string
+        - name: query
+          in: body
+          description: SearchQuery JSON
+          required: true
+          schema:
+            $ref: '#/definitions/SearchQuery'
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/SearchResult'
+        '417':
+          description: 'API Error'
+          schema: 
+            $ref: '#/definitions/ApiError'
+  '/elastic/update/template/{atoken}':
+    post:
+      tags:
+        - Update by Template
+      summary: Update by Template
+      operationId: updateByTemplate
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          description: Auth token of the logged in user
+          required: true
+          type: string
+        - name: query
+          in: body
+          description: TemplateQuery JSON
+          required: true
+          schema:
+            $ref: '#/definitions/TemplateQuery'
       responses:
         '200':
           description: successful operation
@@ -12523,6 +12647,31 @@ paths:
           description: "API Error"
           schema: 
             $ref: "#/definitions/ApiError"
+  '/global/context/list': 
+    get: 
+      tags:
+        - List all Rules Engine Contexts
+      summary: List all Rules Engine Contexts
+      operationId: "listAllRulesEngineContexts"
+      consumes:
+        - "text/plain"
+      produces:
+        - "application/json"
+      parameters:
+        - name: filter
+          in: query
+          description: filter by context name
+          required: false
+          type: string
+      responses: 
+        "200":
+          description: "ContextList Object"
+          schema: 
+            $ref: "#/definitions/ContextList"
+        "417":
+          description: "API Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
   '/fr/upsert/{atoken}': 
     post: 
       tags:
@@ -15082,6 +15231,73 @@ paths:
           description: Binary file
           schema:
             type: file
+        "417":
+          description: "API Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/files/content/download/{domainKey}/{id}':
+    get:
+      tags:
+        - Download File Content
+      summary: Download file Content
+      operationId: downloadFileContent
+      parameters:
+        - name: domainKey
+          in: path
+          description: Domain key the file belongs
+          required: true
+          type: string
+        - name: id
+          in: path
+          description: File unique UUID
+          required: true
+          type: string
+        - name: ispublic
+          in: query
+          description: True if public file
+          required: false
+          type: boolean
+      responses:
+        '200':
+          description: Binary file
+          schema:
+            type: file
+        "417":
+          description: "API Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/files/content/get/{domainKey}/{id}':
+    get:
+      tags:
+        - Get File Content
+      summary: Get File Content
+      operationId: getFileContent
+      parameters:
+        - name: domainKey
+          in: path
+          description: Domain key the file belongs
+          required: true
+          type: string
+        - name: id
+          in: path
+          description: File unique UUID
+          required: true
+          type: string
+        - name: ispublic
+          in: query
+          description: True if public file
+          required: false
+          type: boolean
+        - name: contentType
+          in: query
+          description: Optional return Content-Type header, default application/octet-stream
+          required: false
+          type: string
+      responses:
+        '200':
+          description: File content object
+          schema:
+            type: string
         "417":
           description: "API Error"
           schema: 
@@ -23193,3 +23409,46 @@ definitions:
       createdtime:
         type: integer
         format: int64
+  ApiKey: 
+    type: "object"
+    required: 
+      - "domainKey"
+      - "apiKey"
+    properties: 
+      domainKey: 
+        type: "string"
+      apiKey: 
+        type: "string"
+  ContextMethod: 
+    type: "object"
+    properties: 
+      signature: 
+        type: "string"
+      help: 
+        type: "string"
+  ContextClass:
+    type: object
+    required:
+      - name
+      - methods
+    properties:
+      name: 
+        type: "string"
+      methods:
+        type: array
+        items:
+          $ref: "#/definitions/ContextMethod"
+  ContextList:
+    type: object
+    required:
+      - classes
+    properties:
+      classes:
+        type: array
+        items:
+          $ref: "#/definitions/ContextClass"
+  ExportDomainSettings: 
+    type: "object"
+    properties: 
+      apiKey: 
+        type: "string"
