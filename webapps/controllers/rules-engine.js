@@ -50,6 +50,25 @@ $(document).ready(function () {
 
     mqttConnect();
 
+    if(Cookies.get('fatal')){
+        $(".fatal").prop("checked", Cookies.get('fatal') === 'true' ? true : false)
+    }
+    if(Cookies.get('error')){
+        $(".error").prop("checked", Cookies.get('error') === 'true' ? true : false)
+    }
+    if(Cookies.get('warn')){
+        $(".warn").prop("checked", Cookies.get('warn') === 'true' ? true : false)
+    }
+    if(Cookies.get('info')){
+        $(".info").prop("checked", Cookies.get('info') === 'true' ? true : false)
+    }
+    if(Cookies.get('debug')){
+        $(".debug").prop("checked", Cookies.get('debug') === 'true' ? true : false)
+    }
+    if(Cookies.get('trace')){
+        $(".trace").prop("checked", Cookies.get('trace') === 'true' ? true : false)
+    }
+
     document.getElementById('importFile')
         .addEventListener('change', getImportFile)
 
@@ -157,9 +176,9 @@ function mqttListen() {
             var nodeClass = new Date().getTime();
             var color = 'default';
 
-            console.log('Log Enabled :',$(".allLogs").is(":checked"))
-            console.log('parsedData :',parsedData)
-            console.log(CURRENT_TYPE ,"====",topicName);
+            // console.log('Log Enabled :',$(".allLogs").is(":checked"))
+            // console.log('parsedData :',parsedData)
+            // console.log(CURRENT_TYPE ,"====",topicName);
 
             if ($(".allLogs").is(":checked")) {
 
