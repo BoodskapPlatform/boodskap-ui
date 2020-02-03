@@ -115,9 +115,23 @@
                 </ul>
 
                 <!-- Tab panes -->
-                <div class="tab-content tabBody">
+                <div class="tab-content tabBody" style="position: relative">
+                    <div id="context" style="position: absolute;right:0px;top:0px;width:250px;background-color: #fff;z-index:9999999;overflow: auto;overflow-x: hidden">
+
+                        <div class="row">
+                            <div class="col-md-12 mt-1">
+                                <input onkeyup="filterContext()" type="text" class="form-control form-control-sm" id="contextSearch" placeholder="Search by Context Name"/>
+                            </div>
+                            <div class="col-md-12 mt-2">
+                                <div class="contextList" style="padding: 10px;"></div>
+                            </div>
+                        </div>
+
+                    </div>
+
                     <div role="tabpanel" class="tab-pane active" id="editorContent"
                          style="font-size: 13px;padding:10px;position: relative;">
+
 
                         <div id="codeEditor" style=""></div>
 
@@ -244,13 +258,29 @@
                                 </div>
                             </div>
                             <!-- end card -->
+
+                            <div class="card jobFields" style="display: none">
+                                <div class="card-header bg-black text-white pointer-cursor collapsed"
+                                     data-toggle="collapse" data-target="#collapseTwo1" aria-expanded="false">
+                                    Job Details
+                                </div>
+                                <div id="collapseTwo1" class="collapse" data-parent="#accordion1" style="">
+                                    <div class="card-body">
+                                        <table class="table">
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
                             <!-- begin card -->
                             <div class="card messageFields" style="display: none">
                                 <div class="card-header bg-black text-white pointer-cursor collapsed"
                                      data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false">
                                     Message Fields
                                 </div>
-                                <div id="collapseTwo" class="collapse" data-parent="#accordion" style="">
+                                <div id="collapseTwo" class="collapse" data-parent="#accordion2" style="">
                                     <div class="card-body">
                                         <table class="table">
                                             <thead>
@@ -276,7 +306,7 @@
                                      data-toggle="collapse" data-target="#collapseThree">
                                     Default Fields
                                 </div>
-                                <div id="collapseThree" class="collapse" data-parent="#accordion">
+                                <div id="collapseThree" class="collapse" data-parent="#accordion3">
                                     <div class="card-body">
                                         <table class="table">
                                             <thead>
@@ -389,6 +419,7 @@
                     <option value="2">Named Rules</option>
                     <option value="3">Scheduled Rules</option>
                     <option value="6">Binary Rules</option>
+                    <option value="7">Job Rule</option>
                     <!--<option value="4">Groovy Class</option>-->
                     <!--<option value="5">JAR Class</option>-->
                 </select>
@@ -735,6 +766,107 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+<div id="addJobRule" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form action="javascript:void(0)" onsubmit="addJobRule()">
+                <div class="modal-header">
+                    <h4 class="modal-title">Add Job Rule</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="inputLabel">Rule Name</label>
+                                <input class="form-control input-sm" onkeyup="avoidSpaces(this)" onkeypress="avoidSpaces(this)" placeholder=""
+                                       type="text" id="job_rule" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="inputLabel">Language</label>
+                                <select class="form-control input-sm" id="job_lang">
+                                    <option value="GROOVY">GROOVY</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="inputLabel">Job Type</label>
+                                <select  class="form-control input-sm"  id="job_type" onchange="checkJobInstance()">
+                                    <option value="DISTRIBUTED">Distributed</option>
+                                    <option value="SIMPLE">Simple</option>
+                                    <option value="NODE_SINGLETON">Node Singleton</option>
+                                    <option value="CLUSTER_SINGLETON">Cluster Singleton</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="inputLabel">Job Instances</label>
+                                <input class="form-control input-sm"
+                                       type="number" min="1" value="1" id="job_instance">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="inputLabel">Job State</label>
+                                <select  class="form-control input-sm"  id="job_state">
+                                    <option value="ENABLED">Enabled</option>
+                                    <option value="DISABLED">Disabled</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group systemTemplate">
+                                <label class="inputLabel">System Job</label>
+                                <select  class="form-control input-sm"  id="job_system">
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="inputLabel">Start on Boot</label>
+                                <select  class="form-control input-sm"  id="job_boot">
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="inputLabel">Restart on Change</label>
+                                <select  class="form-control input-sm"  id="job_restart">
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btnModal">Save changes</button>
                 </div>
             </form>
         </div><!-- /.modal-content -->

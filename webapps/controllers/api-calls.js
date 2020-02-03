@@ -407,6 +407,25 @@ function listBinaryRules(pageSize, direction, type, cbk) {
 
 }
 
+function listJobRules(cbk) {
+
+
+    $.ajax({
+        url: API_BASE_PATH + "/jobs/list/" + API_TOKEN,
+        type: 'GET',
+        success: function (data) {
+            //called when successful
+            cbk(true, data);
+        },
+        error: function (e) {
+            //called when there is an error
+            //console.log(e.message);
+            cbk(false, null);
+        }
+    });
+
+}
+
 
 function listMessageSpec(pageSize, direction, mid, cbk) {
 
@@ -576,6 +595,27 @@ function updateBinaryRuleCode(data, cbk) {
 
 }
 
+function updateJobRuleCode(data, cbk) {
+
+
+    $.ajax({
+        url: API_BASE_PATH + "/jobs/upsert/" + API_TOKEN,
+        data: JSON.stringify(data),
+        contentType: "application/json",
+        type: 'POST',
+        success: function (data) {
+            //called when successful
+            cbk(true, data);
+        },
+        error: function (e) {
+            //called when there is an error
+            //console.log(e.message);
+            cbk(false, null);
+        }
+    });
+
+}
+
 function updateNamedRuleCode(data, cbk) {
 
     //{"lang":"GROOVY","code":"","name":"Flow Meter Message"}
@@ -630,6 +670,81 @@ function deleteBinaryRule(data, cbk) {
         // data:  JSON.stringify(data),
         contentType: "application/json",
         type: 'DELETE',
+        success: function (data) {
+            //called when successful
+            cbk(true, data);
+        },
+        error: function (e) {
+            //called when there is an error
+            //console.log(e.message);
+            cbk(false, null);
+        }
+    });
+
+}
+
+
+
+function deleteJobRule(data, cbk) {
+
+    $.ajax({
+        url: API_BASE_PATH + "/jobs/delete/" + API_TOKEN + "/" + data,
+        // data:  JSON.stringify(data),
+        contentType: "text/plain",
+        type: 'DELETE',
+        success: function (data) {
+            //called when successful
+            cbk(true, data);
+        },
+        error: function (e) {
+            //called when there is an error
+            //console.log(e.message);
+            cbk(false, null);
+        }
+    });
+
+}
+
+function setJobRuleState(id,state, cbk) {
+
+    $.ajax({
+        url: API_BASE_PATH + "/jobs/set/" + API_TOKEN + "/" + id+"/"+state,
+        // data:  JSON.stringify(data),
+        contentType: "text/plain",
+        type: 'PUT',
+        success: function (data) {
+            //called when successful
+            cbk(true, data);
+        },
+        error: function (e) {
+            //called when there is an error
+            //console.log(e.message);
+            cbk(false, null);
+        }
+    });
+
+}
+
+
+function performJobAction(id,action,obj, cbk) {
+
+    var data = {};
+
+    if(obj.instances){
+        data['instances'] = obj.instances
+    }
+
+    if(obj.instanceId){
+        data['instance'] = obj.instanceId
+    }
+    if(obj.nodeId){
+        data['nodeId'] = obj.nodeId
+    }
+
+    $.ajax({
+        url: API_BASE_PATH + "/jobs/" + API_TOKEN + "/" + id+"/"+action,
+        data:  JSON.stringify(data),
+        type: 'GET',
         success: function (data) {
             //called when successful
             cbk(true, data);
@@ -745,6 +860,25 @@ function retreiveScheduleRule(data, cbk) {
             //called when there is an error
             //console.log(e.message);
             cbk(false, null);
+        }
+    });
+
+}
+
+function getJobRule(id, cbk) {
+
+
+    $.ajax({
+        url: API_BASE_PATH + "/jobs/get/" + API_TOKEN + '/' + id,
+        type: 'GET',
+        success: function (data) {
+            //called when successful
+            cbk(data ? data.jobCode : '');
+        },
+        error: function (e) {
+            //called when there is an error
+            //console.log(e.message);
+            cbk('');
         }
     });
 

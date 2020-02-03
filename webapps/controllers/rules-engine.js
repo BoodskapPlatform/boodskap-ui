@@ -6,6 +6,7 @@ var message_spec_list = [];
 var schedule_rules_list = [];
 var named_rules_list = [];
 var binary_rules_list = [];
+var job_rules_list = [];
 var groovy_class_list = [];
 var jar_class_list = [];
 var tabbar_list = [];
@@ -96,10 +97,14 @@ $(document).ready(function () {
                 , onclose_end: function () {
                     setTimeout(function () {
                         $('#codeEditor').height(($(".ui-layout-center").height() - 40) + 'px');
+                        $("#context").height($('#codeEditor').height()+'px')
+
                         codeEditor.resize();
                     }, 500);
 
                     $(".consoleBox").height(($(".ui-layout-south").height()-20) + 'px')
+
+                    $("#context").height($('#codeEditor').height()+'px')
                 }
                 , onresize_end: function () {
                     setTimeout(function () {
@@ -107,6 +112,7 @@ $(document).ready(function () {
                         codeEditor.resize();
                     }, 500);
                     $(".consoleBox").height(($(".ui-layout-south").height()-30) + 'px')
+                    $("#context").height($('#codeEditor').height()+'px')
                 }
 
             },
@@ -142,14 +148,13 @@ $(document).ready(function () {
             $(".loaderBlock").css('display', 'none');
             $(".classFolder").css('height', $(".rightSide").height() - 200)
             $(".consoleBox").height(($(".ui-layout-south").height()-20) + 'px')
-
             loadCodeType();
 
 
         }, 500);
 
 
-
+        loadContextList()
 
     }, 100);
 
@@ -204,6 +209,9 @@ function mqttListen() {
                 }
                 else if (CURRENT_TYPE === 6) {
                     mqttBinaryRule(topicName, parsedData);
+                }
+                else if (CURRENT_TYPE === 7) {
+                    mqttJobRule(topicName, parsedData);
                 }
 
             }
@@ -429,6 +437,46 @@ function mqttBinaryRule(topicName, parsedData) {
 }
 
 
+
+function mqttJobRule(topicName, parsedData) {
+    var nodeClass = new Date().getTime();
+    var color = 'default';
+
+    console.log("BINARY =>", topicName)
+
+    if (topicName.includes("/log/job")) {
+
+        if (parsedData.data !== '__ALL_DONE__') {
+            var level = parsedData.level;
+
+            if($("."+level.toLowerCase()).is(":checked")) {
+
+                var fields = '';
+
+                if($(".node").is(":checked")){
+                    fields+= ' ['+parsedData.node+'] '
+                }
+                if($(".session").is(":checked")){
+                    fields+= ' ['+parsedData.session+'] '
+                }
+
+                $(".loggerHtml").append("<div class='" + nodeClass + "' style='font-size: 12px;'>" +
+                    "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
+                    "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
+                    "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " + fields +
+                    "<span style='white-space: pre-wrap;padding-left: 10px;'>" + parsedData.data + "</span></div>");
+            }
+
+        }
+        if (parsedData.data === '__ALL_DONE__') {
+            $('.consoleBox').animate({
+                scrollTop: $(".loggerHtml").height()
+            }, 100);
+        }
+    }
+}
+
+
 function mqttCancelSubscribe(id) {
 
     if (!id) {
@@ -492,6 +540,9 @@ function loadRules(id) {
     } else if (id === 6) {
         // $(".detailsBlock").css('display', 'none')
         loadBinaryRulesList();
+    }
+    else if (id === 7) {
+        loadJobRulesList();
     }
 }
 
@@ -635,7 +686,39 @@ function loadBinaryRulesList() {
 
             }
         } else {
-            errorMsg('No Named Rules Found!')
+            errorMsg('No Binary Rules Found!')
+        }
+    })
+}
+
+
+function loadJobRulesList() {
+    listJobRules(function (status, data) {
+        $(".rulesList").html("");
+
+        $(".rulesList").append('<li class="" onclick="loadJobRulesList()" title="click here to reload" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
+            '<img src="images/folder.png" /> <b> Job Rules</b> <span class="loaderSpin"></span></li>');
+
+        $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
+
+        setTimeout(function () {
+            $(".loaderSpin").html('');
+        }, 1000);
+
+        $('[data-toggle="tooltip"]').tooltip()
+
+        if (status && data.length > 0) {
+            job_rules_list = data;
+
+            for (var i = 0; i < data.length; i++) {
+
+                var str = '<li class="rulesListli rule_' + data[i].id + '" data-id="' + data[i].id + '" onclick="loadTabbar(\'' + data[i].id + '\',7)">' +
+                    '<img src="images/file.png" /> <b>' + data[i].id + '</b></li>';
+                $(".rulesList").append(str);
+
+            }
+        } else {
+            errorMsg('No Job Rules Found!')
         }
     })
 }
@@ -724,6 +807,7 @@ function loadTabbar(id, type) {
     $(".deleteBtn").css('display', 'none');
     $(".detailsBlock").css('display', 'none')
     $(".messageFields").css('display', 'none');
+    $(".jobFields").css('display', 'none');
     $(".defaultFields").css('display', 'none');
 
 
@@ -790,6 +874,21 @@ function loadTabbar(id, type) {
                 '</li>';
         }
 
+        else if (type === 7) {
+
+            var obj = {};
+            for (var i = 0; i < job_rules_list.length; i++) {
+                if (id === job_rules_list[i].id) {
+                    obj = job_rules_list[i];
+                }
+            }
+
+            str = '<li role="presentation" class="jobTab tabbar jobTab_' + id + '"  >' +
+                '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadJobRule(\'' + id + '\')>' + obj.id + ' ' +
+                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',7)" title="close"><i class="fa fa-close"></i></span></a>' +
+                '</li>';
+        }
+
         tabbar_list.push(id);
         $(".editorBar").append(str);
 
@@ -800,6 +899,7 @@ function loadTabbar(id, type) {
     $(".binaryTab").removeClass('active')
     $(".scheduleTab").removeClass('active');
     $(".groovyTab").removeClass('active');
+    $(".jobTab").removeClass('active');
     $(".jarTab").removeClass('active');
 
     var obj = {};
@@ -888,11 +988,91 @@ function loadTabbar(id, type) {
 
         $(".exportBtn").attr('onclick','exportRule(6)')
     }
+    else if (type === 7) {
+        loadJobRule(id);
+        $(".jobTab_" + id).addClass('active');
+
+        for (var i = 0; i < job_rules_list.length; i++) {
+            if (id === job_rules_list[i].id) {
+                obj = job_rules_list[i];
+            }
+        }
+
+        loadJobDetails(id,obj);
+
+        $(".detailsBlock").css('display', 'block')
+        $(".jobFields").css('display', 'block')
+        $(".ruleType").html('Job Rule');
+        $(".ruleName").html(obj.type);
+
+        $(".exportBtn").attr('onclick','exportRule(7)')
+    }
 
 
     $(".ruleLanguage").html('GROOVY')
     $('[data-toggle="tooltip"]').tooltip()
 
+}
+
+function loadJobDetails(id,obj) {
+    $(".jobFields tbody").html("");
+    if(obj.systemJob)
+        $(".jobFields tbody").append('<tr><td>System Job</td><td>Yes</td></tr>')
+
+    $(".jobFields tbody").append('<tr><td>Job Type</td><td>'+obj.jobType+ (obj.instances ? '<br>('+obj.instances+' instances)' : '')+'</td></tr>')
+    $(".jobFields tbody").append('<tr><td>Start on Reboot</td><td>'+(obj.startOnBoot ? 'Yes' : 'No')+'</td></tr>')
+    $(".jobFields tbody").append('<tr><td>Restart on Change</td><td>'+(obj.resartOnChange ? 'Yes' : 'No')+'</td></tr>')
+    $(".jobFields tbody").append('<tr><td>Job State</td>' +
+        '<td>' +
+        '<label><input type="radio" name="jobState" value="ENABLED" onclick="updateJobState(\''+id+'\',\''+'ENABLED'+'\')"> Enabled</label>' +
+        '<label><input type="radio" name="jobState" value="DISABLED" onclick="updateJobState(\''+id+'\',\''+'DISABLED'+'\')"> Disabled</label>' +
+        '</td></tr>')
+    $(".jobFields tbody").append('<tr><td>Job Action</td>' +
+        '<td>' +
+        '<select class="form-control input-sm" id="jobAction" onchange="executeAction(\''+id+'\')">' +
+        '<option value=""></option>' +
+        '<option value="start">Start</option>' +
+        '<option value="stop">Stop</option>' +
+        '<option value="restart">Restart</option>' +
+        '</select>' +
+        '</td></tr>')
+    $('input[name="jobState"][value="' + obj.jobState + '"]').prop('checked', true);
+
+}
+
+function updateJobState(id,state) {
+
+    setJobRuleState(id, state, function (status, data) {
+        if(status){
+            successMsg('Successfully update the job state')
+            loadJobRulesList();
+        }else{
+            errorMsg("Error in updating job state")
+        }
+    })
+}
+
+function executeAction(id) {
+    if($("#jobAction").val()) {
+        var obj = {};
+        for (var i = 0; i < job_rules_list.length; i++) {
+            if (id === job_rules_list[i].id) {
+                obj = job_rules_list[i];
+            }
+        }
+
+
+        performJobAction(id, $("#jobAction").val(),obj, function (status, data) {
+            if (status) {
+                successMsg('Successfully job executed')
+                loadJobRulesList();
+                $("#jobAction").val("")
+            } else {
+                $("#jobAction").val("")
+                errorMsg("Error in executing job action")
+            }
+        })
+    }
 }
 
 function deleteTab(id, type) {
@@ -908,6 +1088,9 @@ function deleteTab(id, type) {
         $(".jarTab_" + id).remove();
     } else if (type === 6) {
         $(".binaryTab_" + id).remove();
+    }
+    else if (type === 7) {
+        $(".jobTab_" + id).remove();
     }
 
     var temp = [];
@@ -926,12 +1109,13 @@ function deleteTab(id, type) {
         $(".groovyTab").removeClass('active')
         $(".jarTab").removeClass('active')
         $(".binaryTab").removeClass('active')
+        $(".jobTab").removeClass('active')
         $(".domainTab").addClass('active')
         loadDomainRule();
         // $("#codeEditor").remove();
         // $("#editorContent").html('<div id="codeEditor"></div>');
         // $("#codeEditor").html('');
-        // loadEdtior("");
+        // loadEditor("");
     }, 200);
 
 
@@ -986,6 +1170,13 @@ function returnObj(id, type) {
             }
         }
     }
+    else if (type === 7) {
+        for (var i = 0; i < job_rules_list.length; i++) {
+            if (id === job_rules_list[i].id) {
+                return job_rules_list[i];
+            }
+        }
+    }
 
 
 }
@@ -1005,7 +1196,7 @@ function loadDomainRule() {
 
     $("#editorContent").html('<div id="codeEditor"></div>');
     $("#codeEditor").html('');
-    loadEdtior(CHANGED_DEFAULT_TEXT ? CHANGED_DEFAULT_TEXT : domain_rule_obj.code, 'domainTab');
+    loadEditor(CHANGED_DEFAULT_TEXT ? CHANGED_DEFAULT_TEXT : domain_rule_obj.code, 'domainTab');
     CURRENT_ID = null;
     CURRENT_TYPE = 0;
 
@@ -1017,6 +1208,7 @@ function loadDomainRule() {
 
     $(".detailsBlock").css('display', 'block');
     $(".messageFields").css('display', 'none');
+    $(".jobFields").css('display', 'none');
     $(".defaultFields").css('display', 'none');
     $(".deleteBtn").css('display', 'none');
 
@@ -1039,13 +1231,14 @@ function loadGroovyClass(id) {
         }
     }
 
-    loadEdtior(obj.code, 'groovyTab_'+id);
+    loadEditor(obj.code, 'groovyTab_'+id);
     CURRENT_ID = id;
     CURRENT_TYPE = 4;
 
 
     $(".detailsBlock").css('display', 'none');
     $(".messageFields").css('display', 'none');
+    $(".jobFields").css('display', 'none');
     $(".defaultFields").css('display', 'none');
     $(".deleteBtn").css('display', 'none');
 
@@ -1066,13 +1259,14 @@ function loadJarClass(id) {
         }
     }
 
-    loadEdtior(obj.code,'jarTab_'+id);
+    loadEditor(obj.code,'jarTab_'+id);
     CURRENT_ID = id;
     CURRENT_TYPE = 5;
 
 
     $(".detailsBlock").css('display', 'none');
     $(".messageFields").css('display', 'none');
+    $(".jobFields").css('display', 'none');
     $(".defaultFields").css('display', 'none');
     $(".deleteBtn").css('display', 'none');
 
@@ -1085,7 +1279,7 @@ function loadMessageRule(id) {
     $("#editorContent").html('<div id="codeEditor"></div>');
     var data = returnObj(id, 1);
     $("#codeEditor").html('');
-    loadEdtior(data ? data.code : '', 'messageTab_'+id);
+    loadEditor(data ? data.code : '', 'messageTab_'+id);
     CURRENT_ID = id;
     CURRENT_TYPE = 1;
 
@@ -1103,6 +1297,7 @@ function loadMessageRule(id) {
     $(".detailsBlock").css('display', 'block');
     $(".messageFields").css('display', 'block');
     $(".defaultFields").css('display', 'block');
+    $(".jobFields").css('display', 'none');
     $(".deleteBtn").css('display', 'block');
 
 
@@ -1124,7 +1319,7 @@ function loadNamedRule(id) {
     $("#editorContent").html('<div id="codeEditor"></div>');
     var data = returnObj(id, 2);
     $("#codeEditor").html('');
-    loadEdtior(data ? data.code : '', 'namedTab_'+id);
+    loadEditor(data ? data.code : '', 'namedTab_'+id);
     CURRENT_ID = id;
     CURRENT_TYPE = 2;
 
@@ -1141,6 +1336,7 @@ function loadNamedRule(id) {
 
     $(".detailsBlock").css('display', 'block');
     $(".messageFields").css('display', 'none');
+    $(".jobFields").css('display', 'none');
     $(".defaultFields").css('display', 'none');
     $(".deleteBtn").css('display', 'block');
 
@@ -1156,7 +1352,7 @@ function loadBinaryRule(id) {
     $("#editorContent").html('<div id="codeEditor"></div>');
     var data = returnObj(id, 6);
     $("#codeEditor").html('');
-    loadEdtior(data ? data.code : '', 'binaryTab_'+id);
+    loadEditor(data ? data.code : '', 'binaryTab_'+id);
     CURRENT_ID = id;
     CURRENT_TYPE = 6;
 
@@ -1174,7 +1370,38 @@ function loadBinaryRule(id) {
     $(".detailsBlock").css('display', 'block');
     $(".messageFields").css('display', 'none');
     $(".defaultFields").css('display', 'none');
+    $(".jobFields").css('display', 'none');
     $(".deleteBtn").css('display', 'block');
+
+
+    // setTimeout(function () {
+    //     mqttListen();
+    // }, 1000);
+}
+
+function loadJobRule(id) {
+    //  mqttCancelSubscribe(CURRENT_ID);
+    $("#editorContent").html('<div id="codeEditor"></div>');
+    var data = returnObj(id, 7);
+    $("#codeEditor").html('');
+
+    loadEditor(data.jobCode ? data.jobCode : '', 'jobTab_'+id);
+
+        CURRENT_ID = id;
+        CURRENT_TYPE = 7;
+
+        exportRule(7)
+
+        $(".ruleType").html('Job Rule');
+        $(".ruleName").html(data.id);
+
+        $(".detailsBlock").css('display', 'block');
+        $(".messageFields").css('display', 'none');
+        $(".defaultFields").css('display', 'none');
+        $(".deleteBtn").css('display', 'block');
+    $(".jobFields").css('display', 'block');
+
+    loadJobDetails(id,data)
 
 
     // setTimeout(function () {
@@ -1187,7 +1414,7 @@ function loadScheduleRule(id) {
     $("#editorContent").html('<div id="codeEditor"></div>');
     var data = returnObj(id, 3);
     $("#codeEditor").html('');
-    loadEdtior(data ? data.code : '', 'scheduleTab_'+id);
+    loadEditor(data ? data.code : '', 'scheduleTab_'+id);
     CURRENT_ID = id;
     CURRENT_TYPE = 3;
 
@@ -1204,6 +1431,7 @@ function loadScheduleRule(id) {
     $(".deleteBtn").css('display', 'block');
     $(".messageFields").css('display', 'none');
     $(".defaultFields").css('display', 'none');
+    $(".jobFields").css('display', 'none');
 
     exportRule(4)
 
@@ -1214,7 +1442,7 @@ function loadScheduleRule(id) {
 
 var editorLine = {};
 
-function loadEdtior(code, tabid) {
+function loadEditor(code, tabid) {
 
     editorChange = false;
 
@@ -1254,6 +1482,8 @@ function loadEdtior(code, tabid) {
     var count = session.getLength();
     //Go to end of the last line
 
+    console.log(editorLine)
+
     if(editorLine[tabid]){
         codeEditor.gotoLine(editorLine[tabid]['row'], editorLine[tabid]['column']);
     }else{
@@ -1263,6 +1493,7 @@ function loadEdtior(code, tabid) {
 
     $('#codeEditor').height(($(".ui-layout-center").height() - 40) + 'px');
 
+    $("#context").height($('#codeEditor').height()+'px')
     codeEditor.resize();
 
 
@@ -1320,6 +1551,16 @@ function loadEdtior(code, tabid) {
                 for (var i = 0; i < binary_rules_list.length; i++) {
                     if (CHANGED_ID === binary_rules_list[i].type) {
                         binary_rules_list[i].code = CHANGED_TEXT;
+                    }
+                }
+
+            }
+
+            if (CURRENT_TYPE === 7) {
+
+                for (var i = 0; i < job_rules_list.length; i++) {
+                    if (CHANGED_ID === job_rules_list[i].type) {
+                        job_rules_list[i].jobCode = CHANGED_TEXT;
                     }
                 }
 
@@ -1429,6 +1670,32 @@ function loadEdtior(code, tabid) {
                     }
                 })
             }
+            else if (CURRENT_TYPE === 7) {
+
+                var obj = returnObj(CURRENT_ID, 7);
+
+                var data = {
+                    "domainKey": DOMAIN_KEY,
+                    "id": CURRENT_ID,
+                    "name": "",
+                    "jobType": obj.jobType,
+                    "jobState": obj.jobState,
+                    "jobLanguage": obj.jobLanguage,
+                    "jobCode": consoleText,
+                    "instances": obj.instances,
+                    "startOnBoot": obj.startOnBoot,
+                    "systemJob": obj.systemJob,
+                    "resartOnChange": obj.resartOnChange,
+                }
+                updateJobRuleCode(data, function (status, data) {
+                    if (status) {
+                        successMsg('Successfully saved!');
+                        loadJobRulesList();
+                    } else {
+                        errorMsg('Error in saving!')
+                    }
+                })
+            }
         }
     });
 }
@@ -1486,6 +1753,19 @@ function openModal() {
     }else if (id === 6) {
         $("#addBinaryRule form")[0].reset();
         $("#addBinaryRule").modal('show');
+    }else if (id === 7) {
+
+        if(ADMIN_ACCESS){
+            $(".systemTemplate").css('display','block')
+            $("#job_system").val('1')
+        }else{
+            $(".systemTemplate").css('display','none')
+            $("#job_system").val('0')
+        }
+
+        $("#addJobRule form")[0].reset();
+        $("#addJobRule").modal('show');
+        checkJobInstance()
     }
 }
 
@@ -1504,6 +1784,10 @@ function openDeleteModal() {
         }
         else if (CURRENT_TYPE === 6) {
             $(".delete_rule_name").html('Binary');
+            $(".delete_rule_id").html(CURRENT_ID);
+        }
+        else if (CURRENT_TYPE === 7) {
+            $(".delete_rule_name").html('Job');
             $(".delete_rule_id").html(CURRENT_ID);
         }
         $("#deleteModal").modal('show');
@@ -1570,6 +1854,19 @@ function proceedDelete() {
                 deleteTab(CURRENT_ID, CURRENT_TYPE);
                 successMsg('Successfully deleted');
                 loadBinaryRulesList();
+                $("#deleteModal").modal('hide');
+            } else {
+                errorMsg('Error in delete')
+            }
+        })
+    }
+    else if (CURRENT_TYPE === 7) {
+
+        deleteJobRule(CURRENT_ID, function (status, data) {
+            if (status) {
+                deleteTab(CURRENT_ID, CURRENT_TYPE);
+                successMsg('Successfully deleted');
+                loadJobRulesList();
                 $("#deleteModal").modal('hide');
             } else {
                 errorMsg('Error in delete')
@@ -1743,6 +2040,37 @@ function addBinaryRule() {
             },500)
 
             $("#addBinaryRule").modal('hide');
+        } else {
+            errorMsg('Error in saving!')
+        }
+    })
+
+}
+
+function addJobRule() {
+    var dataObj = {
+        "domainKey": DOMAIN_KEY,
+        "id": $("#job_rule").val(),
+        "name": "",
+        "jobType": $("#job_type").val(),
+        "jobState": $("#job_state").val(),
+        "jobLanguage": $("#job_lang").val(),
+        "jobCode": "",
+        "instances": Number($("#job_instance").val() ? $("#job_instance").val() : 0),
+        "startOnBoot": $("#job_boot").val() === "1" ? true : false,
+        "systemJob": ADMIN_ACCESS ?  ($("#job_system").val() === "1" ? true : false) : false,
+        "resartOnChange": $("#job_restart").val() === "1" ? true : false,
+    };
+
+    updateJobRuleCode(dataObj, function (status, data) {
+        if (status) {
+            successMsg('Successfully saved!');
+            loadJobRulesList();
+            setTimeout(function () {
+                loadTabbar(dataObj.id, 7);
+            },500)
+
+            $("#addJobRule").modal('hide');
         } else {
             errorMsg('Error in saving!')
         }
@@ -2266,6 +2594,27 @@ function exportRule(type) {
 
     }
 
+    else if(type === 7){
+        console.log('Job Rule...!');
+        rule_name = 'job-rule-'+CURRENT_ID;
+        var obj = returnObj(CURRENT_ID, 7);
+
+         data = {
+            "domainKey": DOMAIN_KEY,
+            "id": CURRENT_ID,
+            "name": "",
+            "jobType": obj.jobType,
+            "jobState": obj.jobState,
+            "jobLanguage": obj.jobLanguage,
+            "jobCode": consoleText,
+            "instances": obj.instances,
+            "startOnBoot": obj.startOnBoot,
+            "systemJob": obj.systemJob,
+            "resartOnChange": obj.resartOnChange,
+        }
+
+    }
+
     var dObj = {
         type : type,
         data : data
@@ -2356,6 +2705,22 @@ function uploadRuleType(type, data) {
             }
             $("#importModal").modal('hide');
         })
+    } else if (type === 7) {
+
+        updateJobRuleCode(data, function (status, resdata) {
+            if (status) {
+                successMsg('Job Rule Successfully Uploaded!');
+                loadJobRulesList()();
+                setTimeout(function () {
+                    loadTabbar(data.id,7)
+                    $("#importModal").modal('hide');
+                },1000)
+
+            } else {
+                errorMsg('Error in saving!')
+            }
+            $("#importModal").modal('hide');
+        })
     }
 
 }
@@ -2390,4 +2755,64 @@ function readFileContent(file) {
     reader.onerror = error => reject(error)
     reader.readAsText(file)
 })
+}
+
+
+function checkJobInstance() {
+  var jType = $("#job_type").val();
+
+  if(jType === 'SIMPLE' || jType === 'DISTRIBUTED'){
+      $("#job_instance").removeAttr('disabled')
+      $("#job_instance").val(1);
+  }else{
+      $("#job_instance").attr('disabled','disabled');
+      $("#job_instance").val(0);
+  }
+}
+
+function loadContextList() {
+    $.ajax({
+        url: API_BASE_PATH + "/global/context/list",
+        type: 'GET',
+        success: function (data) {
+           if(data){
+               $(".contextList").html('');
+               var result = data.classes;
+
+               for(var i=0;i<result.length;i++){
+
+                   var methods = result[i].methods;
+
+                   $(".contextList").append('<p style="text-transform: uppercase"><b>'+result[i].name+'</b></p>');
+
+                   for(var j=0;j<methods.length;j++) {
+
+                       $(".contextList").append('<p><code>' + methods[j].signature + '</code><br>' +
+                           '<small>'+methods[j].help+'</small></p>');
+                   }
+               }
+           }
+        },
+        error: function (e) {
+           errorMsg('Error in fetching context list')
+
+        }
+    });
+}
+
+function filterContext() {
+    // Declare variables
+    var input = $('#contextSearch').val().toLowerCase();
+    var p = $(".contextList").children();
+
+    // Loop through all list items, and hide those who don't match the search query
+    for (var i = 0; i < p.length; i++) {
+
+        var txtValue = $(p[i]).html().toLowerCase();;
+        if (txtValue.includes(input)) {
+            $(p[i]).css('display','block')
+        } else {
+            $(p[i]).css('display','none')
+        }
+    }
 }

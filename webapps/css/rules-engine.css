@@ -91,6 +91,18 @@
 }
 
 
+
+.jobTab.active{
+    border-bottom: 5px solid #be202e;
+}
+.jobTab a{
+    color:#be202e; !important;
+}
+.jobTab.active a{
+    font-weight: bold;
+}
+
+
 .groovyTab.active{
     border-bottom: 5px solid #348fe2;
 }
