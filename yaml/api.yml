@@ -6,7 +6,7 @@ schemes:
 produces: 
   - "application/json"
 info: 
-  version: "3.0.0"
+  version: "3.0.1-pre"
   title: "Boodskap API"
   description: "Boodskap IoT Platform API"
   termsOfService: "https://boodskap.io/terms-conditions"
@@ -19610,9 +19610,9 @@ paths:
   '/jobs/upsert/{atoken}':
     post:
       tags:
-        - Upsert Domain Job
-      summary: Create / Update Domain Job
-      operationId: upsertDomainJob
+        - Upsert Job
+      summary: Create / Update Job
+      operationId: upsertJob
       consumes:
         - "application/json"
       produces:
@@ -19641,9 +19641,9 @@ paths:
   '/jobs/get/{atoken}/{id}':
     get:
       tags:
-        - Get Domain Job
-      summary: Get Domain Job
-      operationId: getDomainJob
+        - Get Job
+      summary: Get Job
+      operationId: getJob
       consumes:
         - "text/plain"
       produces:
@@ -19671,9 +19671,9 @@ paths:
   '/jobs/delete/{atoken}/{id}':
     delete:
       tags:
-        - Delete Domain Job
-      summary: Delete Domain Job
-      operationId: deleteDomainJob
+        - Delete Job
+      summary: Delete Job
+      operationId: deleteJob
       consumes:
         - "text/plain"
       produces:
@@ -19701,9 +19701,9 @@ paths:
   '/jobs/count/{atoken}':
     get:
       tags:
-        - Count All Domain Jobs
-      summary: Count All Domain Jobs
-      operationId: countAllDomainJobs
+        - Count All Jobs
+      summary: Count All Jobs
+      operationId: countAllJobs
       consumes:
         - "text/plain"
       produces:
@@ -19726,9 +19726,9 @@ paths:
   '/jobs/list/{atoken}':
     get:
       tags:
-        - List Domain Jobs
-      summary: List Domain Jobs
-      operationId: listDomainJobs
+        - List Jobs
+      summary: List Jobs
+      operationId: listJobs
       consumes:
         - "text/plain"
       produces:
@@ -19753,9 +19753,9 @@ paths:
   '/jobs/set/{atoken}/{id}/{state}':
     put:
       tags:
-        - Set Domain Job State
-      summary: Set Domain Job State
-      operationId: setDomainJobState
+        - Set Job State
+      summary: Set Job State
+      operationId: setJobState
       consumes:
         - "text/plain"
       produces:
@@ -19775,6 +19775,43 @@ paths:
           in: path
           description: JobState (ENABLED | DISABLED)
           required: true
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Job'
+        "417":
+          description: "API Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/jobs/running/list/{atoken}':
+    get:
+      tags:
+        - List Running Jobs
+      summary: List Running Jobs
+      operationId: listRunningJobs
+      consumes:
+        - "text/plain"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          description: Auth token of the logged in user
+          required: true
+          type: string
+        - name: id
+          in: query
+          description: Job ID
+          required: false
+          type: string
+        - name: nodeId
+          in: query
+          description: Job Node ID
+          required: false
           type: string
       responses:
         '200':
@@ -19788,11 +19825,11 @@ paths:
           schema: 
             $ref: "#/definitions/ApiError"
   '/jobs/{atoken}/{id}/{action}':
-    put:
+    get:
       tags:
-        - Set Domain Job Action
-      summary: Set Domain Job Action
-      operationId: setDomainJobAction
+        - Perform Job Action
+      summary: Perform Job Action
+      operationId: performJobAction
       consumes:
         - "text/plain"
       produces:
@@ -19810,253 +19847,29 @@ paths:
           type: string
         - name: action
           in: path
-          description: Action (start | stop | pause | kill | restart | disable | enable)
+          description: Action (start | stop | restart | list)
           required: true
+          type: string
+        - name: instance
+          in: query
+          description: Job Instance ID
+          required: false
+          type: integer
+        - name: instances
+          in: query
+          description: Job Instances
+          required: false
+          type: integer
+        - name: nodeId
+          in: query
+          description: Job Node ID
+          required: false
           type: string
       responses:
         '200':
           description: successful operation
           schema:
-            type: array
-            items:
-              $ref: '#/definitions/Job'
-        "417":
-          description: "API Error"
-          schema: 
-            $ref: "#/definitions/ApiError"
-  '/sysjobs/upsert/{atoken}':
-    post:
-      tags:
-        - Upsert System Job
-      summary: Create / Update System Job
-      operationId: upsertSystemJob
-      consumes:
-        - "application/json"
-      produces:
-        - "application/json"
-      parameters:
-        - name: atoken
-          in: path
-          description: Auth token of the logged in user
-          required: true
-          type: string
-        - name: entity
-          in: body
-          description: Job JSON object
-          required: true
-          schema:
-            $ref: '#/definitions/Job'
-      responses:
-        '200':
-          description: successful operation
-          schema: 
-            $ref: "#/definitions/Success"
-        "417":
-          description: "API Error"
-          schema: 
-            $ref: "#/definitions/ApiError"
-  '/sysjobs/get/{atoken}/{id}/{name}':
-    get:
-      tags:
-        - Get System Job
-      summary: Get System Job
-      operationId: getSystemJob
-      consumes:
-        - "text/plain"
-      produces:
-        - "application/json"
-      parameters:
-        - name: atoken
-          in: path
-          description: Auth token of the logged in user
-          required: true
-          type: string
-        - name: id
-          in: path
-          description: Job ID
-          required: true
-          type: string
-        - name: name
-          in: path
-          description: Job Name
-          required: true
-          type: string
-      responses:
-        '200':
-          description: successful operation
-          schema:
-            $ref: '#/definitions/Job'
-        "417":
-          description: "API Error"
-          schema: 
-            $ref: "#/definitions/ApiError"
-  '/sysjobs/delete/{atoken}/{id}/{name}':
-    delete:
-      tags:
-        - Delete System Job
-      summary: Delete System Job
-      operationId: deleteSystemJob
-      consumes:
-        - "text/plain"
-      produces:
-        - "application/json"
-      parameters:
-        - name: atoken
-          in: path
-          description: Auth token of the logged in user
-          required: true
-          type: string
-        - name: id
-          in: path
-          description: Job ID
-          required: true
-          type: string
-        - name: name
-          in: path
-          description: Job Name
-          required: true
-          type: string
-      responses:
-        '200':
-          description: successful operation
-          schema: 
-            $ref: "#/definitions/Success"
-        "417":
-          description: "API Error"
-          schema: 
-            $ref: "#/definitions/ApiError"
-  '/sysjobs/count/{atoken}':
-    get:
-      tags:
-        - Count All System Jobs
-      summary: Count All System Jobs
-      operationId: countAllSystemJobs
-      consumes:
-        - "text/plain"
-      produces:
-        - "application/json"
-      parameters:
-        - name: atoken
-          in: path
-          description: Auth token of the logged in user
-          required: true
-          type: string
-      responses:
-        '200':
-          description: successful operation
-          schema: 
-            $ref: "#/definitions/Count"
-        "417":
-          description: "API Error"
-          schema: 
-            $ref: "#/definitions/ApiError"
-  '/sysjobs/list/{atoken}':
-    get:
-      tags:
-        - List System Jobs
-      summary: List System Jobs
-      operationId: listSystemJobs
-      consumes:
-        - "text/plain"
-      produces:
-        - "application/json"
-      parameters:
-        - name: atoken
-          in: path
-          description: Auth token of the logged in user
-          required: true
-          type: string
-      responses:
-        '200':
-          description: successful operation
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Job'
-        "417":
-          description: "API Error"
-          schema: 
-            $ref: "#/definitions/ApiError"
-  '/sysjobs/set/{atoken}/{id}/{name}/{state}':
-    put:
-      tags:
-        - Set System Job State
-      summary: Set System Job State
-      operationId: setSystemJobState
-      consumes:
-        - "text/plain"
-      produces:
-        - "application/json"
-      parameters:
-        - name: atoken
-          in: path
-          description: Auth token of the logged in user
-          required: true
-          type: string
-        - name: id
-          in: path
-          description: Job ID
-          required: true
-          type: string
-        - name: name
-          in: path
-          description: Job Name
-          required: true
-          type: string
-        - name: state
-          in: path
-          description: JobState (ENABLED | DISABLED)
-          required: true
-          type: string
-      responses:
-        '200':
-          description: successful operation
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Job'
-        "417":
-          description: "API Error"
-          schema: 
-            $ref: "#/definitions/ApiError"
-  '/sysjobs/{atoken}/{id}/{name}/{action}':
-    put:
-      tags:
-        - Set System Job Action
-      summary: Set System Job Action
-      operationId: setSystemJobAction
-      consumes:
-        - "text/plain"
-      produces:
-        - "application/json"
-      parameters:
-        - name: atoken
-          in: path
-          description: Auth token of the logged in user
-          required: true
-          type: string
-        - name: id
-          in: path
-          description: Job ID
-          required: true
-          type: string
-        - name: name
-          in: path
-          description: Job Name
-          required: true
-          type: string
-        - name: action
-          in: path
-          description: Action (start | stop | pause | kill | restart | disable | enable)
-          required: true
-          type: string
-      responses:
-        '200':
-          description: successful operation
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Job'
+            type: object
         "417":
           description: "API Error"
           schema: 
@@ -23904,6 +23717,7 @@ definitions:
   Job:
     required:
       - id
+      - jobCode
     properties:
       domainKey:
         type: string
@@ -23918,6 +23732,20 @@ definitions:
       jobLanguage:
         type: string
       jobCode:
+        type: string
+      instances:
+        type: integer
+      startOnBoot:
+        type: boolean
+      systemJob:
+        type: boolean
+      resartOnChange:
+        type: boolean
+      instanceId:
+        type: integer
+      nodeId:
+        type: string
+      sessionId:
         type: string
   ExportDomainSettings: 
     type: "object"
