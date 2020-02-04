@@ -1059,6 +1059,8 @@ function updateJobState(id,state) {
 
 function loadRunningCount(id) {
 
+    id = id ? id : CURRENT_ID;
+
     $(".iCount").html(0);
     getJobRunningList(id, function (status,data) {
         if(status){
