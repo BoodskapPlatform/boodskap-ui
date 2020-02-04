@@ -251,6 +251,8 @@ function mqttDomainRule(topicName, parsedData) {
 
             var level = parsedData.level;
 
+
+
             if($("."+level.toLowerCase()).is(":checked")) {
 
                 var fields = '';
@@ -261,8 +263,8 @@ function mqttDomainRule(topicName, parsedData) {
                 if($(".session").is(":checked")){
                     fields+= ' ['+parsedData.session+'] '
                 }
-
-                $(".loggerHtml").append("<div class='" + nodeClass + "' style='font-size: 12px;'>" +
+                var rName = topicName.split("/")[3];
+                $(".loggerHtml").append("<div title='Domain Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
                     "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
                     "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
                     "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " + fields+
@@ -301,7 +303,8 @@ function mqttMesageRule(topicName, parsedData) {
                     fields+= ' ['+parsedData.session+'] '
                 }
 
-                $(".loggerHtml").append("<div class='" + nodeClass + "' style='font-size: 12px;'>" +
+                var rName = topicName.split("/")[3];
+                $(".loggerHtml").append("<div title='Message Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
                     "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
                     "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
                     "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " + fields +
@@ -340,7 +343,8 @@ function mqttNamedRule(topicName, parsedData) {
                     fields+= ' ['+parsedData.session+'] '
                 }
 
-                $(".loggerHtml").append("<div class='" + nodeClass + "' style='font-size: 12px;'>" +
+                var rName = topicName.split("/")[3];
+                $(".loggerHtml").append("<div title='Named Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
                     "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
                     "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
                     "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " + fields +
@@ -379,7 +383,8 @@ function mqttScheduleRule(topicName, parsedData) {
                     fields+= ' ['+parsedData.session+'] '
                 }
 
-                $(".loggerHtml").append("<div class='" + nodeClass + "' style='font-size: 12px;'>" +
+                var rName = topicName.split("/")[3];
+                $(".loggerHtml").append("<div title='Schedule Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
                     "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
                     "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
                     "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " + fields +
@@ -418,7 +423,8 @@ function mqttBinaryRule(topicName, parsedData) {
                     fields+= ' ['+parsedData.session+'] '
                 }
 
-                $(".loggerHtml").append("<div class='" + nodeClass + "' style='font-size: 12px;'>" +
+                var rName = topicName.split("/")[3];
+                $(".loggerHtml").append("<div title='Binary Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
                     "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
                     "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
                     "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " + fields +
@@ -440,7 +446,7 @@ function mqttJobRule(topicName, parsedData) {
     var nodeClass = new Date().getTime();
     var color = 'default';
 
-    console.log("BINARY =>", topicName)
+    console.log("JOB =>", topicName)
 
     if (topicName.includes("/log/job")) {
 
@@ -458,7 +464,8 @@ function mqttJobRule(topicName, parsedData) {
                     fields+= ' ['+parsedData.session+'] '
                 }
 
-                $(".loggerHtml").append("<div class='" + nodeClass + "' style='font-size: 12px;'>" +
+                var rName = topicName.split("/")[3];
+                $(".loggerHtml").append("<div title='Job Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
                     "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
                     "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
                     "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " + fields +
@@ -1813,7 +1820,7 @@ function editJobModal() {
         $(".systemTemplate").css('display','none')
     }
     $(".jAction").html('Edit');
-    $("#addJobRule form").attr("onsubmit","addJobRule('"+codeEditor.getSession().getValue()+"')");
+    $("#addJobRule form").attr("onsubmit","addJobRule(1)");
     $("#addJobRule").modal('show');
 }
 
@@ -2103,7 +2110,7 @@ function addJobRule(code) {
         "jobType": $("#job_type").val(),
         "jobState": $("#job_state").val(),
         "jobLanguage": $("#job_lang").val(),
-        "jobCode": code ? code : "",
+        "jobCode": code ? codeEditor.getSession().getValue() : "",
         "instances": Number($("#job_instance").val() ? $("#job_instance").val() : 0),
         "startOnBoot": $("#job_boot").val() === "1" ? true : false,
         "systemJob": ADMIN_ACCESS ?  ($("#job_system").val() === "1" ? true : false) : false,
