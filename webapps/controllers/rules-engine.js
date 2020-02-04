@@ -303,7 +303,7 @@ function mqttMesageRule(topicName, parsedData) {
                     fields+= ' ['+parsedData.session+'] '
                 }
 
-                var rName = topicName.split("/")[3];
+                var rName = topicName.split("/")[4];
                 $(".loggerHtml").append("<div title='Message Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
                     "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
                     "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
@@ -343,7 +343,7 @@ function mqttNamedRule(topicName, parsedData) {
                     fields+= ' ['+parsedData.session+'] '
                 }
 
-                var rName = topicName.split("/")[3];
+                var rName = topicName.split("/")[4];
                 $(".loggerHtml").append("<div title='Named Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
                     "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
                     "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
@@ -383,7 +383,7 @@ function mqttScheduleRule(topicName, parsedData) {
                     fields+= ' ['+parsedData.session+'] '
                 }
 
-                var rName = topicName.split("/")[3];
+                var rName = topicName.split("/")[4];
                 $(".loggerHtml").append("<div title='Schedule Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
                     "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
                     "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
@@ -423,7 +423,7 @@ function mqttBinaryRule(topicName, parsedData) {
                     fields+= ' ['+parsedData.session+'] '
                 }
 
-                var rName = topicName.split("/")[3];
+                var rName = topicName.split("/")[4];
                 $(".loggerHtml").append("<div title='Binary Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
                     "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
                     "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
@@ -464,7 +464,7 @@ function mqttJobRule(topicName, parsedData) {
                     fields+= ' ['+parsedData.session+'] '
                 }
 
-                var rName = topicName.split("/")[3];
+                var rName = topicName.split("/")[4];
                 $(".loggerHtml").append("<div title='Job Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
                     "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
                     "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
