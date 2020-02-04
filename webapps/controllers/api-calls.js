@@ -726,15 +726,13 @@ function setJobRuleState(id,state, cbk) {
 }
 
 
-function performJobAction(id,action,obj, cbk) {
+function performJobAction(id,action,count, cbk) {
 
     var data = {};
 
     if(action == 'start') {
 
-        if (obj.instances) {
-            data['instances'] = obj.instances
-        }
+        data['instances'] =count
     }
 
     $.ajax({
@@ -753,6 +751,31 @@ function performJobAction(id,action,obj, cbk) {
     });
 
 }
+
+
+
+function getJobRunningList(id, cbk) {
+
+    var data = {id:id};
+
+
+    $.ajax({
+        url: API_BASE_PATH + "/jobs/running/list/" + API_TOKEN,
+        data:  data,
+        type: 'GET',
+        success: function (data) {
+            //called when successful
+            cbk(true, data);
+        },
+        error: function (e) {
+            //called when there is an error
+            //console.log(e.message);
+            cbk(false, null);
+        }
+    });
+
+}
+
 
 function deleteScheduleRule(data, cbk) {
 

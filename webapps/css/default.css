@@ -489,3 +489,8 @@ font-size: 36px;
 .msgDefMenu img, .dashboardIcon img, .dashboardLi img, .dashboardMenu li  img{
     margin-right: 5px;
 }
+
+.codeText:hover{
+    cursor: pointer;
+    background-color: #f2f3f4;
+}

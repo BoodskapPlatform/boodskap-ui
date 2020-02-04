@@ -1022,19 +1022,19 @@ function loadJobDetails(id,obj) {
     $(".jobFields tbody").append('<tr><td>Restart on Change</td><td>'+(obj.resartOnChange ? 'Yes' : 'No')+'</td></tr>')
     $(".jobFields tbody").append('<tr><td>Job State</td>' +
         '<td>' +
-        '<label><input type="radio" name="jobState" value="ENABLED" onclick="updateJobState(\''+id+'\',\''+'ENABLED'+'\')"> Enabled</label>' +
+        '<label><input type="radio" name="jobState" value="ENABLED" onclick="updateJobState(\''+id+'\',\''+'ENABLED'+'\')"> Enabled</label><br>' +
         '<label><input type="radio" name="jobState" value="DISABLED" onclick="updateJobState(\''+id+'\',\''+'DISABLED'+'\')"> Disabled</label>' +
         '</td></tr>')
     $(".jobFields tbody").append('<tr><td>Job Action</td>' +
         '<td>' +
-        '<select class="form-control input-sm" id="jobAction" onchange="executeAction(\''+id+'\')">' +
-        '<option value=""></option>' +
-        '<option value="start">Start</option>' +
-        '<option value="stop">Stop</option>' +
-        '<option value="restart">Restart</option>' +
-        '</select>' +
+        ((obj.jobType === 'SIMPLE' || obj.jobType === 'DISTRIBUTED')  ?
+            '<input class="" style="width: 50px;border:1px solid #ccc;padding: 2px 5px;" type="number" min="1" value="'+(obj.instances ? obj.instances : 1)+'" id="iCount"> ' : '' )+
+        '<button class="btn btn-xs btn-primary mb-2 mt-1" onclick="executeAction(\''+id+'\',\''+'start'+'\')"><i class="fa fa-play"></i> Start</button>'+
+        '<button class="btn btn-xs btn-danger" onclick="executeAction(\''+id+'\',\''+'stop'+'\')"><i class="fa fa-stop"></i> Stop <span class="iCount">0</span> Instances</button>'+
         '</td></tr>')
     $('input[name="jobState"][value="' + obj.jobState + '"]').prop('checked', true);
+
+    loadRunningCount(id);
 
 }
 
@@ -1050,27 +1050,33 @@ function updateJobState(id,state) {
     })
 }
 
-function executeAction(id) {
-    if($("#jobAction").val()) {
-        var obj = {};
-        for (var i = 0; i < job_rules_list.length; i++) {
-            if (id === job_rules_list[i].id) {
-                obj = job_rules_list[i];
-            }
+function loadRunningCount(id) {
+
+    $(".iCount").html(0);
+    getJobRunningList(id, function (status,data) {
+        if(status){
+            $(".iCount").html(data.length);
+        }
+    })
+}
+
+function executeAction(id, executeAction) {
+
+        var count = 0;
+
+        if($("#iCount").val()){
+            count = Number($("#iCount").val())
         }
 
-
-        performJobAction(id, $("#jobAction").val(),obj, function (status, data) {
+        performJobAction(id, executeAction,count, function (status, data) {
             if (status) {
                 successMsg('Successfully job executed')
                 loadJobRulesList();
-                $("#jobAction").val("")
+                loadRunningCount(id);
             } else {
-                $("#jobAction").val("")
                 errorMsg("Error in executing job action")
             }
         })
-    }
 }
 
 function deleteTab(id, type) {
@@ -1480,8 +1486,6 @@ function loadEditor(code, tabid) {
     var count = session.getLength();
     //Go to end of the last line
 
-    console.log(editorLine)
-
     if(editorLine[tabid]){
         codeEditor.gotoLine(editorLine[tabid]['row'], editorLine[tabid]['column']);
     }else{
@@ -1497,6 +1501,7 @@ function loadEditor(code, tabid) {
 
     codeEditor.on("change", function (obj) {
         editorChange = true;
+        $("#context").css('display','none')
     });
 
 
@@ -1564,6 +1569,18 @@ function loadEditor(code, tabid) {
             }
 
 
+        }
+    });
+
+    codeEditor.commands.addCommand({
+        name: 'contextSearch',
+        bindKey: {
+            win: 'Ctrl-Space',
+            mac: 'Command-Space',
+            sender: 'editor|cli'
+        },
+        exec: function (env, args, request) {
+            $("#context").css('display','block')
         }
     });
 
@@ -1759,11 +1776,45 @@ function openModal() {
             $(".systemTemplate").css('display','none')
             $("#job_system").val('0')
         }
+        $(".jAction").html('Add');
+        $("#job_rule").removeAttr('disabled')
 
+        $("#addJobRule form").attr("onsubmit","addJobRule()");
         $("#addJobRule form")[0].reset();
         $("#addJobRule").modal('show');
         checkJobInstance()
     }
+}
+
+function editJobModal() {
+    $("#job_rule").attr('disabled','disabled')
+
+    var obj = {};
+    for (var i = 0; i < job_rules_list.length; i++) {
+        if (CURRENT_ID === job_rules_list[i].id) {
+            obj = job_rules_list[i];
+        }
+    }
+
+    $("#addJobRule form")[0].reset();
+
+    $("#job_rule").val(CURRENT_ID)
+    $("#job_lang").val(obj.jobLanguage)
+    $("#job_type").val(obj.jobType)
+    $("#job_instance").val(obj.instances)
+    $("#job_state").val(obj.jobState)
+    $("#job_system").val(obj.systemJob ? "1" : "0")
+    $("#job_boot").val(obj.startOnBoot ? "1" : "0")
+    $("#job_restart").val(obj.resartOnChange ? "1" : "0")
+
+    if(ADMIN_ACCESS){
+        $(".systemTemplate").css('display','block')
+    }else{
+        $(".systemTemplate").css('display','none')
+    }
+    $(".jAction").html('Edit');
+    $("#addJobRule form").attr("onsubmit","addJobRule('"+codeEditor.getSession().getValue()+"')");
+    $("#addJobRule").modal('show');
 }
 
 function openDeleteModal() {
@@ -2044,7 +2095,7 @@ function addBinaryRule() {
 
 }
 
-function addJobRule() {
+function addJobRule(code) {
     var dataObj = {
         "domainKey": DOMAIN_KEY,
         "id": $("#job_rule").val(),
@@ -2052,7 +2103,7 @@ function addJobRule() {
         "jobType": $("#job_type").val(),
         "jobState": $("#job_state").val(),
         "jobLanguage": $("#job_lang").val(),
-        "jobCode": "",
+        "jobCode": code ? code : "",
         "instances": Number($("#job_instance").val() ? $("#job_instance").val() : 0),
         "startOnBoot": $("#job_boot").val() === "1" ? true : false,
         "systemJob": ADMIN_ACCESS ?  ($("#job_system").val() === "1" ? true : false) : false,
@@ -2784,7 +2835,7 @@ function loadContextList() {
 
                    for(var j=0;j<methods.length;j++) {
 
-                       $(".contextList").append('<p><code>' + methods[j].signature + '</code><br>' +
+                       $(".contextList").append('<p class="codeText" onclick="addContextMethod(\''+result[i].name+'\',\''+methods[j].signature+'\',\''+methods[j].help+'\')"><code>' + methods[j].signature + '</code><br>' +
                            '<small>'+methods[j].help+'</small></p>');
                    }
                }
@@ -2795,6 +2846,14 @@ function loadContextList() {
 
         }
     });
+}
+
+function addContextMethod(nam, method,help) {
+
+    var text = '\n//Context Name: '+nam+'\n//Method: '+method+'\n//Description: '+help
+    codeEditor.session.insert(codeEditor.getCursorPosition(), text)
+
+
 }
 
 function filterContext() {
@@ -2813,3 +2872,4 @@ function filterContext() {
         }
     }
 }
+
