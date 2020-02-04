@@ -97,14 +97,12 @@ $(document).ready(function () {
                 , onclose_end: function () {
                     setTimeout(function () {
                         $('#codeEditor').height(($(".ui-layout-center").height() - 40) + 'px');
-                        $("#context").height($('#codeEditor').height()+'px')
 
                         codeEditor.resize();
                     }, 500);
 
                     $(".consoleBox").height(($(".ui-layout-south").height()-20) + 'px')
 
-                    $("#context").height($('#codeEditor').height()+'px')
                 }
                 , onresize_end: function () {
                     setTimeout(function () {
@@ -112,13 +110,13 @@ $(document).ready(function () {
                         codeEditor.resize();
                     }, 500);
                     $(".consoleBox").height(($(".ui-layout-south").height()-30) + 'px')
-                    $("#context").height($('#codeEditor').height()+'px')
                 }
 
             },
             east: {
                 resizable: true,
-                size: 250
+                size: 250,
+
             },
             west: {
                 resizable: false,
@@ -1493,7 +1491,6 @@ function loadEditor(code, tabid) {
 
     $('#codeEditor').height(($(".ui-layout-center").height() - 40) + 'px');
 
-    $("#context").height($('#codeEditor').height()+'px')
     codeEditor.resize();
 
 

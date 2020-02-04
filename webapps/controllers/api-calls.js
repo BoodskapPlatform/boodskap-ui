@@ -730,20 +730,16 @@ function performJobAction(id,action,obj, cbk) {
 
     var data = {};
 
-    if(obj.instances){
-        data['instances'] = obj.instances
-    }
+    if(action == 'start') {
 
-    if(obj.instanceId){
-        data['instance'] = obj.instanceId
-    }
-    if(obj.nodeId){
-        data['nodeId'] = obj.nodeId
+        if (obj.instances) {
+            data['instances'] = obj.instances
+        }
     }
 
     $.ajax({
         url: API_BASE_PATH + "/jobs/" + API_TOKEN + "/" + id+"/"+action,
-        data:  JSON.stringify(data),
+        data:  data,
         type: 'GET',
         success: function (data) {
             //called when successful
