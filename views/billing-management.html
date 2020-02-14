@@ -154,7 +154,7 @@
             <form action="javascript:void(0)">
                 <div class="modal-body" style="min-height: 500px">
                     <div class="row" style="">
-                        <div class="show-grid col-md-3 active tab0" onclick="showTab(0)">
+                        <div class="show-grid col-md-4 active tab0" onclick="showTab(0)">
                             <div class="media">
                                 <div class="pull-left" href="#">
                                     <span class="icon-coin-dollar glyphicon"></span>
@@ -165,7 +165,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="show-grid col-md-3 inactive tab1" onclick="showTab(1)">
+                        <div class="show-grid col-md-4 inactive tab1" onclick="showTab(1)">
                             <div class="media">
                                 <div class="pull-left" href="#">
                                     <span class="icon-building-o glyphicon"></span>
@@ -176,7 +176,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="show-grid col-md-3 inactive tab2" onclick="showTab(2)">
+                       <!-- <div class="show-grid col-md-3 inactive tab2" onclick="showTab(2)">
                             <div class="media">
                                 <div class="pull-left" href="#">
                                     <span class="icon-folder glyphicon"></span>
@@ -186,8 +186,8 @@
                                     List / Add Items
                                 </div>
                             </div>
-                        </div>
-                        <div class="show-grid col-md-3 inactive tab3" onclick="showTab(3)">
+                        </div>-->
+                        <div class="show-grid col-md-4 inactive tab3" onclick="showTab(3)">
                             <div class="media">
                                 <div class="pull-left" href="#">
                                     <span class="icon-ios-briefcase glyphicon"></span>
@@ -209,7 +209,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Invoice Code <span class="text-danger">*</span></label>
+                                    <label>Invoice Code <small>(Prefix)</small><span class="text-danger">*</span></label>
                                     <input type="text" id="invoiceCode" class="form-control input-sm" required/>
                                 </div>
                             </div>
@@ -250,14 +250,20 @@
                                 <div class="form-group">
                                     <label>Invoice Start Date <span class="text-danger">*</span></label>
                                     <input type="text" id="invoiceStartDate" class="form-control input-sm" required/>
-                                    <p class="invoiceStartDate mt-1"></p>
+<!--                                    <p class="invoiceStartDate mt-1"></p>-->
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Invoice End Date <span class="text-grey-lighter freqOpt">(optional)</span></label>
                                     <input type="text" id="invoiceEndDate" class="form-control input-sm"/>
-                                    <p class="invoiceEndDate mt-1"></p>
+<!--                                    <p class="invoiceEndDate mt-1"></p>-->
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Choose Invoice list item rule  <span class="text-danger">*</span></label>
+                                    <select class="form-control" id="namedRule"></select>
                                 </div>
                             </div>
                         </div>

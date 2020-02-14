@@ -68,12 +68,12 @@ function loadInvoice() {
         },
         {
             mData: 'frequency',
-            sTitle: 'Billing Cycle (GMT)',
+            sTitle: 'Billing Cycle',
             orderable: false,
             mRender: function (data, type, row) {
 
-                var startdate = moment(row['startdate']).toISOString();
-                var enddate = moment(row['enddate']).toISOString();
+                var startdate = moment(row['startdate']).format('MM/DD/YYYY hh:mm A');
+                var enddate = moment(row['enddate']).format('MM/DD/YYYY hh:mm A');
 
                 var str = data.toUpperCase()+'<br>' +
                     '<small style="text-decoration: underline">'+startdate+'</small> to <small style="text-decoration: underline">'+enddate+'</small>';
@@ -96,11 +96,11 @@ function loadInvoice() {
         },
         {
             mData: 'createdtime',
-            sTitle: 'Generated Time  (GMT)',
+            sTitle: 'Generated Time',
             orderable: true,
             mRender: function (data, type, row) {
 
-                return data ? moment(data).toISOString() : "-";
+                return data ? moment(data).format('MM/DD/YYYY hh:mm A') : "-";
             }
         }
     ];
