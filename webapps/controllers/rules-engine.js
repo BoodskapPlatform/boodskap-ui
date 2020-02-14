@@ -1585,7 +1585,7 @@ function loadEditor(code, tabid) {
         name: 'contextSearch',
         bindKey: {
             win: 'Ctrl-Space',
-            mac: 'Command-Space',
+            mac: 'Ctrl-Space',
             sender: 'editor|cli'
         },
         exec: function (env, args, request) {
