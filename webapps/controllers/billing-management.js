@@ -149,10 +149,10 @@ function loadDomainBilling(dk) {
                 var str = '<hr>';
 
                 if(row['startdate']){
-                    str += '<small><b>Start Date (GMT):</b> '+moment(row['startdate']).toISOString()+'</small>';
+                    str += '<small><b>Start Date:</b> '+moment(row['startdate']).format('MM/DD/YYYY hh:mm A')+'</small>';
                 }
                 if(row['enddate']){
-                    str += '<br><small><b>End Date (GMT):</b> '+moment(row['enddate']).toISOString()+'</small><br>'
+                    str += '<br><small><b>End Date:</b> '+moment(row['enddate']).format('MM/DD/YYYY hh:mm A')+'</small><br>'
                 }
 
                 str += '<br><small><b>Created On:</b> '+moment(row['createdtime']).format('MM/DD/YYYY hh:mm A')+'</small><br>'
@@ -275,13 +275,17 @@ function loadDomainBilling(dk) {
             }
         },
         {
-            mData: 'tax',
-            sTitle: 'Invoice & Tax',
+            mData: 'obj',
+            sTitle: 'Invoice Rule',
             orderable: false,
             mRender: function (data, type, row) {
 
-                var curr = '<small><a href="javascript:void(0)" onclick="viewInvoice(\'' + row['_id'] + '\')">View Invoice Details</a></small>'
-                return curr;
+                var dataObj = JSON.parse(data)
+
+                // var data = dataObj.invoice;
+                //
+                // var curr = '<small><a href="javascript:void(0)" onclick="viewInvoice(\'' + row['_id'] + '\')">View Invoice Details</a></small>'
+                return dataObj.rule_name ? dataObj.rule_name : '-';
             }
         },
         {
@@ -389,6 +393,7 @@ function addBilling(dk) {
     $("#billingConfig form")[0].reset();
     selected_billing_item=[];
     loadBillingItems(BILLING_ITEMS);
+    loadNamedRule();
 
     $(".billerLogo").attr('src','');
     $(".payerLogo").attr('src','');
@@ -416,6 +421,24 @@ function addBilling(dk) {
         backdrop: 'static',
         keyboard: false
     });
+}
+
+function loadNamedRule(rule) {
+
+    $("#namedRule").html('<option value=""></option>');
+    listNamedRules(1000, null, null, function (status, data) {
+        if (status && data.length > 0) {
+            for(var i=0;i<data.length;i++){
+                if(rule && rule === data[i]['name']){
+                    $("#namedRule").append('<option value="'+data[i]['name']+'" selected>'+data[i]['name']+'</option>');
+                }else{
+                    $("#namedRule").append('<option value="'+data[i]['name']+'">'+data[i]['name']+'</option>');
+                }
+
+            }
+        }
+    })
+
 }
 
 function showTab(id) {
@@ -624,10 +647,15 @@ function saveBillingConfig() {
         }
     }
 
+    if($("#namedRule").val() === ''){
+        errorMsgBorder('Invoice list item rule name cannot be empty', 'namedRule')
+        return false;
+    }
+
 
     var items = [];
 
-    for (var i = 0; i < selected_billing_item.length; i++) {
+   /* for (var i = 0; i < selected_billing_item.length; i++) {
 
         var id = selected_billing_item[i];
 
@@ -644,10 +672,11 @@ function saveBillingConfig() {
             }
             items.push(obj)
         }
-    }
+    }*/
 
     var json = {
         invoice: items,
+        rule_name: $("#namedRule").val(),
         biller: {
             logo: billerLogoPath,
             email: $("#cmpyEmail").val(),
@@ -815,8 +844,8 @@ function editBilling(id) {
     }
 
 
-
-    loadBillingItems(obj.invoice)
+    loadNamedRule(obj.rule_name ? obj.rule_name : '')
+    // loadBillingItems(obj.invoice)
 
     checkFrequency()
 
@@ -864,10 +893,15 @@ function updateBilling() {
         }
     }
 
+    if($("#namedRule").val() === ''){
+        errorMsgBorder('Invoice list item rule name cannot be empty', 'namedRule')
+        return false;
+    }
+
 
     var items = [];
 
-    for (var i = 0; i < selected_billing_item.length; i++) {
+    /*for (var i = 0; i < selected_billing_item.length; i++) {
 
         var id = selected_billing_item[i];
 
@@ -884,10 +918,11 @@ function updateBilling() {
             }
             items.push(obj)
         }
-    }
+    }*/
 
     var json = {
         invoice: items,
+        rule_name: $("#namedRule").val(),
         biller: {
             logo: billerLogoPath,
             email: $("#cmpyEmail").val(),
@@ -1007,8 +1042,10 @@ function proceedDelete() {
     deleteBillingRecord(selected_id, function (status, data) {
         if (status) {
             successMsg('Billing Configuration Deleted Successfully');
-            loadDomainBilling(selectedDomainKey);
-            $("#deleteModal").modal('hide');
+            setTimeout(function () {
+                loadDomainBilling(selectedDomainKey);
+                $("#deleteModal").modal('hide');
+            },500)
         } else {
             errorMsg('Error in Patient Delete')
         }
