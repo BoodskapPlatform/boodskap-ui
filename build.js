@@ -56,27 +56,16 @@ async.series({
         let platform_config = {
             web: getProperty('web.domain'),
             api: getProperty('boodskap.api'),
+            development : getProperty("env.development"),
+            debug : getProperty("web.debug"),
             mqtt: {
                 hostName: getProperty('mqtt.host'),
                 portNo: Number(getProperty('mqtt.port')),
                 ssl: getProperty('mqtt.ssl')
             },
-            logo: getProperty('branding.logo'),
-            loginLogo: getProperty('branding.loginLogo'),
-            poweredBy: getProperty('branding.poweredBy'),
-            debug: getProperty('web.debug'),
             googleAnalytics: getProperty('google.analytics.id') ? getProperty('google.analytics.id') : '',
             version: getProperty('web.version'),
             cdnPath: getProperty('boodskap.cdnPath'),
-            fitbit: {
-                clientId: getProperty('fitbit.clientId'),
-                clientSecret: getProperty('fitbit.clientSecret'),
-                callbackUrl: getProperty('fitbit.callbackUrl'),
-                oAuthAuthorizationURL: 'https://www.fitbit.com/oauth2/authorize',
-                oAuthAccessTokenURL: 'https://api.fitbit.com/oauth2/token',
-                expire: 600618,
-                scopes: ['activity', 'heartrate', 'location', 'nutrition', 'profile', 'settings', 'sleep', 'social', 'weight']
-            }
         }
 
         let txt = 'var CONFIG=' + JSON.stringify(platform_config);

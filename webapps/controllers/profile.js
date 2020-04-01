@@ -5,20 +5,20 @@ var primaryDomainID =  'primary.domain'
 
 $(document).ready(function () {
 
-    if(locationPath.split("#")[1]){
-        locationPath = locationPath.split("#")[1];
-        var resStr = locationPath.split("&");
-        for(var i=0;i<resStr.length;i++){
-            if(resStr[i].split("=")[0] === 'scope'){
-                responseObj[resStr[i].split("=")[0]] = resStr[i].split("=")[1].split("+");
-            }else{
-                responseObj[resStr[i].split("=")[0]] = resStr[i].split("=")[1];
-            }
-        }
-        updateResponse();
-    }else{
-        getFitbitBand();
-    }
+    // if(locationPath.split("#")[1]){
+    //     locationPath = locationPath.split("#")[1];
+    //     var resStr = locationPath.split("&");
+    //     for(var i=0;i<resStr.length;i++){
+    //         if(resStr[i].split("=")[0] === 'scope'){
+    //             responseObj[resStr[i].split("=")[0]] = resStr[i].split("=")[1].split("+");
+    //         }else{
+    //             responseObj[resStr[i].split("=")[0]] = resStr[i].split("=")[1];
+    //         }
+    //     }
+    //     updateResponse();
+    // }else{
+    //     getFitbitBand();
+    // }
 
     loadProfile();
     getPrimaryDomain();

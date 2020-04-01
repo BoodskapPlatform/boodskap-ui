@@ -1,13 +1,37 @@
-var API_BASE_PATH = CONFIG.api;
-var WEB_BASE_PATH = CONFIG.web;
-var MQTT_CONFIG = CONFIG.mqtt;
-var DEFAULT_POWERED_BY = CONFIG.poweredBy;
-var DEFAULT_LOGO_PATH =  CONFIG.logo;
-var DEFAULT_LOGIN_LOGO_PATH =  CONFIG.loginLogo;
-var DEBUG =  CONFIG.debug;
+var API_BASE_PATH = null;
+var WEB_BASE_PATH = null;
+var MQTT_CONFIG = null;
+var DEBUG = CONFIG.debug ? CONFIG.debug : false;
 var GOOGLE_ANALYTICS_COCDE = CONFIG.googleAnalytics;
 var WEB_VERSION = CONFIG.version;
-var CDN_PATH = CONFIG.cdnPath;
+var CDN_PATH =  CONFIG.cdnPath;
+var ENV = CONFIG.development ? CONFIG.development : false;
+
+if(CONFIG.development){
+    API_BASE_PATH = CONFIG.api;
+    WEB_BASE_PATH = CONFIG.web;
+    MQTT_CONFIG = CONFIG.mqtt;
+}else{
+
+    var hostName = location.hostname;
+    var protocol = location.protocol;
+
+    var mqttPort = protocol === 'https:' ? 443 : 80;
+
+    API_BASE_PATH = "/api";
+    WEB_BASE_PATH = protocol+"//"+hostName;
+    MQTT_CONFIG = {
+        "hostName": hostName,
+        "portNo": mqttPort,
+        "ssl": mqttPort === 443 ? true : false
+    }
+}
+
+
+
+var DEFAULT_POWERED_BY = "/images/powered-by-boodskap.png";
+var DEFAULT_LOGO_PATH =  "/images/boodskap-logo.png";
+var DEFAULT_LOGIN_LOGO_PATH =  "/images/bdskap-logo.png";
 
 var DOMAIN_UUID = '637e0554-7092-11e8-adc0-fa7ae01bbebc';
 var API_TOKEN = "";
