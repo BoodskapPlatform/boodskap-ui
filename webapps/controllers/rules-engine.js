@@ -1477,11 +1477,11 @@ function loadEditor(code, tabid) {
     codeEditor.setShowPrintMargin(false);
     var langTools = ace.require("ace/ext/language_tools");
 
-    codeEditor.setOptions({
-        enableBasicAutocompletion: true,
-        enableSnippets: true,
-        enableLiveAutocompletion: true,
-    });
+    // codeEditor.setOptions({
+    //     enableBasicAutocompletion: true,
+    //     enableSnippets: true,
+    //     enableLiveAutocompletion: true,
+    // });
     langTools.setCompleters([langTools.snippetCompleter])
 
 
