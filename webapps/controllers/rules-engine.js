@@ -1816,8 +1816,20 @@ function editJobModal() {
     $("#job_boot").val(obj.startOnBoot ? "1" : "0")
     $("#job_restart").val(obj.resartOnChange ? "1" : "0")
 
+    if(obj.jobType === 'ATOMIC'){
+        $("#job_boot").attr('disabled','disabled');
+    }else{
+        $("#job_boot").removeAttr('disabled')
+    }
+
     if(ADMIN_ACCESS){
         $(".systemTemplate").css('display','block')
+
+        if(obj.jobType === 'ATOMIC'){
+            $("#job_system").attr('disabled','disabled')
+        }else{
+            $("#job_system").removeAttr('disabled')
+        }
     }else{
         $(".systemTemplate").css('display','none')
     }
@@ -2823,8 +2835,23 @@ function checkJobInstance() {
       $("#job_instance").val(1);
   }else{
       $("#job_instance").attr('disabled','disabled');
-      $("#job_instance").val(0);
+      $("#job_instance").val(1);
   }
+
+    if(ADMIN_ACCESS){
+
+        if(jType === 'ATOMIC'){
+            $("#job_system").attr('disabled','disabled')
+        }else{
+            $("#job_system").removeAttr('disabled')
+        }
+    }
+
+    if(jType === 'ATOMIC'){
+        $("#job_boot").attr('disabled','disabled');
+    }else{
+        $("#job_boot").removeAttr('disabled')
+    }
 }
 
 function loadContextList() {
