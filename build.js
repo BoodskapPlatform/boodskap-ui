@@ -2,6 +2,7 @@ const async = require('async');
 const PropertiesReader = require('properties-reader');
 const fs = require('fs');
 const replace = require('replace-in-file');
+const lineReplace = require('line-replace')
 
 
 
@@ -78,6 +79,24 @@ async.series({
                 wcbk(null, null);
             }
         });
+
+    },
+    swagger : function (sbk) {
+
+        var protocol = getProperty('mqtt.ssl') ? 'https' : 'http';
+
+        lineReplace({
+            file: './yaml/api.yml',
+            line: 4,
+            text: '  - '+protocol,
+            addNewLine: true,
+            callback: ({file, line, text, replacedText}) => {
+                console.error('3] Setting protocol in the swagger api.yml')
+
+                sbk(null,null)
+            }
+        })
+
 
     }
 }, function (err, result) {

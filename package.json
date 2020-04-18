@@ -1,6 +1,6 @@
 {
   "name": "boodskap-ui",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "license": "MIT",
   "scripts": {
     "start": "node boodskap-platform-node.js"
@@ -28,6 +28,7 @@
     "express": "^4.17.1",
     "express-layout": "^0.1.0",
     "express-minify": "^1.0.0",
+    "line-replace": "^1.0.3",
     "path": "^0.12.7",
     "properties-reader": "0.0.16",
     "replace-in-file": "^3.4.4",
