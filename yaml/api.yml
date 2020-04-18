@@ -1,7 +1,7 @@
 swagger: "2.0"
 basePath: /api
 schemes: 
-  - https
+  - http
 produces:
   - "application/json"
 info: 

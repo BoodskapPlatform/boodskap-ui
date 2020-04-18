@@ -65,7 +65,6 @@ async.series({
                 ssl: getProperty('mqtt.ssl')
             },
             googleAnalytics: getProperty('google.analytics.id') ? getProperty('google.analytics.id') : '',
-            version: getProperty('web.version'),
             cdnPath: getProperty('boodskap.cdnPath'),
         }
 
