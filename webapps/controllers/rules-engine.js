@@ -190,7 +190,7 @@ function mqttListen() {
                 mqttNamedRule(topicName, parsedData);
                 mqttScheduleRule(topicName, parsedData);
                 mqttBinaryRule(topicName, parsedData);
-
+                mqttJobRule(topicName, parsedData);
 
             } else {
                 if (CURRENT_TYPE === 0) {
