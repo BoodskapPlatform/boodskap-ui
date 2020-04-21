@@ -9,7 +9,7 @@ $(document).ready(function () {
 });
 
 if (!DEBUG) {
-    console.log("Boodskap IoT Platform "+CONFIG.version+" !");
+    console.log("Boodskap IoT Platform "+WEB_VERSION+" !");
     console.log("Powered by https://boodskap.io"), window.console || (window.console = {});
     for (var methods = ["log", "debug", "warn", "info", "error"], i = 0; i < methods.length; i++) console[methods[i]] = function () {
     }
