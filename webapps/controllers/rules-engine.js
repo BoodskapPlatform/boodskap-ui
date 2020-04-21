@@ -1570,7 +1570,7 @@ function loadEditor(code, tabid) {
             if (CURRENT_TYPE === 7) {
 
                 for (var i = 0; i < job_rules_list.length; i++) {
-                    if (CHANGED_ID === job_rules_list[i].type) {
+                    if (CHANGED_ID === job_rules_list[i].id) {
                         job_rules_list[i].jobCode = CHANGED_TEXT;
                     }
                 }
@@ -2774,7 +2774,24 @@ function uploadRuleType(type, data) {
             }
             $("#importModal").modal('hide');
         })
-    } else if (type === 7) {
+    }
+    else if (type === 6) {
+
+        updateBinaryRuleCode(data, function (status, resdata) {
+            if (status) {
+                successMsg('Binary Rule Successfully Uploaded!');
+                loadBinaryRulesList();
+                setTimeout(function () {
+                    loadTabbar(data.type,6)
+                    $("#importModal").modal('hide');
+                },1000)
+
+            } else {
+                errorMsg('Error in saving!')
+            }
+            $("#importModal").modal('hide');
+        })
+    }else if (type === 7) {
 
         updateJobRuleCode(data, function (status, resdata) {
             if (status) {
