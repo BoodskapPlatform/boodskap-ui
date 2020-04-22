@@ -2,10 +2,10 @@ swagger: "2.0"
 basePath: /api
 schemes: 
   - http
-produces:
+produces: 
   - "application/json"
 info: 
-  version: "3.0.1-pre"
+  version: "3.0.1"
   title: "Boodskap API"
   description: "Boodskap IoT Platform API"
   termsOfService: "https://boodskap.io/terms-conditions"
@@ -15116,6 +15116,99 @@ paths:
           description: "API Error"
           schema: 
             $ref: "#/definitions/ApiError"
+  '/call/v2/execute/{atoken}':
+    post:
+      tags:
+        - Execute V2 groovy script
+      summary: Execute V2 groovy script
+      operationId: executeV2GroovyScript
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: atoken
+          in: path
+          description: Auth token of the logged in user
+          required: true
+          type: string
+        - name: script
+          in: body
+          description: GroovyScript JSON
+          required: true
+          schema:
+            $ref: "#/definitions/GroovyScriptV2"
+      responses:
+        '200':
+          description: successful operation
+          schema: 
+            type: object
+        "417":
+          description: "API Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/call/v2/execute/template/{atoken}':
+    post:
+      tags:
+        - Execute V2 Template Script
+      summary: Execute V2 Template Script
+      operationId: executeV2TemplateScript
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: atoken
+          in: path
+          description: Auth token of the logged in user
+          required: true
+          type: string
+        - name: script
+          in: body
+          description: TemplateScript JSON
+          required: true
+          schema:
+            $ref: "#/definitions/TemplateScriptV2"
+      responses:
+        '200':
+          description: successful operation
+          schema: 
+            type: object
+        "417":
+          description: "API Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/call/v2/execute/rule/{atoken}':
+    post:
+      tags:
+        - Execute V2 Named Rule Script
+      summary: Execute V2 Named Rule Script
+      operationId: executeV2NamedRuleScript
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: atoken
+          in: path
+          description: Auth token of the logged in user
+          required: true
+          type: string
+        - name: script
+          in: body
+          description: RuleScript JSON
+          required: true
+          schema:
+            $ref: "#/definitions/RuleScriptV2"
+      responses:
+        '200':
+          description: successful operation
+          schema: 
+            type: object
+        "417":
+          description: "API Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
   '/files/upload/{atoken}':
     post:
       tags:
@@ -22284,6 +22377,17 @@ definitions:
         format: uuid
       code:
         type: string
+  GroovyScriptV2:
+    type: object
+    required:
+      - sessionId
+      - code
+    properties:
+      sessionId:
+        type: string
+        format: uuid
+      code:
+        type: string
   TemplateScript:
     type: object
     required:
@@ -22299,6 +22403,21 @@ definitions:
         type: string
       scriptArgs:
         type: string
+  TemplateScriptV2:
+    type: object
+    required:
+      - sessionId
+      - template
+    properties:
+      sessionId:
+        type: string
+        format: uuid
+      template:
+        type: string
+      templateArgs:
+        type: object
+      scriptArgs:
+        type: object
   RuleScript:
     type: object
     required:
@@ -22312,6 +22431,19 @@ definitions:
         type: string
       scriptArgs:
         type: string
+  RuleScriptV2:
+    type: object
+    required:
+      - sessionId
+      - namedrule
+    properties:
+      sessionId:
+        type: string
+        format: uuid
+      namedrule:
+        type: string
+      scriptArgs:
+        type: object
   CallOutput:
     type: object
     required:
