@@ -3,7 +3,7 @@ var WEB_BASE_PATH = null;
 var MQTT_CONFIG = null;
 var DEBUG = CONFIG.debug ? CONFIG.debug : false;
 var GOOGLE_ANALYTICS_COCDE = CONFIG.googleAnalytics;
-var WEB_VERSION = '3.0.4';
+var WEB_VERSION = '3.0.5';
 var CDN_PATH =  CONFIG.cdnPath;
 var ENV = CONFIG.development ? CONFIG.development : false;
 
