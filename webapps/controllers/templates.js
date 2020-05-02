@@ -33,15 +33,10 @@ function loadTemplates() {
             sWidth: '15%',
         },
         {
-            mData: 'lang',
-            sTitle: 'Language',
-            sWidth: '5%',
-        },
-        {
             mData: 'code',
             sTitle: 'Template Code',
             orderable: false,
-            sWidth: '75%',
+            sWidth: '60%',
             mRender: function (data, type, row) {
 
                 // if(data) {
@@ -56,6 +51,11 @@ function loadTemplates() {
 
                 return '<pre style="max-height: 150px;overflow: auto;font-family: monospace;background-color: #eeeeee54;padding:10px">' + (data) + '</pre>';
             }
+        },
+        {
+            mData: 'lang',
+            sTitle: 'Language',
+            sWidth: '10%',
         },
         {
             mData: 'action',
