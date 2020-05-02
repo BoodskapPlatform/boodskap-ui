@@ -36,18 +36,7 @@ function loadTemplates() {
             mData: 'code',
             sTitle: 'Template Code',
             orderable: false,
-            sWidth: '60%',
             mRender: function (data, type, row) {
-
-                // if(data) {
-                //
-                //     data = data.replace(/&/g, "&amp");
-                //     data = data.replace(/</g, "&lt");
-                //     data = data.replace(/>/g, "&gt");
-                // }else{
-                //     data = '';
-                // }
-
 
                 return '<pre style="max-height: 150px;overflow: auto;font-family: monospace;background-color: #eeeeee54;padding:10px">' + (data) + '</pre>';
             }
