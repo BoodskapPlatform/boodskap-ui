@@ -83,7 +83,7 @@ function loadTemplates() {
             header: true,
             headerOffset: -5
         },
-        responsive: true,
+        responsive: false,
         paging: true,
         searching: true,
         "ordering": true,
