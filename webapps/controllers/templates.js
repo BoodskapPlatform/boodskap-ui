@@ -44,17 +44,17 @@ function loadTemplates() {
             sWidth: '75%',
             mRender: function (data, type, row) {
 
-                if(data) {
+                // if(data) {
+                //
+                //     data = data.replace(/&/g, "&amp");
+                //     data = data.replace(/</g, "&lt");
+                //     data = data.replace(/>/g, "&gt");
+                // }else{
+                //     data = '';
+                // }
 
-                    data = data.replace(/&/g, "&amp");
-                    data = data.replace(/</g, "&lt");
-                    data = data.replace(/>/g, "&gt");
-                }else{
-                    data = '';
-                }
 
-
-                return '<code>' + (data) + '</code>';
+                return '<pre style="max-height: 150px;overflow: auto;font-family: monospace;background-color: #eeeeee54;padding:10px">' + (data) + '</pre>';
             }
         },
         {
@@ -107,8 +107,24 @@ function loadTemplates() {
 
 
 }
-
+var codeEditor = null;
 function openModal(type,id) {
+
+    if (codeEditor) {
+        codeEditor.destroy();
+    }
+
+    $("#codeEditor").html("");
+
+    codeEditor = ace.edit("codeEditor");
+    codeEditor.setTheme("ace/theme/monokai");
+    // codeEditor.setTheme("ace/theme/solarized_light");
+    // codeEditor.setTheme("ace/theme/eclipse");
+    // codeEditor.setTheme("ace/theme/tomorrow_night");
+    codeEditor.session.setMode("ace/mode/groovy");
+    codeEditor.getSession().setUseWrapMode(true);
+    codeEditor.setShowPrintMargin(false);
+
     if (type === 1) {
         $("#template_name").removeAttr('readonly');
         $(".templateAction").html('Create');
@@ -155,6 +171,10 @@ function openModal(type,id) {
         }
         $("#template_name").attr('readonly','readonly');
 
+        obj.code ? codeEditor.setValue(obj.code) : '';
+        codeEditor.clearSelection();
+        codeEditor.focus();
+
         $("#template_name").val(obj.name);
         $("#template_lang").val(obj.lang);
         $("#template_code").val(obj.code);
@@ -169,7 +189,7 @@ function addTemplate() {
     var tempObj = {
         "name": $("#template_name").val(),
         "lang": $("#template_lang").val(),
-        "code": $("#template_code").val(),
+        "code": codeEditor.getSession().getValue(), //$("#template_code").val(),
     }
 
     $(".btnSubmit").attr('disabled','disabled');
@@ -201,7 +221,7 @@ function updateTemplate() {
     var tempObj = {
         "name": $("#template_name").val(),
         "lang": $("#template_lang").val(),
-        "code": $("#template_code").val(),
+        "code": codeEditor.getSession().getValue(), //$("#template_code").val(),
     }
 
     $(".btnSubmit").attr('disabled','disabled');

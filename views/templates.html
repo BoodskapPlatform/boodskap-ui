@@ -56,14 +56,18 @@
 
 </div>
 
-<script src="controllers/templates.js" type="text/javascript"></script>
+<script src="/js/editor/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="/js/editor/src-noconflict/ext-language_tools.js" type="text/javascript" charset="utf-8"></script>
+<script src="/js/editor/src-noconflict/ext-searchbox.js" type="text/javascript" charset="utf-8"></script>
+<script src="/js/editor/src-noconflict/snippets/groovy.js" type="text/javascript" charset="utf-8"></script>
+<script src="/controllers/templates.js" type="text/javascript"></script>
 
 
 
 
 
 <div id="addTemplate" class="modal fade" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title"><span class="templateAction"></span> Template</h4>
@@ -91,7 +95,8 @@
                         <div  class="col-md-12">
                             <div  class="form-group">
                                 <label  class="inputLabel">Template</label>
-                                <textarea  class="form-control input-sm" placeholder="" type="text"  id="template_code" style="height: 300px;" required></textarea>
+                                <div id="codeEditor" style="height: 300px"></div>
+<!--                                <textarea  class="form-control input-sm" placeholder="" type="text"  id="template_code" style="height: 300px;" required></textarea>-->
                             </div>
                         </div>
                     </div>
