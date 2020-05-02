@@ -129,7 +129,10 @@ function openModal(type,id) {
         $("#template_name").removeAttr('readonly');
         $(".templateAction").html('Create');
         $("#addTemplate form")[0].reset();
-        $("#addTemplate").modal('show');
+        $("#addTemplate").modal({
+            backdrop: 'static',
+            keyboard: false
+        });
         $("#addTemplate form").attr('onsubmit','addTemplate()')
     }else if (type === 2) {
         $("#uploadTemplate form")[0].reset();
@@ -178,7 +181,10 @@ function openModal(type,id) {
         $("#template_name").val(obj.name);
         $("#template_lang").val(obj.lang);
         $("#template_code").val(obj.code);
-        $("#addTemplate").modal('show');
+        $("#addTemplate").modal({
+            backdrop: 'static',
+            keyboard: false
+        });
         $("#addTemplate form").attr('onsubmit','updateTemplate()')
     }
 }
