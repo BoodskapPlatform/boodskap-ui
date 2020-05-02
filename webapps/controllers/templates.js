@@ -36,9 +36,10 @@ function loadTemplates() {
             mData: 'code',
             sTitle: 'Template Code',
             orderable: false,
+            sWidth:'65%',
             mRender: function (data, type, row) {
 
-                return '<pre style="max-height: 150px;overflow: auto;font-family: monospace;background-color: #eeeeee54;padding:10px">' + (data) + '</pre>';
+                return '<code style="white-space: pre-line;height: 300px;overflow: auto;    display: flex;">' + (data) + '</code>';
             }
         },
         {
