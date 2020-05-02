@@ -39,6 +39,15 @@ function loadTemplates() {
             sWidth:'65%',
             mRender: function (data, type, row) {
 
+                if(data) {
+
+                    data = data.replace(/&/g, "&amp");
+                    data = data.replace(/</g, "&lt");
+                    data = data.replace(/>/g, "&gt");
+                }else{
+                    data = '';
+                }
+
                 return '<code style="white-space: pre-line;max-height: 200px;overflow: auto;    display: flex;">' + (data) + '</code>';
             }
         },
