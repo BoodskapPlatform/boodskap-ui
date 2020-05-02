@@ -39,7 +39,7 @@ function loadTemplates() {
             sWidth:'65%',
             mRender: function (data, type, row) {
 
-                return '<code style="white-space: pre-line;height: 300px;overflow: auto;    display: flex;">' + (data) + '</code>';
+                return '<code style="white-space: pre-line;max-height: 200px;overflow: auto;    display: flex;">' + (data) + '</code>';
             }
         },
         {
