@@ -267,34 +267,30 @@ function loadDomains() {
         paging: true,
         searching: true,
         "ordering": false,
-        iDisplayLength: 10,
-        lengthMenu: [[10, 50, 100], [10, 50, 100]],
+        iDisplayLength: 5,
+        lengthMenu: [[5,10, 50, 100], [5,10, 50, 100]],
         aoColumns: fields,
         "bProcessing": true,
         "bServerSide": true,
         "sAjaxSource": API_BASE_PATH + '/elastic/search/query/' + API_TOKEN,
         "fnServerData": function (sSource, aoData, fnCallback, oSettings) {
 
-
+            queryParams.query['bool']['must'] = [];
+            queryParams.query['bool']['should'] = [];
+            delete queryParams.query['bool']["minimum_should_match"];
             queryParams['size'] = oSettings._iDisplayLength;
             queryParams['from'] = oSettings._iDisplayStart;
 
             var searchText = oSettings.oPreviousSearch.sSearch;
-
             if (searchText) {
-                var searchJson = {
-                    "multi_match": {
-                        "query": '*' + searchText + '*',
-                        "type": "phrase_prefix",
-                        "fields": ['domainKey', 'email']
-                    }
-                };
 
+                queryParams.query['bool']['should'].push({"wildcard" : { "domainKey" : "*"+searchText.toLowerCase()+"*" }})
+                queryParams.query['bool']['should'].push({"wildcard" : { "email" : "*"+searchText.toLowerCase()+"*" }})
+                queryParams.query['bool']['should'].push({"wildcard" : { "ip_addr" : "*"+searchText.toLowerCase()+"*" }})
+                queryParams.query['bool']['should'].push({"wildcard" : { "api_path" : "*"+searchText.toLowerCase()+"*" }})
+                queryParams.query['bool']['should'].push({"wildcard" : { "user_id" : "*"+searchText.toLowerCase()+"*" }})
+                queryParams.query['bool']["minimum_should_match"]=1;
 
-                queryParams.query['bool']['must'] = [searchJson];
-
-            } else {
-                queryParams.query['bool']['must'] = [];
             }
 
 
@@ -650,3 +646,82 @@ function startTour() {
 }
 
 
+function createDomain() {
+    $("#createDomain form")[0].reset();
+    $("#createDomain").modal({
+        backdrop: 'static',
+        keyboard: false
+    });
+}
+
+
+function register(){
+
+    var firstname = $.trim($("#firstname").val());
+    var lastname = "";
+    var email = $.trim($("#email").val());
+    var password = $("#password").val();
+    var confirmpassword = $("#confirmpassword").val();
+
+    if(firstname == ""){
+        errorMsgBorder('First Name cannot be empty','firstname');
+        return false;
+    }
+
+    if(email) {
+        if (email === "") {
+            errorMsgBorder('Email ID cannot be empty', 'email');
+            return false;
+        }else{
+            var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+            var eFlag = regex.test(email);
+
+            if(!eFlag){
+                errorMsgBorder('Invalid Email ID', 'email');
+                return false;
+            }
+
+        }
+    }
+
+    if(password === ""){
+        errorMsgBorder('Password cannot be empty','password');
+        return false;
+    }
+
+    if(password !== confirmpassword){
+        errorMsgBorder('Password & Confirm Password should be same','password');
+        return false;
+    }
+
+    $("#submitButton").attr('disabled','disabled');
+    loading('Please wait');
+
+    var data = {
+        email: email.toLowerCase(),
+        password: password,
+        firstName: firstname,
+        lastName: lastname
+    };
+
+
+    registerCall(data,function (status, data) {
+        closeLoading();
+        $("#submitButton").removeAttr('disabled');
+        if(status){
+            if(data.message === 'USER_EXISTS') {
+                errorMsg('Email ID already exists!')
+            }else{
+                successMsg('Domain Created Successfully!')
+                $('#createDomain').modal('hide');
+            }
+        }else{
+            if(data.message === 'USER_EXISTS'){
+                errorMsg('Email ID already exists!')
+            }else{
+                errorMsg('Something went wrong!')
+            }
+
+        }
+    })
+}

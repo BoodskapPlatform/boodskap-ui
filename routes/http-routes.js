@@ -154,21 +154,21 @@ Routes.prototype.init = function () {
             res.render('login.html', {layout: false});
         }
     });
-    self.app.get('/register', function (req, res) {
-        var userObj = req.cookies['user_details'];
-        if(userObj) {
-            var role = JSON.parse(userObj).user.roles;
-            req.session.userObj = JSON.parse(userObj);
-
-            if (role.indexOf('user') !== -1) {
-                res.redirect('/dashboard');
-            } else {
-                res.redirect('/home');
-            }
-        }else{
-            res.render('register.html', {layout: false});
-        }
-    });
+    // self.app.get('/register', function (req, res) {
+    //     var userObj = req.cookies['user_details'];
+    //     if(userObj) {
+    //         var role = JSON.parse(userObj).user.roles;
+    //         req.session.userObj = JSON.parse(userObj);
+    //
+    //         if (role.indexOf('user') !== -1) {
+    //             res.redirect('/dashboard');
+    //         } else {
+    //             res.redirect('/home');
+    //         }
+    //     }else{
+    //         res.render('register.html', {layout: false});
+    //     }
+    // });
     self.app.get('/profile', roleCheck,function (req, res) {
         res.render('profile.html',{layout:'',userRole:req.session.role, response : ''});
     });

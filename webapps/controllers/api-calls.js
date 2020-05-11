@@ -122,9 +122,8 @@ function resetPasswordCall(email, cbk) {
 
 function registerCall(data, cbk) {
 
-    var str = DOMAIN_KEY ? '?targetDomainKey=' + DOMAIN_KEY : '';
     $.ajax({
-        url: API_BASE_PATH + "/domain/register" + str,
+        url: API_BASE_PATH + "/domain/register",
         type: 'POST',
         contentType: "application/json",
         data: JSON.stringify(data),
