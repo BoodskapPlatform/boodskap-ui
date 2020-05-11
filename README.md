@@ -24,36 +24,27 @@ Once the repository has been cloned:
 In `boodskapui.properties` file,
 ```shell
 #default property
-
 [server]
 port=4201
 
+[env]
+development=false
+
 [boodskap]
-api=https://api.boodskap.io
+api=/api
 cdnPath=https://cdn.jsdelivr.net/gh/BoodskapPlatform/cdn
 
 [mqtt]
-host=gw.boodskap.io
-port=443
-ssl=true
+host=your_host_or_ip
+port=80
+ssl=false
 
 [web]
-domain=https://platform.boodskap.io
-debug=true
-version=2.0.5
-
-[branding]
-logo=/images/boodskap-logo.png
-loginLogo=/images/bdskap-logo.png
-poweredBy=/images/powered-by-boodskap.png
+domain=http://your.domain.name
+debug=false
 
 [google]
 analytics.id=
-
-[fitbit]
-clientId=
-clientSecret=
-callbackUrl=https://platform.boodskap.io/callback/thirdparty/fitbit
 ```
 To change the UI port, update the server property
 
