@@ -2860,6 +2860,35 @@ paths:
           description: "API Error"
           schema: 
             $ref: "#/definitions/ApiError"
+  '/domain/delete/{atoken}/dkey': 
+    delete: 
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      tags:
+        - Delete a Domain
+      summary: Delete a Domain
+      operationId: "deleteDomain"
+      parameters:
+        - name: atoken
+          in: path
+          required: true
+          type: string
+        - name: dkey
+          description: Domain key
+          in: path
+          required: true
+          type: string
+      responses: 
+        "200":
+          description: "Delete requested successfully"
+          schema: 
+            $ref: "#/definitions/Success"
+        "417":
+          description: "API Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
   '/domain/loginas/{email}/{passwd}/{dkey}': 
     get: 
       consumes:
@@ -21040,6 +21069,7 @@ definitions:
           - 'CONTACT'
           - 'INVOICE'
           - 'BILLING_TEMPLATE'
+          - 'SENT_COMMAND'
       query:
         type: string
         description: ElasticSearch Query String
@@ -21135,6 +21165,7 @@ definitions:
           - 'CONTACT'
           - 'INVOICE'
           - 'BILLING_TEMPLATE'
+          - 'SENT_COMMAND'
       templateName:
         type: string
       mergeContent:
