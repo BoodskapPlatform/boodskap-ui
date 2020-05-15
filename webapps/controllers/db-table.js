@@ -100,6 +100,7 @@ function loadDBPool() {
         paging: true,
         aoColumns: fields,
         searching: true,
+        // aaSorting: [[8, 'desc']],
         // aaSorting: sortOrder,
         "ordering": false,
         iDisplayLength: 10,
@@ -113,11 +114,11 @@ function loadDBPool() {
             queryParams.query['bool']['should'] = [];
             delete queryParams.query['bool']["minimum_should_match"];
 
-            var keyName = fields[oSettings.aaSorting[0][0]]
-
-            var sortingJson = {};
-            sortingJson[keyName['mData']] = {"order": oSettings.aaSorting[0][1]};
-            queryParams.sort = [sortingJson];
+            // var keyName = fields[oSettings.aaSorting[0][0]]
+            //
+            // var sortingJson = {};
+            // sortingJson[keyName['mData']] = {"order": oSettings.aaSorting[0][1]};
+            // queryParams.sort = [sortingJson];
 
             queryParams['size'] = oSettings._iDisplayLength;
             queryParams['from'] = oSettings._iDisplayStart;
