@@ -129,6 +129,10 @@ function loadDeviceList() {
             "sAjaxSource": API_BASE_PATH + '/elastic/search/query/' + API_TOKEN,
             "fnServerData": function (sSource, aoData, fnCallback, oSettings) {
 
+                queryParams.query['bool']['must'] = [];
+                queryParams.query['bool']['should'] = [];
+                delete queryParams.query['bool']["minimum_should_match"];
+
                 var keyName = fields[oSettings.aaSorting[0][0]]
 
                 var sortingJson = {};
@@ -141,19 +145,15 @@ function loadDeviceList() {
                 var searchText = oSettings.oPreviousSearch.sSearch;
 
                 if (searchText) {
-                    var searchJson = {
-                        "multi_match": {
-                            "query": '*' + searchText + '*',
-                            "type": "phrase_prefix",
-                            "fields": ['_all']
-                        }
-                    };
 
-                    queryParams.query['bool']['must'] = [domainKeyJson, searchJson];
+                    queryParams.query['bool']['should'].push({"wildcard" : { "id" : "*"+searchText.toLowerCase()+"*" }})
+                    queryParams.query['bool']['should'].push({"wildcard" : { "modelId" : "*"+searchText.toLowerCase()+"*" }})
+                    queryParams.query['bool']['should'].push({"wildcard" : { "version" : "*"+searchText.toLowerCase()+"*" }})
+                    queryParams.query['bool']['should'].push({"wildcard" : { "channel" : "*"+searchText.toLowerCase()+"*" }})
+                    queryParams.query['bool']["minimum_should_match"]=1;
 
-                } else {
-                    queryParams.query['bool']['must'] = [domainKeyJson];
                 }
+                    queryParams.query['bool']['must'] = [domainKeyJson];
 
 
                 var ajaxObj = {

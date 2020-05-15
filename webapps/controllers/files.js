@@ -23,7 +23,8 @@ function loadFiles(flag) {
     var queryParams = {
         query: {
             "bool": {
-                "must": []
+                "must": [],
+                "should" : [],
             }
         },
         from: page_from,
@@ -32,18 +33,14 @@ function loadFiles(flag) {
 
     var domainKeyJson = {"match": {"domainKey": DOMAIN_KEY}};
 
+    delete queryParams.query['bool']["minimum_should_match"];
 
     if (searchText) {
 
-        var searchJson = {
-            "multi_match": {
-                "query": '*' + searchText + '*',
-                "type": "phrase_prefix",
-                "fields": ['_all']
-            }
-        };
-
-        queryParams.query['bool']['must'].push(searchJson);
+        queryParams.query['bool']['should'].push({"wildcard": {"description": "*" + searchText.toLowerCase() + "*"}})
+        queryParams.query['bool']['should'].push({"wildcard": {"mediaType": "*" + searchText.toLowerCase() + "*"}})
+        queryParams.query['bool']['should'].push({"wildcard": {"tags": "*" + searchText.toLowerCase() + "*"}})
+        queryParams.query['bool']["minimum_should_match"] = 1;
 
     }
 
