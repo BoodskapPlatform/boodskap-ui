@@ -250,7 +250,7 @@ function loadDomains() {
             mRender: function (data, type, row) {
                 var str = '<button class="btn btn-xs btn-default" onclick="loginAs(\'' + row['domainKey'] + '\',\'' + row['email'] + '\')">' +
                     '<i class="icon-sign-in"></i> Login</button> <button class="btn btn-xs btn-danger" onclick="deleteDomain(\'' + row['domainKey'] + '\',\'' + row['email'] + '\')">' +
-                '<i class="icon-trash"></i></button>'
+                '<i class="icon-trash-o"></i></button>'
                 return str;
             }
         }
