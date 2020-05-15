@@ -249,7 +249,8 @@ function loadDomains() {
             sTitle: 'Action',
             mRender: function (data, type, row) {
                 var str = '<button class="btn btn-xs btn-default" onclick="loginAs(\'' + row['domainKey'] + '\',\'' + row['email'] + '\')">' +
-                    '<i class="icon-sign-in"></i> Login</button>'
+                    '<i class="icon-sign-in"></i> Login</button> <button class="btn btn-xs btn-danger" onclick="deleteDomain(\'' + row['domainKey'] + '\',\'' + row['email'] + '\')">' +
+                '<i class="icon-trash"></i></button>'
                 return str;
             }
         }
@@ -456,7 +457,6 @@ function dbAccess(dkey, state) {
 
     setDBAccess(dkey, state, function (status, data) {
         if(status){
-
 
             if(data.state){
                 $(".d_"+dkey).html('<span style="color:forestgreen"><i class="icon-check"></i> Already DB Access Granted!</span><br>' +
@@ -724,4 +724,45 @@ function register(){
 
         }
     })
+}
+
+function deleteDomain(dkey) {
+
+
+    swal({
+        title: "Are you sure?",
+        text: "Domain ("+dkey+") will the permanently deleted from the system.",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonClass: "btn-danger",
+        confirmButtonText: "Yes, delete it!",
+        closeOnConfirm: false
+    })
+        .then(function (result) {
+            if (result.value) {
+
+                $.ajax({
+                    url: API_BASE_PATH+'/domain/delete/'+API_TOKEN+'/'+dkey,
+                    contentType: "application/json",
+                    type: 'DELETE',
+                    success: function (result) {
+                        if (result.status) {
+
+                            successMsg("Domain deleted successfully")
+
+                            loadDomains();
+
+                        } else {
+                            errorMsg('Error in deleting domain')
+                        }
+                    },
+                    error: function (e) {
+                        errorMsg('Something went wrong! Please try again later.')
+
+                    }
+                });
+
+            }
+        });
+
 }
