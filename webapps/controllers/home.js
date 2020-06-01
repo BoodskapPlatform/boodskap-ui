@@ -746,7 +746,7 @@ function deleteDomain(dkey) {
                     contentType: "application/json",
                     type: 'DELETE',
                     success: function (result) {
-                        if (result.status) {
+                        if (result && result.code === 'SUCCESS') {
 
                             successMsg("Domain deleted successfully")
 
