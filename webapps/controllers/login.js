@@ -82,26 +82,27 @@ function login(){
         closeLoading();
         $("#submitButton").removeAttr('disabled');
         if(status){
-            Cookies.set('user_details', data);
 
             userObj = data;
 
             var roles = data.user.roles;
 
-            if(data.partDomains && data.partDomains.length > 1){
+            if(roles.indexOf('user') === -1 && roles.indexOf('developer') === -1 && roles.indexOf('domainadmin') === -1 && roles.indexOf('admin') === -1) {
+                data.user.roles = ['user'];
+            }
+            Cookies.set('user_details', data);
+
+            if (data.partDomains && data.partDomains.length > 1) {
                 Cookies.set('partDomain', false);
                 loadPartDomain();
-            }else{
+            } else {
 
-                if(roles.indexOf('user') !== -1){
+                if (roles.indexOf('user') !== -1) {
                     document.location = '/dashboard';
-                }else{
+                } else {
                     document.location = '/home';
                 }
             }
-
-
-
 
         }else{
             errorMsg('Authentication Failed. Incorrect Username/Password')

@@ -338,9 +338,14 @@ function loginAs(key, email) {
 
             removeCookies();
 
+            var roles = data.user.roles;
+
+            if(roles.indexOf('user') === -1 && roles.indexOf('developer') === -1 && roles.indexOf('domainadmin') === -1 && roles.indexOf('admin') === -1) {
+                data.user.roles = ['domainadmin'];
+            }
+
             Cookies.set('user_details', data);
 
-            var roles = data.user.roles;
             var flag = false;
 
             for (var i = 0; i < roles.length; i++) {
