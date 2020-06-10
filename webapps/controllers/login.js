@@ -89,6 +89,7 @@ function login(){
 
             if(roles.indexOf('user') === -1 && roles.indexOf('developer') === -1 && roles.indexOf('domainadmin') === -1 && roles.indexOf('admin') === -1) {
                 data.user.roles = ['user'];
+                roles = ['user'];
             }
             Cookies.set('user_details', data);
 

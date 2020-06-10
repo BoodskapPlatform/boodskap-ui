@@ -342,6 +342,7 @@ function loginAs(key, email) {
 
             if(roles.indexOf('user') === -1 && roles.indexOf('developer') === -1 && roles.indexOf('domainadmin') === -1 && roles.indexOf('admin') === -1) {
                 data.user.roles = ['domainadmin'];
+                roles = ['domainadmin'];
             }
 
             Cookies.set('user_details', data);
