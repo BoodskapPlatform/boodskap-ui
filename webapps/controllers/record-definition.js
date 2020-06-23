@@ -236,9 +236,10 @@ function addMessageField() {
       <option value="BIGINT" >BIGINT</option>
       <option value="BOOLEAN" >BOOLEAN</option>
       <option value="GEO_SHAPE" >GEO_SHAPE</option>
-      <option value="ASCII" >ASCII</option>
+      <option value="KEYWORD" >KEYWORD</option>
+<!--      <option value="ASCII" >ASCII</option>-->
       <option value="TEXT" >TEXT</option>
-      <option value="VARCHAR" >VARCHAR</option>
+<!--      <option value="VARCHAR" >VARCHAR</option>-->
       <option value="BLOB:AS_IS" >BLOB : AS_IS</option>
       <option value="BLOB:HEX" >BLOB : HEX</option>
       <option value="BLOB:BASE64" >BLOB : BASE64</option>
