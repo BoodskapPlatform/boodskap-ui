@@ -235,6 +235,7 @@ function addMessageField() {
       <option value="DOUBLE" >DOUBLE</option>
       <option value="BIGINT" >BIGINT</option>
       <option value="BOOLEAN" >BOOLEAN</option>
+      <option value="GEO_SHAPE" >GEO_SHAPE</option>
       <option value="ASCII" >ASCII</option>
       <option value="TEXT" >TEXT</option>
       <option value="VARCHAR" >VARCHAR</option>
@@ -270,6 +271,15 @@ function addMessageRule() {
             "description": "",
             "name": $("#msg_field_" + i).val()
         }
+        // if($("#msg_datatype_" + i).val() === 'GEO_SHAPE'){
+        //     json['shape'] = {
+        //         "tree": $("#msg_datatype_" + i+"_tree").val(),
+        //         "precision": $("#msg_datatype_" + i+"_precision").val(),
+        //         "distance_error_pct": Number($("#msg_datatype_" + i+"_distance").val()),
+        //         "strategy": $("#msg_datatype_" + i+"_strategy").val(),
+        //         "orientation": $("#msg_datatype_" + i+"_orientation").val()
+        //     }
+        // }
         fields.push(json);
     }
 

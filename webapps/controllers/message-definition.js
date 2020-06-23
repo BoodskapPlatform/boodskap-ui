@@ -251,6 +251,7 @@ function addMessageField() {
       <option value="DOUBLE" >DOUBLE</option>
       <option value="BIGINT" >BIGINT</option>
       <option value="BOOLEAN" >BOOLEAN</option>
+      <option value="GEO_SHAPE" >GEO_SHAPE</option>
       <option value="ASCII" >ASCII</option>
       <option value="TEXT" >TEXT</option>
       <option value="VARCHAR" >VARCHAR</option>
