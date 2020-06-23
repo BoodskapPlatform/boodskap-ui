@@ -2860,10 +2860,8 @@ paths:
           description: "API Error"
           schema: 
             $ref: "#/definitions/ApiError"
-  '/domain/delete/{atoken}/dkey': 
+  '/domain/delete/{atoken}/{dkey}': 
     delete: 
-      consumes:
-        - "application/json"
       produces:
         - "application/json"
       tags:
@@ -2880,6 +2878,11 @@ paths:
           in: path
           required: true
           type: string
+        - name: force
+          description: Forced delete
+          in: query
+          required: false
+          type: boolean
       responses: 
         "200":
           description: "Delete requested successfully"
@@ -20691,6 +20694,40 @@ definitions:
           - DATE
           - TIMESTAMP
           - UUID
+          - KEYWORD
+      format:
+        type: string
+        description: Required if **dataType** is **blob**
+        enum:
+          - AS_IS
+          - JSON
+          - HEX
+          - BASE64
+      label:
+        type: string
+      description:
+        type: string
+  ElasticStorable:
+    type: object
+    discriminator: elasticStorableType
+    properties:
+      dataType:
+        type: string
+        enum:
+          - VARCHAR
+          - TEXT
+          - BOOLEAN
+          - BIGINT
+          - BLOB
+          - DOUBLE
+          - FLOAT
+          - INTEGER
+          - DATE
+          - TIMESTAMP
+          - UUID
+          - KEYWORD
+          - GEO_SHAPE
+          - GEO_POINT
       format:
         type: string
         description: Required if **dataType** is **blob**
@@ -20939,13 +20976,15 @@ definitions:
       - fields
   RecordField:
     allOf:
-    - $ref: '#/definitions/Storable'
+    - $ref: '#/definitions/ElasticStorable'
     - type: object
       required:
        - 'name'
       properties:
         name:
           type: string
+        shape:
+          type: object
   RecordDefinition:
     type: object
     properties:
@@ -23914,3 +23953,4 @@ definitions:
     properties: 
       apiKey: 
         type: "string"
+
