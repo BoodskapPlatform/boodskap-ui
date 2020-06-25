@@ -20727,7 +20727,6 @@ definitions:
           - UUID
           - KEYWORD
           - GEO_SHAPE
-          - GEO_POINT
       format:
         type: string
         description: Required if **dataType** is **blob**
@@ -20912,13 +20911,15 @@ definitions:
           format: int64
   MessageField:
     allOf:
-    - $ref: '#/definitions/Storable'
+    - $ref: '#/definitions/ElasticStorable'
     - type: object
       required:
        - 'name'
       properties:
         name:
           type: string
+        shape:
+          type: object
   MessageSpecification:
     type: object
     properties:
