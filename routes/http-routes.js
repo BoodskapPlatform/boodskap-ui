@@ -271,6 +271,10 @@ Routes.prototype.init = function () {
         res.render('query-console.html',{layout:'',userRole:req.session.role});
     });
 
+    self.app.get('/site-noop', billingModuleCheck, function (req, res) {
+        res.render('site-noop.html',{layout:'',userRole:req.session.role});
+    });
+
 
     //SQL Calls
     self.app.get('/sql-table', onlyAdmin, function (req, res) {
