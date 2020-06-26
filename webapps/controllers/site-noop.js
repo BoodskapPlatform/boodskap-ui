@@ -564,6 +564,7 @@ function updateWebsite() {
         create_ts: obj.create_ts,
         last_update_ts: new Date().getTime()
     }
+    obj.status ? insertObj['status'] = obj.status : '';
 
     for (var i = 0; i < trClasses.length; i++) {
         if (trClasses[i]) {
