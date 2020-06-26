@@ -1967,6 +1967,7 @@ function addMessageField() {
       <option value="BIGINT" >BIGINT</option>
       <option value="BOOLEAN" >BOOLEAN</option>
       <option value="GEO_SHAPE" >GEO_SHAPE</option>
+      <option value="GEO_POINT" >GEO_POINT</option>
       <option value="KEYWORD" >KEYWORD</option>
 <!--      <option value="ASCII" >ASCII</option>-->
       <option value="TEXT" >TEXT</option>
