@@ -20727,6 +20727,7 @@ definitions:
           - UUID
           - KEYWORD
           - GEO_SHAPE
+          - GEO_POINT
       format:
         type: string
         description: Required if **dataType** is **blob**
@@ -23954,4 +23955,3 @@ definitions:
     properties: 
       apiKey: 
         type: "string"
-
