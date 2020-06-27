@@ -48,7 +48,7 @@ function loadPage() {
             mData: 'phones',
             sTitle: 'Phone',
             orderable: false,
-            sWidth: '15%',
+            sWidth: '10%',
             mRender: function (data, type, row) {
                 return data.join(", ")
             }
