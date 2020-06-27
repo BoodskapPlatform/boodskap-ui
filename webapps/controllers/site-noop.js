@@ -24,8 +24,10 @@ function loadPage() {
             mData: 'label',
             sTitle: 'Website',
             orderable: false,
+            sWidth: '20%',
             mRender: function (data, type, row) {
-                return data+'<br><a href="' + row['url'] + '" target="_blank">' + row['url'] + '</a>'
+                return '<b>'+data+'</b><br><a href="' + row['url'] + '" target="_blank">' + row['url'] + '</a><br>' +
+                    '<span class="label label-info">'+row['tags']+'</span> <span><i class="fa fa-clock-o"></i> '+row['tz']+'</span>';
             }
         },
         {
@@ -37,6 +39,7 @@ function loadPage() {
             mData: 'emails',
             sTitle: 'Email',
             orderable: false,
+            sWidth: '20%',
             mRender: function (data, type, row) {
                 return data.join(", ")
             }
@@ -45,6 +48,7 @@ function loadPage() {
             mData: 'phones',
             sTitle: 'Phone',
             orderable: false,
+            sWidth: '15%',
             mRender: function (data, type, row) {
                 return data.join(", ")
             }
@@ -90,7 +94,15 @@ function loadPage() {
                 "must": [],
             }
         },
-        sort: []
+        sort: [],
+        aggs:{
+            tags : {
+                terms : {
+                    field : 'tags',
+                    size: 100
+                }
+            }
+        }
     };
 
     var tableOption = {
@@ -154,6 +166,13 @@ function loadPage() {
                     $(".actionCount").html(resultData.recordsFiltered)
                     resultData['draw'] = oSettings.iDraw;
 
+                    var aggs = QueryFormatter(data).aggregations.tags.buckets;
+                    $("#tags").html('<option value="default">Default</option>');
+
+                    for(var i=0;i<aggs.length;i++){
+                        $("#tags").append('<option value="'+aggs[i].key+'">'+aggs[i].key+'</option>');
+                    }
+
                     fnCallback(resultData);
                 }
             });
@@ -170,6 +189,16 @@ function loadPage() {
 function openModal(type, id) {
     current_site_id = id;
 
+    $("#timezone").html('<option value=""></option>')
+
+    for(var i=0;i<TIMEZONE_LIST.length;i++){
+        $("#timezone").append('<option value="'+TIMEZONE_LIST[i].display+'">'+TIMEZONE_LIST[i].timezone+' ('+TIMEZONE_LIST[i].display+')</option>')
+    }
+
+    $("#tags").select2({
+        tags: true,
+        dropdownParent : $('#websiteModal')
+    });
 
     if (type === 1) {
         renderModalContent('p');
@@ -204,11 +233,14 @@ function openModal(type, id) {
         $("#websiteModal .templateTitle").html('Update');
         $("#websiteModal form").attr('onsubmit','updateWebsite()')
 
+        $("#timezone").val(obj.tz);
+        $("#tags").val(obj.tags).trigger('change');
+
         $("#website_name").val(obj.label);
         $("#website_url").val(obj.url);
         $("#url_method").val(obj.method);
-        $("#basic_username").val(obj.basicAuth.name)
-        $("#basic_password").val(obj.basicAuth.value)
+        $("#basic_user").val(obj.basicAuth.name)
+        $("#basic_pass").val(obj.basicAuth.value)
         $("#bodyParams").val(obj.body)
 
         $("#email_id").val(obj.emails.join(","))
@@ -433,10 +465,12 @@ function addWebsite() {
     var insertObj = {
         "label": $("#website_name").val(),
         "url": $("#website_url").val(),
+        "tags": $("#tags").val(),
+        "tz": $("#timezone").val(),
         "method": $("#url_method").val(),
         "basicAuth": {
-            "name": $("#basic_username").val(),
-            "value": $("#basic_password").val()
+            "name": $("#basic_user").val(),
+            "value": $("#basic_pass").val()
         },
         body: $("#bodyParams").val(),
         "routeParams": [],
@@ -547,9 +581,11 @@ function updateWebsite() {
         "label": $("#website_name").val(),
         "url": $("#website_url").val(),
         "method": $("#url_method").val(),
+        "tags": $("#tags").val(),
+        "tz": $("#timezone").val(),
         "basicAuth": {
-            "name": $("#basic_username").val(),
-            "value": $("#basic_password").val()
+            "name": $("#basic_user").val(),
+            "value": $("#basic_pass").val()
         },
         body: $("#bodyParams").val(),
         "routeParams": [],

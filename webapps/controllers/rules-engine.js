@@ -1034,7 +1034,7 @@ function loadJobDetails(id,obj) {
         '</td></tr>')
     $(".jobFields tbody").append('<tr><td>Job Action</td>' +
         '<td>' +
-        ((obj.jobType === 'SIMPLE' || obj.jobType === 'DISTRIBUTED')  ?
+        ((obj.jobType === 'SCALABLE' || obj.jobType === 'DISTRIBUTED')  ?
             '<input class="" style="width: 50px;border:1px solid #ccc;padding: 2px 5px;" type="number" min="1" value="'+(obj.instances ? obj.instances : 1)+'" id="iCount"> ' : '' )+
         '<button class="btn btn-xs btn-primary mb-2 mt-1" onclick="executeAction(\''+id+'\',\''+'start'+'\')"><i class="fa fa-play"></i> Start</button>'+
         '<button class="btn btn-xs btn-danger" onclick="executeAction(\''+id+'\',\''+'stop'+'\')"><i class="fa fa-stop"></i> Stop <span class="iCount">0</span> Instances</button>'+
@@ -2850,7 +2850,7 @@ function readFileContent(file) {
 function checkJobInstance() {
   var jType = $("#job_type").val();
 
-  if(jType === 'SIMPLE' || jType === 'DISTRIBUTED'){
+  if(jType === 'SCALABLE' || jType === 'DISTRIBUTED'){
       $("#job_instance").removeAttr('disabled')
       $("#job_instance").val(1);
   }else{
