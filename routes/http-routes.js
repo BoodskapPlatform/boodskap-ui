@@ -413,6 +413,9 @@ Routes.prototype.init = function () {
         res.render('public-status.html',{layout:false});
     });
 
+    self.app.get('/configuration',function (req, res) {
+        res.render('configuration.html',{layout:false});
+    });
 
     self.app.get('/404', roleCheck,function (req, res) {
         res.render('404.html',{layout:'',userRole:req.session.role});
