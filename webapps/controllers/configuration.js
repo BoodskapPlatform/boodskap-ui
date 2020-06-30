@@ -1,5 +1,4 @@
-// var CONFIG_BASE_PATH = 'https://platform.boodskap.io/config';
-var CONFIG_BASE_PATH = 'http://localhost:4202/config';
+var CONFIG_BASE_PATH = 'https://platform.boodskap.io/config';
 var uniqueKey = '';
 
 $(document).ready(function () {
