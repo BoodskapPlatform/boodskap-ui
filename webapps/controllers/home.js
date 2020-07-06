@@ -749,7 +749,7 @@ function deleteDomain(dkey) {
             if (result.value) {
 
                 $.ajax({
-                    url: API_BASE_PATH+'/domain/delete/'+API_TOKEN+'/'+dkey,
+                    url: API_BASE_PATH+'/domain/delete/'+API_TOKEN+'/'+dkey+'?force=true',
                     contentType: "application/json",
                     type: 'DELETE',
                     success: function (result) {
