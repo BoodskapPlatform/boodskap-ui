@@ -3,8 +3,7 @@ const PropertiesReader = require('properties-reader');
 const fs = require('fs');
 const replace = require('replace-in-file');
 const lineReplace = require('line-replace')
-
-
+;
 
 var prop=null;
 try {
@@ -20,6 +19,11 @@ catch(e){
 getProperty = (pty) => {
     return prop.get(pty);
 }
+
+var args = process.argv.slice(2);
+var PORT_NO = args[0] ? args[0] : null;
+var BASE_PATH =  args[1] ? args[1] : (getProperty('server.basepath') ? getProperty('server.basepath') : '')
+
 console.log("***************************************" +
     "\nBoodskap IoT Platform\n" +
     "***************************************")
@@ -32,8 +36,9 @@ async.series({
 
         let server_config = {
             web: {
-                port: Number(getProperty('server.port'))
-            }
+                port: PORT_NO ? PORT_NO : Number(getProperty('server.port'))
+            },
+            basepath : BASE_PATH,
         };
 
         let txt = 'module.exports = ' + JSON.stringify(server_config);
@@ -56,6 +61,7 @@ async.series({
 
         let platform_config = {
             web: getProperty('web.domain'),
+            basepath : BASE_PATH,
             api: getProperty('boodskap.api'),
             development : getProperty("env.development"),
             debug : getProperty("web.debug"),

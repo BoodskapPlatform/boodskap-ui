@@ -892,7 +892,7 @@ function loadDeviceGeofenceList() {
 }
 
 function geofenceNavigate(geoCreateType) {
-    document.location = '/geofence-create/' + geoCreateType;
+    document.location = BASE_PATH+'/geofence-create/' + geoCreateType;
 }
 
 function locateGeofence(obj) {

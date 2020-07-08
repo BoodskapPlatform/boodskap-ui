@@ -264,7 +264,7 @@ function formatRow(obj) {
     var addDomain = '';
     if(DOMAIN_KEY === obj.domainKey){
         editButton = `<div class="btn-group btn-group-justified pull-right">
-            <a href="/marketplace/addvertical/`+obj.verticalid+`" class="btn btn-outline-secondary btn-xs" title="Edit Vertical"><i class="icon-edit2"></i> Edit</a>
+            <a href="<%= basepath %>/marketplace/addvertical/`+obj.verticalid+`" class="btn btn-outline-secondary btn-xs" title="Edit Vertical"><i class="icon-edit2"></i> Edit</a>
         <button class="btn btn-outline-danger btn-xs" title="Delete Vertical" onclick="deleteModal('`+obj._id+`','`+obj.verticalname+`')">
         <i class="icon-trash4"></i> Delete</button>
         </div>`;

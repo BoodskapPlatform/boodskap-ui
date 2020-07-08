@@ -1,7 +1,8 @@
 
-var Routes = function (app) {
+var Routes = function (app,router) {
 
     this.app = app;
+    this.router = router;
     this.init();
 
 
@@ -16,11 +17,15 @@ Routes.prototype.init = function () {
 
     var self = this;
 
+    var getBasePath = function (req) {
+        return req.protocol+"://"+req.headers.host+""+self.app.conf.basepath
+    }
+
     var roleCheck = function (req, res, next) {
         var userObj = req.cookies['user_details'];
         var partDomain = req.cookies['partDomain'];
         if(partDomain && partDomain === 'false'){
-            res.redirect('/login');
+            res.redirect(self.app.conf.basepath+'/login');
         }else {
             if (userObj) {
                 var role = JSON.parse(userObj).user.roles;
@@ -55,7 +60,7 @@ Routes.prototype.init = function () {
                     }
                 }
             } else {
-                res.redirect('/login');
+                res.redirect(self.app.conf.basepath+'/login');
             }
         }
     };
@@ -73,7 +78,7 @@ Routes.prototype.init = function () {
                 res.sendStatus(401)
             }
         }else{
-            res.redirect('/login');
+            res.redirect(self.app.conf.basepath+'/login');
         }
     };
 
@@ -90,7 +95,7 @@ Routes.prototype.init = function () {
                 res.sendStatus(401)
             }
         }else{
-            res.redirect('/login');
+            res.redirect(getBasePath(req)+'/login');
         }
     };
 
@@ -104,7 +109,7 @@ Routes.prototype.init = function () {
                 res.sendStatus(401)
             }
         }else{
-            res.redirect('/404');
+            res.redirect(self.app.conf.basepath+'/404');
         }
     };
 
@@ -118,43 +123,43 @@ Routes.prototype.init = function () {
                 res.sendStatus(401)
             }
         }else{
-            res.redirect('/404');
+            res.redirect(self.app.conf.basepath+'/404');
         }
     };
 
-    self.app.get('/', function (req, res) {
+    self.router.get('/', function (req, res) {
         var userObj = req.cookies['user_details'];
         if(userObj) {
             var role = JSON.parse(userObj).user.roles;
             req.session.userObj = JSON.parse(userObj);
 
             if (role.indexOf('user') !== -1) {
-                res.redirect('/dashboard');
+                res.redirect(self.app.conf.basepath+'/dashboard');
             } else {
-                res.redirect('/home');
+                res.redirect(self.app.conf.basepath+'/home');
             }
 
         }else{
-            res.render('login.html',{layout:false});
+            res.render('login.html',{layout:false,basepath: getBasePath(req),});
         }
     });
 
-    self.app.get('/login', function (req, res) {
+    self.router.get('/login', function (req, res) {
         var userObj = req.cookies['user_details'];
         if(userObj) {
             var role = JSON.parse(userObj).user.roles;
             req.session.userObj = JSON.parse(userObj);
 
             if (role.indexOf('user') !== -1) {
-                res.redirect('/dashboard');
+                res.redirect(self.app.conf.basepath+'/dashboard');
             } else {
-                res.redirect('/home');
+                res.redirect(self.app.conf.basepath+'/home');
             }
         }else{
-            res.render('login.html', {layout: false});
+            res.render('login.html', {layout:false,basepath: getBasePath(req),});
         }
     });
-    // self.app.get('/register', function (req, res) {
+    // self.router.get('/register', function (req, res) {
     //     var userObj = req.cookies['user_details'];
     //     if(userObj) {
     //         var role = JSON.parse(userObj).user.roles;
@@ -166,272 +171,273 @@ Routes.prototype.init = function () {
     //             res.redirect('/home');
     //         }
     //     }else{
-    //         res.render('register.html', {layout: false});
+    //         res.render('register.html', {layout:false,basepath: getBasePath(req),});
     //     }
     // });
-    self.app.get('/profile', roleCheck,function (req, res) {
-        res.render('profile.html',{layout:'',userRole:req.session.role, response : ''});
+    self.router.get('/profile', roleCheck,function (req, res) {
+        res.render('profile.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, response : ''});
     });
-    self.app.get('/domain', roleCheck, function (req, res) {
-        res.render('domain.html',{layout:'',userRole:req.session.role});
+    self.router.get('/domain', roleCheck, function (req, res) {
+        res.render('domain.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
     });
-    self.app.get('/home', roleCheck, function (req, res) {
-        res.render('home.html',{layout:'',userRole:req.session.role});
+    self.router.get('/home', roleCheck, function (req, res) {
+        res.render('home.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
     });
-    self.app.get('/dashboard', roleCheck,function (req, res) {
-        res.render('dashboard.html',{layout:'',userRole:req.session.role});
-    });
-
-    self.app.get('/userevents', roleCheck, function (req, res) {
-        res.render('userevents.html',{layout:'',userRole:req.session.role});
-    });
-    self.app.get('/dashboard/:id', roleCheck,function (req, res) {
-        res.render('singledashboard.html',{layout:'',dashboardId:req.params.id, domainkey:'',token:'', public:false,userRole:req.session.role});
-    });
-    self.app.get('/linkeddomain', roleCheck,function (req, res) {
-        res.render('singledashboard.html',{layout:'',dashboardId:'',domainkey:'',token:'', public:false,userRole:req.session.role});
-    });
-    self.app.get('/dashboard/:id/preview', roleCheck,function (req, res) {
-        res.render('singledashboard.html',{layout:'',dashboardId:req.params.id, domainkey:'',token:'', public:false,userRole:req.session.role});
-    });
-    self.app.get('/public/dashboard/:domainkey/:token',function (req, res) {
-        res.render('singledashboard.html',{layout:'',dashboardId:'', domainkey:req.params.domainkey, token: req.params.token, public:true,userRole:req.session.role});
-    });
-    self.app.get('/public/widget/:domainkey/:token',function (req, res) {
-        res.render('singlewidget.html',{layout:'',dashboardId:'', domainkey:req.params.domainkey, token: req.params.token, public:true,userRole:req.session.role});
-    });
-    self.app.get('/dashboard-editor', roleCheck,function (req, res) {
-        res.render('dashboard-editor.html',{layout:'',userRole:req.session.role});
-    });
-    self.app.get('/message-definition', roleCheck, function (req, res) {
-        res.render('message-definition.html',{layout:'',userRole:req.session.role});
-    });
-    self.app.get('/record-definition', roleCheck, function (req, res) {
-        res.render('record-definition.html',{layout:'',userRole:req.session.role});
-    });
-    self.app.get('/rules-engine', roleCheck, function (req, res) {
-        res.render('rules-engine.html',{layout:'',userRole:req.session.role});
-    });
-    self.app.get('/script-console', roleCheck, function (req, res) {
-        res.render('script-console.html',{layout:'',userRole:req.session.role});
-    });
-    self.app.get('/machine-learning', roleCheck, function (req, res) {
-        res.render('machine-learning.html',{layout:'',userRole:req.session.role});
-    });
-    self.app.get('/machine-learning', roleCheck, function (req, res) {
-        res.render('machine-learning.html',{layout:'',userRole:req.session.role});
-    });
-    self.app.get('/face-recognition', roleCheck, function (req, res) {
-        res.render('face-recognition.html',{layout:'',userRole:req.session.role});
-    });
-    self.app.get('/block-chain', roleCheck, function (req, res) {
-        res.render('block-chain.html',{layout:'',userRole:req.session.role});
-    });
-    self.app.get('/templates', roleCheck, function (req, res) {
-        res.render('templates.html',{layout:'',userRole:req.session.role});
-    });
-    self.app.get('/events', roleCheck, function (req, res) {
-        res.render('events.html',{layout:'',userRole:req.session.role});
-    });
-    self.app.get('/geofence', roleCheck, function (req, res) {
-        res.render('geofence.html',{layout:'',userRole:req.session.role});
-    });
-    self.app.get('/geofence/create', roleCheck, function (req, res) {
-        res.render('geofence-create.html',{layout:'',userRole:req.session.role});
-    });
-    self.app.get('/mobile-platform', roleCheck, function (req, res) {
-        res.render('mobile-platform.html',{layout:'',userRole:req.session.role});
-    });
-    self.app.get('/device-management', roleCheck, function (req, res) {
-        res.render('device-management.html',{layout:'',userRole:req.session.role});
-    });
-    self.app.get('/device-models', roleCheck, function (req, res) {
-        res.render('device-models.html',{layout:'',userRole:req.session.role});
-    });
-    self.app.get('/sim-provisioning', roleCheck, function (req, res) {
-        res.render('sim-provisioning.html',{layout:'',userRole:req.session.role});
+    self.router.get('/dashboard', roleCheck,function (req, res) {
+        res.render('dashboard.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
     });
 
-    self.app.get('/asset-management', roleCheck, function (req, res) {
-        res.render('asset-management.html',{layout:'',userRole:req.session.role});
+    self.router.get('/userevents', roleCheck, function (req, res) {
+        res.render('userevents.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
     });
-    self.app.get('/firmware-management', roleCheck, function (req, res) {
-        res.render('firmware-management.html',{layout:'',userRole:req.session.role});
+    self.router.get('/dashboard/:id', roleCheck,function (req, res) {
+        res.render('singledashboard.html',{layout:'',basepath: getBasePath(req), dashboardId:req.params.id, domainkey:'',token:'', public:false,userRole:req.session.role});
     });
-    self.app.get('/user-management', roleCheck, function (req, res) {
-        res.render('user-management.html',{layout:'',userRole:req.session.role});
+    self.router.get('/linkeddomain', roleCheck,function (req, res) {
+        res.render('singledashboard.html',{layout:'',basepath: getBasePath(req), dashboardId:'',domainkey:'',token:'', public:false,userRole:req.session.role});
     });
-    self.app.get('/user-group', roleCheck, function (req, res) {
-        res.render('user-group.html',{layout:'',userRole:req.session.role});
+    self.router.get('/dashboard/:id/preview', roleCheck,function (req, res) {
+        res.render('singledashboard.html',{layout:'',basepath: getBasePath(req), dashboardId:req.params.id, domainkey:'',token:'', public:false,userRole:req.session.role});
     });
-    self.app.get('/log-console', onlyAdmin, function (req, res) {
-        res.render('log-console.html',{layout:'',userRole:req.session.role});
+    self.router.get('/public/dashboard/:domainkey/:token',function (req, res) {
+        res.render('singledashboard.html',{layout:'',basepath: getBasePath(req), dashboardId:'', domainkey:req.params.domainkey, token: req.params.token, public:true,userRole:req.session.role});
     });
-    self.app.get('/query-console', onlyAdmin, function (req, res) {
-        res.render('query-console.html',{layout:'',userRole:req.session.role});
+    self.router.get('/public/widget/:domainkey/:token',function (req, res) {
+        res.render('singlewidget.html',{layout:'',basepath: getBasePath(req), dashboardId:'', domainkey:req.params.domainkey, token: req.params.token, public:true,userRole:req.session.role});
+    });
+    self.router.get('/dashboard-editor', roleCheck,function (req, res) {
+        res.render('dashboard-editor.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+    });
+    self.router.get('/message-definition', roleCheck, function (req, res) {
+        res.render('message-definition.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+    });
+    self.router.get('/record-definition', roleCheck, function (req, res) {
+        res.render('record-definition.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+    });
+    self.router.get('/rules-engine', roleCheck, function (req, res) {
+        res.render('rules-engine.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+    });
+    self.router.get('/script-console', roleCheck, function (req, res) {
+        res.render('script-console.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+    });
+    self.router.get('/machine-learning', roleCheck, function (req, res) {
+        res.render('machine-learning.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+    });
+    self.router.get('/machine-learning', roleCheck, function (req, res) {
+        res.render('machine-learning.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+    });
+    self.router.get('/face-recognition', roleCheck, function (req, res) {
+        res.render('face-recognition.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+    });
+    self.router.get('/block-chain', roleCheck, function (req, res) {
+        res.render('block-chain.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+    });
+    self.router.get('/templates', roleCheck, function (req, res) {
+        res.render('templates.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+    });
+    self.router.get('/events', roleCheck, function (req, res) {
+        res.render('events.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+    });
+    self.router.get('/geofence', roleCheck, function (req, res) {
+        res.render('geofence.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+    });
+    self.router.get('/geofence/create', roleCheck, function (req, res) {
+        res.render('geofence-create.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+    });
+    self.router.get('/mobile-platform', roleCheck, function (req, res) {
+        res.render('mobile-platform.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+    });
+    self.router.get('/device-management', roleCheck, function (req, res) {
+        res.render('device-management.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+    });
+    self.router.get('/device-models', roleCheck, function (req, res) {
+        res.render('device-models.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+    });
+    self.router.get('/sim-provisioning', roleCheck, function (req, res) {
+        res.render('sim-provisioning.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
     });
 
-    self.app.get('/site-noop', billingModuleCheck, function (req, res) {
-        res.render('site-noop.html',{layout:'',userRole:req.session.role});
+    self.router.get('/asset-management', roleCheck, function (req, res) {
+        res.render('asset-management.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+    });
+    self.router.get('/firmware-management', roleCheck, function (req, res) {
+        res.render('firmware-management.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+    });
+    self.router.get('/user-management', roleCheck, function (req, res) {
+        res.render('user-management.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+    });
+    self.router.get('/user-group', roleCheck, function (req, res) {
+        res.render('user-group.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+    });
+    self.router.get('/log-console', onlyAdmin, function (req, res) {
+        res.render('log-console.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+    });
+    self.router.get('/query-console', onlyAdmin, function (req, res) {
+        res.render('query-console.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+    });
+
+    self.router.get('/site-noop', billingModuleCheck, function (req, res) {
+        res.render('site-noop.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
     });
 
 
     //SQL Calls
-    self.app.get('/sql-table', onlyAdmin, function (req, res) {
+    self.router.get('/sql-table', onlyAdmin, function (req, res) {
         sqlCheck(req, res, function () {
-            res.render('sql-table.html',{layout:'',userRole:req.session.role});
+            res.render('sql-table.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
         })
 
     });
 
-    self.app.get('/sql-templates', roleCheck, function (req, res) {
+    self.router.get('/sql-templates', roleCheck, function (req, res) {
         sqlCheck(req, res, function () {
-            res.render('sql-templates.html', {layout: '', userRole: req.session.role});
+            res.render('sql-templates.html', {layout:'',basepath: getBasePath(req), userRole: req.session.role});
         });
     });
 
-    self.app.get('/sql-query-console', onlyAdmin, function (req, res) {
+    self.router.get('/sql-query-console', onlyAdmin, function (req, res) {
         sqlCheck(req, res, function () {
-            res.render('sql-query-console.html',{layout:'',userRole:req.session.role});
+            res.render('sql-query-console.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
         })
 
     });
 
 
     //DB Calls
-    self.app.get('/db-table', onlyAdmin, function (req, res) {
+    self.router.get('/db-table', onlyAdmin, function (req, res) {
         dbCheck(req, res, function () {
-            res.render('db-table.html',{layout:'',userRole:req.session.role});
+            res.render('db-table.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
         })
 
     });
 
-    self.app.get('/db-templates', roleCheck, function (req, res) {
+    self.router.get('/db-templates', roleCheck, function (req, res) {
         dbCheck(req, res, function () {
-            res.render('db-templates.html', {layout: '', userRole: req.session.role});
+            res.render('db-templates.html', {layout:'',basepath: getBasePath(req), userRole: req.session.role});
         });
     });
 
-    self.app.get('/db-query-console', onlyAdmin, function (req, res) {
+    self.router.get('/db-query-console', onlyAdmin, function (req, res) {
         dbCheck(req, res, function () {
-            res.render('db-query-console.html',{layout:'',userRole:req.session.role});
+            res.render('db-query-console.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
         })
 
     });
 
 
-    self.app.get('/messages', roleCheck, function (req, res) {
-        res.render('messages.html',{layout:'',userRole:req.session.role});
+    self.router.get('/messages', roleCheck, function (req, res) {
+        res.render('messages.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
     });
 
-    self.app.get('/domain-audit', roleCheck, function (req, res) {
-        res.render('domain-audit.html',{layout:'',userRole:req.session.role});
+    self.router.get('/domain-audit', roleCheck, function (req, res) {
+        res.render('domain-audit.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
     });
-    self.app.get('/event-logs', roleCheck, function (req, res) {
-        res.render('event-logs.html',{layout:'',userRole:req.session.role});
-    });
-
-    self.app.get('/firmware/ota-upgrade', roleCheck, function (req, res) {
-        res.render('ota-upgrade.html',{layout:'',userRole:req.session.role});
+    self.router.get('/event-logs', roleCheck, function (req, res) {
+        res.render('event-logs.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
     });
 
-
-    self.app.get('/marketplace', roleCheck, function (req, res) {
-        res.render('marketplace.html',{layout:'',userRole:req.session.role});
-    });
-    self.app.get('/marketplace/widgets', roleCheck, function (req, res) {
-        res.render('widgets.html',{layout:'', query:req.query,userRole:req.session.role});
-    });
-    self.app.get('/marketplace/addwidget', roleCheck, function (req, res) {
-        res.render('addwidget.html',{layout:'', widgetId:'',userRole:req.session.role});
-    });
-    self.app.get('/marketplace/addwidget/:id', roleCheck, function (req, res) {
-        res.render('addwidget.html',{layout:'', widgetId:req.params.id,userRole:req.session.role});
+    self.router.get('/firmware/ota-upgrade', roleCheck, function (req, res) {
+        res.render('ota-upgrade.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
     });
 
-    self.app.get('/marketplace/verticals', roleCheck, function (req, res) {
-        res.render('verticals.html',{layout:'', query:req.query,userRole:req.session.role});
+
+    self.router.get('/marketplace', roleCheck, function (req, res) {
+        res.render('marketplace.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
     });
-    self.app.get('/marketplace/addvertical', roleCheck, function (req, res) {
-        res.render('addvertical.html',{layout:'',verticalId:'', userRole:req.session.role});
+    self.router.get('/marketplace/widgets', roleCheck, function (req, res) {
+        res.render('widgets.html',{layout:'',basepath: getBasePath(req),  query:req.query,userRole:req.session.role});
     });
-    self.app.get('/marketplace/addvertical/:id', roleCheck, function (req, res) {
-        res.render('addvertical.html',{layout:'', verticalId:req.params.id,userRole:req.session.role});
+    self.router.get('/marketplace/addwidget', roleCheck, function (req, res) {
+        res.render('addwidget.html',{layout:'',basepath: getBasePath(req),  widgetId:'',userRole:req.session.role});
+    });
+    self.router.get('/marketplace/addwidget/:id', roleCheck, function (req, res) {
+        res.render('addwidget.html',{layout:'',basepath: getBasePath(req),  widgetId:req.params.id,userRole:req.session.role});
     });
 
-    /*self.app.get('/simulator', onlyAdmin, function (req, res) {
-        res.render('simulator.html',{layout:'',userRole:req.session.role});
+    self.router.get('/marketplace/verticals', roleCheck, function (req, res) {
+        res.render('verticals.html',{layout:'',basepath: getBasePath(req),  query:req.query,userRole:req.session.role});
+    });
+    self.router.get('/marketplace/addvertical', roleCheck, function (req, res) {
+        res.render('addvertical.html',{layout:'',basepath: getBasePath(req), verticalId:'', userRole:req.session.role});
+    });
+    self.router.get('/marketplace/addvertical/:id', roleCheck, function (req, res) {
+        res.render('addvertical.html',{layout:'',basepath: getBasePath(req),  verticalId:req.params.id,userRole:req.session.role});
+    });
+
+    /*self.router.get('/simulator', onlyAdmin, function (req, res) {
+        res.render('simulator.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
     });*/
-    self.app.get('/files', roleCheck, function (req, res) {
-        res.render('files.html',{layout:'',userRole:req.session.role});
+    self.router.get('/files', roleCheck, function (req, res) {
+        res.render('files.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
     });
 
-    self.app.get('/documentation', roleCheck, function (req, res) {
-        res.render('api-docs.html',{layout:'',userRole:req.session.role});
+    self.router.get('/documentation', roleCheck, function (req, res) {
+        res.render('api-docs.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
     });
 
-    self.app.get('/alexa', roleCheck, function (req, res) {
-        res.render('alexa.html',{layout:'',userRole:req.session.role});
+    self.router.get('/alexa', roleCheck, function (req, res) {
+        res.render('alexa.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
     });
 
-    self.app.get('/code-editor', roleCheck, function (req, res) {
-        res.render('code-editor.html',{layout:'',userRole:req.session.role});
+    self.router.get('/code-editor', roleCheck, function (req, res) {
+        res.render('code-editor.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
     });
 
 
-    self.app.get('/mobileapp', roleCheck, function (req, res) {
+    self.router.get('/mobileapp', roleCheck, function (req, res) {
         res.render('navigator.html',{layout:self.mobileLayout, userObj : req.session.userObj, domainkey:req.params.domainkey, token: req.params.token, public:true,userRole:req.session.role});
     });
 
     // Publish as website
-    self.app.get('/publish/:domainkey/:token',function (req, res) {
-        res.render('publicdashboard.html',{layout:'',dashboardId:'', domainkey:req.params.domainkey, token: req.params.token, public:true,userRole:req.session.role});
+    self.router.get('/publish/:domainkey/:token',function (req, res) {
+        res.render('publicdashboard.html',{layout:'',basepath: getBasePath(req), dashboardId:'', domainkey:req.params.domainkey, token: req.params.token, public:true,userRole:req.session.role});
     });
 
 
-    self.app.get('/callback/thirdparty/:id', function (req, res) {
-        res.render('profile.html',{layout:'',userRole:'', response : {type: req.params['id']}});
+    self.router.get('/callback/thirdparty/:id', function (req, res) {
+        res.render('profile.html',{layout:'',basepath: getBasePath(req), userRole:'', response : {type: req.params['id']}});
     });
 
 
     //Plugins
-    self.app.get('/plugin-management', roleCheck,function (req, res) {
-        res.render('plugins.html',{layout:'',userRole:req.session.role});
+    self.router.get('/plugin-management', roleCheck,function (req, res) {
+        res.render('plugins.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
     });
 
 
     //Billing
-    self.app.get('/manage-billing', billingModuleCheck, function (req, res) {
-        res.render('billing-management.html',{layout:'',userRole:req.session.role});
+    self.router.get('/manage-billing', billingModuleCheck, function (req, res) {
+        res.render('billing-management.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
     });
-    self.app.get('/invoice', roleCheck, function (req, res) {
-        res.render('invoice.html',{layout:'',userRole:req.session.role});
-    });
-
-
-    self.app.get('/status',function (req, res) {
-        res.render('public-status.html',{layout:false});
+    self.router.get('/invoice', roleCheck, function (req, res) {
+        res.render('invoice.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
     });
 
-    self.app.get('/configuration',function (req, res) {
-        res.render('configuration.html',{layout:false});
+
+    self.router.get('/status',function (req, res) {
+        res.render('public-status.html',{layout:false,basepath: getBasePath(req),});
     });
 
-    self.app.get('/404', roleCheck,function (req, res) {
-        res.render('404.html',{layout:'',userRole:req.session.role});
+    self.router.get('/configuration',function (req, res) {
+        res.render('configuration.html',{layout:false,basepath: getBasePath(req) });
     });
 
-    self.app.get('/:key', function (req, res) {
+    self.router.get('/404', roleCheck,function (req, res) {
+        res.render('404.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+    });
+
+    self.router.get('/:key', function (req, res) {
         var userObj = req.cookies['user_details'];
         if(!userObj) {
-            res.render('login.html',{layout:false});
+            res.render('login.html',{layout:false,basepath: getBasePath(req) });
 
         }else{
-            res.redirect("/404");
+            res.redirect(self.app.conf.basepath+"/404");
         }
 
     });
 
+    self.app.use(self.app.conf.basepath,self.router);
 
 
 };

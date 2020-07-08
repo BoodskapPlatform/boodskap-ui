@@ -49,14 +49,14 @@
 
     <link href="images/favicon.ico" rel="icon">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
-    <link href="/css/jquery-ui.min.css" rel="stylesheet" />
-    <link href="/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="/css/animate.min.css" rel="stylesheet" />
-    <link href="/css/style.min.css" rel="stylesheet" />
-    <link href="/css/style-responsive.min.css" rel="stylesheet" />
-    <link href="/css/default.css" rel="stylesheet" id="theme" />
-    <link href="/css/fontawesome-all.min.css" rel="stylesheet"  />
-    <script src="/libraries/pace.min.js"></script>
+    <link href="css/jquery-ui.min.css" rel="stylesheet" />
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/animate.min.css" rel="stylesheet" />
+    <link href="css/style.min.css" rel="stylesheet" />
+    <link href="css/style-responsive.min.css" rel="stylesheet" />
+    <link href="css/default.css" rel="stylesheet" id="theme" />
+    <link href="css/fontawesome-all.min.css" rel="stylesheet"  />
+    <script src="libraries/pace.min.js"></script>
 </head>
 <body class="pace-top bg-white">
 <div id="page-loader" class="fade show"><span class="spinner"></span></div>
@@ -83,7 +83,7 @@
 
             <div class="login-header" style="text-align: center">
                 <div class="brand">
-                    <a href="/login"><img src="" class="loginLogo" style="width: 175px" /></a>
+                    <a href="<%= basepath %>/login"><img src="" class="loginLogo" style="width: 175px" /></a>
                 </div>
             </div>
             <div class="login-content"  style="">
@@ -117,7 +117,7 @@
                         <button type="submit" class="btn btn-warning btn-block btn-lg" id="submitButton">Register</button>
                     </div>
                     <div class="m-t-20 m-b-40 p-b-40 text-inverse">
-                        Already a member? Click <a href="/login" class="text-warning loginHref textColor">here</a> to login.
+                        Already a member? Click <a href="<%= basepath %>/login" class="text-warning loginHref textColor">here</a> to login.
                     </div>
                     <hr />
                     <p class="text-center text-grey-darker" style="margin-bottom: 20px;">
@@ -136,25 +136,25 @@
 <div id="snackbar"></div>
 <% include cookies.html %>
 
-<script src="/libraries/jquery-3.2.1.min.js"></script>
-<script src="/libraries/jquery-ui.min.js"></script>
-<script src="/libraries/bootstrap.bundle.min.js"></script>
-<script src="/libraries/html5shiv.js"></script>
-<script src="/libraries/respond.min.js"></script>
-<script src="/libraries/excanvas.min.js"></script>
-<script src="/libraries/jquery.slimscroll.min.js"></script>
-<script src="/libraries/js.cookie.js"></script>
-<script src="/libraries/default.min.js"></script>
-<script src="/libraries/apps.min.js"></script>
-<script src="/js/moment.js"></script>
+<script src="libraries/jquery-3.2.1.min.js"></script>
+<script src="libraries/jquery-ui.min.js"></script>
+<script src="libraries/bootstrap.bundle.min.js"></script>
+<script src="libraries/html5shiv.js"></script>
+<script src="libraries/respond.min.js"></script>
+<script src="libraries/excanvas.min.js"></script>
+<script src="libraries/jquery.slimscroll.min.js"></script>
+<script src="libraries/js.cookie.js"></script>
+<script src="libraries/default.min.js"></script>
+<script src="libraries/apps.min.js"></script>
+<script src="js/moment.js"></script>
 
-<script src="/platform-config.js"></script>
-<script src="/controllers/const-varibales.js"></script>
-<script src="/controllers/utils.js"></script>
-<script src="/controllers/api-calls.js"></script>
-<script src="/controllers/custom-login.js"></script>
+<script src="platform-config.js"></script>
+<script src="controllers/const-variables.js"></script>
+<script src="controllers/utils.js"></script>
+<script src="controllers/api-calls.js"></script>
+<script src="controllers/custom-login.js"></script>
 
-<script src="/controllers/login.js"></script>
+<script src="controllers/login.js"></script>
 <script>
     $(document).ready(function() {
         App.init();

@@ -1,12 +1,12 @@
 $(document).ready(function () {
 
-    DOMAIN_KEY = window.location.pathname.replace("/", '');
+    DOMAIN_KEY = window.location.pathname.replace(BASE_PATH+"/", '');
 
     if (DOMAIN_KEY === 'register') {
         if (Cookies.get('domain')) {
             DOMAIN_KEY = Cookies.get('domain');
             $(".loginCustom").html('');
-            $(".loginHref").attr('href','/'+Cookies.get('domain'));
+            $(".loginHref").attr('href',BASE_PATH+'/'+Cookies.get('domain'));
             $(".loginCustom").css('display', 'block');
             $(".poweredBy").html('<img src="' + DEFAULT_POWERED_BY + '" style="height: 25px" />');
             getLoginProp();
@@ -15,7 +15,7 @@ $(document).ready(function () {
             $(".titleName").html(DEFAULT_LOGIN_THEME.titleName)
             $(".sloganText").html(DEFAULT_LOGIN_THEME.sloganText)
             $(".loginCustom").css('display', 'block');
-            $(".loginHref").attr('href','/login');
+            $(".loginHref").attr('href',BASE_PATH+'/login');
             $(".loginLogo").attr('src', DEFAULT_LOGIN_LOGO_PATH);
             $(".poweredBy").html('Powered by Boodskap Inc.,');
         }

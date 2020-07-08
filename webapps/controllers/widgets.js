@@ -256,7 +256,7 @@ function formatRow(obj) {
 
     if(DOMAIN_KEY === obj.domainKey){
         editButton = `<div class="btn-group btn-group-justified pull-right">
-            <a  href="/marketplace/addwidget/` + obj.widgetid + `" class="btn btn-outline-secondary btn-xs" title="Edit Widget"><i class="icon-edit2"></i> Edit</a>
+            <a  href="<%= basepath %>/marketplace/addwidget/` + obj.widgetid + `" class="btn btn-outline-secondary btn-xs" title="Edit Widget"><i class="icon-edit2"></i> Edit</a>
         <button class="btn btn-outline-danger btn-xs" title="Delete Widget" onclick="deleteModal('`+obj._id+`','`+obj.widgetname+`')">
         <i class="icon-trash4"></i> Delete</button>
         </div>`;
@@ -442,7 +442,7 @@ function renderWidget(obj) {
     var editButton = '';
     var addDomain = '';
     if (DOMAIN_KEY === obj.domainKey) {
-        editButton = '<a class="btn btn-outline-dark btn-block" href="/marketplace/addwidget/' + obj._id + '"><i class="icon-edit2"></i>Edit Widget</a>' +
+        editButton = '<a class="btn btn-outline-dark btn-block" href="<%= basepath %>/marketplace/addwidget/' + obj._id + '"><i class="icon-edit2"></i>Edit Widget</a>' +
             '<a class="btn btn-outline-danger btn-block" href="javascript:void(0)" onclick="deleteModal(\'' + obj._id + '\',\'' + obj.widgetname + '\')"><i class="icon-trash4"></i>Delete Widget</a>';
     } else {
         addDomain = '<button class="btn btn-outline-dark btn-block" onclick="importModal(\'' + obj._id + '\',\'' + obj.widgetname + '\')"><i class="icon-plus"></i> Add To Domain</button>';

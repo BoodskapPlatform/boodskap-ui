@@ -1,5 +1,5 @@
 <!-- Google Map Library -->
-<link href="/css/geofence.css" rel="stylesheet"  />
+<link href="css/geofence.css" rel="stylesheet"  />
 
 <div class="container mt-3 msgDef platformBody">
 
@@ -8,7 +8,7 @@
 
             <!-- begin breadcrumb -->
             <ol class="breadcrumb pull-right">
-                <li class="breadcrumb-item"><a href="/dashboard">Domain</a></li>
+                <li class="breadcrumb-item"><a href="<%= basepath %>/dashboard">Domain</a></li>
                 <li class="breadcrumb-item active">Geofence Management</li>
             </ol>
             <!-- end breadcrumb -->
@@ -108,7 +108,7 @@
             </div>-->
 
 
-            <!--<a class="btn map-btn" href="/geofence-create"><i class="fa fa-plus"></i> Create Geofence</a>-->
+            <!--<a class="btn map-btn" href="<%= basepath %>/geofence-create"><i class="fa fa-plus"></i> Create Geofence</a>-->
         </div>
 
         <div class="col-lg-7" style="">
@@ -119,7 +119,7 @@
                         <!--<a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>-->
                         <!--<a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-success" data-click="panel-reload" onclick="loadGeofenceList()"><i class="fa fa-redo"></i></a>-->
                         <!--<a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-warning" title="Help"><i class="icon-help"></i></a>-->
-                        <a class="btn btn-warning btn-xs " href="/geofence/create"><i class="fa fa-plus-square"></i> <span class="hidden-xs">Create Geofence</span></a>
+                        <a class="btn btn-warning btn-xs " href="<%= basepath %>/geofence/create"><i class="fa fa-plus-square"></i> <span class="hidden-xs">Create Geofence</span></a>
 
 
                     </div>
@@ -162,5 +162,5 @@
     </div>
 </div>
 
-<script src="/js/markerclusterer.js"></script>
-<script src="/controllers/geofence.js"></script>
+<script src="js/markerclusterer.js"></script>
+<script src="controllers/geofence.js"></script>

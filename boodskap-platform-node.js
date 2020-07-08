@@ -9,6 +9,7 @@ var app = express();
 var cookieParser = require('cookie-parser')
 var session = require('cookie-session');
 var compression = require('compression')
+var router = express.Router()
 
 
 /*******************************
@@ -56,6 +57,14 @@ app.use('/webfonts', express.static(__dirname + '/webapps/webfonts', options));
 app.use('/controllers', express.static(__dirname + '/webapps/controllers', controllerOptions));
 app.use(express.static(__dirname + '/webapps', controllerOptions));
 
+//static url slugs
+app.use(conf.basepath,express.static(__dirname + '/webapps', controllerOptions));
+app.use(conf.basepath+'/:a',express.static(__dirname + '/webapps', controllerOptions));
+app.use(conf.basepath+'/:a/:b',express.static(__dirname + '/webapps', controllerOptions));
+app.use(conf.basepath+'/:a/:b/:c',express.static(__dirname + '/webapps', controllerOptions));
+app.use(conf.basepath+'/:a/:b/:c/:d',express.static(__dirname + '/webapps', controllerOptions));
+
+app.set('base', conf.basepath);
 
 app.use(layout());
 
@@ -80,10 +89,10 @@ var options = {
 
 };
 const swaggerDocument = YAML.load('./yaml/api.yml');
-app.use('/swagger-doc', swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
+app.use(conf.basepath+'/swagger-doc', swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
 
 
-var server = require('http').Server(app);
+var server = require('http').Server(app,router);
 
 
 app.conf = conf;
@@ -94,10 +103,9 @@ console.log("************************************************************");
 
 server.listen(conf['web']['port']);
 
-
 //Initializing the web routes
 var Routes = require('./routes/http-routes');
-new Routes(app);
+new Routes(app,router);
 
 
 

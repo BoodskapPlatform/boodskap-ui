@@ -10,7 +10,7 @@
     <div class="sidebar">
     <ul class="nav" style="margin-bottom: 50px">
         <li class="has-sub active sideMain homeMenu">
-            <a href="/home">
+            <a href="<%= basepath %>/home">
                 <i class="fa fa-home"></i>
                 <span>Home</span>
             </a>
@@ -18,13 +18,13 @@
 
         <li class="nav-header">Platform</li>
         <li class="has-sub sideMain marketMenu">
-        <a href="/dashboard">
+        <a href="<%= basepath %>/dashboard">
             <i class="icon-dashboard"></i>
             <span>Dashboard</span>
         </a>
         </li>
         <li class="has-sub sideMain marketMenu">
-        <a href="/userevents">
+        <a href="<%= basepath %>/userevents">
             <i class="icon-bell4"></i>
             <span>Event Subscriptions</span>
         </a>
@@ -34,7 +34,7 @@
 
 
         <li class="has-sub sideMain marketMenu">
-            <a href="/marketplace">
+            <a href="<%= basepath %>/marketplace">
                 <i class="icon-android-playstore"></i>
                 <span>Boodskap Marketplace</span>
             </a>
@@ -44,13 +44,13 @@
         <li class="nav-header">Developer Modules</li>
 
         <li class="has-sub sideMain dashboardEditor">
-            <a href="/dashboard-editor">
+            <a href="<%= basepath %>/dashboard-editor">
                 <i class="icon-edit2"></i>
                 <span>Dashboard Editor Studio</span>
             </a>
         </li>
         <li class="has-sub sideMain mobMenu">
-            <a href="/mobile-platform">
+            <a href="<%= basepath %>/mobile-platform">
                 <i class="icon-mobile"></i>
                 <span>Mobile Editor Studio</span>
             </a>
@@ -58,69 +58,69 @@
 
 
         <li class="has-sub sideMain msgDefMenu">
-            <a href="/message-definition">
+            <a href="<%= basepath %>/message-definition">
                 <i class="icon-stack-2"></i>
                 <span>Message Definition</span>
             </a>
         </li>
         <li class="has-sub sideMain recordDefMenu">
-            <a href="/record-definition">
+            <a href="<%= basepath %>/record-definition">
                 <i class="icon-th"></i>
                 <span>Record Definition</span>
             </a>
         </li>
         <li class="has-sub sideMain recordDefMenu dbquery">
-            <a href="/db-table">
+            <a href="<%= basepath %>/db-table">
                 <i class="icon-database2"></i>
                 <span>DB Table</span>
             </a>
         </li>
         <li class="has-sub sideMain recordDefMenu sqlquery">
-            <a href="/sql-table">
+            <a href="<%= basepath %>/sql-table">
                 <i class="icon-database2"></i>
                 <span>SQL Table</span>
             </a>
         </li>
         <li class="has-sub sideMain scriptMenu">
-            <a href="/script-console">
+            <a href="<%= basepath %>/script-console">
                 <i class="icon-ios-monitor"></i>
                 <span>Script Console</span>
             </a>
         </li>
         <li class="has-sub sideMain rulesMenu">
-            <a href="/rules-engine">
+            <a href="<%= basepath %>/rules-engine">
                 <i class="icon-file-code-o"></i>
                 <span>Rules Engine</span>
             </a>
         </li>
         <li class="has-sub sideMain codeEditor">
-            <a href="/code-editor">
+            <a href="<%= basepath %>/code-editor">
                 <i class="icon-code2"></i>
                 <span>Code Editor</span>
             </a>
         </li>
         <li class="has-sub sideMain eventMenu">
-            <a href="/events">
+            <a href="<%= basepath %>/events">
                 <i class="icon-bell3"></i>
                 <span>Events & Notification</span>
             </a>
         </li>
         <li class="has-sub sideMain eventMenu">
-            <a href="/templates">
+            <a href="<%= basepath %>/templates">
                 <i class="icon-list-alt"></i>
                 <span>Plaform Templates</span>
             </a>
         </li>
 
         <li class="has-sub sideMain sqlquery">
-            <a href="/sql-templates">
+            <a href="<%= basepath %>/sql-templates">
                 <i class="icon-list-alt"></i>
                 <span>SQL Templates</span>
             </a>
         </li>
 
         <li class="has-sub sideMain dbquery">
-            <a href="/db-templates">
+            <a href="<%= basepath %>/db-templates">
                 <i class="icon-list-alt"></i>
                 <span>DB Templates</span>
             </a>
@@ -135,11 +135,11 @@
                 <span>AI & Machine Learning</span>
             </a>
             <ul class="sub-menu">
-                <li class="sideSub dataLearnMenu"><a href="/machine-learning">Data Learning</a></li>
-                <li class="sideSub faceRegMenu"><a href="/face-recognition">Face Recognition</a></li>
-               <!-- <li class="sideSub opencvMenu"><a href="/opencv-recognition">OpenCV Object Recognition</a></li>
-                <li class="sideSub tensorflowMenu"><a href="/tensorflow-recognition">TensorFlow Object Recognition</a></li>
-                <li class="sideSub msgImgMenu"><a href="/message-image-recognition">Message Image Recognition</a></li>-->
+                <li class="sideSub dataLearnMenu"><a href="<%= basepath %>/machine-learning">Data Learning</a></li>
+                <li class="sideSub faceRegMenu"><a href="<%= basepath %>/face-recognition">Face Recognition</a></li>
+               <!-- <li class="sideSub opencvMenu"><a href="<%= basepath %>/opencv-recognition">OpenCV Object Recognition</a></li>
+                <li class="sideSub tensorflowMenu"><a href="<%= basepath %>/tensorflow-recognition">TensorFlow Object Recognition</a></li>
+                <li class="sideSub msgImgMenu"><a href="<%= basepath %>/message-image-recognition">Message Image Recognition</a></li>-->
             </ul>
         </li>
 
@@ -148,13 +148,13 @@
 
 
         <li class="has-sub sideMain billingMenu adminMenu">
-            <a href="/manage-billing">
+            <a href="<%= basepath %>/manage-billing">
                 <i class="icon-dollar"></i>
                 <span>Billing Management</span>
             </a>
         </li>
         <li class="has-sub sideMain billingMenu">
-            <a href="/invoice">
+            <a href="<%= basepath %>/invoice">
                 <i class="icon-coin-dollar"></i>
                 <span>Invoice</span>
             </a>
@@ -169,8 +169,8 @@
                 <span>User Management</span>
             </a>
             <ul class="sub-menu">
-                <li class="sideSub userMenu"><a href="/user-management">Manage Users</a></li>
-                <!--<li class="sideSub userRoleMenu"><a href="/user-roles">Manage User Roles</a></li>-->
+                <li class="sideSub userMenu"><a href="<%= basepath %>/user-management">Manage Users</a></li>
+                <!--<li class="sideSub userRoleMenu"><a href="<%= basepath %>/user-roles">Manage User Roles</a></li>-->
             </ul>
         </li>
 
@@ -181,17 +181,17 @@
                 <span>Device Management</span>
             </a>
             <ul class="sub-menu">
-                <li class="sideSub deviceMenu"><a href="/device-management">Mange Devices</a></li>
-                <li class="sideSub deviceModelMenu"><a href="/device-models">Manage Device Models</a></li>
-                <li class="sideSub deviceSimMenu"><a href="/sim-provisioning">Sim Provisioning</a></li>
+                <li class="sideSub deviceMenu"><a href="<%= basepath %>/device-management">Mange Devices</a></li>
+                <li class="sideSub deviceModelMenu"><a href="<%= basepath %>/device-models">Manage Device Models</a></li>
+                <li class="sideSub deviceSimMenu"><a href="<%= basepath %>/sim-provisioning">Sim Provisioning</a></li>
 
                 <!-- Delete Later -->
-               <!-- <li class="sideSub deviceSimMenu"><a href="/module-profile">Module Profile</a></li>
-                <li class="sideSub deviceSimMenu"><a href="/module-attributes">Module Attributes</a></li>
-                <li class="sideSub deviceSimMenu"><a href="/device-profile">Device Profile</a></li>
-                <li class="sideSub deviceSimMenu"><a href="/sensor-profile-attributes">Sensor Profile & Attributes</a></li>
-                <li class="sideSub deviceSimMenu"><a href="/message-services-profile">Message Services Profile</a></li>
-                <li class="sideSub deviceSimMenu"><a href="/carrier-profile">Carrier Profile</a></li>-->
+               <!-- <li class="sideSub deviceSimMenu"><a href="<%= basepath %>/module-profile">Module Profile</a></li>
+                <li class="sideSub deviceSimMenu"><a href="<%= basepath %>/module-attributes">Module Attributes</a></li>
+                <li class="sideSub deviceSimMenu"><a href="<%= basepath %>/device-profile">Device Profile</a></li>
+                <li class="sideSub deviceSimMenu"><a href="<%= basepath %>/sensor-profile-attributes">Sensor Profile & Attributes</a></li>
+                <li class="sideSub deviceSimMenu"><a href="<%= basepath %>/message-services-profile">Message Services Profile</a></li>
+                <li class="sideSub deviceSimMenu"><a href="<%= basepath %>/carrier-profile">Carrier Profile</a></li>-->
 
 
             </ul>
@@ -203,7 +203,7 @@
                 <span>Asset Management</span>
             </a>
             <ul class="sub-menu">
-                <li class="sideSub assetMenu"><a href="/asset-management">Mange Assets</a></li>
+                <li class="sideSub assetMenu"><a href="<%= basepath %>/asset-management">Mange Assets</a></li>
             </ul>
         </li>
         <li class="has-sub sideMain firmwareHeader">
@@ -213,20 +213,20 @@
                 <span>Firmware Management</span>
             </a>
             <ul class="sub-menu">
-                <li class="sideSub firmwareMenu"><a href="/firmware-management">Mange Firmware</a></li>
-               <!--&lt;!&ndash; <li class="sideSub otadeviceMenu"><a href="/ota-device-batches">OTA Device Batches</a></li>-->
-                <li class="sideSub otalMenu"><a href="/firmware/ota-upgrade">OTA Upgrade</a></li>
+                <li class="sideSub firmwareMenu"><a href="<%= basepath %>/firmware-management">Mange Firmware</a></li>
+               <!--&lt;!&ndash; <li class="sideSub otadeviceMenu"><a href="<%= basepath %>/ota-device-batches">OTA Device Batches</a></li>-->
+                <li class="sideSub otalMenu"><a href="<%= basepath %>/firmware/ota-upgrade">OTA Upgrade</a></li>
             </ul>
         </li>
 
         <li class="has-sub sideMain geofenceMenu">
-            <a href="/geofence">
+            <a href="<%= basepath %>/geofence">
                 <i class="icon-map-marker"></i>
                 <span>Geofence Management</span>
             </a>
         </li>
         <li class="has-sub sideMain pluginMenu">
-            <a href="/plugin-management">
+            <a href="<%= basepath %>/plugin-management">
                 <i class="icon-puzzle-piece"></i>
                 <span>Plugin Management</span>
             </a>
@@ -236,7 +236,7 @@
         <li class="nav-header">Plugins</li>
 
         <li class="has-sub sideMain alexaMenu">
-            <a href="/alexa">
+            <a href="<%= basepath %>/alexa">
                 <i class="icon-microphone"></i>
                 <span>Amazon Alexa</span>
             </a>
@@ -247,49 +247,49 @@
 
 
         <li class="has-sub sideMain marketMenu">
-            <a href="/files">
+            <a href="<%= basepath %>/files">
                 <i class="icon-file-image-o"></i>
                 <span>File Storage</span>
             </a>
         </li>
         <li class="has-sub sideMain marketMenu">
-            <a href="/query-console" >
+            <a href="<%= basepath %>/query-console" >
                 <i class="icon-search5"></i>
                 <span>Elastic Search Query</span>
             </a>
         </li>
         <li class="has-sub sideMain marketMenu dbquery">
-            <a href="/db-query-console" >
+            <a href="<%= basepath %>/db-query-console" >
                 <i class="icon-database2"></i>
                 <span>DB Query</span>
             </a>
         </li>
         <li class="has-sub sideMain marketMenu sqlquery">
-            <a href="/sql-query-console" >
+            <a href="<%= basepath %>/sql-query-console" >
                 <i class="icon-database2"></i>
                 <span>Ignite SQL Query</span>
             </a>
         </li>
         <li class="has-sub sideMain marketMenu">
-            <a href="/messages">
+            <a href="<%= basepath %>/messages">
                 <i class="icon-th-list"></i>
                 <span>Messages</span>
             </a>
         </li>
         <li class="has-sub sideMain marketMenu">
-            <a href="/event-logs" >
+            <a href="<%= basepath %>/event-logs" >
                 <i class="icon-file-o"></i>
                 <span>Event Logs</span>
             </a>
         </li>
         <li class="has-sub sideMain marketMenu">
-            <a href="/log-console" target="_blank">
+            <a href="<%= basepath %>/log-console" target="_blank">
                 <i class="icon-file-o"></i>
                 <span>Application Logs</span>
             </a>
         </li>
        <!-- <li class="has-sub sideMain marketMenu">
-            <a href="/api-doc">
+            <a href="<%= basepath %>/api-doc">
                 <i class="icon-file-text-o"></i>
                 <span>API Docs</span>
             </a>
@@ -302,20 +302,20 @@
                 <span>Boodskap Marketplace</span>
             </a>
             <ul class="sub-menu">
-                <li class="sideSub deviceMenu"><a href="/marketplace">Dashboard</a></li>
-                <li class="sideSub deviceMenu"><a href="/marketplace/widgets">Widgets</a></li>
-                <li class="sideSub deviceModelMenu"><a href="/marketplace/verticals">Verticals</a></li>
+                <li class="sideSub deviceMenu"><a href="<%= basepath %>/marketplace">Dashboard</a></li>
+                <li class="sideSub deviceMenu"><a href="<%= basepath %>/marketplace/widgets">Widgets</a></li>
+                <li class="sideSub deviceModelMenu"><a href="<%= basepath %>/marketplace/verticals">Verticals</a></li>
             </ul>
         </li>-->
 
        <!-- <li class="has-sub sideMain widgetsMenu">
-            <a href="/marketplace/widgets">
+            <a href="<%= basepath %>/marketplace/widgets">
                 <i class="icon-film2"></i>
                 <span>Widgets</span>
             </a>
         </li>
         <li class="has-sub sideMain applicationMenu">
-            <a href="/marketplace/applications">
+            <a href="<%= basepath %>/marketplace/applications">
                 <i class="icon-cube2"></i>
                 <span>Applications</span>
             </a>

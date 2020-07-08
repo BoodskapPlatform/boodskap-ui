@@ -52,7 +52,7 @@ function loadVerticals() {
 
 function renderVertical(obj) {
     var str =`
-    <div class="col-lg-3" style="padding: 5px;" onclick="document.location='/marketplace/verticals'">
+    <div class="col-lg-3" style="padding: 5px;" onclick="document.location=BASE_PATH+'/marketplace/verticals'">
         <div class="verticalContent" style="height: 185px">
         <div style="">
         <img src="` + API_BASE_PATH + `/files/public/download/` + obj.verticalimage + `" alt="" style="max-width: 100%;height:100px;"/>
@@ -100,7 +100,7 @@ function loadWidgets() {
 
 function renderWidget(obj) {
     var str = `
-    <div class="col-lg-2" style="padding: 5px;" onclick="document.location='/marketplace/widgets'">
+    <div class="col-lg-2" style="padding: 5px;" onclick="document.location=BASE_PATH+'/marketplace/widgets'">
         <div class="widgetContent">
             <div style="">
             <img src="` + API_BASE_PATH + `/files/public/download/` + obj.widgetimage + `" alt="" style="max-width: 100%"/>

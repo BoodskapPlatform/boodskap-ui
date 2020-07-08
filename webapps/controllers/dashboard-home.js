@@ -62,7 +62,7 @@ function loadDashboardlist() {
                         iconStr = '<i class="' + DASHBOARD_LIST[i].icon + '"></i> ';
                     }
 
-                    $(".sidenav ul").append(' <li class="has-sub sideMain msgDefMenu"><a href="/dashboard/' + DASHBOARD_LIST[i].id + '">' +
+                    $(".sidenav ul").append(' <li class="has-sub sideMain msgDefMenu"><a href="<%= basepath %>/dashboard/' + DASHBOARD_LIST[i].id + '">' +
                         iconStr +
                         '<span>' + DASHBOARD_LIST[i].name + '</span></a></li>')
                 }
@@ -103,7 +103,7 @@ function renderDashMenu(obj) {
 
 
 function loadDashboard(id) {
-    document.location = '/dashboard/' + id;
+    document.location = BASE_PATH+'/dashboard/' + id;
 }
 
 
@@ -188,7 +188,7 @@ function loadImportedVerticals() {
                                     if(dashStatus){
                                         dashboards.push(vd);
                                         liStr = liStr + ' <li class="has-sub sideMain msgDefMenu">' +
-                                            '<a href="/dashboard/' + vd.id + '?vertical=' + obj.verticalid + '">' + iconStr +
+                                            '<a href="<%= basepath %>/dashboard/' + vd.id + '?vertical=' + obj.verticalid + '">' + iconStr +
                                             '<span> ' + vd.name + '</span></a></li>';
 
                                     }
@@ -218,7 +218,7 @@ function loadImportedVerticals() {
                                                 vflag = true;
 
                                                 liStr = liStr + ' <li class="has-sub sideMain msgDefMenu">' +
-                                                    '<a href="/dashboard/' + vd.id + '?vertical=' + obj.verticalid + '">' + iconStr +
+                                                    '<a href="<%= basepath %>/dashboard/' + vd.id + '?vertical=' + obj.verticalid + '">' + iconStr +
                                                     '<span> ' + vd.name + '</span></a></li>'
                                             }
 
@@ -260,7 +260,7 @@ function loadImportedVerticals() {
                                 }
 
                                 liStr = liStr + ' <li class="has-sub sideMain msgDefMenu">' +
-                                    '<a href="/dashboard/' + obj.dashboards[i].id + '?vertical=' + obj.verticalid + '">' + iconStr +
+                                    '<a href="<%= basepath %>/dashboard/' + obj.dashboards[i].id + '?vertical=' + obj.verticalid + '">' + iconStr +
                                     '<span> ' + obj.dashboards[i].name + '</span></a></li>'
                             }
 
@@ -336,7 +336,7 @@ function renderVerticalDashboard(obj, id) {
 
 function loadVerticalDashMenu(did, vid) {
 
-    document.location = '/dashboard/' + did + '?vertical=' + vid;
+    document.location = BASE_PATH+'/dashboard/' + did + '?vertical=' + vid;
 
 
 }
@@ -553,11 +553,11 @@ function verticalUpdate(id) {
 
 
                                         liStr = liStr + ' <li class="has-sub sideMain msgDefMenu">' +
-                                        '<a href="/dashboard/' + vd.id + '?vertical=' + obj.verticalid + '">'+iconStr +
+                                        '<a href="<%= basepath %>/dashboard/' + vd.id + '?vertical=' + obj.verticalid + '">'+iconStr +
                                         '<span> ' + vd.name + '</span></a></li>'
                                     }else{
                                         liStrFalse = liStrFalse + ' <li class="has-sub sideMain msgDefMenu">' +
-                                            '<a href="/dashboard/' + vd.id + '?vertical=' + obj.verticalid + '">'+iconStr +
+                                            '<a href="<%= basepath %>/dashboard/' + vd.id + '?vertical=' + obj.verticalid + '">'+iconStr +
                                             '<span>' + vd.name + '</span></a></li>'
                                     }
                                     vcbk(null, null);
@@ -597,7 +597,7 @@ function verticalUpdate(id) {
                                 }
 
                                 liStr = liStr + ' <li class="has-sub sideMain msgDefMenu">' +
-                                    '<a href="/dashboard/' + obj.dashboards[i].id + '?vertical=' + obj.verticalid + '">'+iconStr+
+                                    '<a href="<%= basepath %>/dashboard/' + obj.dashboards[i].id + '?vertical=' + obj.verticalid + '">'+iconStr+
                                     '<span> ' + obj.dashboards[i].name + '</span></a></li>'
                             }
 
@@ -804,7 +804,7 @@ function loadVerticalDashboard(id) {
         if (id === VERTICAL_LIST[i].verticalid) {
 
             for (var j = 0; j < VERTICAL_LIST[i].dashboards.length; j++) {
-                document.location = '/dashboard/' + VERTICAL_LIST[i].dashboards[j].id + '?query=' + encodeURIComponent(JSON.stringify(VERTICAL_LIST[i].dashboards[j])) + '&vertical=' + VERTICAL_LIST[i].verticalid;
+                document.location = BASE_PATH+'/dashboard/' + VERTICAL_LIST[i].dashboards[j].id + '?query=' + encodeURIComponent(JSON.stringify(VERTICAL_LIST[i].dashboards[j])) + '&vertical=' + VERTICAL_LIST[i].verticalid;
             }
 
 

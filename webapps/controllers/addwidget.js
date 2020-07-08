@@ -78,7 +78,7 @@ function loadWidget() {
             var result = QueryFormatter(data).data;
             widgetObj =result.data[0];
             if(DOMAIN_KEY !== widgetObj.domainKey){
-                document.location = '/marketplace/addwidget'
+                document.location = BASE_PATH+'/marketplace/addwidget'
             }
             loadWidgetPreview();
         }else{
@@ -98,7 +98,7 @@ function loadWidget() {
             data['_id'] = result['_id'];
             widgetObj = data;
             if(DOMAIN_KEY !== widgetObj.domainKey){
-                document.location = '/marketplace/addwidget'
+                document.location = BASE_PATH+'/marketplace/addwidget'
             }
 
             loadWidgetPreview();
@@ -823,8 +823,8 @@ function codeLivePreview() {
 
     body.html('<style>' + cssCode + '</style><div>' + htmlCode + '</div><script>' + resultData + '</script>');
 
-    var mqtt_file = WEB_BASE_PATH + '/js/boodskap.ws.js';
-    var mqtt_adapter = WEB_BASE_PATH + '/resources/js/bdskp-live-adapter.js';
+    var mqtt_file = 'js/boodskap.ws.js';
+    var mqtt_adapter = 'resources/js/bdskp-live-adapter.js';
 
     jsResource.push(mqtt_file);
     jsResource.push(mqtt_adapter);
@@ -1117,7 +1117,7 @@ function createWidget() {
         if(status){
             successMsg('Widget created/updated successfully!');
             // setTimeout(function () {
-            //     document.location='/marketplace/widgets'
+            //     document.location='BASE_PATH+/marketplace/widgets'
             // },2000)
         }else{
             errorMsg('Error in Widget Creation!')

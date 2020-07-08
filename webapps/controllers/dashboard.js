@@ -268,7 +268,7 @@ function loadDashboardlist() {
                         CURRENT_DASHBOARD = JSON.parse(queryParam);
                         loadDashboard('current');
                     } else {
-                        document.location = '/404';
+                        document.location = BASE_PATH+'/404';
                     }
                 }
 
@@ -577,8 +577,8 @@ function loadWidgetIFrame(obj) {
 
     // }
 
-    var mqtt_file = WEB_BASE_PATH + '/js/boodskap.ws.js';
-    var mqtt_adapter = WEB_BASE_PATH + '/resources/js/bdskp-live-adapter.js';
+    var mqtt_file = 'js/boodskap.ws.js';
+    var mqtt_adapter = 'resources/js/bdskp-live-adapter.js';
 
     jsResource.push(mqtt_file);
     jsResource.push(mqtt_adapter);
@@ -836,7 +836,7 @@ function loadDashboardMenu() {
             $(".dashboardMenu ul").html('');
         }else{
             $(".dashboardMenu ul").html('<li class="nav-header" style="background-color:#eeeeee6e">' +
-                '<a href="/dashboard" style="padding-left: 0px;"><i class="icon-home"></i> Dashboard</a></li>');
+                '<a href="<%= basepath %>/dashboard" style="padding-left: 0px;"><i class="icon-home"></i> Dashboard</a></li>');
         }
 
         var dashboardStr = '';
@@ -1066,7 +1066,7 @@ function loadDashboardUserMenu() {
 
 
     $(".sidenav ul").html('<li class="has-sub active sideMain homeMenu">'+
-        '<a href="/dashboard">'+
+        '<a href="<%= basepath %>/dashboard">'+
         '<i class="fa fa-home"></i>'+
         '<span>Home</span>'+
         '</a>'+
@@ -1294,6 +1294,6 @@ function loadDashboardUserMenu() {
 
 function loadEditor() {
 
-    document.location = '/dashboard-editor?id='+CURRENT_DASHBOARD_ID
+    document.location = BASE_PATH+'/dashboard-editor?id='+CURRENT_DASHBOARD_ID
 
 }

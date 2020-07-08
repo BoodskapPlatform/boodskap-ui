@@ -81,7 +81,7 @@ function loadVertical() {
             var result = QueryFormatter(data).data;
             verticalObj = result.data[0];
             if (DOMAIN_KEY !== verticalObj.domainKey) {
-                document.location = '/marketplace/addvertical'
+                document.location = BASE_PATH+'/marketplace/addvertical'
             }
 
             loadVerticalPreview();
@@ -216,7 +216,7 @@ function createVertical() {
         if (status) {
             successMsg('Vertical created/updated successfully!');
             // setTimeout(function () {
-            //     document.location = '/marketplace/verticals'
+            //     document.location = BASE_PATH+'/marketplace/verticals'
             // }, 2000)
         } else {
             errorMsg('Error in Vertical Creation!')

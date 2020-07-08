@@ -302,7 +302,7 @@ function loadDashboardlist() {
                         iconStr = '<i class="' + DASHBOARD_LIST[i].icon + '"></i> ';
                     }
 
-                    $(".sidenav ul").append(' <li class="has-sub sideMain msgDefMenu"><a href="/dashboard/' + DASHBOARD_LIST[i].id + '">' +
+                    $(".sidenav ul").append(' <li class="has-sub sideMain msgDefMenu"><a href="<%= basepath %>/dashboard/' + DASHBOARD_LIST[i].id + '">' +
                         iconStr +
                         '<span>' + DASHBOARD_LIST[i].name + '</span></a></li>')
                 }
@@ -450,7 +450,7 @@ function loadImportedVerticals() {
 
 
                                     liStr = liStr + ' <li class="has-sub sideMain msgDefMenu">' +
-                                        '<a href="/dashboard/' + vd.id + '?vertical=' + obj.verticalid + '">' + iconStr +
+                                        '<a href="<%= basepath %>/dashboard/' + vd.id + '?vertical=' + obj.verticalid + '">' + iconStr +
                                         '<span> ' + vd.name + '</span></a></li>';
 
 
@@ -480,7 +480,7 @@ function loadImportedVerticals() {
                                             vflag = true;
 
                                             liStr = liStr + ' <li class="has-sub sideMain msgDefMenu">' +
-                                                '<a href="/dashboard/' + vd.id + '?vertical=' + obj.verticalid + '">' + iconStr +
+                                                '<a href="<%= basepath %>/dashboard/' + vd.id + '?vertical=' + obj.verticalid + '">' + iconStr +
                                                 '<span> ' + vd.name + '</span></a></li>'
                                         }
                                         vcbk(null, null);
@@ -521,7 +521,7 @@ function loadImportedVerticals() {
                                 }
 
                                 liStr = liStr + ' <li class="has-sub sideMain msgDefMenu">' +
-                                    '<a href="/dashboard/' + obj.mobiledashboards[i].id + '?vertical=' + obj.verticalid + '">' + iconStr +
+                                    '<a href="<%= basepath %>/dashboard/' + obj.mobiledashboards[i].id + '?vertical=' + obj.verticalid + '">' + iconStr +
                                     '<span> ' + obj.mobiledashboards[i].name + '</span></a></li>'
                             }
 
@@ -1031,7 +1031,7 @@ function loadWidgetIFrame(obj) {
 
     // }
 
-    var mqtt_file = WEB_BASE_PATH + '/js/boodskap.ws.js';
+    var mqtt_file = '/js/boodskap.ws.js';
     var mqtt_adapter = WEB_BASE_PATH + '/resources/js/bdskp-live-adapter.js';
 
     jsResource.push(mqtt_file);

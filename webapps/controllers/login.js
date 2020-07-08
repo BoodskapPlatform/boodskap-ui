@@ -10,9 +10,9 @@ $(document).ready(function () {
         if(Cookies.get('partDomain') !== 'false') {
 
             if (USER_ROLE.indexOf('user') !== -1) {
-                document.location = '/dashboard';
+                document.location = BASE_PATH+'/dashboard';
             } else {
-                document.location = '/home';
+                document.location = BASE_PATH+'/home';
             }
         }else{
             loadPartDomain()
@@ -99,9 +99,9 @@ function login(){
             } else {
 
                 if (roles.indexOf('user') !== -1) {
-                    document.location = '/dashboard';
+                    document.location = BASE_PATH+'/dashboard';
                 } else {
-                    document.location = '/home';
+                    document.location = BASE_PATH+'/home';
                 }
             }
 
@@ -137,9 +137,9 @@ function switchDomain(dkey,token) {
             var roles = userObj.user.roles;
 
             if(roles.indexOf('user') !== -1){
-                document.location = '/dashboard';
+                document.location = BASE_PATH+'/dashboard';
             }else{
-                document.location = '/home';
+                document.location = BASE_PATH+'/home';
             }
 
         }else{
@@ -160,9 +160,9 @@ function logout() {
         if(Cookies.get('domain')){
             var domainKey = Cookies.get('domain');
             Cookies.remove('domain');
-            document.location='/'+domainKey;
+            document.location=BASE_PATH+'/'+domainKey;
         }else{
-            document.location='/login';
+            document.location=BASE_PATH+'/login';
         }
 
     });
@@ -234,9 +234,9 @@ function register(){
 
             if(Cookies.get('domain')){
                 var domainKey = Cookies.get('domain');
-                document.location='/'+domainKey;
+                document.location=BASE_PATH+'/'+domainKey;
             }else{
-                document.location='/login';
+                document.location=BASE_PATH+'/login';
             }
         }else{
             console.log(data)

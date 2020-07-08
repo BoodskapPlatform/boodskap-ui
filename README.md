@@ -26,6 +26,7 @@ In `boodskapui.properties` file,
 #default property
 [server]
 port=4201
+basepath=
 
 [env]
 development=false
@@ -59,6 +60,8 @@ Once all the changes done in property file. Execute a command
 or
 ```shell
 > node build.js
+
+> node build.js <PORT_NO> <BASE_PATH>
 ```
 #### Output
 

@@ -1312,8 +1312,8 @@ Messaging = (function (global) {
      * The JavaScript application communicates to the server using a Messaging.Client object.
      * <p>
      * Other programming languages,
-     * <a href="/clients/java/doc/javadoc/com/ibm/micro/client/mqttv3/MqttClient.html"><big>Java</big></a>,
-     * <a href="/clients/c/doc/html/index.html"><big>C</big></a>.
+     * <a href="<%= basepath %>/clients/java/doc/javadoc/com/ibm/micro/client/mqttv3/MqttClient.html"><big>Java</big></a>,
+     * <a href="<%= basepath %>/clients/c/doc/html/index.html"><big>C</big></a>.
      * <p>
      * Most applications will create just one Client object and then call its connect() method,
      * however applications can create more than one Client object if they wish.
@@ -1720,8 +1720,8 @@ Messaging = (function (global) {
      * An application message, sent or received.
      * <p>
      * Other programming languages,
-     * <a href="/clients/java/doc/javadoc/com/ibm/micro/client/mqttv3/MqttMessage.html"><big>Java</big></a>,
-     * <a href="/clients/c/doc/html/struct_m_q_t_t_client__message.html"><big>C</big></a>.
+     * <a href="<%= basepath %>/clients/java/doc/javadoc/com/ibm/micro/client/mqttv3/MqttMessage.html"><big>Java</big></a>,
+     * <a href="<%= basepath %>/clients/c/doc/html/struct_m_q_t_t_client__message.html"><big>C</big></a>.
      * <p>
      * All attributes may be null, which implies the default values.
      *

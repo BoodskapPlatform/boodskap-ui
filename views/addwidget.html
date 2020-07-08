@@ -1,5 +1,5 @@
-<link rel="stylesheet" type="text/css" href="/css/bootstrap-tagsinput.css">
-<link rel="stylesheet" type="text/css" href="/css/select2.min.css">
+<link rel="stylesheet" type="text/css" href="css/bootstrap-tagsinput.css">
+<link rel="stylesheet" type="text/css" href="css/select2.min.css">
 
 <style>
     .widgetScreenshot {
@@ -102,8 +102,8 @@
 <div class="container mt-3">
     <!-- begin breadcrumb -->
     <ol class="breadcrumb pull-right">
-        <li class="breadcrumb-item"><a href="/marketplace">Marketplace</a></li>
-        <li class="breadcrumb-item"><a href="/marketplace/widgets">Widgets</a></li>
+        <li class="breadcrumb-item"><a href="<%= basepath %>/marketplace">Marketplace</a></li>
+        <li class="breadcrumb-item"><a href="<%= basepath %>/marketplace/widgets">Widgets</a></li>
         <li class="breadcrumb-item active"><span class="pageAction">Create</span> Widget</li>
     </ol>
     <!-- end breadcrumb -->
@@ -128,7 +128,7 @@
                 </div>
 
                 <button class="btn btn-default btn-sm" type="button"
-                        onclick="document.location='/marketplace/widgets';"><i class="icon-chevron-left2"></i> Back
+                        onclick="document.location=BASE_PATH+'/marketplace/widgets';"><i class="icon-chevron-left2"></i> Back
                 </button>
                 <!--<button class="btn btn-warning btn-sm btnPublish" type="submit" disabled onclick="publishWidget()"><i class="icon-globe"></i> Publish</button>-->
                 <button class="btn btn-warning btn-sm" type="submit"><i class="icon-save"></i> Save Widget</button>
@@ -145,7 +145,7 @@
                         </div>
                     </div>
                     <div class="col-lg-1" style="text-align: center">
-                        <img src="/images/not-available.png" class="widgetImage"
+                        <img src="images/not-available.png" class="widgetImage"
                              style="width:64px;height:64px;border: 1px solid #6d6d6d4f;"/>
                     </div>
                     <div class="col-lg-3">
@@ -244,19 +244,19 @@
 
                     <div class="col-lg-4 hidden-xs">
                         <div class="form-group" style="text-align: center;background-color: #fff;padding: 10px;">
-                            <img src="/images/not-available.png" class="img-responsive widgetScreen1"
+                            <img src="images/not-available.png" class="img-responsive widgetScreen1"
                                  style="height: 150px;"/>
                         </div>
                     </div>
                     <div class="col-lg-4 hidden-xs">
                         <div class="form-group" style="text-align: center;background-color: #fff;padding: 10px;">
-                            <img src="/images/not-available.png" class="img-responsive widgetScreen2"
+                            <img src="images/not-available.png" class="img-responsive widgetScreen2"
                                  style="height: 150px;"/>
                         </div>
                     </div>
                     <div class="col-lg-4 hidden-xs">
                         <div class="form-group" style="text-align: center;background-color: #fff;padding: 10px;">
-                            <img src="/images/not-available.png" class="img-responsive widgetScreen3"
+                            <img src="images/not-available.png" class="img-responsive widgetScreen3"
                                  style="height: 150px;"/>
                         </div>
                     </div>
@@ -283,18 +283,18 @@
 </div>
 
 
-<script src="/js/editor/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
-<script src="/js/editor/src-noconflict/ext-language_tools.js" type="text/javascript" charset="utf-8"></script>
-<script src="/js/editor/src-noconflict/ext-searchbox.js" type="text/javascript" charset="utf-8"></script>
-<script src="/js/editor/src-noconflict/snippets/html.js" type="text/javascript" charset="utf-8"></script>
-<script src="/js/editor/src-noconflict/snippets/css.js" type="text/javascript" charset="utf-8"></script>
-<script src="/js/editor/src-noconflict/snippets/javascript.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/editor/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/editor/src-noconflict/ext-language_tools.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/editor/src-noconflict/ext-searchbox.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/editor/src-noconflict/snippets/html.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/editor/src-noconflict/snippets/css.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/editor/src-noconflict/snippets/javascript.js" type="text/javascript" charset="utf-8"></script>
 
 
-<script src="/js/bootstrap-tagsinput.js" type="text/javascript"></script>
-<script src="/js/select2.min.js" type="text/javascript"></script>
+<script src="js/bootstrap-tagsinput.js" type="text/javascript"></script>
+<script src="js/select2.min.js" type="text/javascript"></script>
 
-<script src="/controllers/addwidget.js" type="text/javascript"></script>
+<script src="controllers/addwidget.js" type="text/javascript"></script>
 
 
 <div id="editorModal" class="modal fade" role="dialog">

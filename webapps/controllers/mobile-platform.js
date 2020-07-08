@@ -310,8 +310,8 @@ function loadWidgetIFrame(obj) {
 
     body.html('<style>body{overflow: hidden;padding:3px;}' + cssCode + '</style><div>' + htmlCode + '</div>');
 
-    var mqtt_file = WEB_BASE_PATH + '/js/boodskap.ws.js';
-    var mqtt_adapter = WEB_BASE_PATH + '/resources/js/bdskp-live-adapter.js';
+    var mqtt_file = 'js/boodskap.ws.js';
+    var mqtt_adapter = 'resources/js/bdskp-live-adapter.js';
 
     jsResource.push(mqtt_file);
     jsResource.push(mqtt_adapter);
@@ -1007,8 +1007,8 @@ function codeLivePreview() {
         '<span style="float: right;"><i class="fa fa-refresh" style="font-size: 18px;cursor: pointer;"></i></span></div>' +
         '<div>' + htmlCode + '</div><script>' + resultData + '</script>');
 
-    var mqtt_file = WEB_BASE_PATH + '/js/boodskap.ws.js';
-    var mqtt_adapter = WEB_BASE_PATH + '/resources/js/bdskp-live-adapter.js';
+    var mqtt_file = 'js/boodskap.ws.js';
+    var mqtt_adapter = 'resources/js/bdskp-live-adapter.js';
 
     jsResource.push(mqtt_file);
     jsResource.push(mqtt_adapter);
@@ -1896,7 +1896,7 @@ function loadImportedWidgets() {
                     '    border-radius: 3px;"><p style="text-align: center;"><i class="icon-exclamation-triangle"></i> No Widgets Added</p>' +
                     '                                                                <ul class="widget-steps" style="list-style: none;">\n' +
                     '                                                                    <li>\n' +
-                    '                                                                        <div class="step-circle">1</div> <a href="/marketplace/widgets" style="text-decoration: none;">Goto Marketplace</a>\n' +
+                    '                                                                        <div class="step-circle">1</div> <a href="<%= basepath %>/marketplace/widgets" style="text-decoration: none;">Goto Marketplace</a>\n' +
                     '                                                                    </li>\n' +
                     '                                                                    <li>\n' +
                     '                                                                        <div class="step-circle">2</div> <span>Create (or) Buy widgets</span>\n' +
@@ -1916,7 +1916,7 @@ function loadImportedWidgets() {
                 '    border-radius: 3px;"><p style="text-align: center;"><i class="icon-exclamation-triangle"></i> No Widgets Added</p>' +
                 '                                                                <ul class="widget-steps" style="list-style: none;">\n' +
                 '                                                                    <li>\n' +
-                '                                                                        <div class="step-circle">1</div> <a href="/marketplace/widgets" style="text-decoration: none;">Goto Marketplace</a>\n' +
+                '                                                                        <div class="step-circle">1</div> <a href="<%= basepath %>/marketplace/widgets" style="text-decoration: none;">Goto Marketplace</a>\n' +
                 '                                                                    </li>\n' +
                 '                                                                    <li>\n' +
                 '                                                                        <div class="step-circle">2</div> <span>Create (or) Buy widgets</span>\n' +

@@ -2,7 +2,7 @@
 <div class="container mt-3 msgDef platformBody">
     <!-- begin breadcrumb -->
     <ol class="breadcrumb pull-right">
-        <li class="breadcrumb-item"><a href="/dashboard">Domain</a></li>
+        <li class="breadcrumb-item"><a href="<%= basepath %>/dashboard">Domain</a></li>
         <li class="breadcrumb-item"><a href="#">Plugins</a></li>
         <li class="breadcrumb-item active">Amazon Alexa</li>
     </ol>
@@ -50,7 +50,7 @@
 
 </div>
 
-<script src="/controllers/plugin-alexa.js" type="text/javascript"></script>
+<script src="controllers/plugin-alexa.js" type="text/javascript"></script>
 
 
 
@@ -72,7 +72,7 @@
                         </div>
                         <div  class="col-md-6">
                             <div  class="form-group">
-                              <a href="/rules-engine?ruletype=namedrule" class="btn btn-sm btn-default"
+                              <a href="<%= basepath %>/rules-engine?ruletype=namedrule" class="btn btn-sm btn-default"
                                  style="margin-top: 25px;"><i class="icon-plus-square"></i> Create Named Rules</a>
                             </div>
                         </div>

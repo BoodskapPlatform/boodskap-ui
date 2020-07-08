@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="/css/bootstrap-tagsinput.css">
+<link rel="stylesheet" type="text/css" href="css/bootstrap-tagsinput.css">
 
 <style>
     .text-orange, .text-warning {
@@ -25,8 +25,8 @@
 <div class="container mt-3 msgDef">
     <!-- begin breadcrumb -->
     <ol class="breadcrumb pull-right">
-        <li class="breadcrumb-item"><a href="/marketplace">Marketplace</a></li>
-        <li class="breadcrumb-item"><a href="/marketplace/verticals">Verticals</a></li>
+        <li class="breadcrumb-item"><a href="<%= basepath %>/marketplace">Marketplace</a></li>
+        <li class="breadcrumb-item"><a href="<%= basepath %>/marketplace/verticals">Verticals</a></li>
         <li class="breadcrumb-item active"><span class="pageAction"></span> Vertical</li>
     </ol>
     <!-- end breadcrumb -->
@@ -50,7 +50,7 @@
 
             </div>
 
-            <button class="btn btn-default btn-sm" type="button" onclick="document.location='/marketplace/verticals';"><i class="icon-chevron-left2"></i> Back</button>
+            <button class="btn btn-default btn-sm" type="button" onclick="document.location=BASE_PATH+'/marketplace/verticals';"><i class="icon-chevron-left2"></i> Back</button>
             <!--<button class="btn btn-warning btn-sm btnPublish" type="submit" disabled onclick="publishWidget()"><i class="icon-globe"></i> Publish</button>-->
             <button class="btn btn-warning btn-sm" type="submit" ><i class="icon-save"></i> Save Vertical</button>
 
@@ -65,7 +65,7 @@
                     </div>
                 </div>
                 <div class="col-lg-1" style="text-align: center">
-                    <img src="/images/not-available.png" class="verticalImage"
+                    <img src="images/not-available.png" class="verticalImage"
                          style="width:64px;height:64px;border: 1px solid #6d6d6d4f;"/>
                 </div>
                 <div class="col-lg-3">
@@ -273,10 +273,10 @@
 
 </div>
 
-<script src="/js/bootstrap-tagsinput.js" type="text/javascript"></script>
+<script src="js/bootstrap-tagsinput.js" type="text/javascript"></script>
 
 
-<script src="/controllers/addvertical.js" type="text/javascript"></script>
+<script src="controllers/addvertical.js" type="text/javascript"></script>
 
 
 <input type="hidden" id="verticalID" value="<%=verticalId %>" />

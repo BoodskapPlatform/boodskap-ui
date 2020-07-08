@@ -31,7 +31,7 @@
     <!-- begin breadcrumb -->
     <ol class="breadcrumb pull-right hidden-xs">
         <li class="breadcrumb-item">
-            <a href="/" class="currentTime">Boodskap Platform</a></li>
+            <a href="<%= basepath %>/" class="currentTime">Boodskap Platform</a></li>
     </ol>
     <!-- end breadcrumb -->
     <!-- begin page-header -->
@@ -277,7 +277,7 @@
                                     <a href="javascript:;" onclick="startTour()" class="pull-right btn btn-icon btn-sm btn-default"
                                        title=""><i class="icon-help"></i></a>
 
-                                    <a href="/domain" class="pull-right btn btn-icon btn-sm btn-default mr-2" title="Domain Settings"><i class="fa fa-cog"></i></a>
+                                    <a href="<%= basepath %>/domain" class="pull-right btn btn-icon btn-sm btn-default mr-2" title="Domain Settings"><i class="fa fa-cog"></i></a>
                                     <a href="javascript:void(0)" onclick="openLinkModal()"
                                        class="pull-right mr-2 btn btn-icon btn-sm btn-default" title="Link Domain"><i class="fa fa-link"></i></a>
                                 </h4>
@@ -348,7 +348,7 @@
                                     </li>
                                 </ul>-->
                                 <!-- <p style="text-align: left" class="mt-2">
-                                     <a href="/domain" class="btn btn-sm btn-warning" style="text-decoration: none;"><i
+                                     <a href="<%= basepath %>/domain" class="btn btn-sm btn-warning" style="text-decoration: none;"><i
                                              class="fa fa-cog"></i> Domain Settings</a>
                                  </p>-->
 
@@ -387,7 +387,7 @@
                                 </ul>
                                 <ul class="nav">
                                     <li class="col-lg-6"><label>API Explorer</label></li>
-                                    <li class="col-lg-6"><a href="/documentation" class="" target="_blank">
+                                    <li class="col-lg-6"><a href="<%= basepath %>/documentation" class="" target="_blank">
                                         <i class="icon-file-code-o"></i> API Console
                                     </a></li>
                                 </ul>
@@ -405,7 +405,7 @@
                                 </ul>
                                 <ul class="nav">
                                     <li class="col-lg-6"><label>Swagger API Doc</label></li>
-                                    <li class="col-lg-6"><a href="/swagger-doc" class="" target="_blank">
+                                    <li class="col-lg-6"><a href="<%= basepath %>/swagger-doc" class="" target="_blank">
                                         <i class="icon-file"></i> Swagger Spec
                                     </a></li>
                                 </ul>
@@ -451,7 +451,7 @@
 </div>
 
 
-<script src="/controllers/home.js"></script>
+<script src="controllers/home.js"></script>
 
 
 

@@ -269,9 +269,9 @@ function loginAs() {
                 }
             }
             if(flag){
-                document.location='/dashboard';
+                document.location=BASE_PATH+'/dashboard';
             }else{
-                document.location='/home';
+                document.location=BASE_PATH+'/home';
             }
 
         }else{

@@ -1,15 +1,15 @@
 <!-- Google Map Library -->
-<link href="/css/geofence-create.css" rel="stylesheet"  />
+<link href="css/geofence-create.css" rel="stylesheet"  />
 <div class="container msgDef platformBody mt-3">
 
     <ol class="breadcrumb pull-right">
-        <li class="breadcrumb-item"><a href="/dashboard">Domain</a></li>
-        <li class="breadcrumb-item"><a href="/geofence">Geofence</a></li>
+        <li class="breadcrumb-item"><a href="<%= basepath %>/dashboard">Domain</a></li>
+        <li class="breadcrumb-item"><a href="<%= basepath %>/geofence">Geofence</a></li>
         <li class="breadcrumb-item active">Create Geofence</li>
     </ol>
     <!-- end breadcrumb -->
     <!-- begin page-header -->
-    <h1 class="page-header"><a href="/geofence" class="btn btn-sm btn-secondary"><i class="icon-chevron-left"></i> Back</a>  Create Geofence</h1>
+    <h1 class="page-header"><a href="<%= basepath %>/geofence" class="btn btn-sm btn-secondary"><i class="icon-chevron-left"></i> Back</a>  Create Geofence</h1>
 
         <div class="panel panel-inverse" data-sortable="false">
             <!--<div class="panel-heading">
@@ -44,10 +44,10 @@
                                     <br>
                                     <button class="min-tool-btn btn" id="POLYGON"  onclick="mapTools('POLYGON')" title="Polygon">
                                         <!--<i class="icon-object-ungroup" aria-hidden="true"></i>-->
-                                        <img src="/images/map/polygon.png">
+                                        <img src="images/map/polygon.png">
                                     </button>
                                     <br>
-                                    <button class="min-tool-btn btn" id="LINESTRING"  onclick="mapTools('LINESTRING')" title="Polyline"> <img src="/images/map/polyline.png"> </button>
+                                    <button class="min-tool-btn btn" id="LINESTRING"  onclick="mapTools('LINESTRING')" title="Polyline"> <img src="images/map/polyline.png"> </button>
                                     <br>
                                     <button class="min-tool-btn btn" id="CIRCLE"  onclick="mapTools('CIRCLE')" title="Circle"> <i class="icon-circle-o" aria-hidden="true"></i> </button>
                                     <br>
@@ -55,7 +55,7 @@
                                     <br>
                                 </div>
                             </div>
-                            <!--<a class="btn map-btn" href="/geofence"><i class="fa fa-chevron-left"></i> Goto, Geofence Management</a>-->
+                            <!--<a class="btn map-btn" href="<%= basepath %>/geofence"><i class="fa fa-chevron-left"></i> Goto, Geofence Management</a>-->
                         </div>
                     </div>
                     <div class="col-lg-3" style="padding-left: 0px">
@@ -258,5 +258,5 @@
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-<script src="/js/markerclusterer.js"></script>
-<script src="/controllers/geofence-create.js"></script>
+<script src="js/markerclusterer.js"></script>
+<script src="controllers/geofence-create.js"></script>

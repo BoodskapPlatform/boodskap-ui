@@ -374,8 +374,8 @@ function loadWidgetIFrame(obj) {
 
     // }
 
-    var mqtt_file = WEB_BASE_PATH + '/js/boodskap.ws.js';
-    var mqtt_adapter = WEB_BASE_PATH + '/resources/js/bdskp-live-adapter.js';
+    var mqtt_file = 'js/boodskap.ws.js';
+    var mqtt_adapter = 'resources/js/bdskp-live-adapter.js';
 
     jsResource.push(mqtt_file);
     jsResource.push(mqtt_adapter);
