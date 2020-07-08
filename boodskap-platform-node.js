@@ -3,6 +3,7 @@
  ****************************/
 var express = require('express');
 var bodyParser = require('body-parser');
+const expressSession = require('express-session');
 var layout = require('express-layout');
 var path = require("path")
 var app = express();
@@ -68,9 +69,6 @@ app.set('base', conf.basepath);
 
 app.use(layout());
 
-app.use(cookieParser('a deep secret'));
-app.use(session({secret: '1234567890QWERTY'}));
-
 
 //For Template Engine
 app.engine('html', require('ejs').renderFile);
@@ -79,7 +77,20 @@ app.mobileLayout = ('../views/app-layout.html');
 app.set("view options", {layout: "layout.html"});
 // app.homeLayout = __dirname + "/views/layout.html"
 
-app.enable('trust proxy');
+app.use(cookieParser('a deep secret'));
+var sessionObj = {
+    secret: '1234567890QWERTY',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        secure: false,
+        maxAge: 5 * 60 * 60 * 1000 //5 hours
+    }
+}
+app.set('trust proxy', 1) // trust first proxy
+sessionObj.cookie.secure = true // serve secure cookies
+app.use(expressSession(sessionObj))
+
 
 const swaggerUi = require('swagger-ui-express');
 const YAML = require('yamljs');

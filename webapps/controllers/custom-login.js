@@ -1,28 +1,26 @@
 $(document).ready(function () {
 
-    DOMAIN_KEY = window.location.pathname.replace(BASE_PATH+"/", '');
+    // if (DOMAIN_KEY === 'register') {
+    //     if (Cookies.get('domain')) {
+    //         DOMAIN_KEY = Cookies.get('domain');
+    //         $(".loginCustom").html('');
+    //         $(".loginHref").attr('href',BASE_PATH+'/'+Cookies.get('domain'));
+    //         $(".loginCustom").css('display', 'block');
+    //         $(".poweredBy").html('<img src="' + DEFAULT_POWERED_BY + '" style="height: 25px" />');
+    //         getLoginProp();
+    //     } else {
+    //         DOMAIN_KEY = null;
+    //         $(".titleName").html(DEFAULT_LOGIN_THEME.titleName)
+    //         $(".sloganText").html(DEFAULT_LOGIN_THEME.sloganText)
+    //         $(".loginCustom").css('display', 'block');
+    //         $(".loginHref").attr('href',BASE_PATH+'/login');
+    //         $(".loginLogo").attr('src', DEFAULT_LOGIN_LOGO_PATH);
+    //         $(".poweredBy").html('Powered by Boodskap Inc.,');
+    //     }
+    //
+    // } else {
 
-    if (DOMAIN_KEY === 'register') {
-        if (Cookies.get('domain')) {
-            DOMAIN_KEY = Cookies.get('domain');
-            $(".loginCustom").html('');
-            $(".loginHref").attr('href',BASE_PATH+'/'+Cookies.get('domain'));
-            $(".loginCustom").css('display', 'block');
-            $(".poweredBy").html('<img src="' + DEFAULT_POWERED_BY + '" style="height: 25px" />');
-            getLoginProp();
-        } else {
-            DOMAIN_KEY = null;
-            $(".titleName").html(DEFAULT_LOGIN_THEME.titleName)
-            $(".sloganText").html(DEFAULT_LOGIN_THEME.sloganText)
-            $(".loginCustom").css('display', 'block');
-            $(".loginHref").attr('href',BASE_PATH+'/login');
-            $(".loginLogo").attr('src', DEFAULT_LOGIN_LOGO_PATH);
-            $(".poweredBy").html('Powered by Boodskap Inc.,');
-        }
-
-    } else {
-
-        if (DOMAIN_KEY === 'login' || DOMAIN_KEY === '') {
+        // if (DOMAIN_KEY === 'login' || DOMAIN_KEY === '') {
             $(".titleName").html(DEFAULT_LOGIN_THEME.titleName)
             $(".sloganText").html(DEFAULT_LOGIN_THEME.sloganText)
             DOMAIN_KEY = null;
@@ -31,14 +29,14 @@ $(document).ready(function () {
             // $(".loginLogo").attr('src', DEFAULT_LOGIN_LOGO_PATH);
             $(".poweredBy").html('Powered by Boodskap Inc.,');
             loadLoginMenu();
-        } else {
-            Cookies.set('domain', DOMAIN_KEY);
-            $(".loginCustom").html('');
-            $(".loginCustom").css('display', 'block');
-            $(".poweredBy").html('<img src="' + DEFAULT_POWERED_BY + '" style="height: 25px" />');
-            getLoginProp();
-        }
-    }
+        // } else {
+        //     Cookies.set('domain', DOMAIN_KEY);
+        //     $(".loginCustom").html('');
+        //     $(".loginCustom").css('display', 'block');
+        //     $(".poweredBy").html('<img src="' + DEFAULT_POWERED_BY + '" style="height: 25px" />');
+        //     getLoginProp();
+        // }
+    // }
 
 });
 
