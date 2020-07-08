@@ -27,6 +27,7 @@ In `boodskapui.properties` file,
 [server]
 port=4201
 basepath=
+ssl=false
 
 [env]
 development=false

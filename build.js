@@ -39,6 +39,7 @@ async.series({
                 port: PORT_NO ? PORT_NO : Number(getProperty('server.port'))
             },
             basepath : BASE_PATH,
+            protocol : getProperty('server.ssl') ? 'https' : 'http'
         };
 
         let txt = 'module.exports = ' + JSON.stringify(server_config);

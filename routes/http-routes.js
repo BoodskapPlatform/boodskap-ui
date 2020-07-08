@@ -18,7 +18,7 @@ Routes.prototype.init = function () {
     var self = this;
 
     var getBasePath = function (req) {
-        return req.protocol+"://"+req.headers.host+""+self.app.conf.basepath
+        return self.app.conf.protocol+"://"+req.headers.host+""+self.app.conf.basepath
     }
 
     var roleCheck = function (req, res, next) {
