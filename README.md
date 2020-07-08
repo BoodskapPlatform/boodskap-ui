@@ -26,7 +26,7 @@ In `boodskapui.properties` file,
 #default property
 [server]
 port=4201
-basepath=
+basepath=/
 
 [env]
 development=false
