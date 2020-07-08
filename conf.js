@@ -1,1 +1,1 @@
-module.exports = {"web":{"port":"4201"},"basepath":"/platform"}
+module.exports = {"web":{"port":4201},"basepath":""}

@@ -79,6 +79,7 @@ app.mobileLayout = ('../views/app-layout.html');
 app.set("view options", {layout: "layout.html"});
 // app.homeLayout = __dirname + "/views/layout.html"
 
+app.enable('trust proxy');
 
 const swaggerUi = require('swagger-ui-express');
 const YAML = require('yamljs');
