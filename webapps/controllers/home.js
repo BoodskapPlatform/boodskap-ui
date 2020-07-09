@@ -1,9 +1,9 @@
 var domainTable = null;
-var MENU_LINKS = ['/home', '/dashboard', '/message-definition', "/record-definition", "/rules-engine", "/script-console",
-    "/machine-learning", "/block-chain", "/templates", "/events", "/geofence", "/mobile-platform",
-    "/device-management", "/firmware-management", "/asset-management", "/user-management", "/dashboard-editor", "/event-logs",
-    "/messages", "/log-console", "/marketplace", "/domain-audit", "/files", "/code-editor", "/alexa", "/query-console", "/sql-query-console",
-    "/sql-templates","/sql-table","/db-table","/db-query-console","/db-templates","/plugin-management","/manage-billing","/site-noop"]; //upto 34
+var MENU_LINKS = [BASE_PATH+'/home', BASE_PATH+'/dashboard', BASE_PATH+'/message-definition', BASE_PATH+"/record-definition", BASE_PATH+"/rules-engine", BASE_PATH+"/script-console",
+    BASE_PATH+"/machine-learning", BASE_PATH+"/block-chain", BASE_PATH+"/templates", BASE_PATH+"/events", BASE_PATH+"/geofence", BASE_PATH+"/mobile-platform",
+    BASE_PATH+"/device-management", BASE_PATH+"/firmware-management", BASE_PATH+"/asset-management", BASE_PATH+"/user-management", BASE_PATH+"/dashboard-editor", BASE_PATH+"/event-logs",
+    BASE_PATH+"/messages", BASE_PATH+"/log-console", BASE_PATH+"/marketplace", BASE_PATH+"/domain-audit", BASE_PATH+"/files", BASE_PATH+"/code-editor", BASE_PATH+"/alexa", BASE_PATH+"/query-console", BASE_PATH+"/sql-query-console",
+    BASE_PATH+"/sql-templates",BASE_PATH+"/sql-table",BASE_PATH+"/db-table",BASE_PATH+"/db-query-console",BASE_PATH+"/db-templates",BASE_PATH+"/plugin-management",BASE_PATH+"/manage-billing",BASE_PATH+"/site-noop"]; //upto 34
 
 
 $(document).ready(function () {
