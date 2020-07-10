@@ -356,9 +356,9 @@ function loginAs(key, email) {
                 }
             }
             if (flag) {
-                document.location = '/dashboard';
+                document.location = BASE_PATH+'/dashboard';
             } else {
-                document.location = '/home';
+                document.location = BASE_PATH+'/home';
             }
 
         } else {
@@ -421,7 +421,7 @@ function sqlAccess(dkey, state) {
 
             if(dkey === DOMAIN_KEY){
                 Cookies.set('sql_access',data.state);
-                document.location = "/";
+                document.location = BASE_PATH+"/";
             }
 
 
@@ -482,7 +482,7 @@ function dbAccess(dkey, state) {
 
             if(dkey === DOMAIN_KEY){
                 Cookies.set('db_access',data.state);
-                document.location = "/";
+                document.location = BASE_PATH+"/";
             }
 
 
