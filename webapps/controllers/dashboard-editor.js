@@ -328,7 +328,7 @@ function removeWidget(id) {
 
 function previewDashboard() {
     // window.open('/dashboard/' + CURRENT_DASHBOARD_ID + '/preview', "window", "height=" + $(window).height() + ", width=" + $(window).width() + ",directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no");
-    window.open('/dashboard/' + CURRENT_DASHBOARD_ID, "blank");
+    window.open(BASE_PATH+'/dashboard/' + CURRENT_DASHBOARD_ID, "blank");
 }
 
 function saveDashboard() {
