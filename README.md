@@ -62,7 +62,7 @@ or
 ```shell
 > node build.js
 
-> node build.js <PORT_NO> <BASE_PATH> <CONFIG_PATH>
+> node build.js <CONFIG_PATH>
 ```
 #### Output
 
