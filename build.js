@@ -7,8 +7,15 @@ const lineReplace = require('line-replace');
 var args = process.argv.slice(2);
 var prop=null;
 
-if(args[2]){
-    prop = PropertiesReader(args[2]);
+if(args[0]){
+    try {
+        prop = PropertiesReader(args[0]);
+        console.log('* Fetching from config file => '+args[0] )
+    }
+    catch(e){
+        prop = PropertiesReader('boodskapui.properties');
+        console.log('* Fetching from default config file => boodskapui.properties')
+    }
 }else{
 
     try {
@@ -28,8 +35,7 @@ getProperty = (pty) => {
 }
 
 
-var PORT_NO = args[0] ? args[0] : null;
-var BASE_PATH =  args[1] ? args[1] : (getProperty('server.basepath') ? getProperty('server.basepath') : '')
+var BASE_PATH =  getProperty('server.basepath') ? getProperty('server.basepath') : '';
 
 console.log("***************************************" +
     "\nBoodskap IoT Platform\n" +
@@ -43,7 +49,7 @@ async.series({
 
         let server_config = {
             web: {
-                port: PORT_NO ? PORT_NO : Number(getProperty('server.port'))
+                port: Number(getProperty('server.port'))
             },
             basepath : BASE_PATH,
             protocol : getProperty('server.ssl') ? 'https' : 'http'
