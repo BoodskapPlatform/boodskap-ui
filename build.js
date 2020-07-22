@@ -2,25 +2,32 @@ const async = require('async');
 const PropertiesReader = require('properties-reader');
 const fs = require('fs');
 const replace = require('replace-in-file');
-const lineReplace = require('line-replace')
-;
+const lineReplace = require('line-replace');
 
+var args = process.argv.slice(2);
 var prop=null;
-try {
-    prop = PropertiesReader(process.env.HOME + '/config/boodskapui.properties');
-    console.log('* Fetching from config file => '+process.env.HOME + '/config/boodskapui.properties')
+
+if(args[2]){
+    prop = PropertiesReader(args[2]);
+}else{
+
+    try {
+        prop = PropertiesReader(process.env.HOME + '/config/boodskapui.properties');
+        console.log('* Fetching from config file => '+process.env.HOME + '/config/boodskapui.properties')
+    }
+    catch(e){
+        prop = PropertiesReader('boodskapui.properties');
+        console.log('* Fetching from default config file => boodskapui.properties')
+    }
 }
-catch(e){
-    prop = PropertiesReader('boodskapui.properties');
-    console.log('* Fetching from default config file => boodskapui.properties')
-}
+
 
 //Get the property value
 getProperty = (pty) => {
     return prop.get(pty);
 }
 
-var args = process.argv.slice(2);
+
 var PORT_NO = args[0] ? args[0] : null;
 var BASE_PATH =  args[1] ? args[1] : (getProperty('server.basepath') ? getProperty('server.basepath') : '')
 
