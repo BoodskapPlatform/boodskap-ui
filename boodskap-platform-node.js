@@ -92,18 +92,6 @@ sessionObj.cookie.secure = true // serve secure cookies
 app.use(expressSession(sessionObj))
 
 
-const swaggerUi = require('swagger-ui-express');
-const YAML = require('yamljs');
-
-var options = {
-    customCss: '.swagger-ui .topbar { display: none }',
-    customJs: '/swagger.js'
-
-};
-const swaggerDocument = YAML.load('./yaml/api.yml');
-app.use(conf.basepath+'/swagger-doc', swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
-
-
 var server = require('http').Server(app,router);
 
 

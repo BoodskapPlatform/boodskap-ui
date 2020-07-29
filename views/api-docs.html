@@ -1,3 +1,39 @@
+<link rel="stylesheet" type="text/css" href="css/swagger-ui.css" >
+
+<style>
+    .swagger-ui .topbar .download-url-wrapper {
+        display: none
+    }
+
+    .swagger-ui .topbar, .information-container.wrapper {
+        display: none !important;
+    }
+
+    .opblock-summary-method {
+        background-color: #3e3b3b !important;
+    }
+
+    .swagger-ui .opblock.opblock-post .opblock-summary, .swagger-ui .opblock.opblock-post {
+        border-color: #3e3b3b;
+    }
+
+    .swagger-ui .opblock.opblock-post {
+        background-color: #fff !important;
+    }
+
+    .swagger-ui .opblock-tag {
+        color: #3e3b3b;
+    }
+
+    .markdown {
+        color: #666
+    }
+
+    .swagger-ui .btn.execute {
+        background-color: #3e3b3b;
+        border-color: #3e3b3b;
+    }
+</style>
 
 <div class="container mt-3 platformBody">
     <!-- begin breadcrumb -->
@@ -14,14 +50,14 @@
     <!-- begin panel -->
     <div class="panel panel-inverse">
         <div class="panel-body iFrame" style="background-color: #eeeeee00;border: 1px solid #eee;padding-bottom:30px;">
-
-
-
+            <div id="swagger-ui"></div>
         </div>
     </div>
     <!-- end panel -->
 
 </div>
+<script src="js/swagger-ui-bundle.js"> </script>
+<script src="js/swagger-ui-standalone-preset.js"> </script>
 
 <script>
 
@@ -32,8 +68,45 @@
         successMsg('API Auth Token Key Copied Successfully')
     });
 
-    var str = '<iframe src="/swagger-doc" width="100%" id="apiIframe" style="border:0px;height:'+($(window).height()-180+'px')+'" />'
+    // var str = '<iframe src="'+BASE_PATH+'/swagger-doc" width="100%" id="apiIframe" style="border:0px;height:'+($(window).height()-180+'px')+'" />'
 
-  $(".iFrame").html(str);
+  //   console.log(str)
+  // $(".iFrame").html(str);
+
+
+    window.onload = function() {
+        // Build a system
+        var url = window.location.search.match(/url=([^&]+)/);
+        if (url && url.length > 1) {
+            url = decodeURIComponent(url[1]);
+        } else {
+            url = window.location.origin;
+        }
+        var options = {}
+        url = options.swaggerUrl || url
+        var urls = options.swaggerUrls
+        var customOptions = options.customOptions
+        var spec1 = options.swaggerDoc
+        var swaggerOptions = {
+            url: "spec",
+            dom_id: '#swagger-ui',
+            deepLinking: true,
+            presets: [
+                SwaggerUIBundle.presets.apis,
+                SwaggerUIStandalonePreset
+            ],
+            plugins: [
+                SwaggerUIBundle.plugins.DownloadUrl
+            ],
+            layout: "StandaloneLayout"
+        }
+        for (var attrname in customOptions) {
+            swaggerOptions[attrname] = customOptions[attrname];
+        }
+        var ui = SwaggerUIBundle(swaggerOptions)
+
+
+        window.ui = ui
+    }
 </script>
 

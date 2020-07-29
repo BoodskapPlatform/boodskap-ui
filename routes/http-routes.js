@@ -1,3 +1,4 @@
+const YAML = require('yamljs');
 
 var Routes = function (app,router) {
 
@@ -372,7 +373,8 @@ Routes.prototype.init = function () {
     });
 
     self.router.get('/documentation', roleCheck, function (req, res) {
-        res.render('api-docs.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+        const swaggerDocument = YAML.load('./yaml/api.yml');
+        res.render('api-docs.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role,swaggerDocument:JSON.stringify(swaggerDocument)});
     });
 
     self.router.get('/alexa', roleCheck, function (req, res) {
@@ -422,6 +424,14 @@ Routes.prototype.init = function () {
         res.render('configuration.html',{layout:false,basepath: getBasePath(req) });
     });
 
+    self.router.get('/spec', roleCheck,function (req, res) {
+        const swaggerDocument = YAML.load('./yaml/api.yml');
+        res.json(swaggerDocument);
+    });
+    self.router.get('/swagger-doc',function (req, res) {
+        res.render('swagger.html',{layout:false,basepath: getBasePath(req)});
+    });
+
     self.router.get('/404', roleCheck,function (req, res) {
         res.render('404.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
     });
@@ -432,7 +442,7 @@ Routes.prototype.init = function () {
             res.render('login.html',{layout:false,basepath: getBasePath(req) });
 
         }else{
-            res.redirect(self.app.conf.basepath+"/404");
+            res.redirect(getBasePath(req)+"/404");
         }
 
     });
