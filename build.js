@@ -102,7 +102,7 @@ async.series({
     },
     swagger : function (sbk) {
 
-        var protocol = getProperty('mqtt.ssl') ? 'https' : 'http';
+        var protocol = getProperty('sever.ssl') ? 'https' : 'http';
 
         lineReplace({
             file: './yaml/api.yml',
