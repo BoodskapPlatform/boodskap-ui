@@ -238,12 +238,15 @@ function loadDomains() {
                 var dbstr = '<a href="javascript:void(0)" onclick="checkDB(\''+data+'\')" ' +
                     'style="display:block;color:#333;font-size:11px;" class="d_'+data+'"><i class="icon-database2"></i> Check DB Access</a>'
 
-                return data+sqlstr+dbstr;
+                return data ? data+sqlstr+dbstr : '-';
             }
         },
         {
             mData: 'email',
-            sTitle: 'Email ID'
+            sTitle: 'Email ID',
+            mRender: function (data, type, row) {
+                return data ? data : '-';
+            }
         },
         {
             mData: 'action',
@@ -252,7 +255,7 @@ function loadDomains() {
                 var str = '<button class="btn btn-xs btn-default" onclick="loginAs(\'' + row['domainKey'] + '\',\'' + row['email'] + '\')">' +
                     '<i class="icon-sign-in"></i> Login</button> <button class="btn btn-xs btn-danger" onclick="deleteDomain(\'' + row['domainKey'] + '\',\'' + row['email'] + '\')">' +
                 '<i class="icon-trash-o"></i></button>'
-                return str;
+                return row['domainKey'] ? str : '-';
             }
         }
 
@@ -277,7 +280,7 @@ function loadDomains() {
         "sAjaxSource": API_BASE_PATH + '/elastic/search/query/' + API_TOKEN,
         "fnServerData": function (sSource, aoData, fnCallback, oSettings) {
 
-            queryParams.query['bool']['must'] = [];
+            queryParams.query['bool']['must'] = [{exists:{field:'domainKey'}}];
             queryParams.query['bool']['should'] = [];
             delete queryParams.query['bool']["minimum_should_match"];
             queryParams['size'] = oSettings._iDisplayLength;
