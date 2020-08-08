@@ -5,7 +5,7 @@ schemes:
 produces: 
   - "application/json"
 info: 
-  version: "3.0.1"
+  version: "3.0.2"
   title: "Boodskap API"
   description: "Boodskap IoT Platform API"
   termsOfService: "https://boodskap.io/terms-conditions"
@@ -4552,6 +4552,46 @@ paths:
           description: "API Error"
           schema: 
             $ref: "#/definitions/ApiError"
+  '/domain/access/{atoken}/{dkey}/{access}/{grant}':
+    put:
+      tags:
+        - Grant Revoke Access
+      summary: Grant Revoke Access
+      operationId: grantRevokeAccess
+      consumes:
+        - "text/plain"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          description: Auth token of the logged in user
+          required: true
+          type: string
+        - name: dkey
+          in: path
+          description: Domain Key
+          required: true
+          type: string
+        - name: access
+          in: path
+          required: true
+          type: string
+          description: One of [SQL, DB, MONGO, CASSANDRA, GLOBAL]
+        - name: grant
+          in: path
+          required: true
+          type: boolean
+          description: True to Grant, False to Revoke
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Access'
+        "417":
+          description: "API Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
   '/firmware/upload/{atoken}/{dmid}/{ver}':
     post:
       tags:
@@ -5282,11 +5322,171 @@ paths:
           description: Auth token of the logged in user
           required: true
           type: string
+        - name: type
+          in: query
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          required: false
+          type: string
       responses:
         '200':
           description: successful operation
           schema: 
             $ref: "#/definitions/Count"
+        "417":
+          description: "API Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/mspec/v2/upsert/{atoken}':
+    post:
+      tags:
+        - Upsert Message Definition V2
+      summary: Create / Update Message Definition V2
+      operationId: upsertMessageDefinitionV2
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          description: Auth token of the logged in user
+          required: true
+          type: string
+        - name: type
+          in: query
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          required: false
+          type: string
+        - name: entity
+          in: body
+          description: MessageSpecification JSON object
+          required: true
+          schema:
+            $ref: '#/definitions/MessageSpecificationV2'
+      responses:
+        '200':
+          description: successful operation
+          schema: 
+            $ref: "#/definitions/Success"
+        "417":
+          description: "API Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/mspec/v2/get/{atoken}/{messageId}':
+    get:
+      tags:
+        - Get Message Definition V2
+      summary: Retreive Message Definition V2
+      operationId: getMessageDefinitionV2
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          description: Auth token of the logged in user
+          required: true
+          type: string
+        - name: messageId
+          in: path
+          description: Message id
+          required: true
+          type: string
+        - name: type
+          in: query
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          required: false
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/MessageSpecificationV2'
+        "417":
+          description: "API Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/mspec/v2/delete/{atoken}/{messageId}':
+    delete:
+      tags:
+        - Delete Message Definition V2
+      summary: Delete Message Definition V2
+      operationId: deleteMessageDefinitionV2
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          description: Auth token of the logged in user
+          required: true
+          type: string
+        - name: messageId
+          in: path
+          description: Message Id
+          required: true
+          type: string
+        - name: type
+          in: query
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          required: false
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          schema: 
+            $ref: "#/definitions/Success"
+        "417":
+          description: "API Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/mspec/v2/list/{atoken}/{pageSize}':
+    get:
+      tags:
+        - List Message Definitions V2
+      summary: List Message Definition V2
+      operationId: listMessageDefinitionsV2
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          description: Auth token of the logged in user
+          required: true
+          type: string
+        - name: pageSize
+          in: path
+          description: Maximum number of message definitions to be listed
+          required: true
+          type: integer
+          format: int32
+        - name: direction
+          in: query
+          description: If direction is specified, **mid** is required
+          required: false
+          type: string
+          enum: [NEXT, PREV]
+        - name: mid
+          in: query
+          description: Last or First message id of the previous list operation, **required** if **direction** is specified
+          required: false
+          type: string
+        - name: type
+          in: query
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          required: false
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/MessageSpecificationV2'
         "417":
           description: "API Error"
           schema: 
@@ -6729,12 +6929,17 @@ paths:
           description: Auth token of the logged in user
           required: true
           type: string
+        - name: rtype
+          in: query
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          required: false
+          type: string
         - name: entity
           in: body
-          description: MessageRule JSON object
+          description: MessageRule or GlobalMessageRule JSON object
           required: true
           schema:
-            $ref: '#/definitions/MessageRule'
+            type: object
       responses:
         '200':
           description: successful operation
@@ -6764,8 +6969,12 @@ paths:
           in: path
           description: Message id
           required: true
-          type: integer
-          format: int64
+          type: string
+        - name: rtype
+          in: query
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          required: false
+          type: string
       responses:
         '200':
           description: successful operation
@@ -6811,8 +7020,12 @@ paths:
           description: >-
             Last or First message id of the previous list operation, **required** if **direction** is specified
           required: false
-          type: integer
-          format: int64
+          type: string
+        - name: rtype
+          in: query
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          required: false
+          type: string
       responses:
         '200':
           description: successful operation
@@ -6844,8 +7057,12 @@ paths:
           in: path
           description: Message id
           required: true
-          type: integer
-          format: int64
+          type: string
+        - name: rtype
+          in: query
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          required: false
+          type: string
       responses:
         '200':
           description: successful operation
@@ -6870,6 +7087,11 @@ paths:
           in: path
           description: Auth token of the logged in user
           required: true
+          type: string
+        - name: rtype
+          in: query
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          required: false
           type: string
         - name: entity
           in: body
@@ -7039,12 +7261,17 @@ paths:
           description: Auth token of the logged in user
           required: true
           type: string
+        - name: rtype
+          in: query
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          required: false
+          type: string
         - name: entity
           in: body
-          description: ScheduledRule JSON object
+          description: ScheduledRule or GlobalScheduledRule JSON object
           required: true
           schema:
-            $ref: '#/definitions/ScheduledRule'
+            type: object
       responses:
         '200':
           description: successful operation
@@ -7074,13 +7301,17 @@ paths:
           in: path
           description: Scheduled rule id
           required: true
-          type: integer
-          format: int64
+          type: string
+        - name: rtype
+          in: query
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          required: false
+          type: string
       responses:
         '200':
-          description: successful operation
+          description: successful operation, return ScheduledRule or GlobalScheduledRule
           schema:
-            $ref: '#/definitions/ScheduledRule'
+            type: object
         "417":
           description: "API Error"
           schema: 
@@ -7105,8 +7336,12 @@ paths:
           in: path
           description: Scheduled rule id
           required: true
-          type: integer
-          format: int64
+          type: string
+        - name: rtype
+          in: query
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          required: false
+          type: string
       responses:
         '200':
           description: successful operation
@@ -7152,8 +7387,12 @@ paths:
           description: >-
             Last or First rule id of the previous list operation, **required** if **direction** is specified
           required: false
-          type: integer
-          format: int64
+          type: string
+        - name: rtype
+          in: query
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          required: false
+          type: string
       responses:
         '200':
           description: successful operation
@@ -7202,15 +7441,19 @@ paths:
           description: >-
             Last or First rule id of the previous list operation, **required** if **direction** is specified
           required: false
-          type: integer
-          format: int64
+          type: string
+        - name: rtype
+          in: query
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          required: false
+          type: string
       responses:
         '200':
-          description: successful operation
+          description: successful operation, return list of ScheduledRule or GlobalScheduledRule
           schema:
             type: array
             items:
-              $ref: '#/definitions/ScheduledRule'
+              type: object
         "417":
           description: "API Error"
           schema: 
@@ -7230,6 +7473,11 @@ paths:
           in: path
           description: Auth token of the logged in user
           required: true
+          type: string
+        - name: rtype
+          in: query
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          required: false
           type: string
       responses:
         '200':
@@ -7255,6 +7503,11 @@ paths:
           in: path
           description: Auth token of the logged in user
           required: true
+          type: string
+        - name: rtype
+          in: query
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          required: false
           type: string
         - name: entity
           in: body
@@ -7287,14 +7540,9 @@ paths:
           description: Auth token of the logged in user
           required: true
           type: string
-        - name: userRule
-          description: Is user rule
+        - name: rtype
           in: query
-          required: false
-          type: boolean
-        - name: userId
-          description: User ID, if not given, will be taken from session
-          in: query
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
           required: false
           type: string
         - name: entity
@@ -7333,14 +7581,9 @@ paths:
           description: Named rule name
           required: true
           type: string
-        - name: userRule
-          description: Is user rule
+        - name: rtype
           in: query
-          required: false
-          type: boolean
-        - name: userId
-          description: User ID, if not given, will be taken from session
-          in: query
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
           required: false
           type: string
       responses:
@@ -7373,14 +7616,9 @@ paths:
           description: Named rule name
           required: true
           type: string
-        - name: userRule
-          description: Is user rule
+        - name: rtype
           in: query
-          required: false
-          type: boolean
-        - name: userId
-          description: User ID, if not given, will be taken from session
-          in: query
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
           required: false
           type: string
       responses:
@@ -7408,14 +7646,9 @@ paths:
           description: Auth token of the logged in user
           required: true
           type: string
-        - name: userRule
-          description: Is user rule
+        - name: rtype
           in: query
-          required: false
-          type: boolean
-        - name: userId
-          description: User ID, if not given, will be taken from session
-          in: query
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
           required: false
           type: string
       responses:
@@ -7449,16 +7682,6 @@ paths:
           required: true
           type: integer
           format: int32
-        - name: userRule
-          description: Is user rule
-          in: query
-          required: false
-          type: boolean
-        - name: userId
-          description: User ID, if not given, will be taken from session
-          in: query
-          required: false
-          type: string
         - name: direction
           in: query
           description: >-
@@ -7472,6 +7695,11 @@ paths:
           in: query
           description: >-
             Last or First rule name of the previous list operation, **required** if **direction** is specified
+          required: false
+          type: string
+        - name: rtype
+          in: query
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
           required: false
           type: string
       responses:
@@ -7507,16 +7735,6 @@ paths:
           required: true
           type: integer
           format: int32
-        - name: userRule
-          description: Is user rule
-          in: query
-          required: false
-          type: boolean
-        - name: userId
-          description: User ID, if not given, will be taken from session
-          in: query
-          required: false
-          type: string
         - name: direction
           in: query
           description: >-
@@ -7530,6 +7748,11 @@ paths:
           in: query
           description: >-
             Last or First rule name of the previous list operation, **required** if **direction** is specified
+          required: false
+          type: string
+        - name: rtype
+          in: query
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
           required: false
           type: string
       responses:
@@ -7559,14 +7782,9 @@ paths:
           description: Auth token of the logged in user
           required: true
           type: string
-        - name: userRule
-          description: Is user rule
+        - name: rtype
           in: query
-          required: false
-          type: boolean
-        - name: userId
-          description: User ID, if not given, will be taken from session
-          in: query
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
           required: false
           type: string
       responses:
@@ -7593,6 +7811,11 @@ paths:
           in: path
           description: Auth token of the logged in user
           required: true
+          type: string
+        - name: rtype
+          in: query
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          required: false
           type: string
         - name: entity
           in: body
@@ -7713,7 +7936,7 @@ paths:
       summary: Push Raw Message
       operationId: pushRawMessage
       consumes:
-        - "text/plain"
+        - "*/*"
       produces:
         - "application/json"
       parameters:
@@ -7836,7 +8059,7 @@ paths:
       summary: Push Binary Data
       operationId: pushBinaryData
       consumes:
-        - text/plain
+        - "*/*"
       produces:
         - application/json
       parameters:
@@ -7912,6 +8135,7 @@ paths:
       operationId: pushBinaryJSON
       consumes:
         - application/json
+        - Application/json
       produces:
         - application/json
       parameters:
@@ -7956,6 +8180,438 @@ paths:
           required: true
           schema:
             type: object
+      responses:
+        '200':
+          description: successful operation
+          schema: 
+            $ref: "#/definitions/Success"
+        "417":
+          description: "API Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/push/bin/form/{dkey}/{akey}/{did}/{dmdl}/{fwver}/{type}':
+    post:
+      tags:
+        - Push Binary Form
+      summary: Push Binary Form
+      operationId: pushBinaryForm
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters:
+        - name: dkey
+          in: path
+          description: Domain key
+          required: true
+          type: string
+        - name: akey
+          in: path
+          description: API key
+          required: true
+          type: string
+        - name: did
+          in: path
+          description: Device ID
+          required: true
+          type: string
+        - name: dmdl
+          in: path
+          description: Device model
+          required: true
+          type: string
+        - name: fwver
+          in: path
+          description: Device firmware version
+          required: true
+          type: string
+        - name: type
+          in: path
+          description: binary rule type
+          required: true
+          type: string
+        - name: properties
+          in: query
+          description: extra properties for decoding
+          required: false
+          type: string
+        - name: data
+          in: formData
+          description: json document
+          required: true
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          schema: 
+            $ref: "#/definitions/Success"
+        "417":
+          description: "API Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/push/v2/json/{did}/{dmdl}/{fwver}/{mid}':
+    post:
+      tags:
+        - Push JSON Data
+      summary: Push JSON Data
+      operationId: pushJSONDataV2
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: dkey
+          in: header
+          description: Domain key
+          required: true
+          type: string
+        - name: akey
+          in: header
+          description: API key
+          required: true
+          type: string
+        - name: did
+          in: path
+          description: Device ID
+          required: true
+          type: string
+        - name: dmdl
+          in: path
+          description: Device model
+          required: true
+          type: string
+        - name: fwver
+          in: path
+          description: Device firmware version
+          required: true
+          type: string
+        - name: mid
+          in: path
+          description: Message ID (defined through message spec)
+          required: true
+          type: integer
+          format: int64
+        - name: data
+          in: body
+          description: JSON Data
+          required: true
+          schema:
+            type: object
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/PushResult'
+  '/push/v2/raw/{did}/{dmdl}/{fwver}/{mid}':
+    post:
+      tags:
+        - Push Raw Message
+      summary: Push Raw Message
+      operationId: pushRawMessageV2
+      consumes:
+        - "*/*"
+      produces:
+        - "application/json"
+      parameters:
+        - name: dkey
+          in: header
+          description: Domain key
+          required: true
+          type: string
+        - name: akey
+          in: header
+          description: API key
+          required: true
+          type: string
+        - name: did
+          in: path
+          description: Device ID
+          required: true
+          type: string
+        - name: dmdl
+          in: path
+          description: Device model
+          required: true
+          type: string
+        - name: fwver
+          in: path
+          description: Device firmware version
+          required: true
+          type: string
+        - name: mid
+          in: path
+          description: Message ID (defined through message spec)
+          required: true
+          type: integer
+          format: int64
+        - name: format
+          in: query
+          description: data encoding format (default JSON as string)
+          required: false
+          type: string
+          enum:
+            - JSON
+            - TEXT
+            - HEX
+            - BASE64
+        - name: data
+          in: body
+          description: data as text
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/PushResult'
+  '/push/v2/bin/file/{did}/{dmdl}/{fwver}/{type}':
+    post:
+      tags:
+        - Push Binary File
+      summary: Push Binary File
+      operationId: pushBinaryFileV2
+      consumes:
+        - multipart/form-data
+      produces:
+        - application/json
+      parameters:
+        - name: dkey
+          in: header
+          description: Domain key
+          required: true
+          type: string
+        - name: akey
+          in: header
+          description: API key
+          required: true
+          type: string
+        - name: did
+          in: path
+          description: Device ID
+          required: true
+          type: string
+        - name: dmdl
+          in: path
+          description: Device model
+          required: true
+          type: string
+        - name: fwver
+          in: path
+          description: Device firmware version
+          required: true
+          type: string
+        - name: type
+          in: path
+          description: binary rule type
+          required: true
+          type: string
+        - name: binfile
+          in: formData
+          description: Binary file content
+          type: file
+          required: true
+        - name: properties
+          in: formData
+          description: extra properties for decoding
+          type: string
+          required: false
+      responses:
+        '200':
+          description: successful operation
+          schema: 
+            $ref: "#/definitions/Success"
+        "417":
+          description: "API Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/push/v2/bin/data/{did}/{dmdl}/{fwver}/{type}':
+    post:
+      tags:
+        - Push Binary Data
+      summary: Push Binary Data
+      operationId: pushBinaryDataV2
+      consumes:
+        - "*/*"
+      produces:
+        - application/json
+      parameters:
+        - name: dkey
+          in: header
+          description: Domain key
+          required: true
+          type: string
+        - name: akey
+          in: header
+          description: API key
+          required: true
+          type: string
+        - name: did
+          in: path
+          description: Device ID
+          required: true
+          type: string
+        - name: dmdl
+          in: path
+          description: Device model
+          required: true
+          type: string
+        - name: fwver
+          in: path
+          description: Device firmware version
+          required: true
+          type: string
+        - name: type
+          in: path
+          description: binary rule type
+          required: true
+          type: string
+        - name: format
+          in: query
+          description: data decoding format
+          required: false
+          type: string
+          enum:
+            - TEXT
+            - HEX
+            - BASE64
+        - name: contentType
+          in: query
+          description: content type, ex filename.jpg
+          required: false
+          type: string
+        - name: properties
+          in: query
+          description: extra properties for decoding
+          required: false
+          type: string
+        - name: data
+          in: body
+          description: content text
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          schema: 
+            $ref: "#/definitions/Success"
+        "417":
+          description: "API Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/push/v2/bin/json/{did}/{dmdl}/{fwver}/{type}':
+    post:
+      tags:
+        - Push Binary JSON
+      summary: Push Binary JSON
+      operationId: pushBinaryJSONV2
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: dkey
+          in: header
+          description: Domain key
+          required: true
+          type: string
+        - name: akey
+          in: header
+          description: API key
+          required: true
+          type: string
+        - name: did
+          in: path
+          description: Device ID
+          required: true
+          type: string
+        - name: dmdl
+          in: path
+          description: Device model
+          required: true
+          type: string
+        - name: fwver
+          in: path
+          description: Device firmware version
+          required: true
+          type: string
+        - name: type
+          in: path
+          description: binary rule type
+          required: true
+          type: string
+        - name: properties
+          in: query
+          description: extra properties for decoding
+          required: false
+          type: string
+        - name: data
+          in: body
+          description: json document
+          required: true
+          schema:
+            type: object
+      responses:
+        '200':
+          description: successful operation
+          schema: 
+            $ref: "#/definitions/Success"
+        "417":
+          description: "API Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/push/v2/bin/form/{did}/{dmdl}/{fwver}/{type}':
+    post:
+      tags:
+        - Push Binary Form
+      summary: Push Binary Form
+      operationId: pushBinaryFormV2
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters:
+        - name: dkey
+          in: header
+          description: Domain key
+          required: true
+          type: string
+        - name: akey
+          in: header
+          description: API key
+          required: true
+          type: string
+        - name: did
+          in: path
+          description: Device ID
+          required: true
+          type: string
+        - name: dmdl
+          in: path
+          description: Device model
+          required: true
+          type: string
+        - name: fwver
+          in: path
+          description: Device firmware version
+          required: true
+          type: string
+        - name: type
+          in: path
+          description: binary rule type
+          required: true
+          type: string
+        - name: properties
+          in: query
+          description: extra properties for decoding
+          required: false
+          type: string
+        - name: data
+          in: formData
+          description: json document
+          required: true
+          type: string
       responses:
         '200':
           description: successful operation
@@ -9986,6 +10642,165 @@ paths:
           description: "API Error"
           schema: 
             $ref: "#/definitions/ApiError"
+  '/storage/v2/spec/upsert/{atoken}':
+    post:
+      tags:
+        - Upsert Record Definition V2
+      summary: Create / Update Record Definition V2
+      operationId: upsertRecordDefinitionV2
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          description: Auth token of the logged in user
+          required: true
+          type: string
+        - name: type
+          in: query
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          required: false
+          type: string
+        - name: entity
+          in: body
+          description: RecordDefinition JSON object
+          required: true
+          schema:
+            $ref: '#/definitions/RecordDefinitionV2'
+      responses:
+        '200':
+          description: successful operation
+          schema: 
+            $ref: "#/definitions/Success"
+        "417":
+          description: "API Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/storage/v2/spec/get/{atoken}/{rid}':
+    get:
+      tags:
+        - Get Record Definition V2
+      summary: Retreive Record Definition V2
+      operationId: getRecordDefinitionV2
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          description: Auth token of the logged in user
+          required: true
+          type: string
+        - name: rid
+          in: path
+          description: Record id
+          required: true
+          type: string
+        - name: type
+          in: query
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          required: false
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/RecordDefinitionV2'
+        "417":
+          description: "API Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/storage/v2/spec/delete/{atoken}/{rid}':
+    delete:
+      tags:
+        - Delete Record Definition V2
+      summary: Delete Record Definition V2
+      operationId: deleteRecordDefinitionV2
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          description: Auth token of the logged in user
+          required: true
+          type: string
+        - name: rid
+          in: path
+          description: Record Id
+          required: true
+          type: string
+        - name: type
+          in: query
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          required: false
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          schema: 
+            $ref: "#/definitions/Success"
+        "417":
+          description: "API Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/storage/v2/spec/list/{atoken}/{pageSize}':
+    get:
+      tags:
+        - List Record Definitions V2
+      summary: List Record Definitions V2
+      operationId: listRecordDefinitionsV2
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          description: Auth token of the logged in user
+          required: true
+          type: string
+        - name: pageSize
+          in: path
+          description: Maximum number of record definitions to be listed
+          required: true
+          type: integer
+          format: int32
+        - name: direction
+          in: query
+          description: >-
+            If direction is specified, **rid** is required
+          required: false
+          type: string
+          enum:
+            - NEXT
+            - PREV
+        - name: rid
+          in: query
+          description: >-
+            Last or First record id of the previous list operation, **required** if **direction** is specified
+          required: false
+          type: string
+        - name: type
+          in: query
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          required: false
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/RecordDefinition'
+        "417":
+          description: "API Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
   '/storage/spec/count/{atoken}':
     post:
       tags:
@@ -10001,6 +10816,11 @@ paths:
           in: path
           description: Auth token of the logged in user
           required: true
+          type: string
+        - name: type
+          in: query
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          required: false
           type: string
       responses:
         '200':
@@ -11319,6 +12139,11 @@ paths:
           description: True if system template
           required: false
           type: boolean
+        - name: ttype
+          in: query
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          required: false
+          type: string
         - name: jsonfile
           in: formData
           description: JSON Template list file
@@ -11354,6 +12179,11 @@ paths:
           description: True if system template
           required: false
           type: boolean
+        - name: ttype
+          in: query
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          required: false
+          type: string
       responses:
         '200':
           description: JSON Template list file
@@ -11384,6 +12214,11 @@ paths:
           description: 'true for system template'
           required: false
           type: boolean
+        - name: ttype
+          in: query
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          required: false
+          type: string
         - name: entity
           in: body
           description: Template JSON object
@@ -11420,6 +12255,11 @@ paths:
           description: 'true for system template'
           required: false
           type: boolean
+        - name: ttype
+          in: query
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          required: false
+          type: string
         - name: name
           in: path
           description: Template Name
@@ -11476,6 +12316,11 @@ paths:
             Last or First template name of the previous list operation, **required** if **direction** is specified
           required: false
           type: string
+        - name: ttype
+          in: query
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          required: false
+          type: string
       responses:
         '200':
           description: successful operation
@@ -11513,6 +12358,11 @@ paths:
           description: Template Name
           required: true
           type: string
+        - name: ttype
+          in: query
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          required: false
+          type: string
       responses:
         '200':
           description: successful operation
@@ -11548,6 +12398,11 @@ paths:
           description: Template Name
           required: true
           type: string
+        - name: ttype
+          in: query
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          required: false
+          type: string
         - name: mergeContent
           in: body
           description: Merge Content JSON object
@@ -11559,6 +12414,52 @@ paths:
           description: successful operation
           schema: 
             type: string
+        "417":
+          description: "API Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/templates/v2/merge/{atoken}/{name}':
+    post:
+      tags:
+        - Merge V2 Template
+      summary: Merge a V2 Template
+      operationId: mergeV2Template
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          description: Auth token of the logged in user
+          required: true
+          type: string
+        - name: system
+          in: query
+          description: 'true for system template'
+          required: false
+          type: boolean
+        - name: name
+          in: path
+          description: Template Name
+          required: true
+          type: string
+        - name: ttype
+          in: query
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          required: false
+          type: string
+        - name: mergeContent
+          in: body
+          description: Merge Content JSON object
+          required: true
+          schema:
+            type: object
+      responses:
+        '200':
+          description: successful operation
+          schema: 
+            $ref: "#/definitions/Success"
         "417":
           description: "API Error"
           schema: 
@@ -11881,6 +12782,91 @@ paths:
           description: "Success"
           schema:
             $ref: "#/definitions/Counter"
+        "417":
+          description: "API Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/cluster/domain/list/{atoken}': 
+    get: 
+      tags:
+        - List Cluster Domains
+      summary: List Cluster Domains
+      operationId: "listClusterDomains"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          description: Auth token of the logged in user
+          required: true
+          type: string
+      responses: 
+        "200":
+          description: "Success"
+          schema:
+            $ref: "#/definitions/ClusterDomains"
+        "417":
+          description: "API Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/cluster/domain/add/{atoken}/{dkey}': 
+    get: 
+      tags:
+        - Add Cluster Domain
+      summary: Add Cluster Domain
+      operationId: "addClusterDomain"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          description: Auth token of the logged in user
+          required: true
+          type: string
+        - name: dkey
+          in: path
+          description: Domain Key
+          required: true
+          type: string
+      responses: 
+        "200":
+          description: "Success"
+          schema:
+            $ref: "#/definitions/ClusterDomains"
+        "417":
+          description: "API Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/cluster/domain/remove/{atoken}/{dkey}': 
+    get: 
+      tags:
+        - Remove Cluster Domain
+      summary: Remove Cluster Domain
+      operationId: "removeClusterDomain"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          description: Auth token of the logged in user
+          required: true
+          type: string
+        - name: dkey
+          in: path
+          description: Domain Key
+          required: true
+          type: string
+      responses: 
+        "200":
+          description: "Success"
+          schema:
+            $ref: "#/definitions/ClusterDomains"
         "417":
           description: "API Error"
           schema: 
@@ -17936,6 +18922,11 @@ paths:
           description: Auth token of the logged in user
           required: true
           type: string
+        - name: rtype
+          in: query
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          required: false
+          type: string
         - name: entity
           in: body
           description: BinaryRule JSON object
@@ -17972,6 +18963,11 @@ paths:
           description: Binary rule identifier type
           required: true
           type: string
+        - name: rtype
+          in: query
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          required: false
+          type: string
       responses:
         '200':
           description: successful operation
@@ -18002,6 +18998,11 @@ paths:
           description: Binary rule identifier type
           required: true
           type: string
+        - name: rtype
+          in: query
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          required: false
+          type: string
       responses:
         '200':
           description: successful operation
@@ -18026,6 +19027,11 @@ paths:
           in: path
           description: Auth token of the logged in user
           required: true
+          type: string
+        - name: rtype
+          in: query
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          required: false
           type: string
       responses:
         '200':
@@ -18073,6 +19079,11 @@ paths:
             Last or First message type of the previous list operation, **required** if **direction** is specified
           required: false
           type: string      
+        - name: rtype
+          in: query
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          required: false
+          type: string
       responses:
         '200':
           description: successful operation
@@ -18085,7 +19096,7 @@ paths:
           schema: 
             $ref: "#/definitions/ApiError"
   '/brules/count/{atoken}':
-    post:
+    get:
       tags:
         - Count All Binary Rules
       summary: Count All Binary Rules
@@ -18099,6 +19110,11 @@ paths:
           in: path
           description: Auth token of the logged in user
           required: true
+          type: string
+        - name: rtype
+          in: query
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          required: false
           type: string
       responses:
         '200':
@@ -19747,6 +20763,11 @@ paths:
           description: Auth token of the logged in user
           required: true
           type: string
+        - name: jtype
+          in: query
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          required: false
+          type: string
         - name: entity
           in: body
           description: Job JSON object
@@ -19762,7 +20783,7 @@ paths:
           description: "API Error"
           schema: 
             $ref: "#/definitions/ApiError"
-  '/jobs/get/{atoken}/{id}':
+  '/jobs/get/{atoken}/{jobId}':
     get:
       tags:
         - Get Job
@@ -19778,10 +20799,15 @@ paths:
           description: Auth token of the logged in user
           required: true
           type: string
-        - name: id
+        - name: jobId
           in: path
           description: Job ID
           required: true
+          type: string
+        - name: jtype
+          in: query
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          required: false
           type: string
       responses:
         '200':
@@ -19813,6 +20839,11 @@ paths:
           description: Job ID
           required: true
           type: string
+        - name: jtype
+          in: query
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          required: false
+          type: string
       responses:
         '200':
           description: successful operation
@@ -19825,9 +20856,9 @@ paths:
   '/jobs/count/{atoken}':
     get:
       tags:
-        - Count All Jobs
-      summary: Count All Jobs
-      operationId: countAllJobs
+        - Count Jobs
+      summary: Count Jobs
+      operationId: countJobs
       consumes:
         - "text/plain"
       produces:
@@ -19837,6 +20868,11 @@ paths:
           in: path
           description: Auth token of the logged in user
           required: true
+          type: string
+        - name: jtype
+          in: query
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          required: false
           type: string
       responses:
         '200':
@@ -19863,6 +20899,11 @@ paths:
           description: Auth token of the logged in user
           required: true
           type: string
+        - name: jtype
+          in: query
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          required: false
+          type: string
       responses:
         '200':
           description: successful operation
@@ -19874,7 +20915,7 @@ paths:
           description: "API Error"
           schema: 
             $ref: "#/definitions/ApiError"
-  '/jobs/set/{atoken}/{id}/{state}':
+  '/jobs/set/{atoken}/{jobId}/{jobState}':
     put:
       tags:
         - Set Job State
@@ -19890,15 +20931,20 @@ paths:
           description: Auth token of the logged in user
           required: true
           type: string
-        - name: id
+        - name: jobId
           in: path
           description: Job ID
           required: true
           type: string
-        - name: state
+        - name: jobState
           in: path
           description: JobState (ENABLED | DISABLED)
           required: true
+          type: string
+        - name: jtype
+          in: query
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          required: false
           type: string
       responses:
         '200':
@@ -19907,6 +20953,41 @@ paths:
             type: array
             items:
               $ref: '#/definitions/Job'
+        "417":
+          description: "API Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/jobs/running/count/{atoken}/{jobId}':
+    get:
+      tags:
+        - Count Running Jobs
+      summary: Count Running Jobs
+      operationId: countRunningJobs
+      consumes:
+        - "text/plain"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          description: Auth token of the logged in user
+          required: true
+          type: string
+        - name: jobId
+          in: path
+          description: Job ID
+          required: true
+          type: string
+        - name: jtype
+          in: query
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          required: false
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          schema: 
+            $ref: "#/definitions/Count"
         "417":
           description: "API Error"
           schema: 
@@ -19932,9 +21013,120 @@ paths:
           description: Job ID
           required: false
           type: string
-        - name: nodeId
+        - name: jtype
           in: query
-          description: Job Node ID
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          required: false
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Job'
+        "417":
+          description: "API Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/jobs/start/{atoken}/{jobId}':
+    get:
+      tags:
+        - Start Job
+      summary: Start Job
+      operationId: startJob
+      consumes:
+        - "text/plain"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          description: Auth token of the logged in user
+          required: true
+          type: string
+        - name: jobId
+          in: path
+          description: Job ID
+          required: true
+          type: string
+        - name: jtype
+          in: query
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          required: false
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Job'
+        "417":
+          description: "API Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/jobs/restart/{atoken}/{jobId}':
+    get:
+      tags:
+        - Restart Job
+      summary: Restart Job
+      operationId: restartJob
+      consumes:
+        - "text/plain"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          description: Auth token of the logged in user
+          required: true
+          type: string
+        - name: jobId
+          in: path
+          description: Job ID
+          required: true
+          type: string
+        - name: jtype
+          in: query
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          required: false
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Job'
+        "417":
+          description: "API Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/jobs/stop/{atoken}/{jobId}':
+    get:
+      tags:
+        - Stop Job
+      summary: Stop Job
+      operationId: stopJob
+      consumes:
+        - "text/plain"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          description: Auth token of the logged in user
+          required: true
+          type: string
+        - name: jobId
+          in: path
+          description: Job ID
+          required: true
+          type: string
+        - name: jtype
+          in: query
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
           required: false
           type: string
       responses:
@@ -19987,6 +21179,11 @@ paths:
         - name: nodeId
           in: query
           description: Job Node ID
+          required: false
+          type: string
+        - name: jtype
+          in: query
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
           required: false
           type: string
       responses:
@@ -20151,6 +21348,8 @@ definitions:
       mongoAccess:
         type: boolean
       cassandraAccess:
+        type: boolean
+      globalAccess:
         type: boolean
   ApiError: 
     type: "object"
@@ -20446,6 +21645,17 @@ definitions:
           format: int64
         messageName:
           type: string
+  GlobalMessageRule:
+    allOf:
+    - $ref: '#/definitions/Rule'
+    - type: object
+      required:
+       - 'messageId'
+      properties:
+        messageId:
+          type: string
+        messageName:
+          type: string
   ScheduledRule:
     allOf:
     - $ref: '#/definitions/Rule'
@@ -20457,6 +21667,18 @@ definitions:
         id:
           type: integer
           format: int64
+        pattern:
+          type: string
+  GlobalScheduledRule:
+    allOf:
+    - $ref: '#/definitions/Rule'
+    - type: object
+      required:
+       - 'id'
+       - 'pattern'
+      properties:
+        id:
+          type: string
         pattern:
           type: string
   NamedRule:
@@ -20943,6 +22165,27 @@ definitions:
       - id
       - name
       - fields
+  MessageSpecificationV2:
+    type: object
+    properties:
+      domainKey:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      label:
+        type: string
+      description:
+        type: string
+      fields:
+        type: array
+        items:
+          $ref: '#/definitions/MessageField'
+    required:
+      - id
+      - name
+      - fields
   CommandField:
     allOf:
     - $ref: '#/definitions/Storable'
@@ -20998,6 +22241,29 @@ definitions:
       name:
         type: string
       description:
+        type: string
+      label:
+        type: string
+      fields:
+        type: array
+        items:
+          $ref: '#/definitions/RecordField'
+    required:
+      - id
+      - name
+      - fields
+  RecordDefinitionV2:
+    type: object
+    properties:
+      domainKey:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      description:
+        type: string
+      label:
         type: string
       fields:
         type: array
@@ -23940,13 +25206,13 @@ definitions:
         type: integer
       startOnBoot:
         type: boolean
-      systemJob:
-        type: boolean
       resartOnChange:
         type: boolean
       instanceId:
         type: integer
       nodeId:
+        type: string
+      nodeConsistentId:
         type: string
       sessionId:
         type: string
@@ -23955,3 +25221,53 @@ definitions:
     properties: 
       apiKey: 
         type: "string"
+  ClusterDomains:
+    type: object
+    required:
+      - domains
+    properties:
+      domains:
+        type: array
+        items:
+          type: string
+  GlobalRecordDefinition:
+    type: object
+    properties:
+      domainKey:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      description:
+        type: string
+      fields:
+        type: array
+        items:
+          $ref: '#/definitions/RecordField'
+    required:
+      - id
+      - name
+      - fields
+  GlobalMessageSpecification:
+    type: object
+    properties:
+      domainKey:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      label:
+        type: string
+      description:
+        type: string
+      fields:
+        type: array
+        items:
+          $ref: '#/definitions/MessageField'
+    required:
+      - id
+      - name
+      - fields
+
