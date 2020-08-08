@@ -424,7 +424,7 @@ Routes.prototype.init = function () {
         res.render('configuration.html',{layout:false,basepath: getBasePath(req) });
     });
 
-    self.router.get('/spec', roleCheck,function (req, res) {
+    self.router.get('/spec',function (req, res) {
         const swaggerDocument = YAML.load('./yaml/api.yml');
         res.json(swaggerDocument);
     });
