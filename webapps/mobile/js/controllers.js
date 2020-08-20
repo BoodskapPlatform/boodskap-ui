@@ -1585,7 +1585,7 @@ function getMobileAppDomainBranding() {
             var src = JSON.parse(data.value);
             $(".mob_domain_logo_m").attr('src', API_BASE_PATH + '/files/download/' + USER_OBJ.token + '/' + src.webLogo);
         } else {
-            $(".mob_domain_logo_m").attr('src', "/images/boodskap-logo-ltr.png");
+            $(".mob_domain_logo_m").attr('src', "images/bdskap-logo.png");
         }
     })
 }
