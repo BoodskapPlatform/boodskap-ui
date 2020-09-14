@@ -227,7 +227,7 @@ function loadUserProfilePicture() {
                 Cookies.set('user_picture', src.picture);
                 $(".user_profile_picture").attr('src', API_BASE_PATH + '/files/download/' + USER_OBJ.token + '/' + src.picture);
             } else {
-                $(".user_profile_picture").attr('src', "/images/avatar.png");
+                $(".user_profile_picture").attr('src', "images/avatar.png");
             }
 
         })
