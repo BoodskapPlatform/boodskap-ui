@@ -18,6 +18,8 @@ var editorToggle = false;
 
 var current_msg_id = null;
 var current_msg_obj = null;
+var current_namedrule_obj = null;
+var current_binaryrule_obj = null;
 var simulatorModal = {};
 var simulator = {};
 var scriptTerminal = null;
@@ -934,7 +936,7 @@ function loadTabbar(id, type) {
         }
 
 
-        $(".simulateBtn").attr('onclick','openSimulateModal(\''+id+'\')');
+        $(".simulateBtn").attr('onclick','openSimulateModal(\''+id+'\',1)');
 
 
     }
@@ -952,6 +954,8 @@ function loadTabbar(id, type) {
         $(".ruleName").html(obj.name);
 
         $(".exportBtn").attr('onclick','exportRule(3)')
+
+        $(".simulateBtn").attr('onclick','openSimulateModal(\''+id+'\',2)');
     }
     else if (type === 3) {
         loadScheduleRule(id);
@@ -992,6 +996,7 @@ function loadTabbar(id, type) {
         $(".ruleName").html(obj.type);
 
         $(".exportBtn").attr('onclick','exportRule(6)')
+        $(".simulateBtn").attr('onclick','openSimulateModal(\''+id+'\',3)');
     }
     else if (type === 7) {
         loadJobRule(id);
@@ -1207,6 +1212,8 @@ function loadDomainRule() {
 
     // mqttCancelSubscribe();
 
+    $(".simulateBtn").css('display','none');
+
     $("#editorContent").html('<div id="codeEditor"></div>');
     $("#codeEditor").html('');
     loadEditor(CHANGED_DEFAULT_TEXT ? CHANGED_DEFAULT_TEXT : domain_rule_obj.code, 'domainTab');
@@ -1288,6 +1295,8 @@ function loadJarClass(id) {
 }
 
 function loadMessageRule(id) {
+    $(".simulateBtn").css('display','block');
+
     // mqttCancelSubscribe(CURRENT_ID);
     $("#editorContent").html('<div id="codeEditor"></div>');
     var data = returnObj(id, 1);
@@ -1320,7 +1329,7 @@ function loadMessageRule(id) {
     }
 
 
-    $(".simulateBtn").attr('onclick','openSimulateModal(\''+id+'\')');
+    $(".simulateBtn").attr('onclick','openSimulateModal(\''+id+'\',1)');
 
     // setTimeout(function () {
     //     mqttListen();
@@ -1353,6 +1362,8 @@ function loadNamedRule(id) {
     $(".defaultFields").css('display', 'none');
     $(".deleteBtn").css('display', 'block');
 
+    $(".simulateBtn").css('display', 'block');
+    $(".simulateBtn").attr('onclick','openSimulateModal(\''+id+'\',2)');
 
     // setTimeout(function () {
     //     mqttListen();
@@ -1386,6 +1397,8 @@ function loadBinaryRule(id) {
     $(".jobFields").css('display', 'none');
     $(".deleteBtn").css('display', 'block');
 
+    $(".simulateBtn").css('display', 'block');
+    $(".simulateBtn").attr('onclick','openSimulateModal(\''+id+'\',3)');
 
     // setTimeout(function () {
     //     mqttListen();
@@ -1393,6 +1406,7 @@ function loadBinaryRule(id) {
 }
 
 function loadJobRule(id) {
+    $(".simulateBtn").css('display', 'none');
     //  mqttCancelSubscribe(CURRENT_ID);
     $("#editorContent").html('<div id="codeEditor"></div>');
     var data = returnObj(id, 7);
@@ -1423,6 +1437,7 @@ function loadJobRule(id) {
 }
 
 function loadScheduleRule(id) {
+    $(".simulateBtn").css('display', 'none');
     // mqttCancelSubscribe(CURRENT_ID);
     $("#editorContent").html('<div id="codeEditor"></div>');
     var data = returnObj(id, 3);
@@ -2442,111 +2457,311 @@ function loadCodeType() {
 }
 
 
-function openSimulateModal(id) {
+function openSimulateModal(id,type) {
 
-    var str = '<div id="simulatorModal_'+id+'">' +
-        '<div data-role="body">\n' +
-        '<div class="row msgFieldBlock_'+id+'"></div>' +
-        '<div class="row">' +
-        '<div class="col-md-12">' +
-        '<button class="btn btn-sm btn-success pull-right btn_'+id+'" onclick="simulateMessage(\''+id+'\')">Send Message</button>' +
-        '<button class="btn btn-sm btn-default pull-right" onclick="closeSimulator(\''+id+'\')" style="margin-right: 10px;">Close</button>' +
-        '</div> ' +
-        '<div class="col-md-12" style="clear:both;max-height: 200px;overflow: auto;overflow-x: hidden">' +
-        '<code class="code_'+id+'" ></code>' +
-        '</div>' +
-        '</div></div>' +
-        '</div>'
+    if(type === 1){
+
+        var str = '<div id="simulatorModal_'+id+'">' +
+            '<div data-role="body">\n' +
+            '<div class="row msgFieldBlock_'+id+'"></div>' +
+            '<div class="row">' +
+            '<div class="col-md-12">' +
+            '<button class="btn btn-sm btn-success pull-right btn_'+id+'" onclick="simulateMessage(\''+id+'\','+type+')">Send Message</button>' +
+            '<button class="btn btn-sm btn-default pull-right" onclick="closeSimulator(\''+id+'\')" style="margin-right: 10px;">Close</button>' +
+            '</div> ' +
+            '<div class="col-md-12" style="clear:both;max-height: 200px;overflow: auto;overflow-x: hidden">' +
+            '<code class="code_'+id+'" ></code>' +
+            '</div>' +
+            '</div></div>' +
+            '</div>'
 
 
-    for(var i=0;i<message_spec_list.length;i++){
-        if(Number(id) === message_spec_list[i]['id']){
-            current_msg_obj = message_spec_list[i]
+        for(var i=0;i<message_spec_list.length;i++){
+            if(Number(id) === message_spec_list[i]['id']){
+                current_msg_obj = message_spec_list[i]
+            }
+        }
+
+        simulator[id] = current_msg_obj;
+
+
+        if(!simulatorModal[id]){
+
+            $(".simulatorModal").append(str);
+
+            $(".msgFieldBlock_"+id).html('');
+
+            for(var i=0;i<current_msg_obj.fields.length;i++){
+                $(".msgFieldBlock_"+id).append(renderHtml(id,i,current_msg_obj.fields[i]))
+            }
+            simulatorModal[id] = $("#simulatorModal_"+id).dialog({
+                resizable: true,
+                open: function(){
+                    var closeBtn = $('.ui-dialog-titlebar-close');
+                    closeBtn.html('X');
+                },
+                // minWidth: 200,
+                // maxWidth: 600,
+                // minHeight: 200,
+                // maxHeight: 450,
+                // width: 450,
+                // height: 300,
+                modal: false,
+                closeText: "x",
+                close: function( event, ui ) {
+                    closeSimulator(id);
+                },
+
+                title: "Simulate -"+ id + ' ['+current_msg_obj.name+']',
+
+                /*buttons: {
+                    Close: function() {
+                        $( this ).dialog( "close" );
+                        simulatorModal[id] = null;
+                        $("#simulatorModal_"+id).remove();
+                    }
+
+
+                }*/
+            });
+
+        }
+
+    }
+    else if(type === 2){
+
+        var placeholder='{\n"key":"value",\n"key":"value",\n"key":"value",\n"key":"value"\n}';
+
+        var str = '<div id="simulatorModal_'+id+'">' +
+            '<div data-role="body">\n' +
+            '<div class="row>' +
+            '<div class="col-md-12">' +
+            '<p class="mb-0">Named Rule Arguments - <small>JSON value</small></p><textarea class="form-control form-control-sm mb-2" style="width:100%;height:200px" id="simulatorInput_'+id+'"' +
+            "placeholder='"+placeholder+"'></textarea></div>" +
+            '</div>' +
+            '<div class="row">' +
+            '<div class="col-md-12">' +
+            '<button class="btn btn-sm btn-success pull-right btn_'+id+'" onclick="simulateMessage(\''+id+'\','+type+')">Invoke NamedRule</button>' +
+            '<button class="btn btn-sm btn-default pull-right" onclick="closeSimulator(\''+id+'\')" style="margin-right: 10px;">Close</button>' +
+            '</div> ' +
+            '<div class="col-md-12" style="clear:both;max-height: 200px;overflow: auto;overflow-x: hidden">' +
+            '<code class="code_'+id+'" ></code>' +
+            '</div>' +
+            '</div></div>' +
+            '</div>'
+
+        for(var i=0;i<named_rules_list.length;i++){
+            if(id === named_rules_list[i]['name']){
+                current_namedrule_obj = named_rules_list[i]
+            }
+        }
+
+        simulator[id] = current_namedrule_obj;
+
+
+        if(!simulatorModal[id]){
+
+            $(".simulatorModal").append(str);
+
+            simulatorModal[id] = $("#simulatorModal_"+id).dialog({
+                resizable: true,
+                // minWidth: 200,
+                // maxWidth: 600,
+                // minHeight: 200,
+                // maxHeight: 450,
+                // width: 450,
+                // height: 300,
+                modal: false,
+                closeText: "x",
+                close: function( event, ui ) {
+                    closeSimulator(id);
+                },
+
+                title: 'Simulate - '+current_namedrule_obj.name,
+
+                /*buttons: {
+                    Close: function() {
+                        $( this ).dialog( "close" );
+                        simulatorModal[id] = null;
+                        $("#simulatorModal_"+id).remove();
+                    }
+
+
+                }*/
+            });
+
+        }
+
+    }
+    else if(type === 3){
+
+        var str = '<div id="simulatorModal_'+id+'">' +
+            '<div data-role="body">\n' +
+            '<div class="row>' +
+            '<div class="col-md-12">' +
+            '<p class="mb-0"><label>Upload Binary File</label></p>' +
+            '<input type="file" class="form-control pb-3 mb-2" style="" id="simulatorInput_'+id+'"/></div>' +
+            '</div>' +
+            '<div class="row">' +
+            '<div class="col-md-12">' +
+            '<button class="btn btn-sm btn-success pull-right btn_'+id+'" onclick="simulateMessage(\''+id+'\','+type+')">Upload File</button>' +
+            '<button class="btn btn-sm btn-default pull-right" onclick="closeSimulator(\''+id+'\')" style="margin-right: 10px;">Close</button>' +
+            '</div> ' +
+            '<div class="col-md-12" style="clear:both;max-height: 200px;overflow: auto;overflow-x: hidden">' +
+            '<code class="code_'+id+'" ></code>' +
+            '</div>' +
+            '</div></div>' +
+            '</div>'
+
+        for(var i=0;i<binary_rules_list.length;i++){
+            if(id === binary_rules_list[i]['type']){
+                current_binaryrule_obj = binary_rules_list[i]
+            }
+        }
+
+        simulator[id] = current_binaryrule_obj;
+
+
+        if(!simulatorModal[id]){
+
+            $(".simulatorModal").append(str);
+
+            simulatorModal[id] = $("#simulatorModal_"+id).dialog({
+                resizable: true,
+                // minWidth: 200,
+                // maxWidth: 600,
+                // minHeight: 200,
+                // maxHeight: 450,
+                // width: 450,
+                // height: 300,
+                modal: false,
+                closeText: "x",
+                close: function( event, ui ) {
+                    closeSimulator(id);
+                },
+
+                title: 'Simulate - '+current_binaryrule_obj.type,
+
+                /*buttons: {
+                    Close: function() {
+                        $( this ).dialog( "close" );
+                        simulatorModal[id] = null;
+                        $("#simulatorModal_"+id).remove();
+                    }
+
+
+                }*/
+            });
+
         }
     }
 
-    simulator[id] = current_msg_obj;
 
 
-    if(!simulatorModal[id]){
-
-        $(".simulatorModal").append(str);
-
-        $(".msgFieldBlock_"+id).html('');
-
-        for(var i=0;i<current_msg_obj.fields.length;i++){
-            $(".msgFieldBlock_"+id).append(renderHtml(id,i,current_msg_obj.fields[i]))
-        }
-        simulatorModal[id] = $("#simulatorModal_"+id).dialog({
-            resizable: true,
-            // minWidth: 200,
-            // maxWidth: 600,
-            // minHeight: 200,
-            // maxHeight: 450,
-            // width: 450,
-            // height: 300,
-            modal: false,
-            closeText: "x",
-            close: function( event, ui ) {
-                closeSimulator(id);
-            },
-
-            title: "Simulate -"+ id + ' ['+current_msg_obj.name+']',
-
-            /*buttons: {
-                Close: function() {
-                    $( this ).dialog( "close" );
-                    simulatorModal[id] = null;
-                    $("#simulatorModal_"+id).remove();
-                }
-
-
-            }*/
-        });
-
-    }
 
 
 }
 
-function simulateMessage(id) {
+function simulateMessage(id,type) {
 
-    var obj = simulator[id];
+    if(type === 1){
+        var obj = simulator[id];
 
-    var jsonObj = {};
+        var jsonObj = {};
 
-    for(var i=0;i<obj.fields.length;i++){
-        var dataType = obj.fields[i].dataType.toUpperCase();
-        if(dataType === 'BOOLEAN'){
-            jsonObj[obj.fields[i].name] = $("#"+id+"_"+i).val() === 'true' ? true : false;
+        for(var i=0;i<obj.fields.length;i++){
+            var dataType = obj.fields[i].dataType.toUpperCase();
+            if(dataType === 'BOOLEAN'){
+                jsonObj[obj.fields[i].name] = $("#"+id+"_"+i).val() === 'true' ? true : false;
+            }
+            else if(dataType === 'INTEGER' || dataType === 'FLOAT' || dataType === 'DOUBLE' || dataType === 'BIGINT' || dataType === 'TIMESTAMP'){
+                jsonObj[obj.fields[i].name] = $("#"+id+"_"+i).val() !== '' ? Number($("#"+id+"_"+i).val()) : '';
+            }
+            else if(dataType === 'DATE'){
+                jsonObj[obj.fields[i].name] = $("#"+id+"_"+i).val() !== '' ? new Date($("#"+id+"_"+i).val()) : '';
+            }else{
+                jsonObj[obj.fields[i].name] = $("#"+id+"_"+i).val()
+            }
+
         }
-        else if(dataType === 'INTEGER' || dataType === 'FLOAT' || dataType === 'DOUBLE' || dataType === 'BIGINT' || dataType === 'TIMESTAMP'){
-            jsonObj[obj.fields[i].name] = $("#"+id+"_"+i).val() !== '' ? Number($("#"+id+"_"+i).val()) : '';
-        }
-        else if(dataType === 'DATE'){
-            jsonObj[obj.fields[i].name] = $("#"+id+"_"+i).val() !== '' ? new Date($("#"+id+"_"+i).val()) : '';
+
+        $(".code_"+id).append('<p>'+new Date() +' | '+JSON.stringify(jsonObj)+'</p>');
+
+        $(".btn_"+id).attr('disabled', 'disabled');
+
+
+        simulateDeviceMessage(id, jsonObj, function (status, data) {
+
+            $(".btn_"+id).removeAttr('disabled');
+            if(status){
+                $(".code_"+id).append('<p>'+new Date() +' | Message sent successfully</p>');
+            }else{
+                $(".code_"+id).append('<p>'+new Date() +' | Error in sent message</p>');
+            }
+
+        });
+    }
+    else if(type === 2){
+
+        var inputObj= $("#simulatorInput_"+id).val();
+        if(inputObj && isValidJson(inputObj)){
+            $(".btn_"+id).attr('disabled', 'disabled');
+            $(".code_"+id).append('<p>'+new Date() +' | '+inputObj+'</p>');
+
+            simulateNamedRule(id, inputObj, function (status, data) {
+
+                $(".btn_"+id).removeAttr('disabled');
+                if(status){
+                    $(".code_"+id).append('<p>'+new Date() +' | Named Rule invoked successfully</p>');
+                    $(".code_"+id).append('<p>'+new Date() +' | Result => '+JSON.stringify(data)+'</p>');
+                }else{
+                    $(".code_"+id).append('<p>'+new Date() +' | Error in invoking named rule</p>');
+                }
+
+            });
+
         }else{
-            jsonObj[obj.fields[i].name] = $("#"+id+"_"+i).val()
+            errorMsgBorder("Empty JSON (or) Invalid JSON","simulatorInput_"+id)
         }
+
+    }else if(type === 3){
+
+
+        var fileInput = document.getElementById("simulatorInput_"+id);
+
+        var files = fileInput.files;
+
+        if (files.length === 0) {
+            errorMsgBorder('File not found. select a file to start upload',"simulatorInput_"+id);
+            return false;
+        }
+        $(".btn_"+id).attr('disabled', 'disabled');
+        uploadBinaryFile(files[0],id);
 
     }
 
-    $(".code_"+id).append('<p>'+new Date() +' | '+JSON.stringify(jsonObj)+'</p>');
+}
+function uploadBinaryFile(file,id) {
 
-    $(".btn_"+id).attr('disabled', 'disabled');
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            $(".btn_"+id).removeAttr('disabled');
+            if (xhr.status === 200) {
+                var result = JSON.parse(xhr.response);
 
+                $(".code_"+id).append('<p>'+new Date() +' | File upload successfully!</p>');
+                $(".code_"+id).append('<p>'+new Date() +' | Result => '+xhr.response+'</p>');
 
-    simulateDeviceMessage(id, jsonObj, function (status, data) {
-
-        $(".btn_"+id).removeAttr('disabled');
-        if(status){
-            $(".code_"+id).append('<p>'+new Date() +' | Message sent successfully</p>');
-        }else{
-            $(".code_"+id).append('<p>'+new Date() +' | Error in sent message</p>');
+            } else {
+                $(".code_"+id).append('<p>'+new Date() +' | Error in binary file upload!</p>');
+            }
         }
-
-    });
-
+    };
+    xhr.open('POST', API_BASE_PATH + '/push/bin/file/' + DOMAIN_KEY+'/'+API_KEY+"/SIMULATOR/WEB/1.0/"+id, true);
+    var formData = new FormData();
+    formData.append("binfile", file, file.name);
+    xhr.send(formData);
 }
 
 function closeSimulator(id) {

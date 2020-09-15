@@ -6,6 +6,16 @@
 <link href="css/multiple-select.css" rel=stylesheet>
 
 <style>
+    .ui-state-hover {
+        text-decoration: none !important;
+        background: transparent !important;
+        border: none !important;;
+        margin-top: 0px !important;
+        border-radius: 0;
+         top: 10% !important;
+
+    }
+
     .nav-tabs-long {
         overflow-x: auto;
         overflow-y: hidden;
@@ -51,36 +61,36 @@
         font-weight: bold;
     }
 
-    .centerBlock{
+    .centerBlock {
         background: rgb(51, 51, 51) !important;
     }
 
-    #tree{
+    #tree {
         list-style: none;
         margin-left: 0px;
         padding-left: 0px;
     }
 
-    .classFolder{
+    .classFolder {
         overflow: auto;
         overflow-x: hidden;
         word-wrap: break-word;
     }
 
-    #tree li img:hover{
+    #tree li img:hover {
         cursor: pointer;
     }
 
-    #tree li a:hover{
+    #tree li a:hover {
         cursor: pointer;
         background-color: #eee;
     }
 
-   /* img.exp_col{
-        position: relative;
-        margin-left: -15px;
-    }
-*/
+    /* img.exp_col{
+         position: relative;
+         margin-left: -15px;
+     }
+ */
 </style>
 
 <!--<div class="row-fluid">
@@ -116,7 +126,8 @@
 
                 <!-- Tab panes -->
                 <div class="tab-content tabBody" style="position: relative">
-                    <div id="context" style="display:none;position: absolute;right:30px;top:30px;width:250px;height:300px;background-color: #fff;z-index:9999999;overflow: hidden;overflow-x: hidden">
+                    <div id="context"
+                         style="display:none;position: absolute;right:30px;top:30px;width:250px;height:300px;background-color: #fff;z-index:9999999;overflow: hidden;overflow-x: hidden">
 
                         <div class="row">
                             <div class="col-md-12 mt-1">
@@ -127,7 +138,8 @@
                             </div>
                             <div class="col-md-12 cl">
                                 <div style="padding: 3px 10px">
-                                    <input onkeyup="filterContext()" type="text" class="form-control form-control-sm" id="contextSearch" placeholder="Search by Context Name"/>
+                                    <input onkeyup="filterContext()" type="text" class="form-control form-control-sm"
+                                           id="contextSearch" placeholder="Search by Context Name"/>
                                 </div>
                                 <div class="contextList" style="padding: 10px;overflow: auto;height: 220px"></div>
                             </div>
@@ -154,11 +166,11 @@
         <div class="ui-layout-south bottomSide">
 
 
-
             <div class="row" style="font-size: 11px !important;">
 
                 <div class="col-md-2">
-                    <p style="margin-bottom: 5px">Live Status: <span class="serverStatus"><span class="label label-danger">Not Connected</span></span>
+                    <p style="margin-bottom: 5px">Live Status: <span class="serverStatus"><span
+                            class="label label-danger">Not Connected</span></span>
 
                     </p>
                     <table style="width: 100%;border:0px">
@@ -166,21 +178,56 @@
                             <td style="width: 40%">
                                 <p style="margin-bottom: 5px;">Logs Filter:<br>
 
-                                    <label style="color: #fff;display: block;margin-bottom: 0px"><input type="checkbox" value="true" class="fatal mt-1" onclick="Cookies.set('fatal', $('.fatal').is(':checked'));" checked> Fatal</label>
-                                    <label style="color: #fff;display: block;margin-bottom: 0px"><input type="checkbox" value="true" class="error mt-1" onclick="Cookies.set('error', $('.error').is(':checked'));" checked> Error</label>
-                                    <label style="color: #fff;display: block;margin-bottom: 0px"><input type="checkbox" value="true" class="warn mt-1" onclick="Cookies.set('warn', $('.warn').is(':checked'));" checked> Warn</label>
-                                    <label style="color: #fff;display: block;margin-bottom: 0px"><input type="checkbox" value="true" class="info mt-1"  onclick="Cookies.set('info', $('.info').is(':checked'));"checked> Info</label>
-                                    <label style="color: #fff;display: block;margin-bottom: 0px"><input type="checkbox" value="true" class="debug mt-1" onclick="Cookies.set('debug', $('.debug').is(':checked'));" > Debug</label>
-                                    <label style="color: #fff;display: block;margin-bottom: 0px"><input type="checkbox" value="true" class="trace mt-1" onclick="Cookies.set('trace', $('.trace').is(':checked'));"> Trace</label>
+                                    <label style="color: #fff;display: block;margin-bottom: 0px"><input type="checkbox"
+                                                                                                        value="true"
+                                                                                                        class="fatal mt-1"
+                                                                                                        onclick="Cookies.set('fatal', $('.fatal').is(':checked'));"
+                                                                                                        checked>
+                                        Fatal</label>
+                                    <label style="color: #fff;display: block;margin-bottom: 0px"><input type="checkbox"
+                                                                                                        value="true"
+                                                                                                        class="error mt-1"
+                                                                                                        onclick="Cookies.set('error', $('.error').is(':checked'));"
+                                                                                                        checked>
+                                        Error</label>
+                                    <label style="color: #fff;display: block;margin-bottom: 0px"><input type="checkbox"
+                                                                                                        value="true"
+                                                                                                        class="warn mt-1"
+                                                                                                        onclick="Cookies.set('warn', $('.warn').is(':checked'));"
+                                                                                                        checked>
+                                        Warn</label>
+                                    <label style="color: #fff;display: block;margin-bottom: 0px"><input type="checkbox"
+                                                                                                        value="true"
+                                                                                                        class="info mt-1"
+                                                                                                        onclick="Cookies.set('info', $('.info').is(':checked'));"
+                                                                                                        checked>
+                                        Info</label>
+                                    <label style="color: #fff;display: block;margin-bottom: 0px"><input type="checkbox"
+                                                                                                        value="true"
+                                                                                                        class="debug mt-1"
+                                                                                                        onclick="Cookies.set('debug', $('.debug').is(':checked'));">
+                                        Debug</label>
+                                    <label style="color: #fff;display: block;margin-bottom: 0px"><input type="checkbox"
+                                                                                                        value="true"
+                                                                                                        class="trace mt-1"
+                                                                                                        onclick="Cookies.set('trace', $('.trace').is(':checked'));">
+                                        Trace</label>
 
                                 </p>
                             </td>
                             <td style="vertical-align: text-top">
-                                <label style="color: #fff;"><input type="checkbox" value="true" class="allLogs mt-1" checked
+                                <label style="color: #fff;"><input type="checkbox" value="true" class="allLogs mt-1"
+                                                                   checked
                                                                    onclick="enableLogs()"> All rules logs </label>
                                 <p style="margin-bottom: 5px;">Fields Filter:<br>
-                                    <label style="color: #fff;display: block;margin-bottom: 0px"><input type="checkbox" value="true" class="node mt-1"> Node</label>
-                                    <label style="color: #fff;display: block;margin-bottom: 0px"><input type="checkbox" value="true" class="session mt-1"> Session</label>
+                                    <label style="color: #fff;display: block;margin-bottom: 0px"><input type="checkbox"
+                                                                                                        value="true"
+                                                                                                        class="node mt-1">
+                                        Node</label>
+                                    <label style="color: #fff;display: block;margin-bottom: 0px"><input type="checkbox"
+                                                                                                        value="true"
+                                                                                                        class="session mt-1">
+                                        Session</label>
                                 </p>
                             </td>
                         </tr>
@@ -231,6 +278,7 @@
                                 <div class="card-header bg-black text-white pointer-cursor" data-toggle="collapse"
                                      data-target="#collapseOne" aria-expanded="true">
                                     Rules Details
+
                                 </div>
                                 <div id="collapseOne" class="collapse show" data-parent="#accordion" style="">
                                     <div class="card-body">
@@ -238,7 +286,12 @@
                                             <tbody>
                                             <tr>
                                                 <td>Name</td>
-                                                <td><label class="ruleName"></label></td>
+                                                <td><label class="ruleName"></label>
+                                                    <button class="btn btn-warning btn-block btn-sm simulateBtn mt-2 mb-2"
+                                                            style="display: none"><i class="fa fa-play"></i> Simulate
+                                                    </button>
+                                                </td>
+
                                             </tr>
                                             <tr>
                                                 <td>RuleType</td>
@@ -250,16 +303,21 @@
                                             </tr>
                                             <tr>
                                                 <td colspan="2" style="text-align: center">
-                                                    <a href="javascript:void(0)"  id="exportMsg"
-                                                       class="btn btn-secondary btn-sm mt-2 exportBtn"><i class="fa fa-download"></i> Export Rule</a>
+                                                    <a href="javascript:void(0)" id="exportMsg"
+                                                       class="btn btn-secondary btn-sm mt-2 exportBtn"><i
+                                                            class="fa fa-download"></i> Export Rule</a>
                                                 </td>
                                             </tr>
                                             </tbody>
                                         </table>
                                         <div style="text-align: center;margin-bottom:10px;">
-                                        <button class="btn btn-block btn-sm btn-danger deleteBtn" style="display: none;" onclick="openDeleteModal()"><i
-                                                class="fa fa-trash"></i> Delete</button>
+                                            <button class="btn btn-block btn-sm btn-danger deleteBtn"
+                                                    style="display: none;" onclick="openDeleteModal()"><i
+                                                    class="fa fa-trash"></i> Delete
+                                            </button>
                                         </div>
+
+
                                     </div>
                                 </div>
                             </div>
@@ -268,12 +326,14 @@
                             <div class="card jobFields" style="display: none">
                                 <div class="card-header bg-black text-white pointer-cursor collapsed"
                                      data-toggle="collapse" data-target="#collapseTwo1" aria-expanded="false">
-                                        Job Details
-                                    <a href="javascript:void(0)" class="pull-right text-white" onclick="editJobModal()"><i class="fa fa-edit"></i></a>
+                                    Job Details
+                                    <a href="javascript:void(0)" class="pull-right text-white" onclick="editJobModal()"><i
+                                            class="fa fa-edit"></i></a>
                                 </div>
                                 <div id="collapseTwo1" class="collapse" data-parent="#accordion" style="">
                                     <div class="card-body">
-                                        <a href="javascript:void(0)" class="btn btn-xs btn-default btn-block" onclick="loadRunningCount()"><i class="fa fa-refresh"></i> Refresh Job Status</a>
+                                        <a href="javascript:void(0)" class="btn btn-xs btn-default btn-block"
+                                           onclick="loadRunningCount()"><i class="fa fa-refresh"></i> Refresh Job Status</a>
                                         <table class="table">
                                             <tbody>
                                             </tbody>
@@ -299,11 +359,6 @@
 
                                             </tbody>
                                         </table>
-                                        <div style="text-align: center;margin-bottom:10px;">
-
-                                            <button class="btn btn-default btn-sm btn-block simulateBtn"><i class="fa fa-play"></i> Simulate</button>
-
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -334,7 +389,8 @@
                     <!-- begin tab-pane -->
                     <div class="tab-pane fade" id="default-tab-2">
 
-                        <div class="tab-content treeBody" style="margin-bottom: 0px;background-color: #eeeeee6b;padding: 5px;">
+                        <div class="tab-content treeBody"
+                             style="margin-bottom: 0px;background-color: #eeeeee6b;padding: 5px;">
 
                             <!--<label>Select: </label>
                             <label style="font-weight: normal;margin-right:5px">
@@ -358,8 +414,11 @@
                                     <option value="JAR">JAR</option>
                                 </select> <br>
 
-                                <label style="margin-right: 10px;"><input type="radio" name="fileType" value="PUBLIC_GROOVY" onclick="loadCodeType()"> Public</label>
-                                <label><input type="radio" name="fileType" value="GROOVY" checked onclick="loadCodeType()"> Private</label>
+                                <label style="margin-right: 10px;"><input type="radio" name="fileType"
+                                                                          value="PUBLIC_GROOVY"
+                                                                          onclick="loadCodeType()"> Public</label>
+                                <label><input type="radio" name="fileType" value="GROOVY" checked
+                                              onclick="loadCodeType()"> Private</label>
 
                                 <div class="input-group mb-3">
                                     <input type="text" id="searchText" autocomplete="off" class="form-control"
@@ -372,7 +431,6 @@
                             </form>
 
                             <div class="classFolder" style="border: 1px dotted #ccc;background-color: #fff"></div>
-
 
 
                         </div>
@@ -411,12 +469,14 @@
             <div class="row-fluid">
                 <button class="btn btn-sm pull-right"
                         style="margin: 5px 0px;background-color: #424242;color: #fff;padding: 0px 5px;"
-                        onclick="openModal()"><i class="fa fa-plus"></i> Add Rule</button>
+                        onclick="openModal()"><i class="fa fa-plus"></i> Add Rule
+                </button>
                 <button class="btn btn-sm pull-right"
                         style="margin: 5px 5px;background-color: #424242;color: #fff;padding: 0px 5px;"
                         onclick="reloadRules()"><span class="btnRefresh"><i class="fa fa-refresh"></i></span></button>
                 <button class="btn btn-sm pull-right"
-                        style="margin: 5px 5px;background-color: #424242;color: #fff;padding: 0px 5px;" title="Upload Rule"
+                        style="margin: 5px 5px;background-color: #424242;color: #fff;padding: 0px 5px;"
+                        title="Upload Rule"
                         onclick="uploadRuleModal()"><span class=""><i class="fa fa-upload"></i></span></button>
             </div>
 
@@ -585,7 +645,6 @@
 </div><!-- /.modal -->
 
 
-
 <div id="addBinaryRule" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -727,7 +786,6 @@
 </div>
 
 
-
 <!--<div id="simulatorModal" class="modal fade draggable" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -752,22 +810,22 @@
 </div>&lt;!&ndash; /.modal &ndash;&gt;-->
 
 
-
-
 <div id="importModal" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content" style="">
             <div class="modal-header">
                 <h4 class="modal-title">Import Rule</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <form action="javascript:void(0)">
                 <div class="modal-body">
-                    <div  class="row">
-                        <div  class="col-md-12">
-                            <div  class="form-group">
-                                <label  class="inputLabel">Choose File</label>
-                                <input  class="form-control input-sm" placeholder="" type="file" id="importFile"  required/>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="inputLabel">Choose File</label>
+                                <input class="form-control input-sm" placeholder="" type="file" id="importFile"
+                                       required/>
                             </div>
                         </div>
                     </div>
@@ -779,7 +837,6 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
 
 
 <div id="addJobRule" class="modal fade" tabindex="-1" role="dialog">
@@ -796,7 +853,8 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="inputLabel">Rule Name</label>
-                                <input class="form-control input-sm" onkeyup="avoidSpaces(this)" onkeypress="avoidSpaces(this)" placeholder=""
+                                <input class="form-control input-sm" onkeyup="avoidSpaces(this)"
+                                       onkeypress="avoidSpaces(this)" placeholder=""
                                        type="text" id="job_rule" required>
                             </div>
                         </div>
@@ -813,7 +871,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="inputLabel">Job Type</label>
-                                <select  class="form-control input-sm"  id="job_type" onchange="checkJobInstance()">
+                                <select class="form-control input-sm" id="job_type" onchange="checkJobInstance()">
                                     <option value="DISTRIBUTED">Distributed</option>
                                     <option value="ATOMIC">Atomic</option>
                                     <option value="SCALABLE">Scalable</option>
@@ -834,7 +892,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="inputLabel">Job State</label>
-                                <select  class="form-control input-sm"  id="job_state">
+                                <select class="form-control input-sm" id="job_state">
                                     <option value="ENABLED">Enabled</option>
                                     <option value="DISABLED">Disabled</option>
                                 </select>
@@ -844,7 +902,7 @@
                         <div class="col-md-6">
                             <div class="form-group systemTemplate">
                                 <label class="inputLabel">System Job</label>
-                                <select  class="form-control input-sm"  id="job_system">
+                                <select class="form-control input-sm" id="job_system">
                                     <option value="0">No</option>
                                     <option value="1">Yes</option>
                                 </select>
@@ -855,7 +913,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="inputLabel">Start on Boot</label>
-                                <select  class="form-control input-sm"  id="job_boot">
+                                <select class="form-control input-sm" id="job_boot">
                                     <option value="1">Yes</option>
                                     <option value="0">No</option>
                                 </select>
@@ -865,7 +923,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="inputLabel">Restart on Change</label>
-                                <select  class="form-control input-sm"  id="job_restart">
+                                <select class="form-control input-sm" id="job_restart">
                                     <option value="1">Yes</option>
                                     <option value="0">No</option>
                                 </select>

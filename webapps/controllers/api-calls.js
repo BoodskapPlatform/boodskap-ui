@@ -1802,6 +1802,30 @@ function simulateDeviceMessage(id, data, cbk) {
         }
     });
 }
+function simulateNamedRule(id, args, cbk) {
+
+    var data = {
+        "sessionId": guid(),
+        "namedrule": id,
+        "scriptArgs": JSON.parse(args)
+    }
+
+    $.ajax({
+        url: API_BASE_PATH + "/call/v2/execute/rule" + "/" + API_TOKEN,
+        data: JSON.stringify(data),
+        contentType: "application/json",
+        type: 'POST',
+        success: function (data) {
+            //called when successful
+            cbk(true, data);
+        },
+        error: function (e) {
+            //called when there is an error
+            //console.log(e.message);
+            cbk(false, e);
+        }
+    });
+}
 
 
 function upsertDeviceModel(data, cbk) {
