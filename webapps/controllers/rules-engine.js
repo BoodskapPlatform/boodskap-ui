@@ -2565,6 +2565,10 @@ function openSimulateModal(id,type) {
 
             simulatorModal[id] = $("#simulatorModal_"+id).dialog({
                 resizable: true,
+                open: function(){
+                    var closeBtn = $('.ui-dialog-titlebar-close');
+                    closeBtn.html('X');
+                },
                 // minWidth: 200,
                 // maxWidth: 600,
                 // minHeight: 200,
@@ -2628,6 +2632,10 @@ function openSimulateModal(id,type) {
 
             simulatorModal[id] = $("#simulatorModal_"+id).dialog({
                 resizable: true,
+                open: function(){
+                    var closeBtn = $('.ui-dialog-titlebar-close');
+                    closeBtn.html('X');
+                },
                 // minWidth: 200,
                 // maxWidth: 600,
                 // minHeight: 200,
