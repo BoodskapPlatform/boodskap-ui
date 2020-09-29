@@ -1,6 +1,7 @@
 swagger: "2.0"
 basePath: /api
 schemes: 
+  - https
   - http
 produces: 
   - "application/json"
@@ -3502,7 +3503,7 @@ paths:
       tags:
         - List Domain Asset Group Members
       summary: List Domain Asset Group Members
-      operationId: listDomain AssetGroupMembers
+      operationId: listDomainAssetGroupMembers
       consumes:
         - "application/json"
       produces:
@@ -3776,7 +3777,7 @@ paths:
       tags:
         - List Domain Device Group Members
       summary: List Domain Device Group Members
-      operationId: listDomain DeviceGroupMembers
+      operationId: listDomainDeviceGroupMembers
       consumes:
         - "application/json"
       produces:
@@ -5324,7 +5325,7 @@ paths:
           type: string
         - name: type
           in: query
-          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          description: One of [STANDARD, DOMAIN, GLOBAL, SYSTEM], default is STANDARD
           required: false
           type: string
       responses:
@@ -5354,7 +5355,7 @@ paths:
           type: string
         - name: type
           in: query
-          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          description: One of [STANDARD, DOMAIN, GLOBAL, SYSTEM], default is STANDARD
           required: false
           type: string
         - name: entity
@@ -5395,7 +5396,7 @@ paths:
           type: string
         - name: type
           in: query
-          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          description: One of [STANDARD, DOMAIN, GLOBAL, SYSTEM], default is STANDARD
           required: false
           type: string
       responses:
@@ -5430,7 +5431,7 @@ paths:
           type: string
         - name: type
           in: query
-          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          description: One of [STANDARD, DOMAIN, GLOBAL, SYSTEM], default is STANDARD
           required: false
           type: string
       responses:
@@ -5477,7 +5478,7 @@ paths:
           type: string
         - name: type
           in: query
-          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          description: One of [STANDARD, DOMAIN, GLOBAL, SYSTEM], default is STANDARD
           required: false
           type: string
       responses:
@@ -6814,6 +6815,606 @@ paths:
           description: "API Error"
           schema: 
             $ref: "#/definitions/ApiError"
+  '/user/asset/group/upsert/{atoken}':
+    post:
+      tags:
+        - Upsert User Asset Group
+      summary: Create / Update User Asset Group
+      operationId: upsertUserAssetGroup
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          description: Auth token of the logged in user
+          required: true
+          type: string
+        - name: entity
+          in: body
+          description: UserAssetGroup JSON object
+          required: true
+          schema:
+            $ref: '#/definitions/UserAssetGroup'
+      responses:
+        '200':
+          description: successful operation
+          schema: 
+            $ref: "#/definitions/Success"
+        "417":
+          description: "API Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/user/asset/group/get/{atoken}/{gid}':
+    get:
+      tags:
+        - Get User Asset Group
+      summary: Retreive User Asset Group
+      operationId: getUserAssetGroup
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          description: Auth token of the logged in user
+          required: true
+          type: string
+        - name: gid
+          in: path
+          description: Group id
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/UserAssetGroup'
+        "417":
+          description: "API Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/user/asset/group/add/{atoken}/{gid}':
+    post:
+      tags:
+        - Add Members(s) to User Asset Group
+      summary: Add Members(s) to User Asset Group
+      operationId: addMembersToUserAssetGroup
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          description: Auth token of the logged in user
+          required: true
+          type: string
+        - name: gid
+          in: path
+          description: Group Id
+          required: true
+          type: integer
+          format: int64
+        - name: assetIds
+          in: body
+          description: Array of asset IDs
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        '200':
+          description: successful operation
+          schema: 
+            $ref: "#/definitions/Success"
+        "417":
+          description: "API Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/user/asset/group/remove/{atoken}/{gid}':
+    post:
+      tags:
+        - Remove Members(s) from User Asset Group
+      summary: Remove Members(s) from User Asset Group
+      operationId: removeMembersFromUserAssetGroup
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          description: Auth token of the logged in user
+          required: true
+          type: string
+        - name: gid
+          in: path
+          description: Group Id
+          required: true
+          type: integer
+          format: int64
+        - name: assetIds
+          in: body
+          description: Array of asset IDs
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        '200':
+          description: successful operation
+          schema: 
+            $ref: "#/definitions/Success"
+        "417":
+          description: "API Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/user/asset/group/delete/{atoken}/{gid}':
+    delete:
+      tags:
+        - Delete User Asset Group
+      summary: Delete User Asset Group
+      operationId: deleteUserAssetGroup
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          description: Auth token of the logged in user
+          required: true
+          type: string
+        - name: gid
+          in: path
+          description: Group Id
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: successful operation
+          schema: 
+            $ref: "#/definitions/Success"
+        "417":
+          description: "API Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/user/asset/group/list/{atoken}/{pageSize}':
+    get:
+      tags:
+        - List User Asset Groups
+      summary: List User Asset Groups
+      operationId: listUserAssetGroups
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          description: Auth token of the logged in user
+          required: true
+          type: string
+        - name: pageSize
+          in: path
+          description: Maximum number of groups to be listed
+          required: true
+          type: integer
+          format: int32
+        - name: direction
+          in: query
+          description: >-
+            If direction is specified, **gid** is required
+          required: false
+          type: string
+          enum:
+            - NEXT
+            - PREV
+        - name: gid
+          in: query
+          description: >-
+            Last or First group id of the previous list operation, **required** if **direction** is specified
+          required: false
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/UserAssetGroup'
+        "417":
+          description: "API Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/user/asset/group/listmembers/{atoken}/{gid}/{pageSize}':
+    get:
+      tags:
+        - List User Asset Group Members
+      summary: List User Asset Group Members
+      operationId: listUserAssetGroupMembers
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          description: Auth token of the logged in user
+          required: true
+          type: string
+        - name: gid
+          in: path
+          description: Group id to list the assets from
+          required: true
+          type: integer
+          format: int64
+        - name: pageSize
+          in: path
+          description: Maximum number of assets to be listed
+          required: true
+          type: integer
+          format: int32
+        - name: direction
+          in: query
+          description: >-
+            If direction is specified, **did** is required
+          required: false
+          type: string
+          enum:
+            - NEXT
+            - PREV
+        - name: did
+          in: query
+          description: >-
+            Last or First asset id of the previous list operation, **required** if **direction** is specified
+          required: false
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Asset'
+        "417":
+          description: "API Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/user/device/group/upsert/{atoken}':
+    post:
+      tags:
+        - Upsert User Device Group
+      summary: Create / Update User Device Group
+      operationId: upsertUserDeviceGroup
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          description: Auth token of the logged in user
+          required: true
+          type: string
+        - name: entity
+          in: body
+          description: UserDeviceGroup JSON object
+          required: true
+          schema:
+            $ref: '#/definitions/UserDeviceGroup'
+      responses:
+        '200':
+          description: successful operation
+          schema: 
+            $ref: "#/definitions/Success"
+        "417":
+          description: "API Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/user/device/group/get/{atoken}/{gid}':
+    get:
+      tags:
+        - Get User Device Group
+      summary: Retreive User Device Group
+      operationId: getUserDeviceGroup
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          description: Auth token of the logged in user
+          required: true
+          type: string
+        - name: gid
+          in: path
+          description: Group id
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/UserDeviceGroup'
+        "417":
+          description: "API Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/user/device/group/add/{atoken}/{gid}':
+    post:
+      tags:
+        - Add Members(s) to User Device Group
+      summary: Add Members(s) to User Device Group
+      operationId: addMembersToUserDeviceGroup
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          description: Auth token of the logged in user
+          required: true
+          type: string
+        - name: gid
+          in: path
+          description: Group Id
+          required: true
+          type: integer
+          format: int64
+        - name: deviceIds
+          in: body
+          description: Array of device IDs
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        '200':
+          description: successful operation
+          schema: 
+            $ref: "#/definitions/Success"
+        "417":
+          description: "API Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/user/device/group/remove/{atoken}/{gid}':
+    post:
+      tags:
+        - Remove Members(s) from User Device Group
+      summary: Remove Members(s) from User Device Group
+      operationId: removeMembersFromUserDeviceGroup
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          description: Auth token of the logged in user
+          required: true
+          type: string
+        - name: gid
+          in: path
+          description: Group Id
+          required: true
+          type: integer
+          format: int64
+        - name: deviceIds
+          in: body
+          description: Array of device IDs
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        '200':
+          description: successful operation
+          schema: 
+            $ref: "#/definitions/Success"
+        "417":
+          description: "API Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/user/device/group/delete/{atoken}/{gid}':
+    delete:
+      tags:
+        - Delete User Device Group
+      summary: Delete User Device Group
+      operationId: deleteUserDeviceGroup
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          description: Auth token of the logged in user
+          required: true
+          type: string
+        - name: gid
+          in: path
+          description: Group Id
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: successful operation
+          schema: 
+            $ref: "#/definitions/Success"
+        "417":
+          description: "API Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/user/device/group/list/{atoken}/{pageSize}':
+    get:
+      tags:
+        - List User Device Groups
+      summary: List User Device Groups
+      operationId: listUserDeviceGroups
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          description: Auth token of the logged in user
+          required: true
+          type: string
+        - name: pageSize
+          in: path
+          description: Maximum number of groups to be listed
+          required: true
+          type: integer
+          format: int32
+        - name: direction
+          in: query
+          description: >-
+            If direction is specified, **gid** is required
+          required: false
+          type: string
+          enum:
+            - NEXT
+            - PREV
+        - name: gid
+          in: query
+          description: >-
+            Last or First group id of the previous list operation, **required** if **direction** is specified
+          required: false
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/UserDeviceGroup'
+        "417":
+          description: "API Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/user/device/group/listmembers/{atoken}/{gid}/{pageSize}':
+    get:
+      tags:
+        - List User Device Group Members
+      summary: List User Device Group Members
+      operationId: listUserDeviceGroupMembers
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          description: Auth token of the logged in user
+          required: true
+          type: string
+        - name: gid
+          in: path
+          description: Group id to list the devices from
+          required: true
+          type: integer
+          format: int64
+        - name: pageSize
+          in: path
+          description: Maximum number of devices to be listed
+          required: true
+          type: integer
+          format: int32
+        - name: direction
+          in: query
+          description: >-
+            If direction is specified, **did** is required
+          required: false
+          type: string
+          enum:
+            - NEXT
+            - PREV
+        - name: did
+          in: query
+          description: >-
+            Last or First device id of the previous list operation, **required** if **direction** is specified
+          required: false
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Device'
+        "417":
+          description: "API Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/user/role/list/{atoken}/{userId}/pageSize}':
+    get:
+      tags:
+        - List User Roles
+      summary: List User Roles
+      operationId: listUserRoles
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          description: Auth token of the logged in user
+          required: true
+          type: string
+        - name: userId
+          in: path
+          required: true
+          type: string
+        - name: pageSize
+          in: path
+          description: Maximum number of users to be listed
+          required: true
+          type: integer
+          format: int32
+        - name: direction
+          in: query
+          description: >-
+            If direction is specified, **roleId** is required
+          required: false
+          type: string
+          enum:
+            - NEXT
+            - PREV
+        - name: roleId
+          in: query
+          description: >-
+            Last or First roleId of the previous list operation, **required** if   **direction** is specified
+          required: false
+          type: string
+      responses:
+        '200':
+          description: "Success"
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/UserRole'
+        "417":
+          description: "API Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
   '/user/role/assign/{atoken}/{userId}/{roleId}': 
     get: 
       tags:
@@ -6823,7 +7424,7 @@ paths:
         - "application/json"
       produces:
         - "application/json"
-      operationId: "assignRole"
+      operationId: "assignUserRole"
       parameters:
         - name: atoken
           in: path
@@ -6836,13 +7437,12 @@ paths:
         - name: roleId
           in: path
           required: true
-          type: integer
-          format: int64
+          type: string
       responses: 
         "200":
           description: "Success"
           schema: 
-            $ref: "#/definitions/BooleanResult"
+            $ref: "#/definitions/Success"
         "417":
           description: "API Error"
           schema: 
@@ -6856,7 +7456,7 @@ paths:
         - "application/json"
       produces:
         - "application/json"
-      operationId: "unassignRole"
+      operationId: "unassignUserRole"
       parameters:
         - name: atoken
           in: path
@@ -6869,27 +7469,54 @@ paths:
         - name: roleId
           in: path
           required: true
-          type: integer
-          format: int64
+          type: string
       responses: 
         "200":
           description: "Success"
           schema: 
-            $ref: "#/definitions/BooleanResult"
+            $ref: "#/definitions/Success"
         "417":
           description: "API Error"
           schema: 
             $ref: "#/definitions/ApiError"
-  '/user/has/role/{atoken}/{userId}/{roleId}': 
-    get: 
+  '/user/role/unassignall/{atoken}/{userId}': 
+    delete: 
       tags:
-        - User Has Role
-      summary: User Has Role
+        - Unassign All User Roles
+      summary: Unassign All User Roles
       consumes:
         - "application/json"
       produces:
         - "application/json"
-      operationId: "hasRole"
+      operationId: "unassignAllUserRoles"
+      parameters:
+        - name: atoken
+          in: path
+          required: true
+          type: string
+        - name: userId
+          in: path
+          required: true
+          type: string
+      responses: 
+        "200":
+          description: "Success"
+          schema: 
+            $ref: "#/definitions/Success"
+        "417":
+          description: "API Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/user/role/get/{atoken}/{userId}/{roleId}': 
+    get: 
+      tags:
+        - Get User Role
+      summary: Get User Role
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      operationId: "getUserRole"
       parameters:
         - name: atoken
           in: path
@@ -6902,8 +7529,7 @@ paths:
         - name: roleId
           in: path
           required: true
-          type: integer
-          format: int64
+          type: string
       responses: 
         "200":
           description: "Success"
@@ -6931,7 +7557,7 @@ paths:
           type: string
         - name: rtype
           in: query
-          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          description: One of [STANDARD, DOMAIN, GLOBAL, SYSTEM], default is STANDARD
           required: false
           type: string
         - name: entity
@@ -6972,7 +7598,7 @@ paths:
           type: string
         - name: rtype
           in: query
-          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          description: One of [STANDARD, DOMAIN, GLOBAL, SYSTEM], default is STANDARD
           required: false
           type: string
       responses:
@@ -7023,7 +7649,7 @@ paths:
           type: string
         - name: rtype
           in: query
-          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          description: One of [STANDARD, DOMAIN, GLOBAL, SYSTEM], default is STANDARD
           required: false
           type: string
       responses:
@@ -7060,7 +7686,7 @@ paths:
           type: string
         - name: rtype
           in: query
-          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          description: One of [STANDARD, DOMAIN, GLOBAL, SYSTEM], default is STANDARD
           required: false
           type: string
       responses:
@@ -7090,7 +7716,7 @@ paths:
           type: string
         - name: rtype
           in: query
-          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          description: One of [STANDARD, DOMAIN, GLOBAL, SYSTEM], default is STANDARD
           required: false
           type: string
         - name: entity
@@ -7263,7 +7889,7 @@ paths:
           type: string
         - name: rtype
           in: query
-          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          description: One of [STANDARD, DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
           required: false
           type: string
         - name: entity
@@ -16057,6 +16683,11 @@ paths:
           description: Auth token of the logged in user
           required: true
           type: string
+        - name: rtype
+          in: query
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          required: false
+          type: string
         - name: script
           in: body
           description: GroovyScript JSON
@@ -16087,6 +16718,11 @@ paths:
           in: path
           description: Auth token of the logged in user
           required: true
+          type: string
+        - name: rtype
+          in: query
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          required: false
           type: string
         - name: script
           in: body
@@ -16119,6 +16755,11 @@ paths:
           description: Auth token of the logged in user
           required: true
           type: string
+        - name: rtype
+          in: query
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          required: false
+          type: string
         - name: script
           in: body
           description: RuleScript JSON
@@ -16149,6 +16790,11 @@ paths:
           in: path
           description: Auth token of the logged in user
           required: true
+          type: string
+        - name: rtype
+          in: query
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          required: false
           type: string
         - name: script
           in: body
@@ -16181,6 +16827,11 @@ paths:
           description: Auth token of the logged in user
           required: true
           type: string
+        - name: rtype
+          in: query
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          required: false
+          type: string
         - name: script
           in: body
           description: TemplateScript JSON
@@ -16211,6 +16862,11 @@ paths:
           in: path
           description: Auth token of the logged in user
           required: true
+          type: string
+        - name: rtype
+          in: query
+          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
+          required: false
           type: string
         - name: script
           in: body
@@ -19474,6 +20130,53 @@ paths:
           description: "Error"
           schema: 
             $ref: "#/definitions/ApiError"
+  '/org/list/{atoken}/{pageSize}':
+    get:
+      tags:
+        - List Organizations
+      summary: List Organizations
+      operationId: listOrganizations
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          required: true
+          type: string
+        - name: pageSize
+          in: path
+          required: true
+          type: integer
+          format: int32
+        - name: direction
+          in: query
+          description: >-
+            If direction is specified, **orgId** is required
+          required: false
+          type: string
+          enum:
+            - NEXT
+            - PREV
+        - name: orgId
+          in: query
+          description: >-
+            Last or First orgId of the previous list operation, **required** if **direction** is specified
+          required: false
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: "Success"
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Organization'
+        "417":
+          description: "Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
   '/org/delete/{atoken}/{orgId}': 
     delete: 
       tags:
@@ -19496,6 +20199,30 @@ paths:
           format: int64
       responses: 
         "200":
+          description: "Success"
+          schema: 
+            $ref: "#/definitions/Success"
+        "417":
+          description: "Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/org/deleteall/{atoken}':
+    delete:
+      tags:
+        - Delete All Organizations
+      summary: Delete All Organizations
+      operationId: deleteAllOrganizations
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
           description: "Success"
           schema: 
             $ref: "#/definitions/Success"
@@ -19567,6 +20294,58 @@ paths:
           description: "Error"
           schema: 
             $ref: "#/definitions/ApiError"
+  '/org/property/list/{atoken}/{orgId}/{pageSize}':
+    get:
+      tags:
+        - List Organization Properties
+      summary: List Organization Properties
+      operationId: listOrganizationProperties
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          required: true
+          type: string
+        - name: orgId
+          in: path
+          required: true
+          type: integer
+          format: int64
+        - name: pageSize
+          in: path
+          description: Maximum number of properties to be listed
+          required: true
+          type: integer
+          format: int32
+        - name: direction
+          in: query
+          description: >-
+            If direction is specified, **name** is required
+          required: false
+          type: string
+          enum:
+            - NEXT
+            - PREV
+        - name: name
+          in: query
+          description: >-
+            Last or First property name of the previous list operation, **required** if **direction** is specified
+          required: false
+          type: string
+      responses:
+        '200':
+          description: "Success"
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/OrganizationProperty'
+        "417":
+          description: "Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
   '/org/property/delete/{atoken}/{orgId}/{name}':
     delete:
       tags:
@@ -19629,58 +20408,6 @@ paths:
           description: "Error"
           schema: 
             $ref: "#/definitions/ApiError"
-  '/org/property/list/{atoken}/{orgId}/{pageSize}':
-    get:
-      tags:
-        - List Organization Properties
-      summary: List Organization Properties
-      operationId: listOrganizationProperties
-      consumes:
-        - "application/json"
-      produces:
-        - "application/json"
-      parameters:
-        - name: atoken
-          in: path
-          required: true
-          type: string
-        - name: orgId
-          in: path
-          required: true
-          type: integer
-          format: int64
-        - name: pageSize
-          in: path
-          description: Maximum number of properties to be listed
-          required: true
-          type: integer
-          format: int32
-        - name: direction
-          in: query
-          description: >-
-            If direction is specified, **name** is required
-          required: false
-          type: string
-          enum:
-            - NEXT
-            - PREV
-        - name: name
-          in: query
-          description: >-
-            Last or First property name of the previous list operation, **required** if **direction** is specified
-          required: false
-          type: string
-      responses:
-        '200':
-          description: "Success"
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/OrganizationProperty'
-        "417":
-          description: "Error"
-          schema: 
-            $ref: "#/definitions/ApiError"
   '/org/role/upsert/{atoken}':
     post:
       tags:
@@ -19706,6 +20433,91 @@ paths:
           description: "Success"
           schema: 
             $ref: "#/definitions/Success"
+        "417":
+          description: "Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/org/role/get/{atoken}/{orgId}/{roleId}': 
+    get: 
+      tags:
+        - Get Organization Role
+      summary: Get Organization Role
+      operationId: getOrganizationRole
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          required: true
+          type: string
+        - name: orgId
+          in: path
+          required: true
+          type: integer
+          format: int64
+        - name: roleId
+          in: path
+          required: true
+          type: string
+      responses: 
+        "200":
+          description: "Success"
+          schema:
+            $ref: "#/definitions/OrganizationRole"
+        "417":
+          description: "Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/org/role/list/{atoken}/{orgId}/{pageSize}':
+    get:
+      tags:
+        - List Organization Roles
+      summary: List Organization Roles
+      operationId: listOrganizationRoles
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          required: true
+          type: string
+        - name: orgId
+          in: path
+          required: true
+          type: integer
+          format: int64
+        - name: pageSize
+          in: path
+          description: Maximum number of properties to be listed
+          required: true
+          type: integer
+          format: int32
+        - name: direction
+          in: query
+          description: >-
+            If direction is specified, **roleId** is required
+          required: false
+          type: string
+          enum:
+            - NEXT
+            - PREV
+        - name: roleId
+          in: query
+          description: >-
+            Last or First roleId name of the previous list operation, **required** if **direction** is specified
+          required: false
+          type: string
+      responses:
+        '200':
+          description: "Success"
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/OrganizationRole'
         "417":
           description: "Error"
           schema: 
@@ -19743,7 +20555,36 @@ paths:
           description: "Error"
           schema: 
             $ref: "#/definitions/ApiError"
-  '/org/asset/link/{atoken}':
+  '/org/role/deleteall/{atoken}/{orgId}':
+    delete:
+      tags:
+        - Delete All Organization Roles
+      summary: Delete All Organization Roles
+      operationId: deleteAllOrganizationRoles
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          required: true
+          type: string
+        - name: orgId
+          in: path
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: "Success"
+          schema: 
+            $ref: "#/definitions/Success"
+        "417":
+          description: "Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/org/asset/link/{atoken}/{orgId}/{assetId}':
     post:
       tags:
         - Link Organization Asset
@@ -19758,16 +20599,104 @@ paths:
           in: path
           required: true
           type: string
-        - name: entity
-          in: body
+        - name: orgId
+          in: path
           required: true
-          schema:
-            $ref: '#/definitions/OrganizationAsset'
+          type: integer
+          format: int64
+        - name: assetId
+          in: path
+          required: true
+          type: string
       responses:
         '200':
           description: "Success"
           schema: 
             $ref: "#/definitions/Success"
+        "417":
+          description: "Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/org/asset/get/{atoken}/{orgId}/{assetId}':
+    get:
+      tags:
+        - Get Organization Asset
+      summary: Retreive Organization Asset
+      operationId: getOrganizationAsset
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          required: true
+          type: string
+        - name: orgId
+          in: path
+          required: true
+          type: integer
+          format: int64
+        - name: assetId
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: "Success"
+          schema:
+            $ref: '#/definitions/OrganizationAsset'
+        "417":
+          description: "Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/org/asset/list/{atoken}/{orgId}/pageSize}':
+    get:
+      tags:
+        - List Organization Assets
+      summary: List Organization Assets
+      operationId: listOrganizationAssets
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          required: true
+          type: string
+        - name: orgId
+          in: path
+          required: true
+          type: integer
+          format: int64
+        - name: pageSize
+          in: path
+          required: true
+          type: integer
+          format: int32
+        - name: direction
+          in: query
+          description: >-
+            If direction is specified, **assetId** is required
+          required: false
+          type: string
+          enum:
+            - NEXT
+            - PREV
+        - name: assetId
+          in: query
+          description: >-
+            Last or First assetId of the previous list operation, **required** if **direction** is specified
+          required: false
+          type: string
+      responses:
+        '200':
+          description: "Success"
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/OrganizationAsset'
         "417":
           description: "Error"
           schema: 
@@ -19796,6 +20725,35 @@ paths:
           in: path
           required: true
           type: string
+      responses:
+        '200':
+          description: "Success"
+          schema: 
+            $ref: "#/definitions/Success"
+        "417":
+          description: "Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/org/asset/unlinkall/{atoken}/{orgId}':
+    delete:
+      tags:
+        - Unlink All Organization Assets
+      summary: Unlink All Organization Assets
+      operationId: unlinkAllOrganizationAssets
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          required: true
+          type: string
+        - name: orgId
+          in: path
+          required: true
+          type: integer
+          format: int64
       responses:
         '200':
           description: "Success"
@@ -19872,43 +20830,6 @@ paths:
           description: "Error"
           schema: 
             $ref: "#/definitions/ApiError"
-  '/org/asset/property/delete/{atoken}/{orgId}/{assetId}/{name}':
-    delete:
-      tags:
-        - Delete Organization Asset Property
-      summary: Delete Stored Organization Asset Property
-      operationId: deleteOrganizationAssetProperty
-      consumes:
-        - "application/json"
-      produces:
-        - "application/json"
-      parameters:
-        - name: atoken
-          in: path
-          required: true
-          type: string
-        - name: orgId
-          in: path
-          required: true
-          type: integer
-          format: int64
-        - name: assetId
-          in: path
-          required: true
-          type: string
-        - name: name
-          in: path
-          required: true
-          type: string
-      responses:
-        '200':
-          description: "Success"
-          schema: 
-            $ref: "#/definitions/BooleanResult"
-        "417":
-          description: "Error"
-          schema: 
-            $ref: "#/definitions/ApiError"
   '/org/asset/property/list/{atoken}/{orgId}/{assetId}/{pageSize}':
     get:
       tags:
@@ -19965,7 +20886,77 @@ paths:
           description: "Error"
           schema: 
             $ref: "#/definitions/ApiError"
-  '/org/device/link/{atoken}':
+  '/org/asset/property/delete/{atoken}/{orgId}/{assetId}/{name}':
+    delete:
+      tags:
+        - Delete Organization Asset Property
+      summary: Delete Organization Asset Property
+      operationId: deleteOrganizationAssetProperty
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          required: true
+          type: string
+        - name: orgId
+          in: path
+          required: true
+          type: integer
+          format: int64
+        - name: assetId
+          in: path
+          required: true
+          type: string
+        - name: name
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: "Success"
+          schema: 
+            $ref: "#/definitions/BooleanResult"
+        "417":
+          description: "Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/org/asset/property/deleteall/{atoken}/{orgId}/{assetId}':
+    delete:
+      tags:
+        - Delete All Organization Asset Properties
+      summary: Delete All Organization Asset Properties
+      operationId: deleteAllOrganizationAssetProperties
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          required: true
+          type: string
+        - name: orgId
+          in: path
+          required: true
+          type: integer
+          format: int64
+        - name: assetId
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: "Success"
+          schema: 
+            $ref: "#/definitions/BooleanResult"
+        "417":
+          description: "Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/org/device/link/{atoken}/{orgId}/{deviceId}':
     post:
       tags:
         - Link Organization Device
@@ -19980,16 +20971,104 @@ paths:
           in: path
           required: true
           type: string
-        - name: entity
-          in: body
+        - name: orgId
+          in: path
           required: true
-          schema:
-            $ref: '#/definitions/OrganizationDevice'
+          type: integer
+          format: int64
+        - name: deviceId
+          in: path
+          required: true
+          type: string
       responses:
         '200':
           description: "Success"
           schema: 
             $ref: "#/definitions/Success"
+        "417":
+          description: "Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/org/device/get/{atoken}/{orgId}/{deviceId}':
+    get:
+      tags:
+        - Get Organization Device
+      summary: Retreive Organization Device
+      operationId: getOrganizationDevice
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          required: true
+          type: string
+        - name: orgId
+          in: path
+          required: true
+          type: integer
+          format: int64
+        - name: deviceId
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: "Success"
+          schema:
+            $ref: '#/definitions/OrganizationDevice'
+        "417":
+          description: "Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/org/device/list/{atoken}/{orgId}/pageSize}':
+    get:
+      tags:
+        - List Organization Devices
+      summary: List Organization Devices
+      operationId: listOrganizationDevices
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          required: true
+          type: string
+        - name: orgId
+          in: path
+          required: true
+          type: integer
+          format: int64
+        - name: pageSize
+          in: path
+          required: true
+          type: integer
+          format: int32
+        - name: direction
+          in: query
+          description: >-
+            If direction is specified, **deviceId** is required
+          required: false
+          type: string
+          enum:
+            - NEXT
+            - PREV
+        - name: deviceId
+          in: query
+          description: >-
+            Last or First deviceId of the previous list operation, **required** if **direction** is specified
+          required: false
+          type: string
+      responses:
+        '200':
+          description: "Success"
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/OrganizationDevice'
         "417":
           description: "Error"
           schema: 
@@ -20027,6 +21106,35 @@ paths:
           description: "Error"
           schema: 
             $ref: "#/definitions/ApiError"
+  '/org/device/unlinkall/{atoken}/{orgId}':
+    delete:
+      tags:
+        - Unlink All Organization Devices
+      summary: Unlink All Organization Devices
+      operationId: unlinkAllOrganizationDevices
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          required: true
+          type: string
+        - name: orgId
+          in: path
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: "Success"
+          schema: 
+            $ref: "#/definitions/Success"
+        "417":
+          description: "Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
   '/org/device/property/upsert/{atoken}':
     post:
       tags:
@@ -20044,6 +21152,7 @@ paths:
           type: string
         - name: entity
           in: body
+          description: OrganizationDeviceProperty JSON object
           required: true
           schema:
             $ref: '#/definitions/OrganizationDeviceProperty'
@@ -20060,7 +21169,7 @@ paths:
     get:
       tags:
         - Get Organization Device Property
-      summary: Retrieve Organization Device Property
+      summary: Retreive Organization Device Property
       operationId: getOrganizationDeviceProperty
       consumes:
         - "application/json"
@@ -20089,43 +21198,6 @@ paths:
           description: "Success"
           schema:
             $ref: '#/definitions/OrganizationDeviceProperty'
-        "417":
-          description: "Error"
-          schema: 
-            $ref: "#/definitions/ApiError"
-  '/org/device/property/delete/{atoken}/{orgId}/{deviceId}/{name}':
-    delete:
-      tags:
-        - Delete Organization Device Property
-      summary: Delete Stored Organization Device Property
-      operationId: deleteOrganizationDeviceProperty
-      consumes:
-        - "application/json"
-      produces:
-        - "application/json"
-      parameters:
-        - name: atoken
-          in: path
-          required: true
-          type: string
-        - name: orgId
-          in: path
-          required: true
-          type: integer
-          format: int64
-        - name: deviceId
-          in: path
-          required: true
-          type: string
-        - name: name
-          in: path
-          required: true
-          type: string
-      responses:
-        '200':
-          description: "Success"
-          schema: 
-            $ref: "#/definitions/BooleanResult"
         "417":
           description: "Error"
           schema: 
@@ -20186,7 +21258,77 @@ paths:
           description: "Error"
           schema: 
             $ref: "#/definitions/ApiError"
-  '/org/user/link/{atoken}':
+  '/org/device/property/delete/{atoken}/{orgId}/{deviceId}/{name}':
+    delete:
+      tags:
+        - Delete Organization Device Property
+      summary: Delete Organization Device Property
+      operationId: deleteOrganizationDeviceProperty
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          required: true
+          type: string
+        - name: orgId
+          in: path
+          required: true
+          type: integer
+          format: int64
+        - name: deviceId
+          in: path
+          required: true
+          type: string
+        - name: name
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: "Success"
+          schema: 
+            $ref: "#/definitions/BooleanResult"
+        "417":
+          description: "Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/org/device/property/deleteall/{atoken}/{orgId}/{deviceId}':
+    delete:
+      tags:
+        - Delete All Organization Device Properties
+      summary: Delete All Organization Device Properties
+      operationId: deleteAllOrganizationDeviceProperties
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          required: true
+          type: string
+        - name: orgId
+          in: path
+          required: true
+          type: integer
+          format: int64
+        - name: deviceId
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: "Success"
+          schema: 
+            $ref: "#/definitions/BooleanResult"
+        "417":
+          description: "Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/org/user/link/{atoken}/{orgId}/{userId}':
     post:
       tags:
         - Link Organization User
@@ -20201,16 +21343,72 @@ paths:
           in: path
           required: true
           type: string
-        - name: entity
-          in: body
+        - name: orgId
+          in: path
           required: true
-          schema:
-            $ref: '#/definitions/OrganizationUser'
+          type: integer
+          format: int64
+        - name: userId
+          in: path
+          required: true
+          type: string
       responses:
         '200':
           description: "Success"
           schema: 
             $ref: "#/definitions/Success"
+        "417":
+          description: "Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/org/user/list/{atoken}/{orgId}/{pageSize}':
+    get:
+      tags:
+        - List Organization Users
+      summary: List Organization Users
+      operationId: listOrganizationUsers
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          required: true
+          type: string
+        - name: orgId
+          in: path
+          required: true
+          type: integer
+          format: int64
+        - name: pageSize
+          in: path
+          description: Maximum number of users to be listed
+          required: true
+          type: integer
+          format: int32
+        - name: direction
+          in: query
+          description: >-
+            If direction is specified, **userId** is required
+          required: false
+          type: string
+          enum:
+            - NEXT
+            - PREV
+        - name: userId
+          in: query
+          description: >-
+            Last or First userId name of the previous list operation, **required** if **direction** is specified
+          required: false
+          type: string
+      responses:
+        '200':
+          description: "Success"
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/OrganizationUser'
         "417":
           description: "Error"
           schema: 
@@ -20248,7 +21446,36 @@ paths:
           description: "Error"
           schema: 
             $ref: "#/definitions/ApiError"
-  '/org/user/role/link/{atoken}':
+  '/org/user/unlinkall/{atoken}/{orgId}':
+    delete:
+      tags:
+        - Unlink All Organization Users
+      summary: Unlink All Organization Users
+      operationId: unlinkAllOrganizationUsers
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          required: true
+          type: string
+        - name: orgId
+          in: path
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: "Success"
+          schema: 
+            $ref: "#/definitions/Success"
+        "417":
+          description: "Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/org/user/role/link/{atoken}/{orgId}/{userId}/{roleId}':
     post:
       tags:
         - Link Organization User Role
@@ -20263,16 +21490,80 @@ paths:
           in: path
           required: true
           type: string
-        - name: entity
-          in: body
+        - name: orgId
+          in: path
           required: true
-          schema:
-            $ref: '#/definitions/OrganizationUserRole'
+          type: integer
+          format: int64
+        - name: userId
+          in: path
+          required: true
+          type: string
+        - name: roleId
+          in: path
+          required: true
+          type: string
       responses:
         '200':
           description: "Success"
           schema: 
             $ref: "#/definitions/Success"
+        "417":
+          description: "Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/org/user/role/list/{atoken}/{orgId}/{userId}/pageSize}':
+    get:
+      tags:
+        - List Organization User Roles
+      summary: List Organization User Roles
+      operationId: listOrganizationUserRoles
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          required: true
+          type: string
+        - name: orgId
+          in: path
+          required: true
+          type: integer
+          format: int64
+        - name: userId
+          in: path
+          required: true
+          type: string
+        - name: pageSize
+          in: path
+          description: Maximum number of users to be listed
+          required: true
+          type: integer
+          format: int32
+        - name: direction
+          in: query
+          description: >-
+            If direction is specified, **roleId** is required
+          required: false
+          type: string
+          enum:
+            - NEXT
+            - PREV
+        - name: roleId
+          in: query
+          description: >-
+            Last or First roleId name of the previous list operation, **required** if **direction** is specified
+          required: false
+          type: string
+      responses:
+        '200':
+          description: "Success"
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/OrganizationUserRole'
         "417":
           description: "Error"
           schema: 
@@ -20283,6 +21574,43 @@ paths:
         - Unlink Organization User Role
       summary: Unlink Organization User Role
       operationId: unlinkOrganizationUserRole
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          required: true
+          type: string
+        - name: orgId
+          in: path
+          required: true
+          type: integer
+          format: int64
+        - name: userId
+          in: path
+          required: true
+          type: string
+        - name: roleId
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: "Success"
+          schema: 
+            $ref: "#/definitions/Success"
+        "417":
+          description: "Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/org/user/role/unlinkall/{atoken}/{orgId}/{userId}':
+    delete:
+      tags:
+        - Unlink All Organization User Roles
+      summary: Unlink All Organization User Roles
+      operationId: unlinkAllOrganizationUserRoles
       consumes:
         - "application/json"
       produces:
@@ -20380,43 +21708,6 @@ paths:
           description: "Error"
           schema: 
             $ref: "#/definitions/ApiError"
-  '/org/user/property/delete/{atoken}/{orgId}/{userId}/{name}':
-    delete:
-      tags:
-        - Delete Organization User Property
-      summary: Delete Stored Organization User Property
-      operationId: deleteOrganizationUserProperty
-      consumes:
-        - "application/json"
-      produces:
-        - "application/json"
-      parameters:
-        - name: atoken
-          in: path
-          required: true
-          type: string
-        - name: orgId
-          in: path
-          required: true
-          type: integer
-          format: int64
-        - name: userId
-          in: path
-          required: true
-          type: string
-        - name: name
-          in: path
-          required: true
-          type: string
-      responses:
-        '200':
-          description: "Success"
-          schema: 
-            $ref: "#/definitions/BooleanResult"
-        "417":
-          description: "Error"
-          schema: 
-            $ref: "#/definitions/ApiError"
   '/org/user/property/list/{atoken}/{orgId}/{userId}/{pageSize}':
     get:
       tags:
@@ -20469,6 +21760,76 @@ paths:
             type: array
             items:
               $ref: '#/definitions/OrganizationUserProperty'
+        "417":
+          description: "Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/org/user/property/delete/{atoken}/{orgId}/{userId}/{name}':
+    delete:
+      tags:
+        - Delete Organization User Property
+      summary: Delete Organization User Property
+      operationId: deleteOrganizationUserProperty
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          required: true
+          type: string
+        - name: orgId
+          in: path
+          required: true
+          type: integer
+          format: int64
+        - name: userId
+          in: path
+          required: true
+          type: string
+        - name: name
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: "Success"
+          schema: 
+            $ref: "#/definitions/BooleanResult"
+        "417":
+          description: "Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/org/user/property/deleteall/{atoken}/{orgId}/{userId}':
+    delete:
+      tags:
+        - Delete All Organization User Properties
+      summary: Delete All Organization User Properties
+      operationId: deleteAllOrganizationUserProperties
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          required: true
+          type: string
+        - name: orgId
+          in: path
+          required: true
+          type: integer
+          format: int64
+        - name: userId
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: "Success"
+          schema: 
+            $ref: "#/definitions/BooleanResult"
         "417":
           description: "Error"
           schema: 
@@ -21393,7 +22754,7 @@ definitions:
       name:
         type: string
       extraProps:
-        type: string
+        type: object
   AssetGroup:
     type: object
     required:
@@ -21411,7 +22772,7 @@ definitions:
       name:
         type: string
       extraProps:
-        type: string
+        type: object
   DomainAssetGroup:
     type: object
     required:
@@ -21425,7 +22786,7 @@ definitions:
       name:
         type: string
       extraProps:
-        type: string
+        type: object
   DeviceGroup:
     type: object
     required:
@@ -21443,7 +22804,7 @@ definitions:
       name:
         type: string
       extraProps:
-        type: string
+        type: object
   DomainDeviceGroup:
     type: object
     required:
@@ -21458,7 +22819,7 @@ definitions:
       name:
         type: string
       extraProps:
-        type: string
+        type: object
   DomainUserGroup:
     type: object
     required:
@@ -21492,7 +22853,7 @@ definitions:
           type: integer
           format: int16
       extraProps:
-        type: string
+        type: object
   DeviceModel:
     type: object
     required:
@@ -21731,13 +23092,21 @@ definitions:
         type: integer
         format: int64
         description: message identifier
+      dmid:
+        type: string
+        description: domain message identifier
+      gmid:
+        type: string
+        description: global message identifier
+      smid:
+        type: string
+        description: system message identifier
     required:
       - key
       - api
       - did
       - dmdl
       - fwver
-      - mid
   PushMessage:
     type: object
     properties:
@@ -21775,9 +23144,10 @@ definitions:
       id:
         type: string
         format: uuid
+      messageType:
+        type: string
       messageId:
-        type: integer
-        format: int64
+        type: string
       nodeId:
         type: string
       nodeUUID:
@@ -22372,11 +23742,20 @@ definitions:
           - 'ORGANIZATION_DEVICE'
           - 'ORGANIZATION_ASSET'
           - 'ORGANIZATION_USER'
+          - 'ORGANIZATION_USER_DEVICE'
+          - 'ORGANIZATION_USER_ASSET'
           - 'BILLING'
           - 'CONTACT'
           - 'INVOICE'
           - 'BILLING_TEMPLATE'
           - 'SENT_COMMAND'
+          - 'ASSET_GROUP_MEMBER'
+          - 'DEVICE_GROUP_MEMBER'
+          - 'DOMAIN_ASSET_GROUP_MEMBER'
+          - 'DOMAIN_DEVICE_GROUP_MEMBER'
+          - 'USER_ASSET_GROUP_MEMBER'
+          - 'USER_DEVICE_GROUP_MEMBER'
+          - 'USER_GROUP_MEMBER'
       query:
         type: string
         description: ElasticSearch Query String
@@ -22468,11 +23847,20 @@ definitions:
           - 'ORGANIZATION_DEVICE'
           - 'ORGANIZATION_ASSET'
           - 'ORGANIZATION_USER'
+          - 'ORGANIZATION_USER_DEVICE'
+          - 'ORGANIZATION_USER_ASSET'
           - 'BILLING'
           - 'CONTACT'
           - 'INVOICE'
           - 'BILLING_TEMPLATE'
           - 'SENT_COMMAND'
+          - 'ASSET_GROUP_MEMBER'
+          - 'DEVICE_GROUP_MEMBER'
+          - 'DOMAIN_ASSET_GROUP_MEMBER'
+          - 'DOMAIN_DEVICE_GROUP_MEMBER'
+          - 'USER_ASSET_GROUP_MEMBER'
+          - 'USER_DEVICE_GROUP_MEMBER'
+          - 'USER_GROUP_MEMBER'
       templateName:
         type: string
       mergeContent:
@@ -24853,6 +26241,15 @@ definitions:
         type: string
       description:
         type: string
+  UserRole:
+    allOf:
+    - $ref: '#/definitions/Role'
+    - type: object
+      required:
+       - 'userId'
+      properties:
+        userId:
+          type: string
   Organization:
     required:
       - id
@@ -24925,19 +26322,36 @@ definitions:
         format: int64
       deviceId:
         type: string
-  OrganizationUserRole:
-    allOf:
-    - $ref: '#/definitions/Role'
-    - type: object
-      required:
-       - 'orgId'
-       - 'userId'
-      properties:
-        orgId:
-          type: integer
-          format: int64
-        userId:
-          type: string
+  OrganizationUserDevice:
+    required:
+      - orgId
+      - userId
+      - deviceId
+    properties:
+      domainKey:
+        type: string
+      orgId:
+        type: integer
+        format: int64
+      userId:
+        type: string
+      deviceId:
+        type: string
+  OrganizationUserAsset:
+    required:
+      - orgId
+      - userId
+      - assetId
+    properties:
+      domainKey:
+        type: string
+      orgId:
+        type: integer
+        format: int64
+      userId:
+        type: string
+      assetId:
+        type: string
   OrganizationRole:
     allOf:
     - $ref: '#/definitions/Role'
@@ -24948,6 +26362,18 @@ definitions:
         orgId:
           type: integer
           format: int64
+  OrganizationUserRole:
+    allOf:
+    - $ref: '#/definitions/OrganizationRole'
+    - type: object
+      required:
+       - 'userId'
+      properties:
+        orgId:
+          type: integer
+          format: int64
+        userId:
+          type: string
   OrganizationProperty:
     allOf:
     - $ref: '#/definitions/Property'
@@ -25270,4 +26696,71 @@ definitions:
       - id
       - name
       - fields
-
+  UserAssetGroup:
+    type: object
+    required:
+      - userId
+      - id
+      - name
+    properties:
+      domainKey:
+        type: string
+      userId:
+        type: string
+      id:
+        type: integer
+        format: int64
+      name:
+        type: string
+      extraProps:
+        type: object
+  UserAssetGroupMember:
+    type: object
+    required:
+      - userId
+      - id
+      - name
+    properties:
+      domainKey:
+        type: string
+      userId:
+        type: string
+      id:
+        type: integer
+        format: int64
+      assetId:
+        type: string
+  UserDeviceGroup:
+    type: object
+    required:
+      - userId
+      - id
+      - name
+    properties:
+      domainKey:
+        type: string
+      userId:
+        type: string
+      id:
+        type: integer
+        format: int64
+      name:
+        type: string
+      extraProps:
+        type: object
+  UserDeviceGroupMember:
+    type: object
+    required:
+      - userId
+      - id
+      - name
+    properties:
+      domainKey:
+        type: string
+      userId:
+        type: string
+      id:
+        type: integer
+        format: int64
+      deviceId:
+        type: string
