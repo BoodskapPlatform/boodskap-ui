@@ -1,4 +1,5 @@
 const YAML = require('yamljs');
+const request = require('request');
 
 var Routes = function (app,router) {
 
@@ -424,11 +425,40 @@ Routes.prototype.init = function () {
         res.render('configuration.html',{layout:false,basepath: getBasePath(req) });
     });
 
-    // self.router.get('/spec',function (req, res) {
-    //     const swaggerDocument = YAML.load('https://cdn.jsdelivr.net/gh/BoodskapPlatform/apidoc@3.0.2/3.0.2/api.yaml');
-    //     res.json(swaggerDocument);
-    //
-    // });
+    self.router.get('/spec',function (req, res) {
+        var version = '3.0.2/3.0.2';
+        if(req.query.version){
+            if(!req.query.version.includes(" ")){
+                version = req.query.version+"/"+req.query.version;
+            }
+
+        }
+        console.log('https://cdn.jsdelivr.net/gh/BoodskapPlatform/apidoc@'+version+'/api.yaml')
+        request.get({
+            uri: 'https://cdn.jsdelivr.net/gh/BoodskapPlatform/apidoc@'+version+'/api.yaml',
+            headers: {'Accepts': 'text/yaml'},
+        }, function (err, resp, body) {
+
+            if (!err) {
+
+                if (resp.statusCode === 200) {
+                    res.setHeader('Content-Type', 'text/yaml')
+                    res.send(resp.body);
+                } else {
+                    const swaggerDocument = YAML.load('./yaml/api.yaml');
+                    res.json(swaggerDocument);
+                }
+
+            } else {
+                const swaggerDocument = YAML.load('./yaml/api.yaml');
+                res.json(swaggerDocument);
+            }
+
+        });
+
+
+
+    });
     self.router.get('/swagger-doc',function (req, res) {
         res.render('swagger.html',{layout:false,basepath: getBasePath(req)});
     });

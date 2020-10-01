@@ -76,12 +76,6 @@
 
     function loadAPI(version) {
 
-        if(!version){
-            version ='3.0.2'
-        }else{
-            version = version+"/"+version;
-        }
-
         // Build a system
         var url = window.location.search.match(/url=([^&]+)/);
         if (url && url.length > 1) {
@@ -95,7 +89,7 @@
         var customOptions = options.customOptions
         var spec1 = options.swaggerDoc
         var swaggerOptions = {
-            url: "https://cdn.jsdelivr.net/gh/BoodskapPlatform/apidoc@"+version+"/api.yaml",
+            url: "/spec?version="+version,
             dom_id: '#swagger-ui',
             deepLinking: true,
             presets: [

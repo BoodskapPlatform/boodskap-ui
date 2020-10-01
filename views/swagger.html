@@ -122,18 +122,16 @@
 
     function loadStatistics() {
         $.ajax({
-            url: location.protocol+"//"+location.host+"/api/cluster/statistics",
-            cache: false,
+            // url: location.protocol+"//"+location.host+"/api/cluster/statistics",
+            url: "https://dev.boodskap.io/api/cluster/statistics",
             type: 'GET',
-            global: false,
-            crossDomain: true,
             "headers": {
                 "accept": "application/json",
             },
             success: function (data) {
                 if (data) {
                     try{
-                        loadAPI(data.version.includes(' ') ? '3.0.2' : data.version)
+                        loadAPI(data.version)
                     }
                     catch(e){}
 
@@ -146,12 +144,6 @@
     }
 
     function loadAPI(version) {
-
-        if(!version){
-            version ='3.0.2'
-        }else{
-            version = version+"/"+version;
-        }
 
         // Build a system
         var url = window.location.search.match(/url=([^&]+)/);
@@ -166,7 +158,7 @@
         var customOptions = options.customOptions
         var spec1 = options.swaggerDoc
         var swaggerOptions = {
-            url: "https://cdn.jsdelivr.net/gh/BoodskapPlatform/apidoc@"+version+"/api.yaml",
+            url: "/spec?version="+version,
             dom_id: '#swagger-ui',
             deepLinking: true,
             presets: [
@@ -181,6 +173,7 @@
         for (var attrname in customOptions) {
             swaggerOptions[attrname] = customOptions[attrname];
         }
+        console.log(swaggerOptions)
         var ui = SwaggerUIBundle(swaggerOptions)
         $(".link img").attr('src','images/boodskap-logo.png');
 
