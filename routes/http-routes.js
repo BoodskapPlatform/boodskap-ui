@@ -424,10 +424,11 @@ Routes.prototype.init = function () {
         res.render('configuration.html',{layout:false,basepath: getBasePath(req) });
     });
 
-    self.router.get('/spec',function (req, res) {
-        const swaggerDocument = YAML.load('./yaml/api.yml');
-        res.json(swaggerDocument);
-    });
+    // self.router.get('/spec',function (req, res) {
+    //     const swaggerDocument = YAML.load('https://cdn.jsdelivr.net/gh/BoodskapPlatform/apidoc@3.0.2/3.0.2/api.yaml');
+    //     res.json(swaggerDocument);
+    //
+    // });
     self.router.get('/swagger-doc',function (req, res) {
         res.render('swagger.html',{layout:false,basepath: getBasePath(req)});
     });

@@ -403,11 +403,17 @@ function loadStatistics() {
         crossDomain: true,
         "headers": {
             "accept": "application/json",
-            "Access-Control-Allow-Origin": "*"
+            // "Access-Control-Allow-Origin": "*"
         },
         success: function (data) {
             if (data) {
                 $('.apiVersion').html(data.version)
+
+                try{
+                    loadAPI(data.version.includes(' ') ? '3.0.2' : data.version)
+                }
+                catch(e){}
+
             }
         },
         error: function (e) {
