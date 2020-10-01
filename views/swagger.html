@@ -117,7 +117,41 @@
 <script src="js/swagger-ui-bundle.js"> </script>
 <script src="js/swagger-ui-standalone-preset.js"> </script>
 <script>
-    window.onload = function() {
+
+    loadStatistics();
+
+    function loadStatistics() {
+        $.ajax({
+            url: location.protocol+"//"+location.host+"/api/cluster/statistics",
+            cache: false,
+            type: 'GET',
+            global: false,
+            crossDomain: true,
+            "headers": {
+                "accept": "application/json",
+            },
+            success: function (data) {
+                if (data) {
+                    try{
+                        loadAPI(data.version.includes(' ') ? '3.0.2' : data.version)
+                    }
+                    catch(e){}
+
+                }
+            },
+            error: function (e) {
+
+            }
+        });
+    }
+
+    function loadAPI(version) {
+
+        if(!version){
+            version ='3.0.2'
+        }else{
+            version = version+"/"+version;
+        }
 
         // Build a system
         var url = window.location.search.match(/url=([^&]+)/);
@@ -132,7 +166,7 @@
         var customOptions = options.customOptions
         var spec1 = options.swaggerDoc
         var swaggerOptions = {
-            url: "spec",
+            url: "https://cdn.jsdelivr.net/gh/BoodskapPlatform/apidoc@"+version+"/api.yaml",
             dom_id: '#swagger-ui',
             deepLinking: true,
             presets: [
