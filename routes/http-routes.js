@@ -433,7 +433,6 @@ Routes.prototype.init = function () {
             }
 
         }
-        console.log('https://cdn.jsdelivr.net/gh/BoodskapPlatform/apidoc@'+version+'/api.yaml')
         request.get({
             uri: 'https://cdn.jsdelivr.net/gh/BoodskapPlatform/apidoc@'+version+'/api.yaml',
             headers: {'Accepts': 'text/yaml'},
