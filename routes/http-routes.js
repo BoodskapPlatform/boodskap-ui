@@ -374,8 +374,7 @@ Routes.prototype.init = function () {
     });
 
     self.router.get('/documentation', roleCheck, function (req, res) {
-        const swaggerDocument = YAML.load('./yaml/api.yml');
-        res.render('api-docs.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role,swaggerDocument:JSON.stringify(swaggerDocument)});
+        res.render('api-docs.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
     });
 
     self.router.get('/alexa', roleCheck, function (req, res) {
