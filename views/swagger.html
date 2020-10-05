@@ -122,8 +122,8 @@
 
     function loadStatistics() {
         $.ajax({
-            // url: location.protocol+"//"+location.host+"/api/cluster/statistics",
-            url: "https://dev.boodskap.io/api/cluster/statistics",
+            url: location.protocol+"//"+location.host+"/api/cluster/statistics",
+            // url: "https://dev.boodskap.io/api/cluster/statistics",
             type: 'GET',
             "headers": {
                 "accept": "application/json",
