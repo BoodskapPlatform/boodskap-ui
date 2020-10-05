@@ -99,25 +99,8 @@ async.series({
             }
         });
 
-    },
-    swagger : function (sbk) {
-
-        var protocol = getProperty('server.ssl') ? 'https' : 'http';
-
-        lineReplace({
-            file: './yaml/api.yml',
-            line: 4,
-            text: '  - '+protocol,
-            addNewLine: true,
-            callback: ({file, line, text, replacedText}) => {
-                console.error('3] Setting protocol in the swagger api.yml')
-
-                sbk(null,null)
-            }
-        })
-
-
     }
+
 }, function (err, result) {
     console.log(new Date() + ' | Boodskap UI Build Success');
     console.log('Now execute > npm start');
