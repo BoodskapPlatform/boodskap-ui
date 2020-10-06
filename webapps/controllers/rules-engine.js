@@ -50,6 +50,7 @@ $(".mainwindow").css('min-height', $(window).height() - 90 + 'px');
 
 
 $(document).ready(function () {
+    loadContextList()
 
     mqttConnect();
 
@@ -154,7 +155,7 @@ $(document).ready(function () {
         }, 500);
 
 
-        loadContextList()
+
 
     }, 100);
 
@@ -1483,21 +1484,46 @@ function loadEditor(code, tabid) {
     codeEditor = ace.edit("codeEditor");
 
 
-    codeEditor.setTheme("ace/theme/monokai");
+    // codeEditor.setTheme("ace/theme/monokai");
     // codeEditor.setTheme("ace/theme/solarized_light");
-    // codeEditor.setTheme("ace/theme/eclipse");
+    codeEditor.setTheme("ace/theme/eclipse");
     // codeEditor.setTheme("ace/theme/tomorrow_night");
     codeEditor.session.setMode("ace/mode/groovy");
     codeEditor.getSession().setUseWrapMode(true);
     codeEditor.setShowPrintMargin(false);
-    var langTools = ace.require("ace/ext/language_tools");
 
-    // codeEditor.setOptions({
-    //     enableBasicAutocompletion: true,
-    //     enableSnippets: true,
-    //     enableLiveAutocompletion: true,
-    // });
-    langTools.setCompleters([langTools.snippetCompleter])
+    var platfromSnippet = loadPlatformSnippet();
+
+
+    ace.config.loadModule("ace/ext/language_tools", function() {
+
+
+        codeEditor.setOptions({
+            enableSnippets: true,
+            enableBasicAutocompletion: true,
+            enableLiveAutocompletion: false
+        });
+
+        var snippetManager = ace.require("ace/snippets").snippetManager;
+        var config = ace.require("ace/config");
+
+        ace.config.loadModule("ace/snippets/groovy", function(m) {
+            if (m) {
+                m.snippets = platfromSnippet;
+                snippetManager.register(m.snippets, m.scope);
+            }
+        });
+
+    });
+
+    // var langTools = ace.require("ace/ext/language_tools");
+    //
+    // // codeEditor.setOptions({
+    // //     enableBasicAutocompletion: true,
+    // //     enableSnippets: true,
+    // //     enableLiveAutocompletion: true,
+    // // });
+    // langTools.setCompleters([langTools.snippetCompleter])
 
 
     code ? codeEditor.setValue(code) : '';
@@ -1596,17 +1622,17 @@ function loadEditor(code, tabid) {
         }
     });
 
-    codeEditor.commands.addCommand({
-        name: 'contextSearch',
-        bindKey: {
-            win: 'Ctrl-Space',
-            mac: 'Ctrl-Space',
-            sender: 'editor|cli'
-        },
-        exec: function (env, args, request) {
-            $("#context").css('display','block')
-        }
-    });
+    // codeEditor.commands.addCommand({
+    //     name: 'contextSearch',
+    //     bindKey: {
+    //         win: 'Ctrl-Space',
+    //         mac: 'Ctrl-Space',
+    //         sender: 'editor|cli'
+    //     },
+    //     exec: function (env, args, request) {
+    //         $("#context").css('display','block')
+    //     }
+    // });
 
     codeEditor.commands.addCommand({
         name: 'saveFile',
@@ -3096,6 +3122,7 @@ function checkJobInstance() {
         $("#job_boot").removeAttr('disabled')
     }
 }
+var context_list = []
 
 function loadContextList() {
     $.ajax({
@@ -3105,6 +3132,8 @@ function loadContextList() {
            if(data){
                $(".contextList").html('');
                var result = data.classes;
+
+               context_list = result.length > 0 ? result : [];
 
                for(var i=0;i<result.length;i++){
 

@@ -554,3 +554,41 @@ function isValidJson(json) {
         return false;
     }
 }
+
+
+
+function loadPlatformSnippet() {
+    var platfromSnippet = [];
+
+    for (var i = 0; i < context_list.length; i++) {
+
+        var val = context_list[i];
+
+        for (var j = 0; j < val.methods.length; j++) {
+
+            var methods = val.methods[j];
+
+            var sign = methods.signature;
+            var cnt = ''
+
+            var sign_1 = sign.split("(")[0];
+            var sign_2 = sign_1.split(" ");
+            var sign_3 = sign_2[sign_2.length-1];
+
+            var cnt = val.name+"."+sign_3+"("+sign.split("(")[1];
+
+            if(!sign.includes('void')){
+                cnt = "def result = "+cnt;
+            }
+
+
+            var obj = {
+                name : cnt,
+                content : "//"+methods.help+" \n"+cnt,
+                tabTrigger : val.name
+            }
+            platfromSnippet.push(obj)
+        }
+    }
+    return platfromSnippet;
+}
