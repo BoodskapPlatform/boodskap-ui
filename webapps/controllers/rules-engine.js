@@ -143,7 +143,7 @@ $(document).ready(function () {
 
         // preLoading('Loading Editor')
         setTimeout(function () {
-            $(".listHeight").css('height', $(".leftSide").height() - 160)
+            $(".listHeight").css('height', $(".leftSide").height() - 200)
             loadDomainCode();
             // closePreLoading();
             $(".loaderBlock").css('display', 'none');
