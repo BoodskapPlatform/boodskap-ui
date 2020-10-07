@@ -3222,7 +3222,6 @@ function renderContext(search) {
             }else{
                 str += '<p class="mt-2"><code>'+val.name+'</code> '+methods.help+'</p><pre class="bg-violet-light-5 mb-2"><xmp style="font-size: 14px">'+methods.signature+'</xmp></pre>'
             }
-            methods.examples = ['Object status(String uuid)\n','Object status(String uuid, boolean asMap)\n']
             if(methods.examples && methods.examples.length > 0) {
 
                 str += '<div style="padding-left: 25px"><h6>Examples:</h6>'
