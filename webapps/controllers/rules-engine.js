@@ -51,6 +51,8 @@ $(".mainwindow").css('min-height', $(window).height() - 90 + 'px');
 
 $(document).ready(function () {
     loadContextList()
+    $(".contextBody").css('height',$(window).height()-250)
+    $(".elasticBody").css('height',$(window).height()-250)
 
     mqttConnect();
 
@@ -3135,6 +3137,8 @@ function loadContextList() {
 
                context_list = result.length > 0 ? result : [];
 
+               renderContext();
+
                for(var i=0;i<result.length;i++){
 
                    var methods = result[i].methods;
@@ -3181,3 +3185,88 @@ function filterContext() {
     }
 }
 
+
+
+function openHelpModal() {
+
+    // loadElasticHelp();
+    $("#helpModal").modal('show')
+}
+
+
+
+function renderContext(search) {
+
+    if(search){
+        $(".contextBody").html('');
+    }
+
+    for (var i = 0; i < context_list.length; i++) {
+
+        var val = context_list[i];
+
+        var str = '';
+
+        var flg = false;
+
+        for (var j = 0; j < val.methods.length; j++) {
+            var methods = val.methods[j];
+            if(search){
+
+                if(val.name.toLowerCase().includes(search.toLowerCase())
+                    || methods.help.toLowerCase().includes(search.toLowerCase())
+                    || methods.signature.toLowerCase().includes(search.toLowerCase())){
+                    flg=true
+                    str += '<p class="mt-2"><code>'+val.name+'</code> '+methods.help+'</p><pre class="bg-violet-light-5 mb-2"><xmp style="font-size: 14px">'+methods.signature+'</xmp></pre>'
+                }
+            }else{
+                str += '<p class="mt-2"><code>'+val.name+'</code> '+methods.help+'</p><pre class="bg-violet-light-5 mb-2"><xmp style="font-size: 14px">'+methods.signature+'</xmp></pre>'
+            }
+            methods.examples = ['Object status(String uuid)\n','Object status(String uuid, boolean asMap)\n']
+            if(methods.examples && methods.examples.length > 0) {
+
+                str += '<div style="padding-left: 25px"><h6>Examples:</h6>'
+
+                for (var k = 0; k < methods.examples.length; k++) {
+
+                    str += '<pre class="mb-2"><xmp style="font-size: 12px">'+methods.examples[k]+'</xmp></pre>'
+
+                }
+                str += '</div><hr>'
+            }
+
+
+        }
+        if(search){
+            if(flg){
+                $(".contextBody").append('<div class="col-md-12 mt-1 mb-2">' +
+                    '<hr><h5 style="text-transform: capitalize">' + val.name + '</h5>' +
+                    str +
+                    '</div>');
+            }
+        }else{
+            $(".contextBody").append('<div class="col-md-12 mt-1 mb-2">' +
+                '<h5 style="text-transform: capitalize">' + val.name + '</h5>' +
+                str +
+                '</div>');
+        }
+
+
+    }
+}
+
+function loadElasticHelp() {
+    $(".elasticBody").html();
+    for (var j = 0; j < ELASTIC_QUERY.length; j++) {
+        var val = ELASTIC_QUERY[j];
+        var str = '<p class="mt-2">' + val.description + '</p><pre class="bg-violet-light-5 mb-2">' +
+            '<xmp style="font-size: 14px">' + val.code + '' +
+            '</xmp>' +
+            '</pre>'
+
+        $(".elasticBody").append('<div class="col-md-12 mt-1 mb-2">' +
+            '<h6 style="text-transform: capitalize">' + val.name + '</h6>' +
+            str +
+            '</div>');
+    }
+}

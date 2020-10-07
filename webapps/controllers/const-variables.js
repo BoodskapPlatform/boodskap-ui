@@ -765,3 +765,52 @@ var TIMEZONE_LIST = [
         "name": "International Date Line West"
     }
 ]
+
+
+
+var ELASTIC_QUERY = [
+    {
+        name: 'Query and filter context',
+        description: '',
+        code: '{\n' +
+            '  "query": { \n' +
+            '    "bool": { \n' +
+            '      "must": [\n' +
+            '        { "match": { "title":   "Search"        }},\n' +
+            '        { "match": { "content": "Elasticsearch" }}\n' +
+            '      ],\n' +
+            '      "filter": [ \n' +
+            '        { "term":  { "status": "published" }},\n' +
+            '        { "range": { "publish_date": { "gte": "2015-01-01" }}}\n' +
+            '      ]\n' +
+            '    }\n' +
+            '  }\n' +
+            '}'
+    },
+    {
+        name: 'Boolean Query',
+        description: '',
+        code: '{\n' +
+            '  "query": {\n' +
+            '    "bool" : {\n' +
+            '      "must" : {\n' +
+            '        "term" : { "user.id" : "kimchy" }\n' +
+            '      },\n' +
+            '      "filter": {\n' +
+            '        "term" : { "tags" : "production" }\n' +
+            '      },\n' +
+            '      "must_not" : {\n' +
+            '        "range" : {\n' +
+            '          "age" : { "gte" : 10, "lte" : 20 }\n' +
+            '        }\n' +
+            '      },\n' +
+            '      "should" : [\n' +
+            '        { "term" : { "tags" : "env1" } },\n' +
+            '        { "term" : { "tags" : "deployed" } }\n' +
+            '      ],\n' +
+            '      "minimum_should_match" : 1,\n' +
+            '    }\n' +
+            '  }\n' +
+            '}'
+    }
+];
