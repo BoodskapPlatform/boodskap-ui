@@ -51,7 +51,7 @@ analytics.id=
 To change the UI port, update the server property
 
 #### Note
-If you are downloading the platform (or) running in our own dedicated server.You may have to change the `boodskap` and `mqtt` property
+If you are downloading the platform (or) running in our own dedicated server. You may have to change the `boodskap` and `mqtt` property
 
 ### Build Properties
 Once all the changes done in property file. Execute a command
@@ -92,4 +92,4 @@ or
 Thu Jan 10 2019 14:11:51 GMT+0530 (IST) | Boodskap IoT Platform UI Listening on 4201
 ************************************************************************************
 ```
-Open the Brower with this URL: http://0.0.0.0:4201
+Open the Browser with this URL: http://0.0.0.0:4201
