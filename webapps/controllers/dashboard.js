@@ -120,8 +120,7 @@ $(document).ready(function () {
             // if(mobileOrWeb()) {
             //     $(".dashboardBody").css('height', $(window).height() - 30);
             // }
-
-            $(".dashboardDIV").append('<a href="https://boodskap.io" target="_blank" style="position: absolute;right:0px;bottom: 0px">' +
+            $(".dashboardDIV").append(qs('p')==1 || qs('p') == '1' ? '' : '<a href="https://boodskap.io" target="_blank" style="position: absolute;right:0px;bottom: 0px">' +
                 '<img src="images/powered-by-boodskap.png" class="powered-by pull-right" style="height: 30px;"/></a>');
 
 
