@@ -391,7 +391,6 @@ function loadImportedVerticals() {
 
     searchByQuery('', 'VERTICAL_IMPORTED', searchQuery, function (status, data) {
 
-        console.log(status, data);
         if (status) {
 
             var result = searchQueryFormatterNew(data)['data'];

@@ -496,10 +496,10 @@ font-size: 36px;
 }
 
 
-td.details-control {
+#userTable td.details-control {
     background: url('images/details_open.png') no-repeat center center;
     cursor: pointer;
 }
-tr.shown td.details-control {
+#userTable tr.shown td.details-control {
     background: url('images/details_close.png') no-repeat center center;
 }

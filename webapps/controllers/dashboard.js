@@ -241,7 +241,7 @@ function loadDashboardlist() {
 
                     var iconStr = '';
 
-                    if(DASHBOARD_LIST[i].isimage){
+                    if(DASHBOARD_LIST[i].isimage && DASHBOARD_LIST[i].imgpath){
                         iconStr = '<img src="'+DASHBOARD_LIST[i].imgpath+'" style="height: 24px;" /> '
                     }else{
                         iconStr = '<i class="' + DASHBOARD_LIST[i].icon + '"></i> ';
@@ -281,7 +281,7 @@ function loadDashboardlist() {
 
                     var iconStr = '';
 
-                    if(DASHBOARD_LIST[i].isimage){
+                    if(DASHBOARD_LIST[i].isimage && DASHBOARD_LIST[i].imgpath){
                         iconStr = '<img src="'+DASHBOARD_LIST[i].imgpath+'" style="height: 24px;" /> '
                     }else{
                         iconStr = '<i class="' + DASHBOARD_LIST[i].icon + '"></i> ';
@@ -329,7 +329,7 @@ function refreshDashboard() {
 
                 var iconStr = '';
 
-                if(DASHBOARD_LIST[i].isimage){
+                if(DASHBOARD_LIST[i].isimage && DASHBOARD_LIST[i].imgpath){
                     iconStr = '<img src="'+DASHBOARD_LIST[i].imgpath+'" style="height: 24px;" /> '
                 }else{
                     iconStr = '<i class="' + DASHBOARD_LIST[i].icon + '"></i> ';
@@ -404,7 +404,7 @@ function loadDashboard(id, flag) {
 
     var iconStr =  '';
 
-    if(CURRENT_DASHBOARD.isimage){
+    if(CURRENT_DASHBOARD.isimage && CURRENT_DASHBOARD.imgpath){
         iconStr = '<img src="'+CURRENT_DASHBOARD.imgpath+'" style="height: 24px;" /> '
     }else{
         iconStr = '<i class="' + CURRENT_DASHBOARD.icon + '"></i> ';
@@ -836,7 +836,7 @@ function loadDashboardMenu() {
             $(".dashboardMenu ul").html('');
         }else{
             $(".dashboardMenu ul").html('<li class="nav-header" style="background-color:#eeeeee6e">' +
-                '<a href="<%= basepath %>/dashboard" style="padding-left: 0px;"><i class="icon-home"></i> Dashboard</a></li>');
+                '<a href="'+WEB_BASE_PATH+'/dashboard" style="padding-left: 0px;"><i class="icon-home"></i> Dashboard</a></li>');
         }
 
         var dashboardStr = '';
@@ -850,7 +850,7 @@ function loadDashboardMenu() {
 
                 var iconStr =  '';
 
-                if(DASHBOARD_LIST[i].isimage){
+                if(DASHBOARD_LIST[i].isimage && DASHBOARD_LIST[i].imgpath){
                     iconStr = '<img src="'+DASHBOARD_LIST[i].imgpath+'" style="height: 18px;" />'
                 }else{
                     iconStr = '<i class="' + DASHBOARD_LIST[i].icon + '"></i> ';
@@ -1066,7 +1066,7 @@ function loadDashboardUserMenu() {
 
 
     $(".sidenav ul").html('<li class="has-sub active sideMain homeMenu">'+
-        '<a href="<%= basepath %>/dashboard">'+
+        '<a href="'+WEB_BASE_PATH+'/dashboard">'+
         '<i class="fa fa-home"></i>'+
         '<span>Home</span>'+
         '</a>'+
@@ -1082,7 +1082,7 @@ function loadDashboardUserMenu() {
 
             var iconStr =  '';
 
-            if(DASHBOARD_LIST[i].isimage){
+            if(DASHBOARD_LIST[i].isimage && DASHBOARD_LIST[i].imgpath){
                 iconStr = '<img src="'+DASHBOARD_LIST[i].imgpath+'" style="height: 18px;" />'
             }else{
                 iconStr = '<i class="' + DASHBOARD_LIST[i].icon + '"></i> ';

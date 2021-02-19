@@ -79,7 +79,7 @@ function loadDashboardlist() {
         for (var i = 0; i < DASHBOARD_LIST.length; i++) {
 
             var iconStr = '';
-            if(DASHBOARD_LIST[i].isimage){
+            if(DASHBOARD_LIST[i].isimage && DASHBOARD_LIST[i].imgpath){
                 iconStr = '<img src="' + DASHBOARD_LIST[i].imgpath + '" style="height: 18px;" />';
             }else {
 
@@ -132,7 +132,7 @@ function loadDashboard(obj) {
 
     $(".dashboardName").html(CURRENT_DASHBOARD.name);
 
-    if(CURRENT_DASHBOARD.isimage){
+    if(CURRENT_DASHBOARD.isimage && CURRENT_DASHBOARD.imgpath){
         $(".dashboardIcon").html('<img src="' + CURRENT_DASHBOARD.imgpath + '" style="height: 28px;" />');
     }else {
 
@@ -569,7 +569,7 @@ function updateDashboard() {
         bgcolor: $("#dashboard_bg").colorpicker('getValue'),
         titlebgcolor: $("#dashboard_title_bg").colorpicker('getValue'),
         titletxtcolor: $("#dashboard_title_text_bg").colorpicker('getValue'),
-        isimage : true,
+        isimage : imageID ? true : false,
         imgpath : imageID
     }
 
@@ -985,6 +985,10 @@ function loadAssetList() {
                 $("#assetList").append('<option value="' + asset_list[i].id + '">' + asset_list[i].id + ' | ' + asset_list[i].name + '</option>');
             }
 
+            try{
+                $("#assetList").select2('destroy');
+            }catch(e){}
+
             $("#assetList").select2({
                 dropdownParent: $("#editorModal")
             });
@@ -1006,6 +1010,9 @@ function loadMessageList() {
             for (var i = 0; i < message_list.length; i++) {
                 $("#messageList").append('<option value="' + message_list[i].id + '">' + message_list[i].id + ' | ' + message_list[i].name + '</option>');
             }
+            try{
+                $("#messageList").select2('destroy');
+            }catch(e){}
 
             $("#messageList").select2({
                 dropdownParent: $("#editorModal")
@@ -1031,6 +1038,10 @@ function loadRecordList() {
             for (var i = 0; i < record_list.length; i++) {
                 $("#recordList").append('<option value="' + record_list[i].id + '">' + record_list[i].id + ' | ' + record_list[i].name + '</option>');
             }
+
+            try{
+                $("#recordList").select2('destroy');
+            }catch(e){}
 
             $("#recordList").select2({
                 dropdownParent: $("#editorModal")
