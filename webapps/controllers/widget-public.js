@@ -28,7 +28,7 @@ $(document).ready(function () {
     $(".panel-heading").remove();
 
     $(".dashboardDIV").append('<a href="https://boodskap.io" target="_blank" style="position: absolute;right:0px;bottom: 0px">' +
-        '<img src="/images/powered-by-boodskap.png" class="powered-by pull-right" style="height: 30px;"/></a>');
+        '<img src="images/powered-by-boodskap.png" class="powered-by pull-right" style="height: 30px;"/></a>');
 
 
     getGlobalProperty(USER_OBJ.token, function (status, data) {

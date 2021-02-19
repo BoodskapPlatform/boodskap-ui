@@ -176,6 +176,8 @@ function loadDeviceList() {
                         var resultData = searchQueryFormatterNew(data).data;
                         device_list =resultData.data;
                         resultData['draw'] = oSettings.iDraw;
+                        $(".deviceCount").html(resultData.recordsTotal);
+
 
                         fnCallback(resultData);
                     }
@@ -220,8 +222,6 @@ function searchQueryFormatter(data) {
             aggregations: aggregations
             // data : _.pluck(records, '_source')
         }
-
-        $(".deviceCount").html(totalRecords);
 
 
         return resultObj;

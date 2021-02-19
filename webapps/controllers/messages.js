@@ -301,6 +301,9 @@ function loadMessages(id) {
                     var resultData =resData.data;
                     resultData['draw'] = oSettings.iDraw;
 
+                    $(".totalCount").html(resultData.recordsTotal);
+
+
                     if(resultData.recordsFiltered >= 10000){
                         resultData.recordsFiltered = 10000;
                     }

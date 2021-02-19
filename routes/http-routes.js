@@ -38,7 +38,7 @@ Routes.prototype.init = function () {
                     next();
                 } else {
                     if (role.indexOf('user') !== -1) {
-                        if (req.url.includes("/dashboard") || req.url === '/profile' || req.url === '/userevents' || req.url === '/alexa') {
+                        if (req.url.includes("/dashboard") || req.url.includes('/profile') || req.url.includes('/userevents') || req.url.includes('/alexa')) {
                             next();
                         } else {
                             console.log(new Date() + " | unauthorized access");
@@ -356,7 +356,7 @@ Routes.prototype.init = function () {
         res.render('addwidget.html',{layout:'',basepath: getBasePath(req),  widgetId:req.params.id,userRole:req.session.role});
     });
 
-    self.router.get('/marketplace/verticals', roleCheck, function (req, res) {
+   /* self.router.get('/marketplace/verticals', roleCheck, function (req, res) {
         res.render('verticals.html',{layout:'',basepath: getBasePath(req),  query:req.query,userRole:req.session.role});
     });
     self.router.get('/marketplace/addvertical', roleCheck, function (req, res) {
@@ -364,7 +364,7 @@ Routes.prototype.init = function () {
     });
     self.router.get('/marketplace/addvertical/:id', roleCheck, function (req, res) {
         res.render('addvertical.html',{layout:'',basepath: getBasePath(req),  verticalId:req.params.id,userRole:req.session.role});
-    });
+    });*/
 
     /*self.router.get('/simulator', onlyAdmin, function (req, res) {
         res.render('simulator.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});

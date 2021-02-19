@@ -159,6 +159,23 @@ function getUserProperty(name, cbk) {
 
 }
 
+function getUserPropertyEmail(name,email, cbk) {
+    $.ajax({
+        url: API_BASE_PATH + "/user/property/get/" + API_TOKEN + "/" + email + "/" + name,
+        type: 'GET',
+        success: function (data) {
+            //called when successful
+            cbk(true, data);
+        },
+        error: function (e) {
+            //called when there is an error
+            //console.log(e.message);
+            cbk(false, null);
+        }
+    });
+
+}
+
 
 function getDomainProperty(name, cbk) {
 

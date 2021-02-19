@@ -2,11 +2,11 @@ var switchColor = '#9E9E9E';
 var LIVE_UPDATE_GLOBAL = Cookies.get('live_update_global') ? Cookies.get('live_update_global') : 'OFF';
 
 var userEventMenu = ' <li class="has-sub sideMain">\n' +
-    '        <a href="<%= basepath %>/userevents">\n' +
+    '        <a href="'+WEB_BASE_PATH+'/userevents">\n' +
     '            <i class="icon-bell4"></i>\n' +
     '            <span>Event Subscriptions</span>\n' +
     '        </a>\n' +
-    '        <a href="<%= basepath %>/alexa">\n' +
+    '        <a href="'+WEB_BASE_PATH+'/alexa">\n' +
     '            <i class="icon-microphone"></i>\n' +
     '            <span>Amazon Alexa</span>\n' +
     '        </a>\n' +
@@ -74,7 +74,7 @@ function restrictAccess() {
         $(".menulink").remove();
 
         $(".sidenav ul").html('<li class="has-sub active sideMain homeMenu">'+
-        '<a href="<%= basepath %>/dashboard">'+
+        '<a href="'+WEB_BASE_PATH+'/dashboard">'+
         '<i class="fa fa-home"></i>'+
         '<span>Home</span>'+
         '</a>'+

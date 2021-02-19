@@ -62,7 +62,7 @@ function loadDashboardlist() {
                         iconStr = '<i class="' + DASHBOARD_LIST[i].icon + '"></i> ';
                     }
 
-                    $(".sidenav ul").append(' <li class="has-sub sideMain msgDefMenu"><a href="<%= basepath %>/dashboard/' + DASHBOARD_LIST[i].id + '">' +
+                    $(".sidenav ul").append(' <li class="has-sub sideMain msgDefMenu"><a href="'+WEB_BASE_PATH+'/dashboard/' + DASHBOARD_LIST[i].id + '">' +
                         iconStr +
                         '<span>' + DASHBOARD_LIST[i].name + '</span></a></li>')
                 }
