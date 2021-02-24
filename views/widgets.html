@@ -3,18 +3,7 @@
 <!--<link rel="stylesheet" type="text/css" href="css/estyle-responsive.min.css" />-->
 
 <style>
-    .widgetContent{
-        overflow: hidden;background-color: #fff;border: 1px solid #3e3b3c45;box-shadow: 6px -6px 7px #3e3b3c17;
-    }
 
-   .widgetPanel{
-       border: 1px solid #ddd;
-       text-align: center;
-       padding: 10px !important;
-       -webkit-box-shadow: 0 0 31px -3px #ddd;
-       box-shadow: 0 0 31px -3px #ddd;
-       cursor: pointer;
-   }
     .sort-list, .sort-list h4 {
         margin: 0;
         font-size: 12px;
@@ -36,22 +25,42 @@
     .sort-list label{
         margin-bottom: 0px;
     }
-    tr{
-        cursor: pointer;
+
+    .widgetDiv{
+        border:1px solid #eee;
+        border-radius:5px;
+        padding:5px;
+    }
+
+    .widgetDiv:hover{
+        border:1px solid #ccc;
+        background-color: #f59c1a14;
+    }
+
+    .widgetDiv:hover h5{
+        color: #f59c1a;
+    }
+
+    .description{
+        width: 100%;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        margin-bottom: 5px;
     }
 
 </style>
 
 
-<div class="container mt-3 msgDef">
+<div class="container mt-3 msgDef platformBody">
     <!-- begin breadcrumb -->
     <ol class="breadcrumb pull-right">
-        <li class="breadcrumb-item"><a href="<%= basepath %>/marketplace">Marketplace</a></li>
-        <li class="breadcrumb-item active">Widgets</li>
+        <li class="breadcrumb-item"><a href="<%= basepath %>/widgets">Widgets</a></li>
+        <li class="breadcrumb-item active">Library</li>
     </ol>
     <!-- end breadcrumb -->
     <!-- begin page-header -->
-    <h1 class="page-header">Widgets Library
+    <h1 class="page-header">Widget Library
         <!--<div class="btn-group btn-sm btn-group-sm">
             <button class="btn btn-secondary btn-sm"><i class="icon-cog"></i> </button>
             <button class="btn btn-secondary btn-sm dropdown-toggle"
@@ -73,48 +82,70 @@
                 <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-warning" title="Help"><i class="icon-help"></i></a>
 
             </div>
-            <h4 class="panel-title">Total Widgets: <b><span class="widgetsCount"></span></b></h4>
+            <h4 class="panel-title">Total Widgets: <b><span class="widgetsCount"></span></b>
+                <a href="<%= basepath %>/widget/addwidget" class="ml-4 btn btn-sm btn-default" style="display: inline-block">
+                    <i class="fa fa-plus"></i> Add New Widget</a>
+            </h4>
+
         </div>
         <div class="panel-body" style="background-color: #fff;border: 1px solid #3e3b3c2b;padding-bottom: 30px;">
 
 
-                    <div class="row" style="background-color: #eeeeeec7;margin-bottom: 20px;">
-                            <div class="col-lg-4">
-                                <a href="<%= basepath %>/marketplace/addwidget" class="btn btn-warning" style="margin-top: 15px">
-                                    <i class="fa fa-plus-square"></i> Create Your Own Widget & Publish</a>
-                            </div>
-                            <div class="col-lg-8">
-
-                                <ul class="sort-list row">
-                                    <li class="text  col-lg-6">
-                                        <label style="display: block"><i class="fa fa-filter"></i> By Category:</label>
-                                        <select class="form-control input-sm" id="widgetCategories" onchange="loadWidgets()">
-                                        </select>
-                                    </li>
-                                    <li class="text  col-lg-6">
-                                        <label style="display: block"><i class="fa fa-filter"></i> By Status:</label>
-                                        <select class="form-control input-sm" id="widgetStatus" onchange="loadWidgets()">
-                                            <option value="true">Published</option>
-                                            <option value="false">Not Published</option>
-                                        </select>
-                                    </li>
-
-                                </ul>
-
-
-                            </div>
+            <div class="row" style="background-color: #eeeeeec7;margin-bottom: 20px;">
+                    <div class="col-lg-4">
+                        <form class="mt-2">
+                            <label  style="display: block;margin-bottom: 0px"><i class="fa fa-search"></i> Search</label>
+                            <input type="text" class="form-control" onkeyup="loadWidgets()" id="searchBox" placeholder="Search by widget name, tags" />
+                        </form>
                     </div>
+                    <div class="col-lg-8">
+
+                        <ul class="sort-list row">
+                            <li class="text  col-lg-3">
+                                <label style="display: block"><i class="fa fa-filter"></i> By Category:</label>
+                                <select class="form-control input-sm" id="widgetCategories" onchange="loadWidgets()">
+                                </select>
+                            </li>
+                            <li class="text  col-lg-3">
+                                <label style="display: block"><i class="fa fa-filter"></i> By Status:</label>
+                                <select class="form-control input-sm" id="widgetStatus" onchange="loadWidgets()">
+                                    <option value="true">Published</option>
+                                    <option value="false">Not Published</option>
+                                </select>
+                            </li>
+                            <li class="text  col-lg-3">
+                                <label style="display: block"><i class="fa fa-sort"></i> Sort By:</label>
+                                <select class="form-control input-sm" id="widgetSort" onchange="loadWidgets()">
+                                    <option value="updatedtime">Recently Updated Time</option>
+                                    <option value="createdtime">Published Time</option>
+                                </select>
+                            </li>
+                            <li class="text  col-lg-3">
+                                <label style="display: block"><i class="fa fa-sort"></i> Sort Order:</label>
+                                <select class="form-control input-sm" id="widgetSortOrder" onchange="loadWidgets()">
+                                    <option value="desc">Descending</option>
+                                    <option value="asc">Ascending</option>
+                                </select>
+                            </li>
+
+                        </ul>
 
 
-                            <table id="widgetsTable" class="table table-bordered  table-striped responsive" style="width: 100%"></table>
-
-                        </div>
                     </div>
+            </div>
+
+            <div class="row mt-3 widgetBody">
 
 
+            </div>
+            <div class="row paginationBody"></div>
 
         </div>
+
     </div>
+
+
+
 
 </div>
 

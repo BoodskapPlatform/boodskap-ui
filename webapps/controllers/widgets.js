@@ -4,7 +4,6 @@ var widgetId = null;
 $(document).ready(function () {
 
     $("body").removeClass('bg-white')
-    console.log(getUrlVars()['category'])
     loadWidgetsCategory();
     loadWidgets();
 });
@@ -21,49 +20,16 @@ function loadWidgetsCategory() {
     if (getUrlVars()['category']) {
         $("#widgetCategories").val(decodeURIComponent(getUrlVars()['category']))
     }
-
 }
+var scrollId= null;
+var ajaxCall = null;
+function loadWidgets(){
 
-
-function loadWidgets() {
-    $(".widgetsList").html("");
-
-    if (widgetsTable) {
-        widgetsTable.destroy();
-        $("#widgetsTable").html("");
+    if(ajaxCall){
+        ajaxCall.abort()
     }
 
-
-    var widgetCategories = $("#widgetCategories").val();
     var widgetStatus = $("#widgetStatus").val();
-
-    var domainKeyJson = {"match": {"domainKey": DOMAIN_KEY}};
-
-    var queryParams = {
-        query: {
-            "bool": {
-                "must": [],
-            }
-        },
-        sort: [{"updatedtime": {"order": 'desc'}}],
-    };
-
-    var wCat = {};
-    var wStat = {};
-    if (widgetCategories !== '') {
-        wCat = {
-            "match": {
-                "category": widgetCategories
-            }
-        }
-    }
-    if (widgetStatus !== '') {
-        wStat = {
-            "match": {
-                "published": widgetStatus === 'true' ? true : false
-            }
-        }
-    }
 
     var type = 'WIDGET';
     if (widgetStatus === 'true') {
@@ -71,426 +37,247 @@ function loadWidgets() {
     } else {
         type = 'WIDGET';
     }
+    scrollId= null;
 
-    var fields = [
-        {
-            mData: 'widgetname',
-            sTitle: 'Widget Name',
-            "class": "details-control",
-            "orderable": false,
-            mRender: function (data, type, row) {
+    var sorting = {};
 
-                var img = '<img src="'+API_BASE_PATH+'/files/public/download/'+row.widgetimage+'" alt="" style="width:50px;margin-right:5px" class="pull-left"/>';
+    sorting[$("#widgetSort").val()] = {order : $("#widgetSortOrder").val()}
 
-                var str = img+'<label style="display:block;text-align: left">' + data + '</label>' +
-                    '<small>' + row['category'] + '</small>';
-                return str;
+
+
+    var queryParams = {
+        query: {
+            "bool": {
+                "should": [],
+                 "must":[]
             }
         },
-        {
-            mData: 'version',
-            sTitle: 'Version',
-            "class": "details-control",
-            orderable: false,
-        },
-        {
-            mData: 'createdby',
-            sTitle: 'Developer',
-            "class": "details-control",
-            orderable: false,
-            mRender: function (data, type, row) {
+        sort: [sorting],
+        size:5
+    };
 
-                var str = '<label style="display:block;text-align: left">' + data + '</label>' +
-                    '<small>' + row['createdbyemail'] + '</small>';
-                return str;
+    if ($("#widgetCategories").val() !== '') {
+        queryParams.query.bool.must.push({
+            "match": {
+                "category": $("#widgetCategories").val()
             }
-        },
-        {
-            mData: 'updatedtime',
-            sTitle: 'Last Updated',
-            "class": "details-control",
-            orderable: true,
-            mRender: function (data, type, row) {
-                return moment(data).format('MM/DD/YYYY hh:mm a')
+        })
+    }
+
+    if ($("#widgetStatus") !== '') {
+        queryParams.query.bool.must.push({
+            "match": {
+                "published": widgetStatus === 'true' ? true : false
             }
-        },
-        {
-            mData: 'createdtime',
-            sTitle: 'Creadted Time',
-            "class": "details-control",
-            orderable: true,
-            mRender: function (data, type, row) {
-                return moment(data).format('MM/DD/YYYY hh:mm a')
+        })
+    }
+
+    var sText = $.trim($("#searchBox").val());
+
+    if (sText !== '') {
+
+        queryParams.query.bool['minimum_should_match']=1;
+
+        queryParams.query.bool.should.push({
+            "wildcard": {
+                "widgetname": "*"+sText+"*"
             }
-        }
-
-    ];
-
-
-    var tableOption = {
-        fixedHeader: {
-            header: true,
-            headerOffset: -5
-        },
-        responsive: true,
-        paging: true,
-        searching: true,
-        "ordering": true,
-        aaSorting: [[3, 'desc']],
-        iDisplayLength: 10,
-        lengthMenu: [[10, 50, 100], [10, 50, 100]],
-        aoColumns: fields,
-        "bProcessing": true,
-        "bServerSide": true,
-        "sAjaxSource": API_BASE_PATH + '/elastic/search/query/' + API_TOKEN,
-        "fnServerData": function (sSource, aoData, fnCallback, oSettings) {
-
-
-            queryParams['size'] = oSettings._iDisplayLength;
-            queryParams['from'] = oSettings._iDisplayStart;
-
-            var searchText = oSettings.oPreviousSearch.sSearch;
-
-            if (searchText) {
-                var searchJson = {
-                    "multi_match": {
-                        "query": '*' + searchText + '*',
-                        "type": "phrase_prefix",
-                        "fields": ['tags', 'widgetname', 'description', 'category', 'createdby']
-                    }
-                };
-
-
-                queryParams.query['bool']['must'] = [searchJson];
-
-            } else {
-                queryParams.query['bool']['must'] = [];
+        })
+        queryParams.query.bool.should.push({
+            "wildcard": {
+                "tags": "*"+sText+"*"
             }
-
-            if (widgetCategories !== '') {
-                queryParams.query['bool']['must'].push(wCat);
+        })
+        queryParams.query.bool.should.push({
+            "wildcard": {
+                "description": "*"+sText+"*"
             }
-            if (widgetStatus !== '') {
-                queryParams.query['bool']['must'].push(wStat);
+        })
+        queryParams.query.bool.should.push({
+            "wildcard": {
+                "category": "*"+sText+"*"
             }
-
-            if (widgetStatus === 'false') {
-
-                queryParams.query['bool']['must'].push(domainKeyJson);
-            }
+        })
+    }
 
 
-            var ajaxObj = {
-                "method": "GET",
-                "extraPath": "",
-                "query": JSON.stringify(queryParams),
-                "params": [],
-                type : type
-
-            };
-
-
-            oSettings.jqXHR = $.ajax({
-                "dataType": 'json',
-                "contentType": 'application/json',
-                "type": "POST",
-                "url": sSource,
-                "data": JSON.stringify(ajaxObj),
-                success: function (data) {
-
-                    var resultData = searchQueryFormatterNew(data).data;
-                    widgets_list = resultData.data;
-                    resultData['draw'] = oSettings.iDraw;
-                    $(".widgetsCount").html(resultData.recordsTotal);
-
-                    fnCallback(resultData);
-                }
-            });
-        }
+    var ajaxObj = {
+        "method": "GET",
+        "extraPath": "",
+        "query": JSON.stringify(queryParams),
+        "params": [ {
+            "name": "scroll",
+            "value": "1m"
+        }],
+        type : type
 
     };
 
-    widgetsTable = $("#widgetsTable").DataTable(tableOption);
+    $(".widgetBody").html('<div class="col-md-12"><h5><i class="fa fa-spinner fa-spin"></i> Loading widgets....</h5></div>');
 
-    var detailRows = [];
 
-    $('#widgetsTable tbody').on('click', '.details-control', function () {
+    ajaxCall = $.ajax({
+        url: API_BASE_PATH + "/elastic/search/query/" + API_TOKEN,
+        data: JSON.stringify(ajaxObj),
+        contentType: "application/json",
+        type: 'POST',
+        success: function (data) {
+            //called when successful
+            var resultData = searchQueryFormatterNew(data);
 
-        $(".eventRow").hide();
-        var tr = $(this).closest('tr');
-        var row = widgetsTable.row(tr);
-        var idx = $.inArray(tr.attr('id'), detailRows);
+            if(resultData.total > 0){
+                $(".widgetBody").html('');
+                scrollId =   resultData.scroll_id;
+                for(var i=0;i<resultData.data.data.length;i++){
+                    renderWidgetDiv(resultData.data.data[i]);
+                }
 
-        if (row.child.isShown()) {
-            tr.removeClass('details');
-            row.child.hide();
+                $(".widgetsCount").html(resultData.total)
 
-            // Remove from the 'open' array
-            detailRows.splice(idx, 1);
-        }
-        else {
-            tr.addClass('details');
-            row.child(formatRow(row.data())).show();
-
-            // Add to the 'open' array
-            if (idx === -1) {
-                detailRows.push(tr.attr('id'));
+            }else{
+                scrollId = null;
+                $(".widgetBody").html('<div class="col-md-12"><h5>No Widgets Found!</h5></div>')
+                errorMsg('No widgets found!')
+                $(".widgetsCount").html(0)
             }
+        },
+        error: function (e) {
+            //called when there is an error
+            if(e.statusText != 'abort'){
+                $(".widgetBody").html('<div class="col-md-12"><h5>No Widgets Found!</h5></div>')
+                errorMsg('No widgets found!')
+                $(".widgetsCount").html(0)
+            }
+
         }
     });
 
 
 }
 
+function renderWidgetDiv(obj){
 
-function formatRow(obj) {
+    var tags ='';
 
-    var tags = obj.tags.split(",");
-    var tagStr = ''
-    for(var i=0;i<tags.length;i++){
-        tagStr = tagStr + '<span class="mr-1 label label-default">'+tags[i]+'</span>'
+    var tagObj = obj.tags.split(",");
+
+    for(var i=0;i<tagObj.length;i++){
+        tags+= '<i class="label label-default mr-2">'+tagObj[i]+'</i>'
     }
-
-    var editButton = '';
-    var addDomain = '';
-
-    if(DOMAIN_KEY === obj.domainKey){
-        editButton = `<div class="btn-group btn-group-justified pull-right">
-            <a  href="`+BASE_PATH+`/marketplace/addwidget/` + obj.widgetid + `" class="btn btn-outline-secondary btn-xs" title="Edit Widget"><i class="icon-edit2"></i> Edit</a>
-        <button class="btn btn-outline-danger btn-xs" title="Delete Widget" onclick="deleteModal('`+obj._id+`','`+obj.widgetname+`')">
-        <i class="icon-trash4"></i> Delete</button>
-        </div>`;
-    }else{
-        addDomain = `<button class="btn btn-warning pull-right mr-2" onclick="importModal('`+obj._id+`','`+obj.widgetname+`')"><i class="icon-plus-square"></i> <span class="hidden-xs">Add to Domain</span></button>`;
+    var imgPath = 'images/menu/widget.png'
+    if(obj.widgetimage){
+        imgPath = API_BASE_PATH+`/files/public/download/`+obj.widgetimage
     }
-
-    var widgetScreens = '';
-
-    for (var i = 0; i < obj.widgetscreens.length; i++) {
-        widgetScreens = widgetScreens + '  <img src="' + API_BASE_PATH + '/files/public/download/' + obj.widgetscreens[i] + '" ' +
-            'class="img-responsive mt-2 mr-2" style="border:2px solid #eee;padding:5px;" height="150"/>'
-    }
-
-    if(widgetScreens !== ''){
-        widgetScreens = '<label style="display: block;text-align: left">Screenshots</label>' +widgetScreens
-    }
-
-
-    var basedOn = '';
-
-    var widgedBased = JSON.parse(obj.config);
-
-    if (widgedBased.asset.flag) {
-        basedOn = basedOn + '{ Asset } ';
-    }
-    if (widgedBased.device.flag) {
-        basedOn = basedOn + '{ Device } ';
-    }
-    if (widgedBased.message.flag) {
-        basedOn = basedOn + ' { Message } ';
-    }
-    if (widgedBased.record && widgedBased.record.flag) {
-        basedOn = basedOn + ' { Record } ';
-    }
-
-    if (basedOn !== '') {
-        basedOn = '<p style="font-size:11px"><b>Widgets Based On:</b> ' + basedOn + '</p>';
-    }
-
-
-    var str= `<div class="row">
-        <div class="col-lg-12">
-            <div class="verticalBox">
-               <div class="row">
-                    <div class="col-lg-4" style="text-align: center;background-color: #eeeeee78;padding: 5px;">
-                        <img src="`+API_BASE_PATH+`/files/public/download/`+obj.widgetimage+`" alt="" style="max-width: 100%;max-height: 300px;"/>
-                    </div>
-                    <div class="col-lg-8">
-                     <div class="row mt-1 mb-2">
-                         <div class="col-lg-12">
-                            <label style="text-align: left;display: inline-block">`+obj.category+` `+tagStr+`</label>
-                           `+addDomain+`
-                           
-                           `+editButton+`
-                           </div>
-                       </div>
-                         <p style="white-space: pre-wrap;"> `+obj.description+`</p>
-                         <p> `+basedOn+`</p>
-                    </div>
-                </div>
-                   
-               <div class="row">
-                <div class="col-lg-12">
-                `+widgetScreens+`
-                </div>
-                </div>  
-               
-               <div class="row mt-1">
-                   <div class="col-lg-4" style="">
-                            <label style="display: block">Author</label>
-                            <p class="createdBy">`+obj.createdby+`<br><small>`+obj.createdbyemail+`</small></p>
-                    
-                    </div>
-                   <div class="col-lg-4" style="">
-                            <label style="display: block">Created</label>
-                            <p class="createdDate">`+moment(obj.createdtime).format('MM/DD/YYYY hh:mm a')+`</p>
-                    
-                    </div>
-                   <div class="col-lg-4" style="">
-                            <label style="display: block">Last Update</label>
-                            <p class="updatedDate">`+moment(obj.updatedtime).format('MM/DD/YYYY hh:mm a')+`</p>
-                    </div>
-                </div>
-               
-                 
-            </div>
-        </div>
-        </div>
-    `;
-    return str;
-}
-
-function searchQueryFormatter(data) {
-
-    var resultObj = {
-        total: 0,
-        data: {},
-        aggregations: {}
-    }
-
-    if (data.httpCode === 200) {
-
-        var arrayData = JSON.parse(data.result);
-
-        var totalRecords = arrayData.hits.total ? arrayData.hits.total.value : 0;
-        var records = arrayData.hits.hits;
-
-        var aggregations = arrayData.aggregations ? arrayData.aggregations : {};
-
-
-        for (var i = 0; i < records.length; i++) {
-            records[i]['_source']['_id'] = records[i]['_id'];
-        }
-
-        resultObj = {
-            "total": totalRecords,
-            "data": {
-                "recordsTotal": totalRecords,
-                "recordsFiltered": totalRecords,
-                "data": _.pluck(records, '_source')
-            },
-            aggregations: aggregations
-            // data : _.pluck(records, '_source')
-        }
-
-
-        return resultObj;
-
-    } else {
-
-        return resultObj;
-    }
-
-}
-
-function renderWidget(obj) {
-
-
-    var tags = obj.tags.split(",");
-    var tagStr = ''
-    for (var i = 0; i < tags.length; i++) {
-        tagStr = tagStr + '<span class="mr-1 label label-default">' + tags[i] + '</span>'
-    }
-
-    var widgetScreens = '';
-
-    for (var i = 0; i < obj.widgetscreens.length; i++) {
-        widgetScreens = widgetScreens + '  <img src="' + API_BASE_PATH + '/files/public/download/' + obj.widgetscreens[i] + '" ' +
-            'class="img-responsive mt-2 mr-2" style="border:2px solid #eee;padding:5px;" height="150"/>'
-    }
-
-    var basedOn = '';
-
-    var widgedBased = JSON.parse(obj.config);
-
-    console.log(widgedBased)
-
-    if (widgedBased.asset.flag) {
-        basedOn = basedOn + '{ Asset } ';
-    }
-    if (widgedBased.device.flag) {
-        basedOn = basedOn + '{ Device } ';
-    }
-    if (widgedBased.message.flag) {
-        basedOn = basedOn + ' { Message } ';
-    }
-    if (widgedBased.record && widgedBased.record.flag) {
-        basedOn = basedOn + ' { Record } ';
-    }
-
-    if (basedOn !== '') {
-        basedOn = '<p style="font-size:11px"><b>Widgets Based On:</b> ' + basedOn + '</p>';
-    }
-
-    var liveStatus = '';
-
-    if (obj.published) {
-        liveStatus = '<label class="label label-success pull-left" style="background-color: #4caf50;margin-right: 5px;">LIVE</label>'
-    }
-
-
-    var editButton = '';
-    var addDomain = '';
-    if (DOMAIN_KEY === obj.domainKey) {
-        editButton = '<a class="btn btn-outline-dark btn-block" href="'+BASE_PATH+'/marketplace/addwidget/' + obj._id + '"><i class="icon-edit2"></i>Edit Widget</a>' +
-            '<a class="btn btn-outline-danger btn-block" href="javascript:void(0)" onclick="deleteModal(\'' + obj._id + '\',\'' + obj.widgetname + '\')"><i class="icon-trash4"></i>Delete Widget</a>';
-    } else {
-        addDomain = '<button class="btn btn-outline-dark btn-block" onclick="importModal(\'' + obj._id + '\',\'' + obj.widgetname + '\')"><i class="icon-plus"></i> Add To Domain</button>';
-    }
-
 
     var str = `
-        <div class="row widgetContent" style="">
-            <div class="col-lg-2 widgetPanel" style="">
-                 <img src="` + API_BASE_PATH + `/files/public/download/` + obj.widgetimage + `" alt="" style="max-width: 100%"/>
-            </div>
-             <div class="col-lg-8" style="padding: 10px;background-color: #eeeeee42;border: 1px solid #eee;">
-                 <h5 class="item-title">` + obj.widgetname + ` ` + liveStatus + `
-                 
-                    <label class="label label-warning pull-right" style="background-color: #f44336">Version: ` + obj.version + `</label>
-                 
-                    </h5>
-                  <p class="item-desc">` + obj.category + `</p>
-                  <p><small>` + obj.description + `</small></p>
-                  <p class="mt-2">` + tagStr + `</p>
-                  
-                   ` + basedOn + `
-                  
-                   <div class="widgetScreens">` + widgetScreens + `
-                      
+        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-12 mb-3">
+                    <div class="widgetDiv">
+                        <div class="row">
+                            <div class="col-lg-5 col-md-12 col-sm-12" style="">
+                                <div style="text-center">
+                                <img src="`+imgPath+`" style="width: 128px"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-7 col-md-12 col-sm-12 pl-2">
+                                <h5 class="" style="width:100%;white-space: nowrap;text-overflow: ellipsis;  overflow: hidden;" title="`+obj.widgetname+`">`+obj.widgetname+`</h5>
+                                <small class="mr-2">v`+obj.version+`</small> <small><i class="fa fa-folder"></i> `+obj.category+`</small> <br>
+                                <p class="" style="margin-top: 5px"><i class="fa fa-tags"></i>
+                                    `+tags+`
+                                </p>
+                                <p class="description" title="`+obj.description+`">
+                                    `+obj.description+`
+                                </p>
+                                <small class="mr-2"><i class="fa fa-user"></i> `+obj.createdby+`</small>
+                                <small><i class="fa fa-clock-o"></i> `+moment(obj.createdtime).format('MM/DD/YYYY hh:mm a')+`</small>
+                                
+                                 <br><small><i class="fa fa-clock-o"></i> Last updated on, `+moment(obj.updatedtime).format('MM/DD/YYYY hh:mm a')+`</small><br>
+                                
+                                <div class="btn-`+obj.widgetid+`">
+                                    <button class="btn mt-2 btn-warning btn-sm action hide" onclick="importModal('`+obj.widgetid+`','`+obj.widgetname+`')"><i class="icon-plus-square"></i> <span class="hidden-xs">Add to Domain</span></button>
+                                </div>
+
+                            </div>
+                        </div>
+
                     </div>
-                  
-            </div>
-             <div class="col-lg-2" style="padding: 10px;border: 1px solid #eee;text-align: left;">
-             
-                        <label style="display: block">Author</label>
-                        <p class="createdBy">` + obj.createdby + `<br><small>` + obj.createdbyemail + `</small></p>
-                        <label style="display: block">Created</label>
-                        <p class="createdDate">` + moment(obj.createdtime).format('MM/DD/YYYY hh:mm a') + `</p>
-                        <label style="display: block">Last Update</label>
-                        <p class="updatedDate">` + moment(obj.updatedtime).format('MM/DD/YYYY hh:mm a') + `</p>
-                        
-                        ` + addDomain + `
-                        
-                        ` + editButton + `
-                
-            </div>
-        </div>
+                </div>
     `;
+    checkWidget(obj.widgetid,obj.widgetname);
+    $(".widgetBody").append(str);
+
+}
+
+function checkWidget(id,nam){
+    var queryParams = {
+        query: {
+            "bool": {
+                "must": [{match:{'clientDomainKey':DOMAIN_KEY}},{match:{'widgetid':id}}]
+            }
+        },
+        size:1
+    };
 
 
-    return str;
+    var ajaxObj = {
+        "method": "GET",
+        "extraPath": "",
+        "query": JSON.stringify(queryParams),
+        type : 'WIDGET_IMPORTED'
 
+    };
+    searchByQuery(null,'WIDGET_IMPORTED',ajaxObj,function (status,data){
+        if(status){
+            var resultData = searchQueryFormatterNew(data);
+
+            if(resultData.total > 0){
+                $(".btn-"+id+" .action").removeClass('hide').removeClass('btn-warning').addClass('btn-default');
+                $(".btn-"+id+" .action").removeAttr('onclick')
+                $(".btn-"+id+" .action").attr('disabled','disabled')
+                $(".btn-"+id+" .action").html('<i class="fa fa-check"></i> Already Added')
+
+
+                $(".btn-"+id).append('<button class="mt-2 btn btn-default btn-sm delBtn" onclick="deleteImpWidget(\''+id+'\',\''+nam+'\')"><i class="fa fa-trash"></i></button>')
+
+            }else{
+                $(".btn-"+id+" .action").removeClass('hide')
+            }
+        }else{
+            $(".btn-"+id+" .action").removeClass('hide')
+        }
+    })
+}
+
+
+function deleteImpWidget(id, name) {
+    swal({
+        title: "Are you sure?",
+        text: name+", widget will be removed from your domain",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonClass: "btn-danger",
+        confirmButtonText: "Yes, Remove it!",
+    })
+        .then(function (result) {
+            if (result.value) {
+                deleteImportedWidget(id,function (status,rest){
+                    if(status){
+                        successMsg('Widget removed from domain successfully!')
+
+                        $(".btn-"+id+" .action").removeClass('btn-default').addClass('btn-warning');
+                        $(".btn-"+id+" .action").removeAttr('disabled')
+                        $(".btn-"+id+" .action").attr('onclick','importModal("'+id+'","'+name+'")')
+                        $(".btn-"+id+" .action").html('<i class="icon-plus-square"></i> <span class="hidden-xs">Add to Domain</span>')
+
+
+                        $(".btn-"+id+" .delBtn").remove();
+
+                    }else{
+                        errorMsg('Error in removing widget')
+                    }
+                })
+
+            }
+        });
 }
 
 

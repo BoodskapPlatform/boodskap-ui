@@ -342,17 +342,16 @@ Routes.prototype.init = function () {
         res.render('ota-upgrade.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
     });
 
-
     self.router.get('/marketplace', roleCheck, function (req, res) {
         res.render('marketplace.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
     });
-    self.router.get('/marketplace/widgets', roleCheck, function (req, res) {
+    self.router.get('/widgets', roleCheck, function (req, res) {
         res.render('widgets.html',{layout:'',basepath: getBasePath(req),  query:req.query,userRole:req.session.role});
     });
-    self.router.get('/marketplace/addwidget', roleCheck, function (req, res) {
+    self.router.get('/widget/addwidget', roleCheck, function (req, res) {
         res.render('addwidget.html',{layout:'',basepath: getBasePath(req),  widgetId:'',userRole:req.session.role});
     });
-    self.router.get('/marketplace/addwidget/:id', roleCheck, function (req, res) {
+    self.router.get('/widget/addwidget/:id', roleCheck, function (req, res) {
         res.render('addwidget.html',{layout:'',basepath: getBasePath(req),  widgetId:req.params.id,userRole:req.session.role});
     });
 

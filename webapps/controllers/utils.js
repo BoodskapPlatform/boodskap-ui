@@ -532,7 +532,8 @@ function searchQueryFormatterNew(data) {
                 "recordsFiltered": totalRecords,
                 "data": tempData
             },
-            aggregations: aggregations
+            aggregations: aggregations,
+            scroll_id : arrayData['_scroll_id'] ? arrayData['_scroll_id'] : null
             // data : _.pluck(records, '_source')
         }
 

@@ -102,8 +102,7 @@
 <div class="container mt-3">
     <!-- begin breadcrumb -->
     <ol class="breadcrumb pull-right">
-        <li class="breadcrumb-item"><a href="<%= basepath %>/marketplace">Marketplace</a></li>
-        <li class="breadcrumb-item"><a href="<%= basepath %>/marketplace/widgets">Widgets</a></li>
+        <li class="breadcrumb-item"><a href="<%= basepath %>/widgets">Widgets</a></li>
         <li class="breadcrumb-item active"><span class="pageAction">Create</span> Widget</li>
     </ol>
     <!-- end breadcrumb -->
@@ -126,10 +125,10 @@
                             class="icon-trash2"></i> Delete</a>
 
                 </div>
-
-                <button class="btn btn-default btn-sm" type="button"
+                <a class="btn btn-default btn-sm" href="<%= basepath %>/widgets"><i class="icon-chevron-left2"></i> Back</a>
+               <!-- <button class="btn btn-default btn-sm" type="button"
                         onclick="document.location=BASE_PATH+'/marketplace/widgets';"><i class="icon-chevron-left2"></i> Back
-                </button>
+                </button>-->
                 <!--<button class="btn btn-warning btn-sm btnPublish" type="submit" disabled onclick="publishWidget()"><i class="icon-globe"></i> Publish</button>-->
                 <button class="btn btn-warning btn-sm" type="submit"><i class="icon-save"></i> Save Widget</button>
 
@@ -218,7 +217,14 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-12 hidden-xs">
+                    <div class="col-md-12 text-center">
+                        <button type="button" onclick="openEditorModal()"
+                                class="btn btn-sm btn-secondary"><i class="icon-edit2"></i> Widget Code
+                            Editor
+                        </button>
+                    </div>
+
+                   <!-- <div class="col-lg-12 hidden-xs">
                         <div class="form-group">
                             <div class="btn-group btn-group-justified">
                                 <button type="button" class="btn btn-default" onclick="uploadScreenshot(1)"><i
@@ -232,11 +238,6 @@
                                 </button>
                             </div>
 
-
-                            <button type="button" onclick="openEditorModal()"
-                                    class="btn btn-sm btn-secondary pull-right"><i class="icon-edit2"></i> Widget Code
-                                Editor
-                            </button>
 
 
                         </div>
@@ -270,7 +271,7 @@
                     </div>
                     <input type="file" id="widgetScreen" style="display: none"
                            onchange="uploadScreen()">
-
+-->
 
                 </div>
 

@@ -1950,6 +1950,29 @@ function searchByQuery(id, type, data, cbk) {
     });
 }
 
+
+function scrollNextQuery(id, cbk) {
+
+    data['id'] = id;
+    data['scroll'] = "1m"
+
+    $.ajax({
+        url: API_BASE_PATH + "/elastic/scroll/" + API_TOKEN,
+        data: JSON.stringify(data),
+        contentType: "application/json",
+        type: 'POST',
+        success: function (data) {
+            //called when successful
+            cbk(true, data);
+        },
+        error: function (e) {
+            //called when there is an error
+            //console.log(e.message);
+            cbk(false, e);
+        }
+    });
+}
+
 function findByID(id, type, cbk) {
 
     $.ajax({
@@ -2588,6 +2611,23 @@ function deleteWidget(id, cbk) {
 
     $.ajax({
         url: API_BASE_PATH + "/widget/delete/" + API_TOKEN + '/' + id,
+        type: 'DELETE',
+        success: function (data) {
+            //called when successful
+            cbk(true, data);
+        },
+        error: function (e) {
+            //called when there is an error
+            //console.log(e.message);
+            cbk(false, e);
+        }
+    });
+}
+
+function deleteImportedWidget(id, cbk) {
+
+    $.ajax({
+        url: API_BASE_PATH + "/widget/imported/delete/" + API_TOKEN + '/' + id,
         type: 'DELETE',
         success: function (data) {
             //called when successful
