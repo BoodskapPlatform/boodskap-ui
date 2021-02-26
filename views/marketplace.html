@@ -1,4 +1,53 @@
 
+<style>
+
+    .sort-list, .sort-list h4 {
+        margin: 0;
+        font-size: 12px;
+        line-height: 20px;
+    }
+    .sort-list {
+        list-style-type: none;
+        padding: 0;
+    }
+    .sort-list > li.text {
+        font-weight: 700;
+        padding: 5px;
+    }
+    .sort-list > li{
+        margin: 0px;
+        padding: 0px;
+
+    }
+    .sort-list label{
+        margin-bottom: 0px;
+    }
+
+    .widgetDiv{
+        border:1px solid #eee;
+        border-radius:5px;
+        padding:5px;
+    }
+
+    .widgetDiv:hover{
+        border:1px solid #ccc;
+        background-color: #f59c1a14;
+    }
+
+    .widgetDiv:hover h5{
+        color: #f59c1a;
+    }
+
+    .description{
+        width: 100%;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        margin-bottom: 5px;
+    }
+
+</style>
+
 
 
 
@@ -9,7 +58,47 @@
     <div class="panel">
         <div class="panel-body bodyContainer" style="">
 
+            <div class="row" style="background-color: #eeeeeec7;margin-bottom: 20px;">
+                <div class="col-lg-4">
+                    <form class="mt-2">
+                        <label  style="display: block;margin-bottom: 0px"><i class="fa fa-search"></i> Search</label>
+                        <input type="text" class="form-control" onkeyup="loadWidgets()" id="searchBox" placeholder="Search by widget name, tags" />
+                    </form>
+                </div>
+                <div class="col-lg-8">
 
+                    <ul class="sort-list row">
+                        <li class="text  col-lg-3">
+                            <label style="display: block"><i class="fa fa-filter"></i> By Category:</label>
+                            <select class="form-control input-sm" id="widgetCategories" onchange="loadWidgets()">
+                            </select>
+                        </li>
+                        <li class="text  col-lg-3">
+                            <label style="display: block"><i class="fa fa-sort"></i> Sort By:</label>
+                            <select class="form-control input-sm" id="widgetSort" onchange="loadWidgets()">
+                                <option value="updatedtime">Recently Updated Time</option>
+                                <option value="createdtime">Published Time</option>
+                            </select>
+                        </li>
+                        <li class="text  col-lg-3">
+                            <label style="display: block"><i class="fa fa-sort"></i> Sort Order:</label>
+                            <select class="form-control input-sm" id="widgetSortOrder" onchange="loadWidgets()">
+                                <option value="desc">Descending</option>
+                                <option value="asc">Ascending</option>
+                            </select>
+                        </li>
+
+                    </ul>
+
+
+                </div>
+            </div>
+
+            <div class="row mt-3 widgetBody">
+
+
+            </div>
+            <div class="row paginationBody"></div>
 
         </div>
     </div>

@@ -113,16 +113,14 @@ function mqttListen() {
 function loadTerminal() {
 
 
-
-    scriptTerminal =  $('#scriptTerminal').terminal(function (command,term) {
+    scriptTerminal = $('#scriptTerminal').terminal(function (command, term) {
         if (command !== '') {
 
             if (command) {
 
                 if (command.toUpperCase() === 'CLR' || command.toUpperCase() === 'CLEAR') {
                     commandsList = [];
-                }
-                else{
+                } else {
 
                     commandsList.push(command);
                 }
@@ -133,21 +131,21 @@ function loadTerminal() {
         }
     }, {
         greetings: '&nbsp;&nbsp;&nbsp;&nbsp;(           (         )\n' +
-        '&nbsp;( )/          )/ )   ( /(    )\n' +
-        '&nbsp;)((_) (   (  (()/((  )/())( /( `  )   \n' +
-        '((_)_  )/  )/  ((_))/((_)/ )(_))/(/(   \n' +
-        '| _ )((_)((_) _| |(_) |(_)(_)_((_)_/  \n' +
-        '| _ / _ / _ / _` (_-< / // _` | `_  ) \n' +
-        '|___/___/___/__,_/__/_/_//__,_| .__/  \n' +
-        '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|_|    \n' +
-        'Welcome To https://Boodskap.io Terminal',
+            '&nbsp;( )/          )/ )   ( /(    )\n' +
+            '&nbsp;)((_) (   (  (()/((  )/())( /( `  )   \n' +
+            '((_)_  )/  )/  ((_))/((_)/ )(_))/(/(   \n' +
+            '| _ )((_)((_) _| |(_) |(_)(_)_((_)_/  \n' +
+            '| _ / _ / _ / _` (_-< / // _` | `_  ) \n' +
+            '|___/___/___/__,_/__/_/_//__,_| .__/  \n' +
+            '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|_|    \n' +
+            'Welcome To https://Boodskap.io Terminal',
         name: 'Boodskap Terminal',
         resize: function (e, ui) {
 
         },
         height: $(".consoleBody").height() - 30,
         prompt: '> ',
-        memory : false,
+        memory: false,
         keydown: function (event, term) {
 
             var self = this;
@@ -173,21 +171,91 @@ function loadTerminal() {
                         " | Command executed successfully </div><div class='console_loader_" + id + "'>" +
                         '<i class="fa fa-spinner fa-spin"></i> waiting for command response</div><div class="console_' + id + '"></div>')*/
 
-                    this.echo('<div class="log_'+id+'">' + moment().format("MM/DD/YYYY hh:mm a") +
-                        " | Command executed successfully </div><div class='console_" + id + "'></div><div class='console_loader_" + id + " text-info'>" +
-                        '<i class="fa fa-spinner fa-spin"></i> waiting for command response</div>', {raw: true});
 
-                        commandsList = [];
+                    commandsList = [];
+
+                    if (cmdObj.code.includes('boodskap install')) {
+                        this.echo('<div class="log_' + id + '">' + moment().format("MM/DD/YYYY hh:mm a") +
+                            " | widget installation request initiated </div><div class='console_" + id + "'></div><div class='console_loader_" + id + " text-info'>" +
+                            '<i class="fa fa-spinner fa-spin"></i> waiting for response</div>', {raw: true});
+                        var wid = cmdObj.code.split(" ")[3];
+
+                        getWidgetFromMarketplace(wid, function (status, result) {
+                            if (status) {
+                                if (result.status && result.result) {
+                                        var widgetObj = result.result;
+
+                                        $(".console_loader_" + id).html('<i class="fa fa-spinner fa-spin"></i> Importing widget data...')
+
+                                        widgetObj.clientDomainKey = DOMAIN_KEY;
+                                        widgetObj.domainKey = DOMAIN_KEY;
+                                        delete widgetObj._id;
+
+                                        widgetObj['market'] = true;
+
+                                        upsertWidget(widgetObj, function (status, data) {
+                                            if (status) {
+
+                                                $(".console_loader_" + id).html('<i class="fa fa-spinner fa-spin></i> "+Installing widget data...')
+
+                                                if (codeID) {
+                                                    var codeID = widgetObj.code;
+
+                                                    //importing code
+                                                    var data = {
+                                                        data: widgetObj.code_obj
+                                                    };
+
+                                                    insertGlobalProperty(data, function (status, data) {
+                                                        if (status) {
+                                                            $(".console_loader_" + id).html('Widget installed successfully!')
+                                                            successMsg('Widget installed successfully!');
+                                                        } else {
+                                                            $(".console_loader_" + id).removeClass('text-info')
+                                                            $(".console_loader_" + id).addClass('text-danger')
+                                                            $(".console_loader_" + id).html('Error in installing widget code')
+                                                            errorMsg('Error in installing widget code!')
+                                                        }
+                                                    })
+                                                }else{
+                                                    $(".console_loader_" + id).html('Widget installed successfully!')
+                                                    successMsg('Widget installed successfully!');
+                                                }
+
+
+                                            } else {
+                                                $(".console_loader_" + id).removeClass('text-info')
+                                                $(".console_loader_" + id).addClass('text-danger')
+                                                $(".console_loader_" + id).html('Error in Widget Installation')
+                                                errorMsg('Error in Widget Installation!')
+                                            }
+                                        });
+
+                                } else {
+                                    $(".console_loader_" + id).removeClass('text-info')
+                                    $(".console_loader_" + id).addClass('text-danger')
+                                    $(".console_loader_" + id).html('Widget not found (or) invalid widget id!')
+                                }
+
+                            } else {
+                                $(".console_loader_" + id).removeClass('text-info')
+                                $(".console_loader_" + id).addClass('text-danger')
+                                $(".console_loader_" + id).html('Widget not found (or) invalid widget id!')
+                            }
+                        })
+                    } else {
+                        this.echo('<div class="log_' + id + '">' + moment().format("MM/DD/YYYY hh:mm a") +
+                            " | Command executed successfully </div><div class='console_" + id + "'></div><div class='console_loader_" + id + " text-info'>" +
+                            '<i class="fa fa-spinner fa-spin"></i> waiting for command response</div>', {raw: true});
                         executeConsoleScript(cmdObj, function (status, data) {
                             if (status) {
-                              console.log(data)
+                                // console.log(data)
                             } else {
                                 self.echo("<span class='red'>" + moment().format("MM/DD/YYYY hh:mm a") + " | Error in command execution</span>");
                             }
 
                         });
-
-
+                    }
 
 
                 } else {
@@ -210,7 +278,7 @@ function executeCommand() {
             sessionId: id
         };
 
-        scriptTerminal.echo('<div class="log_'+id+'">' + moment().format("MM/DD/YYYY hh:mm a") +
+        scriptTerminal.echo('<div class="log_' + id + '">' + moment().format("MM/DD/YYYY hh:mm a") +
             " | Command executed successfully </div><div class='console_" + id + "'></div><div class='console_loader_" + id + " text-info'>" +
             '<i class="fa fa-spinner fa-spin"></i> waiting for command response</div>', {raw: true});
 
@@ -223,8 +291,6 @@ function executeCommand() {
             }
 
         });
-
-
 
 
     } else {
@@ -246,42 +312,42 @@ function guid() {
 
 
 function resizePanel() {
-    if($(".rightSide").hasClass('rshow')){
+    if ($(".rightSide").hasClass('rshow')) {
         $(".rightSide").removeClass('rshow')
-        $(".rightSide").css('width','0px');
+        $(".rightSide").css('width', '0px');
         $("#btnMax").html('<i class="icon-eye4"></i> Show Class')
 
-        $(".btnExec").css('width','100%')
+        $(".btnExec").css('width', '100%')
 
-        $("#codeEditor").css('width','100%');
+        $("#codeEditor").css('width', '100%');
         codeEditor.resize();
 
-        $("#consoleBox").css('width','100%')
-    }else{
+        $("#consoleBox").css('width', '100%')
+    } else {
         $(".rightSide").addClass('rshow')
-        $(".rightSide").css('width','25%')
+        $(".rightSide").css('width', '25%')
         $("#btnMax").html('<i class="icon-eye-slash"></i> Hide Class')
 
-        $("#codeEditor").css('width','75%')
+        $("#codeEditor").css('width', '75%')
         codeEditor.resize();
 
-        $(".btnExec").css('width','75%')
+        $(".btnExec").css('width', '75%')
 
-        $("#consoleBox").css('width','75%')
+        $("#consoleBox").css('width', '75%')
     }
 }
 
 
 function showEditor() {
-    if($(".editorBlock").hasClass('rshow')){
+    if ($(".editorBlock").hasClass('rshow')) {
         $(".editorBlock").removeClass('rshow')
-        $(".editorBlock").css('width','0px');
+        $(".editorBlock").css('width', '0px');
         $("#btnEditor").html('<i class="icon-eye4"></i> Show Editor');
         $("#btnExec").show();
 
-    }else{
+    } else {
         $(".editorBlock").addClass('rshow')
-        $(".editorBlock").css('width','100%')
+        $(".editorBlock").css('width', '100%')
         $("#btnEditor").html('<i class="icon-eye-slash"></i> Hide Editor');
 
 
@@ -291,8 +357,6 @@ function showEditor() {
         $("#btnExec").hide();
     }
 }
-
-
 
 
 function loadCodeType() {
@@ -331,11 +395,11 @@ function loadCodeType() {
 
     var searchType = $("input[name='fileType']:checked").val();
 
-    if(searchType === 'GROOVY'){
-        queryParams.query['bool']['must'].push({match:{isPublic: false}})
+    if (searchType === 'GROOVY') {
+        queryParams.query['bool']['must'].push({match: {isPublic: false}})
         queryParams.query['bool']['must'].push(domainKeyJson)
-    }else{
-        queryParams.query['bool']['must'].push({match:{isPublic: true}})
+    } else {
+        queryParams.query['bool']['must'].push({match: {isPublic: true}})
     }
 
 
@@ -347,10 +411,10 @@ function loadCodeType() {
     };
 
 
-    if(codeType === 'JAR'){
-        if(searchType === 'GROOVY'){
+    if (codeType === 'JAR') {
+        if (searchType === 'GROOVY') {
             searchType = 'GROOVY_JAR';
-        }else{
+        } else {
             searchType = 'PUBLIC_GROOVY_JAR';
         }
     }
@@ -369,9 +433,9 @@ function loadCodeType() {
             if (codeType === 'CLASS') {
 
 
-                for(var i=0;i<dataList.length;i++){
+                for (var i = 0; i < dataList.length; i++) {
                     console.log(dataList[i])
-                    for(var j=0;j<dataList[i].classes.length;j++){
+                    for (var j = 0; j < dataList[i].classes.length; j++) {
                         dataList[i].classes[j]['code'] = dataList[i].code;
                         dataList[i].classes[j]['_id'] = dataList[i]._id;
                         dataList[i].classes[j]['packageName'] = dataList[i].packageName;
@@ -388,19 +452,19 @@ function loadCodeType() {
 
                 var resList = [];
 
-                for(var i=0;i<dpList.length;i++){
+                for (var i = 0; i < dpList.length; i++) {
 
                     var obj = pList[dpList[i]];
 
                     var classes = [];
 
-                    for(var j=0;j<obj.length;j++){
-                        for(var k=0;k<obj[j].classes.length;k++){
+                    for (var j = 0; j < obj.length; j++) {
+                        for (var k = 0; k < obj[j].classes.length; k++) {
                             classes.push(obj[j].classes[k])
                         }
                     }
 
-                    resList.push({packageName:dpList[i], classes:classes, _id:guid()});
+                    resList.push({packageName: dpList[i], classes: classes, _id: guid()});
 
                 }
 
@@ -456,14 +520,12 @@ function initiateEditor(code) {
     codeEditor.clearSelection();
 
 
+    $('#codeEditor').height(Math.round($(window).height() - ($(window).height() / 2)) + 'px');
 
-    $('#codeEditor').height(Math.round($(window).height() - ($(window).height()/2))+'px');
-
-    $("#consoleBox").css('height', Math.round($("#codeEditor").height() - ($("#codeEditor").height()/2))+'px')
+    $("#consoleBox").css('height', Math.round($("#codeEditor").height() - ($("#codeEditor").height() / 2)) + 'px')
 
     codeEditor.resize();
 }
-
 
 
 function executeScriptCommand() {
@@ -471,7 +533,7 @@ function executeScriptCommand() {
 
     var consoleText = codeEditor.getSession().getValue();
 
-    if($.trim(consoleText) !== '') {
+    if ($.trim(consoleText) !== '') {
 
         var cmdObj = {
             code: consoleText,

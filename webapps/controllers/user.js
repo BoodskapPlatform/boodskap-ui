@@ -190,6 +190,7 @@ function loadUsersList() {
             row.child(format(obj)).show();
             tr.addClass('shown');
             loadUserProperties(obj)
+            loadUserMobileProperties(obj)
 
         }
     });
@@ -373,23 +374,46 @@ function loginAs() {
 
 function format(obj) {
 
+    var id = obj.email.replace("@",'').replace(".",'');
+
     var str = '<div class="row">' +
         '<div class="col-md-12 mt-2 mb-2"> ' +
+        '<ul class="nav nav-tabs" id="myTab" role="tablist">\n' +
+        '  <li class="nav-item">\n' +
+        '    <a class="nav-link active" id="home-tab-'+id+'" data-toggle="tab" href="#home-'+id+'" role="tab" aria-controls="home-'+id+'" aria-selected="true">Web Dashboard</a>\n' +
+        '  </li>\n' +
+        '  <li class="nav-item">\n' +
+        '    <a class="nav-link" id="profile-tab-'+id+'" data-toggle="tab" href="#profile-'+id+'" role="tab" aria-controls="profile-'+id+'" aria-selected="false">Mobile Dashboard</a>\n' +
+        '  </li>\n' +
+        '</ul>\n' +
+        '<div class="tab-content" >\n' +
+        '  <div class="tab-pane fade show active" id="home-'+id+'" role="tabpanel" aria-labelledby="home-tab-'+id+'">' +
         '<p>Give access to the dashboard</p>' +
-        '<ul class="list-group" id="user_'+obj.email.replace("@",'').replace(".",'')+'">' +
+        '<ul class="list-group" id="user_web_'+id+'">' +
 
         '</ul>'+
-        '<p class="msg_'+obj.email.replace("@",'').replace(".",'')+'"></p>' +
+        '<p class="msg_web_'+id+'"></p>' +
+        '</div> ' +
+        '  <div class="tab-pane fade" id="profile-'+id+'" role="tabpanel" aria-labelledby="profile-tab-'+id+'">' +
+        '<p>Give access to the dashboard</p>' +
+        '<ul class="list-group" id="user_mobile_'+id+'">' +
+
+        '</ul>'+
+        '<p class="msg_mobile_'+id+'"></p>' +
         '</div> ' +
         '</div>';
+        '</div>\n' +
+        '</div>';
+
     return str;
 }
 var dashboardList = [];
+var dashboardMobileList = [];
 
 function loadUserProperties(obj){
     dashboardList = [];
     var id= obj.email.replace("@",'').replace(".",'');
-    $("#user_"+id).html('');
+    $("#user_web_"+id).html('');
 
     getUserPropertyEmail('user.dashboard.list',obj.email,function (status,data){
 
@@ -417,8 +441,53 @@ function loadUserProperties(obj){
 
                         var disabled = data[i].tokenId ? '' : 'disabled';
 
-                        $("#user_"+id).append('<li style="" class="list-group-item">' +
+                        $("#user_web_"+id).append('<li style="" class="list-group-item">' +
                             '<label style="display: block"><input type="checkbox" '+disabled+' '+flag+' onchange="updateUserProp(\''+obj.email+'\',\''+data[i].property+'\',this)" /> '+data[i].name+'</label>' +
+                            '</li>')
+                    }
+
+
+
+                }
+            }
+        })
+    })
+
+
+}
+
+function loadUserMobileProperties(obj){
+    dashboardMobileList = [];
+    var id= obj.email.replace("@",'').replace(".",'');
+    $("#user_mobile_"+id).html('');
+
+    getUserPropertyEmail('user.mobile.dashboard.list',obj.email,function (status,data){
+
+        var userDasboard = [];
+
+        if(status){
+
+            var dat = JSON.parse(data.value);
+            userDasboard = _.pluck(dat,'property');
+
+        }
+
+        getDomainProperty('domain.mobile.dashboard.list',function (status,result){
+            if(status){
+
+                var data = JSON.parse(result.value);
+
+                dashboardMobileList = JSON.parse(result.value);
+
+                if(data && data.length > 0){
+
+                    for(var i=0;i<data.length;i++){
+
+                        var flag = userDasboard.includes(data[i].property) ? 'checked' : '';
+
+
+                        $("#user_mobile_"+id).append('<li style="" class="list-group-item">' +
+                            '<label style="display: block"><input type="checkbox" '+flag+' onchange="updateUserMobileProp(\''+obj.email+'\',\''+data[i].property+'\',this)" /> '+data[i].name+'</label>' +
                             '</li>')
                     }
 
@@ -442,7 +511,7 @@ function updateUserProp(id, property, e){
     var classId= id.replace("@",'').replace(".",'');
 
     // $("#user_"+classId+" input").attr('disabled','disabled');
-    $(".msg_"+classId).html('<i class="fa fa-spinner fa-spin"></i> processing....')
+    $(".msg_web_"+classId).html('<i class="fa fa-spinner fa-spin"></i> processing....')
 
     getUserPropertyEmail('user.dashboard.list',id,function (status,data) {
         var result = [];
@@ -488,8 +557,71 @@ function updateUserProp(id, property, e){
             }else{
                 errorMsg('Error in giving dashboard access')
             }
-            $(".msg_"+classId).html('');
-            // $("#user_"+classId+" input").removeAttr('disabled');
+            $(".msg_web_"+classId).html('');
+
+        })
+    });
+}
+
+
+
+function updateUserMobileProp(id, property, e){
+
+    // console.log("status =>",$(e).is(':checked'))
+    // console.log("Id =>",id)
+    // console.log("property =>",property)
+
+
+    var classId= id.replace("@",'').replace(".",'');
+
+    // $("#user_"+classId+" input").attr('disabled','disabled');
+    $(".msg_mobile_"+classId).html('<i class="fa fa-spinner fa-spin"></i> processing....')
+
+    getUserPropertyEmail('user.dashboard.list',id,function (status,data) {
+        var result = [];
+        if (status) {
+
+            result = JSON.parse(data.value);
+            result = _.pluck(result,'property');
+
+        }
+
+
+        if($(e).is(':checked')){
+            result.push(property)
+
+        }else{
+            var tmp = [];
+            for(var j=0;j<result.length;j++){
+                if(property != result[j]){
+                    tmp.push(result[j])
+                }
+            }
+            result = tmp;
+        }
+
+        result = _.uniq(result);
+
+
+        var rObj = [];
+        for(var i=0;i<dashboardMobileList.length;i++){
+            if(result.includes(dashboardMobileList[i].property)){
+                rObj.push(dashboardMobileList[i])
+            }
+        }
+
+        var obj = {
+            name : 'user.mobile.dashboard.list',
+            userId : id,
+            value : JSON.stringify(rObj)
+        }
+
+        upsertUserProperty(obj,function (status,result){
+            if(status){
+            }else{
+                errorMsg('Error in giving dashboard access')
+            }
+            $(".msg_mobile_"+classId).html('');
 
         })
     });

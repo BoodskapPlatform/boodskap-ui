@@ -1117,7 +1117,7 @@ function createWidget() {
         if(status){
             successMsg('Widget created/updated successfully!');
             // setTimeout(function () {
-            //     document.location='BASE_PATH+/marketplace/widgets'
+            //     document.location='BASE_PATH+/widgets'
             // },2000)
         }else{
             errorMsg('Error in Widget Creation!')

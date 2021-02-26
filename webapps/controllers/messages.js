@@ -63,20 +63,21 @@ function mqttListen() {
 
     mqtt_client.onMessageArrived = function (message) {
 
-        // console.log(new Date + ' | MQTT Message Received :', message);
+        console.log(new Date + ' | MQTT Message Received :', message);
 
         var parsedData = JSON.parse(message.payloadString);
         var topicName = message.destinationName;
 
-
-        if(parsedData.mid === Number($(".msgList").val())){
-
-            if(LIVE_UPDATE === 'ON') {
-                if (liveInterval) {
-                    loadMessages(parsedData.mid);
-                }
+        if(LIVE_UPDATE === 'ON') {
+            if (liveInterval) {
+                loadMessages(parsedData.mid);
             }
         }
+
+        /*if(parsedData.mid === Number($(".msgList").val())){
+
+
+        }*/
     };
 }
 

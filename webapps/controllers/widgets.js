@@ -23,8 +23,10 @@ function loadWidgetsCategory() {
 }
 var scrollId= null;
 var ajaxCall = null;
-function loadWidgets(){
+var tCount = 0;
 
+function loadWidgets(){
+    tCount = 0;
     if(ajaxCall){
         ajaxCall.abort()
     }
@@ -53,7 +55,7 @@ function loadWidgets(){
             }
         },
         sort: [sorting],
-        size:5
+        size:10
     };
 
     if ($("#widgetCategories").val() !== '') {
@@ -81,6 +83,11 @@ function loadWidgets(){
         queryParams.query.bool.should.push({
             "wildcard": {
                 "widgetname": "*"+sText+"*"
+            }
+        })
+        queryParams.query.bool.should.push({
+            "match_phrase": {
+                "widgetname": sText
             }
         })
         queryParams.query.bool.should.push({
@@ -114,7 +121,7 @@ function loadWidgets(){
     };
 
     $(".widgetBody").html('<div class="col-md-12"><h5><i class="fa fa-spinner fa-spin"></i> Loading widgets....</h5></div>');
-
+    $(".paginationBody").html('')
 
     ajaxCall = $.ajax({
         url: API_BASE_PATH + "/elastic/search/query/" + API_TOKEN,
@@ -131,8 +138,16 @@ function loadWidgets(){
                 for(var i=0;i<resultData.data.data.length;i++){
                     renderWidgetDiv(resultData.data.data[i]);
                 }
+                tCount+=resultData.data.data.length;
 
                 $(".widgetsCount").html(resultData.total)
+
+                if(resultData.total > tCount){
+                    $(".paginationBody").html('<button class="btn btn-default btn-block" onclick="loadMore(\''+scrollId+'\')">Load More</button>')
+                }
+                if(resultData.total == tCount){
+                    $(".paginationBody").html('');
+                }
 
             }else{
                 scrollId = null;
@@ -155,6 +170,35 @@ function loadWidgets(){
 
 }
 
+function loadMore(id){
+
+    scrollNextQuery(id,function (status,result){
+        if(status){
+            var resultData = searchQueryFormatterNew(result);
+
+            if(resultData.total > 0){
+                scrollId =   resultData.scroll_id;
+                for(var i=0;i<resultData.data.data.length;i++){
+                    renderWidgetDiv(resultData.data.data[i]);
+                }
+                tCount+=resultData.data.data.length;
+
+                $(".paginationBody").html('<button class="btn btn-default btn-block" onclick="loadMore(\''+scrollId+'\')">Load More</button>')
+
+                if(resultData.total == tCount){
+                    $(".paginationBody").html('');
+                }
+
+            }else{
+                $(".paginationBody").html('');
+            }
+
+        }else{
+            $(".paginationBody").html('');
+        }
+    })
+}
+
 function renderWidgetDiv(obj){
 
     var tags ='';
@@ -168,18 +212,24 @@ function renderWidgetDiv(obj){
     if(obj.widgetimage){
         imgPath = API_BASE_PATH+`/files/public/download/`+obj.widgetimage
     }
+    if(obj.market){
+        if(obj.widgetimage) {
+            imgPath = MARKETPLACE_API_URL + `/files/public/download/` + obj.widgetimage
+        }
+    }
 
     var str = `
         <div class="col-xl-3 col-lg-3 col-md-4 col-sm-12 mb-3">
                     <div class="widgetDiv">
                         <div class="row">
-                            <div class="col-lg-5 col-md-12 col-sm-12" style="">
+                            <div class="col-lg-4 col-md-4 col-sm-12" style="">
                                 <div style="text-center">
-                                <img src="`+imgPath+`" style="width: 128px"/>
+                                <img src="`+imgPath+`" class="img-fluid"/>
                                 </div>
                             </div>
-                            <div class="col-lg-7 col-md-12 col-sm-12 pl-2">
-                                <h5 class="" style="width:100%;white-space: nowrap;text-overflow: ellipsis;  overflow: hidden;" title="`+obj.widgetname+`">`+obj.widgetname+`</h5>
+                            <div class="col-lg-8 col-md-8 col-sm-12 pl-2">
+                                <a href="javascript:;" class="pull-right text-danger" onclick="deleteWid('`+obj.widgetid+`','`+obj.widgetname+`')"><i class="fa fa-close"></i></a>
+                                <h5 class="pull-left" style="width:100%;white-space: nowrap;text-overflow: ellipsis;  overflow: hidden;" title="`+obj.widgetname+`">`+obj.widgetname+`</h5>
                                 <small class="mr-2">v`+obj.version+`</small> <small><i class="fa fa-folder"></i> `+obj.category+`</small> <br>
                                 <p class="" style="margin-top: 5px"><i class="fa fa-tags"></i>
                                     `+tags+`
@@ -188,9 +238,9 @@ function renderWidgetDiv(obj){
                                     `+obj.description+`
                                 </p>
                                 <small class="mr-2"><i class="fa fa-user"></i> `+obj.createdby+`</small>
-                                <small><i class="fa fa-clock-o"></i> `+moment(obj.createdtime).format('MM/DD/YYYY hh:mm a')+`</small>
                                 
-                                 <br><small><i class="fa fa-clock-o"></i> Last updated on, `+moment(obj.updatedtime).format('MM/DD/YYYY hh:mm a')+`</small><br>
+                                <small><i class="fa fa-clock-o"></i> `+moment(obj.createdtime).format('MM/DD/YYYY hh:mm a')+`</small>
+                                 <br><small><i class="fa fa-clock-o"></i> `+moment(obj.updatedtime).format('MM/DD/YYYY hh:mm a')+`</small><br>
                                 
                                 <div class="btn-`+obj.widgetid+`">
                                     <button class="btn mt-2 btn-warning btn-sm action hide" onclick="importModal('`+obj.widgetid+`','`+obj.widgetname+`')"><i class="icon-plus-square"></i> <span class="hidden-xs">Add to Domain</span></button>
@@ -205,6 +255,30 @@ function renderWidgetDiv(obj){
     checkWidget(obj.widgetid,obj.widgetname);
     $(".widgetBody").append(str);
 
+}
+//
+function deleteWid(id,nam){
+    swal({
+        title: "Are you sure?",
+        text: name+", widget will be removed from your widget library",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonClass: "btn-danger",
+        confirmButtonText: "Yes, Remove it!",
+    })
+        .then(function (result) {
+            if (result.value) {
+                deleteWidget(id,function (status,rest){
+                    if(status){
+                        successMsg('Successfully Widget removed from library!')
+                        loadWidgets();
+                    }else{
+                        errorMsg('Error in removing widget')
+                    }
+                })
+
+            }
+        });
 }
 
 function checkWidget(id,nam){
@@ -236,7 +310,7 @@ function checkWidget(id,nam){
                 $(".btn-"+id+" .action").html('<i class="fa fa-check"></i> Already Added')
 
 
-                $(".btn-"+id).append('<button class="mt-2 btn btn-default btn-sm delBtn" onclick="deleteImpWidget(\''+id+'\',\''+nam+'\')"><i class="fa fa-trash"></i></button>')
+                $(".btn-"+id).append('<button class="mt-2 btn btn-outline-danger btn-sm delBtn" onclick="deleteImpWidget(\''+id+'\',\''+nam+'\')"><i class="fa fa-trash"></i> Uninstall</button>')
 
             }else{
                 $(".btn-"+id+" .action").removeClass('hide')

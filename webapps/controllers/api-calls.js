@@ -36,7 +36,6 @@ function loginCall(email, password, cbk) {
     $.ajax({
         url: API_BASE_PATH + "/domain/login",
         type: 'POST',
-        type: 'POST',
         contentType: "application/json",
         data: JSON.stringify(data),
         success: function (data) {
@@ -1049,6 +1048,22 @@ function executeConsoleScript(data, cbk) {
 
 }
 
+function getWidgetFromMarketplace(wid,cbk){
+    $.ajax({
+        url: MARKETPLACE_URL + "/widget/view/" + wid,
+        contentType: "application/json",
+        type: 'GET',
+        success: function (data) {
+            //called when successful
+            cbk(true, data);
+        },
+        error: function (e) {
+            //called when there is an error
+            //console.log(e.message);
+            cbk(false, e);
+        }
+    });
+}
 
 //User Management
 
@@ -1952,6 +1967,8 @@ function searchByQuery(id, type, data, cbk) {
 
 
 function scrollNextQuery(id, cbk) {
+
+    var data = {};
 
     data['id'] = id;
     data['scroll'] = "1m"

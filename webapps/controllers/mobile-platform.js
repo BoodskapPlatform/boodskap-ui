@@ -1896,7 +1896,7 @@ function loadImportedWidgets() {
                     '    border-radius: 3px;"><p style="text-align: center;"><i class="icon-exclamation-triangle"></i> No Widgets Added</p>' +
                     '                                                                <ul class="widget-steps" style="list-style: none;">\n' +
                     '                                                                    <li>\n' +
-                    '                                                                        <div class="step-circle">1</div> <a href="<%= basepath %>/marketplace/widgets" style="text-decoration: none;">Goto Marketplace</a>\n' +
+                    '                                                                        <div class="step-circle">1</div> <a href="<%= basepath %>/widgets" style="text-decoration: none;">Goto Marketplace</a>\n' +
                     '                                                                    </li>\n' +
                     '                                                                    <li>\n' +
                     '                                                                        <div class="step-circle">2</div> <span>Create (or) Buy widgets</span>\n' +
@@ -1916,7 +1916,7 @@ function loadImportedWidgets() {
                 '    border-radius: 3px;"><p style="text-align: center;"><i class="icon-exclamation-triangle"></i> No Widgets Added</p>' +
                 '                                                                <ul class="widget-steps" style="list-style: none;">\n' +
                 '                                                                    <li>\n' +
-                '                                                                        <div class="step-circle">1</div> <a href="<%= basepath %>/marketplace/widgets" style="text-decoration: none;">Goto Marketplace</a>\n' +
+                '                                                                        <div class="step-circle">1</div> <a href="<%= basepath %>/widgets" style="text-decoration: none;">Goto Marketplace</a>\n' +
                 '                                                                    </li>\n' +
                 '                                                                    <li>\n' +
                 '                                                                        <div class="step-circle">2</div> <span>Create (or) Buy widgets</span>\n' +
