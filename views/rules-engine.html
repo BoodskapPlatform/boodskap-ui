@@ -178,7 +178,7 @@
                                     <input onkeyup="filterContext()" type="text" class="form-control form-control-sm"
                                            id="contextSearch" placeholder="Search by Context Name"/>
                                 </div>
-                                <div class="contextList" style="padding: 10px;overflow: auto;height: 220px"></div>
+                                <div class="contextList" style="padding: 10px;overflow: auto;"></div>
                             </div>
                         </div>
 
@@ -206,10 +206,7 @@
             <div class="row" style="font-size: 11px !important;">
 
                 <div class="col-md-2">
-                    <p style="margin-bottom: 5px">Live Status: <span class="serverStatus"><span
-                            class="label label-danger">Not Connected</span></span>
 
-                    </p>
                     <table style="width: 100%;border:0px">
                         <tr>
                             <td style="width: 40%">
@@ -265,6 +262,10 @@
                                                                                                         value="true"
                                                                                                         class="session mt-1">
                                         Session</label>
+                                </p>
+                                <p class="mt-2">Live Status: <br><span class="serverStatus"><span
+                                        class="label label-danger">Not Connected</span></span>
+
                                 </p>
                             </td>
                         </tr>
@@ -541,6 +542,7 @@
                  style="border:1px solid #4242424d;clear:both;background-color: #fff;overflow: auto;overflow-x: hidden">
                 <ul class="rulesList"></ul>
             </div>
+
 
         </div>
     </div>

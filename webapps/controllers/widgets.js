@@ -72,6 +72,15 @@ function loadWidgets(){
                 "published": widgetStatus === 'true' ? true : false
             }
         })
+
+        if(widgetStatus != 'true'){
+            queryParams.query.bool.must.push({
+                "match": {
+                    "domainKey": DOMAIN_KEY
+                }
+            })
+        }
+
     }
 
     var sText = $.trim($("#searchBox").val());
@@ -172,6 +181,8 @@ function loadWidgets(){
 
 function loadMore(id){
 
+    $(".paginationBody").html('<button class="btn btn-default btn-block" ><i class="fa fa-spinner fa-spin"></i> Loading...</button>')
+
     scrollNextQuery(id,function (status,result){
         if(status){
             var resultData = searchQueryFormatterNew(result);
@@ -220,27 +231,24 @@ function renderWidgetDiv(obj){
 
     var str = `
         <div class="col-xl-3 col-lg-3 col-md-4 col-sm-12 mb-3">
-                    <div class="widgetDiv">
+                    <div class="widgetDiv" title="`+(obj.description ? obj.description : '')+`">
                         <div class="row">
                             <div class="col-lg-4 col-md-4 col-sm-12" style="">
-                                <div style="text-center">
-                                <img src="`+imgPath+`" class="img-fluid"/>
+                                <div class="text-center">
+                                <img src="`+imgPath+`"  style="width:75px "/>
                                 </div>
                             </div>
                             <div class="col-lg-8 col-md-8 col-sm-12 pl-2">
                                 <a href="javascript:;" class="pull-right text-danger" onclick="deleteWid('`+obj.widgetid+`','`+obj.widgetname+`')"><i class="fa fa-close"></i></a>
                                 <h5 class="pull-left" style="width:100%;white-space: nowrap;text-overflow: ellipsis;  overflow: hidden;" title="`+obj.widgetname+`">`+obj.widgetname+`</h5>
                                 <small class="mr-2">v`+obj.version+`</small> <small><i class="fa fa-folder"></i> `+obj.category+`</small> <br>
-                                <p class="" style="margin-top: 5px"><i class="fa fa-tags"></i>
+                                <p class="" style="margin-top: 3px"><i class="fa fa-tags"></i>
                                     `+tags+`
-                                </p>
-                                <p class="description" title="`+obj.description+`">
-                                    `+obj.description+`
                                 </p>
                                 <small class="mr-2"><i class="fa fa-user"></i> `+obj.createdby+`</small>
                                 
                                 <small><i class="fa fa-clock-o"></i> `+moment(obj.createdtime).format('MM/DD/YYYY hh:mm a')+`</small>
-                                 <br><small><i class="fa fa-clock-o"></i> `+moment(obj.updatedtime).format('MM/DD/YYYY hh:mm a')+`</small><br>
+                                 <br><small>last Updated time <i class="fa fa-clock-o"></i> `+moment(obj.updatedtime).format('MM/DD/YYYY hh:mm a')+`</small><br>
                                 
                                 <div class="btn-`+obj.widgetid+`">
                                     <button class="btn mt-2 btn-warning btn-sm action hide" onclick="importModal('`+obj.widgetid+`','`+obj.widgetname+`')"><i class="icon-plus-square"></i> <span class="hidden-xs">Add to Domain</span></button>
@@ -254,13 +262,15 @@ function renderWidgetDiv(obj){
     `;
     checkWidget(obj.widgetid,obj.widgetname);
     $(".widgetBody").append(str);
-
+// <p class="description" title="`+obj.description+`">
+//                                     `+obj.description+`
+//                                 </p>
 }
 //
 function deleteWid(id,nam){
     swal({
         title: "Are you sure?",
-        text: name+", widget will be removed from your widget library",
+        text: nam+" - widget will be removed from your widget library",
         type: "warning",
         showCancelButton: true,
         confirmButtonClass: "btn-danger",
@@ -304,10 +314,10 @@ function checkWidget(id,nam){
             var resultData = searchQueryFormatterNew(data);
 
             if(resultData.total > 0){
-                $(".btn-"+id+" .action").removeClass('hide').removeClass('btn-warning').addClass('btn-default');
-                $(".btn-"+id+" .action").removeAttr('onclick')
-                $(".btn-"+id+" .action").attr('disabled','disabled')
-                $(".btn-"+id+" .action").html('<i class="fa fa-check"></i> Already Added')
+                // $(".btn-"+id+" .action").removeClass('hide').removeClass('btn-warning').addClass('btn-default');
+                // $(".btn-"+id+" .action").removeAttr('onclick')
+                // $(".btn-"+id+" .action").attr('disabled','disabled')
+                // $(".btn-"+id+" .action").html('<i class="fa fa-check"></i> Already Added')
 
 
                 $(".btn-"+id).append('<button class="mt-2 btn btn-outline-danger btn-sm delBtn" onclick="deleteImpWidget(\''+id+'\',\''+nam+'\')"><i class="fa fa-trash"></i> Uninstall</button>')
@@ -382,8 +392,32 @@ function proceedDelete() {
 
 function importModal(id, name) {
     widgetId = id;
-    $(".widgetName").html(name);
-    $("#importModal").modal('show');
+    // $(".widgetName").html(name);
+    // $("#importModal").modal('show');
+
+    swal({
+        title: "Are you sure?",
+        text: name + " - Widget will be added to your domain",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonClass: "btn-success",
+        confirmButtonText: "Yes, Add it!",
+    })
+        .then(function (result) {
+            if (result.value) {
+                importWidget(id, function (status, data) {
+                    $(".btnModal").removeAttr('disabled');
+                    $(".btnModal").html('Proceed')
+                    if (status) {
+                        $("#importModal").modal('hide');
+                        successMsg('Widget successfully imported to your domain')
+                    } else {
+                        errorMsg('Error in adding widget')
+                    }
+                })
+
+            }
+        });
 }
 
 function proceedImport() {

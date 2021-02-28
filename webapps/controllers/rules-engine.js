@@ -114,7 +114,7 @@ $(document).ready(function () {
                         $('#codeEditor').height(($(".ui-layout-center").height() - 40) + 'px');
                         codeEditor.resize();
                     }, 500);
-                    $(".consoleBox").height(($(".ui-layout-south").height()-30) + 'px')
+                    $(".consoleBox").height(($(".ui-layout-south").height()-20) + 'px')
                 }
 
             },
@@ -145,11 +145,11 @@ $(document).ready(function () {
 
         // preLoading('Loading Editor')
         setTimeout(function () {
-            $(".listHeight").css('height', $(".leftSide").height() - 200)
+            $(".listHeight").css('height', $(".leftSide").height() - 150)
             loadDomainCode();
             // closePreLoading();
             $(".loaderBlock").css('display', 'none');
-            $(".classFolder").css('height', $(".rightSide").height() - 200)
+            $(".classFolder").css('height', $(".rightSide").height() - 150)
             $(".consoleBox").height(($(".ui-layout-south").height()-20) + 'px')
             loadCodeType();
 
@@ -289,7 +289,7 @@ function mqttMesageRule(topicName, parsedData) {
     var nodeClass = new Date().getTime();
     var color = 'default';
 
-    console.log("MESSAGE =>", topicName)
+    // console.log("MESSAGE =>", topicName)
 
     if (topicName.includes("/log/mrule")) {
 
@@ -329,7 +329,7 @@ function mqttNamedRule(topicName, parsedData) {
     var nodeClass = new Date().getTime();
     var color = 'default';
 
-    console.log("NAMED =>", topicName)
+    // console.log("NAMED =>", topicName)
 
     if (topicName.includes("/log/nrule")) {
 
@@ -369,7 +369,7 @@ function mqttScheduleRule(topicName, parsedData) {
     var nodeClass = new Date().getTime();
     var color = 'default';
 
-    console.log("SCHEDULE =>", topicName)
+    // console.log("SCHEDULE =>", topicName)
 
     if (topicName.includes("/log/srule")) {
 
