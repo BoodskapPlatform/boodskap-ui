@@ -536,8 +536,11 @@ function updateUserProp(id, property, e){
             result = tmp;
         }
 
+        // console.log(result)
+
         result = _.uniq(result);
 
+        // console.log("uniq =>",result)
 
         var rObj = [];
         for(var i=0;i<dashboardList.length;i++){
@@ -545,6 +548,8 @@ function updateUserProp(id, property, e){
                 rObj.push(dashboardList[i])
             }
         }
+
+        // console.log("uniq =>",rObj)
 
         var obj = {
             name : 'user.dashboard.list',
@@ -577,7 +582,7 @@ function updateUserMobileProp(id, property, e){
     // $("#user_"+classId+" input").attr('disabled','disabled');
     $(".msg_mobile_"+classId).html('<i class="fa fa-spinner fa-spin"></i> processing....')
 
-    getUserPropertyEmail('user.dashboard.list',id,function (status,data) {
+    getUserPropertyEmail('user.mobile.dashboard.list',id,function (status,data) {
         var result = [];
         if (status) {
 
