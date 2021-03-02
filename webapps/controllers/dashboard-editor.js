@@ -184,9 +184,20 @@ function loadWidgets(property) {
                     str = str +' [Record Id: <b>'+(config.record.recordid ? config.record.recordid : '-')+'</b>]';
                 }
 
+                var imgPath = 'images/menu/widget.png'
+
+                if(widget.widgetimage){
+                    imgPath = API_BASE_PATH+`/files/public/download/`+widget.widgetimage
+                }
+                if(widget.marketplace){
+                    if(widget.widgetimage) {
+                        imgPath = MARKETPLACE_API_URL + `/files/public/download/` + widget.widgetimage
+                    }
+                }
+
                 var widgetHtml = '<div><div class="grid-stack-item-content ' + id + '" data-gs-id="' + id + '">' +
                     '<h5 style="color:#666;margin-top: 20px;">' + (widget.widgetTitle ? widget.widgetTitle : widget.widgetname) + '</h5>' +
-                    '<img src="' + API_BASE_PATH + '/files/public/download/' + widget.widgetimage + '" alt="" />' +
+                    '<img src="' + imgPath + '" alt="" />' +
                     '<small style="display: block">version: '+widget.version+'</small>'+
                     '<a href="javascript:void(0)" onclick="widgetSettings(\'' + id + '\')" ' +
                     'style="display: block;margin-top: 10px;text-decoration: none;color:#6d6d6d" class="" title="Widget Settings">' +
@@ -283,9 +294,20 @@ function addWidgetToDashboard(id, code) {
         str = str +' [Record Id: <b>'+(config.record.recordid ? config.record.recordid : '-')+'</b>]';
     }
 
+    var imgPath = 'images/menu/widget.png'
+
+    if(obj.widgetimage){
+        imgPath = API_BASE_PATH+`/files/public/download/`+obj.widgetimage
+    }
+    if(obj.marketplace){
+        if(obj.widgetimage) {
+            imgPath = MARKETPLACE_API_URL + `/files/public/download/` + obj.widgetimage
+        }
+    }
+
     var widgetHtml = '<div><div class="grid-stack-item-content ' + id + '" data-gs-id="' + id + '">' +
         '<h5 style="color:#666;margin-top: 20px;">' + (obj.widgetTitle ? obj.widgetTitle : obj.widgetname) + '</h5>' +
-        '<img src="' + API_BASE_PATH + '/files/public/download/' + obj.widgetimage + '" alt="" />' +
+        '<img src="' + imgPath + '" alt="" />' +
         '<small style="display: block">version: '+obj.version+'</small>'+
         '<a href="javascript:void(0)" onclick="widgetSettings(\'' + id + '\')" ' +
         'style="display: block;margin-top: 10px;text-decoration: none;color:#6d6d6d" class="" title="Widget Settings">' +
@@ -775,10 +797,23 @@ function renderImportedWidget(obj) {
         acStr = '';
     }
 
+
+    var imgPath = 'images/menu/widget.png'
+
+    if(obj.widgetimage){
+        imgPath = API_BASE_PATH+`/files/public/download/`+obj.widgetimage
+    }
+    if(obj.marketplace){
+        if(obj.widgetimage) {
+            imgPath = MARKETPLACE_API_URL + `/files/public/download/` + obj.widgetimage
+        }
+    }
+
+
     var str = `<div class="widgetsBox mb-2" style="position: relative">
      <label>` + obj.widgetname + ` `+acStr+`</label>
       
-      <img src="` + API_BASE_PATH + `/files/public/download/` + obj.widgetimage + `" alt="" />
+      <img src="` + imgPath + `" alt="" />
       <small style="display: block">` + obj.category + `</small>
       <small style="display: block">` + obj.version + `</small>
        <button class="btn btn-default btn-outline btn-xs btn-block" onclick="addWidget('` + obj._id + `')"><i class="icon-plus"></i> Add</button>

@@ -208,7 +208,6 @@ function singleDashboard(id,ob) {
 
 function loadDashboard(id, flag) {
 
-    console.log("id =>",id);
 
 
     if (id === 'default') {
@@ -387,7 +386,6 @@ function loadImportedVerticals() {
         "params": []
     };
 
-    console.log('', 'VERTICAL_IMPORTED', searchQuery);
 
     searchByQuery('', 'VERTICAL_IMPORTED', searchQuery, function (status, data) {
 
@@ -421,7 +419,6 @@ function loadImportedVerticals() {
 
 
 
-                            console.log('vertical name TRUE=>',obj.verticalname)
 
                             var vflag = false;
                             var liStr = '';
@@ -465,9 +462,6 @@ function loadImportedVerticals() {
                                         } else {
                                             iconStr = '<i class="' + vd.icon + '"></i> ';
                                         }
-                                        console.log("groupid =>",vd.groupid)
-                                        console.log("email =>",USER_OBJ.user.email)
-                                        console.log("status =>",status)
 
                                         if (status) {
 
@@ -506,7 +500,6 @@ function loadImportedVerticals() {
                         }
                         else {
 
-                            console.log('vertical name FALSE=>',obj.verticalname)
                             var liStr = '';
 
                             for (var i = 0; i < obj.mobiledashboards.length; i++) {
@@ -1579,7 +1572,6 @@ function addWidget(id) {
 
 function getMobileAppDomainBranding() {
     getDomainProperty(MOBILE_APP_DOMAIN_BRANDING_PROPERTY, function (status, data) {
-        console.log(status, data);
         if (status) {
             var src = JSON.parse(data.value);
             $(".mob_domain_logo_m").attr('src', API_BASE_PATH + '/files/download/' + USER_OBJ.token + '/' + src.webLogo);

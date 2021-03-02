@@ -191,7 +191,7 @@ function loadTerminal() {
                                         widgetObj.domainKey = DOMAIN_KEY;
                                         delete widgetObj._id;
 
-                                        widgetObj['market'] = true;
+                                        widgetObj['marketplace'] = 'yes';
 
                                         upsertWidget(widgetObj, function (status, data) {
                                             if (status) {

@@ -223,10 +223,15 @@ function renderWidgetDiv(obj){
     if(obj.widgetimage){
         imgPath = API_BASE_PATH+`/files/public/download/`+obj.widgetimage
     }
-    if(obj.market){
+    if(obj.marketplace){
         if(obj.widgetimage) {
             imgPath = MARKETPLACE_API_URL + `/files/public/download/` + obj.widgetimage
         }
+    }
+
+    var editAction = '';
+    if(obj.createdbyemail === USER_OBJ.user.email){
+        editAction = '<a class="text-dark mt-2" href="'+WEB_BASE_PATH+'/widget/editwiget/'+obj.widgetid+'"><i class="icon-edit2"></i> Edit</a>'
     }
 
     var str = `
@@ -235,7 +240,8 @@ function renderWidgetDiv(obj){
                         <div class="row">
                             <div class="col-lg-4 col-md-4 col-sm-12" style="">
                                 <div class="text-center">
-                                <img src="`+imgPath+`"  style="width:75px "/>
+                                <img src="`+imgPath+`"  style="width:75px "/><br>
+                                `+editAction+`
                                 </div>
                             </div>
                             <div class="col-lg-8 col-md-8 col-sm-12 pl-2">
