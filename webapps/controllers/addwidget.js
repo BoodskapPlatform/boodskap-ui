@@ -121,6 +121,9 @@ function loadWidgetPreview() {
     $("#widgetVersion").val(widgetObj.version);
 
     createdBy = widgetObj.createdby;
+    if(!createdBy.includes("|")){
+        createdBy = widgetObj.createdby+" | "+Cookies.get('domain_name')
+    }
     createdByEmail = widgetObj.createdbyemail;
     $(".createdBy").html('<span><i class="icon-user"></i> ' + createdBy +
         '</span><br><span><i class="icon-envelop"></i> ' + createdByEmail + '</span>');

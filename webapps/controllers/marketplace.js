@@ -46,7 +46,7 @@ function loadWidgets(){
     $(".paginationBody").html('')
 
     ajaxCall = $.ajax({
-        url: MARKETPLACE_URL + "/widget/list",
+        url: MARKETPLACE_URL + "/widgets/list",
         data: queryObj,
         contentType: "application/json",
         type: 'GET',
@@ -167,8 +167,7 @@ function renderWidgetDiv(obj){
                                 </p>
                                 <small class="mr-2"><i class="fa fa-user"></i> `+obj.createdby+`</small>
                                 
-                                <small><i class="fa fa-clock-o"></i> `+moment(obj.createdtime).format('MM/DD/YYYY hh:mm a')+`</small>
-                                 <br><small>last Updated time <i class="fa fa-clock-o"></i> `+moment(obj.updatedtime).format('MM/DD/YYYY hh:mm a')+`</small><br>
+                                 <br><small><i class="fa fa-clock-o"></i> `+moment(obj.updatedtime).format('MM/DD/YYYY hh:mm a')+`</small><br>
                                 
                                 <div class="btn-`+obj.widgetid+`">
                                     <button class="btn mt-2 btn-green btn-sm action" onclick="installWidget('`+obj.widgetid+`','`+obj.widgetname+`')"><i class="icon-download"></i> <span class="hidden-xs">Install Widget</span></button>

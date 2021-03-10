@@ -253,8 +253,7 @@ function renderWidgetDiv(obj){
                                 </p>
                                 <small class="mr-2"><i class="fa fa-user"></i> `+obj.createdby+`</small>
                                 
-                                <small><i class="fa fa-clock-o"></i> `+moment(obj.createdtime).format('MM/DD/YYYY hh:mm a')+`</small>
-                                 <br><small>last Updated time <i class="fa fa-clock-o"></i> `+moment(obj.updatedtime).format('MM/DD/YYYY hh:mm a')+`</small><br>
+                                 <br><small><i class="fa fa-clock-o"></i> `+moment(obj.updatedtime).format('MM/DD/YYYY hh:mm a')+`</small><br>
                                 
                                 <div class="btn-`+obj.widgetid+`">
                                     <button class="btn mt-2 btn-warning btn-sm action hide" onclick="importModal('`+obj.widgetid+`','`+obj.widgetname+`')"><i class="icon-plus-square"></i> <span class="hidden-xs">Add to Domain</span></button>
