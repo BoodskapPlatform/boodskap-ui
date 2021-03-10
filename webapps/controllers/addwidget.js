@@ -15,7 +15,7 @@ var record_list = [];
 var device_list = [];
 var message_list = [];
 var current_device_id = '';
-var createdBy = (USER_OBJ.user.firstName ? USER_OBJ.user.firstName : 'Boodskap Admin') + (USER_OBJ.user.lastName ? ' ' + USER_OBJ.user.lastName : '');
+var createdBy = (USER_OBJ.user.firstName ? USER_OBJ.user.firstName : 'Boodskap Admin') + (USER_OBJ.user.lastName ? ' ' + USER_OBJ.user.lastName : '') +'  | '+Cookies.get('domain_name');
 var createdByEmail = USER_OBJ.user.email;
 $(document).ready(function () {
 
