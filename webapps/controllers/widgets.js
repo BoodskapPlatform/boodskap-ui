@@ -230,8 +230,8 @@ function renderWidgetDiv(obj){
     }
 
     var editAction = '';
-    if(obj.createdbyemail === USER_OBJ.user.email || ADMIN_ACCESS || DOMAIN_ADMIN_ACCESS){
-        editAction = '<a class="text-dark mt-2" href="'+WEB_BASE_PATH+'/widget/editwiget/'+obj.widgetid+'"><i class="icon-edit2"></i> Edit</a>'
+    if(obj.createdbyemail === USER_OBJ.user.email || ADMIN_ACCESS || (obj.domainKey === DOMAIN_KEY && DOMAIN_ADMIN_ACCESS)){
+        editAction = '<a class="text-dark mt-2" href="'+WEB_BASE_PATH+'/widget/editwidget/'+obj.widgetid+'"><i class="icon-edit2"></i> Edit</a>'
     }
 
     var str = `

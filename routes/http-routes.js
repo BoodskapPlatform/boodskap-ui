@@ -351,7 +351,7 @@ Routes.prototype.init = function () {
     self.router.get('/widget/addwidget', roleCheck, function (req, res) {
         res.render('addwidget.html',{layout:'',basepath: getBasePath(req),  widgetId:'',userRole:req.session.role});
     });
-    self.router.get('/widget/editwiget/:id', roleCheck, function (req, res) {
+    self.router.get('/widget/editwidget/:id', roleCheck, function (req, res) {
         res.render('addwidget.html',{layout:'',basepath: getBasePath(req),  widgetId:req.params.id,userRole:req.session.role});
     });
 
