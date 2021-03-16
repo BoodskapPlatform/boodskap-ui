@@ -39,7 +39,6 @@ function loadFiles(flag) {
         queryParams.query['bool']["minimum_should_match"] = 1;
 
     }
-    console.log(fileType)
     if (fileType) {
 
         var fileTypeJson = {"match": {"isPublic": (fileType === 'true' ? true : false)}};
@@ -52,7 +51,6 @@ function loadFiles(flag) {
 
 
     }else{
-        console.log("--else")
         queryParams.query['bool']['must'].push(domainKeyJson);
     }
     if(!flag) $(".fileList").html('');
@@ -73,8 +71,7 @@ function loadFiles(flag) {
             $(".filesCount").html(resultData.recordsFiltered)
             // $(".filesCount").html( file_list.length)
             
-            console.log("----")
-            console.log(resultData)
+         
 
             if(file_list.length > 0){
                 $(".loadMore").show();
