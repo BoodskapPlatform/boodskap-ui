@@ -273,7 +273,10 @@ function addUser() {
             upsertUser(userObj,function (status, data) {
                 if (status) {
                     successMsg('User Created Successfully');
-                    loadUsersList();
+                  
+                    setTimeout(function () {
+                        loadUsersList();
+                    },500)
                     $("#addUser").modal('hide');
                 } else {
                     errorMsg('Error in Creating User')
@@ -306,7 +309,9 @@ function updateUser() {
     upsertUser(userObj, function (status, data) {
         if (status) {
             successMsg('User Updated Successfully');
-            loadUsersList();
+            setTimeout(function () {
+                loadUsersList();
+            },500)
             $("#addUser").modal('hide');
         } else {
             errorMsg('Error in Updating User')
@@ -320,7 +325,9 @@ function proceedDelete() {
     deleteUser(current_user_id,function (status, data) {
         if (status) {
             successMsg('User Deleted Successfully');
-            loadUsersList();
+            setTimeout(function () {
+                loadUsersList();
+            },500)
             $("#deleteModal").modal('hide');
         } else {
             errorMsg('Error in delete')

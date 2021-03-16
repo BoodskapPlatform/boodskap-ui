@@ -25,7 +25,7 @@ var DEFAULT_DOMAIN = {
     token: USER_OBJ.token
 };
 var DEFAULT_DASHBOARD = {
-    name: 'Untiled Dashboard',
+    name: 'Untitled Dashboard',
     id: 'dashboard.1',
     property: 'dashboard.1',
     icon: 'icon-dashboard',

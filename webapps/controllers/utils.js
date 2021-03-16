@@ -4,16 +4,13 @@ var boodskapEditor = false;
 $(document).ready(function () {
     loadGoogleAnalytics();
     loadStatistics();
-
-
 });
 
 if (!DEBUG) {
     console.log("Boodskap IoT Platform "+WEB_VERSION+" !");
     console.log("Powered by https://boodskap.io"), window.console || (window.console = {});
-    for (var methods = ["log", "debug", "warn", "info", "error"], i = 0; i < methods.length; i++) console[methods[i]] = function () {
-    }
-
+    // for (var methods = ["log", "debug", "warn", "info", "error"], i = 0; i < methods.length; i++) console[methods[i]] = function () {
+    // }
 }
 
 
