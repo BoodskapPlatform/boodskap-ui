@@ -4,8 +4,6 @@ var boodskapEditor = false;
 $(document).ready(function () {
     loadGoogleAnalytics();
     loadStatistics();
-
-
 });
 
 if (!DEBUG) {
@@ -13,7 +11,6 @@ if (!DEBUG) {
     console.log("Powered by https://boodskap.io"), window.console || (window.console = {});
     for (var methods = ["log", "debug", "warn", "info", "error"], i = 0; i < methods.length; i++) console[methods[i]] = function () {
     }
-
 }
 
 

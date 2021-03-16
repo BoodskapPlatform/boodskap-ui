@@ -6,12 +6,8 @@ var page_size = 50;
 var page_from = 0;
 
 $(document).ready(function () {
-
     loadFiles();
-
-
     $("body").removeClass('bg-white');
-
 });
 
 
@@ -43,17 +39,16 @@ function loadFiles(flag) {
         queryParams.query['bool']["minimum_should_match"] = 1;
 
     }
-
     if (fileType) {
-
 
         var fileTypeJson = {"match": {"isPublic": (fileType === 'true' ? true : false)}};
 
         queryParams.query['bool']['must'].push(fileTypeJson);
 
-        if(fileType === 'false'){
+        // if(fileType === 'false'){
             queryParams.query['bool']['must'].push(domainKeyJson);
-        }
+        // }
+
 
     }else{
         queryParams.query['bool']['must'].push(domainKeyJson);
@@ -73,9 +68,10 @@ function loadFiles(flag) {
 
             var resultData = QueryFormatter(res).data;
             file_list = resultData['data'];
-
-
             $(".filesCount").html(resultData.recordsFiltered)
+            // $(".filesCount").html( file_list.length)
+            
+         
 
             if(file_list.length > 0){
                 $(".loadMore").show();
