@@ -93,7 +93,7 @@
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label>Mobile No</label>
-                                                    <input type="text" id="mobileNo" class="form-control input-sm"/>
+                                                    <input type="text" id="mobileNo" class="form-control input-sm" onkeypress="return onlyNumericSpecialChar(event);" minlength="10" maxlength="11"/>
                                                     <small>Eg, +19876543210 (Including + & country code)</small>
                                                 </div>
                                             </div>
