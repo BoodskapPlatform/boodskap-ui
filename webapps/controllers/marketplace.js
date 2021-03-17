@@ -1,4 +1,6 @@
 var widgets_list = [];
+var marketPlaceURL =  "";
+var moreTag = "";
 
 $(document).ready(function () {
     // $(".bodyContainer").css('height', $(window).height() - 165)
@@ -44,7 +46,6 @@ function loadWidgets(){
 
     $(".widgetBody").html('<div class="col-md-12"><h5><i class="fa fa-spinner fa-spin"></i> Loading widgets....</h5></div>');
     $(".paginationBody").html('')
-
     ajaxCall = $.ajax({
         url: MARKETPLACE_URL + "/widgets/list",
         data: queryObj,
@@ -99,7 +100,7 @@ function loadMore(id){
         scrollId: id
     }
     $.ajax({
-        url: MARKETPLACE_URL + "/widget/list",
+        url: MARKETPLACE_URL + "/widgets/list",
         data: queryObj,
         contentType: "application/json",
         type: 'GET',
@@ -138,7 +139,18 @@ function renderWidgetDiv(obj){
     var tagObj = obj.tags.split(",");
 
     for(var i=0;i<tagObj.length;i++){
-        tags+= '<i class="label label-default mr-2">'+tagObj[i]+'</i>'
+        if(tagObj.length>3){
+            if(i<=2){
+                tags+= '<i class="label label-default mr-2">'+tagObj[i]+'</i>'
+                moreTag ='<span class="tagEllipseMargin">...</span>'
+            }
+        }
+        else{
+            moreTag ="";
+            tags+= '<i class="label label-default mr-2">'+tagObj[i]+'</i>'    
+        }
+     
+        
     }
     var imgPath = 'images/menu/widget.png'
     if(obj.widgetimage){
@@ -149,7 +161,8 @@ function renderWidgetDiv(obj){
             imgPath = MARKETPLACE_API_URL + `/files/public/download/` + obj.widgetimage
         }
     }*/
-
+  
+    marketPlaceURL = MARKETPLACE_URL+"/widget/"+obj.widgetid
     var str = `
         <div class="col-xl-3 col-lg-3 col-md-4 col-sm-12 mb-3">
                     <div class="widgetDiv" title="`+(obj.description ? obj.description : '')+`">
@@ -160,10 +173,11 @@ function renderWidgetDiv(obj){
                                 </div>
                             </div>
                             <div class="col-lg-8 col-md-8 col-sm-12 pl-2">
-                                <h5 class="" style="width:100%;white-space: nowrap;text-overflow: ellipsis;  overflow: hidden;" title="`+obj.widgetname+`">`+obj.widgetname+`</h5>
+                                <h5 style="width:100%;white-space: nowrap;text-overflow: ellipsis;  overflow: hidden;" title="`+obj.widgetname+`">`+obj.widgetname+`<p class="float-right mb-0"><span class="d-inline-block"><a href=`+marketPlaceURL+`><i class="fa fa-share-square-o shareIcon" aria-hidden="true" title=""></i></a></span></p></h5>
+                         
                                 <small class="mr-2">v`+obj.version+`</small> <small><i class="fa fa-folder"></i> `+obj.category+`</small> <br>
-                                <p class="" style="margin-top: 3px"><i class="fa fa-tags"></i>
-                                    `+tags+`
+                                <p class="" style="margin-top: 3px;white-space: nowrap;text-overflow: ellipsis;  overflow: hidden;" title="`+obj.tags+`"><i class="fa fa-tags"></i>
+                                    `+tags+moreTag+`
                                 </p>
                                 <small class="mr-2"><i class="fa fa-user"></i> `+obj.createdby+`</small>
                                 

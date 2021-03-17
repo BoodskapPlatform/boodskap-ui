@@ -89,31 +89,55 @@ function loadWidgets(){
 
         queryParams.query.bool['minimum_should_match']=1;
 
-        queryParams.query.bool.should.push({
-            "wildcard": {
-                "widgetname": "*"+sText+"*"
-            }
-        })
+        queryParams.query['bool']['should'].push({ "wildcard": { "widgetname": "*" + sText + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "widgetname": "*" + sText.toLowerCase() + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "widgetname": "*" + sText.toUpperCase() + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "widgetname": "*" + capitalizeFLetter(sText) + "*" } })
         queryParams.query.bool.should.push({
             "match_phrase": {
                 "widgetname": sText
             }
         })
-        queryParams.query.bool.should.push({
-            "wildcard": {
-                "tags": "*"+sText+"*"
+        queryParams.query['bool']['should'].push({
+            "match_phrase_prefix": {
+                "widgetname": {
+                    "query": "*" + sText + "*"
+                }
             }
         })
+
+        queryParams.query['bool']['should'].push({ "wildcard": { "tags": "*" + sText + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "tags": "*" + sText.toLowerCase() + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "tags": "*" + sText.toUpperCase() + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "tags": "*" + capitalizeFLetter(sText) + "*" } })
         queryParams.query.bool.should.push({
-            "wildcard": {
-                "description": "*"+sText+"*"
+            "match_phrase": {
+                "tags": sText
             }
         })
+       
+
+        queryParams.query['bool']['should'].push({ "wildcard": { "description": "*" + sText + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "description": "*" + sText.toLowerCase() + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "description": "*" + sText.toUpperCase() + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "description": "*" + capitalizeFLetter(sText) + "*" } })
         queryParams.query.bool.should.push({
-            "wildcard": {
-                "category": "*"+sText+"*"
+            "match_phrase": {
+                "description": sText
             }
         })
+       
+
+        queryParams.query['bool']['should'].push({ "wildcard": { "category": "*" + sText + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "category": "*" + sText.toLowerCase() + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "category": "*" + sText.toUpperCase() + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "category": "*" + capitalizeFLetter(sText) + "*" } })
+        queryParams.query.bool.should.push({
+            "match_phrase": {
+                "category": sText
+            }
+        })
+      
     }
 
 

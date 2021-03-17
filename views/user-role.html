@@ -93,7 +93,7 @@
                         <div  class="col-md-6">
                             <div  class="form-group">
                                 <label  class="inputLabel">Mobile No.</label>
-                                <input  class="form-control input-sm" placeholder="" type="text" id="group_phone">
+                                <input  class="form-control input-sm" placeholder="" type="text" id="group_phone" onkeypress="return onlyNumericSpecialChar(event);" minlength="10" maxlength="11">
                                 <small>with plus sign & country code, eg., +19876543210</small>
                             </div>
                         </div>

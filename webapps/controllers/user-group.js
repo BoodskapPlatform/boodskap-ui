@@ -74,6 +74,7 @@ function loadUserGroup() {
         query: {
             "bool": {
                 "must": [],
+                "should": []
             }
         },
         sort: [],
@@ -97,7 +98,9 @@ function loadUserGroup() {
         "bServerSide": true,
         "sAjaxSource": API_BASE_PATH + '/elastic/search/query/' + API_TOKEN,
         "fnServerData": function (sSource, aoData, fnCallback, oSettings) {
-
+            queryParams.query['bool']['must'] = [];
+            queryParams.query['bool']['should'] = [];
+            delete queryParams.query['bool']["minimum_should_match"];
             var keyName = fields[oSettings.aaSorting[0][0]]
 
             var sortingJson = {};
@@ -110,15 +113,56 @@ function loadUserGroup() {
             var searchText = oSettings.oPreviousSearch.sSearch;
 
             if (searchText) {
-                var searchJson = {
-                    "multi_match": {
-                        "query": '*' + searchText + '*',
-                        "type": "phrase_prefix",
-                        "fields": ['_all']
-                    }
-                };
+                // var searchJson = {
+                //     "multi_match": {
+                //         "query": '*' + searchText + '*',
+                //         "type": "phrase_prefix",
+                //         "fields": ['_all']
+                //     }
+                // };
 
-                queryParams.query['bool']['must'] = [domainKeyJson, searchJson];
+                queryParams.query['bool']['should'].push({ "wildcard": { "name": "*" + searchText + "*" } });
+                queryParams.query['bool']['should'].push({ "wildcard": { "name": "*" + searchText.toLowerCase() + "*" } });
+                queryParams.query['bool']['should'].push({ "wildcard": { "name": "*" + searchText.toUpperCase() + "*" } });
+                queryParams.query['bool']['should'].push({ "wildcard": { "name": "*" + capitalizeFLetter(searchText) + "*" } })
+                queryParams.query.bool.should.push({
+                    "match_phrase": {
+                        "name": searchText
+                    }
+                })
+
+                queryParams.query['bool']['should'].push({
+                    "match_phrase_prefix": {
+                        "name": {
+                            "query": "*" + searchText + "*"
+                        }
+                    }
+                })
+
+
+                queryParams.query['bool']['should'].push({ "wildcard": { "email": "*" + searchText + "*" } });
+                queryParams.query['bool']['should'].push({ "wildcard": { "email": "*" + searchText.toLowerCase() + "*" } });
+                queryParams.query['bool']['should'].push({ "wildcard": { "email": "*" + searchText.toUpperCase() + "*" } });
+                queryParams.query['bool']['should'].push({ "wildcard": { "email": "*" + capitalizeFLetter(searchText) + "*" } })
+                queryParams.query.bool.should.push({
+                    "match_phrase": {
+                        "email.keyword": searchText
+                    }
+                }
+                
+                )
+                queryParams.query['bool']['should'].push({
+                    "match_phrase_prefix": {
+                        "email.keyword": {
+                            "query": "*" + searchText + "*"
+                        }
+                    }
+                })
+
+
+             
+                queryParams.query['bool']["minimum_should_match"] = 1;
+                queryParams.query['bool']['must'] = [domainKeyJson];
 
             } else {
                 queryParams.query['bool']['must'] = [domainKeyJson];

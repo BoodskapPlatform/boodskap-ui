@@ -1742,6 +1742,9 @@ function deleteAGeofence() {
                         swal("Deleted!", "Geofence has been Deleted Successfully.", "success");
                         // getGeofenceList();
                         loadGeofenceList(null, null);
+                        setTimeout(function() {
+                            loadGeofence();
+                        }, 500);
                         $("#deleteModal").modal('hide');
 
                     } else {

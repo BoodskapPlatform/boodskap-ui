@@ -12,7 +12,6 @@ $(document).ready(function () {
 
 
 function loadFiles(flag) {
-
     var searchText = $("#searchText").val();
     var fileType = $("#fileType").val();
 
