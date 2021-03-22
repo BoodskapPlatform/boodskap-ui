@@ -99,7 +99,7 @@ function loadMore(id){
         scrollId: id
     }
     $.ajax({
-        url: MARKETPLACE_URL + "/widget/list",
+        url: MARKETPLACE_URL + "/widgets/list",
         data: queryObj,
         contentType: "application/json",
         type: 'GET',
