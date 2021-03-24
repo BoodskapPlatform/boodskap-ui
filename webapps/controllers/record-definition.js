@@ -144,7 +144,7 @@ function searchQueryFormatter(data) {
 
 
 function openModal() {
-
+    $(".modal-title").html("Define Record")
     MSG_FIELD_COUNT = 0;
 
     message_obj = {};
@@ -166,7 +166,7 @@ function openModal() {
 
 
 function openEditModal(id) {
-
+    $(".modal-title").html("Edit Record")
     MSG_FIELD_COUNT = 0;
 
     for(var i=0;i<message_list.length;i++){

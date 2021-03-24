@@ -59,7 +59,6 @@ function loadUserGroup() {
             orderable: false,
             mRender: function (data, type, row) {
 
-
                 return '<button class="btn btn-sm btn-icon btn-default" onclick="openModal(2,' + row["id"] + ')"><i class="icon-edit2"></i></button>' +
                     '<button class="btn btn-sm btn-icon btn-default" onclick="openModal(3,' + row['id'] + ')"><i class="icon-trash-o"></i></button>';
             }
@@ -68,7 +67,7 @@ function loadUserGroup() {
     ];
 
 
-    var domainKeyJson = {"match": {"domainKey": DOMAIN_KEY}};
+    var domainKeyJson = { "match": { "domainKey": DOMAIN_KEY } };
 
     var queryParams = {
         query: {
@@ -104,7 +103,7 @@ function loadUserGroup() {
             var keyName = fields[oSettings.aaSorting[0][0]]
 
             var sortingJson = {};
-            sortingJson[keyName['mData']] = {"order": oSettings.aaSorting[0][1]};
+            sortingJson[keyName['mData']] = { "order": oSettings.aaSorting[0][1] };
             queryParams.sort = [sortingJson];
 
             queryParams['size'] = oSettings._iDisplayLength;
@@ -139,7 +138,6 @@ function loadUserGroup() {
                     }
                 })
 
-
                 queryParams.query['bool']['should'].push({ "wildcard": { "email": "*" + searchText + "*" } });
                 queryParams.query['bool']['should'].push({ "wildcard": { "email": "*" + searchText.toLowerCase() + "*" } });
                 queryParams.query['bool']['should'].push({ "wildcard": { "email": "*" + searchText.toUpperCase() + "*" } });
@@ -149,7 +147,7 @@ function loadUserGroup() {
                         "email.keyword": searchText
                     }
                 }
-                
+
                 )
                 queryParams.query['bool']['should'].push({
                     "match_phrase_prefix": {
@@ -159,8 +157,6 @@ function loadUserGroup() {
                     }
                 })
 
-
-             
                 queryParams.query['bool']["minimum_should_match"] = 1;
                 queryParams.query['bool']['must'] = [domainKeyJson];
 
@@ -174,7 +170,7 @@ function loadUserGroup() {
                 "extraPath": "",
                 "query": JSON.stringify(queryParams),
                 "params": [],
-                type:'DOMAIN_USER_GROUP'
+                type: 'DOMAIN_USER_GROUP'
             };
 
 
@@ -185,9 +181,8 @@ function loadUserGroup() {
                 "url": sSource,
                 "data": JSON.stringify(ajaxObj),
                 success: function (data) {
-
                     var resultData = QueryFormatter(data).data;
-                    group_list =resultData.data;
+                    group_list = resultData.data;
                     $(".userGroupCount").html(resultData.recordsFiltered);
                     resultData['draw'] = oSettings.iDraw;
 
@@ -195,7 +190,6 @@ function loadUserGroup() {
                 }
             });
         }
-
     };
 
     userGroupTable = $("#userGroupTable").DataTable(tableOption);
@@ -249,29 +243,27 @@ function loadUserGroupMembers(id) {
 
     listDomainUserGroupUsers(id, 1000, function (status, resdata) {
         var bodyStr = ''
-        if(status && resdata.length > 0){
+        if (status && resdata.length > 0) {
 
-            for(var i=0;i<resdata.length;i++){
+            for (var i = 0; i < resdata.length; i++) {
                 var data = resdata[i];
-
-
-
-                    bodyStr = bodyStr + '<div class="col-md-3" style="margin-top: 10px;">' +
-                        '<label style="display: block;text-align: left"><input type="checkbox" class="ch_' + id + '" name="ch_' + id + '[]" value="' + data['email'] + '"/> ' + (data.firstName + ' ' + data.lastName) + '</label>' +
-                        '<small>' + data.email + '</small>' +
-                        '</div>';
+                // console.log(data)
+                bodyStr = bodyStr + '<div class="col-md-3" style="margin-top: 10px;">' +
+                    '<label style="display: block;text-align: left"><input type="checkbox" class="ch_' + id + '" name="ch_' + id + '[]" value="' + data['email'] + '"/> ' + (data.firstName + ' ' + data.lastName) + '</label>' +
+                    '<small>' + data.email + '</small>' +
+                    '</div>';
             }
 
-        }else{
+        } else {
             bodyStr = '<div class="col-md-12" style="text-align: center">No User Added!</div>'
         }
 
-        $(".group_"+id).html(' <div class="btn-group btn-group-justified left-right">' +
-            '<a class="btn btn-default btn-xs"  onclick="openUserModal(1,\''+id+'\')"><i class="fa fa-plus-square"></i> <span class="hidden-xs">Add User</span></a>' +
-            '<a class="btn btn-default btn-xs"  onclick="openUserModal(2,\''+id+'\')"><i class="icon-trash4"></i> <span class="hidden-xs">Delete</span></a>' +
-            '<a class="btn btn-default btn-xs" data-click="panel-reload" onclick="loadUserGroupMembers(\''+id+'\')"><i class="fa fa-refresh"></i></a>' +
+        $(".group_" + id).html(' <div class="btn-group btn-group-justified left-right">' +
+            '<a class="btn btn-default btn-xs"  onclick="openUserModal(1,\'' + id + '\')"><i class="fa fa-plus-square"></i> <span class="hidden-xs">Add User</span></a>' +
+            '<a class="btn btn-default btn-xs"  onclick="openUserModal(2,\'' + id + '\')"><i class="icon-trash4"></i> <span class="hidden-xs">Delete</span></a>' +
+            '<a class="btn btn-default btn-xs" data-click="panel-reload" onclick="loadUserGroupMembers(\'' + id + '\')"><i class="fa fa-refresh"></i></a>' +
             '</div><hr style="clear:both">' +
-            '<div class="row" style="clear: both;max-height: 300px;overflow: auto;overflow-x: hidden">'+bodyStr+'</div>');
+            '<div class="row" style="clear: both;max-height: 300px;overflow: auto;overflow-x: hidden">' + bodyStr + '</div>');
 
 
     })
@@ -286,8 +278,8 @@ function openModal(type, id) {
         $("#addUserGroup").modal('show');
 
 
-        $("#group_id").attr('min',USER_OBJ.domain.startId)
-        $("#group_id").attr('max',USER_OBJ.domain.startId+ID_RANGE_COUNT)
+        $("#group_id").attr('min', USER_OBJ.domain.startId)
+        $("#group_id").attr('max', USER_OBJ.domain.startId + ID_RANGE_COUNT)
 
         $("#addUserGroup form").attr('onsubmit', 'addUserGroup()')
     } else if (type === 2) {
@@ -302,11 +294,11 @@ function openModal(type, id) {
         }
         // $("#event_id").attr('readonly', 'readonly');
 
-        $("#group_id").attr('min',USER_OBJ.domain.startId)
-        $("#group_id").attr('max',USER_OBJ.domain.startId+ID_RANGE_COUNT)
+        $("#group_id").attr('min', USER_OBJ.domain.startId)
+        $("#group_id").attr('max', USER_OBJ.domain.startId + ID_RANGE_COUNT)
 
         $("#group_id").val(obj.id);
-        $("#group_id").attr('disabled','disabled');
+        $("#group_id").attr('disabled', 'disabled');
 
         $("#group_name").val(obj.name);
         $("#group_email").val(obj.email);
@@ -323,20 +315,28 @@ function openModal(type, id) {
 
 function openUserModal(type, gid) {
     user_group_id = gid;
-    if(type === 1){
+    if (type === 1) {
         selected_user = [];
         $(".userList").html('');
         loadUsersList();
-    }else{
+    } else {
         selected_user = [];
         $(".removeUserCount").html(0);
-        var inputElements = document.getElementsByClassName('ch_'+gid);
-        for(var i=0; inputElements[i]; ++i){
-            if(inputElements[i].checked){
+        var inputElements = document.getElementsByClassName('ch_' + gid);
+        for (var i = 0; inputElements[i]; ++i) {
+            if (inputElements[i].checked) {
                 selected_user.push(inputElements[i].value);
             }
         }
-        $(".removeUserCount").html(selected_user.length);
+        if(selected_user.length===1){
+            $(".removeUserCount").html(selected_user.length);
+            $(".userText").html("user")
+        }
+        else{
+            $(".removeUserCount").html(selected_user.length);
+            $(".userText").html("users")
+        }
+     
 
 
         $("#deleteUserModal").modal('show');
@@ -344,11 +344,7 @@ function openUserModal(type, gid) {
 
 }
 
-
-
 function loadUsersList() {
-
-
     if (userTable) {
         userTable.destroy();
         $("#userTable").html("");
@@ -417,12 +413,12 @@ function loadUsersList() {
         userTable = $("#userTable").DataTable(tableOption);
         $("#addUserModal").modal('show');
 
-        $('#userTable tbody').on( 'click', 'tr', function () {
+        $('#userTable tbody').on('click', 'tr', function () {
             $(this).toggleClass('selected');
             selected_user = userTable.rows('.selected').data();
             $(".selectedCount").html(userTable.rows('.selected').data().length);
 
-        } );
+        });
     })
 
 
@@ -431,27 +427,27 @@ function loadUsersList() {
 
 function addUserToGroup() {
 
-    if(selected_user.length === 0){
+    if (selected_user.length === 0) {
         errorMsg('Atleast one user should be selected');
         return false;
     }
 
-    var emailIds = _.pluck(selected_user,'email')
+    var emailIds = _.pluck(selected_user, 'email')
 
-    $(".btnSubmit").attr('disabled','disabled');
+    $(".btnSubmit").attr('disabled', 'disabled');
 
     /*var data = {
         userIds : emailIds
     }*/
 
-    addUserToDomainGroup(emailIds,user_group_id, function (status, data) {
-        if(status){
+    addUserToDomainGroup(emailIds, user_group_id, function (status, data) {
+        if (status) {
 
             successMsg('Users added successfully');
             $("#addUserModal").modal('hide');
             loadUserGroupMembers(user_group_id);
-        }else{
-           errorMsg('Error in adding users to user group')
+        } else {
+            errorMsg('Error in adding users to user group')
         }
 
         $(".btnSubmit").removeAttr('disabled');
@@ -464,16 +460,16 @@ function proceedDeleteUser() {
 
     var emailIds = selected_user;
 
-    $(".btnSubmit").attr('disabled','disabled');
+    $(".btnSubmit").attr('disabled', 'disabled');
 
-    removeUserToDomainGroup(emailIds,user_group_id, function (status, data) {
-        if(status){
+    removeUserToDomainGroup(emailIds, user_group_id, function (status, data) {
+        if (status) {
 
             successMsg('Users removed successfully');
             $("#deleteUserModal").modal('hide');
             loadUserGroupMembers(user_group_id);
-        }else{
-           errorMsg('Error in removing users from user group')
+        } else {
+            errorMsg('Error in removing users from user group')
         }
 
         $(".btnSubmit").removeAttr('disabled');
@@ -493,7 +489,7 @@ function addUserGroup() {
         "workEnd": 0
     }
 
-    $(".btnSubmit").attr('disabled','disabled');
+    $(".btnSubmit").attr('disabled', 'disabled');
 
 
     retrieveDomainUserGroup(groupObj.id, function (status, data) {
@@ -518,7 +514,7 @@ function addUserGroup() {
 
 function updateUserGroup() {
 
-    $(".btnSubmit").attr('disabled','disabled');
+    $(".btnSubmit").attr('disabled', 'disabled');
 
 
     var groupObj = {
@@ -545,7 +541,7 @@ function updateUserGroup() {
 
 
 function proceedDelete() {
-    $(".btnSubmit").attr('disabled','disabled');
+    $(".btnSubmit").attr('disabled', 'disabled');
     deleteDomainUserGroup(current_group_id, function (status, data) {
         if (status) {
             successMsg('User Group Deleted Successfully');
