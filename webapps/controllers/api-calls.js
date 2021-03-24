@@ -2892,6 +2892,8 @@ function deleteFile(fid, ispublic, cbk) {
         type: 'DELETE',
         success: function (data) {
             //called when successful
+            console.log("---D--")
+            console.log(data)
             cbk(true, data);
         },
         error: function (e) {

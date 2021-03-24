@@ -1,6 +1,6 @@
 var widgetsTable = null;
 var widgetId = null;
-
+var moreTag = null;
 $(document).ready(function () {
 
     $("body").removeClass('bg-white')
@@ -241,7 +241,18 @@ function renderWidgetDiv(obj){
     var tagObj = obj.tags.split(",");
 
     for(var i=0;i<tagObj.length;i++){
-        tags+= '<i class="label label-default mr-2">'+tagObj[i]+'</i>'
+        if(tagObj.length>3){
+            if(i<=2){
+                tags+= '<i class="label label-default mr-2">'+tagObj[i]+'</i>'
+                moreTag ='<span class="tagEllipseMargin">...</span>'
+            }
+        }
+        else{
+            moreTag ="";
+            tags+= '<i class="label label-default mr-2">'+tagObj[i]+'</i>'    
+        }
+     
+        
     }
     var imgPath = 'images/menu/widget.png'
     if(obj.widgetimage){
@@ -272,8 +283,8 @@ function renderWidgetDiv(obj){
                                 <a href="javascript:;" class="pull-right text-danger" onclick="deleteWid('`+obj.widgetid+`','`+obj.widgetname+`')"><i class="fa fa-close"></i></a>
                                 <h5 class="pull-left" style="width:100%;white-space: nowrap;text-overflow: ellipsis;  overflow: hidden;" title="`+obj.widgetname+`">`+obj.widgetname+`</h5>
                                 <small class="mr-2">v`+obj.version+`</small> <small><i class="fa fa-folder"></i> `+obj.category+`</small> <br>
-                                <p class="" style="margin-top: 3px"><i class="fa fa-tags"></i>
-                                    `+tags+`
+                                <p class="" style="margin-top: 3px" title="`+obj.tags+`"><i class="fa fa-tags"></i>
+                                    `+tags+moreTag+`
                                 </p>
                                 <small class="mr-2"><i class="fa fa-user"></i> `+obj.createdby+`</small>
                                 

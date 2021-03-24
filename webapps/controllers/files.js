@@ -2,14 +2,17 @@ var fileTable = null;
 var file_list = [];
 var current_file_id = null;
 var current_file_obj = {};
+// var page_size = 50;
 var page_size = 50;
 var page_from = 0;
+var totalCount = 0;
+var tCount = 0;
 
 $(document).ready(function () {
+    $(".loadMore").hide();
     loadFiles();
     $("body").removeClass('bg-white');
 });
-
 
 function loadFiles(flag) {
     var searchText = $("#searchText").val();
@@ -61,17 +64,15 @@ function loadFiles(flag) {
         "params": []
     };
 
-
     searchByQuery('', 'FILE_PUBLIC', searchQuery, function (status, res) {
-        if (status) {
-
+        if (status) { 
             var resultData = QueryFormatter(res).data;
+            totalCount = resultData.recordsTotal;
             file_list = resultData['data'];
             $(".filesCount").html(resultData.recordsFiltered)
             // $(".filesCount").html( file_list.length)
-            
-         
-
+            $(".loadingButton").hide();
+            tCount+=file_list.length;
             if(file_list.length > 0){
                 $(".loadMore").show();
                 for (var i = 0; i < file_list.length; i++) {
@@ -84,6 +85,14 @@ function loadFiles(flag) {
                 }
             }
 
+            // condition to display load more
+         
+            if(totalCount>tCount){
+                $(".loadMore").show();
+            }
+            else{
+                $(".loadMore").hide();
+            }
             var clipboard = new ClipboardJS('.cpyBtn');
 
             clipboard.on('success', function(e) {
@@ -103,20 +112,18 @@ function loadFiles(flag) {
                 $(".fileList").html('<div class="col-md-12" style="text-align: center"><label>No Files Found!</label></div>');
             }
         }
-
-
     })
-
-
 }
 
 function loadMorePage() {
+    $(".loadingButton").show();
+    $(".loadingButton").removeClass('d-none');
+    $(".loadMoreButton").hide();
     page_from = page_from + page_size;
     loadFiles(true);
 }
 
 function renderHtml(obj) {
-
     var srcPath = '';
     var fileType = '';
 
@@ -266,10 +273,13 @@ function updateFile() {
 
 
 function proceedDelete() {
+    
     deleteFile(current_file_id, current_file_obj.isPublic,function (status, data) {
         if (status) {
             successMsg('File Deleted Successfully');
-            loadFiles();
+            setTimeout(function () {
+                loadFiles();
+            }, 500)
             $("#deleteModal").modal('hide');
         } else {
             errorMsg('Error in delete')
@@ -288,7 +298,9 @@ function uploadFileData(file) {
 
             if (xhr.status === 200) {
                 $("#addFile").modal('hide');
-                loadFiles()
+                setTimeout(function () {
+                    loadFiles();
+                }, 500)
                 successMsg('File uploaded successfully!');
             } else {
                 errorMsg('Error in file upload!');
@@ -337,7 +349,9 @@ function uploadFile() {
             updateFileInfo(current_file_id, obj, function (status, data) {
                 if(status){
                     $("#addFile").modal('hide');
-                    loadFiles()
+                    setTimeout(function () {
+                        loadFiles();
+                    }, 500)
                     successMsg('Successfully updated')
 
                 }else{

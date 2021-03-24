@@ -85,6 +85,7 @@ function loadMessageDef() {
         if (status && data.length > 0) {
             tableOption['data'] = data;
             message_list = data;
+            console.log(message_list)
             createDownload();
             $(".messageCount").html(data.length)
         } else {
@@ -160,7 +161,7 @@ function searchQueryFormatter(data) {
 }
 
 function openModal() {
-
+    $(".modal-title").html("Define Message")
     MSG_FIELD_COUNT = 0;
 
     message_obj = {};
@@ -182,7 +183,7 @@ function openModal() {
 }
 
 function openEditModal(id) {
-
+    $(".modal-title").html("Edit Message")
     MSG_FIELD_COUNT = 0;
 
     for (var i = 0; i < message_list.length; i++) {
