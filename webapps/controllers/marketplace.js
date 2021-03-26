@@ -173,7 +173,7 @@ function renderWidgetDiv(obj){
                                 </div>
                             </div>
                             <div class="col-lg-8 col-md-8 col-sm-12 pl-2">
-                                <h5 style="width:100%;white-space: nowrap;text-overflow: ellipsis;  overflow: hidden;" title="`+obj.widgetname+`">`+obj.widgetname+`<p class="float-right mb-0"><span class="d-inline-block"><a href=`+marketPlaceURL+`><i class="fa fa-share-square-o shareIcon" aria-hidden="true" title=""></i></a></span></p></h5>
+                                <h5 style="width:100%;white-space: nowrap;text-overflow: ellipsis;  overflow: hidden;" title="`+obj.widgetname+`">`+obj.widgetname+`<p class="float-right mb-0"><span class="d-inline-block"><a href="`+marketPlaceURL+`" target="_blank"><i class="fa fa-share-square-o shareIcon" aria-hidden="true" title=""></i></a></span></p></h5>
                          
                                 <small class="mr-2">v`+obj.version+`</small> <small><i class="fa fa-folder"></i> `+obj.category+`</small> <br>
                                 <p class="" style="margin-top: 3px;white-space: nowrap;text-overflow: ellipsis;  overflow: hidden;" title="`+obj.tags+`"><i class="fa fa-tags"></i>
