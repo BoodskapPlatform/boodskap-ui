@@ -17,7 +17,7 @@ var DASHBOARD_LIST = [];
 var CURRENT_DASHBOARD = {};
 var CURRENT_DASHBOARD_ID = null;
 var DEFAULT_DASHBOARD = {
-    name: 'Untiled Dashboard',
+    name: 'Untitled Dashboard',
     id: new Date().getTime(),
     property: 'dashboard.1',
     icon: 'icon-dashboard',
@@ -1431,7 +1431,7 @@ function loadCssEditor(code) {
 function codeLivePreview() {
 
 
-    $(".widgetLiveTitle").html($("#widgetTitle").val() ? $("#widgetTitle").val() : 'Untiled Widget');
+    $(".widgetLiveTitle").html($("#widgetTitle").val() ? $("#widgetTitle").val() : 'Untitled Widget');
 
     $(".widgetLiveHeader").css('background-color',$("#widget_bg").colorpicker('getValue'))
     $(".widgetLiveTitle").css('color',$("#widget_text").colorpicker('getValue'))

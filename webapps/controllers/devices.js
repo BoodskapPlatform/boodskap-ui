@@ -355,7 +355,10 @@ function addDevice() {
             upsertDevice(deviceObj,function (status, data) {
                 if (status) {
                     successMsg('Device Created Successfully');
-                    loadDeviceList();
+                
+                    setTimeout(function () {
+                        loadDeviceList();
+                    },500)
                     $("#addDevice").modal('hide');
                 } else {
                     errorMsg('Error in Creating Device')
@@ -381,7 +384,11 @@ function updateDevice() {
     upsertDevice(deviceObj, function (status, data) {
         if (status) {
             successMsg('Device Updated Successfully');
-            loadDeviceList();
+           
+            setTimeout(function () {
+                loadDeviceList();
+            },500)
+            
             $("#addDevice").modal('hide');
         } else {
             errorMsg('Error in Updating Device')
@@ -395,7 +402,9 @@ function proceedDelete() {
     deleteDevice(current_device_id,function (status, data) {
         if (status) {
             successMsg('Device Deleted Successfully');
-            loadDeviceList();
+            setTimeout(function () {
+                loadDeviceList();
+            },500)
             $("#deleteModal").modal('hide');
         } else {
             errorMsg('Error in delete')

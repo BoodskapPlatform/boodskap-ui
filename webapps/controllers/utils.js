@@ -4,16 +4,13 @@ var boodskapEditor = false;
 $(document).ready(function () {
     loadGoogleAnalytics();
     loadStatistics();
-
-
 });
 
 if (!DEBUG) {
     console.log("Boodskap IoT Platform "+WEB_VERSION+" !");
     console.log("Powered by https://boodskap.io"), window.console || (window.console = {});
-    for (var methods = ["log", "debug", "warn", "info", "error"], i = 0; i < methods.length; i++) console[methods[i]] = function () {
-    }
-
+    // for (var methods = ["log", "debug", "warn", "info", "error"], i = 0; i < methods.length; i++) console[methods[i]] = function () {
+    // }
 }
 
 
@@ -593,3 +590,25 @@ function loadPlatformSnippet() {
     }
     return platfromSnippet;
 }
+
+
+function capitalizeFLetter(word) {
+    var wordArray = word.split(" ");
+    var result = "";
+    for (let i = 0; i < wordArray.length; i++) {
+        const element = wordArray[i];
+        result += element.charAt(0).toUpperCase() +
+            element.slice(1) + " "
+    }
+    return result.slice(0, -1)
+}
+
+//Input to allow only numbers and special characters
+function onlyNumericSpecialChar(event) {
+    var regex = new RegExp("^[0-9-!@#$%&*+?]");
+    var key = String.fromCharCode(event.charCode ? event.which : event.charCode);
+    if (!regex.test(key)) {
+        event.preventDefault();
+        return false;
+    }
+} 

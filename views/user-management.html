@@ -107,7 +107,7 @@
                         <div  class="col-md-6">
                             <div  class="form-group">
                                 <label  class="inputLabel">Mobile</label>
-                                <input  class="form-control input-sm" placeholder="+19876543210" type="text" id="mobileNo">
+                                <input  class="form-control input-sm" placeholder="+19876543210" type="text" id="mobileNo" onkeypress="return onlyNumericSpecialChar(event);" minlength="10" maxlength="11">
                                 <small class="grey">include country code with + symbol</small>
                             </div>
                         </div>

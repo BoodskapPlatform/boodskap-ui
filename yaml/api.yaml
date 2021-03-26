@@ -15543,7 +15543,7 @@ paths:
   '/widget/import/{atoken}/{wid}':
     get:
       tags:
-        - Widgwet
+        - Widget
       summary: Import Widget
       operationId: importWidget
       consumes:
@@ -17181,9 +17181,9 @@ paths:
   '/brules/upsert/{atoken}':
     post:
       tags:
-        - Binaray Rule
-      summary: Create / Update Binaray Rule
-      operationId: upsertBinarayRule
+        - Binary Rule
+      summary: Create / Update Binary Rule
+      operationId: upsertBinaryRule
       consumes:
         - "application/json"
       produces:
@@ -17217,7 +17217,7 @@ paths:
   '/brules/get/{atoken}/{type}':
     get:
       tags:
-        - Binaray Rule
+        - Binary Rule
       summary: Retreive Binary Rule
       operationId: getBinaryRule
       consumes:
@@ -17252,7 +17252,7 @@ paths:
   '/brules/delete/{atoken}/{type}':
     delete:
       tags:
-        - Binaray Rule
+        - Binary Rule
       summary: Delete Binary Rule
       operationId: deleteBinaryRule
       consumes:
@@ -17287,7 +17287,7 @@ paths:
   '/brules/delete/all/{atoken}':
     delete:
       tags:
-        - Binaray Rule
+        - Binary Rule
       summary: Delete All Binary Rules
       operationId: deleteAllBinaryRules
       consumes:
@@ -17317,7 +17317,7 @@ paths:
   '/brules/list/{atoken}/{pageSize}':
     get:
       tags:
-        - Binaray Rule
+        - Binary Rule
       summary: List Binary Rules
       operationId: listBinaryRules
       consumes:
@@ -17370,7 +17370,7 @@ paths:
   '/brules/count/{atoken}':
     get:
       tags:
-        - Binaray Rule
+        - Binary Rule
       summary: Count All Binary Rules
       operationId: countAllBinaryRules
       consumes:
