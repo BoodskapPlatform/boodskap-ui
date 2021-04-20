@@ -183,55 +183,53 @@ function loadTerminal() {
                         getWidgetFromMarketplace(wid, function (status, result) {
                             if (status) {
                                 if (result.status && result.result) {
-                                        var widgetObj = result.result;
+                                    var widgetObj = result.result;
 
-                                        $(".console_loader_" + id).html('<i class="fa fa-spinner fa-spin"></i> Importing widget data...')
+                                    $(".console_loader_" + id).html('<i class="fa fa-spinner fa-spin"></i> Importing widget data...')
 
-                                        widgetObj.clientDomainKey = DOMAIN_KEY;
-                                        widgetObj.domainKey = DOMAIN_KEY;
-                                        widgetObj.code = guid();
+                                    widgetObj.clientDomainKey = DOMAIN_KEY;
+                                    widgetObj.domainKey = DOMAIN_KEY;
+                                    // widgetObj.code = guid();
 
                                     delete widgetObj._id;
 
-                                        widgetObj['marketplace'] = 'yes';
+                                    widgetObj['marketplace'] = 'yes';
 
-                                        upsertWidget(widgetObj, function (status, data) {
-                                            if (status) {
 
-                                                $(".console_loader_" + id).html('<i class="fa fa-spinner fa-spin></i> "+Installing widget data...')
 
-                                                if (codeID) {
-                                                    var codeID = widgetObj.code;
+                                    //importing code
+                                    var data = {
+                                        data: widgetObj.code_obj
+                                    };
 
-                                                    //importing code
-                                                    var data = {
-                                                        data: widgetObj.code_obj
-                                                    };
+                                    insertGlobalProperty(data, function (status, data) {
+                                        $(".console_loader_" + id).html('<i class="fa fa-spinner fa-spin></i> "+Installing widget data...')
+                                        if (status) {
+                                            widgetObj.code = data.id;
 
-                                                    updateGlobalProperty(data, codeID, function (status, data) {
-                                                        if (status) {
-                                                            $(".console_loader_" + id).html('Widget installed successfully!')
-                                                            successMsg('Widget installed successfully!');
-                                                        } else {
-                                                            $(".console_loader_" + id).removeClass('text-info')
-                                                            $(".console_loader_" + id).addClass('text-danger')
-                                                            $(".console_loader_" + id).html('Error in installing widget code')
-                                                            errorMsg('Error in installing widget code!')
-                                                        }
-                                                    })
-                                                }else{
+                                            upsertWidget(widgetObj, function (status, data) {
+                                                if (status) {
                                                     $(".console_loader_" + id).html('Widget installed successfully!')
+
                                                     successMsg('Widget installed successfully!');
+
+                                                } else {
+                                                    $(".console_loader_" + id).removeClass('text-info')
+                                                    $(".console_loader_" + id).addClass('text-danger')
+                                                    $(".console_loader_" + id).html('Error in Widget Installation')
+                                                    errorMsg('Error in Widget Installation!')
                                                 }
+                                            });
 
 
-                                            } else {
-                                                $(".console_loader_" + id).removeClass('text-info')
-                                                $(".console_loader_" + id).addClass('text-danger')
-                                                $(".console_loader_" + id).html('Error in Widget Installation')
-                                                errorMsg('Error in Widget Installation!')
-                                            }
-                                        });
+                                        } else {
+                                            $(".console_loader_" + id).removeClass('text-info')
+                                            $(".console_loader_" + id).addClass('text-danger')
+                                            $(".console_loader_" + id).html('Error in installing widget code')
+                                            errorMsg('Error in installing widget code!')
+                                        }
+                                    })
+
 
                                 } else {
                                     $(".console_loader_" + id).removeClass('text-info')

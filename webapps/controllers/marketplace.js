@@ -226,44 +226,35 @@ function installWidget(wid,wnam){
 
                             widgetObj.clientDomainKey = DOMAIN_KEY;
                             widgetObj.domainKey = DOMAIN_KEY;
-                            widgetObj.code = guid();
                             delete widgetObj._id;
 
                             widgetObj['marketplace'] = 'yes';
 
-                            upsertWidget(widgetObj, function (status, data) {
+                            //importing code
+                            var data = {
+                                data: widgetObj.code_obj
+                            };
+
+                            insertGlobalProperty(data, function (status, data) {
                                 if (status) {
-
-                                    if (codeID) {
-                                        var codeID = widgetObj.code;
-
-                                        //importing code
-                                        var data = {
-                                            data: widgetObj.code_obj
-                                        };
-
-                                        updateGlobalProperty(data, codeID, function (status, data) {
-
-                                            $(".btn-"+id+" .action").removeAttr('disabled')
-                                            $(".btn-"+id+" .action").html('<i class="icon-download"></i> Install Widget')
-                                            if (status) {
-                                                successMsg('Widget installed successfully!');
-                                            } else {
-                                                errorMsg('Error in installing widget code!')
-                                            }
-                                        })
-                                    }else{
+                                    widgetObj.code = data.id;
+                                    upsertWidget(widgetObj, function (status, data) {
                                         $(".btn-"+id+" .action").removeAttr('disabled')
                                         $(".btn-"+id+" .action").html('<i class="icon-download"></i> Install Widget')
-                                        successMsg('Widget installed successfully!');
-                                    }
+                                        if (status) {
+                                            successMsg('Widget installed successfully!');
+
+                                        } else {
+                                            errorMsg('Error in Widget Installation!')
+                                        }
+                                    });
 
                                 } else {
                                     $(".btn-"+id+" .action").removeAttr('disabled')
                                     $(".btn-"+id+" .action").html('<i class="icon-download"></i> Install Widget')
-                                    errorMsg('Error in Widget Installation!')
+                                    errorMsg('Error in installing widget code!')
                                 }
-                            });
+                            })
 
                         }else{
                             $(".btn-"+id+" .action").removeAttr('disabled')
