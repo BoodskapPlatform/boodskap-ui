@@ -15,10 +15,10 @@ var record_list = [];
 var device_list = [];
 var message_list = [];
 var current_device_id = '';
-var createdBy = (USER_OBJ.user.firstName ? USER_OBJ.user.firstName : 'Boodskap Admin') + (USER_OBJ.user.lastName ? ' ' + USER_OBJ.user.lastName : '');
+var createdBy = (USER_OBJ.user.firstName ? USER_OBJ.user.firstName : 'Boodskap Admin') + (USER_OBJ.user.lastName ? ' ' + USER_OBJ.user.lastName : '') +'  | '+Cookies.get('domain_name');
 var createdByEmail = USER_OBJ.user.email;
-$(document).ready(function () {
 
+$(document).ready(function () {
     $("body").removeClass('bg-white');
     $(".resourceTab").css('height',editorHeight+'px');
 
@@ -121,6 +121,9 @@ function loadWidgetPreview() {
     $("#widgetVersion").val(widgetObj.version);
 
     createdBy = widgetObj.createdby;
+    if(!createdBy.includes("|")){
+        createdBy = widgetObj.createdby+" | "+Cookies.get('domain_name')
+    }
     createdByEmail = widgetObj.createdbyemail;
     $(".createdBy").html('<span><i class="icon-user"></i> ' + createdBy +
         '</span><br><span><i class="icon-envelop"></i> ' + createdByEmail + '</span>');
@@ -163,7 +166,6 @@ function loadWidgetPreview() {
 
 
 function uploadFile(file, type) {
-
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
@@ -438,7 +440,7 @@ function openEditorModal() {
     if($("#widgetName").val()){
         $(".widgetLiveTitle").html($("#widgetName").val())
     }else{
-        $(".widgetLiveTitle").html('Untiled Widget')
+        $(".widgetLiveTitle").html('Untitled Widget')
     }
 
     $("#livePanel").css('height',(editorHeight+15)+'px')

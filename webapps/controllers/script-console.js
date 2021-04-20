@@ -193,7 +193,7 @@ function loadTerminal() {
 
                                     delete widgetObj._id;
 
-                                        widgetObj['market'] = true;
+                                        widgetObj['marketplace'] = 'yes';
 
                                         upsertWidget(widgetObj, function (status, data) {
                                             if (status) {

@@ -1,6 +1,6 @@
 var widgetsTable = null;
 var widgetId = null;
-
+var moreTag = null;
 $(document).ready(function () {
 
     $("body").removeClass('bg-white')
@@ -89,31 +89,55 @@ function loadWidgets(){
 
         queryParams.query.bool['minimum_should_match']=1;
 
-        queryParams.query.bool.should.push({
-            "wildcard": {
-                "widgetname": "*"+sText+"*"
-            }
-        })
+        queryParams.query['bool']['should'].push({ "wildcard": { "widgetname": "*" + sText + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "widgetname": "*" + sText.toLowerCase() + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "widgetname": "*" + sText.toUpperCase() + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "widgetname": "*" + capitalizeFLetter(sText) + "*" } })
         queryParams.query.bool.should.push({
             "match_phrase": {
                 "widgetname": sText
             }
         })
-        queryParams.query.bool.should.push({
-            "wildcard": {
-                "tags": "*"+sText+"*"
+        queryParams.query['bool']['should'].push({
+            "match_phrase_prefix": {
+                "widgetname": {
+                    "query": "*" + sText + "*"
+                }
             }
         })
+
+        queryParams.query['bool']['should'].push({ "wildcard": { "tags": "*" + sText + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "tags": "*" + sText.toLowerCase() + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "tags": "*" + sText.toUpperCase() + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "tags": "*" + capitalizeFLetter(sText) + "*" } })
         queryParams.query.bool.should.push({
-            "wildcard": {
-                "description": "*"+sText+"*"
+            "match_phrase": {
+                "tags": sText
             }
         })
+       
+
+        queryParams.query['bool']['should'].push({ "wildcard": { "description": "*" + sText + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "description": "*" + sText.toLowerCase() + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "description": "*" + sText.toUpperCase() + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "description": "*" + capitalizeFLetter(sText) + "*" } })
         queryParams.query.bool.should.push({
-            "wildcard": {
-                "category": "*"+sText+"*"
+            "match_phrase": {
+                "description": sText
             }
         })
+       
+
+        queryParams.query['bool']['should'].push({ "wildcard": { "category": "*" + sText + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "category": "*" + sText.toLowerCase() + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "category": "*" + sText.toUpperCase() + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "category": "*" + capitalizeFLetter(sText) + "*" } })
+        queryParams.query.bool.should.push({
+            "match_phrase": {
+                "category": sText
+            }
+        })
+      
     }
 
 
@@ -217,16 +241,32 @@ function renderWidgetDiv(obj){
     var tagObj = obj.tags.split(",");
 
     for(var i=0;i<tagObj.length;i++){
-        tags+= '<i class="label label-default mr-2">'+tagObj[i]+'</i>'
+        if(tagObj.length>3){
+            if(i<=2){
+                tags+= '<i class="label label-default mr-2">'+tagObj[i]+'</i>'
+                moreTag ='<span class="tagEllipseMargin">...</span>'
+            }
+        }
+        else{
+            moreTag ="";
+            tags+= '<i class="label label-default mr-2">'+tagObj[i]+'</i>'    
+        }
+     
+        
     }
     var imgPath = 'images/menu/widget.png'
     if(obj.widgetimage){
         imgPath = API_BASE_PATH+`/files/public/download/`+obj.widgetimage
     }
-    if(obj.market){
+    if(obj.marketplace){
         if(obj.widgetimage) {
             imgPath = MARKETPLACE_API_URL + `/files/public/download/` + obj.widgetimage
         }
+    }
+
+    var editAction = '';
+    if(obj.createdbyemail === USER_OBJ.user.email || ADMIN_ACCESS || (obj.domainKey === DOMAIN_KEY && DOMAIN_ADMIN_ACCESS)){
+        editAction = '<a class="text-dark mt-2" href="'+WEB_BASE_PATH+'/widget/editwidget/'+obj.widgetid+'"><i class="icon-edit2"></i> Edit</a>'
     }
 
     var str = `
@@ -235,20 +275,20 @@ function renderWidgetDiv(obj){
                         <div class="row">
                             <div class="col-lg-4 col-md-4 col-sm-12" style="">
                                 <div class="text-center">
-                                <img src="`+imgPath+`"  style="width:75px "/>
+                                <img src="`+imgPath+`"  style="width:75px "/><br>
+                                `+editAction+`
                                 </div>
                             </div>
                             <div class="col-lg-8 col-md-8 col-sm-12 pl-2">
                                 <a href="javascript:;" class="pull-right text-danger" onclick="deleteWid('`+obj.widgetid+`','`+obj.widgetname+`')"><i class="fa fa-close"></i></a>
                                 <h5 class="pull-left" style="width:100%;white-space: nowrap;text-overflow: ellipsis;  overflow: hidden;" title="`+obj.widgetname+`">`+obj.widgetname+`</h5>
                                 <small class="mr-2">v`+obj.version+`</small> <small><i class="fa fa-folder"></i> `+obj.category+`</small> <br>
-                                <p class="" style="margin-top: 3px"><i class="fa fa-tags"></i>
-                                    `+tags+`
+                                <p class="" style="margin-top: 3px" title="`+obj.tags+`"><i class="fa fa-tags"></i>
+                                    `+tags+moreTag+`
                                 </p>
                                 <small class="mr-2"><i class="fa fa-user"></i> `+obj.createdby+`</small>
                                 
-                                <small><i class="fa fa-clock-o"></i> `+moment(obj.createdtime).format('MM/DD/YYYY hh:mm a')+`</small>
-                                 <br><small>last Updated time <i class="fa fa-clock-o"></i> `+moment(obj.updatedtime).format('MM/DD/YYYY hh:mm a')+`</small><br>
+                                 <br><small><i class="fa fa-clock-o"></i> `+moment(obj.updatedtime).format('MM/DD/YYYY hh:mm a')+`</small><br>
                                 
                                 <div class="btn-`+obj.widgetid+`">
                                     <button class="btn mt-2 btn-warning btn-sm action hide" onclick="importModal('`+obj.widgetid+`','`+obj.widgetname+`')"><i class="icon-plus-square"></i> <span class="hidden-xs">Add to Domain</span></button>

@@ -111,6 +111,7 @@ function loadFirmwareList() {
         query: {
             "bool": {
                 "must": [],
+                "should": [],
             }
         },
         sort: []
@@ -133,7 +134,9 @@ function loadFirmwareList() {
         "bServerSide": true,
         "sAjaxSource": API_BASE_PATH + '/elastic/search/query/' + API_TOKEN,
         "fnServerData": function (sSource, aoData, fnCallback, oSettings) {
-
+            queryParams.query['bool']['must'] = [];
+            queryParams.query['bool']['should'] = [];
+            delete queryParams.query['bool']["minimum_should_match"];
             var keyName = fields[oSettings.aaSorting[0][0]]
 
             var sortingJson = {};
@@ -146,15 +149,85 @@ function loadFirmwareList() {
             var searchText = oSettings.oPreviousSearch.sSearch;
 
             if (searchText) {
-                var searchJson = {
-                    "multi_match": {
-                        "query": '*' + searchText + '*',
-                        "type": "phrase_prefix",
-                        "fields": ['_all']
-                    }
-                };
+                // var searchJson = {
+                //     "multi_match": {
+                //         "query": '*' + searchText + '*',
+                //         "type": "phrase_prefix",
+                //         "fields": ['_all']
+                //     }
+                // };
+                queryParams.query.bool['minimum_should_match']=1;
 
-                queryParams.query['bool']['must'] = [domainKeyJson, searchJson];
+                queryParams.query['bool']['should'].push({ "wildcard": { "fileName": "*" + searchText + "*" } });
+                queryParams.query['bool']['should'].push({ "wildcard": { "fileName": "*" + searchText.toLowerCase() + "*" } });
+                queryParams.query['bool']['should'].push({ "wildcard": { "fileName": "*" + searchText.toUpperCase() + "*" } });
+                queryParams.query['bool']['should'].push({ "wildcard": { "fileName": "*" + capitalizeFLetter(searchText) + "*" } })
+                queryParams.query.bool.should.push({
+                    "match_phrase": {
+                        "fileName": searchText
+                    }
+                })
+                queryParams.query['bool']['should'].push({
+                    "match_phrase_prefix": {
+                        "fileName": {
+                            "query": "*" + searchText + "*"
+                        }
+                    }
+                })
+
+                queryParams.query['bool']['should'].push({ "wildcard": { "contentType": "*" + searchText + "*" } });
+                queryParams.query['bool']['should'].push({ "wildcard": { "contentType": "*" + searchText.toLowerCase() + "*" } });
+                queryParams.query['bool']['should'].push({ "wildcard": { "contentType": "*" + searchText.toUpperCase() + "*" } });
+                queryParams.query['bool']['should'].push({ "wildcard": { "contentType": "*" + capitalizeFLetter(searchText) + "*" } })
+                queryParams.query.bool.should.push({
+                    "match_phrase": {
+                        "contentType": searchText
+                    }
+                })
+                queryParams.query['bool']['should'].push({
+                    "match_phrase_prefix": {
+                        "contentType": {
+                            "query": "*" + searchText + "*"
+                        }
+                    }
+                })
+
+                queryParams.query['bool']['should'].push({ "wildcard": { "version": "*" + searchText + "*" } });
+                queryParams.query['bool']['should'].push({ "wildcard": { "version": "*" + searchText.toLowerCase() + "*" } });
+                queryParams.query['bool']['should'].push({ "wildcard": { "version": "*" + searchText.toUpperCase() + "*" } });
+                queryParams.query['bool']['should'].push({ "wildcard": { "version": "*" + capitalizeFLetter(searchText) + "*" } })
+                queryParams.query.bool.should.push({
+                    "match_phrase": {
+                        "version": searchText
+                    }
+                })
+                queryParams.query['bool']['should'].push({
+                    "match_phrase_prefix": {
+                        "version": {
+                            "query": "*" + searchText + "*"
+                        }
+                    }
+                })
+
+                queryParams.query['bool']['should'].push({ "wildcard": { "description": "*" + searchText + "*" } });
+                queryParams.query['bool']['should'].push({ "wildcard": { "description": "*" + searchText.toLowerCase() + "*" } });
+                queryParams.query['bool']['should'].push({ "wildcard": { "description": "*" + searchText.toUpperCase() + "*" } });
+                queryParams.query['bool']['should'].push({ "wildcard": { "description": "*" + capitalizeFLetter(searchText) + "*" } })
+                queryParams.query.bool.should.push({
+                    "match_phrase": {
+                        "description": searchText
+                    }
+                })
+                queryParams.query['bool']['should'].push({
+                    "match_phrase_prefix": {
+                        "description": {
+                            "query": "*" + searchText + "*"
+                        }
+                    }
+                })
+
+
+                queryParams.query['bool']['must'] = [domainKeyJson];
 
             } else {
                 queryParams.query['bool']['must'] = [domainKeyJson];
@@ -184,9 +257,9 @@ function loadFirmwareList() {
 
                     var resultData = QueryFormatter(data).data;
                     firmware_list =resultData.data;
+                    console.log(firmware_list)
                     $(".firmwareCount").html(resultData.recordsFiltered)
                     resultData['draw'] = oSettings.iDraw;
-
                     fnCallback(resultData);
                 }
             });
@@ -294,7 +367,10 @@ function uploadFile(file) {
 
             if (xhr.status === 200) {
                 $("#addFirmware").modal('hide');
-                loadFirmwareList()
+                
+                setTimeout(function () {
+                    loadFirmwareList();
+                }, 500)
                 successMsg('New Firmware added successfully!');
             } else {
                 errorMsg('Error in firmware upload!');
@@ -314,7 +390,9 @@ function proceedDelete() {
     deleteFirmware(current_firmware_obj.deviceModel, current_firmware_version, function (status, data) {
         if (status) {
             successMsg('Firmware Deleted Successfully');
-            loadFirmwareList();
+            setTimeout(function () {
+                loadFirmwareList();
+            }, 500)
             $("#deleteModal").modal('hide');
         } else {
             errorMsg('Error in delete')

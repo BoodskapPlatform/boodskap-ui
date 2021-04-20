@@ -86,7 +86,9 @@ function loadUsersList() {
     ];
 
 
-    var domainKeyJson = {"match": {"domainKey": DOMAIN_KEY}};
+
+
+    var domainKeyJson = { "match": { "domainKey": DOMAIN_KEY } };
     var defaultSorting = [];
 
     var queryParams = {
@@ -124,7 +126,7 @@ function loadUsersList() {
             var keyName = fields[oSettings.aaSorting[0][0]]
 
             var sortingJson = {};
-            sortingJson[keyName['mData']] = {"order": oSettings.aaSorting[0][1]};
+            sortingJson[keyName['mData']] = { "order": oSettings.aaSorting[0][1] };
             queryParams.sort = [sortingJson];
 
             queryParams['size'] = oSettings._iDisplayLength;
@@ -134,9 +136,64 @@ function loadUsersList() {
 
             if (searchText) {
 
-                queryParams.query['bool']['should'].push({"wildcard": {"fullname": "*" + searchText.toLowerCase() + "*"}})
-                queryParams.query['bool']['should'].push({"wildcard": {"email": "*" + searchText.toLowerCase() + "*"}})
-                queryParams.query['bool']['should'].push({"wildcard": {"primaryPhone": "*" + searchText.toLowerCase() + "*"}})
+                // queryParams.query['bool']['should'].push({ "wildcard": { "fullname": "*" + searchText.toLowerCase() + "*" } })
+                // queryParams.query['bool']['should'].push({ "wildcard": { "email": "*" + searchText.toLowerCase() + "*" } })
+                // queryParams.query['bool']['should'].push({ "wildcard": { "primaryPhone": "*" + searchText.toLowerCase() + "*" } })
+
+                queryParams.query['bool']['should'].push({ "wildcard": { "firstName": "*" + searchText + "*" } });
+                queryParams.query['bool']['should'].push({ "wildcard": { "firstName": "*" + searchText.toLowerCase() + "*" } });
+                queryParams.query['bool']['should'].push({ "wildcard": { "firstName": "*" + searchText.toUpperCase() + "*" } });
+                queryParams.query['bool']['should'].push({ "wildcard": { "firstName": "*" + capitalizeFLetter(searchText) + "*" } })
+                queryParams.query.bool.should.push({
+                    "match_phrase": {
+                        "firstName": searchText
+                    }
+                })
+                queryParams.query['bool']['should'].push({
+                    "match_phrase_prefix": {
+                        "firstName": {
+                            "query": "*" + searchText + "*"
+                        }
+                    }
+                })
+
+                queryParams.query['bool']['should'].push({ "wildcard": { "lastName": "*" + searchText + "*" } });
+                queryParams.query['bool']['should'].push({ "wildcard": { "lastName": "*" + searchText.toLowerCase() + "*" } });
+                queryParams.query['bool']['should'].push({ "wildcard": { "lastName": "*" + searchText.toUpperCase() + "*" } });
+                queryParams.query['bool']['should'].push({ "wildcard": { "lastName": "*" + capitalizeFLetter(searchText) + "*" } })
+                queryParams.query.bool.should.push({
+                    "match_phrase": {
+                        "lastName": searchText
+                    }
+                })
+                queryParams.query['bool']['should'].push({
+                    "match_phrase_prefix": {
+                        "lastName": {
+                            "query": "*" + searchText + "*"
+                        }
+                    }
+                })
+
+                queryParams.query['bool']['should'].push({ "wildcard": { "email": "*" + searchText + "*" } });
+                queryParams.query['bool']['should'].push({ "wildcard": { "email": "*" + searchText.toLowerCase() + "*" } });
+                queryParams.query['bool']['should'].push({ "wildcard": { "email": "*" + searchText.toUpperCase() + "*" } });
+                queryParams.query['bool']['should'].push({ "wildcard": { "email": "*" + capitalizeFLetter(searchText) + "*" } })
+                queryParams.query.bool.should.push({
+                    "match_phrase": {
+                        "email": searchText
+                    }
+                })
+               
+                queryParams.query['bool']['should'].push({ "wildcard": { "primaryPhone": "*" + searchText + "*" } });
+                queryParams.query['bool']['should'].push({ "wildcard": { "primaryPhone": "*" + searchText.toLowerCase() + "*" } });
+                queryParams.query['bool']['should'].push({ "wildcard": { "primaryPhone": "*" + searchText.toUpperCase() + "*" } });
+                queryParams.query['bool']['should'].push({ "wildcard": { "primaryPhone": "*" + capitalizeFLetter(searchText) + "*" } })
+                queryParams.query.bool.should.push({
+                    "match_phrase": {
+                        "primaryPhone": searchText
+                    }
+                })
+               
                 queryParams.query['bool']["minimum_should_match"] = 1;
                 queryParams.query['bool']['must'] = [domainKeyJson];
             } else {
@@ -196,6 +253,7 @@ function loadUsersList() {
 }
 
 
+
 function openModal(type, id) {
     if (type === 1) {
         $("#emailId").removeAttr('readonly');
@@ -248,19 +306,17 @@ function openModal(type, id) {
 }
 
 
-function addUser() {
 
+function addUser() {
     var userObj = {
         "firstName": $("#firstName").val(),
         "lastName": $("#lastName").val(),
         "primaryPhone": $("#mobileNo").val(),
         "email": $("#emailId").val(),
         "password": $("#password").val(),
-        "roles": [$("#role").val()],
+        "roles": [$("#role").val()]
     }
-
     $(".btnSubmit").attr('disabled', 'disabled');
-
     retreiveUser(userObj.email, function (status, data) {
         if (status) {
             $(".btnSubmit").removeAttr('disabled');
@@ -269,7 +325,9 @@ function addUser() {
             upsertUser(userObj, function (status, data) {
                 if (status) {
                     successMsg('User Created Successfully');
-                    loadUsersList();
+                    setTimeout(function () {
+                        loadUsersList();
+                    }, 700)
                     $("#addUser").modal('hide');
                 } else {
                     errorMsg('Error in Creating User')
@@ -288,7 +346,7 @@ function updateUser() {
         "lastName": $("#lastName").val(),
         "primaryPhone": $("#mobileNo").val(),
         "email": $("#emailId").val(),
-        "roles": [$("#role").val()],
+        "roles": [$("#role").val()]
     };
 
     if ($.trim($("#password").val()) === '') {
@@ -302,7 +360,9 @@ function updateUser() {
     upsertUser(userObj, function (status, data) {
         if (status) {
             successMsg('User Updated Successfully');
-            loadUsersList();
+            setTimeout(function () {
+                loadUsersList();
+            }, 700)
             $("#addUser").modal('hide');
         } else {
             errorMsg('Error in Updating User')
@@ -316,13 +376,17 @@ function proceedDelete() {
     deleteUser(current_user_id, function (status, data) {
         if (status) {
             successMsg('User Deleted Successfully');
-            loadUsersList();
+            setTimeout(function () {
+                loadUsersList();
+            }, 700)
             $("#deleteModal").modal('hide');
         } else {
             errorMsg('Error in delete')
         }
     })
 }
+
+
 
 
 function loginAs() {
@@ -363,6 +427,9 @@ function loginAs() {
 }
 
 
+
+
+
 function format(obj) {
 
     var id = obj.email.replace("@", '').replace(".", '');
@@ -394,11 +461,10 @@ function format(obj) {
         '</div> ' +
         '</div>';
     '</div>\n' +
-    '</div>';
+        '</div>';
 
     return str;
 }
-
 var dashboardList = [];
 var dashboardMobileList = [];
 
@@ -437,6 +503,7 @@ function loadUserProperties(obj) {
                             '<label style="display: block"><input type="checkbox" ' + disabled + ' ' + flag + ' onchange="updateUserProp(\'' + obj.email + '\',\'' + data[i].property + '\',this)" /> ' + data[i].name + '</label>' +
                             '</li>')
                     }
+
 
 
                 }
@@ -481,6 +548,7 @@ function loadUserMobileProperties(obj) {
                             '<label style="display: block"><input type="checkbox" ' + flag + ' onchange="updateUserMobileProp(\'' + obj.email + '\',\'' + data[i].property + '\',this)" /> ' + data[i].name + '</label>' +
                             '</li>')
                     }
+
 
 
                 }
@@ -557,6 +625,7 @@ function updateUserProp(id, property, e) {
         })
     });
 }
+
 
 
 function updateUserMobileProp(id, property, e) {

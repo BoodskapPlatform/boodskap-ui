@@ -6,7 +6,7 @@ schemes:
 produces:
   - "application/json"
 info:
-  version: "3.0.2-0018"
+  version: "4.0.0-0003"
   title: "Boodskap API"
   description: "Boodskap IoT Platform API"
   termsOfService: "https://boodskap.io/terms-conditions"
@@ -20238,6 +20238,670 @@ paths:
           description: "API Error"
           schema:
             $ref: "#/definitions/ApiError"
+  '/process/upsert/{atoken}':
+    post:
+      tags:
+        - Process
+      summary: Create / Update Process
+      operationId: upsertProcess
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          description: Auth token of the logged in user
+          required: true
+          type: string
+        - name: rtype
+          in: query
+          description: One of [DOMAIN, GLOBAL], default is DOMAIN
+          required: false
+          type: string
+        - name: entity
+          in: body
+          description: Process JSON object
+          required: true
+          schema:
+            $ref: '#/definitions/Process'
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: "#/definitions/Success"
+        "417":
+          description: "API Error"
+          schema:
+            $ref: "#/definitions/ApiError"
+  '/process/get/{atoken}/{id}':
+    get:
+      tags:
+        - Process
+      summary: Retreive Process
+      operationId: getProcess
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          description: Auth token of the logged in user
+          required: true
+          type: string
+        - name: id
+          in: path
+          description: Process ID
+          required: true
+          type: string
+        - name: rtype
+          in: query
+          description: One of [DOMAIN, GLOBAL], default is DOMAIN
+          required: false
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Process'
+        "417":
+          description: "API Error"
+          schema:
+            $ref: "#/definitions/ApiError"
+  '/process/delete/{atoken}/{id}':
+    delete:
+      tags:
+        - Process
+      summary: Delete Process
+      operationId: deleteProcess
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          description: Auth token of the logged in user
+          required: true
+          type: string
+        - name: id
+          in: path
+          description: Process ID
+          required: true
+          type: string
+        - name: rtype
+          in: query
+          description: One of [DOMAIN, GLOBAL], default is DOMAIN
+          required: false
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: "#/definitions/Success"
+        "417":
+          description: "API Error"
+          schema:
+            $ref: "#/definitions/ApiError"
+  '/process/delete/all/{atoken}':
+    delete:
+      tags:
+        - Process
+      summary: Delete All Processes
+      operationId: deleteAllProcesses
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          description: Auth token of the logged in user
+          required: true
+          type: string
+        - name: rtype
+          in: query
+          description: One of [DOMAIN, GLOBAL], default is DOMAIN
+          required: false
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: "#/definitions/Success"
+        "417":
+          description: "API Error"
+          schema:
+            $ref: "#/definitions/ApiError"
+  '/process/count/{atoken}':
+    post:
+      tags:
+        - Process
+      summary: Count All Processes
+      operationId: countAllProcesses
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          description: Auth token of the logged in user
+          required: true
+          type: string
+        - name: rtype
+          in: query
+          description: One of [DOMAIN, GLOBAL], default is DOMAIN
+          required: false
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: "#/definitions/Count"
+        "417":
+          description: "API Error"
+          schema:
+            $ref: "#/definitions/ApiError"
+  '/workflow/upsert/{atoken}':
+    post:
+      tags:
+        - Workflow
+      summary: Create / Update Workflow
+      operationId: upsertWorkflow
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          description: Auth token of the logged in user
+          required: true
+          type: string
+        - name: rtype
+          in: query
+          description: One of [DOMAIN, GLOBAL], default is DOMAIN
+          required: false
+          type: string
+        - name: entity
+          in: body
+          description: Workflow JSON object
+          required: true
+          schema:
+            $ref: '#/definitions/WorkFlow'
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: "#/definitions/Success"
+        "417":
+          description: "API Error"
+          schema:
+            $ref: "#/definitions/ApiError"
+  '/workflow/get/{atoken}/{id}':
+    get:
+      tags:
+        - Workflow
+      summary: Retreive Workflow
+      operationId: getWorkflow
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          description: Auth token of the logged in user
+          required: true
+          type: string
+        - name: id
+          in: path
+          description: WorkFlow ID
+          required: true
+          type: string
+        - name: rtype
+          in: query
+          description: One of [DOMAIN, GLOBAL], default is DOMAIN
+          required: false
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/WorkFlow'
+        "417":
+          description: "API Error"
+          schema:
+            $ref: "#/definitions/ApiError"
+  '/workflow/delete/{atoken}/{id}':
+    delete:
+      tags:
+        - Workflow
+      summary: Delete Workflow
+      operationId: deleteWorkflow
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          description: Auth token of the logged in user
+          required: true
+          type: string
+        - name: id
+          in: path
+          description: WorkFlow ID
+          required: true
+          type: string
+        - name: rtype
+          in: query
+          description: One of [DOMAIN, GLOBAL], default is DOMAIN
+          required: false
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: "#/definitions/Success"
+        "417":
+          description: "API Error"
+          schema:
+            $ref: "#/definitions/ApiError"
+  '/workflow/delete/all/{atoken}':
+    delete:
+      tags:
+        - Workflow
+      summary: Delete All Workflows
+      operationId: deleteAllWorkflows
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          description: Auth token of the logged in user
+          required: true
+          type: string
+        - name: rtype
+          in: query
+          description: One of [DOMAIN, GLOBAL], default is DOMAIN
+          required: false
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: "#/definitions/Success"
+        "417":
+          description: "API Error"
+          schema:
+            $ref: "#/definitions/ApiError"
+  '/workflow/count/{atoken}':
+    post:
+      tags:
+        - Workflow
+      summary: Count All Workflows
+      operationId: countAllWorkflows
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          description: Auth token of the logged in user
+          required: true
+          type: string
+        - name: rtype
+          in: query
+          description: One of [DOMAIN, GLOBAL], default is DOMAIN
+          required: false
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: "#/definitions/Count"
+        "417":
+          description: "API Error"
+          schema:
+            $ref: "#/definitions/ApiError"
+  '/trigger/upsert/{atoken}':
+    post:
+      tags:
+        - Trigger
+      summary: Create / Update Trigger
+      operationId: upsertTrigger
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          description: Auth token of the logged in user
+          required: true
+          type: string
+        - name: rtype
+          in: query
+          description: One of [DOMAIN, GLOBAL], default is DOMAIN
+          required: false
+          type: string
+        - name: entity
+          in: body
+          description: Trigger JSON object
+          required: true
+          schema:
+            $ref: '#/definitions/Trigger'
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: "#/definitions/Success"
+        "417":
+          description: "API Error"
+          schema:
+            $ref: "#/definitions/ApiError"
+  '/trigger/get/{atoken}/{id}':
+    get:
+      tags:
+        - Trigger
+      summary: Retreive Trigger
+      operationId: getTrigger
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          description: Auth token of the logged in user
+          required: true
+          type: string
+        - name: id
+          in: path
+          description: Trigger ID
+          required: true
+          type: string
+        - name: rtype
+          in: query
+          description: One of [DOMAIN, GLOBAL], default is DOMAIN
+          required: false
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Trigger'
+        "417":
+          description: "API Error"
+          schema:
+            $ref: "#/definitions/ApiError"
+  '/trigger/delete/{atoken}/{id}':
+    delete:
+      tags:
+        - Trigger
+      summary: Delete Trigger
+      operationId: deleteTrigger
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          description: Auth token of the logged in user
+          required: true
+          type: string
+        - name: id
+          in: path
+          description: Trigger ID
+          required: true
+          type: string
+        - name: rtype
+          in: query
+          description: One of [DOMAIN, GLOBAL], default is DOMAIN
+          required: false
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: "#/definitions/Success"
+        "417":
+          description: "API Error"
+          schema:
+            $ref: "#/definitions/ApiError"
+  '/trigger/delete/all/{atoken}':
+    delete:
+      tags:
+        - Trigger
+      summary: Delete All Triggers
+      operationId: deleteAllTriggers
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          description: Auth token of the logged in user
+          required: true
+          type: string
+        - name: rtype
+          in: query
+          description: One of [DOMAIN, GLOBAL], default is DOMAIN
+          required: false
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: "#/definitions/Success"
+        "417":
+          description: "API Error"
+          schema:
+            $ref: "#/definitions/ApiError"
+  '/trigger/count/{atoken}':
+    post:
+      tags:
+        - Trigger
+      summary: Count All Triggers
+      operationId: countAllTriggers
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          description: Auth token of the logged in user
+          required: true
+          type: string
+        - name: rtype
+          in: query
+          description: One of [DOMAIN, GLOBAL], default is DOMAIN
+          required: false
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: "#/definitions/Count"
+        "417":
+          description: "API Error"
+          schema:
+            $ref: "#/definitions/ApiError"
+  '/trigger/group/upsert/{atoken}':
+    post:
+      tags:
+        - Trigger Group
+      summary: Create / Update Trigger Group
+      operationId: upsertTriggerGroup
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          description: Auth token of the logged in user
+          required: true
+          type: string
+        - name: rtype
+          in: query
+          description: One of [DOMAIN, GLOBAL], default is DOMAIN
+          required: false
+          type: string
+        - name: entity
+          in: body
+          description: TriggerGroup JSON object
+          required: true
+          schema:
+            $ref: '#/definitions/TriggerGroup'
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: "#/definitions/Success"
+        "417":
+          description: "API Error"
+          schema:
+            $ref: "#/definitions/ApiError"
+  '/trigger/group/get/{atoken}/{id}':
+    get:
+      tags:
+        - Trigger Group
+      summary: Retreive Trigger Group
+      operationId: getTriggerGroup
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          description: Auth token of the logged in user
+          required: true
+          type: string
+        - name: id
+          in: path
+          description: Trigger Group ID
+          required: true
+          type: string
+        - name: rtype
+          in: query
+          description: One of [DOMAIN, GLOBAL], default is DOMAIN
+          required: false
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/TriggerGroup'
+        "417":
+          description: "API Error"
+          schema:
+            $ref: "#/definitions/ApiError"
+  '/trigger/group/delete/{atoken}/{id}':
+    delete:
+      tags:
+        - Trigger Group
+      summary: Delete Trigger Group
+      operationId: deleteTriggerGroup
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          description: Auth token of the logged in user
+          required: true
+          type: string
+        - name: id
+          in: path
+          description: Trigger Group ID
+          required: true
+          type: string
+        - name: rtype
+          in: query
+          description: One of [DOMAIN, GLOBAL], default is DOMAIN
+          required: false
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: "#/definitions/Success"
+        "417":
+          description: "API Error"
+          schema:
+            $ref: "#/definitions/ApiError"
+  '/trigger/group/delete/all/{atoken}':
+    delete:
+      tags:
+        - Trigger Group
+      summary: Delete All Trigger Groups
+      operationId: deleteAllTriggerGroups
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          description: Auth token of the logged in user
+          required: true
+          type: string
+        - name: rtype
+          in: query
+          description: One of [DOMAIN, GLOBAL], default is DOMAIN
+          required: false
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: "#/definitions/Success"
+        "417":
+          description: "API Error"
+          schema:
+            $ref: "#/definitions/ApiError"
+  '/trigger/group/count/{atoken}':
+    post:
+      tags:
+        - Trigger Group
+      summary: Count All Trigger Groups
+      operationId: countAllTriggerGroups
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: atoken
+          in: path
+          description: Auth token of the logged in user
+          required: true
+          type: string
+        - name: rtype
+          in: query
+          description: One of [DOMAIN, GLOBAL], default is DOMAIN
+          required: false
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: "#/definitions/Count"
+        "417":
+          description: "API Error"
+          schema:
+            $ref: "#/definitions/ApiError"
 definitions:
   Login:
     required:
@@ -20772,6 +21436,316 @@ definitions:
             format: uuid
           name:
             type: string
+  Trigger:
+    type: object
+    required:
+      - id
+    properties:
+      domainKey:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      description:
+        type: string
+  TriggerGroup:
+    type: object
+    required:
+      - id
+      - triggers
+    properties:
+      domainKey:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      description:
+        type: string
+      triggerIds:
+        type: array
+        items:
+          type: string
+  Process:
+    type: object
+    required:
+      - id
+      - name
+      - code
+      - output
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+      language:
+        type: string
+        enum:
+          - GROOVY
+          - JAVA_SCRIPT
+      code:
+        type: string
+      description:
+        type: string
+      group:
+        type: string
+      domainKey:
+        type: string
+      tags:
+        type: string
+      input:
+        type: object
+      output:
+        type: object
+      properties:
+        type: object
+  ConditionalProcess:
+    type: object
+    required:
+      - processId
+      - field
+      - expression
+    properties:
+      processId:
+        type: string
+      field:
+        type: string
+      expression:
+        type: string
+      updateSession:
+        type: object
+      updateInput:
+        type: object
+  ConditionalTrigger:
+    type: object
+    required:
+      - triggerIds
+      - field
+      - expression
+    properties:
+      triggerIds:
+        type: array
+        items:
+          type: string
+      field:
+        type: string
+      expression:
+        type: string
+      updateSession:
+        type: object
+      updateInput:
+        type: object
+  ConditionalWorkFlow:
+    type: object
+    required:
+      - workFlowIds
+      - field
+      - expression
+    properties:
+      workFlowIds:
+        type: array
+        items:
+          type: string
+      field:
+        type: string
+      expression:
+        type: string
+      updateSession:
+        type: object
+      updateInput:
+        type: object
+  WorkFlowProcess:
+    type: object
+    required:
+      - id
+      - workFlowId
+      - processId
+    properties:
+      id:
+        type: string
+      workFlowId:
+        type: string
+      processId:
+        type: string
+      chainedProcessId:
+        type: string
+      onErrorProcessess:
+        type: array
+        items:
+          type: string
+      onCompleteProcesses:
+        type: array
+        items:
+          type: string
+      onNextProcesses:
+        type: array
+        items:
+          type: string
+      conditionalProcesses:
+        type: array
+        items:
+          $ref: "#/definitions/ConditionalProcess"
+      conditionalTriggers:
+        type: array
+        items:
+          $ref: "#/definitions/ConditionalTrigger"
+      conditionalWorkFlows:
+        type: array
+        items:
+          $ref: "#/definitions/ConditionalWorkFlow"
+  WorkFlowProcessInstance:
+    type: object
+    required:
+      - workFlowProcess
+      - process
+    properties:
+      workFlowProcess:
+        $ref: "#/definitions/WorkFlowProcess"
+      process:
+        $ref: "#/definitions/Process"
+        type: string
+  WorkFlowTrigger:
+    type: object
+    required:
+      - id
+      - workFlowId
+      - trigggerId
+      - processId
+    properties:
+      id:
+        type: string
+      workFlowId:
+        type: string
+      triggerId:
+        type: string
+      processId:
+        type: string
+      name:
+        type: string
+      description:
+        type: string
+  WorkFlowTriggerGroup:
+    type: object
+    required:
+      - id
+      - workFlowId
+      - trigggerGroupId
+      - processId
+    properties:
+      id:
+        type: string
+      workFlowId:
+        type: string
+      triggerGroupId:
+        type: string
+      processId:
+        type: string
+      name:
+        type: string
+      description:
+        type: string
+  WorkFlow:
+    type: object
+    required:
+      - id
+      - name
+      - processes
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+      group:
+        type: string
+      domainKey:
+        type: string
+      description:
+        type: string
+      tags:
+        type: string
+      processes:
+        type: array
+        items:
+          $ref: "#/definitions/WorkFlowProcess"
+      properties:
+        type: object
+      triggers:
+        type: array
+        items:
+          $ref: "#/definitions/WorkFlowTrigger"
+      triggerGroups:
+        type: array
+        items:
+          $ref: "#/definitions/WorkFlowTriggerGroup"
+  WorkFlowMessage:
+    type: object
+    properties:
+      type:
+        type: integer
+      message:
+        type: string
+  WorkFlowStep:
+    type: object
+    required:
+      - id
+      - workFlowProcessInstance
+    properties:
+      id:
+        type: string
+      workFlowInstanceId:
+        type: string
+      workFlowProcessInstance:
+        $ref: "#/definitions/WorkFlowProcessInstance"
+      serialNumber:
+        type: integer
+      status:
+        type: integer
+      queuedStamp:
+        type: integer
+        format: int16
+      beginStamp:
+        type: integer
+        format: int16
+      endStamp:
+        type: integer
+        format: int16
+      output:
+        type: object
+      messages:
+        type: array
+        items:
+          $ref: "#/definitions/WorkFlowMessage"
+  WorkFlowInstance:
+    type: object
+    required:
+      - instanceId
+    properties:
+      domainKey:
+        type: string
+      instanceId:
+        type: string
+      workFlow:
+        $ref: "#/definitions/WorkFlow"
+      tags:
+        type: string
+      queuedStamp:
+        type: integer
+        format: int16
+      beginStamp:
+        type: integer
+        format: int16
+      endStamp:
+        type: integer
+        format: int16
+      status:
+        type: integer
+      session:
+        type: object
+      steps:
+        type: array
+        items:
+          $ref: "#/definitions/WorkFlowStep"
   PushResult:
     type: object
     required:
@@ -21466,6 +22440,16 @@ definitions:
           - 'USER_ASSET_GROUP_MEMBER'
           - 'USER_DEVICE_GROUP_MEMBER'
           - 'USER_GROUP_MEMBER'
+          - 'PROCESS'
+          - 'WORKFLOW'
+          - 'WORKFLOW_INSTANCE'
+          - 'GLOBAL_PROCESS'
+          - 'GLOBAL_WORKFLOW'
+          - 'GLOBAL_WORKFLOW_INSTANCE'
+          - 'TRIGGER'
+          - 'TRIGGER_GROUP'
+          - 'GLOBAL_TRIGGER'
+          - 'GLOBAL_TRIGGER_GROUP'
       query:
         type: string
         description: ElasticSearch Query String
@@ -21571,6 +22555,16 @@ definitions:
           - 'USER_ASSET_GROUP_MEMBER'
           - 'USER_DEVICE_GROUP_MEMBER'
           - 'USER_GROUP_MEMBER'
+          - 'PROCESS'
+          - 'WORKFLOW'
+          - 'WORKFLOW_INSTANCE'
+          - 'GLOBAL_PROCESS'
+          - 'GLOBAL_WORKFLOW'
+          - 'GLOBAL_WORKFLOW_INSTANCE'
+          - 'TRIGGER'
+          - 'TRIGGER_GROUP'
+          - 'GLOBAL_TRIGGER'
+          - 'GLOBAL_TRIGGER_GROUP'
       templateName:
         type: string
       mergeContent:
@@ -22510,6 +23504,8 @@ definitions:
         type: string
       description:
         type: string
+      marketplace:
+        type: string
   Screen:
     type: object
     properties:
@@ -22551,6 +23547,8 @@ definitions:
       config:
         type: string
       description:
+        type: string
+      market:
         type: string
   Dashboard:
     type: object

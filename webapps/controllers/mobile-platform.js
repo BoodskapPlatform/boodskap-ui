@@ -2,7 +2,7 @@ var DASHBOARD_LIST = [];
 var CURRENT_DASHBOARD = {};
 var CURRENT_DASHBOARD_ID = null;
 var DEFAULT_DASHBOARD = {
-    name: 'Untiled Dashboard',
+    name: 'Untitled Dashboard',
     id: new Date().getTime(),
     property: 'mobile.dashboard.1',
     icon: 'icon-dashboard',
@@ -196,7 +196,17 @@ function loadWidgets(obj) {
             for (var i = 0; i < WIDGETS_LIST.length; i++) {
                 var widget = WIDGETS_LIST[i];
 
-                console.log(widget);
+
+                var imgPath = 'images/menu/widget.png'
+
+                if(widget.widgetimage){
+                    imgPath = API_BASE_PATH+`/files/public/download/`+widget.widgetimage
+                }
+                if(widget.marketplace){
+                    if(widget.widgetimage) {
+                        imgPath = MARKETPLACE_API_URL + `/files/public/download/` + widget.widgetimage
+                    }
+                }
 
                 added_widgets_list.push(widget);
 
@@ -205,7 +215,7 @@ function loadWidgets(obj) {
                 // data-gs-no-resize="false"
                 var widgetHtml = '<div><div class="grid-stack-item-content ' + id + '" data-gs-id="' + id + '">' +
                     '<h5 style="color:#666;margin-top: 20px;">' + widget.widgetname + '</h5>' +
-                    '<img src="' + API_BASE_PATH + '/files/public/download/' + widget.widgetimage + '" alt="" />' +
+                    '<img src="' + imgPath + '" alt="" />' +
                     '<div style="margin-top: 10px;"><a href="javascript:void(0)" onclick="widgetSettings(\'' + id + '\')" style="margin-top: 10px;text-decoration: none;color:#333" class="text-warning">' +
                     '<i class="icon-cog"></i> Settings</a></div>' +
                     '<small style="display: block">' + widget.category + ' v' + widget.version + '</small>' +
@@ -921,7 +931,7 @@ function loadCssEditor(code) {
 function codeLivePreview() {
 
 
-    $(".widgetLiveTitle").html($("#widgetTitle").val() ? $("#widgetTitle").val() : 'Untiled Widget');
+    $(".widgetLiveTitle").html($("#widgetTitle").val() ? $("#widgetTitle").val() : 'Untitled Widget');
 
     $(".widgetLiveHeader").css('background-color', $("#widget_bg").colorpicker('getValue'));
     $(".widgetLiveTitle").css('color', $("#widget_text").colorpicker('getValue'));
@@ -1361,10 +1371,21 @@ function addWidgetToDashboard(id, code) {
 
     added_widgets_list.push(obj);
 
+    var imgPath = 'images/menu/widget.png'
+
+    if(obj.widgetimage){
+        imgPath = API_BASE_PATH+`/files/public/download/`+obj.widgetimage
+    }
+    if(obj.marketplace){
+        if(obj.widgetimage) {
+            imgPath = MARKETPLACE_API_URL + `/files/public/download/` + obj.widgetimage
+        }
+    }
+
     if (!GRID_STACK) GRID_STACK = $('.grid-stack').data('gridstack');
     var widgetHtml = '<div><div class="grid-stack-item-content ' + objId + '" data-gs-id="' + objId + '">' +
         '<h5 style="color:#666;margin-top: 20px;">' + obj.widgetname + '</h5>' +
-        '<img src="' + API_BASE_PATH + '/files/public/download/' + obj.widgetimage + '" alt="" />' +
+        '<img src="' + imgPath + '" alt="" />' +
         '<a href="javascript:void(0)" onclick="widgetSettings(\'' + objId + '\')" style="display: block;margin-top: 10px;text-decoration: none;color:#333" class="text-warning">' +
         '<i class="icon-cog"></i> Configure Widget</a>' +
         '<a href="javascript:void(0)" onclick="removeWidget(\'' + objId + '\')" style="display: block;margin-top: 10px;text-decoration: none;color:#333">' +
@@ -2073,12 +2094,23 @@ function setImageId(id) {
 
 function renderImportedWidget(obj) {
 
+    var imgPath = 'images/menu/widget.png'
+
+    if(obj.widgetimage){
+        imgPath = API_BASE_PATH+`/files/public/download/`+obj.widgetimage
+    }
+    if(obj.marketplace){
+        if(obj.widgetimage) {
+            imgPath = MARKETPLACE_API_URL + `/files/public/download/` + obj.widgetimage
+        }
+    }
+
     var str =
         `<div class="col-lg-3" style="display: inline-block;">
             <div class="widgetsBox">
                 <label>` + obj.widgetname + ` <a href="javascript:void(0)" onclick="deleteImportWidgetModal('` + obj.widgetid + `')" class="pull-right btn btn-icon btn-default btn-xs"
                     title="Delete the widget from domain"><i class="icon-close"></i></a></label>
-                  <img src="` + API_BASE_PATH + `/files/public/download/` + obj.widgetimage + `" alt="" />
+                  <img src="` + imgPath + `" alt="" />
                   <small style="display: block">` + obj.category + `</small>
                    <button class="btn btn-default btn-outline btn-xs btn-block" type="button" onclick="addWidget('` + obj._id + `')"><i class="icon-plus"></i> Add</button>
            </div>

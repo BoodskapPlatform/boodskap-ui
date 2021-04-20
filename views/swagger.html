@@ -116,18 +116,21 @@
 <script src="libraries/bootstrap.bundle.min.js"></script>
 <script src="js/swagger-ui-bundle.js"> </script>
 <script src="js/swagger-ui-standalone-preset.js"> </script>
+<script src="libraries/js.cookie.js"></script>
+<script src="platform-config.js"> </script>
+<script src="controllers/const-variables.js"> </script>
 <script>
 
     loadStatistics();
 
     function loadStatistics() {
         $.ajax({
-            url: location.protocol+"//"+location.host+"/api/cluster/statistics",
+            url: API_BASE_PATH+"/cluster/statistics",
             // url: "https://dev.boodskap.io/api/cluster/statistics",
             type: 'GET',
-            "headers": {
-                "accept": "application/json",
-            },
+            // "headers": {
+            //     "contentType": "application/json",
+            // },
             success: function (data) {
                 if (data) {
                     try{
@@ -158,7 +161,7 @@
         var customOptions = options.customOptions
         var spec1 = options.swaggerDoc
         var swaggerOptions = {
-            url: "spec?version="+version,
+            url: WEB_BASE_PATH+"/spec?version="+version,
             dom_id: '#swagger-ui',
             deepLinking: true,
             presets: [
@@ -173,7 +176,6 @@
         for (var attrname in customOptions) {
             swaggerOptions[attrname] = customOptions[attrname];
         }
-        console.log(swaggerOptions)
         var ui = SwaggerUIBundle(swaggerOptions)
         $(".link img").attr('src','images/boodskap-logo.png');
 
