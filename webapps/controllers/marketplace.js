@@ -213,10 +213,11 @@ function installWidget(wid,wnam){
 
                             widgetObj.clientDomainKey = DOMAIN_KEY;
                             widgetObj.domainKey = DOMAIN_KEY;
+                            widgetObj.code = guid();
                             delete widgetObj._id;
 
                             widgetObj['market'] = true;
-
+                            
                             upsertWidget(widgetObj, function (status, data) {
                                 if (status) {
 
@@ -228,7 +229,8 @@ function installWidget(wid,wnam){
                                             data: widgetObj.code_obj
                                         };
 
-                                        insertGlobalProperty(data, function (status, data) {
+                                        updateGlobalProperty(data, codeID, function (status, data) {
+
                                             $(".btn-"+id+" .action").removeAttr('disabled')
                                             $(".btn-"+id+" .action").html('<i class="icon-download"></i> Install Widget')
                                             if (status) {

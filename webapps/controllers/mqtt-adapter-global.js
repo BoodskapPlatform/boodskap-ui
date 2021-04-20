@@ -25,7 +25,12 @@ function mqttConnectGlobal() {
             $(".serverStatus").html('<span class="label label-danger">Not Connected</span>');
             $(".dashboardStatus").html('');
             console.log(new Date() + " | MQTT Connection failed: " + message.errorMessage);
-            mqttConnectGlobal();
+            // mqttConnectGlobal();
+            if(!message.errorMessage.includes('bad user name or password')){
+                mqttConnectGlobal();
+            }else{
+                console.log('Bad username and password! Please reload the page')
+            }
         }
     };
 

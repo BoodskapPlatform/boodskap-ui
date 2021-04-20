@@ -189,7 +189,9 @@ function loadTerminal() {
 
                                         widgetObj.clientDomainKey = DOMAIN_KEY;
                                         widgetObj.domainKey = DOMAIN_KEY;
-                                        delete widgetObj._id;
+                                        widgetObj.code = guid();
+
+                                    delete widgetObj._id;
 
                                         widgetObj['market'] = true;
 
@@ -206,7 +208,7 @@ function loadTerminal() {
                                                         data: widgetObj.code_obj
                                                     };
 
-                                                    insertGlobalProperty(data, function (status, data) {
+                                                    updateGlobalProperty(data, codeID, function (status, data) {
                                                         if (status) {
                                                             $(".console_loader_" + id).html('Widget installed successfully!')
                                                             successMsg('Widget installed successfully!');
