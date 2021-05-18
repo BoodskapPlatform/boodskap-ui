@@ -554,8 +554,7 @@
                 <label style="margin:5px;"><i class="fa fa-search"></i> Search</label>
 
                 <select class="pull-right pOption" id="pType" onchange="loadProcessRulesList()">
-                    <option value="PROCESS">Domain</option>
-                    <option value="GLOBAL_PROCESS">Global</option>
+                    <option value="DOMAIN">Domain</option>
                 </select>
                 <input type="text" class="form-control input-sm" style="background-color: #fffded"
                        placeholder="Search by ID or Name" id="searchInput" onkeyup="searchFunction()"/>
@@ -1180,10 +1179,10 @@
 
                 <div class="row">
                     <div class="col-md-12">
-                        <!--<nav>
+                       <!-- <nav>
                             <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
                                 <a class="nav-item nav-link active" id="nav-context-tab" data-toggle="tab" href="#nav-context"
-                                   role="tab" aria-controls="nav-context" aria-selected="true">Context Objects <small class="text-muted apiVersion"></small></a>
+                                   role="tab" aria-controls="nav-context" aria-selected="true">Context Wrapper Library <small class="text-muted apiVersion"></small></a>
                                 <a class="nav-item nav-link" id="nav-elastic-tab" data-toggle="tab" href="#nav-elastic"
                                    role="tab" aria-controls="nav-elastic" aria-selected="false">Elastic Search Query <small class="text-muted">v7.5.1</small></a>
                             </div>
@@ -1191,17 +1190,24 @@
                         <div class="tab-content" id="nav-tabContent-help">
                             <div class="tab-pane fade show active" id="nav-context" role="tabpanel" aria-labelledby="nav-context-tab">
                                 <div class="row mt-2">
-                                    <div class="col-md-12">
+                                    <div class="col-md-12 mt-2">
                                         <form autocomplete="off">
                                             <input type="text" class="form-control" placeholder="Search Contexts" onkeyup="renderContext(this.value)" onkeypress="renderContext(this.value)" />
                                         </form>
                                     </div>
                                 </div>
-                                <div class="row contextBody mt-2" style="overflow: auto">
+                                <div class="row mt-2" >
+                                    <div class="col-md-12">
+                                        <ul class="cBody nav mb-3">
+
+                                        </ul>
+                                        <div class="contextBody" style="overflow: auto"></div>
+                                    </div>
 
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="nav-elastic" role="tabpanel" aria-labelledby="nav-elastic-tab">
+
                                 <div class="row mt-2">
                                     <div class="col-md-12">
                                         <form autocomplete="off">

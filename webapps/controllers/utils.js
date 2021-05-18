@@ -9,8 +9,8 @@ $(document).ready(function () {
 if (!DEBUG) {
     console.log("Boodskap IoT Platform "+WEB_VERSION+" !");
     console.log("Powered by https://boodskap.io"), window.console || (window.console = {});
-    // for (var methods = ["log", "debug", "warn", "info", "error"], i = 0; i < methods.length; i++) console[methods[i]] = function () {
-    // }
+    for (var methods = ["log", "debug", "warn", "info", "error"], i = 0; i < methods.length; i++) console[methods[i]] = function () {
+    }
 }
 
 
@@ -37,7 +37,7 @@ if (USER_OBJ) {
         var current_location = window.location.href;
         if (current_location.indexOf('login') === -1) {
             if (current_location.indexOf('register') === -1) {
-                document.location = '/login';
+                document.location = BASE_PATH+'/login';
             }
         }
     }

@@ -55,8 +55,22 @@ $(".mainwindow").css('min-height', $(window).height() - 90 + 'px');
 
 $(document).ready(function () {
     loadContextList()
-    $(".contextBody").css('height',$(window).height()-250)
+    $(".contextBody").css('height',$(window).height()-350)
     $(".elasticBody").css('height',$(window).height()-250)
+
+    $('#helpModal .modal-dialog').draggable({
+        handle: "#helpModal .modal-header"
+    });
+
+    if(USER_OBJ.globalAccess){
+        $("#pType").append('<option value="GLOBAL">Global</option>')
+    }
+
+    if(USER_OBJ.systemAccess){
+        $("#pType").append('<option value="SYSTEM">System</option>')
+    }
+
+
 
     mqttConnect();
 
@@ -843,11 +857,27 @@ function loadFileRulesList() {
 
 function loadProcessRulesList() {
     var query = {
+        query:{
+            bool : {
+                must:[{match:{domainKey:DOMAIN_KEY}}]
+            }
+        },
         from:0,
         size:1000
     }
+    var pType = 'PROCESS';
+
+    if($("#pType").val() === 'GLOBAL'){
+        pType = 'GLOBAL_PROCESS';
+        query['query'] = {}
+    }
+    if($("#pType").val() === 'SYSTEM'){
+        pType = 'SYSTEM_PROCESS';
+        query['query'] = {}
+    }
+
     $(".rulesList").html("");
-    listProcessRules(query,$("#pType").val(), function (status, data) {
+    listProcessRules(query,pType, function (status, data) {
 
         $(".rulesList").append('<li class="" onclick="loadProcessRulesList()" title="click here to reload" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
             '<img src="images/folder.png" /> <b> Process Rules</b> <span class="loaderSpin"></span></li>');
@@ -2502,7 +2532,10 @@ function proceedDelete() {
                 deleteMessagRule(CURRENT_ID, function (status, data) {
                     successMsg('Successfully deleted');
                 });
-                loadMessageRulesList();
+                setTimeout(function (){
+                    loadMessageRulesList();
+                },500)
+
                 $("#deleteModal").modal('hide');
             } else {
                 errorMsg('Error in delete')
@@ -2514,7 +2547,10 @@ function proceedDelete() {
             if (status) {
                 deleteTab(CURRENT_ID, CURRENT_TYPE);
                 successMsg('Successfully deleted');
-                loadNamedRulesList();
+                setTimeout(function (){
+                    loadNamedRulesList();
+                },500)
+
                 $("#deleteModal").modal('hide');
             } else {
                 errorMsg('Error in delete')
@@ -2527,7 +2563,10 @@ function proceedDelete() {
             if (status) {
                 deleteTab(CURRENT_ID, CURRENT_TYPE);
                 successMsg('Successfully deleted');
-                loadScheduleRulesList();
+
+                setTimeout(function (){
+                    loadScheduleRulesList();
+                },500)
                 $("#deleteModal").modal('hide');
             } else {
                 errorMsg('Error in delete')
@@ -2539,7 +2578,10 @@ function proceedDelete() {
             if (status) {
                 deleteTab(CURRENT_ID, CURRENT_TYPE);
                 successMsg('Successfully deleted');
-                loadBinaryRulesList();
+
+                setTimeout(function (){
+                    loadBinaryRulesList();
+                },500)
                 $("#deleteModal").modal('hide');
             } else {
                 errorMsg('Error in delete')
@@ -2552,7 +2594,10 @@ function proceedDelete() {
             if (status) {
                 deleteTab(CURRENT_ID, CURRENT_TYPE);
                 successMsg('Successfully deleted');
-                loadFileRulesList();
+                setTimeout(function (){
+                    loadFileRulesList();
+                },500)
+
                 $("#deleteModal").modal('hide');
             } else {
                 errorMsg('Error in delete')
@@ -2565,7 +2610,10 @@ function proceedDelete() {
             if (status) {
                 deleteTab(CURRENT_ID, CURRENT_TYPE);
                 successMsg('Successfully deleted');
-                loadJobRulesList();
+
+                setTimeout(function (){
+                    loadJobRulesList();
+                },500)
                 $("#deleteModal").modal('hide');
             } else {
                 errorMsg('Error in delete')
@@ -2578,7 +2626,10 @@ function proceedDelete() {
             if (status) {
                 deleteTab(CURRENT_ID, CURRENT_TYPE);
                 successMsg('Successfully deleted');
-                loadProcessRulesList();
+
+                setTimeout(function (){
+                    loadProcessRulesList();
+                },500)
                 $("#deleteModal").modal('hide');
             } else {
                 errorMsg('Error in delete')
@@ -4166,20 +4217,28 @@ function filterContext() {
 function openHelpModal() {
 
     // loadElasticHelp();
-    $("#helpModal").modal('show')
+    $("#helpModal").modal({
+        backdrop: false,
+        keyboard: false
+
+    })
 }
 
 
 
-function renderContext(search) {
+function renderContext(search,id) {
 
-    if(search){
+    if(search || id){
         $(".contextBody").html('');
     }
+    $(".cBody").html('')
 
     for (var i = 0; i < context_list.length; i++) {
 
         var val = context_list[i];
+
+        $(".cBody").append('<li class="ml-1 mr-1 mt-1 mb-1 '+(id== val.name ? 'bg-light' :'')+'" style="border: 1px solid #eee;padding: 10px 15px">' +
+            '<a class="" style="" href="javascript:void(0)" onclick="renderContext(\''+''+'\',\''+val.name+'\')">'+val.name+'</a></li>')
 
         var str = '';
 
@@ -4193,7 +4252,7 @@ function renderContext(search) {
                     || methods.help.toLowerCase().includes(search.toLowerCase())
                     || methods.signature.toLowerCase().includes(search.toLowerCase())){
                     flg=true
-                    str += '<p class="mt-2"><code>'+val.name+'</code> '+methods.help+'</p><pre class="bg-violet-light-5 mb-2"><xmp style="font-size: 14px">'+methods.signature+'</xmp></pre>'
+                    str += '<p class="mt-2 "><code>'+val.name+'</code> '+methods.help+'</p><pre class="bg-violet-light-5 mb-2"><xmp style="font-size: 14px">'+methods.signature+'</xmp></pre>'
                 }
             }else{
                 str += '<p class="mt-2"><code>'+val.name+'</code> '+methods.help+'</p><pre class="bg-violet-light-5 mb-2"><xmp style="font-size: 14px">'+methods.signature+'</xmp></pre>'
@@ -4212,19 +4271,44 @@ function renderContext(search) {
 
 
         }
-        if(search){
-            if(flg){
-                $(".contextBody").append('<div class="col-md-12 mt-1 mb-2">' +
+        if(id){
+
+            if(id == val.name){
+                console.log('print')
+                if(search){
+                    if(flg){
+                        $(".contextBody").append('<div class="col-md-12 mt-1 mb-2 c_'+val.name+'">' +
+                            '<hr><h5 style="text-transform: capitalize">' + val.name + '</h5>' +
+                            str +
+                            '</div>');
+
+                    }
+                }else{
+                    $(".contextBody").append('<div class="col-md-12 mt-1 mb-2 c_'+val.name+'">' +
+                        '<hr><h5 style="text-transform: capitalize">' + val.name + '</h5>' +
+                        str +
+                        '</div>');
+
+                }
+            }
+        }else{
+            if(search){
+                if(flg){
+                    $(".contextBody").append('<div class="col-md-12 mt-1 mb-2 c_'+val.name+'">' +
+                        '<hr><h5 style="text-transform: capitalize">' + val.name + '</h5>' +
+                        str +
+                        '</div>');
+
+                }
+            }else{
+                $(".contextBody").append('<div class="col-md-12 mt-1 mb-2 c_'+val.name+'">' +
                     '<hr><h5 style="text-transform: capitalize">' + val.name + '</h5>' +
                     str +
                     '</div>');
+
             }
-        }else{
-            $(".contextBody").append('<div class="col-md-12 mt-1 mb-2">' +
-                '<h5 style="text-transform: capitalize">' + val.name + '</h5>' +
-                str +
-                '</div>');
         }
+
 
 
     }

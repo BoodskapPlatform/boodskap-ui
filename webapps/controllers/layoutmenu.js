@@ -94,6 +94,10 @@ function removeCookies() {
     Cookies.remove(PRIVACY_POLICY);
     Cookies.remove('sql_access');
     Cookies.remove('db_access');
+    Cookies.remove('mongo_access');
+    Cookies.remove('cassandra_access');
+    Cookies.remove('global_access');
+    Cookies.remove('system_access');
 }
 
 function logout() {
@@ -543,52 +547,47 @@ function checkUserExist(groupId, userId, cbk) {
 
 
  function checkDomainSQLAccess() {
-     if (!Cookies.get('sql_access')) {
-         checkSQLAccess(null, function (status, data) {
-             if (status) {
-                 Cookies.set('sql_access', data.state);
-                 if(!data.state){
-                     $(".sqlquery").remove();
-                     $(".sqlqueryhome").attr('onclick','errorMsg("Contact Administrator!")')
-                 }
-             }else{
-                 $(".sqlquery").remove();
-                 $(".sqlqueryhome").attr('onclick','errorMsg("Contact Administrator!")')
 
-             }
-         })
+     if (USER_OBJ.sqlAccess) {
+         Cookies.set('sql_access', true);
      }else{
-         if(Cookies.get('sql_access') === 'false'){
-             $(".sqlquery").remove();
-             $(".sqlqueryhome").attr('onclick','errorMsg("Contact Administrator!")')
+         $(".sqlquery").remove();
+         $(".sqlqueryhome").attr('onclick','errorMsg("Contact Administrator!")')
 
-         }
      }
  }
 
 
 
 function checkDomainDBAccess() {
-    if (!Cookies.get('db_access')) {
-        checkDBAccess(null, function (status, data) {
-            if (status) {
-                Cookies.set('db_access', data.state);
-                if(!data.state){
-                    $(".dbquery").remove();
-                    $(".dbqueryhome").attr('onclick','errorMsg("Contact Administrator!")')
-
-                }
-            }else{
-                $(".dbquery").remove();
-                $(".dbqueryhome").attr('onclick','errorMsg("Contact Administrator!")')
-
-            }
-        })
+    if (USER_OBJ.dbAccess) {
+        Cookies.set('db_access', true);
     }else{
-        if(Cookies.get('db_access') === 'false'){
-            $(".dbquery").remove();
-            $(".dbqueryhome").attr('onclick','errorMsg("Contact Administrator!")')
+        $(".dbquery").remove();
+        $(".dbqueryhome").attr('onclick','errorMsg("Contact Administrator!")')
 
-        }
     }
 }
+
+
+function checkDomainMongoAccess() {
+    if (USER_OBJ.mongoAccess) {
+        Cookies.set('mongo_access', true);
+    }else{
+        $(".mongoquery").remove();
+        $(".mongoqueryhome").attr('onclick','errorMsg("Contact Administrator!")')
+
+    }
+}
+
+
+function checkDomainCassandraAccess() {
+    if (USER_OBJ.cassandraAccess) {
+        Cookies.set('cassandra_access', true);
+    }else{
+        $(".cassandraquery").remove();
+        $(".cassandraqueryhome").attr('onclick','errorMsg("Contact Administrator!")')
+
+    }
+}
+

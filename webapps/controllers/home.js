@@ -233,19 +233,39 @@ function loadDomains() {
             mData: 'domainKey',
             sTitle: 'Domain Key',
             mRender: function (data, type, row) {
+                
+                var str = '<br><small><i class="fa fa-envelope"></i> '+row['email']+'</small>'
+
+                return data ? data+str : '-'+str;
+            }
+        },
+        {
+            mData: 'domainKey',
+            sTitle: 'DB Access',
+            mRender: function (data, type, row) {
                 var sqlstr = '<a href="javascript:void(0)" onclick="checkSQL(\''+data+'\')" ' +
                     'style="display:block;color:#333;font-size:11px;" class="c_'+data+'"><i class="icon-database2"></i> Check SQL Access</a>'
                 var dbstr = '<a href="javascript:void(0)" onclick="checkDB(\''+data+'\')" ' +
                     'style="display:block;color:#333;font-size:11px;" class="d_'+data+'"><i class="icon-database2"></i> Check DB Access</a>'
 
-                return data ? data+sqlstr+dbstr : '-';
+                var mstr = '<a href="javascript:void(0)" onclick="checkMongo(\''+data+'\')" ' +
+                    'style="display:block;color:#333;font-size:11px;" class="m_'+data+'"><i class="icon-database2"></i> Check Mongo Access</a>'
+                var cstr = '<a href="javascript:void(0)" onclick="checkCassandra(\''+data+'\')" ' +
+                    'style="display:block;color:#333;font-size:11px;" class="ca_'+data+'"><i class="icon-database2"></i> Check Cassandra Access</a>'
+
+                return data ? sqlstr+dbstr+mstr+cstr : '-';
             }
         },
         {
-            mData: 'email',
-            sTitle: 'Email ID',
+            mData: 'domainKey',
+            sTitle: 'Admin Access',
             mRender: function (data, type, row) {
-                return data ? data : '-';
+                var gstr = '<a href="javascript:void(0)" onclick="checkGlobal(\''+data+'\')" ' +
+                    'style="display:block;color:#333;font-size:11px;" class="g_'+data+'"><i class="icon-globe"></i> Check Global Access</a>'
+                var sstr = '<a href="javascript:void(0)" onclick="checkSystem(\''+data+'\')" ' +
+                    'style="display:block;color:#333;font-size:11px;" class="s_'+data+'"><i class="icon-cog"></i> Check System Access</a>'
+
+                return data ? gstr+sstr : '-';
             }
         },
         {
@@ -398,9 +418,6 @@ function checkSQL(dkey) {
         }
     })
 }
-
-
-
 function sqlAccess(dkey, state) {
 
     setSQLAccess(dkey, state, function (status, data) {
@@ -461,8 +478,6 @@ function checkDB(dkey) {
         }
     })
 }
-
-
 function dbAccess(dkey, state) {
 
     setDBAccess(dkey, state, function (status, data) {
@@ -485,6 +500,242 @@ function dbAccess(dkey, state) {
 
             if(dkey === DOMAIN_KEY){
                 Cookies.set('db_access',data.state);
+                document.location = BASE_PATH+"/";
+            }
+
+
+        }else{
+            console.log('Error in execution')
+        }
+    })
+
+}
+
+function checkMongo(dkey) {
+    checkMongoAccess(dkey,function (status,data) {
+        if(status){
+
+            if(data.state){
+                $(".m_"+dkey).html('<span style="color:forestgreen"><i class="icon-check"></i> Already Mongo Access Granted!</span><br>' +
+                    '<span style="cursor: pointer;color:#333;text-decoration: underline" onclick="mongoAccess(\''+dkey+'\',\''+false+'\')">click here to revoke access</span>');
+
+                $(".m_"+dkey).css('text-decoration','none')
+                $(".m_"+dkey).removeAttr('onclick');
+            }else{
+                $(".m_"+dkey).html('<span style="color:orangered"><i class="icon-close2"></i> No Mongo Access!</span><br>' +
+                    '<span style="cursor: pointer;color:#333;text-decoration: underline" onclick="mongoAccess(\''+dkey+'\',\''+true+'\')">' +
+                    'click here to grant access</span>');
+
+                $(".m_"+dkey).css('text-decoration','none')
+                $(".m_"+dkey).removeAttr('onclick');
+            }
+
+
+
+        }else{
+            errorMsg('Error in Execution')
+        }
+    })
+}
+function mongoAccess(dkey, state) {
+
+    setMongoAccess(dkey, state, function (status, data) {
+        if(status){
+
+            if(data.state){
+                $(".m_"+dkey).html('<span style="color:forestgreen"><i class="icon-check"></i> Already Mongo Access Granted!</span><br>' +
+                    '<span style="cursor: pointer;color:#333;text-decoration: underline" onclick="mongoAccess(\''+dkey+'\',\''+false+'\')">click here to revoke access</span>');
+
+                $(".m_"+dkey).css('text-decoration','none')
+                $(".m_"+dkey).removeAttr('onclick');
+            }else{
+                $(".m_"+dkey).html('<span style="color:orangered"><i class="icon-close2"></i> No Mongo Access!</span><br>' +
+                    '<span style="cursor: pointer;color:#333;text-decoration: underline" onclick="mongoAccess(\''+dkey+'\',\''+true+'\')">' +
+                    'click here to grant access</span>');
+
+                $(".m_"+dkey).css('text-decoration','none')
+                $(".m_"+dkey).removeAttr('onclick');
+            }
+
+            if(dkey === DOMAIN_KEY){
+                Cookies.set('mongo_access',data.state);
+                document.location = BASE_PATH+"/";
+            }
+
+
+        }else{
+            console.log('Error in execution')
+        }
+    })
+
+}
+
+function checkCassandra(dkey) {
+    checkCassandraAccess(dkey,function (status,data) {
+        if(status){
+
+            if(data.state){
+                $(".ca_"+dkey).html('<span style="color:forestgreen"><i class="icon-check"></i> Already Cassandra Access Granted!</span><br>' +
+                    '<span style="cursor: pointer;color:#333;text-decoration: underline" onclick="cassandraAccess(\''+dkey+'\',\''+false+'\')">click here to revoke access</span>');
+
+                $(".ca_"+dkey).css('text-decoration','none')
+                $(".ca_"+dkey).removeAttr('onclick');
+            }else{
+                $(".ca_"+dkey).html('<span style="color:orangered"><i class="icon-close2"></i> No Cassandra Access!</span><br>' +
+                    '<span style="cursor: pointer;color:#333;text-decoration: underline" onclick="cassandraAccess(\''+dkey+'\',\''+true+'\')">' +
+                    'click here to grant access</span>');
+
+                $(".ca_"+dkey).css('text-decoration','none')
+                $(".ca_"+dkey).removeAttr('onclick');
+            }
+
+
+
+        }else{
+            errorMsg('Error in Execution')
+        }
+    })
+}
+function cassandraAccess(dkey, state) {
+
+    setCassandraAccess(dkey, state, function (status, data) {
+        if(status){
+
+            if(data.state){
+                $(".ca_"+dkey).html('<span style="color:forestgreen"><i class="icon-check"></i> Already Cassandra Access Granted!</span><br>' +
+                    '<span style="cursor: pointer;color:#333;text-decoration: underline" onclick="cassandraAccess(\''+dkey+'\',\''+false+'\')">click here to revoke access</span>');
+
+                $(".ca_"+dkey).css('text-decoration','none')
+                $(".ca_"+dkey).removeAttr('onclick');
+            }else{
+                $(".ca_"+dkey).html('<span style="color:orangered"><i class="icon-close2"></i> No Cassandra Access!</span><br>' +
+                    '<span style="cursor: pointer;color:#333;text-decoration: underline" onclick="cassandraAccess(\''+dkey+'\',\''+true+'\')">' +
+                    'click here to grant access</span>');
+
+                $(".ca_"+dkey).css('text-decoration','none')
+                $(".ca_"+dkey).removeAttr('onclick');
+            }
+
+            if(dkey === DOMAIN_KEY){
+                Cookies.set('cassandra_access',data.state);
+                document.location = BASE_PATH+"/";
+            }
+
+
+        }else{
+            console.log('Error in execution')
+        }
+    })
+
+}
+
+function checkGlobal(dkey) {
+    checkGlobalAccess(dkey,function (status,data) {
+        if(status){
+
+            if(data.state){
+                $(".g_"+dkey).html('<span style="color:forestgreen"><i class="icon-check"></i> Already Global Access Granted!</span><br>' +
+                    '<span style="cursor: pointer;color:#333;text-decoration: underline" onclick="globalAccess(\''+dkey+'\',\''+false+'\')">click here to revoke access</span>');
+
+                $(".g_"+dkey).css('text-decoration','none')
+                $(".g_"+dkey).removeAttr('onclick');
+            }else{
+                $(".g_"+dkey).html('<span style="color:orangered"><i class="icon-close2"></i> No Global Access!</span><br>' +
+                    '<span style="cursor: pointer;color:#333;text-decoration: underline" onclick="globalAccess(\''+dkey+'\',\''+true+'\')">' +
+                    'click here to grant access</span>');
+
+                $(".g_"+dkey).css('text-decoration','none')
+                $(".g_"+dkey).removeAttr('onclick');
+            }
+
+
+
+        }else{
+            errorMsg('Error in Execution')
+        }
+    })
+}
+function globalAccess(dkey, state) {
+
+    setGlobalAccess(dkey, state, function (status, data) {
+        if(status){
+
+            if(data.state){
+                $(".ca_"+dkey).html('<span style="color:forestgreen"><i class="icon-check"></i> Already Global Access Granted!</span><br>' +
+                    '<span style="cursor: pointer;color:#333;text-decoration: underline" onclick="globalAccess(\''+dkey+'\',\''+false+'\')">click here to revoke access</span>');
+
+                $(".ca_"+dkey).css('text-decoration','none')
+                $(".ca_"+dkey).removeAttr('onclick');
+            }else{
+                $(".ca_"+dkey).html('<span style="color:orangered"><i class="icon-close2"></i> No Global Access!</span><br>' +
+                    '<span style="cursor: pointer;color:#333;text-decoration: underline" onclick="globalAccess(\''+dkey+'\',\''+true+'\')">' +
+                    'click here to grant access</span>');
+
+                $(".ca_"+dkey).css('text-decoration','none')
+                $(".ca_"+dkey).removeAttr('onclick');
+            }
+
+            if(dkey === DOMAIN_KEY){
+                Cookies.set('global_access',data.state);
+                document.location = BASE_PATH+"/";
+            }
+
+
+        }else{
+            console.log('Error in execution')
+        }
+    })
+
+}
+
+function checkSystem(dkey) {
+    checkSystemAccess(dkey,function (status,data) {
+        if(status){
+
+            if(data.state){
+                $(".s_"+dkey).html('<span style="color:forestgreen"><i class="icon-check"></i> Already System Access Granted!</span><br>' +
+                    '<span style="cursor: pointer;color:#333;text-decoration: underline" onclick="systemAccess(\''+dkey+'\',\''+false+'\')">click here to revoke access</span>');
+
+                $(".s_"+dkey).css('text-decoration','none')
+                $(".s_"+dkey).removeAttr('onclick');
+            }else{
+                $(".s_"+dkey).html('<span style="color:orangered"><i class="icon-close2"></i> No System Access!</span><br>' +
+                    '<span style="cursor: pointer;color:#333;text-decoration: underline" onclick="systemAccess(\''+dkey+'\',\''+true+'\')">' +
+                    'click here to grant access</span>');
+
+                $(".s_"+dkey).css('text-decoration','none')
+                $(".s_"+dkey).removeAttr('onclick');
+            }
+
+
+
+        }else{
+            errorMsg('Error in Execution')
+        }
+    })
+}
+function systemAccess(dkey, state) {
+
+    setSystemAccess(dkey, state, function (status, data) {
+        if(status){
+
+            if(data.state){
+                $(".s_"+dkey).html('<span style="color:forestgreen"><i class="icon-check"></i> Already System Access Granted!</span><br>' +
+                    '<span style="cursor: pointer;color:#333;text-decoration: underline" onclick="systemAccess(\''+dkey+'\',\''+false+'\')">click here to revoke access</span>');
+
+                $(".s_"+dkey).css('text-decoration','none')
+                $(".s_"+dkey).removeAttr('onclick');
+            }else{
+                $(".s_"+dkey).html('<span style="color:orangered"><i class="icon-close2"></i> No System Access!</span><br>' +
+                    '<span style="cursor: pointer;color:#333;text-decoration: underline" onclick="systemAccess(\''+dkey+'\',\''+true+'\')">' +
+                    'click here to grant access</span>');
+
+                $(".s_"+dkey).css('text-decoration','none')
+                $(".s_"+dkey).removeAttr('onclick');
+            }
+
+            if(dkey === DOMAIN_KEY){
+                Cookies.set('system_access',data.state);
                 document.location = BASE_PATH+"/";
             }
 

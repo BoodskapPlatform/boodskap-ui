@@ -129,6 +129,35 @@ Routes.prototype.init = function () {
         }
     };
 
+    var mongoCheck = function (req, res, next) {
+        var db = req.cookies['mongo_access'];
+        if(db) {
+            if(db === 'true') {
+                next();
+            } else {
+                console.log(new Date() + " | unauthorized access");
+                res.sendStatus(401)
+            }
+        }else{
+            res.redirect(self.app.conf.basepath+'/404');
+        }
+    };
+
+    var cassandraCheck = function (req, res, next) {
+        var db = req.cookies['cassandra_access'];
+        if(db) {
+            if(db === 'true') {
+                next();
+            } else {
+                console.log(new Date() + " | unauthorized access");
+                res.sendStatus(401)
+            }
+        }else{
+            res.redirect(self.app.conf.basepath+'/404');
+        }
+    };
+
+
     self.router.get('/', function (req, res) {
         var userObj = req.cookies['user_details'];
         if(userObj) {

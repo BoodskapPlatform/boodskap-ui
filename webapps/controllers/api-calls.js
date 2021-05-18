@@ -711,7 +711,7 @@ function updateProcessRuleCode(data, cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/process/upsert/" + API_TOKEN+($("#pType").val() ? ($("#pType").val()== 'PROCESS' ? '?rtype=DOMAIN' : '?rtype=GLOBAL') : ''),
+        url: API_BASE_PATH + "/process/upsert/" + API_TOKEN+($("#pType").val() ? '?rtype='+$("#pType").val() : ''),
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -3489,6 +3489,174 @@ function setDBAccess(dkey, state, cbk) {
 
     $.ajax({
         url: API_BASE_PATH + "/db/access/set/" + API_TOKEN + '/' + dkey + '/' + state,
+        type: 'PUT',
+        success: function (data) {
+            //called when successful
+            cbk(true, data);
+        },
+        error: function (e) {
+            //called when there is an error
+            //console.log(e.message);
+            cbk(false, e);
+        }
+    });
+}
+
+
+//Mongo Calls
+
+function checkMongoAccess(dkey, cbk) {
+
+    var domainKey = '';
+
+    if(dkey){
+        domainKey = '?dkey=' + dkey;
+    }
+
+    $.ajax({
+        url: API_BASE_PATH + "/mongo/access/check/" + API_TOKEN + domainKey,
+        type: 'GET',
+        success: function (data) {
+            //called when successful
+            cbk(true, data);
+        },
+        error: function (e) {
+            //called when there is an error
+            //console.log(e.message);
+            cbk(false, e);
+        }
+    });
+}
+function setMongoAccess(dkey, state, cbk) {
+
+    $.ajax({
+        url: API_BASE_PATH + "/mongo/access/set/" + API_TOKEN + '/' + dkey + '/' + state,
+        type: 'PUT',
+        success: function (data) {
+            //called when successful
+            cbk(true, data);
+        },
+        error: function (e) {
+            //called when there is an error
+            //console.log(e.message);
+            cbk(false, e);
+        }
+    });
+}
+
+
+//Cassandra Calls
+
+function checkCassandraAccess(dkey, cbk) {
+
+    var domainKey = '';
+
+    if(dkey){
+        domainKey = '?dkey=' + dkey;
+    }
+
+    $.ajax({
+        url: API_BASE_PATH + "/cassandra/access/check/" + API_TOKEN + domainKey,
+        type: 'GET',
+        success: function (data) {
+            //called when successful
+            cbk(true, data);
+        },
+        error: function (e) {
+            //called when there is an error
+            //console.log(e.message);
+            cbk(false, e);
+        }
+    });
+}
+function setCassandraAccess(dkey, state, cbk) {
+
+    $.ajax({
+        url: API_BASE_PATH + "/cassandra/access/set/" + API_TOKEN + '/' + dkey + '/' + state,
+        type: 'PUT',
+        success: function (data) {
+            //called when successful
+            cbk(true, data);
+        },
+        error: function (e) {
+            //called when there is an error
+            //console.log(e.message);
+            cbk(false, e);
+        }
+    });
+}
+
+
+//Global Calls
+
+function checkGlobalAccess(dkey, cbk) {
+
+    var domainKey = '';
+
+    if(dkey){
+        domainKey = '?dkey=' + dkey;
+    }
+
+    $.ajax({
+        url: API_BASE_PATH + "/global/access/check/" + API_TOKEN + domainKey,
+        type: 'GET',
+        success: function (data) {
+            //called when successful
+            cbk(true, data);
+        },
+        error: function (e) {
+            //called when there is an error
+            //console.log(e.message);
+            cbk(false, e);
+        }
+    });
+}
+function setGlobalAccess(dkey, state, cbk) {
+
+    $.ajax({
+        url: API_BASE_PATH + "/cassandra/global/set/" + API_TOKEN + '/' + dkey + '/' + state,
+        type: 'PUT',
+        success: function (data) {
+            //called when successful
+            cbk(true, data);
+        },
+        error: function (e) {
+            //called when there is an error
+            //console.log(e.message);
+            cbk(false, e);
+        }
+    });
+}
+
+
+//System Calls
+
+function checkSystemAccess(dkey, cbk) {
+
+    var domainKey = '';
+
+    if(dkey){
+        domainKey = '?dkey=' + dkey;
+    }
+
+    $.ajax({
+        url: API_BASE_PATH + "/system/access/check/" + API_TOKEN + domainKey,
+        type: 'GET',
+        success: function (data) {
+            //called when successful
+            cbk(true, data);
+        },
+        error: function (e) {
+            //called when there is an error
+            //console.log(e.message);
+            cbk(false, e);
+        }
+    });
+}
+function setSystemAccess(dkey, state, cbk) {
+
+    $.ajax({
+        url: API_BASE_PATH + "/system/global/set/" + API_TOKEN + '/' + dkey + '/' + state,
         type: 'PUT',
         success: function (data) {
             //called when successful
