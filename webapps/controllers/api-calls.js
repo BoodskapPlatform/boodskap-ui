@@ -395,6 +395,33 @@ function listNamedRules(pageSize, direction, mid, cbk) {
 }
 
 
+function listFileRules(pageSize, direction, type, cbk) {
+
+    var data = {};
+    if (type && direction) {
+        data = {
+            type: type,
+            direction: direction
+        };
+    }
+
+    $.ajax({
+        url: API_BASE_PATH + "/frules/list/" + API_TOKEN + "/" + pageSize,
+        data: data,
+        type: 'GET',
+        success: function (data) {
+            //called when successful
+            cbk(true, data);
+        },
+        error: function (e) {
+            //called when there is an error
+            //console.log(e.message);
+            cbk(false, null);
+        }
+    });
+
+}
+
 function listBinaryRules(pageSize, direction, type, cbk) {
 
     var data = {};
@@ -610,6 +637,28 @@ function updateBinaryRuleCode(data, cbk) {
 
 }
 
+function updateFileRuleCode(data, cbk) {
+
+    //{"lang":"GROOVY","code":"","pattern":"0 30 6 ? * * *","id":700}
+
+    $.ajax({
+        url: API_BASE_PATH + "/frules/upsert/" + API_TOKEN,
+        data: JSON.stringify(data),
+        contentType: "application/json",
+        type: 'POST',
+        success: function (data) {
+            //called when successful
+            cbk(true, data);
+        },
+        error: function (e) {
+            //called when there is an error
+            //console.log(e.message);
+            cbk(false, null);
+        }
+    });
+
+}
+
 function updateJobRuleCode(data, cbk) {
 
 
@@ -682,6 +731,28 @@ function deleteBinaryRule(data, cbk) {
 
     $.ajax({
         url: API_BASE_PATH + "/brules/delete/" + API_TOKEN + "/" + data,
+        // data:  JSON.stringify(data),
+        contentType: "application/json",
+        type: 'DELETE',
+        success: function (data) {
+            //called when successful
+            cbk(true, data);
+        },
+        error: function (e) {
+            //called when there is an error
+            //console.log(e.message);
+            cbk(false, null);
+        }
+    });
+
+}
+
+function deleteFileRule(data, cbk) {
+
+    //{"lang":"GROOVY","code":"","name":"Flow Meter Message"}
+
+    $.ajax({
+        url: API_BASE_PATH + "/frules/delete/" + API_TOKEN + "/" + data,
         // data:  JSON.stringify(data),
         contentType: "application/json",
         type: 'DELETE',

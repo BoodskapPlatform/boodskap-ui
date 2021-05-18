@@ -526,6 +526,7 @@
                     <option value="3">Scheduled Rules</option>
                     <option value="6">Binary Rules</option>
                     <option value="7">Job Rule</option>
+                    <option value="8">File Rule</option>
                     <!--<option value="4">Groovy Class</option>-->
                     <!--<option value="5">JAR Class</option>-->
                 </select>
@@ -706,6 +707,44 @@
                             <div class="form-group">
                                 <label class="inputLabel">Language</label>
                                 <select class="form-control input-sm" id="binary_lang">
+                                    <option value="GROOVY">GROOVY</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btnModal">Save changes</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div id="addFileRule" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form action="javascript:void(0)" onsubmit="addFileRule()">
+                <div class="modal-header">
+                    <h4 class="modal-title">Add File Rule</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="inputLabel">Rule Name</label>
+                                <input class="form-control input-sm" onkeyup="avoidSpaces(this)" placeholder=""
+                                       type="text" id="file_rule" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="inputLabel">Language</label>
+                                <select class="form-control input-sm" id="file_lang">
                                     <option value="GROOVY">GROOVY</option>
                                 </select>
                             </div>

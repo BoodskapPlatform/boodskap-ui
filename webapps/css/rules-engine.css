@@ -92,6 +92,18 @@
 
 
 
+.fileTab.active{
+    border-bottom: 5px solid #e91e63;
+}
+.fileTab a{
+    color:#e91e63 !important;
+}
+.fileTab.active a{
+    font-weight: bold;
+}
+
+
+
 .jobTab.active{
     border-bottom: 5px solid #be202e;
 }

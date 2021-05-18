@@ -6,6 +6,7 @@ var message_spec_list = [];
 var schedule_rules_list = [];
 var named_rules_list = [];
 var binary_rules_list = [];
+var file_rules_list = [];
 var job_rules_list = [];
 var groovy_class_list = [];
 var jar_class_list = [];
@@ -20,6 +21,7 @@ var current_msg_id = null;
 var current_msg_obj = null;
 var current_namedrule_obj = null;
 var current_binaryrule_obj = null;
+var current_filerule_obj = null;
 var simulatorModal = {};
 var simulator = {};
 var scriptTerminal = null;
@@ -196,6 +198,7 @@ function mqttListen() {
                 mqttScheduleRule(topicName, parsedData);
                 mqttBinaryRule(topicName, parsedData);
                 mqttJobRule(topicName, parsedData);
+                mqttFileRule(topicName, parsedData);
 
             } else {
                 if (CURRENT_TYPE === 0) {
@@ -215,6 +218,9 @@ function mqttListen() {
                 }
                 else if (CURRENT_TYPE === 7) {
                     mqttJobRule(topicName, parsedData);
+                }
+                else if (CURRENT_TYPE === 8) {
+                    mqttFileRule(topicName, parsedData);
                 }
 
             }
@@ -350,6 +356,46 @@ function mqttNamedRule(topicName, parsedData) {
 
                 var rName = topicName.split("/")[4];
                 $(".loggerHtml").append("<div title='Named Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
+                    "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
+                    "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
+                    "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " + fields +
+                    "<span style='white-space: pre-wrap;padding-left: 10px;'>" + parsedData.data + "</span></div>");
+            }
+
+        }
+        if (parsedData.data === '__ALL_DONE__') {
+            $('.consoleBox').animate({
+                scrollTop: $(".loggerHtml").height()
+            }, 100);
+        }
+    }
+}
+
+function mqttFileRule(topicName, parsedData) {
+    var nodeClass = new Date().getTime();
+    var color = 'default';
+
+    // console.log("NAMED =>", topicName)
+
+    if (topicName.includes("/log/frule")) {
+
+        if (parsedData.data !== '__ALL_DONE__') {
+
+            var level = parsedData.level;
+
+            if($("."+level.toLowerCase()).is(":checked")) {
+
+                var fields = '';
+
+                if($(".node").is(":checked")){
+                    fields+= ' ['+parsedData.node+'] '
+                }
+                if($(".session").is(":checked")){
+                    fields+= ' ['+parsedData.session+'] '
+                }
+
+                var rName = topicName.split("/")[4];
+                $(".loggerHtml").append("<div title='File Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
                     "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
                     "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
                     "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " + fields +
@@ -554,6 +600,9 @@ function loadRules(id) {
     else if (id === 7) {
         loadJobRulesList();
     }
+    else if (id === 8) {
+        loadFileRulesList();
+    }
 }
 
 function searchFunction() {
@@ -697,6 +746,38 @@ function loadBinaryRulesList() {
             }
         } else {
             errorMsg('No Binary Rules Found!')
+        }
+    })
+}
+
+
+function loadFileRulesList() {
+    listFileRules(rules_page_size, null, null, function (status, data) {
+        $(".rulesList").html("");
+
+        $(".rulesList").append('<li class="" onclick="loadBinaryRulesList()" title="click here to reload" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
+            '<img src="images/folder.png" /> <b> Fine Rules</b> <span class="loaderSpin"></span></li>');
+
+        $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
+
+        setTimeout(function () {
+            $(".loaderSpin").html('');
+        }, 1000);
+
+        $('[data-toggle="tooltip"]').tooltip()
+
+        if (status && data.length > 0) {
+            file_rules_list = data;
+
+            for (var i = 0; i < data.length; i++) {
+
+                var str = '<li class="rulesListli rule_' + data[i].type + '" data-id="' + data[i].type + '" onclick="loadTabbar(\'' + data[i].type + '\',8)">' +
+                    '<img src="images/file.png" /> <b>' + data[i].type + '</b></li>';
+                $(".rulesList").append(str);
+
+            }
+        } else {
+            errorMsg('No File Rules Found!')
         }
     })
 }
@@ -899,6 +980,21 @@ function loadTabbar(id, type) {
                 '</li>';
         }
 
+        else if (type === 8) {
+
+            var obj = {};
+            for (var i = 0; i < file_rules_list.length; i++) {
+                if (id === file_rules_list[i].type) {
+                    obj = file_rules_list[i];
+                }
+            }
+
+            str = '<li role="presentation" class="fileTab tabbar fileTab_' + id + '"  >' +
+                '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadFileRule(\'' + id + '\')>' + obj.type + ' ' +
+                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',8)" title="close"><i class="fa fa-close"></i></span></a>' +
+                '</li>';
+        }
+
         tabbar_list.push(id);
         $(".editorBar").append(str);
 
@@ -911,6 +1007,7 @@ function loadTabbar(id, type) {
     $(".groovyTab").removeClass('active');
     $(".jobTab").removeClass('active');
     $(".jarTab").removeClass('active');
+    $(".fileTab").removeClass('active');
 
     var obj = {};
 
@@ -1000,6 +1097,22 @@ function loadTabbar(id, type) {
 
         $(".exportBtn").attr('onclick','exportRule(6)')
         $(".simulateBtn").attr('onclick','openSimulateModal(\''+id+'\',3)');
+    }
+    else if (type === 8) {
+        loadFileRule(id);
+        $(".fileTab_" + id).addClass('active');
+
+        for (var i = 0; i < file_rules_list.length; i++) {
+            if (id === file_rules_list[i].type) {
+                obj = file_rules_list[i];
+            }
+        }
+        $(".detailsBlock").css('display', 'block')
+        $(".ruleType").html('File Rule');
+        $(".ruleName").html(obj.type+(obj.rootPath ? '<br><small>Rooth Path: '+obj.rootPath+'</small>' : ''));
+
+        $(".exportBtn").attr('onclick','exportRule(8)')
+        $(".simulateBtn").attr('onclick','openSimulateModal(\''+id+'\',4)');
     }
     else if (type === 7) {
         loadJobRule(id);
@@ -1113,6 +1226,9 @@ function deleteTab(id, type) {
     else if (type === 7) {
         $(".jobTab_" + id).remove();
     }
+    else if (type === 8) {
+        $(".fileTab_" + id).remove();
+    }
 
     var temp = [];
 
@@ -1131,6 +1247,7 @@ function deleteTab(id, type) {
         $(".jarTab").removeClass('active')
         $(".binaryTab").removeClass('active')
         $(".jobTab").removeClass('active')
+        $(".fileTab").removeClass('active')
         $(".domainTab").addClass('active')
         loadDomainRule();
         // $("#codeEditor").remove();
@@ -1195,6 +1312,13 @@ function returnObj(id, type) {
         for (var i = 0; i < job_rules_list.length; i++) {
             if (id === job_rules_list[i].id) {
                 return job_rules_list[i];
+            }
+        }
+    }
+    else if (type === 8) {
+        for (var i = 0; i < file_rules_list.length; i++) {
+            if (id === file_rules_list[i].type) {
+                return file_rules_list[i];
             }
         }
     }
@@ -1392,6 +1516,41 @@ function loadBinaryRule(id) {
         }
     }
     $(".ruleType").html('Binary Rule');
+    $(".ruleName").html(obj.type);
+
+    $(".detailsBlock").css('display', 'block');
+    $(".messageFields").css('display', 'none');
+    $(".defaultFields").css('display', 'none');
+    $(".jobFields").css('display', 'none');
+    $(".deleteBtn").css('display', 'block');
+
+    $(".simulateBtn").css('display', 'block');
+    $(".simulateBtn").attr('onclick','openSimulateModal(\''+id+'\',3)');
+
+    // setTimeout(function () {
+    //     mqttListen();
+    // }, 1000);
+}
+
+
+function loadFileRule(id) {
+    //  mqttCancelSubscribe(CURRENT_ID);
+    $("#editorContent").html('<div id="codeEditor"></div>');
+    var data = returnObj(id, 8);
+    $("#codeEditor").html('');
+    loadEditor(data ? data.code : '', 'fileTab_'+id);
+    CURRENT_ID = id;
+    CURRENT_TYPE = 8;
+
+    exportRule(8)
+
+    var obj = {};
+    for (var i = 0; i < file_rules_list.length; i++) {
+        if (id === file_rules_list[i].type) {
+            obj = file_rules_list[i];
+        }
+    }
+    $(".ruleType").html('File Rule');
     $(".ruleName").html(obj.type);
 
     $(".detailsBlock").css('display', 'block');
@@ -1620,6 +1779,16 @@ function loadEditor(code, tabid) {
 
             }
 
+            if (CURRENT_TYPE === 8) {
+
+                for (var i = 0; i < file_rules_list.length; i++) {
+                    if (CHANGED_ID === file_rules_list[i].type) {
+                        file_rules_list[i].code = CHANGED_TEXT;
+                    }
+                }
+
+            }
+
 
         }
     });
@@ -1736,6 +1905,24 @@ function loadEditor(code, tabid) {
                     }
                 })
             }
+            else if (CURRENT_TYPE === 8) {
+
+                var obj = returnObj(CURRENT_ID, 8);
+
+                var data = {
+                    lang: 'GROOVY',
+                    code: consoleText,
+                    type: CURRENT_ID,
+                }
+                updateFileRuleCode(data, function (status, data) {
+                    if (status) {
+                        successMsg('Successfully saved!');
+                        loadFileRulesList();
+                    } else {
+                        errorMsg('Error in saving!')
+                    }
+                })
+            }
             else if (CURRENT_TYPE === 7) {
 
                 var obj = returnObj(CURRENT_ID, 7);
@@ -1819,7 +2006,11 @@ function openModal() {
     }else if (id === 6) {
         $("#addBinaryRule form")[0].reset();
         $("#addBinaryRule").modal('show');
-    }else if (id === 7) {
+    }else if (id === 8) {
+        $("#addFileRule form")[0].reset();
+        $("#addFileRule").modal('show');
+    }
+    else if (id === 7) {
 
         if(ADMIN_ACCESS){
             $(".systemTemplate").css('display','block')
@@ -1898,6 +2089,10 @@ function openDeleteModal() {
             $(".delete_rule_name").html('Binary');
             $(".delete_rule_id").html(CURRENT_ID);
         }
+        else if (CURRENT_TYPE === 8) {
+            $(".delete_rule_name").html('File');
+            $(".delete_rule_id").html(CURRENT_ID);
+        }
         else if (CURRENT_TYPE === 7) {
             $(".delete_rule_name").html('Job');
             $(".delete_rule_id").html(CURRENT_ID);
@@ -1966,6 +2161,19 @@ function proceedDelete() {
                 deleteTab(CURRENT_ID, CURRENT_TYPE);
                 successMsg('Successfully deleted');
                 loadBinaryRulesList();
+                $("#deleteModal").modal('hide');
+            } else {
+                errorMsg('Error in delete')
+            }
+        })
+    }
+    else if (CURRENT_TYPE === 8) {
+
+        deleteFileRule(CURRENT_ID, function (status, data) {
+            if (status) {
+                deleteTab(CURRENT_ID, CURRENT_TYPE);
+                successMsg('Successfully deleted');
+                loadFileRulesList();
                 $("#deleteModal").modal('hide');
             } else {
                 errorMsg('Error in delete')
@@ -2155,6 +2363,28 @@ function addBinaryRule() {
             },500)
 
             $("#addBinaryRule").modal('hide');
+        } else {
+            errorMsg('Error in saving!')
+        }
+    })
+
+}
+function addFileRule() {
+    var dataObj = {
+        lang: $("#file_lang").val(),
+        code: "",
+        type: $("#file_rule").val()
+    };
+
+    updateFileRuleCode(dataObj, function (status, data) {
+        if (status) {
+            successMsg('Successfully saved!');
+            loadFileRulesList();
+            setTimeout(function () {
+                loadTabbar(dataObj.type, 8);
+            },500)
+
+            $("#addFileRule").modal('hide');
         } else {
             errorMsg('Error in saving!')
         }
@@ -2691,6 +2921,72 @@ function openSimulateModal(id,type) {
 
         }
     }
+    else if(type === 4){
+
+        var str = '<div id="simulatorModal_'+id+'">' +
+            '<div data-role="body">\n' +
+            '<div class="row>' +
+            '<div class="col-md-12">' +
+            '<p class="mb-0"><label>Upload File File</label></p>' +
+            '<input type="file" class="form-control pb-3 mb-2" style="" id="simulatorInput_'+id+'"/></div>' +
+            '</div>' +
+            '<div class="row">' +
+            '<div class="col-md-12">' +
+            '<button class="btn btn-sm btn-success pull-right btn_'+id+'" onclick="simulateMessage(\''+id+'\','+type+')">Upload File</button>' +
+            '<button class="btn btn-sm btn-default pull-right" onclick="closeSimulator(\''+id+'\')" style="margin-right: 10px;">Close</button>' +
+            '</div> ' +
+            '<div class="col-md-12" style="clear:both;max-height: 200px;overflow: auto;overflow-x: hidden">' +
+            '<code class="code_'+id+'" ></code>' +
+            '</div>' +
+            '</div></div>' +
+            '</div>'
+
+        for(var i=0;i<file_rules_list.length;i++){
+            if(id === file_rules_list[i]['type']){
+                current_filerule_obj = file_rules_list[i]
+            }
+        }
+
+        simulator[id] = current_filerule_obj;
+
+
+        if(!simulatorModal[id]){
+
+            $(".simulatorModal").append(str);
+
+            simulatorModal[id] = $("#simulatorModal_"+id).dialog({
+                resizable: true,
+                open: function(){
+                    var closeBtn = $('.ui-dialog-titlebar-close');
+                    closeBtn.html('X');
+                },
+                // minWidth: 200,
+                // maxWidth: 600,
+                // minHeight: 200,
+                // maxHeight: 450,
+                // width: 450,
+                // height: 300,
+                modal: false,
+                closeText: "x",
+                close: function( event, ui ) {
+                    closeSimulator(id);
+                },
+
+                title: 'Simulate - '+current_filerule_obj.type,
+
+                /*buttons: {
+                    Close: function() {
+                        $( this ).dialog( "close" );
+                        simulatorModal[id] = null;
+                        $("#simulatorModal_"+id).remove();
+                    }
+
+
+                }*/
+            });
+
+        }
+    }
 
 
 
@@ -2760,7 +3056,8 @@ function simulateMessage(id,type) {
             errorMsgBorder("Empty JSON (or) Invalid JSON","simulatorInput_"+id)
         }
 
-    }else if(type === 3){
+    }
+    else if(type === 3){
 
 
         var fileInput = document.getElementById("simulatorInput_"+id);
@@ -2773,6 +3070,21 @@ function simulateMessage(id,type) {
         }
         $(".btn_"+id).attr('disabled', 'disabled');
         uploadBinaryFile(files[0],id);
+
+    }
+    else if(type === 4){
+
+
+        var fileInput = document.getElementById("simulatorInput_"+id);
+
+        var files = fileInput.files;
+
+        if (files.length === 0) {
+            errorMsgBorder('File not found. select a file to start upload',"simulatorInput_"+id);
+            return false;
+        }
+        $(".btn_"+id).attr('disabled', 'disabled');
+        uploadFileRule(files[0],id);
 
     }
 
@@ -2795,6 +3107,29 @@ function uploadBinaryFile(file,id) {
         }
     };
     xhr.open('POST', API_BASE_PATH + '/push/bin/file/' + DOMAIN_KEY+'/'+API_KEY+"/SIMULATOR/WEB/1.0/"+id, true);
+    var formData = new FormData();
+    formData.append("binfile", file, file.name);
+    xhr.send(formData);
+}
+
+function uploadFileRule(file,id) {
+
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            $(".btn_"+id).removeAttr('disabled');
+            if (xhr.status === 200) {
+                var result = JSON.parse(xhr.response);
+
+                $(".code_"+id).append('<p>'+new Date() +' | File upload successfully!</p>');
+                $(".code_"+id).append('<p>'+new Date() +' | Result => '+xhr.response+'</p>');
+
+            } else {
+                $(".code_"+id).append('<p>'+new Date() +' | Error in file rule upload!</p>');
+            }
+        }
+    };
+    xhr.open('POST', API_BASE_PATH + '/push/file/' + DOMAIN_KEY+'/'+API_KEY+"/SIMULATOR/WEB/1.0/"+id, true);
     var formData = new FormData();
     formData.append("binfile", file, file.name);
     xhr.send(formData);
@@ -2913,6 +3248,20 @@ function exportRule(type) {
             lang: 'GROOVY',
             code: consoleText,
             type: CURRENT_ID,
+        }
+
+    }
+
+    else if(type === 8){
+        console.log('File Rule...!');
+        rule_name = 'file-rule-'+CURRENT_ID;
+        var obj = returnObj(CURRENT_ID, 8);
+
+        data = {
+            lang: 'GROOVY',
+            code: consoleText,
+            type: CURRENT_ID,
+            rootPath: obj.rootPath ? obj.rootPath: '',
         }
 
     }
@@ -3045,7 +3394,25 @@ function uploadRuleType(type, data) {
             }
             $("#importModal").modal('hide');
         })
-    }else if (type === 7) {
+    }
+    else if (type === 8) {
+
+        updateFileRuleCode(data, function (status, resdata) {
+            if (status) {
+                successMsg('File Rule Successfully Uploaded!');
+                loadFileRulesList();
+                setTimeout(function () {
+                    loadTabbar(data.type,8)
+                    $("#importModal").modal('hide');
+                },1000)
+
+            } else {
+                errorMsg('Error in saving!')
+            }
+            $("#importModal").modal('hide');
+        })
+    }
+    else if (type === 7) {
 
         updateJobRuleCode(data, function (status, resdata) {
             if (status) {
