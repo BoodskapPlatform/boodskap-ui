@@ -1,4 +1,5 @@
 <link href="css/layout-default-latest.css" rel=stylesheet>
+<link rel="stylesheet" media="screen" type="text/css" href="libraries/colorpicker/spectrum.css" />
 
 <link href="css/rules-engine.css" rel=stylesheet>
 <!--<link href="css/Aimara.css" rel=stylesheet>-->
@@ -361,6 +362,21 @@
                             </div>
                             <!-- end card -->
 
+                            <div class="card processBlock" style="display: none">
+                                <div class="card-header bg-black text-white pointer-cursor collapsed"
+                                     data-toggle="collapse" data-target="#collapseFour" aria-expanded="false">
+                                    Process Details
+                                    <a href="javascript:void(0)" class="pull-right text-white" onclick="openModal(10)"><i
+                                            class="fa fa-edit"></i></a>
+                                </div>
+                                <div id="collapseFour" class="collapse" data-parent="#accordion" style="">
+                                    <div class="card-body pBody">
+
+
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="card jobFields" style="display: none">
                                 <div class="card-header bg-black text-white pointer-cursor collapsed"
                                      data-toggle="collapse" data-target="#collapseTwo1" aria-expanded="false">
@@ -527,6 +543,7 @@
                     <option value="6">Binary Rules</option>
                     <option value="7">Job Rule</option>
                     <option value="8">File Rule</option>
+                    <option value="9">Process Rule</option>
                     <!--<option value="4">Groovy Class</option>-->
                     <!--<option value="5">JAR Class</option>-->
                 </select>
@@ -535,6 +552,11 @@
             <div class=""
                  style="clear: both;background-color: #5f5d5d66;color: #fff;border: 1px solid #eee;">
                 <label style="margin:5px;"><i class="fa fa-search"></i> Search</label>
+
+                <select class="pull-right pOption" id="pType" onchange="loadProcessRulesList()">
+                    <option value="PROCESS">Domain</option>
+                    <option value="GLOBAL_PROCESS">Global</option>
+                </select>
                 <input type="text" class="form-control input-sm" style="background-color: #fffded"
                        placeholder="Search by ID or Name" id="searchInput" onkeyup="searchFunction()"/>
             </div>
@@ -552,6 +574,7 @@
 <script src="js/bootstrap.js"></script>
 <script src="js/jquery-ui-latest.js"></script>
 <script src="js/jquery.layout-latest.js"></script>
+<script type="text/javascript" src="libraries/colorpicker/spectrum.js"></script>
 
 <script src="js/Aimara.js" type="text/javascript"></script>
 <script src="js/editor/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
@@ -646,6 +669,130 @@
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
+<div id="addProcessRule" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form action="javascript:void(0)" onsubmit="addProcessRule()">
+                <div class="modal-header">
+                    <h4 class="modal-title"><span class="tempAction"></span> Process Rule</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div class="form-group">
+                                <label class="inputLabel">Process Name *</label>
+                                <input class="form-control input-sm" placeholder=""
+                                       type="text" id="processName" required onkeyup="changeId(this.value)">
+                                <small>Process ID: <strong id="processId"></strong></small>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div style="float:right;border:1px solid #eee;position: relative" onmouseover="$('.eBtn').removeClass('hide')"
+                                 onmouseout="$('.eBtn').addClass('hide')">
+                                <a href="javascript:void(0)" onclick="$('#processIcon').click()" class="eBtn btn btn-sm btn-default hide"
+                                   style="position: absolute;width: 100%;text-align:center;z-index: 2;bottom:0px;"><i class="fa fa-edit"></i></a>
+                                <img src="images/generate_claim.svg" class="process_img" style="width:48px;height:48px;z-index: 1"/>
+
+                                <input type="file" style="display: none" class="form-control input-box" id="processIcon" onchange="uploadProcessImage()" />
+
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="inputLabel">Color Code</label>
+                                <input type="text" class="form-control input-box" id="processColor" />
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-default btn-sm" style="float: right" onclick="addBlock()"><i class="fa fa-plus"></i> Add</button>
+                            <ul class="nav nav-tabs mt-2" id="myTab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link tclass outClass active" id="output-tab" data-toggle="tab" href="#output" role="tab"
+                                       aria-controls="output" aria-selected="true">Output <span class="text-danger">*</span></a>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link tclass inClass" id="input-tab" data-toggle="tab" href="#input" role="tab"
+                                       aria-controls="input" aria-selected="false">Input</a>
+                                </li>
+
+                            </ul>
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade show active" id="output" role="tabpanel" aria-labelledby="output-tab">
+
+                                    <table class="mt-1" style="width:100%">
+                                        <!--<thead>
+                                        <tr>
+                                            <th style="width: 50%">Key Name</th>
+                                            <th>Data Type</th>
+                                        </tr>
+                                        </thead>-->
+                                        <tbody class="outputBody">
+                                        <tr>
+                                            <td>
+                                                <input required type="text" class="form-control output_key"  placeholder="Key Name" />
+                                            </td>
+                                            <td>
+                                                <select class="form-control output_value" required>
+                                                    <option value="String">String</option>
+                                                    <option value="boolean">boolean</option>
+                                                    <option value="int">int</option>
+                                                    <option value="long">long</option>
+                                                    <option value="float">float</option>
+                                                    <option value="double">double</option>
+                                                    <option value="byte">byte</option>
+                                                    <option value="short">short</option>
+                                                    <option value="char">char</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+
+
+
+                                </div>
+                                <div class="tab-pane fade" id="input" role="tabpanel" aria-labelledby="input-tab">
+
+                                    <table class="mt-1" style="width:100%">
+                                        <tbody class="inputBody">
+
+                                        </tbody>
+                                    </table>
+
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="inputLabel">Group</label>
+                            <input class="form-control input-sm" placeholder=""
+                                   type="text" id="pGroup">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="inputLabel">Tags</label>
+                            <input class="form-control input-sm" placeholder=""
+                                   type="text" id="pTags">
+                            <small>Note: comma separated value</small>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="inputLabel">Description</label>
+                            <textarea class="form-control input-sm"  id="description"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btnModal pBtn">Save changes</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 <div id="addNamedRule" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
@@ -1075,3 +1222,49 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+
+
+<script id="outputHtml" type="text/html">
+    <tr>
+        <td>
+            <input type="text" class="form-control output_key"  placeholder="Key Name" required />
+        </td>
+        <td>
+            <select class="form-control output_value mt-3" required>
+                <option value="String">String</option>
+                <option value="boolean">boolean</option>
+                <option value="int">int</option>
+                <option value="long">long</option>
+                <option value="float">float</option>
+                <option value="double">double</option>
+                <option value="byte">byte</option>
+                <option value="short">short</option>
+                <option value="char">char</option>
+            </select>
+            <a href="javascript:void(0)" style="float: right;font-size: 10px" onclick="$(this).parent().parent().remove()"><i class="fa fa-close"></i> Remove</a>
+        </td>
+    </tr>
+</script>
+
+<script id="inputHtml" type="text/html">
+    <tr>
+        <td>
+            <input type="text" class="form-control input_key"  placeholder="Key Name"/>
+        </td>
+        <td>
+            <select class="form-control input_value mt-3" required>
+                <option value="String">String</option>
+                <option value="boolean">boolean</option>
+                <option value="int">int</option>
+                <option value="long">long</option>
+                <option value="float">float</option>
+                <option value="double">double</option>
+                <option value="byte">byte</option>
+                <option value="short">short</option>
+                <option value="char">char</option>
+            </select>
+            <a href="javascript:void(0)" style="float: right;font-size: 10px" onclick="$(this).parent().parent().remove()"><i class="fa fa-close"></i> Remove</a>
+        </td>
+    </tr>
+</script>

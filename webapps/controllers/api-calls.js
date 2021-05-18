@@ -422,6 +422,32 @@ function listFileRules(pageSize, direction, type, cbk) {
 
 }
 
+function listProcessRules(query,type, cbk) {
+
+        var data = {
+            "type": type,
+            "query": JSON.stringify(query),
+        }
+
+        $.ajax({
+            url: API_BASE_PATH + "/elastic/search/query/" + API_TOKEN,
+            data: JSON.stringify(data),
+            contentType: "application/json",
+            type: 'POST',
+            success: function (data) {
+                //called when successful
+                cbk(true, data);
+            },
+            error: function (e) {
+                //called when there is an error
+                //console.log(e.message);
+                cbk(false, e);
+            }
+        });
+
+
+}
+
 function listBinaryRules(pageSize, direction, type, cbk) {
 
     var data = {};
@@ -680,6 +706,28 @@ function updateJobRuleCode(data, cbk) {
 
 }
 
+
+function updateProcessRuleCode(data, cbk) {
+
+
+    $.ajax({
+        url: API_BASE_PATH + "/process/upsert/" + API_TOKEN+($("#pType").val() ? ($("#pType").val()== 'PROCESS' ? '?rtype=DOMAIN' : '?rtype=GLOBAL') : ''),
+        data: JSON.stringify(data),
+        contentType: "application/json",
+        type: 'POST',
+        success: function (data) {
+            //called when successful
+            cbk(true, data);
+        },
+        error: function (e) {
+            //called when there is an error
+            //console.log(e.message);
+            cbk(false, null);
+        }
+    });
+
+}
+
 function updateNamedRuleCode(data, cbk) {
 
     //{"lang":"GROOVY","code":"","name":"Flow Meter Message"}
@@ -777,6 +825,26 @@ function deleteJobRule(data, cbk) {
         url: API_BASE_PATH + "/jobs/delete/" + API_TOKEN + "/" + data,
         // data:  JSON.stringify(data),
         contentType: "text/plain",
+        type: 'DELETE',
+        success: function (data) {
+            //called when successful
+            cbk(true, data);
+        },
+        error: function (e) {
+            //called when there is an error
+            //console.log(e.message);
+            cbk(false, null);
+        }
+    });
+
+}
+
+
+function deleteProcessRule(id, cbk) {
+
+    $.ajax({
+        url: API_BASE_PATH +"/process/delete/" + API_TOKEN + "/" + id,
+        contentType: "application/json",
         type: 'DELETE',
         success: function (data) {
             //called when successful

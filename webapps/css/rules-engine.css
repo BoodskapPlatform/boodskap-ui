@@ -102,6 +102,16 @@
     font-weight: bold;
 }
 
+.processTab.active{
+    border-bottom: 5px solid #4caf50;
+}
+.processTab a{
+    color:#4caf50 !important;
+}
+.processTab.active a{
+    font-weight: bold;
+}
+
 
 
 .jobTab.active{
@@ -354,3 +364,21 @@
 .bg-black, .bg-inverse {
     background-color: #424242!important;
 }
+
+
+#addProcessRule .nav-tabs .nav-item.show .nav-link,#addProcessRule .nav-tabs .nav-link.active {
+    color: #4F5467;
+    font-weight: bold;
+    background-color: #fff;
+    border-color: #dee2e6 #dee2e6 #fff !important;
+}
+#addProcessRule .nav-tabs .nav-link {
+    border: 1px solid transparent !important;
+    border-top-left-radius: .25rem;
+    border-top-right-radius: .25rem;
+}
+#addProcessRule .nav li a {
+    padding: 5px 10px;
+    color: #666 !important;
+}
+

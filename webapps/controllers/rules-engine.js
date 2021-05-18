@@ -8,6 +8,7 @@ var named_rules_list = [];
 var binary_rules_list = [];
 var file_rules_list = [];
 var job_rules_list = [];
+var process_rules_list = [];
 var groovy_class_list = [];
 var jar_class_list = [];
 var tabbar_list = [];
@@ -22,6 +23,7 @@ var current_msg_obj = null;
 var current_namedrule_obj = null;
 var current_binaryrule_obj = null;
 var current_filerule_obj = null;
+var current_processrule_obj = null;
 var simulatorModal = {};
 var simulator = {};
 var scriptTerminal = null;
@@ -175,6 +177,12 @@ function mqttListen() {
 
         mqttSubscribe("/" + USER_OBJ.domainKey + "/log/#", 0);
 
+        mqttSubscribe("/global/#", 0);
+
+        if(ADMIN_ACCESS){
+            mqttSubscribe("/system/#", 0);
+        }
+
 
         mqtt_client.onMessageArrived = function (message) {
 
@@ -199,6 +207,7 @@ function mqttListen() {
                 mqttBinaryRule(topicName, parsedData);
                 mqttJobRule(topicName, parsedData);
                 mqttFileRule(topicName, parsedData);
+                mqttProcessRule(topicName, parsedData);
 
             } else {
                 if (CURRENT_TYPE === 0) {
@@ -221,6 +230,9 @@ function mqttListen() {
                 }
                 else if (CURRENT_TYPE === 8) {
                     mqttFileRule(topicName, parsedData);
+                }
+                else if (CURRENT_TYPE === 9) {
+                    mqttProcessRule(topicName, parsedData);
                 }
 
             }
@@ -491,7 +503,44 @@ function mqttBinaryRule(topicName, parsedData) {
     }
 }
 
+function mqttProcessRule(topicName, parsedData) {
+    var nodeClass = new Date().getTime();
+    var color = 'default';
 
+    console.log("JOB =>", topicName)
+
+    if (topicName.includes("/proc/")) {
+
+        if (parsedData.data !== '__ALL_DONE__') {
+            var level = parsedData.level;
+
+            if($("."+level.toLowerCase()).is(":checked")) {
+
+                var fields = '';
+
+                if($(".node").is(":checked")){
+                    fields+= ' ['+parsedData.node+'] '
+                }
+                if($(".session").is(":checked")){
+                    fields+= ' ['+parsedData.session+'] '
+                }
+
+                var rName = topicName.split("/")[4];
+                $(".loggerHtml").append("<div title='Process Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
+                    "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
+                    "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
+                    "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " + fields +
+                    "<span style='white-space: pre-wrap;padding-left: 10px;'>" + parsedData.data + "</span></div>");
+            }
+
+        }
+        if (parsedData.data === '__ALL_DONE__') {
+            $('.consoleBox').animate({
+                scrollTop: $(".loggerHtml").height()
+            }, 100);
+        }
+    }
+}
 
 function mqttJobRule(topicName, parsedData) {
     var nodeClass = new Date().getTime();
@@ -542,6 +591,10 @@ function mqttCancelSubscribe(id) {
     try {
 
         mqttUnsubscribe("/" + USER_OBJ.domainKey + "/log/#");
+        if(ADMIN_ACCESS){
+            mqttUnsubscribe("/system/#");
+        }
+        mqttUnsubscribe("/global/#");
 
     }
     catch (e) {
@@ -580,6 +633,7 @@ function loadRules(id) {
     // $(".messageTab").remove();
     // $(".scheduleTab").remove();
     // $(".namedTab").remove();
+    $(".pOption").css('display','none')
     $(".detailsBlock").css('display', 'block')
     if (id === 1) {
         loadMessageRulesList();
@@ -602,6 +656,10 @@ function loadRules(id) {
     }
     else if (id === 8) {
         loadFileRulesList();
+    }
+    else if (id === 9) {
+        $(".pOption").css('display','block')
+        loadProcessRulesList();
     }
 }
 
@@ -783,6 +841,47 @@ function loadFileRulesList() {
 }
 
 
+function loadProcessRulesList() {
+    var query = {
+        from:0,
+        size:1000
+    }
+    $(".rulesList").html("");
+    listProcessRules(query,$("#pType").val(), function (status, data) {
+
+        $(".rulesList").append('<li class="" onclick="loadProcessRulesList()" title="click here to reload" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
+            '<img src="images/folder.png" /> <b> Process Rules</b> <span class="loaderSpin"></span></li>');
+
+        $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
+
+        setTimeout(function () {
+            $(".loaderSpin").html('');
+        }, 1000);
+
+        $('[data-toggle="tooltip"]').tooltip()
+
+        if(status){
+
+            var resultData = QueryFormatter(data).data;
+
+            data = resultData.data;
+
+            process_rules_list = data;
+
+            for (var i = 0; i < data.length; i++) {
+
+                var str = '<li class="rulesListli rule_' + data[i].id + '" data-id="' + data[i].id + '" onclick="loadTabbar(\'' + data[i].id + '\',9)">' +
+                    '<img src="images/file.png" /> <b>' + data[i].name + '</b></li>';
+                $(".rulesList").append(str);
+
+            }
+        } else {
+            errorMsg('No Process Rules Found!')
+        }
+    })
+}
+
+
 function loadJobRulesList() {
     listJobRules(function (status, data) {
         $(".rulesList").html("");
@@ -900,6 +999,7 @@ function loadTabbar(id, type) {
     $(".messageFields").css('display', 'none');
     $(".jobFields").css('display', 'none');
     $(".defaultFields").css('display', 'none');
+    $(".processBlock").css('display', 'none');
 
 
     if (_.indexOf(tabbar_list, id) < 0) {
@@ -995,6 +1095,21 @@ function loadTabbar(id, type) {
                 '</li>';
         }
 
+        else if (type === 9) {
+
+            var obj = {};
+            for (var i = 0; i < process_rules_list.length; i++) {
+                if (id === process_rules_list[i].id) {
+                    obj = process_rules_list[i];
+                }
+            }
+
+            str = '<li role="presentation" class="processTab tabbar processTab_' + id + '"  >' +
+                '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadProcessRule(\'' + id + '\')>' + obj.name + ' ' +
+                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',9)" title="close"><i class="fa fa-close"></i></span></a>' +
+                '</li>';
+        }
+
         tabbar_list.push(id);
         $(".editorBar").append(str);
 
@@ -1008,6 +1123,7 @@ function loadTabbar(id, type) {
     $(".jobTab").removeClass('active');
     $(".jarTab").removeClass('active');
     $(".fileTab").removeClass('active');
+    $(".processTab").removeClass('active');
 
     var obj = {};
 
@@ -1133,11 +1249,87 @@ function loadTabbar(id, type) {
 
         $(".exportBtn").attr('onclick','exportRule(7)')
     }
+    else if (type === 9) {
+        loadProcessRule(id);
+        $(".processTab_" + id).addClass('active');
+
+        for (var i = 0; i < process_rules_list.length; i++) {
+            if (id === process_rules_list[i].id) {
+                obj = process_rules_list[i];
+            }
+        }
+
+        loadProcessDetails(id,obj);
+
+        $(".processBlock").css('display', 'block')
+        $(".ruleType").html('Process Rule');
+        $(".ruleName").html(obj.name);
+        $(".exportBtn").attr('onclick','exportRule(9)')
+    }
 
 
     $(".ruleLanguage").html('GROOVY')
     $('[data-toggle="tooltip"]').tooltip()
 
+}
+
+function loadProcessDetails(id,obj) {
+    var output = '';
+    var input = '';
+
+    for(var k in obj.output){
+        output+= '<tr><td>'+k+'</td><td>'+obj.output[k]+'</td></tr>'
+    }
+    if(obj.input) {
+        for (var k in obj.input) {
+            input += '<tr><td>' + k + '</td><td>' + obj.input[k] + '</td></tr>'
+        }
+    }
+
+    $(".pBody").html('<p><strong><br>Process ID <span style="height:12px;width:12px;display:inline-block;background-color: '+obj.properties.color+'"></span></strong>' +
+        '<label style="    width: 100%;">'+id+' </label>' +
+        '<img src="'+obj.properties.logo+'" style="width:48px;height:48px;">'+
+
+        '</p>' +
+        '<strong>Output</strong><br>\n' +
+    '<table class="table table-bordered table-striped">' +
+        // '<thead><tr><th>Keyname</th><th>Datatype</th></tr></thead>' +
+        '<tbody>' +output+
+    '</tbody></table>\n' +
+        (input ? '<strong>Input</strong><br>\n' +
+        '<table class="table table-bordered table-striped">' +
+        // '<thead><tr><th>Keyname</th><th>Datatype</th></tr></thead>' +
+        '<tbody>' +input+
+        '</tbody></table>\n' : '')+
+    '<p>\n' +
+    '<strong>Group</strong><br>\n' +
+    '<label>'+(obj.group ? obj.group : '-')+'</label>\n' +
+    '</p>\n' +
+    '<p>\n' +
+    '<strong>Tags</strong><br>\n' +
+        '<label>'+(obj.tags ? obj.tags : '-')+'</label>\n' +
+    '</p>\n' +
+    '<p>\n' +
+    '<strong>Description</strong><br>\n' +
+        '<label>'+(obj.description ? obj.description : '-')+'</label>\n' +
+    '</p>'+
+    '<p>\n' +
+    '<strong>Updated By</strong><br>\n' +
+    '<label>'+(obj.updatedBy ? obj.updatedBy : '-')+'</label>\n' +
+    '</p>'+
+    '<p>\n' +
+    '<strong>Updated Time</strong><br>\n' +
+    '<label>'+(obj.updatedTime ? moment(obj.updatedTime).format('MM/DD/YYYY hh:mm a') : '-')+'</label>\n' +
+    '</p>'+
+    '<p>\n' +
+    '<strong>Created By</strong><br>\n' +
+        '<label>'+(obj.createdBy ? obj.createdBy : '-')+'</label>\n' +
+    '</p>'+
+    '<p>\n' +
+    '<strong>Created Time</strong><br>\n' +
+    '<label>'+(obj.createdTime ? moment(obj.createdTime).format('MM/DD/YYYY hh:mm a') : '-')+'</label>\n' +
+    '</p>'
+    );
 }
 
 function loadJobDetails(id,obj) {
@@ -1229,6 +1421,9 @@ function deleteTab(id, type) {
     else if (type === 8) {
         $(".fileTab_" + id).remove();
     }
+    else if (type === 9) {
+        $(".processTab_" + id).remove();
+    }
 
     var temp = [];
 
@@ -1248,6 +1443,7 @@ function deleteTab(id, type) {
         $(".binaryTab").removeClass('active')
         $(".jobTab").removeClass('active')
         $(".fileTab").removeClass('active')
+        $(".processTab").removeClass('active')
         $(".domainTab").addClass('active')
         loadDomainRule();
         // $("#codeEditor").remove();
@@ -1319,6 +1515,13 @@ function returnObj(id, type) {
         for (var i = 0; i < file_rules_list.length; i++) {
             if (id === file_rules_list[i].type) {
                 return file_rules_list[i];
+            }
+        }
+    }
+    else if (type === 9) {
+        for (var i = 0; i < process_rules_list.length; i++) {
+            if (id === process_rules_list[i].id) {
+                return process_rules_list[i];
             }
         }
     }
@@ -1598,6 +1801,38 @@ function loadJobRule(id) {
     // }, 1000);
 }
 
+function loadProcessRule(id) {
+    $(".simulateBtn").css('display', 'none');
+    //  mqttCancelSubscribe(CURRENT_ID);
+    $("#editorContent").html('<div id="codeEditor"></div>');
+    var data = returnObj(id, 9);
+    $("#codeEditor").html('');
+
+    loadEditor(data.code ? data.code : '', 'processTab_'+id);
+
+    CURRENT_ID = id;
+    CURRENT_TYPE = 9;
+
+    exportRule(9)
+
+    $(".ruleType").html('Process Rule');
+    $(".ruleName").html(data.id);
+
+    $(".detailsBlock").css('display', 'block');
+    $(".messageFields").css('display', 'none');
+    $(".defaultFields").css('display', 'none');
+    $(".deleteBtn").css('display', 'block');
+    $(".jobFields").css('display', 'none');
+    $(".processBlock").css('display', 'block');
+
+    loadProcessDetails(id,data)
+
+
+    // setTimeout(function () {
+    //     mqttListen();
+    // }, 1000);
+}
+
 function loadScheduleRule(id) {
     $(".simulateBtn").css('display', 'none');
     // mqttCancelSubscribe(CURRENT_ID);
@@ -1789,6 +2024,16 @@ function loadEditor(code, tabid) {
 
             }
 
+            if (CURRENT_TYPE === 9) {
+
+                for (var i = 0; i < process_rules_list.length; i++) {
+                    if (CHANGED_ID === process_rules_list[i].id) {
+                        process_rules_list[i].code = CHANGED_TEXT;
+                    }
+                }
+
+            }
+
 
         }
     });
@@ -1949,6 +2194,23 @@ function loadEditor(code, tabid) {
                     }
                 })
             }
+            else if (CURRENT_TYPE === 9) {
+
+                var obj = returnObj(CURRENT_ID, 9);
+
+                obj['code'] = consoleText;
+
+                delete obj._id;
+
+                updateProcessRuleCode(obj, function (status, data) {
+                    if (status) {
+                        successMsg('Successfully saved!');
+                        loadProcessRulesList();
+                    } else {
+                        errorMsg('Error in saving!')
+                    }
+                })
+            }
         }
     });
 }
@@ -1970,8 +2232,8 @@ function resizeEditor() {
 var MSG_FIELD_COUNT = 0;
 var CRON_JOB = null;
 
-function openModal() {
-    var id = $("#rulesType").val() * 1
+function openModal(e) {
+    var id = e ? e : $("#rulesType").val() * 1
 
     if (id === 1) {
 
@@ -2009,6 +2271,119 @@ function openModal() {
     }else if (id === 8) {
         $("#addFileRule form")[0].reset();
         $("#addFileRule").modal('show');
+    }
+    else if (id === 9) {
+        $(".tempAction").html('Add');
+        $("#processName").removeAttr('disabled')
+
+        $("#addProcessRule form")[0].reset();
+
+        $("#processId").html('')
+        uploadImage = 'images/generate_claim.svg';
+        $(".process_img").attr('src', uploadImage);
+        $("#processColor").spectrum({
+            showPaletteOnly: true,
+            togglePaletteOnly: true,
+            togglePaletteMoreText: 'more',
+            togglePaletteLessText: 'less',
+            showInput: true,
+            color: 'blanchedalmond',
+            palette: [
+                ["#000","#444","#666","#999","#ccc","#eee","#f3f3f3","#fff"],
+                ["#f00","#f90","#ff0","#0f0","#0ff","#00f","#90f","#f0f"],
+                ["#f4cccc","#fce5cd","#fff2cc","#d9ead3","#d0e0e3","#cfe2f3","#d9d2e9","#ead1dc"],
+                ["#ea9999","#f9cb9c","#ffe599","#b6d7a8","#a2c4c9","#9fc5e8","#b4a7d6","#d5a6bd"],
+                ["#e06666","#f6b26b","#ffd966","#93c47d","#76a5af","#6fa8dc","#8e7cc3","#c27ba0"],
+                ["#c00","#e69138","#f1c232","#6aa84f","#45818e","#3d85c6","#674ea7","#a64d79"],
+                ["#900","#b45f06","#bf9000","#38761d","#134f5c","#0b5394","#351c75","#741b47"],
+                ["#600","#783f04","#7f6000","#274e13","#0c343d","#073763","#20124d","#4c1130"]
+            ]
+        });
+        $("#processColor").spectrum("set", '#ccc');
+
+        $("#addProcessRule form").attr('onsubmit','addProcessRule()')
+
+        $("#addProcessRule").modal('show');
+    }
+    else if (id === 10) {
+        $(".tempAction").html('Update');
+
+        $("#addProcessRule form")[0].reset();
+
+        var obj = {};
+
+        for (var i = 0; i < process_rules_list.length; i++) {
+            if (CURRENT_ID === process_rules_list[i].id) {
+                obj = process_rules_list[i];
+            }
+        }
+        $("#addProcessRule form").attr('onsubmit','updateProcessRule(\''+CURRENT_ID+'\')')
+        $("#processName").val(obj.name)
+        $("#processId").html(obj.id)
+        $("#processName").attr('disabled','disabled')
+        $("#processColor").spectrum({
+            showPaletteOnly: true,
+            togglePaletteOnly: true,
+            togglePaletteMoreText: 'more',
+            togglePaletteLessText: 'less',
+            color: 'blanchedalmond',
+            showInput: true,
+            palette: [
+                ["#000","#444","#666","#999","#ccc","#eee","#f3f3f3","#fff"],
+                ["#f00","#f90","#ff0","#0f0","#0ff","#00f","#90f","#f0f"],
+                ["#f4cccc","#fce5cd","#fff2cc","#d9ead3","#d0e0e3","#cfe2f3","#d9d2e9","#ead1dc"],
+                ["#ea9999","#f9cb9c","#ffe599","#b6d7a8","#a2c4c9","#9fc5e8","#b4a7d6","#d5a6bd"],
+                ["#e06666","#f6b26b","#ffd966","#93c47d","#76a5af","#6fa8dc","#8e7cc3","#c27ba0"],
+                ["#c00","#e69138","#f1c232","#6aa84f","#45818e","#3d85c6","#674ea7","#a64d79"],
+                ["#900","#b45f06","#bf9000","#38761d","#134f5c","#0b5394","#351c75","#741b47"],
+                ["#600","#783f04","#7f6000","#274e13","#0c343d","#073763","#20124d","#4c1130"]
+            ]
+        });
+
+        $("#processColor").spectrum("set", obj.properties && obj.properties.color ? obj.properties.color : '#ccccc');
+
+        uploadImage = obj.properties && obj.properties.logo ? obj.properties.logo : 'images/generate_claim.svg';
+
+        $(".process_img").attr('src', uploadImage);
+
+        $(".outputBody").html('');
+        $(".inputBody").html('');
+
+        var output = [];
+        var input = [];
+
+        for(var k in obj.output){
+            $(".outputBody").append($("#outputHtml").html());
+            output.push({key:k,value:obj.output[k]})
+        }
+
+        $( ".output_value" ).each(function( index ) {
+            $(this).val(output[index].value);
+        });
+        $( ".output_key" ).each(function( index ) {
+            $(this).val(output[index].key);
+        });
+
+        for(var k in obj.input){
+            $(".inputBody").append($("#inputHtml").html());
+            input.push({key:k,value:obj.input[k]})
+        }
+
+        $( ".input_value").each(function( index ) {
+            $(this).val(input[index].value);
+        });
+        $( ".input_key" ).each(function( index ) {
+            $(this).val(input[index].key);
+        });
+
+
+        $("#description").val(obj.description)
+        $("#pGroup").val(obj.group)
+        $("#pTags").val(obj.tags)
+
+
+
+        $("#addProcessRule").modal('show');
     }
     else if (id === 7) {
 
@@ -2095,6 +2470,10 @@ function openDeleteModal() {
         }
         else if (CURRENT_TYPE === 7) {
             $(".delete_rule_name").html('Job');
+            $(".delete_rule_id").html(CURRENT_ID);
+        }
+        else if (CURRENT_TYPE === 9) {
+            $(".delete_rule_name").html('Process');
             $(".delete_rule_id").html(CURRENT_ID);
         }
         $("#deleteModal").modal('show');
@@ -2187,6 +2566,19 @@ function proceedDelete() {
                 deleteTab(CURRENT_ID, CURRENT_TYPE);
                 successMsg('Successfully deleted');
                 loadJobRulesList();
+                $("#deleteModal").modal('hide');
+            } else {
+                errorMsg('Error in delete')
+            }
+        })
+    }
+    else if (CURRENT_TYPE === 9) {
+
+        deleteProcessRule(CURRENT_ID, function (status, data) {
+            if (status) {
+                deleteTab(CURRENT_ID, CURRENT_TYPE);
+                successMsg('Successfully deleted');
+                loadProcessRulesList();
                 $("#deleteModal").modal('hide');
             } else {
                 errorMsg('Error in delete')
@@ -2385,6 +2777,195 @@ function addFileRule() {
             },500)
 
             $("#addFileRule").modal('hide');
+        } else {
+            errorMsg('Error in saving!')
+        }
+    })
+
+}
+
+function addProcessRule() {
+
+    var defaultCode = '//Return function should be always Map\n\nreturn [_chain:false,_next:-1,_invoke:""];'
+
+    var data = {
+        "output": {
+        },
+        "input": {
+        },
+        "code": defaultCode,
+        "name": $("#processName").val(),
+        "description": $("#description").val(),
+        "language": "GROOVY",
+        "id": $.trim($("#processName").val()).toUpperCase().replace(/\s/g, '_'),
+        "properties": {
+            "color": $("#processColor").spectrum("get").toHexString(),
+            "logo": uploadImage
+        },
+        "domainKey": DOMAIN_KEY,
+        "group": $("#pGroup").val(),
+        "tags": $("#pGroup").val()
+    }
+
+    var input = {};
+
+    var inputKey= $(".input_key").map(function() {
+        return $(this).val();
+    }).get();
+    var inputValue= $(".input_value").map(function() {
+        return $(this).val();
+    }).get();
+
+    for(var i=0;i<inputKey.length;i++){
+
+        if(inputKey[i]){
+            input[inputKey[i]] =  inputValue[i];
+        }
+
+    };
+
+    data['input'] = input;
+
+    var output = {};
+
+    var outputKey= $(".output_key").map(function() {
+        return $(this).val();
+    }).get();
+
+    if(outputKey.length === 0){
+        errorMsg('Output is mandatory to get the process response')
+        return false;
+    }
+
+    $(".pBtn").attr('disabled','disabled')
+    $(".pBtn").html('<i class="fa fa-spinner fa-spin"></i> Processing...')
+
+    var outputValue= $(".output_value").map(function() {
+        return $(this).val();
+    }).get();
+
+    for(var i=0;i<outputKey.length;i++){
+
+        if(outputKey[i]){
+            output[outputKey[i]] =  outputValue[i];
+        }
+
+    };
+
+    data['output'] = output;
+
+
+    updateProcessRuleCode(data, function (status, result) {
+        $(".pBtn").removeAttr('disabled')
+        $(".pBtn").html('Save Changes')
+        if (status) {
+            successMsg('Successfully saved!');
+            loadProcessRulesList();
+            setTimeout(function () {
+                loadTabbar(data.id, 9);
+            },500)
+
+            $("#addProcessRule").modal('hide');
+        } else {
+            errorMsg('Error in saving!')
+        }
+    })
+
+}
+
+function updateProcessRule(id) {
+
+
+    var obj = {};
+
+    for (var i = 0; i < process_rules_list.length; i++) {
+        if (id === process_rules_list[i].id) {
+            obj = process_rules_list[i];
+        }
+    }
+
+    var defaultCode = '//Return function should be always Map\n\nreturn [_chain:false,_next:-1,_invoke:""];'
+
+    var data = {
+        "output": {
+        },
+        "input": {
+        },
+        "code": codeEditor.getSession().getValue(),
+        "name": $("#processName").val(),
+        "description": $("#description").val(),
+        "language": "GROOVY",
+        "id": $.trim($("#processName").val()).toUpperCase().replace(/\s/g, '_'),
+        "properties": {
+            "color": $("#processColor").spectrum("get").toHexString(),
+            "logo": uploadImage
+        },
+        "domainKey": DOMAIN_KEY,
+        "group": $("#pGroup").val(),
+        "tags": $("#pGroup").val(),
+        createdBy: obj.createdBy,
+        createdTime: obj.createdTime
+    }
+
+    var input = {};
+
+    var inputKey= $(".input_key").map(function() {
+        return $(this).val();
+    }).get();
+    var inputValue= $(".input_value").map(function() {
+        return $(this).val();
+    }).get();
+
+    for(var i=0;i<inputKey.length;i++){
+
+        if(inputKey[i]){
+            input[inputKey[i]] =  inputValue[i];
+        }
+
+    };
+
+    data['input'] = input;
+
+    var output = {};
+
+    var outputKey= $(".output_key").map(function() {
+        return $(this).val();
+    }).get();
+
+    if(outputKey.length === 0){
+        errorMsg('Output is mandatory to get the process response')
+        return false;
+    }
+
+    $(".pBtn").attr('disabled','disabled')
+    $(".pBtn").html('<i class="fa fa-spinner fa-spin"></i> Processing...')
+
+    var outputValue= $(".output_value").map(function() {
+        return $(this).val();
+    }).get();
+
+    for(var i=0;i<outputKey.length;i++){
+
+        if(outputKey[i]){
+            output[outputKey[i]] =  outputValue[i];
+        }
+
+    };
+
+    data['output'] = output;
+
+
+    updateProcessRuleCode(data, function (status, result) {
+        $(".pBtn").removeAttr('disabled')
+        $(".pBtn").html('Save Changes')
+        if (status) {
+            successMsg('Successfully saved!');
+            loadProcessRulesList();
+            setTimeout(function () {
+                loadTabbar(data.id, 9);
+            },500)
+
+            $("#addProcessRule").modal('hide');
         } else {
             errorMsg('Error in saving!')
         }
@@ -3265,6 +3846,17 @@ function exportRule(type) {
         }
 
     }
+    else if(type === 9){
+        console.log('Process Rule...!');
+        rule_name = 'process-rule-'+CURRENT_ID;
+        var obj = returnObj(CURRENT_ID, 9);
+
+        delete obj._id;
+        obj['code'] = consoleText;
+
+        data = obj;
+
+    }
 
     else if(type === 7){
         console.log('Job Rule...!');
@@ -3403,6 +3995,23 @@ function uploadRuleType(type, data) {
                 loadFileRulesList();
                 setTimeout(function () {
                     loadTabbar(data.type,8)
+                    $("#importModal").modal('hide');
+                },1000)
+
+            } else {
+                errorMsg('Error in saving!')
+            }
+            $("#importModal").modal('hide');
+        })
+    }
+    else if (type === 9) {
+
+        updateProcessRuleCode(data, function (status, resdata) {
+            if (status) {
+                successMsg('Process Rule Successfully Uploaded!');
+                loadProcessRulesList();
+                setTimeout(function () {
+                    loadTabbar(data.type,9)
                     $("#importModal").modal('hide');
                 },1000)
 
@@ -3636,3 +4245,60 @@ function loadElasticHelp() {
             '</div>');
     }
 }
+
+
+function changeId(val) {
+    $("#processId").html($.trim($("#processName").val()).toUpperCase().replace(/\s/g, '_'))
+}
+
+function addBlock() {
+    if($(".tclass.active").hasClass('outClass')){
+        $(".outputBody").append($("#outputHtml").html());
+    }else{
+        $(".inputBody").append($("#inputHtml").html());
+    }
+
+}
+
+var uploadImage = 'images/generate_claim.svg';
+
+
+function uploadProcessFile(file) {
+
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+
+            if (xhr.status === 200) {
+                var result = JSON.parse(xhr.response);
+                uploadImage = API_BASE_PATH + '/files/public/download/' + result.id;
+                $(".process_img").attr('src', API_BASE_PATH + '/files/public/download/' + result.id+ '?' + new Date().getTime());
+            } else {
+                errorMsg('Error in image upload!');
+            }
+        }
+    };
+    xhr.open('POST', API_BASE_PATH + '/files/upload/' + API_TOKEN+'?ispublic=true', true);
+    var formData = new FormData();
+    formData.append("binfile", file, file.name);
+    formData.append("mediaType", file.type);
+    formData.append("tags", 'process Picture');
+    formData.append("description", '');
+    xhr.send(formData);
+}
+
+function uploadProcessImage() {
+
+    var fileInput = document.getElementById("processIcon");
+
+    var files = fileInput.files;
+
+    if (files.length === 0) {
+        errorMsg('File not found. select a file to start upload');
+        return false;
+    }
+
+    uploadProcessFile(files[0]);
+
+}
+
