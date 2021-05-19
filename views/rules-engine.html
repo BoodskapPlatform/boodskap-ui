@@ -554,11 +554,12 @@
                  style="clear: both;background-color: #5f5d5d66;color: #fff;border: 1px solid #eee;">
                 <label style="margin:5px;"><i class="fa fa-search"></i> Search</label>
 
+                <a onclick="$('.pFilter').toggle()" href="javascript:void(0)" style="font-size: 1rem;" class="pOption pull-right ml-1 mr-1 text-dark"><i class="fa fa-filter"></i> </a>
+
                 <select class="pull-right pOption" id="pType" onchange="loadProcessRulesList()">
                     <option value="DOMAIN">Domain</option>
                 </select>
 
-                <a onclick="$('.pFilter').toggle()" href="javascript:void(0)" style="font-size: 1rem;" class="pOption pull-right mr-2 text-dark"><i class="fa fa-filter"></i> </a>
 
                 <input type="text" class="form-control input-sm" style="background-color: #fffded"
                        placeholder="Search by ID or Name" id="searchInput" onkeyup="searchFunction()"/>
