@@ -892,7 +892,7 @@ function loadProcessRulesListAggs(){
 
             var resultData = QueryFormatter(data);
 
-            $("#pfGroup").html('<option value=""></option>')
+            $("#pfGroup").html('<option value="">All Groups</option>')
             var aggs = resultData.aggregations.group.buckets;
 
             for (var i = 0; i < aggs.length; i++) {
