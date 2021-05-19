@@ -3459,6 +3459,24 @@ function dropSQLTableIndex(table, field, ignore, cbk) {
 
 }
 
+
+function setAccess(dkey,access, state, cbk) {
+
+    $.ajax({
+        url: API_BASE_PATH + "/domain/access/" + API_TOKEN + '/' + dkey +'/' + access + '/' + state,
+        type: 'PUT',
+        success: function (data) {
+            //called when successful
+            cbk(true, data);
+        },
+        error: function (e) {
+            //called when there is an error
+            //console.log(e.message);
+            cbk(false, e);
+        }
+    });
+}
+
 //DB Calls
 
 function checkDBAccess(dkey, cbk) {

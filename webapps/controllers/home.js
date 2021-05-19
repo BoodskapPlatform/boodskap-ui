@@ -420,7 +420,7 @@ function checkSQL(dkey) {
 }
 function sqlAccess(dkey, state) {
 
-    setSQLAccess(dkey, state, function (status, data) {
+    setAccess(dkey,'SQL', state, function (status, data) {
         if(status){
 
 
@@ -480,7 +480,7 @@ function checkDB(dkey) {
 }
 function dbAccess(dkey, state) {
 
-    setDBAccess(dkey, state, function (status, data) {
+    setAccess(dkey,'DB', state, function (status, data) {
         if(status){
 
             if(data.state){
@@ -539,7 +539,7 @@ function checkMongo(dkey) {
 }
 function mongoAccess(dkey, state) {
 
-    setMongoAccess(dkey, state, function (status, data) {
+    setAccess(dkey,'MONGO', state, function (status, data) {
         if(status){
 
             if(data.state){
@@ -598,7 +598,7 @@ function checkCassandra(dkey) {
 }
 function cassandraAccess(dkey, state) {
 
-    setCassandraAccess(dkey, state, function (status, data) {
+    setAccess(dkey,'CASSANDRA', state, function (status, data) {
         if(status){
 
             if(data.state){
@@ -657,7 +657,7 @@ function checkGlobal(dkey) {
 }
 function globalAccess(dkey, state) {
 
-    setGlobalAccess(dkey, state, function (status, data) {
+    setAccess(dkey,'GLOBAL', state, function (status, data) {
         if(status){
 
             if(data.state){
@@ -716,7 +716,7 @@ function checkSystem(dkey) {
 }
 function systemAccess(dkey, state) {
 
-    setSystemAccess(dkey, state, function (status, data) {
+    setAccess(dkey,'SYSTEM', state, function (status, data) {
         if(status){
 
             if(data.state){

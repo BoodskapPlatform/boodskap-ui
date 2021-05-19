@@ -62,6 +62,8 @@ $(document).ready(function () {
         handle: "#helpModal .modal-header"
     });
 
+    $('#pfTag').val(Cookies.get('pfTag') ? Cookies.get('pfTag') : '')
+
     if(USER_OBJ.globalAccess){
         $("#pType").append('<option value="GLOBAL">Global</option>')
     }
@@ -69,6 +71,8 @@ $(document).ready(function () {
     if(USER_OBJ.systemAccess){
         $("#pType").append('<option value="SYSTEM">System</option>')
     }
+
+    loadProcessRulesListAggs()
 
 
 
@@ -854,16 +858,75 @@ function loadFileRulesList() {
     })
 }
 
+function loadProcessRulesListAggs(){
+
+    var query = {
+        query:{
+            bool : {
+                must:[{match:{domainKey:DOMAIN_KEY}}],
+                should:[]
+            }
+        },
+        from:0,
+        size:0,
+        aggs:{
+            group:{
+                terms:{
+                    field:'group',
+                    size:1000
+                }
+            }
+        }
+    }
+    var pType = 'PROCESS';
+
+    if($("#pType").val() === 'GLOBAL'){
+        pType = 'GLOBAL_PROCESS';
+    }
+    if($("#pType").val() === 'SYSTEM'){
+        pType = 'SYSTEM_PROCESS';
+    }
+
+    listProcessRules(query,pType, function (status, data) {
+        if(status) {
+
+            var resultData = QueryFormatter(data);
+
+            $("#pfGroup").html('<option value=""></option>')
+            var aggs = resultData.aggregations.group.buckets;
+
+            for (var i = 0; i < aggs.length; i++) {
+                if(aggs[i].key){
+                    $("#pfGroup").append('<option value="' + aggs[i].key + '">' + aggs[i].key + ' (' + aggs[i].doc_count + ')</option>')
+                }
+
+            }
+
+            $("#pfGroup").val(Cookies.get('pfGroup'))
+
+            $("#pfGroup").select2()
+        }
+    });
+}
 
 function loadProcessRulesList() {
     var query = {
         query:{
             bool : {
-                must:[{match:{domainKey:DOMAIN_KEY}}]
+                must:[{match:{domainKey:DOMAIN_KEY}}],
+                should:[]
             }
         },
         from:0,
-        size:1000
+        size:9999,
+        aggs:{
+            group:{
+                terms:{
+                    field:'group',
+                    size:1000
+                }
+            }
+        }
     }
     var pType = 'PROCESS';
 
@@ -874,6 +937,34 @@ function loadProcessRulesList() {
     if($("#pType").val() === 'SYSTEM'){
         pType = 'SYSTEM_PROCESS';
         query['query'] = {}
+    }
+    if($("#pfGroup").val()){
+        Cookies.set('pfGroup',$('#pfGroup').val())
+        query.query['bool']['must'].push({ "match": { "group": $('#pfGroup').val() } });
+
+    }else{
+        Cookies.set('pfGroup','')
+    }
+
+    if($('#pfTag').val()){
+        Cookies.set('pfTag',$('#pfTag').val())
+        query.query['bool']['should'].push({ "wildcard": { "tags": "*" + $('#pfTag').val() + "*" } });
+        query.query['bool']['should'].push({ "wildcard": { "tags": "*" + $('#pfTag').val().toLowerCase() + "*" } });
+        query.query['bool']['should'].push({ "wildcard": { "tags": "*" + $('#pfTag').val().toUpperCase() + "*" } });
+        query.query['bool']['should'].push({ "wildcard": { "tags": "*" + capitalizeFLetter($('#pfTag').val()) + "*" } })
+        query.query.bool.should.push({
+            "match_phrase": {
+                "tags": $('#pfTag').val()
+            }
+        })
+        query.query.bool.should.push({
+            "match": {
+                "tags": $('#pfTag').val()
+            }
+        })
+        query.query['bool']["minimum_should_match"] = 1;
+    }else{
+        Cookies.set('pfTag','')
     }
 
     $(".rulesList").html("");
@@ -892,9 +983,9 @@ function loadProcessRulesList() {
 
         if(status){
 
-            var resultData = QueryFormatter(data).data;
+            var resultData = QueryFormatter(data);
 
-            data = resultData.data;
+            data = resultData.data.data;
 
             process_rules_list = data;
 
@@ -905,6 +996,8 @@ function loadProcessRulesList() {
                 $(".rulesList").append(str);
 
             }
+
+
         } else {
             errorMsg('No Process Rules Found!')
         }
@@ -2628,6 +2721,8 @@ function proceedDelete() {
                 successMsg('Successfully deleted');
 
                 setTimeout(function (){
+                    Cookies.set('pfGroup','')
+                    loadProcessRulesListAggs();
                     loadProcessRulesList();
                 },500)
                 $("#deleteModal").modal('hide');
@@ -2911,6 +3006,9 @@ function addProcessRule() {
         $(".pBtn").html('Save Changes')
         if (status) {
             successMsg('Successfully saved!');
+            Cookies.set('pfGroup','')
+            loadProcessRulesListAggs();
+
             loadProcessRulesList();
             setTimeout(function () {
                 loadTabbar(data.id, 9);
