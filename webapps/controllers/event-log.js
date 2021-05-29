@@ -1,5 +1,5 @@
 var logTable = null;
-var DOMAIN_LOGS_FOR = ['EMAIL', 'SMS', 'VOICE', 'FCM','COMMAND', 'RULES'];
+var DOMAIN_LOGS_FOR = ['RULES','EMAIL', 'SMS', 'VOICE', 'FCM','COMMAND'];
 
 $(document).ready(function () {
 
@@ -440,19 +440,11 @@ var logFields = {
     RULES : {
         fields : [
             {
-                mData: 'messageId',
-                sTitle: 'ID',
+                mData: 'ruleId',
+                sTitle: 'Rule ID / Name',
                 orderable: false,
                 mRender: function (data, type, row) {
-                    return data ? data : "-";
-                }
-            },
-            {
-                mData: 'namedRule',
-                sTitle: 'Named Rule',
-                orderable: false,
-                mRender: function (data, type, row) {
-                    return data ? data : "-";
+                    return row['messageId'] ? row['messageId'] : (data ? data : "-");
                 }
             },
             {
@@ -465,7 +457,7 @@ var logFields = {
             },
             {
                 mData: 'occuredAt',
-                sTitle: 'Occured Time',
+                sTitle: 'Occurred Time',
                 orderable: true,
                 mRender: function (data, type, row) {
                     return data ? moment(data).format('MM/DD/YYYY hh:mm:ss a') : "-";
@@ -475,7 +467,7 @@ var logFields = {
                 mData: 'message',
                 sTitle: 'Response',
                 orderable: false,
-                sWidth:'50%',
+                sWidth:'60%',
                 mRender: function (data, type, row) {
 
                     if(data) {
@@ -489,7 +481,7 @@ var logFields = {
             }
 
         ],
-        sort : [[3, 'desc']]
+        sort : [[2, 'desc']]
     }
 }
 
@@ -507,7 +499,8 @@ function loadLogs() {
     var queryParams = {
         query: {
             "bool": {
-                "must": []
+                "must": [domainKeyJson],
+                "should": []
             }
         },
         sort: [defaultSorting]
@@ -516,6 +509,34 @@ function loadLogs() {
     var type = $("#logType").val();
 
     $(".eventType").html(type);
+
+    if(type === 'RULES'){
+        queryParams["aggs"] ={
+            "total_count": {
+                "value_count": {
+                    "field": "occuredAt"
+                }
+            },
+        }
+    }
+    else if(type === 'COMMAND'){
+        queryParams["aggs"] ={
+            "total_count": {
+                "value_count": {
+                    "field": "createdStamp"
+                }
+            },
+        }
+    }else{
+        queryParams["aggs"] ={
+            "total_count": {
+                "value_count": {
+                    "field": "queuedAt"
+                }
+            },
+        }
+    }
+
     var fields = logFields[type].fields;
     var sortOrder = logFields[type].sort;
 
@@ -526,10 +547,6 @@ function loadLogs() {
 
 
     var tableOption = {
-        fixedHeader: {
-            header: true,
-            headerOffset: -5
-        },
         responsive: true,
         paging: true,
         aoColumns: fields,
@@ -542,6 +559,8 @@ function loadLogs() {
         "bServerSide": true,
         "sAjaxSource": API_BASE_PATH + '/elastic/search/query/' + API_TOKEN,
         "fnServerData": function (sSource, aoData, fnCallback, oSettings) {
+            queryParams.query['bool']['should'] = [];
+            delete queryParams.query['bool']["minimum_should_match"];
 
             var keyName = fields[oSettings.aaSorting[0][0]]
 
@@ -555,18 +574,16 @@ function loadLogs() {
             var searchText = oSettings.oPreviousSearch.sSearch;
 
             if (searchText) {
-                var searchJson = {
-                    "multi_match": {
-                        "query": '*' + searchText + '*',
-                        "type": "phrase_prefix",
-                        "fields": ['_all']
-                    }
-                };
 
-                queryParams.query['bool']['must'] = [domainKeyJson, searchJson];
-
-            } else {
-                queryParams.query['bool']['must'] = [domainKeyJson];
+                queryParams.query['bool']['should'].push({"wildcard" : { "message" : "*"+searchText.toLowerCase()+"*" }})
+                queryParams.query['bool']['should'].push({"wildcard" : { "ruleId" : "*"+searchText.toLowerCase()+"*" }})
+                queryParams.query['bool']['should'].push({"wildcard" : { "data" : "*"+searchText.toLowerCase()+"*" }})
+                queryParams.query['bool']['should'].push({"wildcard" : { "deviceId" : "*"+searchText.toLowerCase()+"*" }})
+                queryParams.query['bool']['should'].push({"wildcard" : { "receipents" : "*"+searchText.toLowerCase()+"*" }})
+                queryParams.query['bool']['should'].push({"wildcard" : { "receipent" : "*"+searchText.toLowerCase()+"*" }})
+                queryParams.query['bool']['should'].push({"wildcard" : { "content" : "*"+searchText.toLowerCase()+"*" }})
+                queryParams.query['bool']['should'].push({"wildcard" : { "toAddress" : "*"+searchText.toLowerCase()+"*" }})
+                queryParams.query['bool']["minimum_should_match"]=1;
             }
 
 
@@ -587,10 +604,11 @@ function loadLogs() {
                 "data": JSON.stringify(ajaxObj),
                 success: function (data) {
 
-                    var resultData = QueryFormatter(data).data;
-                    console.log(resultData)
+                    var resData = searchQueryFormatterNew(data);
 
-                    $(".totalCount").html(resultData.recordsFiltered);
+                    var resultData = resData.data;
+
+                    $(".totalCount").html(resData.aggregations.total_count.value);
                     resultData['draw'] = oSettings.iDraw;
 
                     fnCallback(resultData);

@@ -23,26 +23,28 @@
         <div class="panel-body" style="background-color: #eeeeee00;border: 1px solid #eee;padding-bottom:30px;">
 
             <div class="row">
-                <div class="col-lg-1">
-                    <div class="form-group text-center">
+                <div class="col-md-12">
+                    <div class="form-group text-center pull-left">
                         <label>Total Count</label>
                         <h5 class="totalCount">0</h5>
                     </div>
-                </div>
-                <div class="col-lg-2">
-                    <div class="form-group">
+
+                    <div class="form-group pull-right">
                         <label>Select:</label>
                         <select class="form-control input-sm" id="logType" onchange="loadLogs()">
-                        </select>
-                    </div>
+                    </select>
                 </div>
+                <div class="col-md-12" style="clear: both">
+                    <table class="table table-bordered table-striped responsive no-wrap" id="logTable"  cellspacing="0" width="100%">
+
+                    </table>
+                </div>
+
             </div>
 
 
 
-            <table class="table table-bordered table-striped responsive no-wrap" id="logTable"  cellspacing="0" width="100%">
 
-            </table>
 
 
         </div>

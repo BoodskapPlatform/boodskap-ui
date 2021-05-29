@@ -105,17 +105,21 @@ function loadDeviceList() {
         query: {
             "bool": {
                 "must": [],
+                "should" : []
             }
         },
         sort: [],
+        "aggs":{
+            "total_count": {
+                "value_count": {
+                    "field": "reportedStamp"
+                }
+            },
+        }
     };
 
 
     var tableOption = {
-        fixedHeader: {
-            header: true,
-            headerOffset: -5
-        },
             responsive: true,
             paging: true,
             searching: true,
@@ -173,10 +177,13 @@ function loadDeviceList() {
                     "data": JSON.stringify(ajaxObj),
                     success: function (data) {
 
-                        var resultData = searchQueryFormatterNew(data).data;
+                        var resData = searchQueryFormatterNew(data);
+
+                        var resultData = resData.data;
                         device_list =resultData.data;
                         resultData['draw'] = oSettings.iDraw;
-                        $(".deviceCount").html(resultData.recordsTotal);
+
+                        $(".deviceCount").html(resData.aggregations.total_count.value);
 
 
                         fnCallback(resultData);

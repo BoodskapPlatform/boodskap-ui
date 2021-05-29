@@ -461,39 +461,75 @@ Routes.prototype.init = function () {
 
         }
 
-        try{
-            console.log('api dev file found')
-            const swaggerDocument = YAML.load('./yaml/api-dev.yaml');
-            res.json(swaggerDocument);
-        }
-        catch(e){
-            console.log('api dev file not found loading from cdn')
-            request.get({
-                uri: 'https://cdn.jsdelivr.net/gh/BoodskapPlatform/apidoc@'+version+'/api.yaml',
-                headers: {'Accepts': 'text/yaml'},
-            }, function (err, resp, body) {
+        request.get({
+            uri: self.app.conf.protocol+"://"+req.headers.host+'/api/global/swagger/spec/file/download',
+            headers: {'Accepts': 'text/yaml'},
+        }, function (err, resp, body) {
 
-                if (!err) {
+            if (!err) {
 
-                    if (resp.statusCode === 200) {
-                        res.setHeader('Content-Type', 'text/yaml')
-                        res.send(resp.body);
+                if (resp.statusCode === 200) {
+                    res.setHeader('Content-Type', 'text/yaml')
+                    res.send(resp.body);
+                } else {
+                    request.get({
+                        uri: 'https://cdn.jsdelivr.net/gh/BoodskapPlatform/apidoc@'+version+'/api.yaml',
+                        headers: {'Accepts': 'text/yaml'},
+                    }, function (err, resp, body) {
+
+                        if (!err) {
+
+                            if (resp.statusCode === 200) {
+                                res.setHeader('Content-Type', 'text/yaml')
+                                res.send(resp.body);
+                            } else {
+                                const swaggerDocument = YAML.load('./yaml/api.yaml');
+                                res.json(swaggerDocument);
+                            }
+
+                        } else {
+                            const swaggerDocument = YAML.load('./yaml/api.yaml');
+                            res.json(swaggerDocument);
+                        }
+
+                    });
+                }
+
+            } else {
+                request.get({
+                    uri: 'https://cdn.jsdelivr.net/gh/BoodskapPlatform/apidoc@'+version+'/api.yaml',
+                    headers: {'Accepts': 'text/yaml'},
+                }, function (err, resp, body) {
+
+                    if (!err) {
+
+                        if (resp.statusCode === 200) {
+                            res.setHeader('Content-Type', 'text/yaml')
+                            res.send(resp.body);
+                        } else {
+                            const swaggerDocument = YAML.load('./yaml/api.yaml');
+                            res.json(swaggerDocument);
+                        }
+
                     } else {
                         const swaggerDocument = YAML.load('./yaml/api.yaml');
                         res.json(swaggerDocument);
                     }
 
-                } else {
-                    const swaggerDocument = YAML.load('./yaml/api.yaml');
-                    res.json(swaggerDocument);
-                }
+                });
+            }
 
-            });
-        }
+        });
 
-
-
-
+        // try{
+        //     console.log('api dev file found')
+        //     const swaggerDocument = YAML.load('./yaml/api-dev.yaml');
+        //     res.json(swaggerDocument);
+        // }
+        // catch(e){
+        //     console.log('api dev file not found loading from cdn')
+        //
+        // }
 
     });
     self.router.get('/swagger-doc',function (req, res) {

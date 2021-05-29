@@ -169,12 +169,18 @@ function loadMessages(id) {
         query: {
             "bool": {
                 "must": [domainKeyJson],
+                should : [],
                 "filter":{"range":{"receivedstamp":{"gte":new Date(startDate).getTime(),"lte":new Date(endDate).getTime()}}}
 
             }
         },
         sort: [],
         "aggs": {
+            "total_count": {
+                "value_count": {
+                    "field": "receivedstamp"
+                }
+            },
             "group_by_year": {
                 "terms": {
                     "field": "year",
@@ -244,6 +250,9 @@ function loadMessages(id) {
         "sAjaxSource": API_BASE_PATH + '/elastic/search/query/' + API_TOKEN,
         "fnServerData": function (sSource, aoData, fnCallback, oSettings) {
 
+            queryParams.query['bool']['should'] = [];
+            delete queryParams.query['bool']["minimum_should_match"];
+
             var keyName = fields[oSettings.aaSorting[0][0]]
 
             var sortingJson = {};
@@ -256,17 +265,27 @@ function loadMessages(id) {
             var searchText = oSettings.oPreviousSearch.sSearch;
 
             if (searchText) {
-                var searchJson = {
-                    "multi_match": {
-                        "query": '*' + searchText + '*',
-                        "type": "phrase_prefix",
-                        "fields": ['_all']
+                queryParams.query['bool']['should'].push({ "wildcard": { "deviceid": "*" + searchText + "*" } });
+                queryParams.query['bool']['should'].push({ "wildcard": { "deviceid": "*" + searchText.toLowerCase() + "*" } });
+                queryParams.query['bool']['should'].push({ "wildcard": { "deviceid": "*" + searchText.toUpperCase() + "*" } });
+                queryParams.query['bool']['should'].push({ "wildcard": { "deviceid": "*" + capitalizeFLetter(searchText) + "*" } })
+                queryParams.query.bool.should.push({
+                    "match_phrase": {
+                        "deviceid": searchText
                     }
-                };
+                })
+                // queryParams.query['bool']['should'].push({
+                //     "match_phrase_prefix": {
+                //         "deviceid": {
+                //             "query": "*" + searchText + "*"
+                //         }
+                //     }
+                // })
 
-                queryParams.query['bool']['must'] = [domainKeyJson, searchJson];
+                queryParams.query['bool']["minimum_should_match"] = 1;
 
             }
+
 
 
             var ajaxObj = {
@@ -302,7 +321,7 @@ function loadMessages(id) {
                     var resultData =resData.data;
                     resultData['draw'] = oSettings.iDraw;
 
-                    $(".totalCount").html(resultData.recordsTotal);
+                    $(".totalCount").html(msgAggData.total_count.value);
 
 
                     if(resultData.recordsFiltered >= 10000){
