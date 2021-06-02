@@ -460,7 +460,7 @@ Routes.prototype.init = function () {
             }
 
         }
-
+        console.log("Fetching from =>",self.app.conf.protocol+"://"+req.headers.host+'/api/global/swagger/spec/file/download')
         request.get({
             uri: self.app.conf.protocol+"://"+req.headers.host+'/api/global/swagger/spec/file/download',
             headers: {'Accepts': 'text/yaml'},
@@ -469,9 +469,13 @@ Routes.prototype.init = function () {
             if (!err) {
 
                 if (resp.statusCode === 200) {
+                    console.log("success")
                     res.setHeader('Content-Type', 'text/yaml')
                     res.send(resp.body);
                 } else {
+                    console.log("error")
+                    console.log("Fetching from =>",'https://cdn.jsdelivr.net/gh/BoodskapPlatform/apidoc@'+version+'/api.yaml')
+
                     request.get({
                         uri: 'https://cdn.jsdelivr.net/gh/BoodskapPlatform/apidoc@'+version+'/api.yaml',
                         headers: {'Accepts': 'text/yaml'},
@@ -480,14 +484,17 @@ Routes.prototype.init = function () {
                         if (!err) {
 
                             if (resp.statusCode === 200) {
+                                console.log("success")
                                 res.setHeader('Content-Type', 'text/yaml')
                                 res.send(resp.body);
                             } else {
+                                console.log("error")
                                 const swaggerDocument = YAML.load('./yaml/api.yaml');
                                 res.json(swaggerDocument);
                             }
 
                         } else {
+                            console.log("error")
                             const swaggerDocument = YAML.load('./yaml/api.yaml');
                             res.json(swaggerDocument);
                         }
@@ -495,7 +502,11 @@ Routes.prototype.init = function () {
                     });
                 }
 
-            } else {
+            }
+            else {
+                console.log("error")
+                console.log("Fetching from =>",'https://cdn.jsdelivr.net/gh/BoodskapPlatform/apidoc@'+version+'/api.yaml')
+
                 request.get({
                     uri: 'https://cdn.jsdelivr.net/gh/BoodskapPlatform/apidoc@'+version+'/api.yaml',
                     headers: {'Accepts': 'text/yaml'},
@@ -504,14 +515,17 @@ Routes.prototype.init = function () {
                     if (!err) {
 
                         if (resp.statusCode === 200) {
+                            console.log("success")
                             res.setHeader('Content-Type', 'text/yaml')
                             res.send(resp.body);
                         } else {
+                            console.log("error")
                             const swaggerDocument = YAML.load('./yaml/api.yaml');
                             res.json(swaggerDocument);
                         }
 
                     } else {
+                        console.log("error")
                         const swaggerDocument = YAML.load('./yaml/api.yaml');
                         res.json(swaggerDocument);
                     }
