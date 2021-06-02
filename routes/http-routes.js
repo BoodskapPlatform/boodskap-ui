@@ -1,5 +1,6 @@
 const YAML = require('yamljs');
 const request = require('request');
+const async = require('async');
 
 var Routes = function (app,router) {
 
@@ -460,23 +461,46 @@ Routes.prototype.init = function () {
             }
 
         }
-        console.log("Fetching from =>",self.app.conf.protocol+"://"+req.headers.host+'/api/global/swagger/spec/file/download')
-        request.get({
-            uri: self.app.conf.protocol+"://"+req.headers.host+'/api/global/swagger/spec/file/download',
-            headers: {'Accepts': 'text/yaml'},
-        }, function (err, resp, body) {
 
-            if (!err) {
 
-                if (resp.statusCode === 200) {
-                    console.log("success")
-                    res.setHeader('Content-Type', 'text/yaml')
-                    res.send(resp.body);
-                } else {
-                    console.log("response code: ",resp.statusCode)
-                    console.log("error =>",resp.body)
+        var resultFlag = false;
+
+        async.series({
+            apiSpec : function (asCbk) {
+                console.log("Fetching from =>", self.app.conf.protocol + "://" + req.headers.host + '/api/global/swagger/spec/file/download')
+                request.get({
+                    uri: self.app.conf.protocol + "://" + req.headers.host + '/api/global/swagger/spec/file/download',
+                    headers: {'Accepts': 'text/yaml'},
+                }, function (err, resp, body) {
+
+                    if (!err) {
+
+                        if (resp.statusCode === 200) {
+                            console.log("Fetched from =>", self.app.conf.protocol + "://" + req.headers.host + '/api/global/swagger/spec/file/download')
+                            asCbk('exit', resp.body)
+                        } else {
+                            console.log("Error Fetching from =>", self.app.conf.protocol + "://" + req.headers.host + '/api/global/swagger/spec/file/download')
+                            asCbk(null, null)
+                        }
+
+                    } else {
+                        console.log("Error Fetching from =>", self.app.conf.protocol + "://" + req.headers.host + '/api/global/swagger/spec/file/download')
+                        asCbk(null, null)
+                    }
+                })
+            },
+            devSpec : function (dsCbk){
+                try {
+                    console.log("Fetched from => api-dev.yaml")
+                    resultFlag = true;
+                    const swaggerDocument = YAML.load('./yaml/api-dev.yaml');
+                    dsCbk('exit', swaggerDocument)
+                } catch (e) {
+                    dsCbk(null, null)
+                }
+            },
+            gitApiSpec : function (gasCbk){
                     console.log("Fetching from =>",'https://cdn.jsdelivr.net/gh/BoodskapPlatform/apidoc@'+version+'/api.yaml')
-
                     request.get({
                         uri: 'https://cdn.jsdelivr.net/gh/BoodskapPlatform/apidoc@'+version+'/api.yaml',
                         headers: {'Accepts': 'text/yaml'},
@@ -485,67 +509,42 @@ Routes.prototype.init = function () {
                         if (!err) {
 
                             if (resp.statusCode === 200) {
-                                console.log("success")
-                                res.setHeader('Content-Type', 'text/yaml')
-                                res.send(resp.body);
+                                resultFlag=true;
+                                console.log("Fetched from =>",'https://cdn.jsdelivr.net/gh/BoodskapPlatform/apidoc@'+version+'/api.yaml')
+                                gasCbk('exit', resp.body)
                             } else {
-                                console.log("error")
-                                const swaggerDocument = YAML.load('./yaml/api.yaml');
-                                res.json(swaggerDocument);
+                                console.log("Error Fetching from =>",'https://cdn.jsdelivr.net/gh/BoodskapPlatform/apidoc@'+version+'/api.yaml')
+                                gasCbk(null, null)
                             }
 
                         } else {
-                            console.log("error")
-                            const swaggerDocument = YAML.load('./yaml/api.yaml');
-                            res.json(swaggerDocument);
+                            console.log("Error Fetching from =>",'https://cdn.jsdelivr.net/gh/BoodskapPlatform/apidoc@'+version+'/api.yaml')
+                            gasCbk(null, null)
                         }
 
                     });
-                }
-
+            },
+            localSpec : function (lsCbk){
+                console.log("Fetched from => api.yaml")
+                resultFlag = true;
+                const swaggerDocument = YAML.load('./yaml/api.yaml');
+                lsCbk('exit', swaggerDocument)
             }
-            else {
-                console.log("error")
-                console.log("error =>",err)
-                console.log("Fetching from =>",'https://cdn.jsdelivr.net/gh/BoodskapPlatform/apidoc@'+version+'/api.yaml')
-
-                request.get({
-                    uri: 'https://cdn.jsdelivr.net/gh/BoodskapPlatform/apidoc@'+version+'/api.yaml',
-                    headers: {'Accepts': 'text/yaml'},
-                }, function (err, resp, body) {
-
-                    if (!err) {
-
-                        if (resp.statusCode === 200) {
-                            console.log("success")
-                            res.setHeader('Content-Type', 'text/yaml')
-                            res.send(resp.body);
-                        } else {
-                            console.log("error")
-                            const swaggerDocument = YAML.load('./yaml/api.yaml');
-                            res.json(swaggerDocument);
-                        }
-
-                    } else {
-                        console.log("error")
-                        const swaggerDocument = YAML.load('./yaml/api.yaml');
-                        res.json(swaggerDocument);
-                    }
-
-                });
+        },function(err,results){
+            if(results.apiSpec){
+                res.setHeader('Content-Type', 'text/yaml')
+                res.send(results.apiSpec);
             }
-
+            else if(results.devSpec){
+                res.json(results.devSpec)
+            }
+            else if(results.gitApiSpec){
+                res.setHeader('Content-Type', 'text/yaml')
+                res.send(results.gitApiSpec);
+            }else{
+                res.json(results.localSpec)
+            }
         });
-
-        // try{
-        //     console.log('api dev file found')
-        //     const swaggerDocument = YAML.load('./yaml/api-dev.yaml');
-        //     res.json(swaggerDocument);
-        // }
-        // catch(e){
-        //     console.log('api dev file not found loading from cdn')
-        //
-        // }
 
     });
     self.router.get('/swagger-doc',function (req, res) {
