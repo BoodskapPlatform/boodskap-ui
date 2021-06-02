@@ -473,7 +473,8 @@ Routes.prototype.init = function () {
                     res.setHeader('Content-Type', 'text/yaml')
                     res.send(resp.body);
                 } else {
-                    console.log("error")
+                    console.log("response code: ",resp.statusCode)
+                    console.log("error =>",err)
                     console.log("Fetching from =>",'https://cdn.jsdelivr.net/gh/BoodskapPlatform/apidoc@'+version+'/api.yaml')
 
                     request.get({
@@ -505,6 +506,7 @@ Routes.prototype.init = function () {
             }
             else {
                 console.log("error")
+                console.log("error =>",resp.body)
                 console.log("Fetching from =>",'https://cdn.jsdelivr.net/gh/BoodskapPlatform/apidoc@'+version+'/api.yaml')
 
                 request.get({
