@@ -20,13 +20,6 @@ function mqttConnect() {
             MQTT_STATUS = true;
             console.log(new Date() + " | MQTT connection established");
 
-
-            // $(".loggerHtml").append("<div style='font-size: 12px;'>" +
-            //     "<span class='label label-info'" +
-            //     "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>info</span>  " +
-            //     "<b style='color: #9e9e9e8a'>" + moment().format('MM/DD/YYYY hh:mm:ss a') + "</b> " +
-            //     "<span style='white-space: pre-wrap;padding-left: 10px;'>Server Connection Established...!</span></div>");
-
             try {
                 mqttListen();
             }
@@ -42,7 +35,10 @@ function mqttConnect() {
                 mqttConnect();
             }else{
                 console.log('Bad username and password! Please reload the page')
+                Cookies.remove('user_details');
+                document.location = BASE_PATH+'/login';
             }
+
             // $(".loggerHtml").append("<div style='font-size: 12px;'>" +
             //     "<span class='label label-warning'" +
             //     "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>error</span>  " +

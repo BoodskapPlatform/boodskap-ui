@@ -30,6 +30,8 @@ function mqttConnectGlobal() {
                 mqttConnectGlobal();
             }else{
                 console.log('Bad username and password! Please reload the page')
+                Cookies.remove('user_details');
+                document.location = BASE_PATH+'/login';
             }
         }
     };
