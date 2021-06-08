@@ -26,12 +26,12 @@ function mqttConnectGlobal() {
             $(".dashboardStatus").html('');
             console.log(new Date() + " | MQTT Connection failed: " + message.errorMessage);
             // mqttConnectGlobal();
-            if(!message.errorMessage.includes('bad user name or password')){
-                mqttConnectGlobal();
-            }else{
+            if(message.errorMessage.includes('bad user name or password') || message.errorMessage.includes('rejected') || message.errorMessage.includes('error')){
                 console.log('Bad username and password! Please reload the page')
                 Cookies.remove('user_details');
                 document.location = BASE_PATH+'/login';
+            }else{
+                mqttConnectGlobal();
             }
         }
     };

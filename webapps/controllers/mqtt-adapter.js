@@ -31,12 +31,12 @@ function mqttConnect() {
             $(".serverStatus").html('<span class="label label-danger">Reconnecting...</span>');
             $(".dashboardStatus").html('');
             console.log(new Date() + " | MQTT Connection failed: " + message.errorMessage);
-            if(!message.errorMessage.includes('bad user name or password')){
-                mqttConnect();
-            }else{
+            if(message.errorMessage.includes('bad user name or password') || message.errorMessage.includes('rejected') || message.errorMessage.includes('error')){
                 console.log('Bad username and password! Please reload the page')
                 Cookies.remove('user_details');
                 document.location = BASE_PATH+'/login';
+            }else{
+                mqttConnect();
             }
 
             // $(".loggerHtml").append("<div style='font-size: 12px;'>" +
