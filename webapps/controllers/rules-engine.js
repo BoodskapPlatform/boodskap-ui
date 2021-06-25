@@ -2368,6 +2368,7 @@ function loadDomainRule() {
     exportRule(1);
 
     $(".detailsBlock").css('display', 'block');
+    $(".inputBlock").css('display', 'block');
     $(".messageFields").css('display', 'none');
     $(".jobFields").css('display', 'none');
     $(".defaultFields").css('display', 'none');
@@ -3934,11 +3935,14 @@ function addSftpRule(code) {
     updateInputRuleCode('SFTP',dataObj, function (status, data) {
         if (status) {
             successMsg('Successfully saved!');
-            setTimeout(function () {
-                // loadTabbar(dataObj.id, 10);
+            setTimeout(function(){
                 loadSftpRulesList();
-
             },500)
+            setTimeout(function () {
+                if(code){
+                    loadTabbar(dataObj.id, 10);
+                }
+            },1000)
 
             $("#addSftpInputRule").modal('hide');
         } else {
