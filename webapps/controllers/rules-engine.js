@@ -2073,7 +2073,7 @@ function executeInputAction(id, action, type) {
                 setTimeout(function(){
                     loadSftpRulesList();
                     getInputRunning('SFTP',id);
-                },250)
+                },500)
 
             }
             //TODO
@@ -3079,7 +3079,7 @@ function loadEditor(code, tabid) {
                             // loadTabbar(dataObj.id, 10);
                             loadSftpRulesList();
 
-                        },250)
+                        },500)
                     } else {
                         errorMsg('Error in saving!')
                     }
@@ -3473,7 +3473,7 @@ function proceedDelete() {
 
                 setTimeout(function (){
                     loadSftpRulesList();
-                },250)
+                },500)
                 $("#deleteModal").modal('hide');
             } else {
                 errorMsg('Error in delete')
@@ -3938,7 +3938,7 @@ function addSftpRule(code) {
                 // loadTabbar(dataObj.id, 10);
                 loadSftpRulesList();
 
-            },250)
+            },500)
 
             $("#addSftpInputRule").modal('hide');
         } else {
@@ -5002,7 +5002,7 @@ function uploadRuleType(type, data) {
                     loadSftpRulesList();
                     // loadTabbar(data.id,10)
                     $("#importModal").modal('hide');
-                },250)
+                },500)
 
             } else {
                 errorMsg('Error in saving!')
