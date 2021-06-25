@@ -9,6 +9,11 @@ var binary_rules_list = [];
 var file_rules_list = [];
 var job_rules_list = [];
 var process_rules_list = [];
+var sftp_rules_list = [];
+var mqtt_rules_list = [];
+var udp_rules_list = [];
+var tcp_rules_list = [];
+var email_rules_list = [];
 var groovy_class_list = [];
 var jar_class_list = [];
 var tabbar_list = [];
@@ -24,6 +29,7 @@ var current_namedrule_obj = null;
 var current_binaryrule_obj = null;
 var current_filerule_obj = null;
 var current_processrule_obj = null;
+var current_sftprule_obj = null;
 var simulatorModal = {};
 var simulator = {};
 var scriptTerminal = null;
@@ -226,6 +232,11 @@ function mqttListen() {
                 mqttJobRule(topicName, parsedData);
                 mqttFileRule(topicName, parsedData);
                 mqttProcessRule(topicName, parsedData);
+                mqttSftpRule(topicName, parsedData);
+                mqttMqttRule(topicName, parsedData);
+                mqttUdpRule(topicName, parsedData);
+                mqttTcpRule(topicName, parsedData);
+                mqttEmailRule(topicName, parsedData);
 
             } else {
                 if (CURRENT_TYPE === 0) {
@@ -251,6 +262,21 @@ function mqttListen() {
                 }
                 else if (CURRENT_TYPE === 9) {
                     mqttProcessRule(topicName, parsedData);
+                }
+                else if (CURRENT_TYPE === 10) {
+                    mqttSftpRule(topicName, parsedData);
+                }
+                else if (CURRENT_TYPE === 11) {
+                    mqttMqttRule(topicName, parsedData);
+                }
+                else if (CURRENT_TYPE === 12) {
+                    mqttUdpRule(topicName, parsedData);
+                }
+                else if (CURRENT_TYPE === 13) {
+                    mqttTcpRule(topicName, parsedData);
+                }
+                else if (CURRENT_TYPE === 14) {
+                    mqttEmailRule(topicName, parsedData);
                 }
 
             }
@@ -599,6 +625,197 @@ function mqttJobRule(topicName, parsedData) {
     }
 }
 
+function mqttSftpRule(topicName, parsedData) {
+    var nodeClass = new Date().getTime();
+    var color = 'default';
+
+    console.log("SFTP =>", topicName)
+
+    if (topicName.includes("/log/sftp")) {
+
+        if (parsedData.data !== '__ALL_DONE__') {
+            var level = parsedData.level;
+
+            if($("."+level.toLowerCase()).is(":checked")) {
+
+                var fields = '';
+
+                if($(".node").is(":checked")){
+                    fields+= ' ['+parsedData.node+'] '
+                }
+                if($(".session").is(":checked")){
+                    fields+= ' ['+parsedData.session+'] '
+                }
+
+                var rName = topicName.split("/")[4];
+                $(".loggerHtml").append("<div title='SFTP Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
+                    "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
+                    "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
+                    "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " + fields +
+                    "<span style='white-space: pre-wrap;padding-left: 10px;'>" + parsedData.data + "</span></div>");
+            }
+
+        }
+        if (parsedData.data === '__ALL_DONE__') {
+            $('.consoleBox').animate({
+                scrollTop: $(".loggerHtml").height()
+            }, 100);
+        }
+    }
+}
+function mqttMqttRule(topicName, parsedData) {
+    var nodeClass = new Date().getTime();
+    var color = 'default';
+
+    console.log("MQTT =>", topicName)
+
+    if (topicName.includes("/log/mqtt")) {
+
+        if (parsedData.data !== '__ALL_DONE__') {
+            var level = parsedData.level;
+
+            if($("."+level.toLowerCase()).is(":checked")) {
+
+                var fields = '';
+
+                if($(".node").is(":checked")){
+                    fields+= ' ['+parsedData.node+'] '
+                }
+                if($(".session").is(":checked")){
+                    fields+= ' ['+parsedData.session+'] '
+                }
+
+                var rName = topicName.split("/")[4];
+                $(".loggerHtml").append("<div title='MQTT Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
+                    "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
+                    "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
+                    "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " + fields +
+                    "<span style='white-space: pre-wrap;padding-left: 10px;'>" + parsedData.data + "</span></div>");
+            }
+
+        }
+        if (parsedData.data === '__ALL_DONE__') {
+            $('.consoleBox').animate({
+                scrollTop: $(".loggerHtml").height()
+            }, 100);
+        }
+    }
+}
+function mqttUdpRule(topicName, parsedData) {
+    var nodeClass = new Date().getTime();
+    var color = 'default';
+
+    console.log("UDP =>", topicName)
+
+    if (topicName.includes("/log/udp")) {
+
+        if (parsedData.data !== '__ALL_DONE__') {
+            var level = parsedData.level;
+
+            if($("."+level.toLowerCase()).is(":checked")) {
+
+                var fields = '';
+
+                if($(".node").is(":checked")){
+                    fields+= ' ['+parsedData.node+'] '
+                }
+                if($(".session").is(":checked")){
+                    fields+= ' ['+parsedData.session+'] '
+                }
+
+                var rName = topicName.split("/")[4];
+                $(".loggerHtml").append("<div title='UDP Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
+                    "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
+                    "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
+                    "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " + fields +
+                    "<span style='white-space: pre-wrap;padding-left: 10px;'>" + parsedData.data + "</span></div>");
+            }
+
+        }
+        if (parsedData.data === '__ALL_DONE__') {
+            $('.consoleBox').animate({
+                scrollTop: $(".loggerHtml").height()
+            }, 100);
+        }
+    }
+}
+function mqttTcpRule(topicName, parsedData) {
+    var nodeClass = new Date().getTime();
+    var color = 'default';
+
+    console.log("TCP =>", topicName)
+
+    if (topicName.includes("/log/tcp")) {
+
+        if (parsedData.data !== '__ALL_DONE__') {
+            var level = parsedData.level;
+
+            if($("."+level.toLowerCase()).is(":checked")) {
+
+                var fields = '';
+
+                if($(".node").is(":checked")){
+                    fields+= ' ['+parsedData.node+'] '
+                }
+                if($(".session").is(":checked")){
+                    fields+= ' ['+parsedData.session+'] '
+                }
+
+                var rName = topicName.split("/")[4];
+                $(".loggerHtml").append("<div title='TCP Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
+                    "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
+                    "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
+                    "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " + fields +
+                    "<span style='white-space: pre-wrap;padding-left: 10px;'>" + parsedData.data + "</span></div>");
+            }
+
+        }
+        if (parsedData.data === '__ALL_DONE__') {
+            $('.consoleBox').animate({
+                scrollTop: $(".loggerHtml").height()
+            }, 100);
+        }
+    }
+}
+function mqttEmailRule(topicName, parsedData) {
+    var nodeClass = new Date().getTime();
+    var color = 'default';
+
+    console.log("EMAIL =>", topicName)
+
+    if (topicName.includes("/log/email")) {
+
+        if (parsedData.data !== '__ALL_DONE__') {
+            var level = parsedData.level;
+
+            if($("."+level.toLowerCase()).is(":checked")) {
+
+                var fields = '';
+
+                if($(".node").is(":checked")){
+                    fields+= ' ['+parsedData.node+'] '
+                }
+                if($(".session").is(":checked")){
+                    fields+= ' ['+parsedData.session+'] '
+                }
+
+                var rName = topicName.split("/")[4];
+                $(".loggerHtml").append("<div title='Email Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
+                    "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
+                    "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
+                    "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " + fields +
+                    "<span style='white-space: pre-wrap;padding-left: 10px;'>" + parsedData.data + "</span></div>");
+            }
+
+        }
+        if (parsedData.data === '__ALL_DONE__') {
+            $('.consoleBox').animate({
+                scrollTop: $(".loggerHtml").height()
+            }, 100);
+        }
+    }
+}
+
 
 function mqttCancelSubscribe(id) {
 
@@ -678,6 +895,21 @@ function loadRules(id) {
     else if (id === 9) {
         $(".pOption").css('display','block')
         loadProcessRulesList();
+    }
+    else if (id === 10) {
+        loadSftpRulesList();
+    }
+    else if (id === 11) {
+        loadMqttRulesList();
+    }
+    else if (id === 12) {
+        loadUdpRulesList();
+    }
+    else if (id === 13) {
+        loadTcpRulesList();
+    }
+    else if (id === 14) {
+        loadEmailRulesList();
     }
 }
 
@@ -1036,6 +1268,163 @@ function loadJobRulesList() {
     })
 }
 
+function loadSftpRulesList() {
+    listInputRules("SFTP_INPUT",function (status, data) {
+        $(".rulesList").html("");
+
+        $(".rulesList").append('<li class="" onclick="loadSftpRulesList()" title="click here to reload" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
+            '<img src="images/folder.png" /> <b> SFTP Rules</b> <span class="loaderSpin"></span></li>');
+
+        $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
+
+        setTimeout(function () {
+            $(".loaderSpin").html('');
+        }, 1000);
+
+        $('[data-toggle="tooltip"]').tooltip()
+
+        if (status) {
+
+
+            var resultData = QueryFormatter(data);
+
+            data = resultData.data.data;
+
+            sftp_rules_list = data;
+
+            for (var i = 0; i < data.length; i++) {
+
+                var str = '<li class="rulesListli rule_' + data[i].id + '" data-id="' + data[i].id + '" onclick="loadTabbar(\'' + data[i].id + '\',10)">' +
+                    '<img src="images/file.png" /> <b>' + data[i].name + '</b></li>';
+                $(".rulesList").append(str);
+
+            }
+        } else {
+            errorMsg('No SFTP Rules Found!')
+        }
+    })
+}
+function loadMqttRulesList() {
+    listInputRules("MQTT_INPUT",function (status, data) {
+        $(".rulesList").html("");
+
+        $(".rulesList").append('<li class="" onclick="loadMqttRulesList()" title="click here to reload" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
+            '<img src="images/folder.png" /> <b> MQTT Rules</b> <span class="loaderSpin"></span></li>');
+
+        $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
+
+        setTimeout(function () {
+            $(".loaderSpin").html('');
+        }, 1000);
+
+        $('[data-toggle="tooltip"]').tooltip()
+
+        if (status && data.length > 0) {
+            mqtt_rules_list = data;
+
+            for (var i = 0; i < data.length; i++) {
+
+                var str = '<li class="rulesListli rule_' + data[i].id + '" data-id="' + data[i].id + '" onclick="loadTabbar(\'' + data[i].id + '\',11)">' +
+                    '<img src="images/file.png" /> <b>' + data[i].name + '</b></li>';
+                $(".rulesList").append(str);
+
+            }
+        } else {
+            errorMsg('No MQTT Rules Found!')
+        }
+    })
+}
+function loadUdpRulesList() {
+    listInputRules("UDP_INPUT",function (status, data) {
+        $(".rulesList").html("");
+
+        $(".rulesList").append('<li class="" onclick="loadUdpRulesList()" title="click here to reload" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
+            '<img src="images/folder.png" /> <b> UDP Rules</b> <span class="loaderSpin"></span></li>');
+
+        $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
+
+        setTimeout(function () {
+            $(".loaderSpin").html('');
+        }, 1000);
+
+        $('[data-toggle="tooltip"]').tooltip()
+
+        if (status && data.length > 0) {
+            udp_rules_list = data;
+
+            for (var i = 0; i < data.length; i++) {
+
+                var str = '<li class="rulesListli rule_' + data[i].id + '" data-id="' + data[i].id + '" onclick="loadTabbar(\'' + data[i].id + '\',12)">' +
+                    '<img src="images/file.png" /> <b>' + data[i].name + '</b></li>';
+                $(".rulesList").append(str);
+
+            }
+        } else {
+            errorMsg('No UDP Rules Found!')
+        }
+    })
+}
+function loadTcpRulesList() {
+    listInputRules("TCP_INPUT",function (status, data) {
+        $(".rulesList").html("");
+
+        $(".rulesList").append('<li class="" onclick="loadTcpRulesList()" title="click here to reload" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
+            '<img src="images/folder.png" /> <b> TCP Rules</b> <span class="loaderSpin"></span></li>');
+
+        $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
+
+        setTimeout(function () {
+            $(".loaderSpin").html('');
+        }, 1000);
+
+        $('[data-toggle="tooltip"]').tooltip()
+
+        if (status && data.length > 0) {
+            tcp_rules_list = data;
+
+            for (var i = 0; i < data.length; i++) {
+
+                var str = '<li class="rulesListli rule_' + data[i].id + '" data-id="' + data[i].id + '" onclick="loadTabbar(\'' + data[i].id + '\',13)">' +
+                    '<img src="images/file.png" /> <b>' + data[i].name + '</b></li>';
+                $(".rulesList").append(str);
+
+            }
+        } else {
+            errorMsg('No TCP Rules Found!')
+        }
+    })
+}
+function loadEmailRulesList() {
+    listInputRules("EMAIL_INPUT",function (status, data) {
+        $(".rulesList").html("");
+
+        $(".rulesList").append('<li class="" onclick="loadTcpRulesList()" title="click here to reload" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
+            '<img src="images/folder.png" /> <b> EMAIL Rules</b> <span class="loaderSpin"></span></li>');
+
+        $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
+
+        setTimeout(function () {
+            $(".loaderSpin").html('');
+        }, 1000);
+
+        $('[data-toggle="tooltip"]').tooltip()
+
+        if (status && data.length > 0) {
+            email_rules_list = data;
+
+            for (var i = 0; i < data.length; i++) {
+
+                var str = '<li class="rulesListli rule_' + data[i].id + '" data-id="' + data[i].id + '" onclick="loadTabbar(\'' + data[i].id + '\',14)">' +
+                    '<img src="images/file.png" /> <b>' + data[i].name + '</b></li>';
+                $(".rulesList").append(str);
+
+            }
+        } else {
+            errorMsg('No EMAIL Rules Found!')
+        }
+    })
+}
+
 function loadScheduleRulesList() {
     listScheduleRules(rules_page_size, null, null, function (status, data) {
         $(".rulesList").html("");
@@ -1123,6 +1512,7 @@ function loadTabbar(id, type) {
     $(".jobFields").css('display', 'none');
     $(".defaultFields").css('display', 'none');
     $(".processBlock").css('display', 'none');
+    $(".inputBlock").css('display', 'none');
 
 
     if (_.indexOf(tabbar_list, id) < 0) {
@@ -1232,6 +1622,76 @@ function loadTabbar(id, type) {
                 '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',9)" title="close"><i class="fa fa-close"></i></span></a>' +
                 '</li>';
         }
+        else if (type === 10) {
+
+            var obj = {};
+            for (var i = 0; i < sftp_rules_list.length; i++) {
+                if (id === sftp_rules_list[i].id) {
+                    obj = sftp_rules_list[i];
+                }
+            }
+
+            str = '<li role="presentation" class="sftpTab tabbar sftpTab_' + id + '"  >' +
+                '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadSftpRule(\'' + id + '\')>' + obj.name + ' ' +
+                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',10)" title="close"><i class="fa fa-close"></i></span></a>' +
+                '</li>';
+        }
+        else if (type === 11) {
+
+            var obj = {};
+            for (var i = 0; i < mqtt_rules_list.length; i++) {
+                if (id === mqtt_rules_list[i].id) {
+                    obj = mqtt_rules_list[i];
+                }
+            }
+
+            str = '<li role="presentation" class="mqttTab tabbar mqttTab_' + id + '"  >' +
+                '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadMqttRule(\'' + id + '\')>' + obj.name + ' ' +
+                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',11)" title="close"><i class="fa fa-close"></i></span></a>' +
+                '</li>';
+        }
+        else if (type === 12) {
+
+            var obj = {};
+            for (var i = 0; i < udp_rules_list.length; i++) {
+                if (id === udp_rules_list[i].id) {
+                    obj = udp_rules_list[i];
+                }
+            }
+
+            str = '<li role="presentation" class="udpTab tabbar udpTab_' + id + '"  >' +
+                '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadUdpRule(\'' + id + '\')>' + obj.name + ' ' +
+                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',12)" title="close"><i class="fa fa-close"></i></span></a>' +
+                '</li>';
+        }
+        else if (type === 13) {
+
+            var obj = {};
+            for (var i = 0; i < tcp_rules_list.length; i++) {
+                if (id === tcp_rules_list[i].id) {
+                    obj = tcp_rules_list[i];
+                }
+            }
+
+            str = '<li role="presentation" class="tcpTab tabbar tcpTab_' + id + '"  >' +
+                '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadTcpRule(\'' + id + '\')>' + obj.name + ' ' +
+                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',13)" title="close"><i class="fa fa-close"></i></span></a>' +
+                '</li>';
+        }
+        else if (type === 14) {
+
+            var obj = {};
+            for (var i = 0; i < email_rules_list.length; i++) {
+                if (id === email_rules_list[i].id) {
+                    obj = email_rules_list[i];
+                }
+            }
+
+            str = '<li role="presentation" class="emailTab tabbar emailTab_' + id + '"  >' +
+                '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadEmailRule(\'' + id + '\')>' + obj.name + ' ' +
+                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',14)" title="close"><i class="fa fa-close"></i></span></a>' +
+                '</li>';
+        }
 
         tabbar_list.push(id);
         $(".editorBar").append(str);
@@ -1247,6 +1707,11 @@ function loadTabbar(id, type) {
     $(".jarTab").removeClass('active');
     $(".fileTab").removeClass('active');
     $(".processTab").removeClass('active');
+    $(".sftpTab").removeClass('active');
+    $(".udpTab").removeClass('active');
+    $(".mqttTab").removeClass('active');
+    $(".tcpTab").removeClass('active');
+    $(".emailTab").removeClass('active');
 
     var obj = {};
 
@@ -1389,6 +1854,101 @@ function loadTabbar(id, type) {
         $(".ruleName").html(obj.name);
         $(".exportBtn").attr('onclick','exportRule(9)')
     }
+    else if (type === 10) {
+        loadSftpRule(id);
+        $(".sftpTab_" + id).addClass('active');
+
+        for (var i = 0; i < sftp_rules_list.length; i++) {
+            if (id === sftp_rules_list[i].id) {
+                obj = sftp_rules_list[i];
+            }
+        }
+
+        loadSftpDetails(id,obj);
+
+        $(".detailsBlock").css('display', 'block')
+        $(".inputBlock").css('display', 'block')
+        $(".ruleType").html('SFTP Rule');
+        $(".ruleName").html(obj.name);
+
+        $(".exportBtn").attr('onclick','exportRule(10)')
+    }
+    else if (type === 11) {
+        loadMqttRule(id);
+        $(".mqttTab_" + id).addClass('active');
+
+        for (var i = 0; i < mqtt_rules_list.length; i++) {
+            if (id === mqtt_rules_list[i].id) {
+                obj = mqtt_rules_list[i];
+            }
+        }
+
+        loadMqttDetails(id,obj);
+
+        $(".detailsBlock").css('display', 'block')
+        $(".inputBlock").css('display', 'block')
+        $(".ruleType").html('MQTT Rule');
+        $(".ruleName").html(obj.name);
+
+        $(".exportBtn").attr('onclick','exportRule(11)')
+    }
+    else if (type === 12) {
+        loadUdpRule(id);
+        $(".udpTab_" + id).addClass('active');
+
+        for (var i = 0; i < udp_rules_list.length; i++) {
+            if (id === udp_rules_list[i].id) {
+                obj = udp_rules_list[i];
+            }
+        }
+
+        loadUdpDetails(id,obj);
+
+        $(".detailsBlock").css('display', 'block')
+        $(".inputBlock").css('display', 'block')
+        $(".ruleType").html('UDP Rule');
+        $(".ruleName").html(obj.name);
+
+        $(".exportBtn").attr('onclick','exportRule(12)')
+    }
+    else if (type === 13) {
+        loadTcpRule(id);
+        $(".tcpTab_" + id).addClass('active');
+
+        for (var i = 0; i < tcp_rules_list.length; i++) {
+            if (id === tcp_rules_list[i].id) {
+                obj = tcp_rules_list[i];
+            }
+        }
+
+        loadTcpDetails(id,obj);
+
+        $(".detailsBlock").css('display', 'block')
+        $(".inputBlock").css('display', 'block')
+        $(".ruleType").html('TCP Rule');
+        $(".ruleName").html(obj.name);
+
+        $(".exportBtn").attr('onclick','exportRule(13)')
+    }
+    else if (type === 14) {
+        loadEmailRule(id);
+        $(".emailTab_" + id).addClass('active');
+
+        for (var i = 0; i < email_rules_list.length; i++) {
+            if (id === email_rules_list[i].id) {
+                obj = email_rules_list[i];
+            }
+        }
+
+        loadEmailDetails(id,obj);
+
+        $(".detailsBlock").css('display', 'block')
+        $(".inputBlock").css('display', 'block')
+        $(".ruleType").html('Email Rule');
+        $(".ruleName").html(obj.name);
+
+        $(".exportBtn").attr('onclick','exportRule(14)')
+    }
 
 
     $(".ruleLanguage").html('GROOVY')
@@ -1454,6 +2014,73 @@ function loadProcessDetails(id,obj) {
     '</p>'
     );
 }
+
+function loadSftpDetails(id,obj) {
+    $(".inputBlock tbody").html("");
+
+    $(".inputBlock tbody").append('<tr><td>Implementation</td><td>'+(obj.implementation ? obj.implementation : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Instance Type</td><td>'+obj.instanceType+ (obj.instances ? '<br>('+obj.instances+' instances)' : '')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Start on Reboot</td><td>'+(obj.startAtBoot ? 'Yes' : 'No')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td colspan="1">Instance Action' +
+        '<button style="display:none" class="btn btn-xs stBtn btn-primary" onclick="executeInputAction(\''+id+'\',\''+'START'+'\',\''+'SFTP'+'\')"><i class="fa fa-play"></i> Start</button>'+
+        '<button style="display:none" class="btn btn-xs stpBtn mb-2 btn-danger" onclick="executeInputAction(\''+id+'\',\''+'STOP'+'\',\''+'SFTP'+'\')"><i class="fa fa-stop"></i> Stop</button>'+
+        '<button style="display:none" class="btn btn-xs resBtn btn-warning" onclick="executeInputAction(\''+id+'\',\''+'RESTART'+'\',\''+'SFTP'+'\')"><i class="fa fa-redo"></i> Restart</button>'+
+        '</td></tr>')
+
+    $(".inputBlock tbody").append('<tr><td>Remote Host</td><td>'+(obj.remoteHost ? obj.remoteHost : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Port</td><td>'+(obj.remotePort ? obj.remotePort : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Username</td><td>'+(obj.userName ? obj.userName : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Password</td><td>'+(obj.password ? obj.password : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Remote Paths</td><td>'+(obj.remotePaths ? obj.remotePaths : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Poll Interval</td><td>'+(obj.pollInterval ? obj.pollInterval : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>List Pattern</td><td>'+(obj.listPattern ? obj.listPattern : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>List Dir. Pattern</td><td>'+(obj.listDirPattern ? obj.listDirPattern : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>key Files Built In</td><td>'+(obj.keyFilesBuiltIn ? 'Yes' : 'No')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Connection TimeOut</td><td>'+(obj.connectTimeOut ? obj.connectTimeOut : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>List Recursive</td><td>'+(obj.listRecursive ? obj.listRecursive : '-')+'</td></tr>')
+
+    getInputRunning('SFTP',id);
+
+}
+
+function getInputRunning(type,id) {
+
+    id = id ? id : CURRENT_ID;
+
+    $(".iCount").html(0);
+    inputActions(type,id,'COUNT', function (status,data) {
+        if(status){
+            $(".iCount").html(data.total);
+            if(data.total > 0){
+                $(".stBtn").css('display','none')
+                $(".stpBtn").css('display','block')
+                $(".resBtn").css('display','block')
+            }else{
+                $(".stBtn").css('display','block')
+                $(".stpBtn").css('display','none')
+                $(".resBtn").css('display','none')
+            }
+        }
+    })
+}
+
+function executeInputAction(id, action, type) {
+
+    inputActions(type,id, action, function (status, data) {
+        if (status) {
+            successMsg('Successfully executed')
+            if(type === 'SFTP'){
+                loadSftpRulesList();
+                getInputRunning('SFTP',id);
+            }
+            //TODO
+
+        } else {
+            errorMsg("Error in executing action")
+        }
+    })
+}
+
 
 function loadJobDetails(id,obj) {
     $(".jobFields tbody").html("");
@@ -1524,6 +2151,7 @@ function executeAction(id, executeAction) {
         })
 }
 
+
 function deleteTab(id, type) {
     if (type === 1) {
         $(".messageTab_" + id).remove();
@@ -1547,6 +2175,21 @@ function deleteTab(id, type) {
     else if (type === 9) {
         $(".processTab_" + id).remove();
     }
+    else if (type === 10) {
+        $(".sftpTab_" + id).remove();
+    }
+    else if (type === 11) {
+        $(".mqttTab_" + id).remove();
+    }
+    else if (type === 12) {
+        $(".udpTab_" + id).remove();
+    }
+    else if (type === 13) {
+        $(".tcpTab_" + id).remove();
+    }
+    else if (type === 14) {
+        $(".emailpTab_" + id).remove();
+    }
 
     var temp = [];
 
@@ -1567,6 +2210,11 @@ function deleteTab(id, type) {
         $(".jobTab").removeClass('active')
         $(".fileTab").removeClass('active')
         $(".processTab").removeClass('active')
+        $(".sftpTab").removeClass('active')
+        $(".mqttTab").removeClass('active')
+        $(".udpTab").removeClass('active')
+        $(".tcpTab").removeClass('active')
+        $(".emailTab").removeClass('active')
         $(".domainTab").addClass('active')
         loadDomainRule();
         // $("#codeEditor").remove();
@@ -1608,19 +2256,22 @@ function returnObj(id, type) {
                 return message_rules_list[i];
             }
         }
-    } else if (type === 2) {
+    }
+    else if (type === 2) {
         for (var i = 0; i < named_rules_list.length; i++) {
             if (id === named_rules_list[i].name) {
                 return named_rules_list[i];
             }
         }
-    } else if (type === 3) {
+    }
+    else if (type === 3) {
         for (var i = 0; i < schedule_rules_list.length; i++) {
             if (id === schedule_rules_list[i].id) {
                 return schedule_rules_list[i];
             }
         }
-    } else if (type === 6) {
+    }
+    else if (type === 6) {
         for (var i = 0; i < binary_rules_list.length; i++) {
             if (id === binary_rules_list[i].type) {
                 return binary_rules_list[i];
@@ -1648,7 +2299,41 @@ function returnObj(id, type) {
             }
         }
     }
-
+    else if (type === 10) {
+        for (var i = 0; i < sftp_rules_list.length; i++) {
+            if (id === sftp_rules_list[i].id) {
+                return sftp_rules_list[i];
+            }
+        }
+    }
+    else if (type === 11) {
+        for (var i = 0; i < mqtt_rules_list.length; i++) {
+            if (id === mqtt_rules_list[i].id) {
+                return mqtt_rules_list[i];
+            }
+        }
+    }
+    else if (type === 12) {
+        for (var i = 0; i < udp_rules_list.length; i++) {
+            if (id === udp_rules_list[i].id) {
+                return udp_rules_list[i];
+            }
+        }
+    }
+    else if (type === 13) {
+        for (var i = 0; i < tcp_rules_list.length; i++) {
+            if (id === tcp_rules_list[i].id) {
+                return tcp_rules_list[i];
+            }
+        }
+    }
+    else if (type === 14) {
+        for (var i = 0; i < email_rules_list.length; i++) {
+            if (id === email_rules_list[i].id) {
+                return email_rules_list[i];
+            }
+        }
+    }
 
 }
 
@@ -1924,6 +2609,38 @@ function loadJobRule(id) {
     // }, 1000);
 }
 
+function loadSftpRule(id) {
+    $(".simulateBtn").css('display', 'none');
+    //  mqttCancelSubscribe(CURRENT_ID);
+    $("#editorContent").html('<div id="codeEditor"></div>');
+    var data = returnObj(id, 10);
+    $("#codeEditor").html('');
+
+    loadEditor(data.code ? data.code : '', 'sftpTab_'+id);
+
+    CURRENT_ID = id;
+    CURRENT_TYPE = 10;
+
+    exportRule(10)
+
+    $(".ruleType").html('SFTP Rule');
+    $(".ruleName").html(data.name);
+
+    $(".detailsBlock").css('display', 'block');
+    $(".messageFields").css('display', 'none');
+    $(".defaultFields").css('display', 'none');
+    $(".jobFields").css('display', 'none');
+    $(".deleteBtn").css('display', 'block');
+    $(".inputBlock").css('display', 'block');
+
+    loadSftpDetails(id,data)
+
+
+    // setTimeout(function () {
+    //     mqttListen();
+    // }, 1000);
+}
+
 function loadProcessRule(id) {
     $(".simulateBtn").css('display', 'none');
     //  mqttCancelSubscribe(CURRENT_ID);
@@ -2157,6 +2874,16 @@ function loadEditor(code, tabid) {
 
             }
 
+            if (CURRENT_TYPE === 10) {
+
+                for (var i = 0; i < sftp_rules_list.length; i++) {
+                    if (CHANGED_ID === sftp_rules_list[i].id) {
+                        sftp_rules_list[i].code = CHANGED_TEXT;
+                    }
+                }
+
+            }
+
 
         }
     });
@@ -2334,6 +3061,22 @@ function loadEditor(code, tabid) {
                     }
                 })
             }
+            else if (CURRENT_TYPE === 10) {
+
+                var obj = returnObj(CURRENT_ID, 10);
+
+                obj['code'] = consoleText;
+                delete obj._id;
+
+                updateInputRuleCode('SFTP',obj, function (status, data) {
+                    if (status) {
+                        successMsg('Successfully saved!');
+                        loadSftpRulesList();
+                    } else {
+                        errorMsg('Error in saving!')
+                    }
+                })
+            }
         }
     });
 }
@@ -2428,86 +3171,6 @@ function openModal(e) {
 
         $("#addProcessRule").modal('show');
     }
-    else if (id === 10) {
-        $(".tempAction").html('Update');
-
-        $("#addProcessRule form")[0].reset();
-
-        var obj = {};
-
-        for (var i = 0; i < process_rules_list.length; i++) {
-            if (CURRENT_ID === process_rules_list[i].id) {
-                obj = process_rules_list[i];
-            }
-        }
-        $("#addProcessRule form").attr('onsubmit','updateProcessRule(\''+CURRENT_ID+'\')')
-        $("#processName").val(obj.name)
-        $("#processId").html(obj.id)
-        $("#processName").attr('disabled','disabled')
-        $("#processColor").spectrum({
-            showPaletteOnly: true,
-            togglePaletteOnly: true,
-            togglePaletteMoreText: 'more',
-            togglePaletteLessText: 'less',
-            color: 'blanchedalmond',
-            showInput: true,
-            palette: [
-                ["#000","#444","#666","#999","#ccc","#eee","#f3f3f3","#fff"],
-                ["#f00","#f90","#ff0","#0f0","#0ff","#00f","#90f","#f0f"],
-                ["#f4cccc","#fce5cd","#fff2cc","#d9ead3","#d0e0e3","#cfe2f3","#d9d2e9","#ead1dc"],
-                ["#ea9999","#f9cb9c","#ffe599","#b6d7a8","#a2c4c9","#9fc5e8","#b4a7d6","#d5a6bd"],
-                ["#e06666","#f6b26b","#ffd966","#93c47d","#76a5af","#6fa8dc","#8e7cc3","#c27ba0"],
-                ["#c00","#e69138","#f1c232","#6aa84f","#45818e","#3d85c6","#674ea7","#a64d79"],
-                ["#900","#b45f06","#bf9000","#38761d","#134f5c","#0b5394","#351c75","#741b47"],
-                ["#600","#783f04","#7f6000","#274e13","#0c343d","#073763","#20124d","#4c1130"]
-            ]
-        });
-
-        $("#processColor").spectrum("set", obj.properties && obj.properties.color ? obj.properties.color : '#ccccc');
-
-        uploadImage = obj.properties && obj.properties.logo ? obj.properties.logo : 'images/generate_claim.svg';
-
-        $(".process_img").attr('src', uploadImage);
-
-        $(".outputBody").html('');
-        $(".inputBody").html('');
-
-        var output = [];
-        var input = [];
-
-        for(var k in obj.output){
-            $(".outputBody").append($("#outputHtml").html());
-            output.push({key:k,value:obj.output[k]})
-        }
-
-        $( ".output_value" ).each(function( index ) {
-            $(this).val(output[index].value);
-        });
-        $( ".output_key" ).each(function( index ) {
-            $(this).val(output[index].key);
-        });
-
-        for(var k in obj.input){
-            $(".inputBody").append($("#inputHtml").html());
-            input.push({key:k,value:obj.input[k]})
-        }
-
-        $( ".input_value").each(function( index ) {
-            $(this).val(input[index].value);
-        });
-        $( ".input_key" ).each(function( index ) {
-            $(this).val(input[index].key);
-        });
-
-
-        $("#description").val(obj.description)
-        $("#pGroup").val(obj.group)
-        $("#pTags").val(obj.tags)
-
-
-
-        $("#addProcessRule").modal('show');
-    }
     else if (id === 7) {
 
         if(ADMIN_ACCESS){
@@ -2524,6 +3187,20 @@ function openModal(e) {
         $("#addJobRule form")[0].reset();
         $("#addJobRule").modal('show');
         checkJobInstance()
+    }
+    else if (id === 10) {
+
+        $("#sftp_name").removeAttr('disabled')
+
+        $(".sftp_privateKeyFilePath").css('display','none')
+        $(".sftp_publicKeyFilePath").css('display','none')
+        $("#sftp_privateKeyFilePath").removeAttr('required')
+        $("#sftp_publicKeyFilePath").removeAttr('required')
+
+        $("#addSftpInputRule form").attr("onsubmit","addSftpRule()");
+        $("#addSftpInputRule form")[0].reset();
+        $("#addSftpInputRule").modal('show');
+
     }
 }
 
@@ -2570,6 +3247,50 @@ function editJobModal() {
     $("#addJobRule").modal('show');
 }
 
+function editInputModal(){
+    if(CURRENT_TYPE == 10){
+        editSftpModal()
+    }
+}
+
+function editSftpModal() {
+    $("#sftp_rule_nam").attr('disabled','disabled')
+
+    var obj = {};
+    for (var i = 0; i < sftp_rules_list.length; i++) {
+        if (CURRENT_ID === sftp_rules_list[i].id) {
+            obj = sftp_rules_list[i];
+        }
+    }
+
+    $("#addSftpInputRule form")[0].reset();
+    $("#sftp_id").val(obj.id)
+    $("#sftp_name").val(obj.name)
+    $("#sftp_instances").val(obj.instances ? obj.instances : '')
+    $("#sftp_instanceType").val(obj.instanceType ? obj.instanceType : '')
+    $("#sftp_remoteHost").val(obj.remoteHost ? obj.remoteHost : '')
+    $("#sftp_remotePort").val(obj.remotePort ? obj.remotePort : '')
+    $("#sftp_userName").val(obj.userName ? obj.userName : '')
+    $("#sftp_password").val(obj.password ? obj.password : '')
+    $("#sftp_implementation").val(obj.implementation ? obj.implementation : '')
+    $("#sftp_remotePaths").val(obj.remotePaths ? obj.remotePaths.join(",") : '')
+    $("#sftp_pollInterval").val(obj.pollInterval ? obj.pollInterval : '')
+    $("#sftp_listPattern").val(obj.listPattern ? obj.listPattern : '')
+    $("#sftp_listDirPattern").val(obj.listDirPattern ? obj.listDirPattern : '')
+    $("#sftp_privateKeyFilePath").val(obj.privateKeyFilePath ? obj.privateKeyFilePath : '')
+    $("#sftp_publicKeyFilePath").val(obj.publicKeyFilePath ? obj.publicKeyFilePath : '')
+    $("#sftp_connectTimeOut").val(obj.connectTimeOut ? obj.connectTimeOut : '')
+    $("#sftp_listRecursive").val(obj.listRecursive ? obj.listRecursive : '')
+
+    $("#sftp_startAtBoot").val(obj.startAtBoot ? "1" : "0")
+    $("#sftp_keyFilesBuiltIn").val(obj.keyFilesBuiltIn ? "1" : "0")
+
+    checkKeyFile($("#sftp_keyFilesBuiltIn").val())
+
+    $("#addSftpInputRule form").attr("onsubmit","addSftpRule(1)");
+    $("#addSftpInputRule").modal('show');
+}
+
 function openDeleteModal() {
 
     if (CURRENT_TYPE > 0) {
@@ -2597,6 +3318,10 @@ function openDeleteModal() {
         }
         else if (CURRENT_TYPE === 9) {
             $(".delete_rule_name").html('Process');
+            $(".delete_rule_id").html(CURRENT_ID);
+        }
+        else if (CURRENT_TYPE === 10) {
+            $(".delete_rule_name").html('SFTP');
             $(".delete_rule_id").html(CURRENT_ID);
         }
         $("#deleteModal").modal('show');
@@ -2724,6 +3449,22 @@ function proceedDelete() {
                     Cookies.set('pfGroup','')
                     loadProcessRulesListAggs();
                     loadProcessRulesList();
+                },500)
+                $("#deleteModal").modal('hide');
+            } else {
+                errorMsg('Error in delete')
+            }
+        })
+    }
+    else if (CURRENT_TYPE === 10) {
+
+        deleteInputRule('SFTP',CURRENT_ID, function (status, data) {
+            if (status) {
+                deleteTab(CURRENT_ID, CURRENT_TYPE);
+                successMsg('Successfully deleted');
+
+                setTimeout(function (){
+                    loadSftpRulesList();
                 },500)
                 $("#deleteModal").modal('hide');
             } else {
@@ -2955,10 +3696,10 @@ function addProcessRule() {
 
     var input = {};
 
-    var inputKey= $(".input_key").map(function() {
+    var inputKey= $(".sftp_key").map(function() {
         return $(this).val();
     }).get();
-    var inputValue= $(".input_value").map(function() {
+    var inputValue= $(".sftp_value").map(function() {
         return $(this).val();
     }).get();
 
@@ -3058,10 +3799,10 @@ function updateProcessRule(id) {
 
     var input = {};
 
-    var inputKey= $(".input_key").map(function() {
+    var inputKey= $(".sftp_key").map(function() {
         return $(this).val();
     }).get();
-    var inputValue= $(".input_value").map(function() {
+    var inputValue= $(".sftp_value").map(function() {
         return $(this).val();
     }).get();
 
@@ -3146,6 +3887,51 @@ function addJobRule(code) {
             },500)
 
             $("#addJobRule").modal('hide');
+        } else {
+            errorMsg('Error in saving!')
+        }
+    })
+
+}
+
+function addSftpRule(code) {
+    var dataObj = {
+        "domainKey": DOMAIN_KEY,
+        "id": $("#sftp_id").val(),
+        "name": $("#sftp_name").val(),
+        "code": code ? codeEditor.getSession().getValue() : "",
+        "description":"",
+        instances: Number($("#sftp_instances").val()),
+        instanceType: $("#sftp_instanceType").val(),
+        lang: 'GROOVY',
+        "startAtBoot": $("#sftp_startAtBoot").val() === "1" ? true : false,
+        remoteHost: $("#sftp_remoteHost").val(),
+        remotePort: Number($("#sftp_remotePort").val()),
+        userName: $("#sftp_userName").val(),
+        password: $("#sftp_password").val(),
+        remotePaths : $("#sftp_remotePaths").val().split(","),
+        implementation: $("#sftp_implementation").val(),
+        pollInterval: $("#sftp_pollInterval").val() ? Number($("#sftp_pollInterval").val()) : null,
+        listPattern: $("#sftp_listPattern").val(),
+        listDirPattern: $("#sftp_listDirPattern").val(),
+        "keyFilesBuiltIn": $("#sftp_keyFilesBuiltIn").val() === "1" ? true : false,
+        privateKeyFilePath: $("#sftp_privateKeyFilePath").val(),
+        publicKeyFilePath: $("#sftp_publicKeyFilePath").val(),
+        keyPassPhrase: $("#sftp_keyPassPhrase").val(),
+        connectTimeOut: $("#sftp_connectTimeOut").val() ? Number($("#sftp_connectTimeOut").val()) : null,
+        listRecursive: $("#sftp_listRecursive").val() ? Number($("#sftp_listRecursive").val()) : $("#sftp_listRecursive").val(),
+
+    };
+
+    updateInputRuleCode('SFTP',dataObj, function (status, data) {
+        if (status) {
+            successMsg('Successfully saved!');
+            loadSftpRulesList();
+            // setTimeout(function () {
+            //     loadTabbar(dataObj.id, 10);
+            // },500)
+
+            $("#addSftpInputRule").modal('hide');
         } else {
             errorMsg('Error in saving!')
         }
@@ -4027,6 +4813,16 @@ function exportRule(type) {
         }
 
     }
+    else if(type === 10){
+        console.log('SFTP Rule...!');
+        rule_name = 'sftp-rule-'+CURRENT_ID;
+        var obj = returnObj(CURRENT_ID, 10);
+        delete obj._id;
+
+        data = obj;
+
+
+    }
 
     var dObj = {
         type : type,
@@ -4178,6 +4974,23 @@ function uploadRuleType(type, data) {
                 loadJobRulesList()();
                 setTimeout(function () {
                     loadTabbar(data.id,7)
+                    $("#importModal").modal('hide');
+                },1000)
+
+            } else {
+                errorMsg('Error in saving!')
+            }
+            $("#importModal").modal('hide');
+        })
+    }
+    else if (type === 10) {
+
+        updateInputRuleCode('SFTP',data, function (status, resdata) {
+            if (status) {
+                successMsg('SFTP Rule Successfully Uploaded!');
+                loadSftpRulesList()();
+                setTimeout(function () {
+                    loadTabbar(data.id,10)
                     $("#importModal").modal('hide');
                 },1000)
 
@@ -4433,6 +5246,12 @@ function changeId(val) {
     $("#processId").html($.trim($("#processName").val()).toUpperCase().replace(/\s/g, '_'))
 }
 
+
+function inputId(source,target) {
+    $("."+target).html($.trim($("#"+source).val()).toUpperCase().replace(/\s/g, '_'))
+    $("#"+target).val($.trim($("#"+source).val()).toUpperCase().replace(/\s/g, '_'))
+}
+
 function addBlock() {
     if($(".tclass.active").hasClass('outClass')){
         $(".outputBody").append($("#outputHtml").html());
@@ -4440,6 +5259,22 @@ function addBlock() {
         $(".inputBody").append($("#inputHtml").html());
     }
 
+}
+
+function checkKeyFile(val){
+
+
+    if(val == "1"){
+        $(".sftp_privateKeyFilePath").css('display','block')
+        $("#sftp_privateKeyFilePath").attr('required','required')
+        $(".sftp_publicKeyFilePath").css('display','block')
+        $("#sftp_publicKeyFilePath").attr('required','required')
+    }else{
+        $(".sftp_privateKeyFilePath").css('display','none')
+        $(".sftp_publicKeyFilePath").css('display','none')
+        $("#sftp_privateKeyFilePath").removeAttr('required')
+        $("#sftp_publicKeyFilePath").removeAttr('required')
+    }
 }
 
 var uploadImage = 'images/generate_claim.svg';
@@ -4483,4 +5318,52 @@ function uploadProcessImage() {
     uploadProcessFile(files[0]);
 
 }
+var pemFileId = null;
+function checkPemFile(id){
+    pemFileId=id;
+    $("#pemFile").click()
 
+}
+
+
+function uploadPemFile() {
+
+    var fileInput = document.getElementById("pemFile");
+
+    var files = fileInput.files;
+
+    if (files.length === 0) {
+        errorMsg('File not found. select a file to start upload');
+        return false;
+    }
+
+    uploadPem(files[0]);
+
+}
+
+
+function uploadPem(file) {
+
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+
+            if (xhr.status === 200) {
+                var result = JSON.parse(xhr.response);
+                $("#"+pemFileId).val(result.id)
+            } else {
+                errorMsg('Error in key file upload!');
+            }
+        }
+    };
+
+    $("."+pemFileId+"_name").html(file.name)
+
+    xhr.open('POST', API_BASE_PATH + '/files/upload/' + API_TOKEN, true);
+    var formData = new FormData();
+    formData.append("binfile", file, file.name);
+    formData.append("mediaType", file.type);
+    formData.append("tags", 'pem file');
+    formData.append("description", '');
+    xhr.send(formData);
+}

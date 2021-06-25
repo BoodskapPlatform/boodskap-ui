@@ -494,6 +494,40 @@ function listJobRules(cbk) {
 
 }
 
+function listInputRules(type,cbk) {
+    var query = {
+        query:{
+            bool : {
+                must:[{match:{domainKey:DOMAIN_KEY}}],
+            }
+        },
+        from:0,
+        size:9999,
+    }
+
+    var data = {
+        "type": type,
+        "query": JSON.stringify(query),
+    }
+
+    $.ajax({
+        url: API_BASE_PATH + "/elastic/search/query/" + API_TOKEN,
+        data: JSON.stringify(data),
+        contentType: "application/json",
+        type: 'POST',
+        success: function (data) {
+            //called when successful
+            cbk(true, data);
+        },
+        error: function (e) {
+            //called when there is an error
+            //console.log(e.message);
+            cbk(false, e);
+        }
+    });
+
+}
+
 
 function listMessageSpec(pageSize, direction, mid, cbk) {
 
@@ -728,6 +762,28 @@ function updateProcessRuleCode(data, cbk) {
 
 }
 
+
+function updateInputRuleCode(type,data, cbk) {
+
+
+    $.ajax({
+        url: API_BASE_PATH + "/input/"+type+"/upsert/" + API_TOKEN,
+        data: JSON.stringify(data),
+        contentType: "application/json",
+        type: 'POST',
+        success: function (data) {
+            //called when successful
+            cbk(true, data);
+        },
+        error: function (e) {
+            //called when there is an error
+            //console.log(e.message);
+            cbk(false, null);
+        }
+    });
+
+}
+
 function updateNamedRuleCode(data, cbk) {
 
     //{"lang":"GROOVY","code":"","name":"Flow Meter Message"}
@@ -756,6 +812,27 @@ function deleteNamedRule(data, cbk) {
 
     $.ajax({
         url: API_BASE_PATH + "/nrules/delete/" + API_TOKEN + "/" + data,
+        // data:  JSON.stringify(data),
+        contentType: "application/json",
+        type: 'DELETE',
+        success: function (data) {
+            //called when successful
+            cbk(true, data);
+        },
+        error: function (e) {
+            //called when there is an error
+            //console.log(e.message);
+            cbk(false, null);
+        }
+    });
+
+}
+
+function deleteInputRule(type,id, cbk) {
+
+
+    $.ajax({
+        url: API_BASE_PATH + "/input/"+type+"/delete/" + API_TOKEN + "/" + id,
         // data:  JSON.stringify(data),
         contentType: "application/json",
         type: 'DELETE',
@@ -917,6 +994,28 @@ function getJobRunningList(id, cbk) {
         url: API_BASE_PATH + "/jobs/running/list/" + API_TOKEN,
         data:  data,
         type: 'GET',
+        success: function (data) {
+            //called when successful
+            cbk(true, data);
+        },
+        error: function (e) {
+            //called when there is an error
+            //console.log(e.message);
+            cbk(false, null);
+        }
+    });
+
+}
+
+
+function inputActions(type,id,action, cbk) {
+
+
+
+    $.ajax({
+        url: API_BASE_PATH + "/input/"+type+"/action/"+ action+"/"+ API_TOKEN+"/"+id,
+        contentType: "application/json",
+        type: 'POST',
         success: function (data) {
             //called when successful
             cbk(true, data);

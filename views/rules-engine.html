@@ -377,7 +377,22 @@
                                     </div>
                                 </div>
                             </div>
-
+                            <div class="card inputBlock" style="display: none">
+                                <div class="card-header bg-black text-white pointer-cursor collapsed"
+                                     data-toggle="collapse" data-target="#collapseTwo11" aria-expanded="false">
+                                    Input Details
+                                    <a href="javascript:void(0)" class="pull-right text-white" onclick="editInputModal()"><i
+                                            class="fa fa-edit"></i></a>
+                                </div>
+                                <div id="collapseTwo11" class="collapse" data-parent="#accordion" style="">
+                                    <div class="card-body">
+                                        <table class="table">
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="card jobFields" style="display: none">
                                 <div class="card-header bg-black text-white pointer-cursor collapsed"
                                      data-toggle="collapse" data-target="#collapseTwo1" aria-expanded="false">
@@ -545,6 +560,7 @@
                     <option value="7">Job Rules</option>
                     <option value="8">File Rules</option>
                     <option value="9">Process Rules</option>
+                    <option value="10">SFTP Rules</option>
                     <!--<option value="4">Groovy Class</option>-->
                     <!--<option value="5">JAR Class</option>-->
                 </select>
@@ -1181,6 +1197,197 @@
 </div><!-- /.modal -->
 
 
+<div id="addSftpInputRule" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <form action="javascript:void(0)">
+                <div class="modal-header">
+                    <h4 class="modal-title"><span class="iAction">Add</span> SFTP Input Rule</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="inputLabel">Rule Name *</label>
+                                <input class="form-control input-sm" onkeyup="inputId('sftp_name','sftp_id')"
+                                       onkeypress="inputId('sftp_name','sftp_id')" placeholder=""
+                                       type="text" id="sftp_name" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="inputLabel">Rule ID</label><br>
+                                <strong class="sftp_id">-</strong>
+                                <input class="form-control input-sm"
+                                       type="hidden" id="sftp_id" style="display: none">
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="inputLabel">Instance Type *</label>
+                                <select class="form-control input-sm" id="sftp_instanceType">
+                                    <option value="SCALABLE">Scalable</option>
+                                    <option value="NODE_SINGLETON">Node Singleton</option>
+                                    <option value="CLUSTER_SINGLETON">Cluster Singleton</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="inputLabel">Instances *</label>
+                                <input class="form-control input-sm"
+                                       type="number" min="1" value="" id="sftp_instances" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="inputLabel">Start on Boot</label>
+                                <select class="form-control input-sm" id="sftp_startAtBoot">
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="col-md-4">
+
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="inputLabel">Remote Host *</label>
+                                <input class="form-control input-sm"
+                                       type="text" id="sftp_remoteHost" required>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="inputLabel">Remote Port *</label>
+                                <input class="form-control input-sm"
+                                       type="number" min="1" value="" id="remote_port" required>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="inputLabel">Username *</label>
+                                <input class="form-control input-sm"
+                                       type="text" value="" id="sftp_userName" required>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="inputLabel">Password</label>
+                                <input class="form-control input-sm"
+                                       type="text" value="" id="sftp_password">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="inputLabel">Remote Paths</label>
+                                <input class="form-control input-sm"
+                                       type="text" value="" id="sftp_remotePaths">
+                                <small>Note: multiple paths with comma separated</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="inputLabel">Implementation *</label>
+                                <select class="form-control input-sm" id="sftp_implementation">
+                                    <option value="JSCH">JSCH</option>
+                                    <option value="SSHJ">SSHJ</option>
+                                    <option value="VFS2">VFS2</option>
+                                </select>
+
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="inputLabel">Poll Interval</label>
+                                <input class="form-control input-sm"
+                                       type="number" min="1" value="" id="sftp_pollInterval">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="inputLabel">List Pattern</label>
+                                <input class="form-control input-sm"
+                                       type="text" value="" id="sftp_listPattern">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="inputLabel">List Directory Pattern</label>
+                                <input class="form-control input-sm"
+                                       type="text" value="" id="sftp_sftp_listDirPattern">
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="inputLabel">Key Files *</label>
+                                <select class="form-control input-sm" id="sftp_keyFilesBuiltIn" onchange="checkKeyFile(this.value)">
+                                    <option value="0">No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                            </div>
+                        </div>
+                        <input type="file" style="display: none" class="form-control input-box" id="pemFile" onchange="uploadPemFile()" />
+
+                        <div class="col-md-4">
+                            <div class="form-group sftp_privateKeyFilePath" style="display:none">
+                                <label class="inputLabel">PrivateKey *
+                                    <a href="javascript:void(0)" onclick="checkPemFile('sftp_privateKeyFilePath')"><i class="fa fa-folder-open"></i></a></label>
+                                <input class="form-control input-sm"
+                                       type="text" value="" id="sftp_privateKeyFilePath">
+                                <small>FileName: <strong class="sftp_privateKeyFilePath_name">-</strong></small>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group sftp_publicKeyFilePath" style="display:none">
+                                <label class="inputLabel">PublicKey *
+                                    <a href="javascript:void(0)" onclick="uploadPemFile('sftp_publicKeyFilePath')"><i class="fa fa-folder-open"></i></a></label>
+                                <input class="form-control input-sm"
+                                       type="text" value="" id="sftp_publicKeyFilePath">
+                                <small>FileName: <strong class="sftp_publicKeyFilePath_name">-</strong></small>
+
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="inputLabel">Connection Timeout</label>
+                                <input class="form-control input-sm"
+                                       type="number" min="1" value="" id="sftp_connectTimeOut">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="inputLabel">List Recursive</label>
+                                <input class="form-control input-sm"
+                                       type="number" min="1" value="" id="sftp_listRecursive">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="inputLabel">key PassPhrase</label>
+                                <textarea class="form-control input-sm"
+                                          id="sftp_keyPassPhrase"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btnModal">Save changes</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 
 
 <div id="helpModal" class="modal fade" tabindex="-1" role="dialog">
@@ -1290,3 +1497,4 @@
         </td>
     </tr>
 </script>
+
