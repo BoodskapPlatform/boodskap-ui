@@ -2070,8 +2070,11 @@ function executeInputAction(id, action, type) {
         if (status) {
             successMsg('Successfully executed')
             if(type === 'SFTP'){
-                loadSftpRulesList();
-                getInputRunning('SFTP',id);
+                setTimeout(function(){
+                    loadSftpRulesList();
+                    getInputRunning('SFTP',id);
+                },250)
+
             }
             //TODO
 
@@ -3071,7 +3074,12 @@ function loadEditor(code, tabid) {
                 updateInputRuleCode('SFTP',obj, function (status, data) {
                     if (status) {
                         successMsg('Successfully saved!');
-                        loadSftpRulesList();
+                        // loadSftpRulesList();
+                        setTimeout(function () {
+                            // loadTabbar(dataObj.id, 10);
+                            loadSftpRulesList();
+
+                        },250)
                     } else {
                         errorMsg('Error in saving!')
                     }
@@ -3465,7 +3473,7 @@ function proceedDelete() {
 
                 setTimeout(function (){
                     loadSftpRulesList();
-                },500)
+                },250)
                 $("#deleteModal").modal('hide');
             } else {
                 errorMsg('Error in delete')
@@ -3926,10 +3934,11 @@ function addSftpRule(code) {
     updateInputRuleCode('SFTP',dataObj, function (status, data) {
         if (status) {
             successMsg('Successfully saved!');
-            loadSftpRulesList();
-            // setTimeout(function () {
-            //     loadTabbar(dataObj.id, 10);
-            // },500)
+            setTimeout(function () {
+                // loadTabbar(dataObj.id, 10);
+                loadSftpRulesList();
+
+            },250)
 
             $("#addSftpInputRule").modal('hide');
         } else {
@@ -4988,11 +4997,12 @@ function uploadRuleType(type, data) {
         updateInputRuleCode('SFTP',data, function (status, resdata) {
             if (status) {
                 successMsg('SFTP Rule Successfully Uploaded!');
-                loadSftpRulesList()();
+
                 setTimeout(function () {
-                    loadTabbar(data.id,10)
+                    loadSftpRulesList();
+                    // loadTabbar(data.id,10)
                     $("#importModal").modal('hide');
-                },1000)
+                },250)
 
             } else {
                 errorMsg('Error in saving!')
