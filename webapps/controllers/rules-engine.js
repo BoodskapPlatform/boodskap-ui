@@ -2368,7 +2368,7 @@ function loadDomainRule() {
     exportRule(1);
 
     $(".detailsBlock").css('display', 'block');
-    $(".inputBlock").css('display', 'block');
+    $(".inputBlock").css('display', 'none');
     $(".messageFields").css('display', 'none');
     $(".jobFields").css('display', 'none');
     $(".defaultFields").css('display', 'none');
