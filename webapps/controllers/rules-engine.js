@@ -3201,13 +3201,18 @@ function openModal(e) {
 
         $("#sftp_name").removeAttr('disabled')
 
+
+
         $(".sftp_privateKeyFilePath").css('display','none')
         $(".sftp_publicKeyFilePath").css('display','none')
         $("#sftp_privateKeyFilePath").removeAttr('required')
-        $("#sftp_publicKeyFilePath").removeAttr('required')
 
         $("#addSftpInputRule form").attr("onsubmit","addSftpRule()");
         $("#addSftpInputRule form")[0].reset();
+
+        $("#sftp_connectTimeOut").val(30000)
+        $("#sftp_listRecursive").val(-1)
+        $("#sftp_pollInterval").val(30000)
         $("#addSftpInputRule").modal('show');
 
     }
@@ -3931,6 +3936,8 @@ function addSftpRule(code) {
         listRecursive: $("#sftp_listRecursive").val() ? Number($("#sftp_listRecursive").val()) : $("#sftp_listRecursive").val(),
 
     };
+
+
 
     updateInputRuleCode('SFTP',dataObj, function (status, data) {
         if (status) {
@@ -5282,12 +5289,12 @@ function checkKeyFile(val){
         $(".sftp_privateKeyFilePath").css('display','block')
         $("#sftp_privateKeyFilePath").attr('required','required')
         $(".sftp_publicKeyFilePath").css('display','block')
-        $("#sftp_publicKeyFilePath").attr('required','required')
+        // $("#sftp_publicKeyFilePath").attr('required','required')
     }else{
         $(".sftp_privateKeyFilePath").css('display','none')
         $(".sftp_publicKeyFilePath").css('display','none')
         $("#sftp_privateKeyFilePath").removeAttr('required')
-        $("#sftp_publicKeyFilePath").removeAttr('required')
+        // $("#sftp_publicKeyFilePath").removeAttr('required')
     }
 }
 
