@@ -124,12 +124,16 @@
     font-weight: bold;
 }
 
+.inputBlock tbody td{
+    word-break: break-all;
+}
+
 
 .sftpTab.active{
     border-bottom: 5px solid #3f51b5;
 }
 .sftpTab a{
-    color:#3f51b5; !important;
+    color:#3f51b5 !important;
 }
 .sftpTab.active a{
     font-weight: bold;
@@ -140,7 +144,7 @@
     border-bottom: 5px solid #e91e63;
 }
 .mqttTab a{
-    color:#e91e63; !important;
+    color:#e91e63 !important;
 }
 .mqttTab.active a{
     font-weight: bold;
@@ -151,7 +155,7 @@
     border-bottom: 5px solid #9c27b0;
 }
 .udpTab a{
-    color:#9c27b0; !important;
+    color:#9c27b0 !important;
 }
 .udpTab.active a{
     font-weight: bold;
@@ -161,7 +165,7 @@
     border-bottom: 5px solid #8bc34a;
 }
 .tcpTab a{
-    color:#8bc34a; !important;
+    color:#8bc34a !important;
 }
 .tcpTab.active a{
     font-weight: bold;
@@ -171,7 +175,7 @@
     border-bottom: 5px solid #009688;
 }
 .emailTab a{
-    color:#009688; !important;
+    color:#009688 !important;
 }
 .emailTab.active a{
     font-weight: bold;

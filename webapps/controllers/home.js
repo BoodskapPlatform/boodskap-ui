@@ -424,7 +424,7 @@ function sqlAccess(dkey, state) {
         if(status){
 
 
-            if(data.state){
+            if(state == 'true'){
                 $(".c_"+dkey).html('<span style="color:forestgreen"><i class="icon-check"></i> Already SQL Access Granted!</span><br>' +
                     '<span style="cursor: pointer;color:#333;text-decoration: underline" onclick="sqlAccess(\''+dkey+'\',\''+false+'\')">click here to revoke access</span>');
 
@@ -483,7 +483,7 @@ function dbAccess(dkey, state) {
     setAccess(dkey,'DB', state, function (status, data) {
         if(status){
 
-            if(data.state){
+            if(state == 'true'){
                 $(".d_"+dkey).html('<span style="color:forestgreen"><i class="icon-check"></i> Already DB Access Granted!</span><br>' +
                     '<span style="cursor: pointer;color:#333;text-decoration: underline" onclick="dbAccess(\''+dkey+'\',\''+false+'\')">click here to revoke access</span>');
 

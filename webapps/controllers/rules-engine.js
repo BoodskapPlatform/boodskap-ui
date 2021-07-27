@@ -30,6 +30,10 @@ var current_binaryrule_obj = null;
 var current_filerule_obj = null;
 var current_processrule_obj = null;
 var current_sftprule_obj = null;
+var current_mqttrule_obj = null;
+var current_udprule_obj = null;
+var current_tcprule_obj = null;
+var current_emailrule_obj = null;
 var simulatorModal = {};
 var simulator = {};
 var scriptTerminal = null;
@@ -630,8 +634,9 @@ function mqttSftpRule(topicName, parsedData) {
     var color = 'default';
 
     console.log("SFTP =>", topicName)
+    topicName = topicName.toLowerCase();
 
-    if (topicName.includes("/log/sftp")) {
+    if (topicName.includes("/log/input/sftp")) {
 
         if (parsedData.data !== '__ALL_DONE__') {
             var level = parsedData.level;
@@ -668,8 +673,9 @@ function mqttMqttRule(topicName, parsedData) {
     var color = 'default';
 
     console.log("MQTT =>", topicName)
+    topicName = topicName.toLowerCase();
 
-    if (topicName.includes("/log/mqtt")) {
+    if (topicName.includes("/log/input/mqtt")) {
 
         if (parsedData.data !== '__ALL_DONE__') {
             var level = parsedData.level;
@@ -706,8 +712,8 @@ function mqttUdpRule(topicName, parsedData) {
     var color = 'default';
 
     console.log("UDP =>", topicName)
-
-    if (topicName.includes("/log/udp")) {
+    topicName = topicName.toLowerCase();
+    if (topicName.includes("/log/input/udp")) {
 
         if (parsedData.data !== '__ALL_DONE__') {
             var level = parsedData.level;
@@ -744,8 +750,9 @@ function mqttTcpRule(topicName, parsedData) {
     var color = 'default';
 
     console.log("TCP =>", topicName)
+    topicName = topicName.toLowerCase();
 
-    if (topicName.includes("/log/tcp")) {
+    if (topicName.includes("/log/input/tcp")) {
 
         if (parsedData.data !== '__ALL_DONE__') {
             var level = parsedData.level;
@@ -782,8 +789,9 @@ function mqttEmailRule(topicName, parsedData) {
     var color = 'default';
 
     console.log("EMAIL =>", topicName)
+    topicName = topicName.toLowerCase();
 
-    if (topicName.includes("/log/email")) {
+    if (topicName.includes("/log/input/email")) {
 
         if (parsedData.data !== '__ALL_DONE__') {
             var level = parsedData.level;
@@ -1319,7 +1327,12 @@ function loadMqttRulesList() {
 
         $('[data-toggle="tooltip"]').tooltip()
 
-        if (status && data.length > 0) {
+        if (status) {
+
+            var resultData = QueryFormatter(data);
+
+            data = resultData.data.data;
+
             mqtt_rules_list = data;
 
             for (var i = 0; i < data.length; i++) {
@@ -1349,7 +1362,11 @@ function loadUdpRulesList() {
 
         $('[data-toggle="tooltip"]').tooltip()
 
-        if (status && data.length > 0) {
+        if (status) {
+
+            var resultData = QueryFormatter(data);
+
+            data = resultData.data.data;
             udp_rules_list = data;
 
             for (var i = 0; i < data.length; i++) {
@@ -1379,7 +1396,11 @@ function loadTcpRulesList() {
 
         $('[data-toggle="tooltip"]').tooltip()
 
-        if (status && data.length > 0) {
+        if (status) {
+
+            var resultData = QueryFormatter(data);
+
+            data = resultData.data.data;
             tcp_rules_list = data;
 
             for (var i = 0; i < data.length; i++) {
@@ -1409,7 +1430,11 @@ function loadEmailRulesList() {
 
         $('[data-toggle="tooltip"]').tooltip()
 
-        if (status && data.length > 0) {
+        if (status) {
+
+            var resultData = QueryFormatter(data);
+
+            data = resultData.data.data;
             email_rules_list = data;
 
             for (var i = 0; i < data.length; i++) {
@@ -1523,17 +1548,20 @@ function loadTabbar(id, type) {
                 '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(' + id + ',1)" title="close"><i class="fa fa-close"></i></span></a>' +
                 '</li>';
 
-        } else if (type === 2) {
+        }
+        else if (type === 2) {
             str = '<li role="presentation" class="namedTab tabbar namedTab_' + id + '"  >' +
                 '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadNamedRule(\'' + id + '\')>' + id + ' ' +
                 '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',2)" title="close"><i class="fa fa-close"></i></span></a>' +
                 '</li>';
-        } else if (type === 3) {
+        }
+        else if (type === 3) {
             str = '<li role="presentation" class="scheduleTab tabbar scheduleTab_' + id + '"  >' +
                 '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadScheduleRule(' + id + ')>' + id + ' ' +
                 '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(' + id + ',3)" title="close"><i class="fa fa-close"></i></span></a>' +
                 '</li>';
-        } else if (type === 4) {
+        }
+        else if (type === 4) {
 
             var obj = {};
             for (var i = 0; i < groovy_class_list.length; i++) {
@@ -1548,7 +1576,8 @@ function loadTabbar(id, type) {
                 '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadGroovyClass(\'' + id + '\')>' + obj.name + ' ' +
                 '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',4)" title="close"><i class="fa fa-close"></i></span></a>' +
                 '</li>';
-        } else if (type === 5) {
+        }
+        else if (type === 5) {
 
             var obj = {};
             for (var i = 0; i < jar_class_list.length; i++) {
@@ -2043,6 +2072,208 @@ function loadSftpDetails(id,obj) {
 
 }
 
+function loadMqttDetails(id,obj) {
+    $(".inputBlock tbody").html("");
+
+    $(".inputBlock tbody").append('<tr><td>Instance Type</td><td>'+obj.instanceType+ (obj.instances ? '<br>('+obj.instances+' instances)' : '')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Start on Reboot</td><td>'+(obj.startAtBoot ? 'Yes' : 'No')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td colspan="1">Instance Action' +
+        '<button style="display:none" class="btn btn-xs stBtn btn-primary" onclick="executeInputAction(\''+id+'\',\''+'START'+'\',\''+'MQTT'+'\')"><i class="fa fa-play"></i> Start</button>'+
+        '<button style="display:none" class="btn btn-xs stpBtn mb-2 btn-danger" onclick="executeInputAction(\''+id+'\',\''+'STOP'+'\',\''+'MQTT'+'\')"><i class="fa fa-stop"></i> Stop</button>'+
+        '<button style="display:none" class="btn btn-xs resBtn btn-warning" onclick="executeInputAction(\''+id+'\',\''+'RESTART'+'\',\''+'MQTT'+'\')"><i class="fa fa-redo"></i> Restart</button>'+
+        '</td></tr>')
+    var configs = ''
+    if(obj.config) {
+        for (var i = 0; i < obj.config.length; i++) {
+            configs+=obj.config[i].name+':'+obj.config[i].value+"<br>";
+        }
+    }
+
+    $(".inputBlock tbody").append('<tr><td>Configs</td><td>'+configs+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Server Urls</td><td>'+(obj.serverUrls ? obj.serverUrls.join(",") : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Username</td><td>'+(obj.userName ? obj.userName : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Password</td><td style="word-break: break-all;">'+(obj.password ? obj.password : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Client Id</td><td>'+(obj.clientId ? obj.clientId : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Clean Session</td><td>'+(obj.cleanSession ? 'True' : 'False')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Connection TimeOut</td><td>'+(obj.connectTimeOut ? obj.connectTimeOut : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Keep Alive Interval</td><td>'+(obj.keepAliveInterval ? obj.keepAliveInterval : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>MQTT Version</td><td>'+(obj.mqttVersion ? obj.mqttVersion : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>SSL</td><td>'+(obj.ssl ? 'True' : 'False')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>SSL Skip Hostname Verficcation</td><td>'+(obj.sslSkipHostNameVerification ? 'True' : 'False')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>SSL Store Build In</td><td>'+(obj.sslStoreBuiltIn ? 'True' : 'False')+'</td></tr>')
+
+    $(".inputBlock tbody").append('<tr><td>SSL KeyStore Path</td><td>'+(obj.sslKeyStorePath ? obj.sslKeyStorePath : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>SSL KeyStore Password</td><td>'+(obj.sslKeyStorePassword ?  obj.sslKeyStorePassword : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>SSL TrustStore Path</td><td>'+(obj.sslTrustStorePath ? obj.sslTrustStorePath : '-')+'</td></tr>')
+
+    $(".inputBlock tbody").append('<tr><td>SSL TrustStore Password</td><td>'+(obj.sslTrustStorePassword ?  obj.sslTrustStorePassword : '-')+'</td></tr>')
+
+    var subscriptions = ''
+    if(obj.subscriptions) {
+        for (var i = 0; i < obj.subscriptions.length; i++) {
+            subscriptions+='pattern: '+obj.subscriptions[i].pattern+', qos: '+obj.subscriptions[i].qos+"<br>";
+        }
+    }
+
+    $(".inputBlock tbody").append('<tr><td>Subscriptions</td><td>'+subscriptions+'</td></tr>')
+
+    getInputRunning('MQTT',id);
+
+}
+
+function loadUdpDetails(id,obj) {
+    $(".inputBlock tbody").html("");
+
+    $(".inputBlock tbody").append('<tr><td>Instance Type</td><td>'+obj.instanceType+ (obj.instances ? '<br>('+obj.instances+' instances)' : '')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Start on Reboot</td><td>'+(obj.startAtBoot ? 'Yes' : 'No')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td colspan="1">Instance Action' +
+        '<button style="display:none" class="btn btn-xs stBtn btn-primary" onclick="executeInputAction(\''+id+'\',\''+'START'+'\',\''+'UDP'+'\')"><i class="fa fa-play"></i> Start</button>'+
+        '<button style="display:none" class="btn btn-xs stpBtn mb-2 btn-danger" onclick="executeInputAction(\''+id+'\',\''+'STOP'+'\',\''+'UDP'+'\')"><i class="fa fa-stop"></i> Stop</button>'+
+        '<button style="display:none" class="btn btn-xs resBtn btn-warning" onclick="executeInputAction(\''+id+'\',\''+'RESTART'+'\',\''+'UDP'+'\')"><i class="fa fa-redo"></i> Restart</button>'+
+        '</td></tr>')
+    var configs = ''
+    if(obj.config) {
+        for (var i = 0; i < obj.config.length; i++) {
+            configs+=obj.config[i].name+':'+obj.config[i].value+"<br>";
+        }
+    }
+
+    $(".inputBlock tbody").append('<tr><td>Configs</td><td>'+configs+'</td></tr>')
+
+    $(".inputBlock tbody").append('<tr><td>Listen Host</td><td>'+(obj.listenHost ? obj.listenHost : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Listen Port</td><td>'+(obj.listenPort ? obj.listenPort : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Receive BufferSize</td><td>'+(obj.receiveBufferSize ? obj.receiveBufferSize : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Send BufferSize</td><td>'+(obj.sendBufferSize ? obj.sendBufferSize : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Time To Live (TTL)</td><td>'+(obj.timeToLive ? obj.timeToLive : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Traffice Class</td><td>'+(obj.trafficeClass ? obj.trafficeClass : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Reuse Address</td><td>'+(obj.reuseAddress ? 'True' : 'False')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>multicast</td><td>'+(obj.multicast ? 'True' : 'False')+'</td></tr>')
+
+    $(".inputBlock tbody").append('<tr><td>Multicast Group</td><td>'+(obj.multicastGroup ? obj.multicastGroup : '-')+'</td></tr>')
+
+    getInputRunning('UDP',id);
+
+}
+
+function loadTcpDetails(id,obj) {
+    $(".inputBlock tbody").html("");
+
+    $(".inputBlock tbody").append('<tr><td>Instance Type</td><td>'+obj.instanceType+ (obj.instances ? '<br>('+obj.instances+' instances)' : '')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Start on Reboot</td><td>'+(obj.startAtBoot ? 'Yes' : 'No')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td colspan="1">Instance Action' +
+        '<button style="display:none" class="btn btn-xs stBtn btn-primary" onclick="executeInputAction(\''+id+'\',\''+'START'+'\',\''+'TCP'+'\')"><i class="fa fa-play"></i> Start</button>'+
+        '<button style="display:none" class="btn btn-xs stpBtn mb-2 btn-danger" onclick="executeInputAction(\''+id+'\',\''+'STOP'+'\',\''+'TCP'+'\')"><i class="fa fa-stop"></i> Stop</button>'+
+        '<button style="display:none" class="btn btn-xs resBtn btn-warning" onclick="executeInputAction(\''+id+'\',\''+'RESTART'+'\',\''+'TCP'+'\')"><i class="fa fa-redo"></i> Restart</button>'+
+        '</td></tr>')
+    var configs = ''
+    if(obj.config) {
+        for (var i = 0; i < obj.config.length; i++) {
+            configs+=obj.config[i].name+':'+obj.config[i].value+"<br>";
+        }
+    }
+
+
+    $(".inputBlock tbody").append('<tr><td>Configs</td><td>'+configs+'</td></tr>')
+
+    $(".inputBlock tbody").append('<tr><td>Listen Host</td><td>'+(obj.listenHost ? obj.listenHost : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Listen Port</td><td>'+(obj.listenPort ? obj.listenPort : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>SSL</td><td>'+(obj.ssl ? 'True' : 'False')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>SSL Store Build In</td><td>'+(obj.sslStoreBuiltIn ? 'True' : 'False')+'</td></tr>')
+
+    $(".inputBlock tbody").append('<tr><td>TLS Version</td><td>'+(obj.tlsVersion ? obj.tlsVersion : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Trust Store Path</td><td>'+(obj.trustStorePath ? obj.trustStorePath : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Trust Store Password</td><td>'+(obj.trustStorePassword ? obj.trustStorePassword : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>KeyStore Path</td><td>'+(obj.keyStorePath ? obj.keyStorePath : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>KeyStore Password</td><td>'+(obj.keyStorePassword ?  obj.keyStorePassword : '-')+'</td></tr>')
+
+
+    $(".inputBlock tbody").append('<tr><td>Keep Alive</td><td>'+(obj.keepAlive ? 'True' : 'False')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>So Linger On</td><td>'+(obj.soLingerOn ? 'True' : 'False')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>So Timeout</td><td>'+(obj.soTimeout ? obj.soTimeout : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>So Linger</td><td>'+(obj.soLinger ? obj.soLinger : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>OOB Line</td><td>'+(obj.oobLine ? 'True' : 'False')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Keep Alive Interval</td><td>'+(obj.keepAliveInterval ? obj.keepAliveInterval : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Receive BufferSize</td><td>'+(obj.receiveBufferSize ? obj.receiveBufferSize : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Send BufferSize</td><td>'+(obj.sendBufferSize ? obj.sendBufferSize : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>TCP No Delay</td><td>'+(obj.tcpNoDelay ? 'True' : 'False')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Send BufferSize</td><td>'+(obj.sendBufferSize ? obj.sendBufferSize : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Traffice Class</td><td>'+(obj.trafficeClass ? obj.trafficeClass : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Reuse Address</td><td>'+(obj.reuseAddress ? 'True' : 'False')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Execute</td><td>'+(obj.execute ? obj.execute : '-')+'</td></tr>')
+
+    $(".inputBlock tbody").append('<tr><td>Execute Partial Buffered</td><td>'+(obj.executePartialBuffered ? 'True' : 'False')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Fixed BufferSize</td><td>'+(obj.fixedBufferSize ? obj.fixedBufferSize : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Read Timeout</td><td>'+(obj.readTimeout ? obj.readTimeout : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Close OnRead Timeout</td><td>'+(obj.closeOnReadTimeout ? 'True' : 'False')+'</td></tr>')
+
+    $(".inputBlock tbody").append('<tr><td>Delimeter</td><td>'+(obj.delimiter ? obj.delimiter : '-')+'</td></tr>')
+
+    getInputRunning('TCP',id);
+
+}
+
+function loadEmailDetails(id,obj) {
+    $(".inputBlock tbody").html("");
+
+    $(".inputBlock tbody").append('<tr><td>Instance Type</td><td>'+obj.instanceType+ (obj.instances ? '<br>('+obj.instances+' instances)' : '')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Start on Reboot</td><td>'+(obj.startAtBoot ? 'Yes' : 'No')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td colspan="1">Instance Action' +
+        '<button style="display:none" class="btn btn-xs stBtn btn-primary" onclick="executeInputAction(\''+id+'\',\''+'START'+'\',\''+'TCP'+'\')"><i class="fa fa-play"></i> Start</button>'+
+        '<button style="display:none" class="btn btn-xs stpBtn mb-2 btn-danger" onclick="executeInputAction(\''+id+'\',\''+'STOP'+'\',\''+'TCP'+'\')"><i class="fa fa-stop"></i> Stop</button>'+
+        '<button style="display:none" class="btn btn-xs resBtn btn-warning" onclick="executeInputAction(\''+id+'\',\''+'RESTART'+'\',\''+'TCP'+'\')"><i class="fa fa-redo"></i> Restart</button>'+
+        '</td></tr>')
+    var configs = ''
+    if(obj.config) {
+        for (var i = 0; i < obj.config.length; i++) {
+            configs+=obj.config[i].name+':'+obj.config[i].value+"<br>";
+        }
+    }
+
+
+    $(".inputBlock tbody").append('<tr><td>Configs</td><td>'+configs+'</td></tr>')
+
+    $(".inputBlock tbody").append('<tr><td>Type</td><td>'+(obj.type ? obj.type : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Secured</td><td>'+(obj.secured ? 'True' : 'False')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Implicit</td><td>'+(obj.implicit ? 'True' : 'False')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Protocol</td><td>'+(obj.protocol ? obj.protocol : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Remote Host</td><td>'+(obj.remoteHost ? obj.remoteHost : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Remote Port</td><td>'+(obj.remotePort ? obj.remotePort : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Local Port</td><td>'+(obj.localPort ? obj.localPort : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Connect Timeout</td><td>'+(obj.connectTimeout ? obj.connectTimeout : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Read Timeout</td><td>'+(obj.readTimeout ? obj.readTimeout : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Keep Alive</td><td>'+(obj.keepAlive ? 'True' : 'False')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>TCP No Delay</td><td>'+(obj.tcpNoDelay ? 'True' : 'False')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Username</td><td>'+(obj.userName ? obj.userName : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Password</td><td style="word-break: break-all;">'+(obj.password ? obj.password : '-')+'</td></tr>')
+
+
+    $(".inputBlock tbody").append('<tr><td>Subject Patterns</td><td>'+(obj.subjectPatterns ? obj.subjectPatterns.join(",") : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Allowed Content <br>Types</td><td>'+(obj.allowedContentTypes ? obj.allowedContentTypes.join(",") : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Allowed Attachment<br> File Extensions</td><td>'+(obj.allowedAttachmentFileExtensions ? obj.allowedContentTypes.join(",") : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Process Only <br>Attachments</td><td>'+(obj.processOnlyAttachments ? 'True' : 'False')+'</td></tr>')
+
+    var folders = '<b>Folders</b><table>' +
+        '<tr><th>Name</th><th>MarkMessageAfterProcessing</th><th>ProccessOnlyFlags</th><th>ToMovedFolder</th></tr>';
+    if(obj.folders) {
+        for (var i = 0; i < obj.folders.length; i++) {
+            folders+='<tr>' +
+                '<td>'+obj.folders[i].name+'</td>' +
+                '<td>'+(obj.folders[i].markMessageAfterProcessing ? obj.folders[i].markMessageAfterProcessing : '-')+'</td>' +
+                '<td>'+(obj.folders[i].proccessOnlyFlags ? obj.folders[i].proccessOnlyFlags : '-')+'</td>' +
+                '<td>'+(obj.folders[i].toMovedFolder ? obj.folders[i].toMovedFolder : '-')+'</td>' +
+                '</tr>'
+        }
+    }
+    folders+='</table>'
+
+    $(".inputBlock tbody").append('<tr><td colspan="2" style="overflow:scroll;word-break: unset;overflow-y: hidden"><div style="width: 100px;">'+folders+'</div></td></tr>')
+
+    getInputRunning('EMAIL',id);
+
+}
+
+
+
 function getInputRunning(type,id) {
 
     id = id ? id : CURRENT_ID;
@@ -2076,7 +2307,34 @@ function executeInputAction(id, action, type) {
                 },500)
 
             }
-            //TODO
+            if(type === 'MQTT'){
+                setTimeout(function(){
+                    loadMqttRulesList();
+                    getInputRunning('MQTT',id);
+                },500)
+
+            }
+            if(type === 'UDP'){
+                setTimeout(function(){
+                    loadUdpRulesList();
+                    getInputRunning('UDP',id);
+                },500)
+
+            }
+            if(type === 'TCP'){
+                setTimeout(function(){
+                    loadTcpRulesList();
+                    getInputRunning('TCP',id);
+                },500)
+
+            }
+            if(type === 'EMAIL'){
+                setTimeout(function(){
+                    loadEmailRulesList();
+                    getInputRunning('EMAIL',id);
+                },500)
+
+            }
 
         } else {
             errorMsg("Error in executing action")
@@ -2191,7 +2449,7 @@ function deleteTab(id, type) {
         $(".tcpTab_" + id).remove();
     }
     else if (type === 14) {
-        $(".emailpTab_" + id).remove();
+        $(".emailTab_" + id).remove();
     }
 
     var temp = [];
@@ -2645,6 +2903,113 @@ function loadSftpRule(id) {
     // }, 1000);
 }
 
+function loadMqttRule(id) {
+    $(".simulateBtn").css('display', 'none');
+    //  mqttCancelSubscribe(CURRENT_ID);
+    $("#editorContent").html('<div id="codeEditor"></div>');
+    var data = returnObj(id, 11);
+    $("#codeEditor").html('');
+
+    loadEditor(data.code ? data.code : '', 'mqttTab_'+id);
+
+    CURRENT_ID = id;
+    CURRENT_TYPE = 11;
+
+    exportRule(11)
+
+    $(".ruleType").html('MQTT Rule');
+    $(".ruleName").html(data.name);
+
+    $(".detailsBlock").css('display', 'block');
+    $(".messageFields").css('display', 'none');
+    $(".defaultFields").css('display', 'none');
+    $(".jobFields").css('display', 'none');
+    $(".deleteBtn").css('display', 'block');
+    $(".inputBlock").css('display', 'block');
+
+    loadMqttDetails(id,data)
+}
+
+function loadUdpRule(id) {
+    $(".simulateBtn").css('display', 'none');
+    //  mqttCancelSubscribe(CURRENT_ID);
+    $("#editorContent").html('<div id="codeEditor"></div>');
+    var data = returnObj(id, 12);
+    $("#codeEditor").html('');
+
+    loadEditor(data.code ? data.code : '', 'udpTab_'+id);
+
+    CURRENT_ID = id;
+    CURRENT_TYPE = 12;
+
+    exportRule(12)
+
+    $(".ruleType").html('UDP Rule');
+    $(".ruleName").html(data.name);
+
+    $(".detailsBlock").css('display', 'block');
+    $(".messageFields").css('display', 'none');
+    $(".defaultFields").css('display', 'none');
+    $(".jobFields").css('display', 'none');
+    $(".deleteBtn").css('display', 'block');
+    $(".inputBlock").css('display', 'block');
+
+    loadUdpDetails(id,data)
+}
+
+function loadTcpRule(id) {
+    $(".simulateBtn").css('display', 'none');
+    //  mqttCancelSubscribe(CURRENT_ID);
+    $("#editorContent").html('<div id="codeEditor"></div>');
+    var data = returnObj(id, 13);
+    $("#codeEditor").html('');
+
+    loadEditor(data.code ? data.code : '', 'tcpTab_'+id);
+
+    CURRENT_ID = id;
+    CURRENT_TYPE = 13;
+
+    exportRule(13)
+
+    $(".ruleType").html('TCP Rule');
+    $(".ruleName").html(data.name);
+
+    $(".detailsBlock").css('display', 'block');
+    $(".messageFields").css('display', 'none');
+    $(".defaultFields").css('display', 'none');
+    $(".jobFields").css('display', 'none');
+    $(".deleteBtn").css('display', 'block');
+    $(".inputBlock").css('display', 'block');
+
+    loadTcpDetails(id,data)
+}
+
+function loadEmailRule(id) {
+    $(".simulateBtn").css('display', 'none');
+    //  mqttCancelSubscribe(CURRENT_ID);
+    $("#editorContent").html('<div id="codeEditor"></div>');
+    var data = returnObj(id, 14);
+    $("#codeEditor").html('');
+
+    loadEditor(data.code ? data.code : '', 'emailTab_'+id);
+
+    CURRENT_ID = id;
+    CURRENT_TYPE = 14;
+
+    exportRule(14)
+
+    $(".ruleType").html('EMAIL Rule');
+    $(".ruleName").html(data.name);
+
+    $(".detailsBlock").css('display', 'block');
+    $(".messageFields").css('display', 'none');
+    $(".defaultFields").css('display', 'none');
+    $(".jobFields").css('display', 'none');
+    $(".deleteBtn").css('display', 'block');
+    $(".inputBlock").css('display', 'block');
+
+    loadEmailDetails(id,data)
+}
 function loadProcessRule(id) {
     $(".simulateBtn").css('display', 'none');
     //  mqttCancelSubscribe(CURRENT_ID);
@@ -2888,6 +3253,46 @@ function loadEditor(code, tabid) {
 
             }
 
+            if (CURRENT_TYPE === 11) {
+
+                for (var i = 0; i < mqtt_rules_list.length; i++) {
+                    if (CHANGED_ID === mqtt_rules_list[i].id) {
+                        mqtt_rules_list[i].code = CHANGED_TEXT;
+                    }
+                }
+
+            }
+
+            if (CURRENT_TYPE === 12) {
+
+                for (var i = 0; i < udp_rules_list.length; i++) {
+                    if (CHANGED_ID === udp_rules_list[i].id) {
+                        udp_rules_list[i].code = CHANGED_TEXT;
+                    }
+                }
+
+            }
+
+            if (CURRENT_TYPE === 13) {
+
+                for (var i = 0; i < tcp_rules_list.length; i++) {
+                    if (CHANGED_ID === tcp_rules_list[i].id) {
+                        tcp_rules_list[i].code = CHANGED_TEXT;
+                    }
+                }
+
+            }
+
+            if (CURRENT_TYPE === 14) {
+
+                for (var i = 0; i < email_rules_list.length; i++) {
+                    if (CHANGED_ID === email_rules_list[i].id) {
+                        email_rules_list[i].code = CHANGED_TEXT;
+                    }
+                }
+
+            }
+
 
         }
     });
@@ -3079,6 +3484,91 @@ function loadEditor(code, tabid) {
                         setTimeout(function () {
                             // loadTabbar(dataObj.id, 10);
                             loadSftpRulesList();
+
+                        },500)
+                    } else {
+                        errorMsg('Error in saving!')
+                    }
+                })
+            }
+
+            else if (CURRENT_TYPE === 11) {
+
+                var obj = returnObj(CURRENT_ID, 11);
+
+                obj['code'] = consoleText;
+                delete obj._id;
+
+                updateInputRuleCode('MQTT',obj, function (status, data) {
+                    if (status) {
+                        successMsg('Successfully saved!');
+                        // loadSftpRulesList();
+                        setTimeout(function () {
+                            // loadTabbar(dataObj.id, 10);
+                            loadMqttRulesList();
+
+                        },500)
+                    } else {
+                        errorMsg('Error in saving!')
+                    }
+                })
+            }
+            else if (CURRENT_TYPE === 12) {
+
+                var obj = returnObj(CURRENT_ID, 12);
+
+                obj['code'] = consoleText;
+                delete obj._id;
+
+                updateInputRuleCode('UDP',obj, function (status, data) {
+                    if (status) {
+                        successMsg('Successfully saved!');
+                        // loadSftpRulesList();
+                        setTimeout(function () {
+                            // loadTabbar(dataObj.id, 10);
+                            loadUdpRulesList();
+
+                        },500)
+                    } else {
+                        errorMsg('Error in saving!')
+                    }
+                })
+            }
+            else if (CURRENT_TYPE === 13) {
+
+                var obj = returnObj(CURRENT_ID, 13);
+
+                obj['code'] = consoleText;
+                delete obj._id;
+
+                updateInputRuleCode('TCP',obj, function (status, data) {
+                    if (status) {
+                        successMsg('Successfully saved!');
+                        // loadSftpRulesList();
+                        setTimeout(function () {
+                            // loadTabbar(dataObj.id, 10);
+                            loadTcpRulesList();
+
+                        },500)
+                    } else {
+                        errorMsg('Error in saving!')
+                    }
+                })
+            }
+            else if (CURRENT_TYPE === 14) {
+
+                var obj = returnObj(CURRENT_ID, 14);
+
+                obj['code'] = consoleText;
+                delete obj._id;
+
+                updateInputRuleCode('EMAIL',obj, function (status, data) {
+                    if (status) {
+                        successMsg('Successfully saved!');
+                        // loadSftpRulesList();
+                        setTimeout(function () {
+                            // loadTabbar(dataObj.id, 10);
+                            loadEmailRulesList();
 
                         },500)
                     } else {
@@ -3337,6 +3827,18 @@ function openDeleteModal() {
         else if (CURRENT_TYPE === 10) {
             $(".delete_rule_name").html('SFTP');
             $(".delete_rule_id").html(CURRENT_ID);
+        } else if (CURRENT_TYPE === 11) {
+            $(".delete_rule_name").html('MQTT');
+            $(".delete_rule_id").html(CURRENT_ID);
+        } else if (CURRENT_TYPE === 12) {
+            $(".delete_rule_name").html('UDP');
+            $(".delete_rule_id").html(CURRENT_ID);
+        } else if (CURRENT_TYPE === 13) {
+            $(".delete_rule_name").html('TCP');
+            $(".delete_rule_id").html(CURRENT_ID);
+        } else if (CURRENT_TYPE === 14) {
+            $(".delete_rule_name").html('EMAIL');
+            $(".delete_rule_id").html(CURRENT_ID);
         }
         $("#deleteModal").modal('show');
     } else {
@@ -3479,6 +3981,66 @@ function proceedDelete() {
 
                 setTimeout(function (){
                     loadSftpRulesList();
+                },500)
+                $("#deleteModal").modal('hide');
+            } else {
+                errorMsg('Error in delete')
+            }
+        })
+    } else if (CURRENT_TYPE === 11) {
+
+        deleteInputRule('MQTT',CURRENT_ID, function (status, data) {
+            if (status) {
+                deleteTab(CURRENT_ID, CURRENT_TYPE);
+                successMsg('Successfully deleted');
+
+                setTimeout(function (){
+                    loadMqttRulesList();
+                },500)
+                $("#deleteModal").modal('hide');
+            } else {
+                errorMsg('Error in delete')
+            }
+        })
+    }else if (CURRENT_TYPE === 12) {
+
+        deleteInputRule('UDP',CURRENT_ID, function (status, data) {
+            if (status) {
+                deleteTab(CURRENT_ID, CURRENT_TYPE);
+                successMsg('Successfully deleted');
+
+                setTimeout(function (){
+                    loadUdpRulesList();
+                },500)
+                $("#deleteModal").modal('hide');
+            } else {
+                errorMsg('Error in delete')
+            }
+        })
+    }else if (CURRENT_TYPE === 13) {
+
+        deleteInputRule('TCP',CURRENT_ID, function (status, data) {
+            if (status) {
+                deleteTab(CURRENT_ID, CURRENT_TYPE);
+                successMsg('Successfully deleted');
+
+                setTimeout(function (){
+                    loadTcpRulesList();
+                },500)
+                $("#deleteModal").modal('hide');
+            } else {
+                errorMsg('Error in delete')
+            }
+        })
+    }else if (CURRENT_TYPE === 14) {
+
+        deleteInputRule('EMAIL',CURRENT_ID, function (status, data) {
+            if (status) {
+                deleteTab(CURRENT_ID, CURRENT_TYPE);
+                successMsg('Successfully deleted');
+
+                setTimeout(function (){
+                    loadEmailRulesList();
                 },500)
                 $("#deleteModal").modal('hide');
             } else {
@@ -4840,6 +5402,35 @@ function exportRule(type) {
         delete obj._id;
 
         data = obj;
+    }
+    else if(type === 11){
+        console.log('MQTT Rule...!');
+        rule_name = 'mqtt-rule-'+CURRENT_ID;
+        var obj = returnObj(CURRENT_ID, 11);
+        delete obj._id;
+
+        data = obj;
+    }else if(type === 12){
+        console.log('UDP Rule...!');
+        rule_name = 'udp-rule-'+CURRENT_ID;
+        var obj = returnObj(CURRENT_ID, 12);
+        delete obj._id;
+
+        data = obj;
+    }else if(type === 13){
+        console.log('TCP Rule...!');
+        rule_name = 'tcp-rule-'+CURRENT_ID;
+        var obj = returnObj(CURRENT_ID, 13);
+        delete obj._id;
+        data = obj;
+
+    }else if(type === 14){
+        console.log('EMAIL Rule...!');
+        rule_name = 'email-rule-'+CURRENT_ID;
+        var obj = returnObj(CURRENT_ID, 14);
+        delete obj._id;
+
+        data = obj;
 
 
     }
@@ -5011,6 +5602,74 @@ function uploadRuleType(type, data) {
 
                 setTimeout(function () {
                     loadSftpRulesList();
+                    // loadTabbar(data.id,10)
+                    $("#importModal").modal('hide');
+                },500)
+
+            } else {
+                errorMsg('Error in saving!')
+            }
+            $("#importModal").modal('hide');
+        })
+    }else if (type === 11) {
+
+        updateInputRuleCode('MQTT',data, function (status, resdata) {
+            if (status) {
+                successMsg('MQTT Rule Successfully Uploaded!');
+
+                setTimeout(function () {
+                    loadMqttRulesList();
+                    // loadTabbar(data.id,10)
+                    $("#importModal").modal('hide');
+                },500)
+
+            } else {
+                errorMsg('Error in saving!')
+            }
+            $("#importModal").modal('hide');
+        })
+    }else if (type === 12) {
+
+        updateInputRuleCode('UDP',data, function (status, resdata) {
+            if (status) {
+                successMsg('UDP Rule Successfully Uploaded!');
+
+                setTimeout(function () {
+                    loadUdpRulesList();
+                    // loadTabbar(data.id,10)
+                    $("#importModal").modal('hide');
+                },500)
+
+            } else {
+                errorMsg('Error in saving!')
+            }
+            $("#importModal").modal('hide');
+        })
+    }else if (type === 13) {
+
+        updateInputRuleCode('TCP',data, function (status, resdata) {
+            if (status) {
+                successMsg('TCP Rule Successfully Uploaded!');
+
+                setTimeout(function () {
+                    loadTcpRulesList();
+                    // loadTabbar(data.id,10)
+                    $("#importModal").modal('hide');
+                },500)
+
+            } else {
+                errorMsg('Error in saving!')
+            }
+            $("#importModal").modal('hide');
+        })
+    }else if (type === 14) {
+
+        updateInputRuleCode('EMAIL',data, function (status, resdata) {
+            if (status) {
+                successMsg('EMAIL Rule Successfully Uploaded!');
+
+                setTimeout(function () {
+                    loadEmailRulesList();
                     // loadTabbar(data.id,10)
                     $("#importModal").modal('hide');
                 },500)
