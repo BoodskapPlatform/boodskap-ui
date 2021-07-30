@@ -3706,6 +3706,62 @@ function openModal(e) {
         $("#addSftpInputRule").modal('show');
 
     }
+    else if (id === 11) {
+
+        $("#mqtt_name").removeAttr('disabled')
+        // $(".sftp_privateKeyFilePath").css('display','none')
+        // $(".sftp_publicKeyFilePath").css('display','none')
+        // $("#sftp_privateKeyFilePath").removeAttr('required')
+        $("#addMqttInputRule form").attr("onsubmit","addMqttRule()");
+        $("#addMqttInputRule form")[0].reset();
+        // $("#sftp_connectTimeOut").val(30000)
+        // $("#sftp_listRecursive").val(-1)
+        // $("#sftp_pollInterval").val(30000)
+        $("#addMqttInputRule").modal('show');
+
+    }
+    else if (id === 12) {
+
+        $("#udp_name").removeAttr('disabled')
+        // $(".sftp_privateKeyFilePath").css('display','none')
+        // $(".sftp_publicKeyFilePath").css('display','none')
+        // $("#sftp_privateKeyFilePath").removeAttr('required')
+        $("#addUdpInputRule form").attr("onsubmit","addUdpRule()");
+        $("#addUdpInputRule form")[0].reset();
+        // $("#sftp_connectTimeOut").val(30000)
+        // $("#sftp_listRecursive").val(-1)
+        // $("#sftp_pollInterval").val(30000)
+        $("#addUdpInputRule").modal('show');
+
+    }
+    else if (id === 13) {
+
+        $("#tcp_name").removeAttr('disabled')
+        // $(".sftp_privateKeyFilePath").css('display','none')
+        // $(".sftp_publicKeyFilePath").css('display','none')
+        // $("#sftp_privateKeyFilePath").removeAttr('required')
+        $("#addTcpInputRule form").attr("onsubmit","addTcpRule()");
+        $("#addTcpInputRule form")[0].reset();
+        // $("#sftp_connectTimeOut").val(30000)
+        // $("#sftp_listRecursive").val(-1)
+        // $("#sftp_pollInterval").val(30000)
+        $("#addTcpInputRule").modal('show');
+
+    }
+    else if (id === 14) {
+
+        $("#email_name").removeAttr('disabled')
+        // $(".sftp_privateKeyFilePath").css('display','none')
+        // $(".sftp_publicKeyFilePath").css('display','none')
+        // $("#sftp_privateKeyFilePath").removeAttr('required')
+        $("#addEmailInputRule form").attr("onsubmit","addEmailRule()");
+        $("#addEmailInputRule form")[0].reset();
+        // $("#sftp_connectTimeOut").val(30000)
+        // $("#sftp_listRecursive").val(-1)
+        // $("#sftp_pollInterval").val(30000)
+        $("#addEmailInputRule").modal('show');
+
+    }
 }
 
 function editJobModal() {
@@ -3754,6 +3810,18 @@ function editJobModal() {
 function editInputModal(){
     if(CURRENT_TYPE == 10){
         editSftpModal()
+    }
+    else if(CURRENT_TYPE == 11){
+        editMqttModal()
+    }
+    else if(CURRENT_TYPE == 12){
+        editUdpModal()
+    }
+    else if(CURRENT_TYPE == 13){
+        editTcpModal()
+    }
+    else if(CURRENT_TYPE == 14){
+        editEmailModal()
     }
 }
 
@@ -4514,6 +4582,110 @@ function addSftpRule(code) {
             },1000)
 
             $("#addSftpInputRule").modal('hide');
+        } else {
+            errorMsg('Error in saving!')
+        }
+    })
+
+}
+
+function addMqttRule(code) {
+
+    var configObj = []
+    var subscriptionsObj = []
+
+    var cKey= $(".mqtt_cname").map(function() {
+        return $(this).val();
+    }).get();
+    var cValue= $(".mqtt_cvalue").map(function() {
+        return $(this).val();
+    }).get();
+
+
+    for(var i=0;i<cKey.length;i++){
+        if(cKey[i] == ""){
+            errorMsg('Config name is mandatory')
+            return false;
+        }
+    }
+
+    for(var i=0;i<cKey.length;i++){
+        configObj.push({
+            name: cKey[i],
+            value: cValue[i],
+        })
+    };
+
+
+    var sPattern= $(".mqtt_spattern").map(function() {
+        return $(this).val();
+    }).get();
+    var sQos= $(".mqtt_sqos").map(function() {
+        return $(this).val();
+    }).get();
+
+    for(var i=0;i<sPattern.length;i++){
+        if(sPattern[i] == ""){
+            errorMsg('MQTT Topic Pattern is mandatory')
+            return false;
+        }
+        if(sQos[i] == ""){
+            errorMsg('MQTT Topic QoS is mandatory')
+            return false;
+        }
+    }
+
+
+    for(var i=0;i<sPattern.length;i++){
+        subscriptionsObj.push({
+            pattern: sPattern[i],
+            qos: sQos[i],
+        })
+    };
+
+    var dataObj = {
+        "domainKey": DOMAIN_KEY,
+        "id": $("#mqtt_id").val(),
+        "name": $("#mqtt_name").val(),
+        "code": code ? codeEditor.getSession().getValue() : "",
+        "description":"",
+        instances: Number($("#mqtt_instances").val()),
+        instanceType: $("#mqtt_instanceType").val(),
+        lang: 'GROOVY',
+        "startAtBoot": $("#mqtt_startAtBoot").val() === "1" ? true : false,
+        userName: $("#mqtt_userName").val(),
+        password: $("#mqtt_password").val(),
+        clientId: $("#mqtt_clientId").val(),
+        cleanSession: $("#mqtt_cleanSession").val() === "1" ? true : false,
+        serverUrls : $("#mqtt_serverUrls").val().split(","),
+        connectionTimeout: $("#mqtt_connectionTimeout").val() ? Number($("#mqtt_connectionTimeout").val()) : null,
+        keepAliveInterval: $("#mqtt_keepAliveInterval").val() ? Number($("#mqtt_keepAliveInterval").val()) : null,
+        mqttVersion: $("#mqtt_mqttVersion").val(),
+        ssl: $("#mqtt_ssl").val() === "1" ? true : false,
+        sslSkipHostNameVerification: $("#mqtt_sslSkipHostNameVerification").val() === "1" ? true : false,
+        sslStoreBuiltIn: $("#mqtt_sslStoreBuiltIn").val() === "1" ? true : false,
+        sslKeyStorePath: $("#mqtt_sslKeyStorePath").val(),
+        sslKeyStorePassword: $("#mqtt_sslKeyStorePassword").val(),
+        sslTrustStorePath: $("#mqtt_sslTrustStorePath").val(),
+        sslTrustStorePassword: $("#mqtt_sslTrustStorePassword").val(),
+        config : configObj,
+        subscriptions : subscriptionsObj
+
+    };
+
+    updateInputRuleCode('MQTT',dataObj, function (status, data) {
+        if (status) {
+            successMsg('Successfully saved!');
+            setTimeout(function(){
+                loadMqttRulesList();
+            },500)
+            setTimeout(function () {
+                if(code){
+                    loadTabbar(dataObj.id, 11);
+                }
+            },1000)
+
+            $("#addMqttInputRule").modal('hide');
         } else {
             errorMsg('Error in saving!')
         }
