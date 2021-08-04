@@ -1200,7 +1200,6 @@
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-
 <div id="addSftpInputRule" class="modal fade" tabindex="-1" role="dialog">
 <!--<div id="addSftpInputRule" class="modal fade show" tabindex="-1" role="dialog" style="display: block">-->
     <div class="modal-dialog modal-lg" role="document" style="    max-width: 80% !important;">
@@ -1401,7 +1400,9 @@
                                                 <tr>
                                                     <th>Name</th>
                                                     <th>Value</th>
-                                                    <th>Action</th>
+                                                    <th>Action
+                                                        <button class="btn btn-xs pull-right ml-1" type="button" onclick="addConfigBody()"><i class="fa fa-plus"></i></button>
+                                                    </th>
                                                 </tr>
                                             </thead>
                                             <tbody class="configBody">
@@ -1637,7 +1638,9 @@
                                             <tr>
                                                 <th>Name</th>
                                                 <th>Value</th>
-                                                <th>Action</th>
+                                                <th>Action
+                                                    <button class="btn btn-xs pull-right ml-1" type="button" onclick="addConfigBody()"><i class="fa fa-plus"></i></button>
+                                                </th>
                                             </tr>
                                             </thead>
                                             <tbody class="configBody">
@@ -1664,6 +1667,485 @@
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
+<div id="addUdpInputRule" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document" style="max-width: 80% !important;">
+        <div class="modal-content">
+            <form action="javascript:void(0)">
+                <div class="modal-header">
+                    <h4 class="modal-title"><span class="iAction">Add</span> UDP Input Rule</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Rule Name *</label>
+                                        <input class="form-control input-sm" onkeyup="inputId('udp_name','udp_id')"
+                                               onkeypress="inputId('udp_name','udp_id')" placeholder=""
+                                               type="text" id="udp_name" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Rule ID</label><br>
+                                        <strong class="mqtt_id">-</strong>
+                                        <input class="form-control input-sm"
+                                               type="hidden" id="udp_id" style="display: none">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Instance Type *</label>
+                                        <select class="form-control input-sm" id="udp_instanceType">
+                                            <option value="SCALABLE">Scalable</option>
+                                            <option value="NODE_SINGLETON">Node Singleton</option>
+                                            <option value="CLUSTER_SINGLETON">Cluster Singleton</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Instances *</label>
+                                        <input class="form-control input-sm"
+                                               type="number" min="1" value="" id="udp_instances" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Start at Boot</label>
+                                        <select class="form-control input-sm" id="udp_startAtBoot">
+                                            <option value="1">Yes</option>
+                                            <option value="0">No</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Processing Threads</label>
+                                        <input class="form-control input-sm"
+                                               type="number" min="1" value="" id="udp_processingThreads">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Listen Host *</label>
+                                        <input class="form-control input-sm"
+                                               type="text" value="" id="udp_listenHost" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-8"></div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Listen Port *</label>
+                                        <input class="form-control input-sm"
+                                               type="number" min="0" value="" id="udp_listenPort" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-8"></div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Max Packet Size *</label>
+                                        <input class="form-control input-sm"
+                                               type="number" min="0" value="" id="udp_maxPacketSize">
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row bg-light">
+                                <div class="col-md-12 mt-2">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Config</label>
+
+                                        <table class="table table-bordered">
+                                            <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Value</th>
+                                                <th>Action
+                                                    <button class="btn btn-xs pull-right ml-1" type="button" onclick="addConfigBody()"><i class="fa fa-plus"></i></button>
+                                                </th>
+                                            </tr>
+                                            </thead>
+                                            <tbody class="configBody">
+
+                                            </tbody>
+
+                                        </table>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                          </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btnModal">Save changes</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div id="addTcpInputRule" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document" style="max-width: 80% !important;">
+        <div class="modal-content">
+            <form action="javascript:void(0)">
+                <div class="modal-header">
+                    <h4 class="modal-title"><span class="iAction">Add</span> TCP Input Rule</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Rule Name *</label>
+                                        <input class="form-control input-sm" onkeyup="inputId('tcp_name','tcp_id')"
+                                               onkeypress="inputId('tcp_name','tcp_id')" placeholder=""
+                                               type="text" id="tcp_name" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Rule ID</label><br>
+                                        <strong class="tcp_id">-</strong>
+                                        <input class="form-control input-sm"
+                                               type="hidden" id="tcp_id" style="display: none">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Instance Type *</label>
+                                        <select class="form-control input-sm" id="tcp_instanceType">
+                                            <option value="SCALABLE">Scalable</option>
+                                            <option value="NODE_SINGLETON">Node Singleton</option>
+                                            <option value="CLUSTER_SINGLETON">Cluster Singleton</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Instances *</label>
+                                        <input class="form-control input-sm"
+                                               type="number" min="1" value="" id="tcp_instances" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Start at Boot</label>
+                                        <select class="form-control input-sm" id="tcp_startAtBoot">
+                                            <option value="1">Yes</option>
+                                            <option value="0">No</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Processing Threads</label>
+                                        <input class="form-control input-sm"
+                                               type="number" min="1" value="" id="tcp_processingThreads">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Listen Host *</label>
+                                        <input class="form-control input-sm"
+                                               type="text" value="" id="tcp_listenHost" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Listen Port *</label>
+                                        <input class="form-control input-sm"
+                                               type="number" min="0" value="" id="tcp_listenPort" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">SSL *</label>
+                                        <select class="form-control input-sm" id="tcp_ssl" onchange="checkTcpSSL(this.value)">
+                                            <option value="0">No</option>
+                                            <option value="1">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group tcp_ssl_block">
+                                        <label class="inputLabel">SSL Files BuiltIn *</label>
+                                        <select class="form-control input-sm" id="tcp_sslStoresBuiltIn" onchange="checkTcpKeyFile(this.value)">
+                                            <option value="0">No</option>
+                                            <option value="1">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group tcp_ssl_block">
+                                        <label class="inputLabel">TLS Version</label>
+                                        <input class="form-control input-sm"
+                                               type="text" value="" id="tcp_tlsVersion" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group tcp_ssl" style="display:none">
+                                        <label class="inputLabel">Trust Store Path *
+                                            <a href="javascript:void(0)" onclick="checkPemFile('tcp_trustStorePath')"><i class="fa fa-folder-open"></i></a></label>
+                                        <input class="form-control input-sm"
+                                               type="text" value="" id="tcp_trustStorePath">
+                                        <small>FileName: <strong class="tcp_trustStorePath">-</strong></small>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group tcp_ssl" style="display:none">
+                                        <label class="inputLabel">Trust Store Password</label>
+                                        <input class="form-control input-sm"
+                                               type="text" value="" id="tcp_trustStorePassword">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group tcp_ssl" style="display:none">
+                                        <label class="inputLabel">Key Store Path *
+                                            <a href="javascript:void(0)" onclick="checkPemFile('tcp_keyStorePath')"><i class="fa fa-folder-open"></i></a></label>
+                                        <input class="form-control input-sm"
+                                               type="text" value="" id="tcp_keyStorePath">
+                                        <small>FileName: <strong class="tcp_keyStorePath">-</strong></small>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group tcp_ssl" style="display:none">
+                                        <label class="inputLabel">Key Store Password</label>
+                                        <input class="form-control input-sm"
+                                               type="text" value="" id="tcp_keyStorePassword">
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row bg-light">
+                                <div class="col-md-12 mt-2">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Config</label>
+
+                                        <table class="table table-bordered">
+                                            <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Value</th>
+                                                <th>Action
+                                                    <button class="btn btn-xs pull-right ml-1" type="button" onclick="addConfigBody()"><i class="fa fa-plus"></i></button>
+                                                </th>
+                                            </tr>
+                                            </thead>
+                                            <tbody class="configBody">
+
+                                            </tbody>
+
+                                        </table>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btnModal">Save changes</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div id="addEmailInputRule" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document" style="max-width: 80% !important;">
+        <div class="modal-content">
+            <form action="javascript:void(0)">
+                <div class="modal-header">
+                    <h4 class="modal-title"><span class="iAction">Add</span> Email Input Rule</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Rule Name *</label>
+                                        <input class="form-control input-sm" onkeyup="inputId('email_name','email_id')"
+                                               onkeypress="inputId('email_name','email_id')" placeholder=""
+                                               type="text" id="email_name" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Rule ID</label><br>
+                                        <strong class="email_id">-</strong>
+                                        <input class="form-control input-sm"
+                                               type="hidden" id="email_id" style="display: none">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Instance Type *</label>
+                                        <select class="form-control input-sm" id="email_instanceType">
+                                            <option value="SCALABLE">Scalable</option>
+                                            <option value="NODE_SINGLETON">Node Singleton</option>
+                                            <option value="CLUSTER_SINGLETON">Cluster Singleton</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Instances *</label>
+                                        <input class="form-control input-sm"
+                                               type="number" min="1" value="" id="email_instances" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Start at Boot</label>
+                                        <select class="form-control input-sm" id="email_startAtBoot">
+                                            <option value="1">Yes</option>
+                                            <option value="0">No</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Processing Threads</label>
+                                        <input class="form-control input-sm"
+                                               type="number" min="1" value="" id="email_processingThreads">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Remote Host *</label>
+                                        <input class="form-control input-sm"
+                                               type="text" value="" id="email_remoteHost" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Remote Port</label>
+                                        <input class="form-control input-sm"
+                                               type="number" min="0" value="" id="email_remotePort">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Username *</label>
+                                        <input class="form-control input-sm"
+                                               type="text" value="" id="email_userName" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Password</label>
+                                        <input class="form-control input-sm"
+                                               type="text" value="" id="email_password">
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row bg-light">
+                                <div class="col-md-12 mt-2">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Folders</label>
+
+                                        <table class="table table-bordered">
+                                            <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Value</th>
+                                                <th>Action
+                                                    <button class="btn btn-xs pull-right ml-1" type="button" onclick="addFolderBody()"><i class="fa fa-plus"></i></button>
+                                                </th>
+                                            </tr>
+                                            </thead>
+                                            <tbody class="folderBody">
+
+                                            </tbody>
+
+                                        </table>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 mt-2">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Config</label>
+
+                                        <table class="table table-bordered">
+                                            <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Value</th>
+                                                <th>Action
+                                                    <button class="btn btn-xs pull-right ml-1" type="button" onclick="addConfigBody()"><i class="fa fa-plus"></i></button>
+                                                </th>
+                                            </tr>
+                                            </thead>
+                                            <tbody class="configBody">
+
+                                            </tbody>
+
+                                        </table>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btnModal">Save changes</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 
 

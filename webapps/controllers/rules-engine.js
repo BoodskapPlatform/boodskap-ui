@@ -3702,7 +3702,7 @@ function openModal(e) {
         $("#sftp_listRecursive").val(-1)
         $("#sftp_pollInterval").val(30000)
         $(".configBody").html('')
-        addConfigBody();
+        // addConfigBody();
         $("#addSftpInputRule").modal('show');
 
 
@@ -3715,7 +3715,7 @@ function openModal(e) {
         $(".mqtt_ssl").css('display','none')
 
         $(".configBody").html('')
-        addConfigBody();
+        // addConfigBody();
 
         $("#addMqttInputRule form").attr("onsubmit","addMqttRule()");
         $("#addMqttInputRule form")[0].reset();
@@ -3727,15 +3727,9 @@ function openModal(e) {
         $("#udp_name").removeAttr('disabled')
 
         $(".configBody").html('')
-        addConfigBody();
-        // $(".sftp_privateKeyFilePath").css('display','none')
-        // $(".sftp_publicKeyFilePath").css('display','none')
-        // $("#sftp_privateKeyFilePath").removeAttr('required')
+        // addConfigBody();
         $("#addUdpInputRule form").attr("onsubmit","addUdpRule()");
         $("#addUdpInputRule form")[0].reset();
-        // $("#sftp_connectTimeOut").val(30000)
-        // $("#sftp_listRecursive").val(-1)
-        // $("#sftp_pollInterval").val(30000)
         $("#addUdpInputRule").modal('show');
 
     }
@@ -3744,17 +3738,11 @@ function openModal(e) {
         $("#tcp_name").removeAttr('disabled')
 
         $(".configBody").html('')
-        addConfigBody();
+        // addConfigBody();
         $(".tcp_ssl_block").css('display','none')
         $(".tcp_ssl").css('display','none')
-        // $(".sftp_privateKeyFilePath").css('display','none')
-        // $(".sftp_publicKeyFilePath").css('display','none')
-        // $("#sftp_privateKeyFilePath").removeAttr('required')
         $("#addTcpInputRule form").attr("onsubmit","addTcpRule()");
         $("#addTcpInputRule form")[0].reset();
-        // $("#sftp_connectTimeOut").val(30000)
-        // $("#sftp_listRecursive").val(-1)
-        // $("#sftp_pollInterval").val(30000)
         $("#addTcpInputRule").modal('show');
 
     }
@@ -3764,14 +3752,11 @@ function openModal(e) {
 
         $(".configBody").html('')
         addConfigBody();
-        // $(".sftp_privateKeyFilePath").css('display','none')
-        // $(".sftp_publicKeyFilePath").css('display','none')
-        // $("#sftp_privateKeyFilePath").removeAttr('required')
+
+        $(".folderBody").html('')
+        // addFolderBody();
         $("#addEmailInputRule form").attr("onsubmit","addEmailRule()");
         $("#addEmailInputRule form")[0].reset();
-        // $("#sftp_connectTimeOut").val(30000)
-        // $("#sftp_listRecursive").val(-1)
-        // $("#sftp_pollInterval").val(30000)
         $("#addEmailInputRule").modal('show');
 
     }
@@ -3839,7 +3824,7 @@ function editInputModal(){
 }
 
 function editSftpModal() {
-    $("#sftp_rule_nam").attr('disabled','disabled')
+    $("#sftp_name").attr('disabled','disabled')
 
     var obj = {};
     for (var i = 0; i < sftp_rules_list.length; i++) {
@@ -3897,7 +3882,7 @@ function editSftpModal() {
 
 function editMqttModal() {
 
-    $("#mqtt_rule_nam").attr('disabled','disabled')
+    $("#mqtt_name").attr('disabled','disabled')
 
     var obj = {};
     for (var i = 0; i < mqtt_rules_list.length; i++) {
@@ -3936,6 +3921,7 @@ function editMqttModal() {
     $("#mqtt_clientKeyFilePath").val(obj.clientKeyFilePath ? obj.clientKeyFilePath : '')
     $("#mqtt_clientKeyFilePassword").val(obj.clientKeyFilePassword ? obj.clientKeyFilePassword : '')
 
+    checkMqttSSL($("#mqtt_ssl").val())
     checkKeyFile($("#mqtt_sslFilesBuiltIn").val())
 
     $(".configBody").html('')
@@ -3959,7 +3945,7 @@ function editMqttModal() {
 
 function editUdpModal() {
 
-    $("#udp_rule_nam").attr('disabled','disabled')
+    $("#udp_name").attr('disabled','disabled')
 
     var obj = {};
     for (var i = 0; i < udp_rules_list.length; i++) {
@@ -4021,7 +4007,7 @@ function editUdpModal() {
 
 function editTcpModal() {
 
-    $("#tcp_rule_nam").attr('disabled','disabled')
+    $("#tcp_name").attr('disabled','disabled')
 
     var obj = {};
     for (var i = 0; i < tcp_rules_list.length; i++) {
@@ -4051,6 +4037,7 @@ function editTcpModal() {
     $("#tcp_keyStorePath").val(obj.keyStorePath ? obj.keyStorePath : '')
     $("#tcp_keyStorePassword").val(obj.keyStorePassword ? obj.keyStorePassword : '')
 
+    checkTcpSSL($("#tcp_ssl").val())
     checkTcpKeyFile($("#tcp_ssslStoresBuiltIn").val())
 /*
     $("#tcp_cleanSession").val(obj.cleanSession ? "1" : "0")
@@ -4083,7 +4070,65 @@ function editTcpModal() {
     $("#addTdpInputRule").modal('show');
 }
 
+function editEmailModal() {
 
+    $("#email_name").attr('disabled','disabled')
+
+    var obj = {};
+    for (var i = 0; i < email_rules_list.length; i++) {
+        if (CURRENT_ID === email_rules_list[i].id) {
+            obj = email_rules_list[i];
+        }
+    }
+
+    $("#addUdpInputRule form")[0].reset();
+
+    $("#email_id").val(obj.id)
+    $("#email_name").val(obj.name)
+    $("#email_instances").val(obj.instances ? obj.instances : '')
+    $("#email_instanceType").val(obj.instanceType ? obj.instanceType : '')
+    $("#email_processingThreads").val(obj.processingThreads ? obj.processingThreads : '')
+    $("#email_startAtBoot").val(obj.startAtBoot ? "1" : "0")
+
+    $("#email_remoteHost").val(obj.remoteHost ? obj.remoteHost : '')
+    $("#email_remotePort").val(obj.remotePort ? obj.remotePort : '')
+    $("#email_userName").val(obj.userName ? obj.userName : '')
+    $("#email_password").val(obj.password ? obj.password : '')
+
+    $(".configBody").html('')
+    for(var i=0;i<obj.config.length;i++){
+        var t = new Date().getTime()
+        $(".configBody").append('<tr class="'+t+'">' +
+            '<td><input type="text" value="'+obj.config[i].name+'" required class="conf_name form-control input-sm"></td>' +
+            '<td><input type="text" value="'+obj.config[i].value+'" class="conf_value form-control input-sm"></td>' +
+            '<td><button class="btn btn-sm" type="button" onclick="addConfigBody()">' +
+            '<i class="fa fa-plus"></i></button>' +
+            '<button class="btn btn-sm" type="button" onclick="removeConfigBody(\''+t+'\')">' +
+            '<i class="fa fa-trash"></i></button></td>' +
+            '</tr>')
+
+    }
+
+
+
+    $(".folderBody").html('')
+    for(var i=0;i<obj.folders.length;i++){
+        var t = new Date().getTime()
+        $(".folderBody").append('<tr class="'+t+'">' +
+            '<td><input type="text" value="'+obj.folders[i].name+'" required class="conf_name form-control input-sm"></td>' +
+            '<td><input type="text" value="'+obj.folders[i].value+'" class="conf_value form-control input-sm"></td>' +
+            '<td><button class="btn btn-sm" type="button" onclick="addFolderBody()">' +
+            '<i class="fa fa-plus"></i></button>' +
+            '<button class="btn btn-sm" type="button" onclick="removeFolderBody(\''+t+'\')">' +
+            '<i class="fa fa-trash"></i></button></td>' +
+            '</tr>')
+
+    }
+
+
+    $("#addEmailInputRule form").attr("onsubmit","addEmailRule(1)");
+    $("#addEmailInputRule").modal('show');
+}
 
 function openDeleteModal() {
 
@@ -4490,7 +4535,6 @@ function addNamedRule() {
     })
 
 }
-
 
 function addBinaryRule() {
     var dataObj = {
@@ -4937,27 +4981,6 @@ function addUdpRule(code) {
         listenHost: $("#udp_listenHost").val(),
         listenPort:  Number($("#udp_listenPort").val()),
         maxPacketSize: $("#udp_maxPacketSize").val() ? Number($("#udp_maxPacketSize").val()) : null,
-
-        // userName: $("#udp_userName").val(),
-        // password: $("#udp_password").val(),
-        // clientId: $("#udp_clientId").val(),
-        // cleanSession: $("#udp_cleanSession").val() === "1" ? true : false,
-        // serverUrl : $("#udp_serverUrl").val(),
-        // topicPatterns : $("#udp_topicPatterns").val().split(","),
-        //
-        // subscriptionQos: $("#udp_subscriptionQos").val() ? Number($("#udp_subscriptionQos").val()) : null,
-        //
-        // connectionTimeout: $("#udp_connectionTimeout").val() ? Number($("#udp_connectionTimeout").val()) : null,
-        // keepAliveInterval: $("#udp_keepAliveInterval").val() ? Number($("#udp_keepAliveInterval").val()) : null,
-        // udpVersion: $("#udp_udpVersion").val(),
-        // ssl: $("#udp_ssl").val() === "1" ? true : false,
-        //
-        // sslFilesBuiltIn: $("#udp_sslFilesBuiltIn").val() === "1" ? true : false,
-        //
-        // caFilePath: $("#udp_caFilePath").val(),
-        // clientCrtFilePath: $("#udp_clientCrtFilePath").val(),
-        // clientKeyFilePath: $("#udp_clientKeyFilePath").val(),
-        // clientKeyFilePassword: $("#udp_clientKeyFilePassword").val(),
         config : configObj
 
     };
@@ -4975,6 +4998,151 @@ function addUdpRule(code) {
             },1000)
 
             $("#addUdpInputRule").modal('hide');
+        } else {
+            errorMsg('Error in saving!')
+        }
+    })
+
+}
+
+function addTcpRule(code) {
+
+    var configObj = []
+
+    var cKey= $(".conf_name").map(function() {
+        return $(this).val();
+    }).get();
+    var cValue= $(".conf_value").map(function() {
+        return $(this).val();
+    }).get();
+
+    for(var i=0;i<cKey.length;i++){
+        configObj.push({
+            name: cKey[i],
+            value: cValue[i],
+        })
+    };
+
+
+    var dataObj = {
+        "domainKey": DOMAIN_KEY,
+        "id": $("#tcp_id").val(),
+        "name": $("#tcp_name").val(),
+        "code": code ? codeEditor.getSession().getValue() : "",
+        "description":"",
+        instances: Number($("#tcp_instances").val()),
+        instanceType: $("#tcp_instanceType").val(),
+        processingThreads: $("#tcp_processingThreads").val() ? Number($("#tcp_processingThreads").val()) : null,
+        lang: 'GROOVY',
+        "startAtBoot": $("#tcp_startAtBoot").val() === "1" ? true : false,
+        listenHost: $("#tcp_listenHost").val(),
+        listenPort: $("#tcp_listenPort").val() ? Number($("#tcp_listenPort").val()) : null,
+
+        ssl: $("#tcp_ssl").val() === "1" ? true : false,
+        sslStoresBuiltIn: $("#tcp_sslStoresBuiltIn").val() === "1" ? true : false,
+        tlsVersion: $("#tcp_tlsVersion").val(),
+
+        trustStorePath: $("#tcp_trustStorePath").val(),
+        trustStorePassword: $("#tcp_trustStorePassword").val(),
+        keyStorePath: $("#tcp_keyStorePath").val(),
+        keyStorePassword: $("#tcp_keyStorePassword").val(),
+        config : configObj
+
+    };
+
+    updateInputRuleCode('TCP',dataObj, function (status, data) {
+        if (status) {
+            successMsg('Successfully saved!');
+            setTimeout(function(){
+                loadTcpRulesList();
+            },500)
+            setTimeout(function () {
+                if(code){
+                    loadTabbar(dataObj.id, 13);
+                }
+            },1000)
+
+            $("#addTcpInputRule").modal('hide');
+        } else {
+            errorMsg('Error in saving!')
+        }
+    })
+
+}
+
+function addEmailRule(code) {
+
+    var configObj = []
+
+    var cKey= $(".conf_name").map(function() {
+        return $(this).val();
+    }).get();
+    var cValue= $(".conf_value").map(function() {
+        return $(this).val();
+    }).get();
+
+    for(var i=0;i<cKey.length;i++){
+        configObj.push({
+            name: cKey[i],
+            value: cValue[i],
+        })
+    };
+
+    var folderObj = []
+
+    var fKey= $(".folder_name").map(function() {
+        return $(this).val();
+    }).get();
+    var fValue= $(".folder_value").map(function() {
+        return $(this).val();
+    }).get();
+
+    for(var i=0;i<fKey.length;i++){
+        folderObj.push({
+            name: fKey[i],
+            value: fValue[i],
+        })
+    };
+
+
+    var dataObj = {
+        "domainKey": DOMAIN_KEY,
+        "id": $("#email_id").val(),
+        "name": $("#email_name").val(),
+        "code": code ? codeEditor.getSession().getValue() : "",
+        "description":"",
+        instances: Number($("#email_instances").val()),
+        instanceType: $("#email_instanceType").val(),
+        processingThreads: $("#email_processingThreads").val() ? Number($("#email_processingThreads").val()) : null,
+        lang: 'GROOVY',
+        "startAtBoot": $("#email_startAtBoot").val() === "1" ? true : false,
+
+        remoteHost: $("#email_remoteHost").val(),
+        remotePort: Number($("#email_remotePort").val()),
+        userName: $("#email_userName").val(),
+        password: $("#email_password").val(),
+
+        listenHost: $("#email_listenHost").val(),
+        listenPort:  Number($("#email_listenPort").val()),
+
+        config : configObj,
+        folders : folderObj
+
+    };
+
+    updateInputRuleCode('EMAIL',dataObj, function (status, data) {
+        if (status) {
+            successMsg('Successfully saved!');
+            setTimeout(function(){
+                loadEmailRulesList();
+            },500)
+            setTimeout(function () {
+                if(code){
+                    loadTabbar(dataObj.id, 14);
+                }
+            },1000)
+
+            $("#addEmailInputRule").modal('hide');
         } else {
             errorMsg('Error in saving!')
         }
@@ -6451,6 +6619,16 @@ function checkMqttKeyFile(val){
         $(".mqtt_ssl").css('display','none')
     }
 }
+
+function checkTcpKeyFile(val){
+
+
+    if(val == "1"){
+        $(".tcp_ssl").css('display','block')
+    }else{
+        $(".tcp_ssl").css('display','none')
+    }
+}
 function checkMqttSSL(val){
 
 
@@ -6458,6 +6636,16 @@ function checkMqttSSL(val){
         $(".mqtt_ssl_block").css('display','block')
     }else{
         $(".mqtt_ssl_block").css('display','none')
+    }
+}
+
+function checkTcpSSL(val){
+
+
+    if(val == "1"){
+        $(".tcp_ssl_block").css('display','block')
+    }else{
+        $(".tcp_ssl_block").css('display','none')
     }
 }
 
@@ -6559,13 +6747,31 @@ function addConfigBody(){
     $(".configBody").append('<tr class="'+t+'">' +
         '<td><input type="text" required class="conf_name form-control input-sm"></td>' +
         '<td><input type="text" class="conf_value form-control input-sm"></td>' +
-        '<td><button class="btn btn-sm" type="button" onclick="addConfigBody()">' +
+        '<td><button class="btn btn-xs" type="button" onclick="addConfigBody()">' +
         '<i class="fa fa-plus"></i></button>' +
-        '<button class="btn btn-sm" type="button" onclick="removeConfigBody(\''+t+'\')">' +
+        '<button class="btn btn-xs" type="button" onclick="removeConfigBody(\''+t+'\')">' +
         '<i class="fa fa-trash"></i></button></td>' +
         '</tr>')
 }
 
 function removeConfigBody(id){
+    $("."+id).remove();
+}
+
+
+
+function addFolderBody(){
+    var t = new Date().getTime();
+    $(".folderBody").append('<tr class="'+t+'">' +
+        '<td><input type="text" required class="folder_name form-control input-sm"></td>' +
+        '<td><input type="text" class="folder_value form-control input-sm"></td>' +
+        '<td><button class="btn btn-xs" type="button" onclick="addFolderBody()">' +
+        '<i class="fa fa-plus"></i></button>' +
+        '<button class="btn btn-xs" type="button" onclick="removeFolderBody(\''+t+'\')">' +
+        '<i class="fa fa-trash"></i></button></td>' +
+        '</tr>')
+}
+
+function removeFolderBody(id){
     $("."+id).remove();
 }
