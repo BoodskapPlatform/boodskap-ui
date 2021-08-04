@@ -2226,7 +2226,7 @@ function loadEmailDetails(id,obj) {
     var configs = ''
     if(obj.config) {
         for (var i = 0; i < obj.config.length; i++) {
-            configs+=obj.config[i].name+':'+obj.config[i].value+"<br>";
+            configs+=obj.config[i].name+' : '+obj.config[i].value+"<br>";
         }
     }
 
@@ -3751,7 +3751,7 @@ function openModal(e) {
         $("#email_name").removeAttr('disabled')
 
         $(".configBody").html('')
-        addConfigBody();
+        // addConfigBody();
 
         $(".folderBody").html('')
         // addFolderBody();
@@ -4816,10 +4816,12 @@ function addSftpRule(code) {
     }).get();
 
     for(var i=0;i<cKey.length;i++){
-        configObj.push({
-            name: cKey[i],
-            value: cValue[i],
-        })
+        if(cKey[i]){
+            configObj.push({
+                name: cKey[i],
+                value: cValue[i],
+            })
+        }
     };
 
     var dataObj = {
@@ -4886,10 +4888,12 @@ function addMqttRule(code) {
     }).get();
 
     for(var i=0;i<cKey.length;i++){
-        configObj.push({
-            name: cKey[i],
-            value: cValue[i],
-        })
+        if(cKey[i]){
+            configObj.push({
+                name: cKey[i],
+                value: cValue[i],
+            })
+        }
     };
 
 
@@ -4960,10 +4964,13 @@ function addUdpRule(code) {
     }).get();
 
     for(var i=0;i<cKey.length;i++){
-        configObj.push({
-            name: cKey[i],
-            value: cValue[i],
-        })
+        if(cKey[i]){
+            configObj.push({
+                name: cKey[i],
+                value: cValue[i],
+            })
+        }
+
     };
 
 
@@ -5017,10 +5024,12 @@ function addTcpRule(code) {
     }).get();
 
     for(var i=0;i<cKey.length;i++){
-        configObj.push({
-            name: cKey[i],
-            value: cValue[i],
-        })
+        if(cKey[i]){
+            configObj.push({
+                name: cKey[i],
+                value: cValue[i],
+            })
+        }
     };
 
 
@@ -5082,10 +5091,12 @@ function addEmailRule(code) {
     }).get();
 
     for(var i=0;i<cKey.length;i++){
-        configObj.push({
-            name: cKey[i],
-            value: cValue[i],
-        })
+        if(cKey[i]){
+            configObj.push({
+                name: cKey[i],
+                value: cValue[i],
+            })
+        }
     };
 
     var folderObj = []
@@ -5098,10 +5109,13 @@ function addEmailRule(code) {
     }).get();
 
     for(var i=0;i<fKey.length;i++){
-        folderObj.push({
-            name: fKey[i],
-            value: fValue[i],
-        })
+        if(fKey[i]){
+            folderObj.push({
+                name: fKey[i],
+                value: fValue[i],
+            })
+        }
+
     };
 
 
