@@ -1238,6 +1238,7 @@
                                             <option value="SCALABLE">Scalable</option>
                                             <option value="NODE_SINGLETON">Node Singleton</option>
                                             <option value="CLUSTER_SINGLETON">Cluster Singleton</option>
+                                            <option value="DISTRIBUTED">Distributed</option>
                                         </select>
                                     </div>
                                 </div>
@@ -1248,13 +1249,7 @@
                                                type="number" min="1" value="" id="sftp_instances" required>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="inputLabel">Processing Threads</label>
-                                        <input class="form-control input-sm"
-                                               type="number" min="1" value="" id="sftp_processingThreads">
-                                    </div>
-                                </div>
+
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="inputLabel">Start At Boot</label>
@@ -1400,7 +1395,7 @@
                                                 <tr>
                                                     <th>Name</th>
                                                     <th>Value</th>
-                                                    <th>Action
+                                                    <th>
                                                         <button class="btn btn-xs pull-right ml-1" type="button" onclick="addConfigBody()"><i class="fa fa-plus"></i></button>
                                                     </th>
                                                 </tr>
@@ -1414,6 +1409,13 @@
                                     </div>
                                 </div>
 
+                                <div class="col-md-12 mt-2">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Properties</label>
+                                        <textarea style="height: 100px" class="form-control input-sm" id="sftp_properties">{}</textarea>
+                                        <small>JSON value</small>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1466,6 +1468,8 @@
                                             <option value="SCALABLE">Scalable</option>
                                             <option value="NODE_SINGLETON">Node Singleton</option>
                                             <option value="CLUSTER_SINGLETON">Cluster Singleton</option>
+                                            <option value="DISTRIBUTED">Distributed</option>
+
                                         </select>
                                     </div>
                                 </div>
@@ -1486,18 +1490,13 @@
                                     </div>
 
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="inputLabel">Processing Threads</label>
-                                        <input class="form-control input-sm"
-                                               type="number" min="1" value="" id="mqtt_processingThreads">
-                                    </div>
-                                </div>
+
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="inputLabel">Server URL</label>
+                                        <label class="inputLabel">Server URL's</label>
                                         <input class="form-control input-sm"
-                                               type="text" value="" id="mqtt_serverUrl" required>
+                                               type="text" value="" id="mqtt_serverUrls" required>
+                                        <small>Note: comma separated values</small>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -1528,22 +1527,6 @@
                                             <option value="1">Yes</option>
                                             <option value="0">No</option>
                                         </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label class="inputLabel">Topic Patterns</label>
-                                        <input class="form-control input-sm"
-                                               type="text" value="" id="mqtt_topicPatterns">
-                                        <small>Note: Each pattern separated by comma</small>
-                                    </div>
-
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label class="inputLabel">Subscription Qos</label>
-                                        <input class="form-control input-sm"
-                                               type="number" min="0" value="" id="mqtt_subscriptionQos">
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -1578,8 +1561,17 @@
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group mqtt_ssl_block">
-                                        <label class="inputLabel">SSL Files BuiltIn *</label>
-                                        <select class="form-control input-sm" id="mqtt_sslFilesBuiltIn" onchange="checkMqttKeyFile(this.value)">
+                                        <label class="inputLabel">SSL SkipHostName Verification *</label>
+                                        <select class="form-control input-sm" id="mqtt_sslSkipHostNameVerification">
+                                            <option value="1">Yes</option>
+                                            <option value="0">No</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group mqtt_ssl_block">
+                                        <label class="inputLabel">SSL Store BuiltIn *</label>
+                                        <select class="form-control input-sm" id="mqtt_sslStoreBuiltIn" onchange="checkMqttKeyFile(this.value)">
                                             <option value="0">No</option>
                                             <option value="1">Yes</option>
                                         </select>
@@ -1588,39 +1580,38 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-3">
-                                    <div class="form-group mqtt_ssl" style="display:none">
-                                        <label class="inputLabel">CA File Path *
-                                            <a href="javascript:void(0)" onclick="checkPemFile('mqtt_caFilePath')"><i class="fa fa-folder-open"></i></a></label>
+                                    <div class="form-group mqtt_ssl mqtt_ssl_block" style="display:none">
+                                        <label class="inputLabel">SSL KeyStore Path *
+                                            <a href="javascript:void(0)" onclick="checkMqttKeyFile('mqtt_sslKeyStorePath')"><i class="fa fa-folder-open"></i></a></label>
                                         <input class="form-control input-sm"
-                                               type="text" value="" id="mqtt_caFilePath">
-                                        <small>FileName: <strong class="mqtt_caFilePath">-</strong></small>
+                                               type="text" value="" id="mqtt_sslKeyStorePath">
+                                        <small>FileName: <strong class="mqtt_sslKeyStorePath">-</strong></small>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group mqtt_ssl mqtt_ssl_block" style="display:none">
+                                        <label class="inputLabel">SSL KeyStore Password</label>
+                                        <input class="form-control input-sm"
+                                               type="text" value="" id="mqtt_sslKeyStorePassword">
                                     </div>
                                 </div>
                                 <div class="col-md-3">
-                                    <div class="form-group mqtt_ssl" style="display:none">
-                                        <label class="inputLabel">Client Cert. FilePath *
-                                            <a href="javascript:void(0)" onclick="checkPemFile('mqtt_clientCrtFilePath')"><i class="fa fa-folder-open"></i></a></label>
+                                    <div class="form-group mqtt_ssl mqtt_ssl_block" style="display:none">
+                                        <label class="inputLabel">SSL TrustStore Path *
+                                            <a href="javascript:void(0)" onclick="checkPemFile('mqtt_sslTrustStorePath')"><i class="fa fa-folder-open"></i></a></label>
                                         <input class="form-control input-sm"
-                                               type="text" value="" id="mqtt_clientCrtFilePath">
-                                        <small>FileName: <strong class="mqtt_clientCrtFilePath">-</strong></small>
+                                               type="text" value="" id="mqtt_sslTrustStorePath">
+                                        <small>FileName: <strong class="mqtt_sslTrustStorePath">-</strong></small>
 
                                     </div>
                                 </div>
-                                <div class="col-md-3">
-                                    <div class="form-group mqtt_ssl" style="display:none">
-                                        <label class="inputLabel">Client Key FilePath *
-                                            <a href="javascript:void(0)" onclick="checkPemFile('mqtt_clientKeyFilePath')"><i class="fa fa-folder-open"></i></a></label>
-                                        <input class="form-control input-sm"
-                                               type="text" value="" id="mqtt_clientKeyFilePath">
-                                        <small>FileName: <strong class="mqtt_clientKeyFilePath">-</strong></small>
 
-                                    </div>
-                                </div>
                                 <div class="col-md-3">
-                                    <div class="form-group mqtt_ssl" style="display:none">
-                                        <label class="inputLabel">ClientKey File Password</label>
+                                    <div class="form-group mqtt_ssl mqtt_ssl_block" style="display:none">
+                                        <label class="inputLabel">SSL TrustStore Password</label>
                                         <input class="form-control input-sm"
-                                               type="text" value="" id="mqtt_clientKeyFilePassword">
+                                               type="text" value="" id="mqtt_sslTrustStorePassword">
                                     </div>
                                 </div>
 
@@ -1631,6 +1622,29 @@
                             <div class="row bg-light">
                                 <div class="col-md-12 mt-2">
                                     <div class="form-group">
+                                        <label class="inputLabel">Subscriptions - MQTT Topic</label>
+
+                                        <table class="table table-bordered">
+                                            <thead>
+                                            <tr>
+                                                <th>Pattern</th>
+                                                <th>QoS</th>
+                                                <th>
+                                                    <button class="btn btn-xs pull-right ml-1" type="button" onclick="addMqttBody()"><i class="fa fa-plus"></i></button>
+                                                </th>
+                                            </tr>
+                                            </thead>
+                                            <tbody class="mqttBody">
+
+                                            </tbody>
+
+                                        </table>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 mt-2">
+                                    <div class="form-group">
                                         <label class="inputLabel">Config</label>
 
                                         <table class="table table-bordered">
@@ -1638,7 +1652,7 @@
                                             <tr>
                                                 <th>Name</th>
                                                 <th>Value</th>
-                                                <th>Action
+                                                <th>
                                                     <button class="btn btn-xs pull-right ml-1" type="button" onclick="addConfigBody()"><i class="fa fa-plus"></i></button>
                                                 </th>
                                             </tr>
@@ -1649,6 +1663,14 @@
 
                                         </table>
 
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 mt-2">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Properties</label>
+                                        <textarea style="height: 100px" class="form-control input-sm" id="mqtt_properties">{}</textarea>
+                                        <small>JSON value</small>
                                     </div>
                                 </div>
 
@@ -1692,7 +1714,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="inputLabel">Rule ID</label><br>
-                                        <strong class="mqtt_id">-</strong>
+                                        <strong class="udp_id">-</strong>
                                         <input class="form-control input-sm"
                                                type="hidden" id="udp_id" style="display: none">
                                     </div>
@@ -1705,6 +1727,8 @@
                                             <option value="SCALABLE">Scalable</option>
                                             <option value="NODE_SINGLETON">Node Singleton</option>
                                             <option value="CLUSTER_SINGLETON">Cluster Singleton</option>
+                                            <option value="DISTRIBUTED">Distributed</option>
+
                                         </select>
                                     </div>
                                 </div>
@@ -1725,13 +1749,7 @@
                                     </div>
 
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="inputLabel">Processing Threads</label>
-                                        <input class="form-control input-sm"
-                                               type="number" min="1" value="" id="udp_processingThreads">
-                                    </div>
-                                </div>
+                                <div class="col-md-4"></div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="inputLabel">Listen Host *</label>
@@ -1739,7 +1757,6 @@
                                                type="text" value="" id="udp_listenHost" required>
                                     </div>
                                 </div>
-                                <div class="col-md-8"></div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="inputLabel">Listen Port *</label>
@@ -1747,12 +1764,67 @@
                                                type="number" min="0" value="" id="udp_listenPort" required>
                                     </div>
                                 </div>
-                                <div class="col-md-8"></div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label class="inputLabel">Max Packet Size *</label>
+                                        <label class="inputLabel">Receive Buffer Size</label>
                                         <input class="form-control input-sm"
-                                               type="number" min="0" value="" id="udp_maxPacketSize">
+                                               type="number" min="0" value="" id="udp_receiveBufferSize">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Send Buffer Size</label>
+                                        <input class="form-control input-sm"
+                                               type="number" min="0" value="" id="udp_sendBufferSize">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">So Timeout</label>
+                                        <input class="form-control input-sm"
+                                               type="number" min="0" value="" id="udp_soTimeout">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Time To Live</label>
+                                        <input class="form-control input-sm"
+                                               type="number" min="0" value="" id="udp_timeToLive">
+                                    </div>
+                                </div><div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Traffice Class</label>
+                                        <input class="form-control input-sm"
+                                               type="number" min="0" value="" id="udp_trafficeClass">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Reuse Address</label>
+                                        <select class="form-control input-sm" id="udp_reuseAddress">
+                                            <option value="1">Yes</option>
+                                            <option value="0">No</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Multicast</label>
+                                        <select class="form-control input-sm" id="udp_multicast">
+                                            <option value="0">No</option>
+                                            <option value="1">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Multicast Group</label>
+                                        <input class="form-control input-sm"
+                                               type="text" value="" id="mqtt_multicastGroup" required>
+                                        <small>Note: comma separated values</small>
                                     </div>
                                 </div>
 
@@ -1770,7 +1842,7 @@
                                             <tr>
                                                 <th>Name</th>
                                                 <th>Value</th>
-                                                <th>Action
+                                                <th>
                                                     <button class="btn btn-xs pull-right ml-1" type="button" onclick="addConfigBody()"><i class="fa fa-plus"></i></button>
                                                 </th>
                                             </tr>
@@ -1781,6 +1853,14 @@
 
                                         </table>
 
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 mt-2">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Properties</label>
+                                        <textarea style="height: 100px" class="form-control input-sm" id="udp_properties">{}</textarea>
+                                        <small>JSON value</small>
                                     </div>
                                 </div>
 
@@ -1837,17 +1917,19 @@
                                             <option value="SCALABLE">Scalable</option>
                                             <option value="NODE_SINGLETON">Node Singleton</option>
                                             <option value="CLUSTER_SINGLETON">Cluster Singleton</option>
+                                            <option value="DISTRIBUTED">Distributed</option>
+
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <label class="inputLabel">Instances *</label>
                                         <input class="form-control input-sm"
                                                type="number" min="1" value="" id="tcp_instances" required>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <label class="inputLabel">Start at Boot</label>
                                         <select class="form-control input-sm" id="tcp_startAtBoot">
@@ -1857,22 +1939,14 @@
                                     </div>
 
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="inputLabel">Processing Threads</label>
-                                        <input class="form-control input-sm"
-                                               type="number" min="1" value="" id="tcp_processingThreads">
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <label class="inputLabel">Listen Host *</label>
                                         <input class="form-control input-sm"
                                                type="text" value="" id="tcp_listenHost" required>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <label class="inputLabel">Listen Port *</label>
                                         <input class="form-control input-sm"
@@ -1889,7 +1963,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="form-group tcp_ssl_block">
                                         <label class="inputLabel">SSL Files BuiltIn *</label>
                                         <select class="form-control input-sm" id="tcp_sslStoresBuiltIn" onchange="checkTcpKeyFile(this.value)">
@@ -1898,7 +1972,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="form-group tcp_ssl_block">
                                         <label class="inputLabel">TLS Version</label>
                                         <input class="form-control input-sm"
@@ -1907,7 +1981,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-3">
                                     <div class="form-group tcp_ssl" style="display:none">
                                         <label class="inputLabel">Trust Store Path *
                                             <a href="javascript:void(0)" onclick="checkPemFile('tcp_trustStorePath')"><i class="fa fa-folder-open"></i></a></label>
@@ -1917,7 +1991,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-3">
                                     <div class="form-group tcp_ssl" style="display:none">
                                         <label class="inputLabel">Trust Store Password</label>
                                         <input class="form-control input-sm"
@@ -1925,7 +1999,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-6">
+                                <div class="col-md-3">
                                     <div class="form-group tcp_ssl" style="display:none">
                                         <label class="inputLabel">Key Store Path *
                                             <a href="javascript:void(0)" onclick="checkPemFile('tcp_keyStorePath')"><i class="fa fa-folder-open"></i></a></label>
@@ -1935,7 +2009,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-3">
                                     <div class="form-group tcp_ssl" style="display:none">
                                         <label class="inputLabel">Key Store Password</label>
                                         <input class="form-control input-sm"
@@ -1944,6 +2018,139 @@
                                 </div>
 
 
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group ">
+                                        <label class="inputLabel">Keep Alive</label>
+                                        <select class="form-control input-sm" id="tcp_keepAlive" onchange="checkTcpKeyFile(this.value)">
+                                            <option value="0">No</option>
+                                            <option value="1">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="inputLabel">So Timeout</label>
+                                        <input class="form-control input-sm"
+                                               type="number" min="0" value="" id="tcp_soTimeout">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group ">
+                                        <label class="inputLabel">SoLinger On</label>
+                                        <select class="form-control input-sm" id="tcp_soLingerOn">
+                                            <option value="0">No</option>
+                                            <option value="1">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="inputLabel">SoLinger</label>
+                                        <input class="form-control input-sm"
+                                               type="number" min="0" value="" id="tcp_soLinger">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group ">
+                                        <label class="inputLabel">OOB Line</label>
+                                        <select class="form-control input-sm" id="tcp_oobLine">
+                                            <option value="0">No</option>
+                                            <option value="1">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Receive BufferSize</label>
+                                        <input class="form-control input-sm"
+                                               type="number" min="0" value="" id="tcp_receiveBufferSize">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Send BufferSize</label>
+                                        <input class="form-control input-sm"
+                                               type="number" min="0" value="" id="tcp_sendBufferSize">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group ">
+                                        <label class="inputLabel">TCP NoDelay</label>
+                                        <select class="form-control input-sm" id="tcp_tcpNoDelay">
+                                            <option value="0">No</option>
+                                            <option value="1">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Traffice Class</label>
+                                        <input class="form-control input-sm"
+                                               type="number" min="0" value="" id="tcp_trafficeClass">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group ">
+                                        <label class="inputLabel">Reuse Address</label>
+                                        <select class="form-control input-sm" id="tcp_reuseAddress">
+                                            <option value="0">No</option>
+                                            <option value="1">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group ">
+                                        <label class="inputLabel">Execute</label>
+                                        <select class="form-control input-sm" id="tcp_execute">
+                                            <option value="DIRECT">DIRECT</option>
+                                            <option value="BUFFER_CONTENT">BUFFER CONTENT</option>
+                                            <option value="LINE_BY_LINE">LINE BY LINE</option>
+                                            <option value="FIXED_SIZE">FIXED SIZE</option>
+                                            <option value="DELIMITER">DELIMITER</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group ">
+                                        <label class="inputLabel">Execute Partial Buffered</label>
+                                        <select class="form-control input-sm" id="tcp_executePartialBuffered" >
+                                            <option value="0">No</option>
+                                            <option value="1">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Fixed BufferSize</label>
+                                        <input class="form-control input-sm"
+                                               type="number" min="0" value="" id="tcp_fixedBufferSize">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Read Timeout</label>
+                                        <input class="form-control input-sm"
+                                               type="number" min="0" value="" id="tcp_readTimeout">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Close OnRead Timeout</label>
+                                        <select class="form-control input-sm" id="tcp_closeOnReadTimeout" >
+                                            <option value="0">No</option>
+                                            <option value="1">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Delimiter</label>
+                                        <input class="form-control input-sm"
+                                               type="text" value="" id="tcp_delimiter">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -1957,7 +2164,7 @@
                                             <tr>
                                                 <th>Name</th>
                                                 <th>Value</th>
-                                                <th>Action
+                                                <th>
                                                     <button class="btn btn-xs pull-right ml-1" type="button" onclick="addConfigBody()"><i class="fa fa-plus"></i></button>
                                                 </th>
                                             </tr>
@@ -1968,6 +2175,14 @@
 
                                         </table>
 
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 mt-2">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Properties</label>
+                                        <textarea style="height: 100px" class="form-control input-sm" id="tcp_properties">{}</textarea>
+                                        <small>JSON value</small>
                                     </div>
                                 </div>
 
@@ -2095,7 +2310,7 @@
                                             <tr>
                                                 <th>Name</th>
                                                 <th>Value</th>
-                                                <th>Action
+                                                <th>
                                                     <button class="btn btn-xs pull-right ml-1" type="button" onclick="addFolderBody()"><i class="fa fa-plus"></i></button>
                                                 </th>
                                             </tr>
@@ -2118,7 +2333,7 @@
                                             <tr>
                                                 <th>Name</th>
                                                 <th>Value</th>
-                                                <th>Action
+                                                <th>
                                                     <button class="btn btn-xs pull-right ml-1" type="button" onclick="addConfigBody()"><i class="fa fa-plus"></i></button>
                                                 </th>
                                             </tr>

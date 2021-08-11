@@ -3715,6 +3715,7 @@ function openModal(e) {
         $(".mqtt_ssl").css('display','none')
 
         $(".configBody").html('')
+        $(".mqttBody").html('')
         // addConfigBody();
 
         $("#addMqttInputRule form").attr("onsubmit","addMqttRule()");
@@ -3835,10 +3836,10 @@ function editSftpModal() {
 
     $("#addSftpInputRule form")[0].reset();
     $("#sftp_id").val(obj.id)
+    $(".sftp_id").html(obj.id)
     $("#sftp_name").val(obj.name)
     $("#sftp_instances").val(obj.instances ? obj.instances : '')
     $("#sftp_instanceType").val(obj.instanceType ? obj.instanceType : '')
-    $("#sftp_processingThreads").val(obj.processingThreads ? obj.processingThreads : '')
     $("#sftp_remoteHost").val(obj.remoteHost ? obj.remoteHost : '')
     $("#sftp_remotePort").val(obj.remotePort ? obj.remotePort : '')
     $("#sftp_userName").val(obj.userName ? obj.userName : '')
@@ -3852,6 +3853,7 @@ function editSftpModal() {
     $("#sftp_publicKeyFilePath").val(obj.publicKeyFilePath ? obj.publicKeyFilePath : '')
     $("#sftp_connectTimeOut").val(obj.connectTimeOut ? obj.connectTimeOut : '')
     $("#sftp_listRecursive").val(obj.listRecursive ? obj.listRecursive : '')
+    $("#sftp_properties").val(obj.properties ? JSON.stringify(obj.properties) : '{}')
 
     $("#sftp_startAtBoot").val(obj.startAtBoot ? "1" : "0")
     $("#sftp_keyFilesBuiltIn").val(obj.keyFilesBuiltIn ? "1" : "0")
@@ -3894,35 +3896,54 @@ function editMqttModal() {
     $("#addMqttInputRule form")[0].reset();
 
     $("#mqtt_id").val(obj.id)
+    $(".mqtt_id").html(obj.id)
     $("#mqtt_name").val(obj.name)
     $("#mqtt_instances").val(obj.instances ? obj.instances : '')
     $("#mqtt_instanceType").val(obj.instanceType ? obj.instanceType : '')
-    $("#mqtt_processingThreads").val(obj.processingThreads ? obj.processingThreads : '')
+    $("#mqtt_properties").val(obj.properties ? JSON.stringify(obj.properties) : '{}')
+    $("#mqtt_startAtBoot").val(obj.startAtBoot ? "1" : "0")
+
+    $("#mqtt_serverUrls").val(obj.serverUrls ? obj.serverUrls.join(",") : '')
 
     $("#mqtt_userName").val(obj.userName ? obj.userName : '')
     $("#mqtt_password").val(obj.password ? obj.password : '')
     $("#mqtt_clientId").val(obj.clientId ? obj.clientId : '')
-    $("#mqtt_serverUrl").val(obj.serverUrl ? obj.serverUrl : '')
-    $("#mqtt_startAtBoot").val(obj.startAtBoot ? "1" : "0")
+
     $("#mqtt_cleanSession").val(obj.cleanSession ? "1" : "0")
-    $("#mqtt_subscriptionQos").val(obj.subscriptionQos ? obj.subscriptionQos : '')
-    $("#mqtt_topicPatterns").val(obj.topicPatterns ? obj.topicPatterns.join(',') : '')
-
     $("#mqtt_connectionTimeout").val(obj.connectionTimeout ? obj.connectionTimeout : '')
-
     $("#mqtt_keepAliveInterval").val(obj.keepAliveInterval ? obj.keepAliveInterval : '')
     $("#mqtt_mqttVersion").val(obj.mqttVersion ? obj.mqttVersion : '')
 
     $("#mqtt_ssl").val(obj.ssl ? "1" : "0")
-    $("#mqtt_sslFilesBuiltIn").val(obj.sslFilesBuiltIn ? "1" : "0")
+    $("#mqtt_sslSkipHostNameVerification").val(obj.sslSkipHostNameVerification ? "1" : "0")
+    $("#mqtt_sslStoreBuiltIn").val(obj.sslStoreBuiltIn ? "1" : "0")
 
-    $("#mqtt_caFilePath").val(obj.caFilePath ? obj.caFilePath : '')
-    $("#mqtt_clientCrtFilePath").val(obj.clientCrtFilePath ? obj.clientCrtFilePath : '')
-    $("#mqtt_clientKeyFilePath").val(obj.clientKeyFilePath ? obj.clientKeyFilePath : '')
-    $("#mqtt_clientKeyFilePassword").val(obj.clientKeyFilePassword ? obj.clientKeyFilePassword : '')
 
+    $("#mqtt_sslKeyStorePath").val(obj.sslKeyStorePath ? obj.sslKeyStorePath : '')
+    $("#mqtt_sslKeyStorePassword").val(obj.sslKeyStorePassword ? obj.sslKeyStorePassword : '')
+
+    $("#mqtt_sslTrustStorePath").val(obj.sslTrustStorePath ? obj.sslTrustStorePath : '')
+    $("#mqtt_sslTrustStorePassword").val(obj.sslTrustStorePassword ? obj.sslTrustStorePassword : '')
+
+
+    checkMqttKeyFile($("#mqtt_sslStoreBuiltIn").val())
     checkMqttSSL($("#mqtt_ssl").val())
-    checkKeyFile($("#mqtt_sslFilesBuiltIn").val())
+
+
+    $(".mqttBody").html('')
+    for(var i=0;i<obj.subscriptions.length;i++){
+        var t = new Date().getTime()
+        $(".mqttBody").append('<tr class="'+t+'">' +
+            '<td><input type="text" value="'+obj.subscriptions[i].pattern+'" required class="mqtt_pattern form-control input-sm"></td>' +
+            '<td><input type="number" min="0" value="'+obj.subscriptions[i].qos+'" required class="mqtt_qos form-control input-sm"></td>' +
+            '<td><button class="btn btn-sm" type="button" onclick="addMqttBody()">' +
+            '<i class="fa fa-plus"></i></button>' +
+            '<button class="btn btn-sm" type="button" onclick="removeMqttBody(\''+t+'\')">' +
+            '<i class="fa fa-trash"></i></button></td>' +
+            '</tr>')
+
+    }
+
 
     $(".configBody").html('')
     for(var i=0;i<obj.config.length;i++){
@@ -3957,34 +3978,27 @@ function editUdpModal() {
     $("#addUdpInputRule form")[0].reset();
 
     $("#udp_id").val(obj.id)
+    $(".udp_id").html(obj.id)
+
     $("#udp_name").val(obj.name)
     $("#udp_instances").val(obj.instances ? obj.instances : '')
     $("#udp_instanceType").val(obj.instanceType ? obj.instanceType : '')
-    $("#udp_processingThreads").val(obj.processingThreads ? obj.processingThreads : '')
     $("#udp_startAtBoot").val(obj.startAtBoot ? "1" : "0")
+    $("#udp_properties").val(obj.properties ? JSON.stringify(obj.properties) : '{}')
 
     $("#udp_listenHost").val(obj.listenHost ? obj.listenHost : '')
     $("#udp_listenPort").val(obj.listenPort ? obj.listenPort : '')
-    $("#udp_maxPacketSize").val(obj.maxPacketSize ? obj.maxPacketSize : '')
-/*
-    $("#udp_cleanSession").val(obj.cleanSession ? "1" : "0")
-    $("#udp_subscriptionQos").val(obj.subscriptionQos ? obj.subscriptionQos : '')
-    $("#udp_topicPatterns").val(obj.topicPatterns ? obj.topicPatterns.join(',') : '')
+    $("#udp_receiveBufferSize").val(obj.receiveBufferSize ? obj.receiveBufferSize : '')
+    $("#udp_sendBufferSize").val(obj.sendBufferSize ? obj.sendBufferSize : '')
+    $("#udp_soTimeout").val(obj.soTimeout ? obj.soTimeout : '')
+    $("#udp_timeToLive").val(obj.timeToLive ? obj.timeToLive : '')
+    $("#udp_trafficeClass").val(obj.trafficeClass ? obj.trafficeClass : '')
 
-    $("#udp_connectionTimeout").val(obj.connectionTimeout ? obj.connectionTimeout : '')
+    $("#udp_reuseAddress").val(obj.reuseAddress ? "1" : "0")
+    $("#udp_multicast").val(obj.multicast ? "1" : "0")
 
-    $("#udp_keepAliveInterval").val(obj.keepAliveInterval ? obj.keepAliveInterval : '')
-    $("#udp_udpVersion").val(obj.udpVersion ? obj.udpVersion : '')
+    $("#udp_multicastGroup").val(obj.multicastGroup ? obj.multicastGroup : '')
 
-    $("#udp_ssl").val(obj.ssl ? "1" : "0")
-    $("#udp_sslFilesBuiltIn").val(obj.sslFilesBuiltIn ? "1" : "0")
-
-    $("#udp_caFilePath").val(obj.caFilePath ? obj.caFilePath : '')
-    $("#udp_clientCrtFilePath").val(obj.clientCrtFilePath ? obj.clientCrtFilePath : '')
-    $("#udp_clientKeyFilePath").val(obj.clientKeyFilePath ? obj.clientKeyFilePath : '')
-    $("#udp_clientKeyFilePassword").val(obj.clientKeyFilePassword ? obj.clientKeyFilePassword : '')
-
-    checkKeyFile($("#udp_sslFilesBuiltIn").val())*/
 
     $(".configBody").html('')
     for(var i=0;i<obj.config.length;i++){
@@ -4016,14 +4030,15 @@ function editTcpModal() {
         }
     }
 
-    $("#addtcpInputRule form")[0].reset();
+    $("#addTcpInputRule form")[0].reset();
 
     $("#tcp_id").val(obj.id)
+    $(".tcp_id").html(obj.id)
     $("#tcp_name").val(obj.name)
     $("#tcp_instances").val(obj.instances ? obj.instances : '')
     $("#tcp_instanceType").val(obj.instanceType ? obj.instanceType : '')
-    $("#tcp_processingThreads").val(obj.processingThreads ? obj.processingThreads : '')
     $("#tcp_startAtBoot").val(obj.startAtBoot ? "1" : "0")
+    $("#tcp_properties").val(obj.properties ? JSON.stringify(obj.properties) : '{}')
 
     $("#tcp_listenHost").val(obj.listenHost ? obj.listenHost : '')
     $("#tcp_listenPort").val(obj.listenPort ? obj.listenPort : '')
@@ -4037,19 +4052,33 @@ function editTcpModal() {
     $("#tcp_keyStorePath").val(obj.keyStorePath ? obj.keyStorePath : '')
     $("#tcp_keyStorePassword").val(obj.keyStorePassword ? obj.keyStorePassword : '')
 
+    $("#tcp_keepAlive").val(obj.keepAlive ? "1" : "0")
+    $("#tcp_soLingerOn").val(obj.soLingerOn ? "1" : "0")
+    $("#tcp_oobLine").val(obj.oobLine ? "1" : "0")
+
+    $("#tcp_tcpNoDelay").val(obj.tcpNoDelay ? "1" : "0")
+    $("#tcp_reuseAddress").val(obj.reuseAddress ? "1" : "0")
+
+    $("#tcp_executePartialBuffered").val(obj.executePartialBuffered ? "1" : "0")
+    $("#tcp_closeOnReadTimeout").val(obj.closeOnReadTimeout ? "1" : "0")
+
+    $("#tcp_soTimeout").val(obj.soTimeout ? obj.soTimeout : '')
+    $("#tcp_trafficeClass").val(obj.trafficeClass ? obj.trafficeClass : '')
+    $("#tcp_soLinger").val(obj.soLinger ? obj.soLinger : '')
+    $("#tcp_receiveBufferSize").val(obj.receiveBufferSize ? obj.receiveBufferSize : '')
+    $("#tcp_sendBufferSize").val(obj.sendBufferSize ? obj.sendBufferSize : '')
+    $("#tcp_fixedBufferSize").val(obj.fixedBufferSize ? obj.fixedBufferSize : '')
+    $("#tcp_readTimeout").val(obj.readTimeout ? obj.readTimeout : '')
+
+    $("#tcp_delimiter").val(obj.delimiter ? obj.delimiter : '')
+    $("#tcp_execute").val(obj.execute ? obj.execute : '')
+
+
+
+
+
     checkTcpSSL($("#tcp_ssl").val())
     checkTcpKeyFile($("#tcp_ssslStoresBuiltIn").val())
-/*
-    $("#tcp_cleanSession").val(obj.cleanSession ? "1" : "0")
-    $("#tcp_subscriptionQos").val(obj.subscriptionQos ? obj.subscriptionQos : '')
-    $("#tcp_topicPatterns").val(obj.topicPatterns ? obj.topicPatterns.join(',') : '')
-
-    $("#tcp_connectionTimeout").val(obj.connectionTimeout ? obj.connectionTimeout : '')
-
-    $("#tcp_keepAliveInterval").val(obj.keepAliveInterval ? obj.keepAliveInterval : '')
-    $("#tcp_tcpVersion").val(obj.tcpVersion ? obj.tcpVersion : '')
-
-   */
 
     $(".configBody").html('')
     for(var i=0;i<obj.config.length;i++){
@@ -4066,8 +4095,8 @@ function editTcpModal() {
     }
 
 
-    $("#addTdpInputRule form").attr("onsubmit","addTcpRule(1)");
-    $("#addTdpInputRule").modal('show');
+    $("#addTcpInputRule form").attr("onsubmit","addTcpRule(1)");
+    $("#addTcpInputRule").modal('show');
 }
 
 function editEmailModal() {
@@ -4084,11 +4113,32 @@ function editEmailModal() {
     $("#addUdpInputRule form")[0].reset();
 
     $("#email_id").val(obj.id)
+    $(".email_id").html(obj.id)
     $("#email_name").val(obj.name)
     $("#email_instances").val(obj.instances ? obj.instances : '')
     $("#email_instanceType").val(obj.instanceType ? obj.instanceType : '')
-    $("#email_processingThreads").val(obj.processingThreads ? obj.processingThreads : '')
     $("#email_startAtBoot").val(obj.startAtBoot ? "1" : "0")
+
+
+    $("#email_properties").val(obj.properties ? JSON.stringify(obj.properties) : '{}')
+
+    $("#email_subjectPatterns").val(obj.subjectPatterns ? obj.subjectPatterns.join(",") : '')
+    $("#email_allowedContentTypes").val(obj.allowedContentTypes ? obj.allowedContentTypes.join(",") : '')
+    $("#email_allowedAttachmentFileExtensions").val(obj.allowedAttachmentFileExtensions ? obj.allowedAttachmentFileExtensions.join(",") : '')
+
+
+    $("#email_type").val(obj.type ? obj.type : '')
+    $("#email_protocol").val(obj.protocol ? obj.protocol : '')
+    $("#email_secured").val(obj.secured ? "1" : "0")
+    $("#email_implicit").val(obj.implicit ? "1" : "0")
+    $("#email_keepAlive").val(obj.keepAlive ? "1" : "0")
+    $("#email_tcpNoDelay").val(obj.tcpNoDelay ? "1" : "0")
+    $("#email_processOnlyAttachments").val(obj.processOnlyAttachments ? "1" : "0")
+
+    $("#email_localPort").val(obj.localPort ? obj.localPort : '')
+    $("#email_connectTimeout").val(obj.connectTimeout ? obj.connectTimeout : '')
+    $("#email_readTimeout").val(obj.readTimeout ? obj.readTimeout : '')
+
 
     $("#email_remoteHost").val(obj.remoteHost ? obj.remoteHost : '')
     $("#email_remotePort").val(obj.remotePort ? obj.remotePort : '')
@@ -4831,7 +4881,6 @@ function addSftpRule(code) {
         "code": code ? codeEditor.getSession().getValue() : "",
         "description":"",
         instances: Number($("#sftp_instances").val()),
-        processingThreads: $("#sftp_processingThreads").val() ? Number($("#sftp_processingThreads").val()) : null,
         instanceType: $("#sftp_instanceType").val(),
         lang: 'GROOVY',
         "startAtBoot": $("#sftp_startAtBoot").val() === "1" ? true : false,
@@ -4850,7 +4899,8 @@ function addSftpRule(code) {
         keyPassPhrase: $("#sftp_keyPassPhrase").val(),
         connectTimeOut: $("#sftp_connectTimeOut").val() ? Number($("#sftp_connectTimeOut").val()) : null,
         listRecursive: $("#sftp_listRecursive").val() ? Number($("#sftp_listRecursive").val()) : $("#sftp_listRecursive").val(),
-        config : configObj
+        config : configObj,
+        properties : $("#sftp_properties").val() ? JSON.parse($("#sftp_properties").val()) : {}
 
     };
 
@@ -4897,6 +4947,26 @@ function addMqttRule(code) {
     };
 
 
+    var subsObj = []
+
+    var sKey= $(".mqtt_pattern").map(function() {
+        return $(this).val();
+    }).get();
+    var sValue= $(".mqtt_qos").map(function() {
+        return $(this).val();
+    }).get();
+
+    for(var i=0;i<sKey.length;i++){
+        if(sKey[i]){
+            subsObj.push({
+                pattern: sKey[i],
+                qos: Number(sValue[i]),
+            })
+        }
+    };
+
+
+
     var dataObj = {
         "domainKey": DOMAIN_KEY,
         "id": $("#mqtt_id").val(),
@@ -4905,30 +4975,29 @@ function addMqttRule(code) {
         "description":"",
         instances: Number($("#mqtt_instances").val()),
         instanceType: $("#mqtt_instanceType").val(),
-        processingThreads: $("#mqtt_processingThreads").val() ? Number($("#mqtt_processingThreads").val()) : null,
+
         lang: 'GROOVY',
         "startAtBoot": $("#mqtt_startAtBoot").val() === "1" ? true : false,
         userName: $("#mqtt_userName").val(),
         password: $("#mqtt_password").val(),
         clientId: $("#mqtt_clientId").val(),
+
+        serverUrls : $("#mqtt_serverUrls").val().split(","),
         cleanSession: $("#mqtt_cleanSession").val() === "1" ? true : false,
-        serverUrl : $("#mqtt_serverUrl").val(),
-        topicPatterns : $("#mqtt_topicPatterns").val().split(","),
-
-        subscriptionQos: $("#mqtt_subscriptionQos").val() ? Number($("#mqtt_subscriptionQos").val()) : null,
-
         connectionTimeout: $("#mqtt_connectionTimeout").val() ? Number($("#mqtt_connectionTimeout").val()) : null,
         keepAliveInterval: $("#mqtt_keepAliveInterval").val() ? Number($("#mqtt_keepAliveInterval").val()) : null,
         mqttVersion: $("#mqtt_mqttVersion").val(),
         ssl: $("#mqtt_ssl").val() === "1" ? true : false,
+        sslSkipHostNameVerification: $("#mqtt_sslSkipHostNameVerification").val() === "1" ? true : false,
+        sslStoreBuiltIn: $("#mqtt_sslStoreBuiltIn").val() === "1" ? true : false,
 
-        sslFilesBuiltIn: $("#mqtt_sslFilesBuiltIn").val() === "1" ? true : false,
-
-        caFilePath: $("#mqtt_caFilePath").val(),
-        clientCrtFilePath: $("#mqtt_clientCrtFilePath").val(),
-        clientKeyFilePath: $("#mqtt_clientKeyFilePath").val(),
-        clientKeyFilePassword: $("#mqtt_clientKeyFilePassword").val(),
-        config : configObj
+        sslKeyStorePath: $("#mqtt_sslKeyStorePath").val(),
+        sslKeyStorePassword: $("#mqtt_sslKeyStorePassword").val(),
+        sslTrustStorePath: $("#mqtt_sslTrustStorePath").val(),
+        sslTrustStorePassword: $("#mqtt_sslTrustStorePassword").val(),
+        config : configObj,
+        subscriptions : subsObj,
+        properties : $("#mqtt_properties").val() ? JSON.parse($("#mqtt_properties").val()) : {}
 
     };
 
@@ -4982,13 +5051,24 @@ function addUdpRule(code) {
         "description":"",
         instances: Number($("#udp_instances").val()),
         instanceType: $("#udp_instanceType").val(),
-        processingThreads: $("#udp_processingThreads").val() ? Number($("#udp_processingThreads").val()) : null,
         lang: 'GROOVY',
         "startAtBoot": $("#udp_startAtBoot").val() === "1" ? true : false,
+
         listenHost: $("#udp_listenHost").val(),
         listenPort:  Number($("#udp_listenPort").val()),
-        maxPacketSize: $("#udp_maxPacketSize").val() ? Number($("#udp_maxPacketSize").val()) : null,
-        config : configObj
+
+        receiveBufferSize: $("#udp_receiveBufferSize").val() ? Number($("#udp_receiveBufferSize").val()) : null,
+        sendBufferSize: $("#udp_sendBufferSize").val() ? Number($("#udp_sendBufferSize").val()) : null,
+        soTimeout: $("#udp_soTimeout").val() ? Number($("#udp_soTimeout").val()) : null,
+        timeToLive: $("#udp_timeToLive").val() ? Number($("#udp_timeToLive").val()) : null,
+        trafficeClass: $("#udp_trafficeClass").val() ? Number($("#udp_trafficeClass").val()) : null,
+
+        "reuseAddress": $("#udp_reuseAddress").val() === "1" ? true : false,
+        "multicast": $("#udp_multicast").val() === "1" ? true : false,
+
+        config : configObj,
+        properties : $("#udp_properties").val() ? JSON.parse($("#udp_properties").val()) : {}
+
 
     };
 
@@ -5041,21 +5121,37 @@ function addTcpRule(code) {
         "description":"",
         instances: Number($("#tcp_instances").val()),
         instanceType: $("#tcp_instanceType").val(),
-        processingThreads: $("#tcp_processingThreads").val() ? Number($("#tcp_processingThreads").val()) : null,
         lang: 'GROOVY',
         "startAtBoot": $("#tcp_startAtBoot").val() === "1" ? true : false,
         listenHost: $("#tcp_listenHost").val(),
         listenPort: $("#tcp_listenPort").val() ? Number($("#tcp_listenPort").val()) : null,
-
         ssl: $("#tcp_ssl").val() === "1" ? true : false,
         sslStoresBuiltIn: $("#tcp_sslStoresBuiltIn").val() === "1" ? true : false,
         tlsVersion: $("#tcp_tlsVersion").val(),
-
         trustStorePath: $("#tcp_trustStorePath").val(),
         trustStorePassword: $("#tcp_trustStorePassword").val(),
         keyStorePath: $("#tcp_keyStorePath").val(),
         keyStorePassword: $("#tcp_keyStorePassword").val(),
-        config : configObj
+
+        keepAlive: $("#tcp_keepAlive").val() === "1" ? true : false,
+        soLingerOn: $("#tcp_soLingerOn").val() === "1" ? true : false,
+        oobLine: $("#tcp_oobLine").val() === "1" ? true : false,
+        tcpNoDelay: $("#tcp_tcpNoDelay").val() === "1" ? true : false,
+        reuseAddress: $("#tcp_reuseAddress").val() === "1" ? true : false,
+        executePartialBuffered: $("#tcp_executePartialBuffered").val() === "1" ? true : false,
+        closeOnReadTimeout: $("#tcp_closeOnReadTimeout").val() === "1" ? true : false,
+
+        soTimeout: $("#tcp_soTimeout").val() ? Number($("#tcp_soTimeout").val()) : null,
+        soLinger: $("#tcp_soLinger").val() ? Number($("#tcp_soLinger").val()) : null,
+        receiveBufferSize: $("#tcp_receiveBufferSize").val() ? Number($("#tcp_receiveBufferSize").val()) : null,
+        sendBufferSize: $("#tcp_sendBufferSize").val() ? Number($("#tcp_sendBufferSize").val()) : null,
+        fixedBufferSize: $("#tcp_fixedBufferSize").val() ? Number($("#tcp_fixedBufferSize").val()) : null,
+        trafficeClass: $("#tcp_trafficeClass").val() ? Number($("#tcp_trafficeClass").val()) : null,
+        tcp_treadTimeout: $("#tcp_treadTimeout").val() ? Number($("#tcp_treadTimeout").val()) : null,
+        execute: $("#tcp_execute").val(),
+        delimiter: $("#tcp_delimiter").val(),
+        config : configObj,
+        properties : $("#tcp_properties").val() ? JSON.parse($("#tcp_properties").val()) : {}
 
     };
 
@@ -6769,6 +6865,22 @@ function addConfigBody(){
 }
 
 function removeConfigBody(id){
+    $("."+id).remove();
+}
+
+function addMqttBody(){
+    var t = new Date().getTime();
+    $(".mqttBody").append('<tr class="'+t+'">' +
+        '<td><input type="text" required class="mqtt_pattern form-control input-sm"></td>' +
+        '<td><input type="number" min="0" required class="mqtt_qos form-control input-sm"></td>' +
+        '<td><button class="btn btn-xs" type="button" onclick="addMqttBody()">' +
+        '<i class="fa fa-plus"></i></button>' +
+        '<button class="btn btn-xs" type="button" onclick="removeMqttBody(\''+t+'\')">' +
+        '<i class="fa fa-trash"></i></button></td>' +
+        '</tr>')
+}
+
+function removeMqttBody(id){
     $("."+id).remove();
 }
 
