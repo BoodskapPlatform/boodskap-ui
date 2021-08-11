@@ -1396,7 +1396,7 @@
                                                     <th>Name</th>
                                                     <th>Value</th>
                                                     <th>
-                                                        <button class="btn btn-xs pull-right ml-1" type="button" onclick="addConfigBody()"><i class="fa fa-plus"></i></button>
+                                                        <button class="btn btn-xs" type="button" onclick="addConfigBody()"><i class="fa fa-plus"></i></button>
                                                     </th>
                                                 </tr>
                                             </thead>
@@ -1630,7 +1630,7 @@
                                                 <th>Pattern</th>
                                                 <th>QoS</th>
                                                 <th>
-                                                    <button class="btn btn-xs pull-right ml-1" type="button" onclick="addMqttBody()"><i class="fa fa-plus"></i></button>
+                                                    <button class="btn btn-xs" type="button" onclick="addMqttBody()"><i class="fa fa-plus"></i></button>
                                                 </th>
                                             </tr>
                                             </thead>
@@ -1653,7 +1653,7 @@
                                                 <th>Name</th>
                                                 <th>Value</th>
                                                 <th>
-                                                    <button class="btn btn-xs pull-right ml-1" type="button" onclick="addConfigBody()"><i class="fa fa-plus"></i></button>
+                                                    <button class="btn btn-xs" type="button" onclick="addConfigBody()"><i class="fa fa-plus"></i></button>
                                                 </th>
                                             </tr>
                                             </thead>
@@ -1843,7 +1843,7 @@
                                                 <th>Name</th>
                                                 <th>Value</th>
                                                 <th>
-                                                    <button class="btn btn-xs pull-right ml-1" type="button" onclick="addConfigBody()"><i class="fa fa-plus"></i></button>
+                                                    <button class="btn btn-xs" type="button" onclick="addConfigBody()"><i class="fa fa-plus"></i></button>
                                                 </th>
                                             </tr>
                                             </thead>
@@ -2165,7 +2165,7 @@
                                                 <th>Name</th>
                                                 <th>Value</th>
                                                 <th>
-                                                    <button class="btn btn-xs pull-right ml-1" type="button" onclick="addConfigBody()"><i class="fa fa-plus"></i></button>
+                                                    <button class="btn btn-xs" type="button" onclick="addConfigBody()"><i class="fa fa-plus"></i></button>
                                                 </th>
                                             </tr>
                                             </thead>
@@ -2240,6 +2240,8 @@
                                             <option value="SCALABLE">Scalable</option>
                                             <option value="NODE_SINGLETON">Node Singleton</option>
                                             <option value="CLUSTER_SINGLETON">Cluster Singleton</option>
+                                            <option value="DISTRIBUTED">Distributed</option>
+
                                         </select>
                                     </div>
                                 </div>
@@ -2260,14 +2262,45 @@
                                     </div>
 
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-2">
                                     <div class="form-group">
-                                        <label class="inputLabel">Processing Threads</label>
-                                        <input class="form-control input-sm"
-                                               type="number" min="1" value="" id="email_processingThreads">
+                                        <label class="inputLabel">Type</label>
+                                        <select class="form-control input-sm" id="email_type">
+                                            <option value="POP3">POP3</option>
+                                            <option value="IMAP">IMAP</option>
+                                        </select>
                                     </div>
+
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Secured</label>
+                                        <select class="form-control input-sm" id="email_secured">
+                                            <option value="0">No</option>
+                                            <option value="1">Yes</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Implicit</label>
+                                        <select class="form-control input-sm" id="email_implicit">
+                                            <option value="0">No</option>
+                                            <option value="1">Yes</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Protocol</label>
+                                        <input class="form-control input-sm"
+                                               type="text" min="1" value="" id="email_protocol">
+                                    </div>
+
+                                </div>
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="inputLabel">Remote Host *</label>
                                         <input class="form-control input-sm"
@@ -2281,26 +2314,94 @@
                                                type="number" min="0" value="" id="email_remotePort">
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Local Port</label>
+                                        <input class="form-control input-sm"
+                                               type="number" min="0" value="" id="email_localPort">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Connect Timeout</label>
+                                        <input class="form-control input-sm"
+                                               type="number" min="0" value="" id="email_connectTimeout">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Read Timeout</label>
+                                        <input class="form-control input-sm"
+                                               type="number" min="0" value="" id="email_readTimeout">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Keep Alive</label>
+                                        <select class="form-control input-sm" id="email_keepAlive">
+                                            <option value="0">No</option>
+                                            <option value="1">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="inputLabel">TCP No Delay</label>
+                                        <select class="form-control input-sm" id="email_tcpNoDelay">
+                                            <option value="0">No</option>
+                                            <option value="1">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <label class="inputLabel">Username *</label>
                                         <input class="form-control input-sm"
                                                type="text" value="" id="email_userName" required>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <label class="inputLabel">Password</label>
                                         <input class="form-control input-sm"
                                                type="text" value="" id="email_password">
                                     </div>
                                 </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="inputLabel">ProcessOnly Attachments</label>
+                                        <select class="form-control input-sm" id="email_processOnlyAttachments">
+                                            <option value="0">No</option>
+                                            <option value="1">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
 
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Subject Patterns</label>
+                                        <input class="form-control input-sm"
+                                               type="text" value="" id="email_subjectPatterns">
+                                        <small>Note: comma separated value</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Allowed ContentTypes</label>
+                                        <input class="form-control input-sm"
+                                               type="text" value="" id="email_allowedContentTypes">
+                                        <small>Note: comma separated value</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Allowed Attachment FileExtensions</label>
+                                        <input class="form-control input-sm"
+                                               type="text" value="" id="email_allowedAttachmentFileExtensions">
+                                        <small>Note: comma separated value</small>
+                                    </div>
+                                </div>
 
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="row bg-light">
                                 <div class="col-md-12 mt-2">
                                     <div class="form-group">
                                         <label class="inputLabel">Folders</label>
@@ -2308,10 +2409,12 @@
                                         <table class="table table-bordered">
                                             <thead>
                                             <tr>
-                                                <th>Name</th>
-                                                <th>Value</th>
+                                                <th>Name *</th>
+                                                <th>Mark Message AfterProcessing</th>
+                                                <th>Proccess OnlyFlags</th>
+                                                <th>To MovedFolder</th>
                                                 <th>
-                                                    <button class="btn btn-xs pull-right ml-1" type="button" onclick="addFolderBody()"><i class="fa fa-plus"></i></button>
+                                                    <button class="btn btn-xs" type="button" onclick="addFolderBody()"><i class="fa fa-plus"></i></button>
                                                 </th>
                                             </tr>
                                             </thead>
@@ -2324,6 +2427,13 @@
                                     </div>
                                 </div>
 
+
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row bg-light">
+
+
                                 <div class="col-md-12 mt-2">
                                     <div class="form-group">
                                         <label class="inputLabel">Config</label>
@@ -2334,7 +2444,7 @@
                                                 <th>Name</th>
                                                 <th>Value</th>
                                                 <th>
-                                                    <button class="btn btn-xs pull-right ml-1" type="button" onclick="addConfigBody()"><i class="fa fa-plus"></i></button>
+                                                    <button class="btn btn-xs" type="button" onclick="addConfigBody()"><i class="fa fa-plus"></i></button>
                                                 </th>
                                             </tr>
                                             </thead>
@@ -2344,6 +2454,13 @@
 
                                         </table>
 
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mt-2">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Properties</label>
+                                        <textarea style="height: 100px" class="form-control input-sm" id="email_properties">{}</textarea>
+                                        <small>JSON value</small>
                                     </div>
                                 </div>
 

@@ -3752,10 +3752,8 @@ function openModal(e) {
         $("#email_name").removeAttr('disabled')
 
         $(".configBody").html('')
-        // addConfigBody();
-
         $(".folderBody").html('')
-        // addFolderBody();
+
         $("#addEmailInputRule form").attr("onsubmit","addEmailRule()");
         $("#addEmailInputRule form")[0].reset();
         $("#addEmailInputRule").modal('show');
@@ -3866,9 +3864,7 @@ function editSftpModal() {
         $(".configBody").append('<tr class="'+t+'">' +
             '<td><input type="text" value="'+obj.config[i].name+'" required class="conf_name form-control input-sm"></td>' +
             '<td><input type="text" value="'+obj.config[i].value+'" class="conf_value form-control input-sm"></td>' +
-            '<td><button class="btn btn-sm" type="button" onclick="addConfigBody()">' +
-            '<i class="fa fa-plus"></i></button>' +
-            '<button class="btn btn-sm" type="button" onclick="removeConfigBody(\''+t+'\')">' +
+            '<td><button class="btn btn-sm" type="button" onclick="removeConfigBody(\''+t+'\')">' +
             '<i class="fa fa-trash"></i></button></td>' +
             '</tr>')
 
@@ -3936,9 +3932,7 @@ function editMqttModal() {
         $(".mqttBody").append('<tr class="'+t+'">' +
             '<td><input type="text" value="'+obj.subscriptions[i].pattern+'" required class="mqtt_pattern form-control input-sm"></td>' +
             '<td><input type="number" min="0" value="'+obj.subscriptions[i].qos+'" required class="mqtt_qos form-control input-sm"></td>' +
-            '<td><button class="btn btn-sm" type="button" onclick="addMqttBody()">' +
-            '<i class="fa fa-plus"></i></button>' +
-            '<button class="btn btn-sm" type="button" onclick="removeMqttBody(\''+t+'\')">' +
+            '<td><button class="btn btn-sm" type="button" onclick="removeMqttBody(\''+t+'\')">' +
             '<i class="fa fa-trash"></i></button></td>' +
             '</tr>')
 
@@ -3951,9 +3945,7 @@ function editMqttModal() {
         $(".configBody").append('<tr class="'+t+'">' +
             '<td><input type="text" value="'+obj.config[i].name+'" required class="conf_name form-control input-sm"></td>' +
             '<td><input type="text" value="'+obj.config[i].value+'" class="conf_value form-control input-sm"></td>' +
-            '<td><button class="btn btn-sm" type="button" onclick="addConfigBody()">' +
-            '<i class="fa fa-plus"></i></button>' +
-            '<button class="btn btn-sm" type="button" onclick="removeConfigBody(\''+t+'\')">' +
+            '<td><button class="btn btn-sm" type="button" onclick="removeConfigBody(\''+t+'\')">' +
             '<i class="fa fa-trash"></i></button></td>' +
             '</tr>')
 
@@ -4006,9 +3998,7 @@ function editUdpModal() {
         $(".configBody").append('<tr class="'+t+'">' +
             '<td><input type="text" value="'+obj.config[i].name+'" required class="conf_name form-control input-sm"></td>' +
             '<td><input type="text" value="'+obj.config[i].value+'" class="conf_value form-control input-sm"></td>' +
-            '<td><button class="btn btn-sm" type="button" onclick="addConfigBody()">' +
-            '<i class="fa fa-plus"></i></button>' +
-            '<button class="btn btn-sm" type="button" onclick="removeConfigBody(\''+t+'\')">' +
+            '<td><button class="btn btn-sm" type="button" onclick="removeConfigBody(\''+t+'\')">' +
             '<i class="fa fa-trash"></i></button></td>' +
             '</tr>')
 
@@ -4086,9 +4076,7 @@ function editTcpModal() {
         $(".configBody").append('<tr class="'+t+'">' +
             '<td><input type="text" value="'+obj.config[i].name+'" required class="conf_name form-control input-sm"></td>' +
             '<td><input type="text" value="'+obj.config[i].value+'" class="conf_value form-control input-sm"></td>' +
-            '<td><button class="btn btn-sm" type="button" onclick="addConfigBody()">' +
-            '<i class="fa fa-plus"></i></button>' +
-            '<button class="btn btn-sm" type="button" onclick="removeConfigBody(\''+t+'\')">' +
+            '<td><button class="btn btn-sm" type="button" onclick="removeConfigBody(\''+t+'\')">' +
             '<i class="fa fa-trash"></i></button></td>' +
             '</tr>')
 
@@ -4165,14 +4153,30 @@ function editEmailModal() {
     for(var i=0;i<obj.folders.length;i++){
         var t = new Date().getTime()
         $(".folderBody").append('<tr class="'+t+'">' +
-            '<td><input type="text" value="'+obj.folders[i].name+'" required class="conf_name form-control input-sm"></td>' +
-            '<td><input type="text" value="'+obj.folders[i].value+'" class="conf_value form-control input-sm"></td>' +
-            '<td><button class="btn btn-sm" type="button" onclick="addFolderBody()">' +
-            '<i class="fa fa-plus"></i></button>' +
-            '<button class="btn btn-sm" type="button" onclick="removeFolderBody(\''+t+'\')">' +
+            '<td><input type="text" value="'+obj.folders[i].name+'" required class="folder_name form-control input-sm"></td>' +
+
+            '<td><select class="folder_markMessageAfterProcessing form-control input-sm">' +
+            '<option value="NONE">NONE</option>' +
+            '<option value="ANSWERED">ANSWERED</option>' +
+            '<option value="DELETED">DELETED</option>' +
+            '<option value="DRAFT">DRAFT</option>' +
+            '<option value="SEEN">SEEN</option>' +
+            '<option value="MOVE">MOVE</option>' +
+            '</select></td>' +
+            '<td><select class="folder_proccessOnlyFlags form-control input-sm">' +
+            '<option value="ANSWERED">ANSWERED</option>' +
+            '<option value="DRAFT">DRAFT</option>' +
+            '<option value="SEEN">SEEN</option>' +
+            '<option value="RECENT">RECENT</option>' +
+            '</select></td>' +
+
+            '<td><input type="text" value="'+obj.folders[i].toMovedFolder+'" class="folder_toMovedFolder form-control input-sm"></td>' +
+            '<td><button class="btn btn-sm" type="button" onclick="removeFolderBody(\''+t+'\')">' +
             '<i class="fa fa-trash"></i></button></td>' +
             '</tr>')
 
+        $("."+t+" .folder_markMessageAfterProcessing").val(obj.folders[i].markMessageAfterProcessing)
+        $("."+t+" .folder_proccessOnlyFlags").val(obj.folders[i].proccessOnlyFlags)
     }
 
 
@@ -4233,6 +4237,7 @@ function openDeleteModal() {
 }
 
 function openModalClasses() {
+
     $(".logResult").html("");
     $("#class_type").val("");
     loadClassTemplate("");
@@ -5200,7 +5205,13 @@ function addEmailRule(code) {
     var fKey= $(".folder_name").map(function() {
         return $(this).val();
     }).get();
-    var fValue= $(".folder_value").map(function() {
+    var fVal1= $(".folder_markMessageAfterProcessing").map(function() {
+        return $(this).val();
+    }).get();
+  var fVal2= $(".folder_proccessOnlyFlags").map(function() {
+        return $(this).val();
+    }).get();
+  var fVal3= $(".folder_toMovedFolder").map(function() {
         return $(this).val();
     }).get();
 
@@ -5208,7 +5219,9 @@ function addEmailRule(code) {
         if(fKey[i]){
             folderObj.push({
                 name: fKey[i],
-                value: fValue[i],
+                markMessageAfterProcessing: fVal1[i],
+                proccessOnlyFlags: fVal2[i],
+                toMovedFolder: fVal3[i],
             })
         }
 
@@ -5223,20 +5236,33 @@ function addEmailRule(code) {
         "description":"",
         instances: Number($("#email_instances").val()),
         instanceType: $("#email_instanceType").val(),
-        processingThreads: $("#email_processingThreads").val() ? Number($("#email_processingThreads").val()) : null,
         lang: 'GROOVY',
         "startAtBoot": $("#email_startAtBoot").val() === "1" ? true : false,
+        type: $("#email_type").val(),
+        "secured": $("#email_secured").val() === "1" ? true : false,
+        "implicit": $("#email_implicit").val() === "1" ? true : false,
 
+        protocol: $("#email_protocol").val(),
         remoteHost: $("#email_remoteHost").val(),
         remotePort: Number($("#email_remotePort").val()),
+        localPort: $("#email_localPort").val() ? Number($("#email_localPort").val()) : null,
+        connectTimeout: $("#email_connectTimeout").val() ? Number($("#email_connectTimeout").val()) : null,
+        readTimeout: $("#email_readTimeout").val() ? Number($("#email_readTimeout").val()) : null,
+
+        "keepAlive": $("#email_keepAlive").val() === "1" ? true : false,
+        "tcpNoDelay": $("#email_tcpNoDelay").val() === "1" ? true : false,
+        "processOnlyAttachments": $("#email_processOnlyAttachments").val() === "1" ? true : false,
+
         userName: $("#email_userName").val(),
         password: $("#email_password").val(),
 
-        listenHost: $("#email_listenHost").val(),
-        listenPort:  Number($("#email_listenPort").val()),
+        subjectPatterns : $("#email_subjectPatterns").val().split(","),
+        allowedContentTypes : $("#email_allowedContentTypes").val().split(","),
+        allowedAttachmentFileExtensions : $("#email_allowedAttachmentFileExtensions").val().split(","),
 
         config : configObj,
-        folders : folderObj
+        folders : folderObj,
+        properties : $("#email_properties").val() ? JSON.parse($("#email_properties").val()) : {}
 
     };
 
@@ -6857,9 +6883,7 @@ function addConfigBody(){
     $(".configBody").append('<tr class="'+t+'">' +
         '<td><input type="text" required class="conf_name form-control input-sm"></td>' +
         '<td><input type="text" class="conf_value form-control input-sm"></td>' +
-        '<td><button class="btn btn-xs" type="button" onclick="addConfigBody()">' +
-        '<i class="fa fa-plus"></i></button>' +
-        '<button class="btn btn-xs" type="button" onclick="removeConfigBody(\''+t+'\')">' +
+        '<td><button class="btn btn-xs" type="button" onclick="removeConfigBody(\''+t+'\')">' +
         '<i class="fa fa-trash"></i></button></td>' +
         '</tr>')
 }
@@ -6873,9 +6897,7 @@ function addMqttBody(){
     $(".mqttBody").append('<tr class="'+t+'">' +
         '<td><input type="text" required class="mqtt_pattern form-control input-sm"></td>' +
         '<td><input type="number" min="0" required class="mqtt_qos form-control input-sm"></td>' +
-        '<td><button class="btn btn-xs" type="button" onclick="addMqttBody()">' +
-        '<i class="fa fa-plus"></i></button>' +
-        '<button class="btn btn-xs" type="button" onclick="removeMqttBody(\''+t+'\')">' +
+        '<td><button class="btn btn-xs" type="button" onclick="removeMqttBody(\''+t+'\')">' +
         '<i class="fa fa-trash"></i></button></td>' +
         '</tr>')
 }
@@ -6890,10 +6912,22 @@ function addFolderBody(){
     var t = new Date().getTime();
     $(".folderBody").append('<tr class="'+t+'">' +
         '<td><input type="text" required class="folder_name form-control input-sm"></td>' +
-        '<td><input type="text" class="folder_value form-control input-sm"></td>' +
-        '<td><button class="btn btn-xs" type="button" onclick="addFolderBody()">' +
-        '<i class="fa fa-plus"></i></button>' +
-        '<button class="btn btn-xs" type="button" onclick="removeFolderBody(\''+t+'\')">' +
+        '<td><select class="folder_markMessageAfterProcessing form-control input-sm">' +
+        '<option value="NONE">NONE</option>' +
+        '<option value="ANSWERED">ANSWERED</option>' +
+        '<option value="DELETED">DELETED</option>' +
+        '<option value="DRAFT">DRAFT</option>' +
+        '<option value="SEEN">SEEN</option>' +
+        '<option value="MOVE">MOVE</option>' +
+        '</select></td>' +
+        '<td><select class="folder_proccessOnlyFlags form-control input-sm">' +
+        '<option value="ANSWERED">ANSWERED</option>' +
+        '<option value="DRAFT">DRAFT</option>' +
+        '<option value="SEEN">SEEN</option>' +
+        '<option value="RECENT">RECENT</option>' +
+        '</select></td>' +
+        '<td><input type="text" class="folder_toMovedFolder form-control input-sm"></td>' +
+        '<td><button class="btn btn-xs" type="button" onclick="removeFolderBody(\''+t+'\')">' +
         '<i class="fa fa-trash"></i></button></td>' +
         '</tr>')
 }
