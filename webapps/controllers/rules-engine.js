@@ -2064,8 +2064,8 @@ function loadSftpDetails(id,obj) {
     }
 
     $(".inputBlock tbody").append('<tr><td>Configs</td><td>'+configs+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Properties</td><td>'+(obj.properties ? JSON.stringify(obj.properties) : '')+'</td></tr>')
 
-    $(".inputBlock tbody").append('<tr><td>Processing Threads</td><td>'+(obj.processingThreads ? obj.processingThreads : '-')+'</td></tr>')
     $(".inputBlock tbody").append('<tr><td>Remote Host</td><td>'+(obj.remoteHost ? obj.remoteHost : '-')+'</td></tr>')
     $(".inputBlock tbody").append('<tr><td>Port</td><td>'+(obj.remotePort ? obj.remotePort : '-')+'</td></tr>')
     $(".inputBlock tbody").append('<tr><td>Username</td><td>'+(obj.userName ? obj.userName : '-')+'</td></tr>')
@@ -2100,28 +2100,31 @@ function loadMqttDetails(id,obj) {
     }
 
     $(".inputBlock tbody").append('<tr><td>Configs</td><td>'+configs+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Processing Threads</td><td>'+(obj.processingThreads ? obj.processingThreads : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Properties</td><td>'+(obj.properties ? JSON.stringify(obj.properties) : '')+'</td></tr>')
 
-    $(".inputBlock tbody").append('<tr><td>Server Url</td><td>'+(obj.serverUrl ? obj.serverUrl : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Server Urls</td><td>'+(obj.serverUrls ? obj.serverUrls.join(", ") : '-')+'</td></tr>')
     $(".inputBlock tbody").append('<tr><td>Username</td><td>'+(obj.userName ? obj.userName : '-')+'</td></tr>')
     $(".inputBlock tbody").append('<tr><td>Password</td><td style="word-break: break-all;">'+(obj.password ? obj.password : '-')+'</td></tr>')
     $(".inputBlock tbody").append('<tr><td>Client Id</td><td>'+(obj.clientId ? obj.clientId : '-')+'</td></tr>')
     $(".inputBlock tbody").append('<tr><td>Clean Session</td><td>'+(obj.cleanSession ? 'True' : 'False')+'</td></tr>')
-
-    $(".inputBlock tbody").append('<tr><td>Subscription Qos</td><td>'+(obj.subscriptionQos ? obj.subscriptionQos : '-')+'</td></tr>')
     $(".inputBlock tbody").append('<tr><td>Connection TimeOut</td><td>'+(obj.connectTimeOut ? obj.connectTimeOut : '-')+'</td></tr>')
     $(".inputBlock tbody").append('<tr><td>Keep Alive Interval</td><td>'+(obj.keepAliveInterval ? obj.keepAliveInterval : '-')+'</td></tr>')
     $(".inputBlock tbody").append('<tr><td>MQTT Version</td><td>'+(obj.mqttVersion ? obj.mqttVersion : '-')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Topic Patterns</td><td>'+(obj.topicPatterns ? obj.topicPatterns.join(",") : '-')+'</td></tr>')
 
     $(".inputBlock tbody").append('<tr><td>SSL</td><td>'+(obj.ssl ? 'True' : 'False')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>SSL Store Build In</td><td>'+(obj.sslStoreBuiltIn ? 'True' : 'False')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>SSL Skip HostName Verification</td><td>'+(obj.sslSkipHostNameVerification ? 'True' : 'False')+'</td></tr>')
 
-    $(".inputBlock tbody").append('<tr><td>SSL Files Build In</td><td>'+(obj.sslFilesBuiltIn ? 'True' : 'False')+'</td></tr>')
 
-    $(".inputBlock tbody").append('<tr><td>CA FilePath</td><td>'+(obj.caFilePath ? obj.caFilePath : '-')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Client Crt File Path</td><td>'+(obj.clientCrtFilePath ?  obj.clientCrtFilePath : '-')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Client Key File Path</td><td>'+(obj.clientKeyFilePath ? obj.clientKeyFilePath : '-')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Client Key File Password</td><td>'+(obj.clientKeyFilePassword ?  obj.clientKeyFilePassword : '-')+'</td></tr>')
+    var subs = ''
+    if(obj.subscriptions) {
+        for (var i = 0; i < obj.subscriptions.length; i++) {
+            subs+="Pattern:"+ obj.config[i].pattern+', Qos: '+obj.config[i].qos+"<br>";
+        }
+    }
+
+    $(".inputBlock tbody").append('<tr><td>Subscriptions</td><td>'+(obj.subs ? obj.subs : '-')+'</td></tr>')
+
 
     getInputRunning('MQTT',id);
 
@@ -2145,11 +2148,23 @@ function loadUdpDetails(id,obj) {
     }
 
     $(".inputBlock tbody").append('<tr><td>Configs</td><td>'+configs+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Processing Threads</td><td>'+(obj.processingThreads ? obj.processingThreads : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Properties</td><td>'+(obj.properties ? JSON.stringify(obj.properties) : '')+'</td></tr>')
+
 
     $(".inputBlock tbody").append('<tr><td>Listen Host</td><td>'+(obj.listenHost ? obj.listenHost : '-')+'</td></tr>')
     $(".inputBlock tbody").append('<tr><td>Listen Port</td><td>'+(obj.listenPort ? obj.listenPort : '-')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Max Packet Size</td><td>'+(obj.maxPacketSize ? obj.maxPacketSize : '-')+'</td></tr>')
+
+
+
+    $(".inputBlock tbody").append('<tr><td>Receive BufferSize</td><td>'+(obj.receiveBufferSize ? obj.receiveBufferSize : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Send BufferSize</td><td>'+(obj.sendBufferSize ? obj.sendBufferSize : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>So Timeout</td><td>'+(obj.soTimeout ? obj.soTimeout : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>TTL</td><td>'+(obj.timeToLive ? obj.timeToLive : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Traffice Class</td><td>'+(obj.trafficeClass ? obj.trafficeClass : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Reuse Address</td><td>'+(obj.reuseAddress ? 'Yes' : 'No')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Multicast</td><td>'+(obj.multicast ? 'Yes' : 'No')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Multicast Group</td><td>'+(obj.multicastGroup ? obj.multicastGroup : '-')+'</td></tr>')
+
 
     getInputRunning('UDP',id);
 
@@ -2174,7 +2189,7 @@ function loadTcpDetails(id,obj) {
 
 
     $(".inputBlock tbody").append('<tr><td>Configs</td><td>'+configs+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Processing Threads</td><td>'+(obj.processingThreads ? obj.processingThreads : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Properties</td><td>'+(obj.properties ? JSON.stringify(obj.properties) : '')+'</td></tr>')
 
     $(".inputBlock tbody").append('<tr><td>Listen Host</td><td>'+(obj.listenHost ? obj.listenHost : '-')+'</td></tr>')
     $(".inputBlock tbody").append('<tr><td>Listen Port</td><td>'+(obj.listenPort ? obj.listenPort : '-')+'</td></tr>')
@@ -2182,22 +2197,15 @@ function loadTcpDetails(id,obj) {
     $(".inputBlock tbody").append('<tr><td>SSL Store Build In</td><td>'+(obj.sslStoreBuiltIn ? 'True' : 'False')+'</td></tr>')
 
     $(".inputBlock tbody").append('<tr><td>TLS Version</td><td>'+(obj.tlsVersion ? obj.tlsVersion : '-')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Trust Store Path</td><td>'+(obj.trustStorePath ? obj.trustStorePath : '-')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Trust Store Password</td><td>'+(obj.trustStorePassword ? obj.trustStorePassword : '-')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>KeyStore Path</td><td>'+(obj.keyStorePath ? obj.keyStorePath : '-')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>KeyStore Password</td><td>'+(obj.keyStorePassword ?  obj.keyStorePassword : '-')+'</td></tr>')
 
-
-   /* $(".inputBlock tbody").append('<tr><td>Keep Alive</td><td>'+(obj.keepAlive ? 'True' : 'False')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Keep Alive</td><td>'+(obj.keepAlive ? 'True' : 'False')+'</td></tr>')
     $(".inputBlock tbody").append('<tr><td>So Linger On</td><td>'+(obj.soLingerOn ? 'True' : 'False')+'</td></tr>')
     $(".inputBlock tbody").append('<tr><td>So Timeout</td><td>'+(obj.soTimeout ? obj.soTimeout : '-')+'</td></tr>')
     $(".inputBlock tbody").append('<tr><td>So Linger</td><td>'+(obj.soLinger ? obj.soLinger : '-')+'</td></tr>')
     $(".inputBlock tbody").append('<tr><td>OOB Line</td><td>'+(obj.oobLine ? 'True' : 'False')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Keep Alive Interval</td><td>'+(obj.keepAliveInterval ? obj.keepAliveInterval : '-')+'</td></tr>')
     $(".inputBlock tbody").append('<tr><td>Receive BufferSize</td><td>'+(obj.receiveBufferSize ? obj.receiveBufferSize : '-')+'</td></tr>')
     $(".inputBlock tbody").append('<tr><td>Send BufferSize</td><td>'+(obj.sendBufferSize ? obj.sendBufferSize : '-')+'</td></tr>')
     $(".inputBlock tbody").append('<tr><td>TCP No Delay</td><td>'+(obj.tcpNoDelay ? 'True' : 'False')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Send BufferSize</td><td>'+(obj.sendBufferSize ? obj.sendBufferSize : '-')+'</td></tr>')
     $(".inputBlock tbody").append('<tr><td>Traffice Class</td><td>'+(obj.trafficeClass ? obj.trafficeClass : '-')+'</td></tr>')
     $(".inputBlock tbody").append('<tr><td>Reuse Address</td><td>'+(obj.reuseAddress ? 'True' : 'False')+'</td></tr>')
     $(".inputBlock tbody").append('<tr><td>Execute</td><td>'+(obj.execute ? obj.execute : '-')+'</td></tr>')
@@ -2206,9 +2214,8 @@ function loadTcpDetails(id,obj) {
     $(".inputBlock tbody").append('<tr><td>Fixed BufferSize</td><td>'+(obj.fixedBufferSize ? obj.fixedBufferSize : '-')+'</td></tr>')
     $(".inputBlock tbody").append('<tr><td>Read Timeout</td><td>'+(obj.readTimeout ? obj.readTimeout : '-')+'</td></tr>')
     $(".inputBlock tbody").append('<tr><td>Close OnRead Timeout</td><td>'+(obj.closeOnReadTimeout ? 'True' : 'False')+'</td></tr>')
-
     $(".inputBlock tbody").append('<tr><td>Delimeter</td><td>'+(obj.delimiter ? obj.delimiter : '-')+'</td></tr>')
-    */
+
     getInputRunning('TCP',id);
 
 }
@@ -2232,41 +2239,50 @@ function loadEmailDetails(id,obj) {
 
 
     $(".inputBlock tbody").append('<tr><td>Configs</td><td>'+configs+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Processing Threads</td><td>'+(obj.processingThreads ? obj.processingThreads : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Properties</td><td>'+(obj.properties ? JSON.stringify(obj.properties) : '')+'</td></tr>')
 
-    // $(".inputBlock tbody").append('<tr><td>Type</td><td>'+(obj.type ? obj.type : '-')+'</td></tr>')
-    // $(".inputBlock tbody").append('<tr><td>Secured</td><td>'+(obj.secured ? 'True' : 'False')+'</td></tr>')
-    // $(".inputBlock tbody").append('<tr><td>Implicit</td><td>'+(obj.implicit ? 'True' : 'False')+'</td></tr>')
-    // $(".inputBlock tbody").append('<tr><td>Protocol</td><td>'+(obj.protocol ? obj.protocol : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Type</td><td>'+(obj.type ? obj.type : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Secured</td><td>'+(obj.secured ? 'True' : 'False')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Implicit</td><td>'+(obj.implicit ? 'True' : 'False')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Protocol</td><td>'+(obj.protocol ? obj.protocol : '-')+'</td></tr>')
     $(".inputBlock tbody").append('<tr><td>Remote Host</td><td>'+(obj.remoteHost ? obj.remoteHost : '-')+'</td></tr>')
     $(".inputBlock tbody").append('<tr><td>Remote Port</td><td>'+(obj.remotePort ? obj.remotePort : '-')+'</td></tr>')
-    // $(".inputBlock tbody").append('<tr><td>Local Port</td><td>'+(obj.localPort ? obj.localPort : '-')+'</td></tr>')
-    // $(".inputBlock tbody").append('<tr><td>Connect Timeout</td><td>'+(obj.connectTimeout ? obj.connectTimeout : '-')+'</td></tr>')
-    // $(".inputBlock tbody").append('<tr><td>Read Timeout</td><td>'+(obj.readTimeout ? obj.readTimeout : '-')+'</td></tr>')
-    // $(".inputBlock tbody").append('<tr><td>Keep Alive</td><td>'+(obj.keepAlive ? 'True' : 'False')+'</td></tr>')
-    // $(".inputBlock tbody").append('<tr><td>TCP No Delay</td><td>'+(obj.tcpNoDelay ? 'True' : 'False')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Local Port</td><td>'+(obj.localPort ? obj.localPort : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Connect Timeout</td><td>'+(obj.connectTimeout ? obj.connectTimeout : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Read Timeout</td><td>'+(obj.readTimeout ? obj.readTimeout : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Keep Alive</td><td>'+(obj.keepAlive ? 'True' : 'False')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>TCP No Delay</td><td>'+(obj.tcpNoDelay ? 'True' : 'False')+'</td></tr>')
     $(".inputBlock tbody").append('<tr><td>Username</td><td>'+(obj.userName ? obj.userName : '-')+'</td></tr>')
     $(".inputBlock tbody").append('<tr><td>Password</td><td style="word-break: break-all;">'+(obj.password ? obj.password : '-')+'</td></tr>')
 
     //
-    // $(".inputBlock tbody").append('<tr><td>Subject Patterns</td><td>'+(obj.subjectPatterns ? obj.subjectPatterns.join(",") : '-')+'</td></tr>')
-    // $(".inputBlock tbody").append('<tr><td>Allowed Content <br>Types</td><td>'+(obj.allowedContentTypes ? obj.allowedContentTypes.join(",") : '-')+'</td></tr>')
-    // $(".inputBlock tbody").append('<tr><td>Allowed Attachment<br> File Extensions</td><td>'+(obj.allowedAttachmentFileExtensions ? obj.allowedContentTypes.join(",") : '-')+'</td></tr>')
-    // $(".inputBlock tbody").append('<tr><td>Process Only <br>Attachments</td><td>'+(obj.processOnlyAttachments ? 'True' : 'False')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Subject Patterns</td><td>'+(obj.subjectPatterns ? obj.subjectPatterns.join(",") : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Allowed Content <br>Types</td><td>'+(obj.allowedContentTypes ? obj.allowedContentTypes.join(",") : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Allowed Attachment<br> File Extensions</td><td>'+(obj.allowedAttachmentFileExtensions ? obj.allowedContentTypes.join(",") : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Process Only <br>Attachments</td><td>'+(obj.processOnlyAttachments ? 'True' : 'False')+'</td></tr>')
 
-    var folders = '<b>Folders</b><table>' +
-        '<tr><th>Name</th><th>Value</th></tr>';
+    var folders = '<b>Folders</b><table class="table table-bordered">';
     if(obj.folders) {
         for (var i = 0; i < obj.folders.length; i++) {
             folders+='<tr>' +
-                '<td>'+obj.folders[i].name+'</td>' +
-                '<td>'+(obj.folders[i].value ? obj.folders[i].value : '-')+'</td>' +
+                '<td>' +
+                'Name:<br>' +
+                'Mark MessageAfter Processing:<br>' +
+                'Proccess OnlyFlags:<br>' +
+                'To MovedFolder:<br>' +
+                '</td>' +
+                '<td>' +
+                obj.folders[i].name+"<br>"+
+                obj.folders[i].markMessageAfterProcessing+"<br>"+
+                obj.folders[i].proccessOnlyFlags+"<br>"+
+                obj.folders[i].toMovedFolder+"<br>"+
+                '</td>' +
                 '</tr>'
         }
     }
     folders+='</table>'
 
-    $(".inputBlock tbody").append('<tr><td colspan="2" style="overflow:scroll;word-break: unset;overflow-y: hidden"><div style="width: 100px;">'+folders+'</div></td></tr>')
+    $(".inputBlock tbody").append('<tr><td colspan="2" style="overflow:scroll;word-break: unset;overflow-y: hidden"><div>'+folders+'</div></td></tr>')
 
     getInputRunning('EMAIL',id);
 
