@@ -181,6 +181,16 @@
     font-weight: bold;
 }
 
+.microTab.active{
+    border-bottom: 5px solid #607d8b;
+}
+.microTab a{
+    color:#607d8b !important;
+}
+.microTab.active a{
+    font-weight: bold;
+}
+
 .groovyTab.active{
     border-bottom: 5px solid #348fe2;
 }

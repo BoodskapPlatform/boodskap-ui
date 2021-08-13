@@ -565,6 +565,7 @@
                     <option value="12">UDP Rules</option>
                     <option value="13">TCP Rules</option>
                     <option value="14">Email Rules</option>
+                    <option value="15">Micro API Rules</option>
                     <!--<option value="4">Groovy Class</option>-->
                     <!--<option value="5">JAR Class</option>-->
                 </select>
@@ -1044,30 +1045,6 @@
 <div class="simulatorModal">
 
 </div>
-
-
-<!--<div id="simulatorModal" class="modal fade draggable" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <form action="javascript:void(0)" onsubmit="sendTestMsg()">
-                <div class="modal-header simulateHeader">
-                    <h4 class="modal-title">Simulate Message</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">&times;</span></button>
-                </div>
-                <div class="modal-body">
-
-
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btnModal"></button>
-                </div>
-            </form>
-        </div>&lt;!&ndash; /.modal-content &ndash;&gt;
-    </div>&lt;!&ndash; /.modal-dialog &ndash;&gt;
-</div>&lt;!&ndash; /.modal &ndash;&gt;-->
 
 
 <div id="importModal" class="modal fade" tabindex="-1" role="dialog">
@@ -2480,6 +2457,70 @@
 </div><!-- /.modal -->
 
 
+<div id="addMicroRule" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form action="javascript:void(0)" onsubmit="addMicroRule()">
+                <div class="modal-header">
+                    <h4 class="modal-title">Add Micro API Rule</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="inputLabel">Rule Name</label>
+                                <input class="form-control input-sm" onkeyup="avoidSpaces(this)" placeholder=""
+                                       type="text" id="micro_id" required>
+                                <small>The name must not contain any white spaces.
+                                    The name should not start with special characters like & (ampersand), $ (dollar), _ (underscore). It should start with the uppercase letter.
+                                </small>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="inputLabel">Language</label>
+                                <select class="form-control input-sm" id="micro_language">
+                                    <option value="GROOVY">GROOVY</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="inputLabel">Auth Type</label>
+                                <select class="form-control input-sm" id="micro_authType" onchange="checkAPI(this.value)">
+                                    <option value="NONE">NONE</option>
+                                    <option value="TOKEN">TOKEN</option>
+                                    <option value="KEY">KEY</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group micro_apiKey" style="display: none;" >
+                                <label class="inputLabel">API Key</label>
+                                <input class="form-control input-sm" placeholder=""
+                                       type="text" id="micro_apiKey">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="inputLabel">Properties</label>
+                                <textarea style="height: 100px" class="form-control input-sm" id="micro_properties">{}</textarea>
+                                <small>JSON value</small>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btnModal">Save changes</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 <div id="helpModal" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg" role="document">

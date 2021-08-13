@@ -14,6 +14,7 @@ var mqtt_rules_list = [];
 var udp_rules_list = [];
 var tcp_rules_list = [];
 var email_rules_list = [];
+var micro_rules_list = [];
 var groovy_class_list = [];
 var jar_class_list = [];
 var tabbar_list = [];
@@ -34,6 +35,7 @@ var current_mqttrule_obj = null;
 var current_udprule_obj = null;
 var current_tcprule_obj = null;
 var current_emailrule_obj = null;
+var current_microrule_obj = null;
 var simulatorModal = {};
 var simulator = {};
 var scriptTerminal = null;
@@ -241,6 +243,7 @@ function mqttListen() {
                 mqttUdpRule(topicName, parsedData);
                 mqttTcpRule(topicName, parsedData);
                 mqttEmailRule(topicName, parsedData);
+                mqttMicroRule(topicName, parsedData);
 
             } else {
                 if (CURRENT_TYPE === 0) {
@@ -281,6 +284,9 @@ function mqttListen() {
                 }
                 else if (CURRENT_TYPE === 14) {
                     mqttEmailRule(topicName, parsedData);
+                }
+                else if (CURRENT_TYPE === 15) {
+                    mqttMicroRule(topicName, parsedData);
                 }
 
             }
@@ -823,6 +829,45 @@ function mqttEmailRule(topicName, parsedData) {
         }
     }
 }
+function mqttMicroRule(topicName, parsedData) {
+    var nodeClass = new Date().getTime();
+    var color = 'default';
+
+    console.log("EMAIL =>", topicName)
+    topicName = topicName.toLowerCase();
+
+    if (topicName.includes("micro")) {
+
+        if (parsedData.data !== '__ALL_DONE__') {
+            var level = parsedData.level;
+
+            if($("."+level.toLowerCase()).is(":checked")) {
+
+                var fields = '';
+
+                if($(".node").is(":checked")){
+                    fields+= ' ['+parsedData.node+'] '
+                }
+                if($(".session").is(":checked")){
+                    fields+= ' ['+parsedData.session+'] '
+                }
+
+                var rName = topicName.split("/")[4];
+                $(".loggerHtml").append("<div title='Email Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
+                    "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
+                    "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
+                    "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " + fields +
+                    "<span style='white-space: pre-wrap;padding-left: 10px;'>" + parsedData.data + "</span></div>");
+            }
+
+        }
+        if (parsedData.data === '__ALL_DONE__') {
+            $('.consoleBox').animate({
+                scrollTop: $(".loggerHtml").height()
+            }, 100);
+        }
+    }
+}
 
 
 function mqttCancelSubscribe(id) {
@@ -918,6 +963,9 @@ function loadRules(id) {
     }
     else if (id === 14) {
         loadEmailRulesList();
+    }
+    else if (id === 15) {
+        loadMicroRulesList();
     }
 }
 
@@ -1450,6 +1498,41 @@ function loadEmailRulesList() {
     })
 }
 
+function loadMicroRulesList() {
+    listInputRules("MICRO_API",function (status, data) {
+        $(".rulesList").html("");
+
+        $(".rulesList").append('<li class="" onclick="loadTcpRulesList()" title="click here to reload" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
+            '<img src="images/folder.png" /> <b> Micro API Rules</b> <span class="loaderSpin"></span></li>');
+
+        $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
+
+        setTimeout(function () {
+            $(".loaderSpin").html('');
+        }, 1000);
+
+        $('[data-toggle="tooltip"]').tooltip()
+
+        if (status) {
+
+            var resultData = QueryFormatter(data);
+
+            data = resultData.data.data;
+            micro_rules_list = data;
+
+            for (var i = 0; i < data.length; i++) {
+
+                var str = '<li class="rulesListli rule_' + data[i].name + '" data-id="' + data[i].name + '" onclick="loadTabbar(\'' + data[i].name + '\',15)">' +
+                    '<img src="images/file.png" /> <b>' + data[i].name + '</b></li>';
+                $(".rulesList").append(str);
+
+            }
+        } else {
+            errorMsg('No Micro API Rules Found!')
+        }
+    })
+}
+
 function loadScheduleRulesList() {
     listScheduleRules(rules_page_size, null, null, function (status, data) {
         $(".rulesList").html("");
@@ -1721,6 +1804,20 @@ function loadTabbar(id, type) {
                 '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',14)" title="close"><i class="fa fa-close"></i></span></a>' +
                 '</li>';
         }
+        else if (type === 15) {
+
+            var obj = {};
+            for (var i = 0; i < micro_rules_list.length; i++) {
+                if (id === micro_rules_list[i].name) {
+                    obj = micro_rules_list[i];
+                }
+            }
+
+            str = '<li role="presentation" class="microTab tabbar microTab_' + id + '"  >' +
+                '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadMicroRule(\'' + name + '\')>' + obj.name + ' ' +
+                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',15)" title="close"><i class="fa fa-close"></i></span></a>' +
+                '</li>';
+        }
 
         tabbar_list.push(id);
         $(".editorBar").append(str);
@@ -1741,6 +1838,7 @@ function loadTabbar(id, type) {
     $(".mqttTab").removeClass('active');
     $(".tcpTab").removeClass('active');
     $(".emailTab").removeClass('active');
+    $(".microTab").removeClass('active');
 
     var obj = {};
 
@@ -1977,6 +2075,25 @@ function loadTabbar(id, type) {
         $(".ruleName").html(obj.name);
 
         $(".exportBtn").attr('onclick','exportRule(14)')
+    }
+    else if (type === 15) {
+        loadMicroRule(id);
+        $(".microTab_" + id).addClass('active');
+
+        for (var i = 0; i < micro_rules_list.length; i++) {
+            if (id === micro_rules_list[i].name) {
+                obj = micro_rules_list[i];
+            }
+        }
+
+        loadMicroDetails(id,obj);
+
+        $(".detailsBlock").css('display', 'block')
+        $(".inputBlock").css('display', 'block')
+        $(".ruleType").html('Micro API Rule');
+        $(".ruleName").html(obj.name);
+
+        $(".exportBtn").attr('onclick','exportRule(15)')
     }
 
 
@@ -2288,6 +2405,15 @@ function loadEmailDetails(id,obj) {
 
 }
 
+function loadMicroDetails(id,obj) {
+    $(".inputBlock tbody").html("");
+    $(".inputBlock tbody").append('<tr><td>Properties</td><td>'+(obj.properties ? JSON.stringify(obj.properties) : '')+'</td></tr>')
+
+    $(".inputBlock tbody").append('<tr><td>Auth Type</td><td>'+(obj.authType ? obj.authType : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>API Key</td><td>'+(obj.apiKey ? obj.apiKey : '-')+'</td></tr>')
+
+}
+
 
 
 function getInputRunning(type,id) {
@@ -2467,6 +2593,9 @@ function deleteTab(id, type) {
     else if (type === 14) {
         $(".emailTab_" + id).remove();
     }
+    else if (type === 15) {
+        $(".microTab_" + id).remove();
+    }
 
     var temp = [];
 
@@ -2492,6 +2621,7 @@ function deleteTab(id, type) {
         $(".udpTab").removeClass('active')
         $(".tcpTab").removeClass('active')
         $(".emailTab").removeClass('active')
+        $(".microTab").removeClass('active')
         $(".domainTab").addClass('active')
         loadDomainRule();
         // $("#codeEditor").remove();
@@ -2608,6 +2738,13 @@ function returnObj(id, type) {
         for (var i = 0; i < email_rules_list.length; i++) {
             if (id === email_rules_list[i].id) {
                 return email_rules_list[i];
+            }
+        }
+    }
+    else if (type === 15) {
+        for (var i = 0; i < micro_rules_list.length; i++) {
+            if (id === micro_rules_list[i].name) {
+                return micro_rules_list[i];
             }
         }
     }
@@ -3026,6 +3163,34 @@ function loadEmailRule(id) {
 
     loadEmailDetails(id,data)
 }
+
+function loadMicroRule(id) {
+    $(".simulateBtn").css('display', 'none');
+    //  mqttCancelSubscribe(CURRENT_ID);
+    $("#editorContent").html('<div id="codeEditor"></div>');
+    var data = returnObj(id, 15);
+    $("#codeEditor").html('');
+
+    loadEditor(data.code ? data.code : '', 'microTab_'+id);
+
+    CURRENT_ID = id;
+    CURRENT_TYPE = 15;
+
+    exportRule(15)
+
+    $(".ruleType").html('Micro API Rule');
+    $(".ruleName").html(data.name);
+
+    $(".detailsBlock").css('display', 'block');
+    $(".messageFields").css('display', 'none');
+    $(".defaultFields").css('display', 'none');
+    $(".jobFields").css('display', 'none');
+    $(".deleteBtn").css('display', 'block');
+    $(".inputBlock").css('display', 'block');
+
+    loadMicroDetails(id,data)
+}
+
 function loadProcessRule(id) {
     $(".simulateBtn").css('display', 'none');
     //  mqttCancelSubscribe(CURRENT_ID);
@@ -3304,6 +3469,16 @@ function loadEditor(code, tabid) {
                 for (var i = 0; i < email_rules_list.length; i++) {
                     if (CHANGED_ID === email_rules_list[i].id) {
                         email_rules_list[i].code = CHANGED_TEXT;
+                    }
+                }
+
+            }
+
+            if (CURRENT_TYPE === 15) {
+
+                for (var i = 0; i < micro_rules_list.length; i++) {
+                    if (CHANGED_ID === micro_rules_list[i].name) {
+                        micro_rules_list[i].code = CHANGED_TEXT;
                     }
                 }
 
@@ -3592,6 +3767,34 @@ function loadEditor(code, tabid) {
                     }
                 })
             }
+            else if (CURRENT_TYPE === 15) {
+
+                var obj = returnObj(CURRENT_ID, 15);
+
+
+                var dataObj = {
+                    name : obj.name,
+                    code : consoleText,
+                    authType : obj.authType,
+                    apiKey : obj.apiKey,
+                    props : obj.props,
+                    // lang: obj.lang
+
+                }
+                updateMicroRuleCode(dataObj, function (status, data) {
+                    if (status) {
+                        successMsg('Successfully saved!');
+                        // loadSftpRulesList();
+                        setTimeout(function () {
+                            // loadTabbar(dataObj.id, 10);
+                            loadMicroRulesList();
+
+                        },500)
+                    } else {
+                        errorMsg('Error in saving!')
+                    }
+                })
+            }
         }
     });
 }
@@ -3775,6 +3978,15 @@ function openModal(e) {
         $("#addEmailInputRule").modal('show');
 
     }
+    else if (id === 15) {
+
+        $("#addMicroRule form")[0].reset();
+        $("#micro_id").removeAttr('disabled')
+
+        $(".micro_apiKey").css('display','none')
+        $("#addMicroRule").modal('show');
+
+    }
 }
 
 function editJobModal() {
@@ -3835,6 +4047,9 @@ function editInputModal(){
     }
     else if(CURRENT_TYPE == 14){
         editEmailModal()
+    }
+    else if(CURRENT_TYPE == 15){
+        editMicroModal()
     }
 }
 
@@ -4200,6 +4415,29 @@ function editEmailModal() {
     $("#addEmailInputRule").modal('show');
 }
 
+function editMicroModal() {
+
+    $("#micro_id").attr('disabled', 'disabled');
+
+    var obj = {};
+    for (var i = 0; i < micro_rules_list.length; i++) {
+        if (CURRENT_ID === micro_rules_list[i].name) {
+            obj = micro_rules_list[i];
+        }
+    }
+
+    $("#micro_id").val(obj.name);
+    $("#micro_authType").val(obj.authType);
+    $("#micro_apiKey").val(obj.apiKey ? obj.apiKey : '');
+
+    $("#micro_properties").val(obj.properties ? JSON.stringify(obj.properties) : '{}')
+
+
+    $("#addMicroRule form").attr("onsubmit","addMicroRule(1)");
+    $("#addMicroRule").modal('show');
+
+}
+
 function openDeleteModal() {
 
     if (CURRENT_TYPE > 0) {
@@ -4243,6 +4481,9 @@ function openDeleteModal() {
             $(".delete_rule_id").html(CURRENT_ID);
         } else if (CURRENT_TYPE === 14) {
             $(".delete_rule_name").html('EMAIL');
+            $(".delete_rule_id").html(CURRENT_ID);
+        } else if (CURRENT_TYPE === 15) {
+            $(".delete_rule_name").html('Micro API');
             $(".delete_rule_id").html(CURRENT_ID);
         }
         $("#deleteModal").modal('show');
@@ -4447,6 +4688,21 @@ function proceedDelete() {
 
                 setTimeout(function (){
                     loadEmailRulesList();
+                },500)
+                $("#deleteModal").modal('hide');
+            } else {
+                errorMsg('Error in delete')
+            }
+        })
+    }else if (CURRENT_TYPE === 15) {
+
+        deleteMicroRule(CURRENT_ID, function (status, data) {
+            if (status) {
+                deleteTab(CURRENT_ID, CURRENT_TYPE);
+                successMsg('Successfully deleted');
+
+                setTimeout(function (){
+                    loadMicroRulesList();
                 },500)
                 $("#deleteModal").modal('hide');
             } else {
@@ -5302,7 +5558,65 @@ function addEmailRule(code) {
 
 }
 
+function addMicroRule(code) {
+    var sampleCode  =
+        `import io.boodskap.iot.MicroApi;
+        
+        @MicroApi(
+          desc = "My API method descriptions",
+          params = ['action', 'debug'],
+          types = ['int', 'boolean'], // if declared, make sure it matches the params[]
+          required = ['action'],
+          roles = [], // domain roles, empty roles for open access
+          slug = "" // optional short name for REST API access
+        )
+        def myApiMethod(def args) {
+        
+          def result = ['success': false];
+        
+          if (args.debug) {
+            log.info("executing...");
+          }
+        
+          switch (args.action) {
+          case 1:
+            result['success'] = true;
+            break;
+          default:
+            result['error'] = 'Unknown action';
+            break;
+          }
+        
+          return result;
+        }`
 
+    var dataObj = {
+        // lang: $("#micro_language").val(),
+        "code": code ? codeEditor.getSession().getValue() : sampleCode,
+        name: $("#micro_id").val(),
+        authType : $("#micro_authType").val(),
+        apiKey : $("#micro_apiKey").val(),
+        props : $("#micro_properties").val() ? JSON.parse($("#micro_properties").val()) : {}
+    };
+    updateMicroRuleCode(dataObj, function (status, data) {
+        if (status) {
+            successMsg('Successfully saved!');
+
+            setTimeout(function(){
+                loadMicroRulesList();
+                $("#addMicroRule").modal('hide');
+            },500)
+            setTimeout(function () {
+                loadTabbar(dataObj.name, 15);
+            },1000)
+
+        } else {
+            errorMsg('Error in saving!')
+        }
+    })
+
+
+}
 
 function addScheduleRule() {
     var dataObj = {
@@ -6216,6 +6530,15 @@ function exportRule(type) {
         data = obj;
 
 
+    }else if(type === 15){
+        console.log('Micro API Rule...!');
+        rule_name = 'micro-rule-'+CURRENT_ID;
+        var obj = returnObj(CURRENT_ID, 15);
+        delete obj._id;
+
+        data = obj;
+
+
     }
 
     var dObj = {
@@ -6471,6 +6794,23 @@ function uploadRuleType(type, data) {
                     loadTabbar(data.id,14)
                 },250)
 
+            } else {
+                errorMsg('Error in saving!')
+            }
+            $("#importModal").modal('hide');
+        })
+    }
+    else if (type === 15) {
+
+        updateMicroRuleCode(data, function (status, resdata) {
+            if (status) {
+                successMsg('Micro API Rule Successfully Uploaded!');
+                loadMicroRulesList();
+
+                setTimeout(function () {
+                    loadTabbar(data.name,5)
+                    $("#importModal").modal('hide');
+                },1000)
             } else {
                 errorMsg('Error in saving!')
             }
@@ -6950,4 +7290,11 @@ function addFolderBody(){
 
 function removeFolderBody(id){
     $("."+id).remove();
+}
+
+function checkAPI(val){
+    $(".micro_apiKey").css('display','none')
+    if(val === 'KEY'){
+        $(".micro_apiKey").css('display','block')
+    }
 }

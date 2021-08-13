@@ -784,6 +784,28 @@ function updateInputRuleCode(type,data, cbk) {
 
 }
 
+
+function updateMicroRuleCode(data, cbk) {
+
+
+    $.ajax({
+        url: API_BASE_PATH + "/micro/api/upsert/" + API_TOKEN,
+        data: JSON.stringify(data),
+        contentType: "application/json",
+        type: 'POST',
+        success: function (data) {
+            //called when successful
+            cbk(true, data);
+        },
+        error: function (e) {
+            //called when there is an error
+            //console.log(e.message);
+            cbk(false, null);
+        }
+    });
+
+}
+
 function updateNamedRuleCode(data, cbk) {
 
     //{"lang":"GROOVY","code":"","name":"Flow Meter Message"}
@@ -833,6 +855,27 @@ function deleteInputRule(type,id, cbk) {
 
     $.ajax({
         url: API_BASE_PATH + "/input/"+type+"/delete/" + API_TOKEN + "/" + id,
+        // data:  JSON.stringify(data),
+        contentType: "application/json",
+        type: 'DELETE',
+        success: function (data) {
+            //called when successful
+            cbk(true, data);
+        },
+        error: function (e) {
+            //called when there is an error
+            //console.log(e.message);
+            cbk(false, null);
+        }
+    });
+
+}
+
+function deleteMicroRule(id, cbk) {
+
+
+    $.ajax({
+        url: API_BASE_PATH + "/micro/api/delete/" + API_TOKEN + "/" + id,
         // data:  JSON.stringify(data),
         contentType: "application/json",
         type: 'DELETE',
