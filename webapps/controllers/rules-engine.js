@@ -1814,7 +1814,7 @@ function loadTabbar(id, type) {
             }
 
             str = '<li role="presentation" class="microTab tabbar microTab_' + id + '"  >' +
-                '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadMicroRule(\'' + name + '\')>' + obj.name + ' ' +
+                '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadMicroRule(\'' + obj.name + '\')>' + obj.name + ' ' +
                 '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',15)" title="close"><i class="fa fa-close"></i></span></a>' +
                 '</li>';
         }
@@ -2411,7 +2411,20 @@ function loadMicroDetails(id,obj) {
 
     $(".inputBlock tbody").append('<tr><td>Auth Type</td><td>'+(obj.authType ? obj.authType : '-')+'</td></tr>')
     $(".inputBlock tbody").append('<tr><td>API Key</td><td>'+(obj.apiKey ? obj.apiKey : '-')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td colspan="2"><button class="btn btn-success btn-block btn-sm mt-2" onclick="openAPIModal()">API Console</button></td></tr>')
+    
+    var str = '<div class="row mt-2">'+
+        '<div class="col-md-8"><label>Method Name</label></div>'+
+        '<div class="col-md-4"><label>Action</label></div>';
+    
+    for(var i=0;i<obj.methods.length;i++){
+        str+= '<div class="col-md-8 mb-1"><span>'+obj.methods[i].name+'</span></div>'+
+            '<div class="col-md-4 mb-1"><button class="btn btn-default btn-xs" onclick="openAPIModal(\''+obj.methods[i].name+'\')"><i class="fa fa-play"></i></button></div>'
+    }
+    str+='</div>'
+    
+    
+    $(".inputBlock tbody").append('<tr><td colspan="2"><button class="btn btn-warning btn-block btn-sm mt-2" onclick="openAPIModal()">Simulate API</button>' +
+        str+'</td></tr>')
 
 }
 
@@ -3640,6 +3653,9 @@ function loadEditor(code, tabid) {
                     if (status) {
                         successMsg('Successfully saved!');
                         loadJobRulesList();
+                        setTimeout(function () {
+                            loadJobDetails(CURRENT_ID,obj)
+                        },500)
                     } else {
                         errorMsg('Error in saving!')
                     }
@@ -3657,6 +3673,9 @@ function loadEditor(code, tabid) {
                     if (status) {
                         successMsg('Successfully saved!');
                         loadProcessRulesList();
+                        setTimeout(function () {
+                            loadProcessDetails(CURRENT_ID,obj)
+                        },500)
                     } else {
                         errorMsg('Error in saving!')
                     }
@@ -3676,7 +3695,9 @@ function loadEditor(code, tabid) {
                         setTimeout(function () {
                             // loadTabbar(dataObj.id, 10);
                             loadSftpRulesList();
-
+                            setTimeout(function () {
+                                loadSftpDetails(CURRENT_ID,obj)
+                            },500)
                         },500)
                     } else {
                         errorMsg('Error in saving!')
@@ -3698,7 +3719,9 @@ function loadEditor(code, tabid) {
                         setTimeout(function () {
                             // loadTabbar(dataObj.id, 10);
                             loadMqttRulesList();
-
+                            setTimeout(function () {
+                                loadMqttDetails(CURRENT_ID,obj)
+                            },500)
                         },500)
                     } else {
                         errorMsg('Error in saving!')
@@ -3719,7 +3742,9 @@ function loadEditor(code, tabid) {
                         setTimeout(function () {
                             // loadTabbar(dataObj.id, 10);
                             loadUdpRulesList();
-
+                            setTimeout(function () {
+                                loadUdpDetails(CURRENT_ID,obj)
+                            },500)
                         },500)
                     } else {
                         errorMsg('Error in saving!')
@@ -3740,7 +3765,9 @@ function loadEditor(code, tabid) {
                         setTimeout(function () {
                             // loadTabbar(dataObj.id, 10);
                             loadTcpRulesList();
-
+                            setTimeout(function () {
+                                loadTcpDetails(CURRENT_ID,obj)
+                            },500)
                         },500)
                     } else {
                         errorMsg('Error in saving!')
@@ -3761,8 +3788,12 @@ function loadEditor(code, tabid) {
                         setTimeout(function () {
                             // loadTabbar(dataObj.id, 10);
                             loadEmailRulesList();
+                            setTimeout(function () {
+                                loadEmailDetails(CURRENT_ID,obj)
+                            },500)
 
                         },500)
+
                     } else {
                         errorMsg('Error in saving!')
                     }
@@ -3777,10 +3808,8 @@ function loadEditor(code, tabid) {
                     name : obj.name,
                     code : consoleText,
                     authType : obj.authType,
-                    apiKey : obj.apiKey,
+                    apiKey : obj.apiKey ? obj.apiKey : null,
                     props : obj.props,
-                    // lang: obj.lang
-
                 }
                 updateMicroRuleCode(dataObj, function (status, data) {
                     if (status) {
@@ -3789,6 +3818,10 @@ function loadEditor(code, tabid) {
                         setTimeout(function () {
                             // loadTabbar(dataObj.id, 10);
                             loadMicroRulesList();
+
+                            setTimeout(function () {
+                               loadMicroDetails(CURRENT_ID,obj)
+                            },500)
 
                         },500)
                     } else {
@@ -5187,14 +5220,16 @@ function addSftpRule(code) {
     updateInputRuleCode('SFTP',dataObj, function (status, data) {
         if (status) {
             successMsg('Successfully saved!');
+
             setTimeout(function(){
                 loadSftpRulesList();
-            },500)
-            setTimeout(function () {
-                if(code){
-                    loadTabbar(dataObj.id, 10);
-                }
+                setTimeout(function () {
+                    if(code){
+                        loadTabbar(dataObj.id, 10);
+                    }
+                },500)
             },1000)
+
 
             $("#addSftpInputRule").modal('hide');
         } else {
@@ -5282,14 +5317,18 @@ function addMqttRule(code) {
     updateInputRuleCode('MQTT',dataObj, function (status, data) {
         if (status) {
             successMsg('Successfully saved!');
+
+
+
             setTimeout(function(){
                 loadMqttRulesList();
-            },500)
-            setTimeout(function () {
-                if(code){
-                    loadTabbar(dataObj.id, 11);
-                }
+                setTimeout(function () {
+                    if(code){
+                        loadTabbar(dataObj.id, 11);
+                    }
+                },500)
             },1000)
+
 
             $("#addMqttInputRule").modal('hide');
         } else {
@@ -5353,13 +5392,15 @@ function addUdpRule(code) {
     updateInputRuleCode('UDP',dataObj, function (status, data) {
         if (status) {
             successMsg('Successfully saved!');
+
+
             setTimeout(function(){
                 loadUdpRulesList();
-            },500)
-            setTimeout(function () {
-                if(code){
-                    loadTabbar(dataObj.id, 12);
-                }
+                setTimeout(function () {
+                    if(code){
+                        loadTabbar(dataObj.id, 12);
+                    }
+                },500)
             },1000)
 
             $("#addUdpInputRule").modal('hide');
@@ -5438,12 +5479,13 @@ function addTcpRule(code) {
             successMsg('Successfully saved!');
             setTimeout(function(){
                 loadTcpRulesList();
-            },500)
-            setTimeout(function () {
-                if(code){
-                    loadTabbar(dataObj.id, 13);
-                }
+                setTimeout(function () {
+                    if(code){
+                        loadTabbar(dataObj.id, 13);
+                    }
+                },500)
             },1000)
+
 
             $("#addTcpInputRule").modal('hide');
         } else {
@@ -5544,11 +5586,11 @@ function addEmailRule(code) {
             successMsg('Successfully saved!');
             setTimeout(function(){
                 loadEmailRulesList();
-            },500)
-            setTimeout(function () {
-                if(code){
-                    loadTabbar(dataObj.id, 14);
-                }
+                setTimeout(function () {
+                    if(code){
+                        loadTabbar(dataObj.id, 14);
+                    }
+                },500)
             },1000)
 
             $("#addEmailInputRule").modal('hide');
@@ -5560,43 +5602,32 @@ function addEmailRule(code) {
 }
 
 function addMicroRule(code) {
-    var sampleCode  =
-        `import io.boodskap.iot.MicroApi;
+    var sampleCode  =`
+import io.boodskap.iot.MicroApi;
         
-        @MicroApi(
-          desc = "My API method descriptions",
-          params = ['action', 'debug'],
-          types = ['int', 'boolean'], // if declared, make sure it matches the params[]
-          required = ['action'],
+@MicroApi(
+          desc = "My API method description",
+          params = [],
+          types = [], // if declared, make sure it matches the params[]
+          required = [],
           roles = [], // domain roles, empty roles for open access
           slug = "" // optional short name for REST API access
-        )
-        def myApiMethod(def args) {
-        
-          def result = ['success': false];
-        
-          if (args.debug) {
-            log.info("executing...");
-          }
-        
-          switch (args.action) {
-          case 1:
-            result['success'] = true;
-            break;
-          default:
-            result['error'] = 'Unknown action';
-            break;
-          }
-        
-          return result;
-        }`
+)
+def myApiMethod(def args) {
+
+    def results = [:];
+    
+    return results;
+}
+
+`
 
     var dataObj = {
         // lang: $("#micro_language").val(),
         "code": code ? codeEditor.getSession().getValue() : sampleCode,
         name: $("#micro_id").val(),
         authType : $("#micro_authType").val(),
-        apiKey : $("#micro_apiKey").val(),
+        apiKey : $("#micro_apiKey").val() ? $("#micro_apiKey").val() : null,
         props : $("#micro_properties").val() ? JSON.parse($("#micro_properties").val()) : {}
     };
     updateMicroRuleCode(dataObj, function (status, data) {
@@ -5605,11 +5636,18 @@ function addMicroRule(code) {
 
             setTimeout(function(){
                 loadMicroRulesList();
-                $("#addMicroRule").modal('hide');
-            },500)
-            setTimeout(function () {
-                loadTabbar(dataObj.name, 15);
+
+                setTimeout(function () {
+                    if(code){
+                        loadTabbar(dataObj.id, 15);
+                    }
+                },500)
             },1000)
+
+            $("#addMicroRule").modal('hide');
+            // setTimeout(function () {
+            //     loadTabbar(dataObj.name, 15);
+            // },1000)
 
         } else {
             errorMsg('Error in saving!')
@@ -7301,7 +7339,10 @@ function checkAPI(val){
 }
 
 var slugId = null;
-function openAPIModal(){
+var methodName = null;
+function openAPIModal(mn){
+
+    methodName = mn ? mn : null;
 
     $(".micro_apiPath").html(API_BASE_PATH+"/micro/api/")
     $(".microRuleName").html(CURRENT_ID)
@@ -7372,7 +7413,14 @@ function renderAPIBody(microBaseUrl){
             '<div class="col-md-12 mt-2 m_'+methods[i].name+'_result"></div> ' +
             '</div></form>'
 
-        $(".apiBody").append(str);
+        if(methodName){
+           if(methodName == methods[i].name){
+               $(".apiBody").append(str);
+           }
+        }else{
+            $(".apiBody").append(str);
+        }
+
     }
 }
 

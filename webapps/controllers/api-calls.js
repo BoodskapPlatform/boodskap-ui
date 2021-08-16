@@ -790,7 +790,7 @@ function getMicroAPISlug(cbk) {
 
     $.ajax({
         url: API_BASE_PATH + "/micro/api/slug/get/" + API_TOKEN,
-        contentType: "application/json",
+        contentType: "text/plain",
         type: 'GET',
         success: function (data) {
             //called when successful
