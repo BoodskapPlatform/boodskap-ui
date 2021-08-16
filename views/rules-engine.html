@@ -2471,7 +2471,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="inputLabel">Rule Name</label>
-                                <input class="form-control input-sm" onkeyup="avoidSpaces(this)" placeholder=""
+                                <input class="form-control input-sm" onkeyup="onlyAlphaNumeric(this)" placeholder=""
                                        type="text" id="micro_id" required>
                                 <small>The name must not contain any white spaces.
                                     The name should not start with special characters like & (ampersand), $ (dollar), _ (underscore). It should start with the uppercase letter.
@@ -2521,6 +2521,37 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+<div id="microAPIModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"><span class="microRuleName"></span> - API Console</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <form action="javascript:void(0)" onsubmit="updateAPISlug()">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label>Micro API URL</label><br>
+                                <span class="micro_apiPath" style="display: inline-block"></span>
+                                <input class="form-control form-control-sm" onkeyup="onlyAlphaNumeric(this)" placeholder=""
+                                       type="text" id="micro_apiSlug"
+                                       style="display: inline-block;border: 0px;border-bottom: 1px solid #cccccc;width:150px;font-weight: bold" required>
+                                <button type="submit" class="btn btnModal btn-xs"><i class="fa fa-save"></i></button>
+                                <button type="button" class="btn btn-default btn-xs" onclick="resetAPISlug()"><i class="fa fa-refresh"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="div apiBody mt-2">
+
+                    </div>
+                </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 
 <div id="helpModal" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg" role="document">

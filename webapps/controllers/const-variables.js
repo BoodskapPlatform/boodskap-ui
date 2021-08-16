@@ -4,7 +4,7 @@ var WEB_BASE_PATH = null;
 var MQTT_CONFIG = null;
 var DEBUG = CONFIG.debug ? CONFIG.debug : false;
 var GOOGLE_ANALYTICS_COCDE = CONFIG.googleAnalytics;
-var WEB_VERSION = '3.2.1';
+var WEB_VERSION = '3.2.2';
 var CDN_PATH =  CONFIG.cdnPath;
 var ENV = CONFIG.development ? CONFIG.development : false;
 var BASE_PATH = CONFIG.basepath;
@@ -75,7 +75,7 @@ var MOBILE_DASHBOARD_LIST_PROPERTY = "domain.mobile.dashboard.list";
 var BRANDING_LOGO_ID = '711bd379-8c6c-4042-8a7b-36ea6ef2d14e';
 var PROFILE_PIC_ID = '4a02a73c-85ba-11e8-adc0-fa7ae01bbebc';
 var ADMIN_DOMAIN_BRANDING_PROPERTY = '612b8370-e384-11e8-b568-0800200c9a66'
-var USER_GEOFENCE = 'USER-GEOFENCE'
+var USER_GEOFENCE = 'USER_GEOFENCE'
 
 var SITE_NOOP = 1000000;
 var DEFAULT_DASHBOARD_BG = '#ffffff';

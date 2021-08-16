@@ -2411,6 +2411,7 @@ function loadMicroDetails(id,obj) {
 
     $(".inputBlock tbody").append('<tr><td>Auth Type</td><td>'+(obj.authType ? obj.authType : '-')+'</td></tr>')
     $(".inputBlock tbody").append('<tr><td>API Key</td><td>'+(obj.apiKey ? obj.apiKey : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td colspan="2"><button class="btn btn-success btn-block btn-sm mt-2" onclick="openAPIModal()">API Console</button></td></tr>')
 
 }
 
@@ -7297,4 +7298,137 @@ function checkAPI(val){
     if(val === 'KEY'){
         $(".micro_apiKey").css('display','block')
     }
+}
+
+var slugId = null;
+function openAPIModal(){
+
+    $(".micro_apiPath").html(API_BASE_PATH+"/micro/api/")
+    $(".microRuleName").html(CURRENT_ID)
+
+    $(".apiBody").html('');
+
+    var microBaseUrl = API_BASE_PATH+"/micro/api/";
+
+    getMicroAPISlug(function (status,data){
+        if(status){
+            $("#micro_apiSlug").val(data)
+            slugId = data;
+            microBaseUrl += slugId +"/";
+        }else{
+            $("#micro_apiSlug").val(DOMAIN_KEY.toLowerCase())
+            microBaseUrl += DOMAIN_KEY.toLowerCase()+"/";
+            slugId= DOMAIN_KEY.toLowerCase();
+        }
+        renderAPIBody(microBaseUrl)
+
+        $("#microAPIModal").modal('show');
+    })
+
+
+}
+
+function renderAPIBody(microBaseUrl){
+    $(".apiBody").html('');
+    var obj = {};
+
+    for (var i = 0; i < micro_rules_list.length; i++) {
+        if (CURRENT_ID === micro_rules_list[i].name) {
+            obj = micro_rules_list[i];
+        }
+    }
+
+    var methods = obj.methods;
+
+    for(var i=0;i<methods.length;i++){
+
+        var bodyParams = {};
+
+        for(var j=0;j<methods[i].params.length;j++){
+            bodyParams[methods[i].params[j].name] = methods[i].params[j].type;
+        }
+
+        var str = '<form action="javascript:void(0)" onSubmit="simulateAPI(\''+methods[i].name+'\')"><div class="row mb-2" style="border: 1px solid #eee;padding-bottom: 10px;background-color: #eee"><div class="col-md-12 pt-2 alert alert-warning">' +
+            '<label class="badge badge-success">POST</label> <label class="ml-2">' +
+            '/'+CURRENT_ID+"/"+methods[i].slug + '</label></div>' +
+            '<div class="col-md-4">' +
+            '<strong>TOKEN</strong><br><small>String (Header)</small>' +
+            '</div>' +
+            '<div class="col-md-6">' +
+            ' <input class="form-control form-control-sm" onkeyup="avoidSpaces(this)" placeholder=""' +
+            'type="text" id="m_'+methods[i].name+'_token" required value="'+API_TOKEN+'">' +
+            '</div>' +
+            '<div class="col-md-4 mt-1">' +
+            '<strong>KEY</strong><br><small>String (Header)</small>' +
+            '</div>' +
+            '<div class="col-md-6">' +
+            ' <input class="form-control form-control-sm" onkeyup="avoidSpaces(this)" placeholder=""' +
+            'type="text" id="m_'+methods[i].name+'_key" required value="'+(obj.apiKey ? obj.apiKey : API_KEY)+'">' +
+            '</div>' +
+            '<div class="col-md-12 mt-1"><strong>Body Params:</strong>' +
+            '<textarea class="form-control form-control-sm" required  id="m_'+methods[i].name+'_params">'+JSON.stringify(bodyParams)+'</textarea>' +
+            '<small>Content-Type: <label>application/json</label></small>' +
+            '<button type="submit" class="btn btn-sm btn-danger pull-right mt-2">Try It Out</button></div>' +
+            '<div class="col-md-12 mt-2 m_'+methods[i].name+'_result"></div> ' +
+            '</div></form>'
+
+        $(".apiBody").append(str);
+    }
+}
+
+function simulateAPI(nam){
+
+    var obj = {};
+
+    for (var i = 0; i < micro_rules_list.length; i++) {
+        if (CURRENT_ID === micro_rules_list[i].name) {
+            obj = micro_rules_list[i];
+        }
+    }
+
+    var methods = {};
+
+
+    for(var j=0;j<obj.methods.length;j++){
+        if (nam === obj.methods[j].name) {
+            methods = obj.methods[j];
+        }
+    }
+
+    var dataObj = JSON.parse($("#m_"+nam+"_params").val())
+
+    executeMicroAPI(slugId,obj.name,nam,dataObj,$("#m_"+nam+"_key").val(),$("#m_"+nam+"_token").val(),function (status,result){
+
+        $(".m_"+nam+"_result").html("<label>Response: </label><p>"+JSON.stringify(result)+"</p>")
+    })
+
+}
+
+function updateAPISlug(){
+    var microBaseUrl = API_BASE_PATH+"/micro/api/";
+    setMicroAPISlug($("#micro_apiSlug").val(),function (status,data){
+        if(status){
+            successMsg('Successfully updated')
+            slugId = $("#micro_apiSlug").val();
+            microBaseUrl += slugId +"/";
+            renderAPIBody(microBaseUrl)
+        }else{
+            errorMsg('Error in update')
+        }
+    })
+}
+
+
+function resetAPISlug(){
+    var microBaseUrl = API_BASE_PATH+"/micro/api/";
+    deleteMicroAPISlug(slugId, function (status, data) {
+        if (status) {
+            successMsg('Successfully updated')
+            $("#micro_apiSlug").val(DOMAIN_KEY.toLowerCase())
+            microBaseUrl += DOMAIN_KEY.toLowerCase() +"/";
+            renderAPIBody(microBaseUrl)
+        } else {
+            errorMsg('Error in update')
+        }
+    })
 }

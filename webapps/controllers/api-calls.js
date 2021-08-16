@@ -785,6 +785,88 @@ function updateInputRuleCode(type,data, cbk) {
 }
 
 
+function getMicroAPISlug(cbk) {
+
+
+    $.ajax({
+        url: API_BASE_PATH + "/micro/api/slug/get/" + API_TOKEN,
+        contentType: "application/json",
+        type: 'GET',
+        success: function (data) {
+            //called when successful
+            cbk(true, data);
+        },
+        error: function (e) {
+            //called when there is an error
+            //console.log(e.message);
+            cbk(false, null);
+        }
+    });
+
+}
+
+
+function setMicroAPISlug(slug,cbk) {
+
+
+    $.ajax({
+        url: API_BASE_PATH + "/micro/api/slug/upsert/" + API_TOKEN +"/"+slug,
+        contentType: "application/json",
+        type: 'PUT',
+        success: function (data) {
+            //called when successful
+            cbk(true, data);
+        },
+        error: function (e) {
+            //called when there is an error
+            //console.log(e.message);
+            cbk(false, null);
+        }
+    });
+
+}
+function executeMicroAPI(slug,api,method,data,key,token,cbk) {
+
+    $.ajax({
+        url: API_BASE_PATH + "/micro/api/"+slug+"/"+api+"/" + method,
+        header:{
+            TOKEN : token,
+            KEY : key
+        },
+        data: JSON.stringify(data),
+        contentType: "application/json",
+        type: 'POST',
+        success: function (data) {
+            //called when successful
+            cbk(true, data);
+        },
+        error: function (e) {
+            //called when there is an error
+            //console.log(e.message);
+            cbk(false, null);
+        }
+    });
+
+}
+function deleteMicroAPISlug(slug,cbk) {
+
+
+    $.ajax({
+        url: API_BASE_PATH + "/micro/api/slug/delete/" + API_TOKEN +"/"+slug,
+        contentType: "application/json",
+        type: 'DELETE',
+        success: function (data) {
+            //called when successful
+            cbk(true, data);
+        },
+        error: function (e) {
+            //called when there is an error
+            //console.log(e.message);
+            cbk(false, null);
+        }
+    });
+
+}
 function updateMicroRuleCode(data, cbk) {
 
 
