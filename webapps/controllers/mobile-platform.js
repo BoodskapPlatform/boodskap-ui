@@ -2012,34 +2012,38 @@ function deleteImportWidgetModal(id) {
 
 function loadImageList(searchText) {
 
+    if(abortQuery){
+        abortQuery.abort();
+    }
+
     var domainKeyJson = { "match": { "domainKey": DOMAIN_KEY } };
     var ispublicJson = { "match": { "isPublic": true } };
     var isprivateJson = { "match": { "isPublic": false } };
 
-
-
-
     var queryParams = {
         "query": {
             "bool": {
-                "must": []
+                "must": [],
+                "should": []
             }
         },
         "size": 75
     };
 
     if (searchText) {
-        var searchJson = {
-            "multi_match": {
-                "query": '*' + searchText + '*',
-                "type": "phrase_prefix",
-                "fields": ['_all']
-            }
-        };
-        queryParams.query['bool']['must'] = [ispublicJson, searchJson];
+
+
+        queryParams.query['bool']['should'].push({ "wildcard": { "tags": "*" + searchText + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "tags": "*" + searchText.toLowerCase() + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "tags": "*" + searchText.toUpperCase() + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "tags": "*" + capitalizeFLetter(searchText) + "*" } })
+        queryParams.query['bool']['minimum_should_match']=1
+
+
+        queryParams.query['bool']['must'] = [ispublicJson,{ "wildcard": { "mediaType": "*image*" } }];
 
     } else {
-        queryParams.query['bool']['must'] = [ispublicJson];
+        queryParams.query['bool']['must'] = [ispublicJson,{ "wildcard": { "mediaType": "*image*" } }];
     }
 
     var searchQuery = {
@@ -2051,7 +2055,7 @@ function loadImageList(searchText) {
 
     $(".imageListUl").html('');
 
-    searchByQuery('', 'FILE_PUBLIC', searchQuery, function(status, res) {
+    searchByAbortQuery('', 'FILE_PUBLIC', searchQuery, function(status, res) {
         if (status) {
 
             var resultData = searchQueryFormatterNew(res).data;

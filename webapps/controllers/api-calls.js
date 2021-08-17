@@ -2303,7 +2303,30 @@ function getDeviceModel(data, cbk) {
 
 
 //Elastic Search
+var abortQuery = null;
+function searchByAbortQuery(id, type, data, cbk) {
 
+    if(id){
+        data['specId'] = id
+    }
+    data['type'] = type;
+
+    abortQuery = $.ajax({
+        url: API_BASE_PATH + "/elastic/search/query/" + API_TOKEN,
+        data: JSON.stringify(data),
+        contentType: "application/json",
+        type: 'POST',
+        success: function (data) {
+            //called when successful
+            cbk(true, data);
+        },
+        error: function (e) {
+            //called when there is an error
+            //console.log(e.message);
+            cbk(false, e);
+        }
+    });
+}
 function searchByQuery(id, type, data, cbk) {
 
     if(id){
