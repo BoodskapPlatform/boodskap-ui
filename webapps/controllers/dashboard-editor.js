@@ -715,15 +715,7 @@ function deleteDashboard() {
 function loadImportedWidgets() {
 
 
-    var searchText = $.trim($("#searchText").val());
-
-    var searchJson = {
-        "multi_match": {
-            "query": '*' + searchText + '*',
-            "type": "phrase_prefix",
-            "fields": ['_all']
-        }
-    };
+    var sText = $.trim($("#searchText").val());
 
     var clientDomainKey = {
         match: {clientDomainKey: DOMAIN_KEY}
@@ -732,15 +724,66 @@ function loadImportedWidgets() {
     var queryParams = {
         "query": {
             "bool": {
-                "must": [clientDomainKey]
+                "must": [clientDomainKey],
+                should : []
             }
         },
-        "size": 25,
+        "size": 100,
         "sort": [{"createdtime": {"order": "desc"}}]
     };
 
-    if(searchText !== ''){
-        queryParams['query']['bool']['must'] = [clientDomainKey, searchJson]
+    if(sText !== ''){
+
+        queryParams.query.bool['minimum_should_match']=1;
+
+        queryParams.query['bool']['should'].push({ "wildcard": { "widgetname": "*" + sText + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "widgetname": "*" + sText.toLowerCase() + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "widgetname": "*" + sText.toUpperCase() + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "widgetname": "*" + capitalizeFLetter(sText) + "*" } })
+        queryParams.query.bool.should.push({
+            "match_phrase": {
+                "widgetname": sText
+            }
+        })
+        queryParams.query['bool']['should'].push({
+            "match_phrase_prefix": {
+                "widgetname": {
+                    "query": "*" + sText + "*"
+                }
+            }
+        })
+
+        queryParams.query['bool']['should'].push({ "wildcard": { "tags": "*" + sText + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "tags": "*" + sText.toLowerCase() + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "tags": "*" + sText.toUpperCase() + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "tags": "*" + capitalizeFLetter(sText) + "*" } })
+        queryParams.query.bool.should.push({
+            "match_phrase": {
+                "tags": sText
+            }
+        })
+
+
+        queryParams.query['bool']['should'].push({ "wildcard": { "description": "*" + sText + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "description": "*" + sText.toLowerCase() + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "description": "*" + sText.toUpperCase() + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "description": "*" + capitalizeFLetter(sText) + "*" } })
+        queryParams.query.bool.should.push({
+            "match_phrase": {
+                "description": sText
+            }
+        })
+
+
+        queryParams.query['bool']['should'].push({ "wildcard": { "category": "*" + sText + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "category": "*" + sText.toLowerCase() + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "category": "*" + sText.toUpperCase() + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "category": "*" + capitalizeFLetter(sText) + "*" } })
+        queryParams.query.bool.should.push({
+            "match_phrase": {
+                "category": sText
+            }
+        })
     }
 
 
@@ -1020,15 +1063,16 @@ function loadAssetList() {
                 $("#assetList").append('<option value="' + asset_list[i].id + '">' + asset_list[i].id + ' | ' + asset_list[i].name + '</option>');
             }
 
-            try{
-                $("#assetList").select2('destroy');
-            }catch(e){}
+            // try{
+            //     $("#assetList").select2('destroy');
+            // }catch(e){}
+            //
+            // $("#assetList").select2({
+            //     dropdownParent: $("#editorModal")
+            // });
 
-            $("#assetList").select2({
-                dropdownParent: $("#editorModal")
-            });
-
-            $("#assetList").val(current_widget_obj.config.asset.assetid ? current_widget_obj.config.asset.assetid : '').trigger('change');
+            // $("#assetList").val(current_widget_obj.config.asset.assetid ? current_widget_obj.config.asset.assetid : '').trigger('change');
+            $("#assetList").val(current_widget_obj.config.asset.assetid ? current_widget_obj.config.asset.assetid : '')
 
         } else {
             asset_list = [];
@@ -1045,15 +1089,16 @@ function loadMessageList() {
             for (var i = 0; i < message_list.length; i++) {
                 $("#messageList").append('<option value="' + message_list[i].id + '">' + message_list[i].id + ' | ' + message_list[i].name + '</option>');
             }
-            try{
-                $("#messageList").select2('destroy');
-            }catch(e){}
+            // try{
+            //     $("#messageList").select2('destroy');
+            // }catch(e){}
+            //
+            // $("#messageList").select2({
+            //     dropdownParent: $("#editorModal")
+            // });
 
-            $("#messageList").select2({
-                dropdownParent: $("#editorModal")
-            });
-
-            $("#messageList").val(current_widget_obj.config.message.messageid ? current_widget_obj.config.message.messageid : '').trigger('change');
+            // $("#messageList").val(current_widget_obj.config.message.messageid ? current_widget_obj.config.message.messageid : '').trigger('change');
+            $("#messageList").val(current_widget_obj.config.message.messageid ? current_widget_obj.config.message.messageid : '')
             loadMsgFields();
         } else {
             message_list = [];
@@ -1074,16 +1119,16 @@ function loadRecordList() {
                 $("#recordList").append('<option value="' + record_list[i].id + '">' + record_list[i].id + ' | ' + record_list[i].name + '</option>');
             }
 
-            try{
-                $("#recordList").select2('destroy');
-            }catch(e){}
-
-            $("#recordList").select2({
-                dropdownParent: $("#editorModal")
-            });
-
-            $("#recordList").val(current_widget_obj.config.record.recordid ? current_widget_obj.config.record.recordid : '').trigger('change');
-
+            // try{
+            //     $("#recordList").select2('destroy');
+            // }catch(e){}
+            //
+            // $("#recordList").select2({
+            //     dropdownParent: $("#editorModal")
+            // });
+            //
+            // $("#recordList").val(current_widget_obj.config.record.recordid ? current_widget_obj.config.record.recordid : '').trigger('change');
+            $("#recordList").val(current_widget_obj.config.record.recordid ? current_widget_obj.config.record.recordid : '')
 
         } else {
             record_list = [];

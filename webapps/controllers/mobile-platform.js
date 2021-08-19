@@ -39,7 +39,7 @@ $(document).ready(function() {
     $(".dashboardListBody").css('height', $(window).height() - 220);
     $("body").removeClass('bg-white');
     $(".dashboardBody").css('height', $(window).height() - 135);
-    $("#demo-device-ios").css('height', $(window).height() - 80);
+    $("#demo-device-ios").css('height', $(window).height() - 220);
     $("#splashIOS").css('height', $(window).height() - 80);
     $('#logoPosition').val('25%');
     $('.panel').hover(function() {
@@ -1812,32 +1812,75 @@ function deleteDashboard() {
 
 function loadImportedWidgets() {
 
-    var searchText = $.trim($("#searchText").val());
-
-    var searchJson = {
-        "multi_match": {
-            "query": '*' + searchText + '*',
-            "type": "phrase_prefix",
-            "fields": ['_all']
-        }
-    };
+    var sText = $.trim($("#searchText").val());
 
     var clientDomainKey = {
-        match: { clientDomainKey: DOMAIN_KEY }
+        match: {clientDomainKey: DOMAIN_KEY}
     };
 
     var queryParams = {
         "query": {
             "bool": {
-                "must": [clientDomainKey]
+                "must": [clientDomainKey],
+                should : []
             }
         },
-        "size": 10,
-        "sort": [{ "createdtime": { "order": "desc" } }]
+        "size": 100,
+        "sort": [{"createdtime": {"order": "desc"}}]
     };
 
-    if (searchText !== '') {
-        queryParams['query']['bool']['must'] = [clientDomainKey, searchJson]
+    if(sText !== ''){
+
+        queryParams.query.bool['minimum_should_match']=1;
+
+        queryParams.query['bool']['should'].push({ "wildcard": { "widgetname": "*" + sText + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "widgetname": "*" + sText.toLowerCase() + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "widgetname": "*" + sText.toUpperCase() + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "widgetname": "*" + capitalizeFLetter(sText) + "*" } })
+        queryParams.query.bool.should.push({
+            "match_phrase": {
+                "widgetname": sText
+            }
+        })
+        queryParams.query['bool']['should'].push({
+            "match_phrase_prefix": {
+                "widgetname": {
+                    "query": "*" + sText + "*"
+                }
+            }
+        })
+
+        queryParams.query['bool']['should'].push({ "wildcard": { "tags": "*" + sText + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "tags": "*" + sText.toLowerCase() + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "tags": "*" + sText.toUpperCase() + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "tags": "*" + capitalizeFLetter(sText) + "*" } })
+        queryParams.query.bool.should.push({
+            "match_phrase": {
+                "tags": sText
+            }
+        })
+
+
+        queryParams.query['bool']['should'].push({ "wildcard": { "description": "*" + sText + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "description": "*" + sText.toLowerCase() + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "description": "*" + sText.toUpperCase() + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "description": "*" + capitalizeFLetter(sText) + "*" } })
+        queryParams.query.bool.should.push({
+            "match_phrase": {
+                "description": sText
+            }
+        })
+
+
+        queryParams.query['bool']['should'].push({ "wildcard": { "category": "*" + sText + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "category": "*" + sText.toLowerCase() + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "category": "*" + sText.toUpperCase() + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "category": "*" + capitalizeFLetter(sText) + "*" } })
+        queryParams.query.bool.should.push({
+            "match_phrase": {
+                "category": sText
+            }
+        })
     }
 
 

@@ -175,6 +175,12 @@ function loadTerminal() {
                     commandsList = [];
 
                     if (cmdObj.code.includes('boodskap install')) {
+
+                        if(API_BASE_PATH.includes(MARKETPLACE_API_URL)){
+                            errorMsg('Widget already installed. Go to the widgets library.')
+                            return false;
+                        }
+
                         this.echo('<div class="log_' + id + '">' + moment().format("MM/DD/YYYY hh:mm a") +
                             " | widget installation request initiated </div><div class='console_" + id + "'></div><div class='console_loader_" + id + " text-info'>" +
                             '<i class="fa fa-spinner fa-spin"></i> waiting for response</div>', {raw: true});

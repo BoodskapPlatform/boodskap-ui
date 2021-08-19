@@ -201,6 +201,11 @@ function renderWidgetDiv(obj){
 
 function installWidget(wid,wnam){
 
+    if(API_BASE_PATH.includes(MARKETPLACE_API_URL)){
+        errorMsg('Widget already installed. Go to the widgets library.')
+        return false;
+    }
+
 
     swal({
         title: "Are you sure?",
