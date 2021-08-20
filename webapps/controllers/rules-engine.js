@@ -1610,6 +1610,86 @@ function loadJarClasses() {
 
 }
 
+function loadHelpTab(){
+    $(".helpTab").remove();
+    var str = '<li role="presentation" class="helpTab tabbar helpTabBar active" >' +
+        '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadHelpTab()><i class="fa fa-question-circle"></i> Help' +
+        '<span style="display: inline-block;margin-left: 20px;cursor: pointer;z-index:1" onclick="deleteHelpTab()" title="close"><i class="fa fa-close"></i></span></a>' +
+        '</li>'
+
+    $(".domainTab").removeClass('active')
+    $(".messageTab").removeClass('active')
+    $(".namedTab").removeClass('active')
+    $(".binaryTab").removeClass('active')
+    $(".scheduleTab").removeClass('active');
+    $(".groovyTab").removeClass('active');
+    $(".jobTab").removeClass('active');
+    $(".jarTab").removeClass('active');
+    $(".fileTab").removeClass('active');
+    $(".processTab").removeClass('active');
+    $(".sftpTab").removeClass('active');
+    $(".udpTab").removeClass('active');
+    $(".mqttTab").removeClass('active');
+    $(".tcpTab").removeClass('active');
+    $(".emailTab").removeClass('active');
+    $(".microTab").removeClass('active');
+
+    $(".editorBar").append(str);
+    loadHelpDetails();
+
+}
+
+function deleteHelpTab(){
+    $(".helpTab").removeClass('active')
+    $(".domainTab").addClass('active')
+
+    setTimeout(function () {
+        $(".helpTab").remove();
+        $(".domainTab").addClass('active')
+        loadDomainRule()
+    }, 200);
+}
+
+function loadHelpDetails(){
+    $("#editorContent").html('<div id="codeEditor" style="overflow: hidden;background-color: #fff"></div>');
+
+    $('#codeEditor').height(($(".ui-layout-center").height() - 40) + 'px');
+
+    var str = `
+<div class="row mt-2">
+    <div class="col-md-3 ">
+            <h5 class="ml-3">Platform Contexts</h5>
+            <div class="contextContent" style="overflow: auto;overflow-x: hidden">
+                 <ul class="cBody" style="padding-left: 10px">
+    
+                </ul>
+            </div>
+          
+    </div>    
+    <div class="col-md-9">
+        <div class="row helpContent" style="">
+            <div class="col-md-12 mt-2">
+                <form autoComplete="off">
+                    <input type="text" class="form-control" placeholder="Search contexts by name"
+                               onKeyUp="renderContext(this.value)"/>
+                 </form>
+            </div>
+            <div class="col-md-12">
+                <div class="contextBody mt-2" style="overflow: auto"></div>
+            </div>
+        </div>
+    
+         
+    </div>    
+</div>
+    `
+
+    $("#codeEditor").html(str);
+    $(".contextBody").css('height',$("#codeEditor").height()-80)
+    $(".contextContent").css('height',$("#codeEditor").height()-50)
+
+    renderContext();
+}
 
 function loadTabbar(id, type) {
 
@@ -7004,14 +7084,17 @@ function renderContext(search,id) {
 
         var val = context_list[i];
 
-        $(".cBody").append('<li class="ml-1 mr-1 mt-1 mb-1 '+(id== val.name ? 'bg-light' :'')+'" style="border: 1px solid #eee;padding: 10px 15px">' +
-            '<a class="" style="" href="javascript:void(0)" onclick="renderContext(\''+''+'\',\''+val.name+'\')">'+val.name+'</a></li>')
+        $(".cBody").append('<li class="ml-1 mr-1 '+(id== val.name ? 'helpHighlight' :'')+'" style="border: 1px solid #eee;padding: 10px 15px">' +
+            '<a class="text-dark" style="" href="javascript:void(0)" onclick="renderContext(\''+''+'\',\''+val.name+'\')">'+val.name+'</a></li>')
 
         var str = '';
 
         var flg = false;
 
         for (var j = 0; j < val.methods.length; j++) {
+
+            var cn = j%2 == 0 ? 'alternateRow2' : 'alternateRow1'
+
             var methods = val.methods[j];
             if(search){
 
@@ -7019,10 +7102,10 @@ function renderContext(search,id) {
                     || methods.help.toLowerCase().includes(search.toLowerCase())
                     || methods.signature.toLowerCase().includes(search.toLowerCase())){
                     flg=true
-                    str += '<p class="mt-2 "><code>'+val.name+'</code> '+methods.help+'</p><pre class="bg-violet-light-5 mb-2"><xmp style="font-size: 14px">'+methods.signature+'</xmp></pre>'
+                    str += '<p class="mt-2 "><code>'+val.name+'</code> '+methods.help+'</p><pre class="'+cn+' mb-2"><xmp style="font-size: 14px">'+methods.signature+'</xmp></pre>'
                 }
             }else{
-                str += '<p class="mt-2"><code>'+val.name+'</code> '+methods.help+'</p><pre class="bg-violet-light-5 mb-2"><xmp style="font-size: 14px">'+methods.signature+'</xmp></pre>'
+                str += '<p class="mt-2"><code>'+val.name+'</code> '+methods.help+'</p><pre class="'+cn+' mb-2"><xmp style="font-size: 14px">'+methods.signature+'</xmp></pre>'
             }
             if(methods.examples && methods.examples.length > 0) {
 
@@ -7041,7 +7124,6 @@ function renderContext(search,id) {
         if(id){
 
             if(id == val.name){
-                console.log('print')
                 if(search){
                     if(flg){
                         $(".contextBody").append('<div class="col-md-12 mt-1 mb-2 c_'+val.name+'">' +

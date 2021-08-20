@@ -211,6 +211,27 @@
     font-weight: bold;
 }
 
+
+
+.helpTab.active{
+    background-color: #4caf50;
+    border-bottom: 5px solid #4caf50;
+}
+
+.helpTab.active a{
+    color:#fff !important;
+}
+.helpTab.active a:hover,.helpTab.active a:focus{
+    background-color:#4caf50 !important;
+}
+
+.helpTab a{
+    color:#4caf50 !important;
+}
+.helpTab.active a{
+    font-weight: bold;
+}
+
 .rightSideBar li.active{
     border-bottom: 5px solid #404040;
 }
@@ -266,6 +287,28 @@
     font-size:13px;
 }
 
+.cBody li{
+    list-style: none;
+}
+
+.helpHighlight{
+    border: 1px solid #4caf50 !important;
+    border-left: 4px solid #4caf50 !important;
+    border-right:0px !important;
+}
+
+.helpHighlight a{
+    color: #4caf50 !important;
+    font-weight: bold !important;
+}
+
+
+.alternateRow1{
+    background: #b7b7b757 !important;
+}
+.alternateRow2{
+    background: #f4f4f499 !important;
+}
 
 .btnModal{
     background-color: #009688;
