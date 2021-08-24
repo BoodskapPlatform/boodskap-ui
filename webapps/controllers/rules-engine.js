@@ -7439,9 +7439,9 @@ function openAPIModal(mn){
             slugId = data;
             microBaseUrl += slugId +"/";
         }else{
-            $("#micro_apiSlug").val(DOMAIN_KEY.toLowerCase())
-            microBaseUrl += DOMAIN_KEY.toLowerCase()+"/";
-            slugId= DOMAIN_KEY.toLowerCase();
+            $("#micro_apiSlug").val(DOMAIN_KEY)
+            microBaseUrl += DOMAIN_KEY+"/";
+            slugId= DOMAIN_KEY;
         }
         renderAPIBody(microBaseUrl)
 
@@ -7527,7 +7527,7 @@ function simulateAPI(nam){
 
     var dataObj = JSON.parse($("#m_"+nam+"_params").val())
 
-    executeMicroAPI(slugId,obj.name,nam,dataObj,$("#m_"+nam+"_key").val(),$("#m_"+nam+"_token").val(),function (status,result){
+    executeMicroAPI(slugId,obj.name,methods.slug,dataObj,$("#m_"+nam+"_key").val(),$("#m_"+nam+"_token").val(),function (status,result){
 
         $(".m_"+nam+"_result").html("<label>Response: </label><p>"+JSON.stringify(result)+"</p>")
     })
@@ -7554,8 +7554,8 @@ function resetAPISlug(){
     deleteMicroAPISlug(slugId, function (status, data) {
         if (status) {
             successMsg('Successfully updated')
-            $("#micro_apiSlug").val(DOMAIN_KEY.toLowerCase())
-            microBaseUrl += DOMAIN_KEY.toLowerCase() +"/";
+            $("#micro_apiSlug").val(DOMAIN_KEY)
+            microBaseUrl += DOMAIN_KEY +"/";
             renderAPIBody(microBaseUrl)
         } else {
             errorMsg('Error in update')

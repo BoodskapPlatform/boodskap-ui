@@ -444,7 +444,7 @@ function loadWidgets(id) {
 
 
                 var htmlStr = `
-                        <iframe id="f_` + id + `" style="width:100%;border:0px;height: 100%;overflow: hidden" onload="resizeIframe(this)"></iframe>
+                        <iframe id="f_` + id + `" style="width:100%;border:0px;height: 100%;overflow: hidden" ></iframe>
                 `;
 
                 var widgetHeight = (widget.height * 100)-20;
@@ -1295,4 +1295,18 @@ function loadEditor() {
 
     document.location = BASE_PATH+'/dashboard-editor?id='+CURRENT_DASHBOARD_ID
 
+}
+
+function getScreenshot(){
+    // console.log(document.body)
+    html2canvas(document.getElementById('page-container')).then(function(canvas) {
+        var element = document.createElement('a');
+        var dataURL = canvas.toDataURL("image/png");
+        element.setAttribute('href', dataURL);
+        element.setAttribute('download', 'screenshot-'+moment().format('MMDDYYYYHHmm'));
+        element.style.display = 'none';
+        document.body.appendChild(element);
+        element.click();
+        document.body.removeChild(element);
+    });
 }
