@@ -6924,12 +6924,15 @@ function uploadRuleType(type, data) {
         updateMicroRuleCode(data, function (status, resdata) {
             if (status) {
                 successMsg('Micro API Rule Successfully Uploaded!');
-                loadMicroRulesList();
 
                 setTimeout(function () {
-                    loadTabbar(data.name,5)
+                    loadMicroRulesList();
+                    // loadTabbar(data.id,10)
                     $("#importModal").modal('hide');
-                },1000)
+                },500)
+                setTimeout(function () {
+                    loadTabbar(data.name,5)
+                },250)
             } else {
                 errorMsg('Error in saving!')
             }

@@ -829,7 +829,7 @@ function executeMicroAPI(slug,api,method,data,key,token,cbk) {
 
     $.ajax({
         url: API_BASE_PATH + "/micro/api/"+slug+"/"+api+"/" + method,
-        header:{
+        headers:{
             TOKEN : token,
             KEY : key
         },
