@@ -824,14 +824,19 @@ function setMicroAPISlug(slug,cbk) {
     });
 
 }
-function executeMicroAPI(slug,api,method,data,key,token,cbk) {
+function executeMicroAPI(slug,api,method,data,key,token,obj,cbk) {
+    var headers = {}
+    if(obj.authType == 'TOKEN'){
+        headers['TOKEN'] = token;
+    }
+    else if(obj.authType == 'KEY'){
+        headers['KEY'] = key;
+    }
+
 
     $.ajax({
         url: API_BASE_PATH + "/micro/service/"+slug+"/"+api+"/" + method,
-        headers:{
-            TOKEN : token,
-            KEY : key
-        },
+        headers:headers,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',

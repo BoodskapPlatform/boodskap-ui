@@ -7477,20 +7477,20 @@ function renderAPIBody(microBaseUrl){
         var str = '<form action="javascript:void(0)" onSubmit="simulateAPI(\''+methods[i].name+'\')"><div class="row mb-2" style="border: 1px solid #eee;padding-bottom: 10px;background-color: #eee"><div class="col-md-12 pt-2 alert alert-warning">' +
             '<label class="badge badge-success">POST</label> <label class="ml-2">' +
             '/'+CURRENT_ID+"/"+methods[i].slug + '</label></div>' +
-            '<div class="col-md-4">' +
-            '<strong>TOKEN</strong><br><small>String (Header)</small>' +
+            (obj.authType == 'TOKEN' ?   '<div class="col-md-4">' +
+             '<strong>TOKEN</strong><br><small>String (Header)</small>' +
             '</div>' +
             '<div class="col-md-6">' +
             ' <input class="form-control form-control-sm" onkeyup="avoidSpaces(this)" placeholder=""' +
             'type="text" id="m_'+methods[i].name+'_token" required value="'+API_TOKEN+'">' +
-            '</div>' +
-            '<div class="col-md-4 mt-1">' +
+            '</div>' : '') +
+            (obj.authType == 'KEY' ?  '<div class="col-md-4 mt-1">' +
             '<strong>KEY</strong><br><small>String (Header)</small>' +
             '</div>' +
             '<div class="col-md-6">' +
             ' <input class="form-control form-control-sm" onkeyup="avoidSpaces(this)" placeholder=""' +
             'type="text" id="m_'+methods[i].name+'_key" required value="'+(obj.apiKey ? obj.apiKey : API_KEY)+'">' +
-            '</div>' +
+            '</div>'  : '') +
             '<div class="col-md-12 mt-1"><strong>Body Params:</strong>' +
             '<textarea class="form-control form-control-sm" required  id="m_'+methods[i].name+'_params">'+JSON.stringify(bodyParams)+'</textarea>' +
             '<small>Content-Type: <label>application/json</label></small>' +
@@ -7530,7 +7530,7 @@ function simulateAPI(nam){
 
     var dataObj = JSON.parse($("#m_"+nam+"_params").val())
 
-    executeMicroAPI(slugId,obj.name,methods.slug,dataObj,$("#m_"+nam+"_key").val(),$("#m_"+nam+"_token").val(),function (status,result){
+    executeMicroAPI(slugId,obj.name,methods.slug,dataObj,$("#m_"+nam+"_key").val(),$("#m_"+nam+"_token").val(),obj,function (status,result){
 
         $(".m_"+nam+"_result").html("<label>Response: </label><p>"+JSON.stringify(result)+"</p>")
     })
