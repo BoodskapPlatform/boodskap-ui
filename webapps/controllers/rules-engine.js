@@ -7429,12 +7429,12 @@ function openAPIModal(mn){
 
     methodName = mn ? mn : null;
 
-    $(".micro_apiPath").html(API_BASE_PATH+"/micro/api/")
+    $(".micro_apiPath").html(API_BASE_PATH+"/micro/service/")
     $(".microRuleName").html(CURRENT_ID)
 
     $(".apiBody").html('');
 
-    var microBaseUrl = API_BASE_PATH+"/micro/api/";
+    var microBaseUrl = API_BASE_PATH+"/micro/service/";
 
     getMicroAPISlug(function (status,data){
         if(status){
@@ -7538,7 +7538,7 @@ function simulateAPI(nam){
 }
 
 function updateAPISlug(){
-    var microBaseUrl = API_BASE_PATH+"/micro/api/";
+    var microBaseUrl = API_BASE_PATH+"/micro/service/";
     setMicroAPISlug($("#micro_apiSlug").val(),function (status,data){
         if(status){
             successMsg('Successfully updated')
@@ -7553,7 +7553,7 @@ function updateAPISlug(){
 
 
 function resetAPISlug(){
-    var microBaseUrl = API_BASE_PATH+"/micro/api/";
+    var microBaseUrl = API_BASE_PATH+"/micro/service/";
     deleteMicroAPISlug(slugId, function (status, data) {
         if (status) {
             successMsg('Successfully updated')

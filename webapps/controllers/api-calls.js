@@ -789,7 +789,7 @@ function getMicroAPISlug(cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/micro/api/slug/get/" + API_TOKEN,
+        url: API_BASE_PATH + "/micro/service/slug/get/" + API_TOKEN,
         contentType: "application/json",
         type: 'GET',
         success: function (data) {
@@ -810,7 +810,7 @@ function setMicroAPISlug(slug,cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/micro/api/slug/upsert/" + API_TOKEN +"/"+slug,
+        url: API_BASE_PATH + "/micro/service/slug/upsert/" + API_TOKEN +"/"+slug,
         contentType: "application/json",
         type: 'PUT',
         success: function (data) {
@@ -828,7 +828,7 @@ function setMicroAPISlug(slug,cbk) {
 function executeMicroAPI(slug,api,method,data,key,token,cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/micro/api/"+slug+"/"+api+"/" + method,
+        url: API_BASE_PATH + "/micro/service/"+slug+"/"+api+"/" + method,
         headers:{
             TOKEN : token,
             KEY : key
@@ -852,7 +852,7 @@ function deleteMicroAPISlug(slug,cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/micro/api/slug/delete/" + API_TOKEN +"/"+slug,
+        url: API_BASE_PATH + "/micro/service/slug/delete/" + API_TOKEN +"/"+slug,
         contentType: "application/json",
         type: 'DELETE',
         success: function (data) {
@@ -871,7 +871,7 @@ function updateMicroRuleCode(data, cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/micro/api/upsert/" + API_TOKEN,
+        url: API_BASE_PATH + "/micro/service/upsert/" + API_TOKEN,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -957,7 +957,7 @@ function deleteMicroRule(id, cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/micro/api/delete/" + API_TOKEN + "/" + id,
+        url: API_BASE_PATH + "/micro/service/delete/" + API_TOKEN + "/" + id,
         // data:  JSON.stringify(data),
         contentType: "application/json",
         type: 'DELETE',
