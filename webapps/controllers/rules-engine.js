@@ -2316,7 +2316,7 @@ function loadMqttDetails(id,obj) {
     var subs = ''
     if(obj.subscriptions) {
         for (var i = 0; i < obj.subscriptions.length; i++) {
-            subs+="Pattern:"+ obj.config[i].pattern+', Qos: '+obj.config[i].qos+"<br>";
+            subs+="Pattern:"+ obj.subscriptions[i].pattern+', Qos: '+obj.subscriptions[i].qos+"<br>";
         }
     }
 
@@ -5372,7 +5372,7 @@ function addMqttRule(code) {
         lang: 'GROOVY',
         "startAtBoot": $("#mqtt_startAtBoot").val() === "1" ? true : false,
         userName: $("#mqtt_userName").val(),
-        password: $("#mqtt_password").val(),
+        password: $("#mqtt_password").val() ? $("#mqtt_password").val() : null,
         clientId: $("#mqtt_clientId").val(),
 
         serverUrls : $("#mqtt_serverUrls").val().split(","),
