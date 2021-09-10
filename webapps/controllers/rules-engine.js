@@ -5277,8 +5277,8 @@ function addSftpRule(code) {
         "startAtBoot": $("#sftp_startAtBoot").val() === "1" ? true : false,
         remoteHost: $("#sftp_remoteHost").val(),
         remotePort: Number($("#sftp_remotePort").val()),
-        userName: $("#sftp_userName").val(),
-        password: $("#sftp_password").val(),
+        userName: $("#sftp_userName").val() ? $("#sftp_userName").val() : null,
+        password: $("#sftp_password").val() ? $("#sftp_password").val() : null,
         remotePaths : $("#sftp_remotePaths").val().split(","),
         implementation: $("#sftp_implementation").val(),
         pollInterval: $("#sftp_pollInterval").val() ? Number($("#sftp_pollInterval").val()) : null,
@@ -5371,7 +5371,7 @@ function addMqttRule(code) {
 
         lang: 'GROOVY',
         "startAtBoot": $("#mqtt_startAtBoot").val() === "1" ? true : false,
-        userName: $("#mqtt_userName").val(),
+        userName: $("#mqtt_userName").val() ? $("#mqtt_userName").val() : null,
         password: $("#mqtt_password").val() ? $("#mqtt_password").val() : null,
         clientId: $("#mqtt_clientId").val(),
 
@@ -5528,9 +5528,9 @@ function addTcpRule(code) {
         sslStoresBuiltIn: $("#tcp_sslStoresBuiltIn").val() === "1" ? true : false,
         tlsVersion: $("#tcp_tlsVersion").val(),
         trustStorePath: $("#tcp_trustStorePath").val(),
-        trustStorePassword: $("#tcp_trustStorePassword").val(),
+        trustStorePassword: $("#tcp_trustStorePassword").val() ? $("#tcp_trustStorePassword").val() : null,
         keyStorePath: $("#tcp_keyStorePath").val(),
-        keyStorePassword: $("#tcp_keyStorePassword").val(),
+        keyStorePassword: $("#tcp_keyStorePassword").val() ? $("#tcp_keyStorePassword").val() : null,
 
         keepAlive: $("#tcp_keepAlive").val() === "1" ? true : false,
         soLingerOn: $("#tcp_soLingerOn").val() === "1" ? true : false,
@@ -5648,8 +5648,8 @@ function addEmailRule(code) {
         "tcpNoDelay": $("#email_tcpNoDelay").val() === "1" ? true : false,
         "processOnlyAttachments": $("#email_processOnlyAttachments").val() === "1" ? true : false,
 
-        userName: $("#email_userName").val(),
-        password: $("#email_password").val(),
+        userName: $("#email_userName").val() ? $("#email_userName").val() : null,
+        password: $("#email_password").val() ? $("#email_password").val() : null,
 
         subjectPatterns : $("#email_subjectPatterns").val().split(","),
         allowedContentTypes : $("#email_allowedContentTypes").val().split(","),
