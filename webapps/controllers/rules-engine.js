@@ -5604,8 +5604,7 @@ function addEmailRule(code) {
         return $(this).val();
     }).get();
   var fVal2= $(".folder_proccessOnlyFlags").map(function() {
-
-        return [$(this).val()];
+        return $(this).val() ? [$(this).val()] : [];
     }).get();
   var fVal3= $(".folder_toMovedFolder").map(function() {
         return $(this).val();
@@ -5616,8 +5615,8 @@ function addEmailRule(code) {
             folderObj.push({
                 name: fKey[i],
                 markMessageAfterProcessing: fVal1[i],
-                proccessOnlyFlags: fVal2[i],
-                toMovedFolder: fVal3[i],
+                proccessOnlyFlags: fVal2[i] ? fVal2[i] : [],
+                toMovedFolder: fVal3[i] ? fVal3[i] : null,
             })
         }
 
