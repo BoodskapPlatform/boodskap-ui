@@ -2423,9 +2423,9 @@ function loadEmailDetails(id,obj) {
     $(".inputBlock tbody").append('<tr><td>Instance Type</td><td>'+obj.instanceType+ (obj.instances ? '<br>('+obj.instances+' instances)' : '')+'</td></tr>')
     $(".inputBlock tbody").append('<tr><td>Start at Reboot</td><td>'+(obj.startAtBoot ? 'Yes' : 'No')+'</td></tr>')
     $(".inputBlock tbody").append('<tr><td colspan="1">Instance Action' +
-        '<button style="display:none" class="btn btn-xs stBtn btn-primary" onclick="executeInputAction(\''+id+'\',\''+'START'+'\',\''+'TCP'+'\')"><i class="fa fa-play"></i> Start</button>'+
-        '<button style="display:none" class="btn btn-xs stpBtn mb-2 btn-danger" onclick="executeInputAction(\''+id+'\',\''+'STOP'+'\',\''+'TCP'+'\')"><i class="fa fa-stop"></i> Stop</button>'+
-        '<button style="display:none" class="btn btn-xs resBtn btn-warning" onclick="executeInputAction(\''+id+'\',\''+'RESTART'+'\',\''+'TCP'+'\')"><i class="fa fa-redo"></i> Restart</button>'+
+        '<button style="display:none" class="btn btn-xs stBtn btn-primary" onclick="executeInputAction(\''+id+'\',\''+'START'+'\',\''+'EMAIL'+'\')"><i class="fa fa-play"></i> Start</button>'+
+        '<button style="display:none" class="btn btn-xs stpBtn mb-2 btn-danger" onclick="executeInputAction(\''+id+'\',\''+'STOP'+'\',\''+'EMAIL'+'\')"><i class="fa fa-stop"></i> Stop</button>'+
+        '<button style="display:none" class="btn btn-xs resBtn btn-warning" onclick="executeInputAction(\''+id+'\',\''+'RESTART'+'\',\''+'EMAIL'+'\')"><i class="fa fa-redo"></i> Restart</button>'+
         '</td></tr>')
     var configs = ''
     if(obj.config) {
