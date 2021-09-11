@@ -4508,7 +4508,7 @@ function editEmailModal() {
             '<option value="SEEN">SEEN</option>' +
             '<option value="MOVE">MOVE</option>' +
             '</select></td>' +
-            '<td><select class="folder_proccessOnlyFlags form-control input-sm">' +
+            '<td><select class="folder_proccessOnlyFlags form-control input-sm" multiple>' +
             '<option value="ANSWERED">ANSWERED</option>' +
             '<option value="DRAFT">DRAFT</option>' +
             '<option value="SEEN">SEEN</option>' +
@@ -4516,7 +4516,7 @@ function editEmailModal() {
             '</select></td>' +
 
             '<td><input type="text" value="'+obj.folders[i].toMovedFolder+'" class="folder_toMovedFolder form-control input-sm"></td>' +
-            '<td><button class="btn btn-sm" type="button" onclick="removeFolderBody(\''+t+'\')">' +
+            '<td class="text-center"><button class="btn btn-sm" type="button" onclick="removeFolderBody(\''+t+'\')">' +
             '<i class="fa fa-trash"></i></button></td>' +
             '</tr>')
 
@@ -5279,7 +5279,7 @@ function addSftpRule(code) {
         remotePort: $("#sftp_remotePort").val() ? Number($("#sftp_remotePort").val()) : null,
         userName: $("#sftp_userName").val() ? $("#sftp_userName").val() : null,
         password: $("#sftp_password").val() ? $("#sftp_password").val() : null,
-        remotePaths : $("#sftp_remotePaths").val().split(","),
+        remotePaths : $("#sftp_remotePaths").val() ? $("#sftp_remotePaths").val().split(",") : [],
         implementation: $("#sftp_implementation").val(),
         pollInterval: $("#sftp_pollInterval").val() ? Number($("#sftp_pollInterval").val()) : null,
         listPattern: $("#sftp_listPattern").val() ? $("#sftp_listPattern").val() : null,
@@ -5375,7 +5375,7 @@ function addMqttRule(code) {
         password: $("#mqtt_password").val() ? $("#mqtt_password").val() : null,
         clientId: $("#mqtt_clientId").val() ? $("#mqtt_clientId").val() : null,
 
-        serverUrls : $("#mqtt_serverUrls").val().split(","),
+        serverUrls : $("#mqtt_serverUrls").val() ? $("#mqtt_serverUrls").val().split(",") : [],
         cleanSession: $("#mqtt_cleanSession").val() === "1" ? true : false,
         connectionTimeout: $("#mqtt_connectionTimeout").val() ? Number($("#mqtt_connectionTimeout").val()) : null,
         keepAliveInterval: $("#mqtt_keepAliveInterval").val() ? Number($("#mqtt_keepAliveInterval").val()) : null,
@@ -5604,7 +5604,8 @@ function addEmailRule(code) {
         return $(this).val();
     }).get();
   var fVal2= $(".folder_proccessOnlyFlags").map(function() {
-        return $(this).val();
+
+        return [$(this).val()];
     }).get();
   var fVal3= $(".folder_toMovedFolder").map(function() {
         return $(this).val();
@@ -5651,15 +5652,16 @@ function addEmailRule(code) {
         userName: $("#email_userName").val() ? $("#email_userName").val() : null,
         password: $("#email_password").val() ? $("#email_password").val() : null,
 
-        subjectPatterns : $("#email_subjectPatterns").val().split(","),
-        allowedContentTypes : $("#email_allowedContentTypes").val().split(","),
-        allowedAttachmentFileExtensions : $("#email_allowedAttachmentFileExtensions").val().split(","),
+        subjectPatterns : $("#email_subjectPatterns").val() ? $("#email_subjectPatterns").val().split(",") : [],
+        allowedContentTypes : $("#email_allowedContentTypes").val() ? $("#email_allowedContentTypes").val().split(",") : [],
+        allowedAttachmentFileExtensions : $("#email_allowedAttachmentFileExtensions").val() ? $("#email_allowedAttachmentFileExtensions").val().split(",") : [],
 
         config : configObj,
         folders : folderObj,
         properties : $("#email_properties").val() ? JSON.parse($("#email_properties").val()) : {}
 
     };
+
 
     updateInputRuleCode('EMAIL',dataObj, function (status, data) {
         if (status) {
@@ -5976,7 +5978,6 @@ function loadCodeType() {
             if (codeType === 'CLASS') {
 
                 for(var i=0;i<dataList.length;i++){
-                    console.log(dataList[i])
                     for(var j=0;j<dataList[i].classes.length;j++){
                         dataList[i].classes[j]['code'] = dataList[i].code;
                         dataList[i].classes[j]['_id'] = dataList[i]._id;
@@ -7400,14 +7401,14 @@ function addFolderBody(){
         '<option value="SEEN">SEEN</option>' +
         '<option value="MOVE">MOVE</option>' +
         '</select></td>' +
-        '<td><select class="folder_proccessOnlyFlags form-control input-sm">' +
+        '<td><select class="folder_proccessOnlyFlags form-control input-sm" multiple>' +
         '<option value="ANSWERED">ANSWERED</option>' +
         '<option value="DRAFT">DRAFT</option>' +
         '<option value="SEEN">SEEN</option>' +
         '<option value="RECENT">RECENT</option>' +
         '</select></td>' +
         '<td><input type="text" class="folder_toMovedFolder form-control input-sm"></td>' +
-        '<td><button class="btn btn-xs" type="button" onclick="removeFolderBody(\''+t+'\')">' +
+        '<td class="text-center"><button class="btn btn-xs" type="button" onclick="removeFolderBody(\''+t+'\')">' +
         '<i class="fa fa-trash"></i></button></td>' +
         '</tr>')
 }
