@@ -5778,7 +5778,7 @@ function addScheduleRule() {
         "pattern": $("#sch_pattern").val(),
         id: Number($("#sch_id").val())
     };
-    if (validateCron()) {
+    // if (validateCron()) {
 
         /* retreiveScheduleRule(dataObj.id, function (status, data) {
              if(status){
@@ -5803,10 +5803,10 @@ function addScheduleRule() {
             }
         })
 
-
-    } else {
-        errorMsgBorder('Invalid Cron Expression', 'sch_pattern');
-    }
+    //
+    // } else {
+    //     errorMsgBorder('Invalid Cron Expression', 'sch_pattern');
+    // }
 
 }
 
