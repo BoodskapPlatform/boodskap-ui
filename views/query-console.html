@@ -6,6 +6,9 @@
     </ul>
 </div>-->
 <style>
+    .ace_error{
+        display: none !important;
+    }
     #queryEditor, #resultEditor {
         position: relative;
         top: 0;
@@ -66,7 +69,7 @@
                         <div class="col-md-12">
                             <div class="form-group queryBox">
                                 <label>Elastic Search Query <small style="text-decoration: underline">v 5.5.0</small> <strong style="color:red">*</strong></label>
-                                <small>(Press <b>CTRL + ENTER</b> to execute the query)</small>
+                                <small>(Select & Press <b>CTRL + ENTER</b> to execute the query)</small>
                                 <div id="queryEditor" style="width: 100%"></div>
                             </div>
                         </div>
