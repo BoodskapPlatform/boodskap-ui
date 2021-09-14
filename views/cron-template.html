@@ -30,22 +30,21 @@
                                 <table style="width: 90%;margin:10px;">
                                     <tbody>
                                     <tr style="font-weight:600;">
-                                        <td>Seconds</td>
                                         <td>Minutes</td>
                                         <td>Hours</td>
                                         <td>Day Of Month</td>
                                         <td>Month</td>
                                         <td>Day Of Week</td>
-                                        <td>Year</td>
+<!--                                        <td>Year</td>-->
                                     </tr>
                                     <tr>
-                                        <td><span id="cronResultSecond">0</span></td>
-                                        <td><span id="cronResultMinute">0</span></td>
-                                        <td><span id="cronResultHour">0</span></td>
-                                        <td><span id="cronResultDom">?</span></td>
+<!--                                        <td><span id="cronResultSecond">0</span></td>-->
+                                        <td><span id="cronResultMinute">*</span></td>
+                                        <td><span id="cronResultHour">*</span></td>
+                                        <td><span id="cronResultDom">*</span></td>
                                         <td><span id="cronResultMonth">*</span></td>
                                         <td><span id="cronResultDow">*</span></td>
-                                        <td><span id="cronResultYear">*</span></td>
+<!--                                        <td><span id="cronResultYear">*</span></td>-->
                                     </tr>
                                     </tbody>
                                 </table>
@@ -62,19 +61,19 @@
 
         <div id="crontabs" class="nav-vertical" style="width: 100%;">
             <ul class="nav nav-tabs nav-left">
-                <li  class="nav-item active"><a href="#tabs-1" class="nav-link active" data-toggle="tab" aria-controls="tabs-1" aria-expanded="true" id="ui-id-1">Seconds</a></li>
-                <li  class="nav-item"><a href="#tabs-2" class="nav-link" data-toggle="tab" aria-controls="tabs-2" aria-expanded="false"   id="ui-id-2">Minutes</a></li>
+<!--                <li  class="nav-item active"><a href="#tabs-1" class="nav-link active" data-toggle="tab" aria-controls="tabs-1" aria-expanded="true" id="ui-id-1">Seconds</a></li>-->
+                <li  class="nav-item active"><a href="#tabs-2" class="nav-link active" data-toggle="tab" aria-controls="tabs-2" aria-expanded="true"   id="ui-id-2">Minutes</a></li>
                 <li  class="nav-item"><a href="#tabs-3" class="nav-link"  id="ui-id-3" data-toggle="tab" aria-controls="tabs-3" aria-expanded="false" >Hours</a></li>
                 <li  class="nav-item"><a href="#tabs-4" class="nav-link" id="ui-id-4" data-toggle="tab" aria-controls="tabs-4" aria-expanded="false" >Day</a></li>
                 <li  class="nav-item"><a href="#tabs-5"  class="nav-link" id="ui-id-5" data-toggle="tab" aria-controls="tabs-5" aria-expanded="false" >Month</a></li>
-                <li  class="nav-item"><a href="#tabs-6"  class="nav-link" id="ui-id-6" data-toggle="tab" aria-controls="tabs-6" aria-expanded="false" >Year</a></li>
+<!--                <li  class="nav-item"><a href="#tabs-6"  class="nav-link" id="ui-id-6" data-toggle="tab" aria-controls="tabs-6" aria-expanded="false" >Year</a></li>-->
             </ul>
 
             <div class="tab-content">
-                <div id="tabs-1"  style="padding-top: 20px" role="tabpanel" class="clocker tab-pane active" aria-expanded="true" aria-labelledby="ui-id-1">
+                <div id="tabs-1"  style="padding-top: 20px" role="tabpanel" class="clocker tab-pane" aria-expanded="false" aria-labelledby="ui-id-1">
                     <div>
                         <div class="cron-option" style="padding-bottom:10px">
-                            <input type="radio" id="cronEverySecond" name="cronSecond">
+                            <input type="radio" id="cronEverySecond" name="cronSecond" checked>
                             <label for="cronEverySecond" class="nofloat">Every second</label>
                         </div>
                         <div class="cron-option" style="padding-bottom:10px">
@@ -295,10 +294,10 @@
                     </div>
                 </div>
 
-                <div id="tabs-2"  style="padding-top: 20px" class="clocker tab-pane" aria-expanded="false" aria-labelledby="ui-id-2">
+                <div id="tabs-2"  style="padding-top: 20px" class="clocker tab-pane active" aria-expanded="true" aria-labelledby="ui-id-2">
                     <div>
                         <div class="cron-option" style="padding-bottom:10px">
-                            <input type="radio" id="cronEveryMinute" name="cronMinute">
+                            <input type="radio" id="cronEveryMinute" name="cronMinute" checked>
                             <label for="cronEveryMinute" class="nofloat">Every minute</label>
                         </div>
                         <div class="cron-option" style="padding-bottom:10px">
@@ -522,7 +521,7 @@
                 <div id="tabs-3" style="padding-top: 20px" class="clocker  tab-pane" aria-expanded="false" aria-labelledby="ui-id-3">
                     <div >
                         <div class="cron-option" style="padding-bottom:10px">
-                            <input type="radio" id="cronEveryHour" name="cronHour">
+                            <input type="radio" id="cronEveryHour" name="cronHour" checked>
                             <label for="cronEveryHour" class="nofloat">Every hour</label>
                         </div>
                         <div class="cron-option" style="padding-bottom:10px">
@@ -635,7 +634,7 @@
                 <div id="tabs-4" style="padding-top: 20px" class="clocker tab-pane" aria-expanded="false" aria-labelledby="ui-id-4"   >
                     <div>
                         <div class="cron-option" style="padding-bottom:10px">
-                            <input type="radio" id="cronEveryDay" name="cronDay">
+                            <input type="radio" id="cronEveryDay" name="cronDay" checked>
                             <label for="cronEveryDay" class="nofloat">Every day</label>
                         </div>
                         <div class="cron-option" style="padding-bottom:10px">
@@ -891,7 +890,7 @@
                 <div id="tabs-5" style="padding-top: 20px" class="clocker tab-pane" aria-expanded="false" aria-labelledby="ui-id-5">
                     <div>
                         <div class="cron-option" style="padding-bottom:10px">
-                            <input type="radio" id="cronEveryMonth" name="cronMonth">
+                            <input type="radio" id="cronEveryMonth" name="cronMonth" checked>
                             <label for="cronEveryMonth" class="nofloat">Every month</label>
                         </div>
                         <div class="cron-option" style="padding-bottom:10px">
@@ -1005,7 +1004,7 @@
                 <div id="tabs-6" style="padding-top: 20px" class="clocker  tab-pane" aria-expanded="false" aria-labelledby="ui-id-6">
                     <div>
                         <div class="cron-option" style="padding-bottom:10px">
-                            <input type="radio" id="cronEveryYear" name="cronYear" >
+                            <input type="radio" id="cronEveryYear" name="cronYear" checked>
                             <label for="cronEveryYear" class="nofloat">Any year</label>
                         </div>
                         <div class="cron-option" style="padding-bottom:10px">
@@ -1420,30 +1419,29 @@
     $('#crontabs input, #crontabs select').change(function () {
         cronMaker();
     });
-//    cronMaker();
+   cronMaker();
 
-    $('.cron-option').children('input[type="radio"]').removeAttr("checked");
-    $('.cron-option').children('input[type="checkbox"]').removeAttr("checked");
+    // $('.cron-option').children('input[type="radio"]').removeAttr("checked");
+    // $('.cron-option').children('input[type="checkbox"]').removeAttr("checked");
 
 
     function cronMaker() {
 
-        $('.cron-option').children('input[type="radio"]').attr("checked", "checked");
-        seconds();
+        // $('.cron-option').children('input[type="radio"]').attr("checked", "checked");
+        // seconds();
         minutes();
         hours();
         day();
         month();
-        year();
+        // year();
         var seconds1 = $('#cronResultSecond').text();
         var minutes1 = $('#cronResultMinute').text();
         var hours1 = $('#cronResultHour').text();
         var dom1 = $('#cronResultDom').text();
         var month1 = $('#cronResultMonth').text();
         var dow1 = $('#cronResultDow').text();
-        var year1 = $('#cronResultYear').text();
-        var genCron = seconds1 + ' ' + minutes1 + ' ' + hours1 + ' ' + dom1 + ' ' + month1 + ' ' + dow1 + ' ' + year1;
-        console.log(genCron)
+        // var year1 = $('#cronResultYear').text();
+        var genCron = minutes1 + ' ' + hours1 + ' ' + dom1 + ' ' + month1 + ' ' + dow1;
 
         $("#sch_pattern").val(genCron);
         $('.cronResult').html(genCron);
@@ -1597,7 +1595,6 @@
             dow = $('#cronNthDayDay').val();
             dow += '#';
             dow += $('#cronNthDayNth').val();
-            ;
         }
         $('#cronResultDom').text(dom);
         $('#cronResultDow').text(dow);
@@ -1623,10 +1620,13 @@
             } else {
                 month = month.slice(0, -1);
             }
-        } else {
+        } else if ($('#cronMonth:checked').length) {
             month = $('#cronMonthRangeStart').val();
             month += '-';
             month += $('#cronMonthRangeEnd').val();
+        }
+        else {
+            month = '*';
         }
         $('#cronResultMonth').text(month);
     }

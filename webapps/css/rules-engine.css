@@ -4,8 +4,30 @@
     color:#fff;
 }
 
-.consoleBox{
+.btnHandle{
+    position: absolute;
+    left: 0px;
+    top: -22px;
     background-color: #333;
+    border:0px
+
+}
+
+#consoleBox:-webkit-full-screen,
+#consoleBox:-moz-full-screen,
+#consoleBox:-ms-fullscreen,
+#consoleBox:fullscreen {
+    width: 100vw;
+    height: 100vh;
+}
+
+.btnHandle:hover, .btnHandle:visited{
+    background-color: #333;
+    border:0px
+}
+
+.consoleBox{
+    background-color: #1f1f1f;
     color: #fff;
     font-family: monospace;
     word-spacing: 2px;

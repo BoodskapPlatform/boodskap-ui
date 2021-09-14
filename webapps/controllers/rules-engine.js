@@ -120,38 +120,38 @@ $(document).ready(function () {
             north: {
                 resizable: true
             },
-            south: {
-                size: 200,
-                resizable: true
-                // size: true
-                //	CALLBACK TESTING...
-                // ,	onhide_start:			function () { return confirm("START South pane hide \n\n onhide_start callback \n\n Allow pane to hide?"); }
-                // ,	onhide_end:				function () { alert("END South pane hide \n\n onhide_end callback"); }
-                // ,	onshow_start:			function () { return confirm("START South pane show \n\n onshow_start callback \n\n Allow pane to show?"); }
-                // ,	onshow_end:				function () { alert("END South pane show \n\n onshow_end callback"); }
-                // ,	onopen_start:			function () { return confirm("START South pane open \n\n onopen_start callback \n\n Allow pane to open?"); }
-                // ,	onopen_end:				function () { alert("END South pane open \n\n onopen_end callback"); }
-                , onclose_start: function () {
-                }
-                , onclose_end: function () {
-                    setTimeout(function () {
-                        $('#codeEditor').height(($(".ui-layout-center").height() - 40) + 'px');
-
-                        codeEditor.resize();
-                    }, 500);
-
-                    $(".consoleBox").height(($(".ui-layout-south").height()-20) + 'px')
-
-                }
-                , onresize_end: function () {
-                    setTimeout(function () {
-                        $('#codeEditor').height(($(".ui-layout-center").height() - 40) + 'px');
-                        codeEditor.resize();
-                    }, 500);
-                    $(".consoleBox").height(($(".ui-layout-south").height()-20) + 'px')
-                }
-
-            },
+            // south: {
+            //     size: 200,
+            //     resizable: true
+            //     // size: true
+            //     //	CALLBACK TESTING...
+            //     // ,	onhide_start:			function () { return confirm("START South pane hide \n\n onhide_start callback \n\n Allow pane to hide?"); }
+            //     // ,	onhide_end:				function () { alert("END South pane hide \n\n onhide_end callback"); }
+            //     // ,	onshow_start:			function () { return confirm("START South pane show \n\n onshow_start callback \n\n Allow pane to show?"); }
+            //     // ,	onshow_end:				function () { alert("END South pane show \n\n onshow_end callback"); }
+            //     // ,	onopen_start:			function () { return confirm("START South pane open \n\n onopen_start callback \n\n Allow pane to open?"); }
+            //     // ,	onopen_end:				function () { alert("END South pane open \n\n onopen_end callback"); }
+            //     , onclose_start: function () {
+            //     }
+            //     , onclose_end: function () {
+            //         setTimeout(function () {
+            //             $('#codeEditor').height(($(".ui-layout-center").height() - 40) + 'px');
+            //
+            //             codeEditor.resize();
+            //         }, 500);
+            //
+            //         $(".consoleBox").height(($(".bottomBar").height()-20) + 'px')
+            //
+            //     }
+            //     , onresize_end: function () {
+            //         setTimeout(function () {
+            //             $('#codeEditor').height(($(".ui-layout-center").height() - 40) + 'px');
+            //             codeEditor.resize();
+            //         }, 500);
+            //         $(".consoleBox").height(($(".bottomBar").height()-20) + 'px')
+            //     }
+            //
+            // },
             east: {
                 resizable: true,
                 size: 250,
@@ -184,8 +184,9 @@ $(document).ready(function () {
             // closePreLoading();
             $(".loaderBlock").css('display', 'none');
             $(".classFolder").css('height', $(".rightSide").height() - 150)
-            $(".consoleBox").height(($(".ui-layout-south").height()-20) + 'px')
+
             loadCodeType();
+
 
 
         }, 500);
@@ -195,6 +196,10 @@ $(document).ready(function () {
 
     }, 100);
 
+    // $(".bottomBar").draggable({
+    //     containment: "#rulesBlock"
+    //
+    // })
 
 });
 
@@ -344,7 +349,9 @@ function mqttDomainRule(topicName, parsedData) {
                 $(".loggerHtml").append("<div title='Domain Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
                     "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
                     "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
-                    "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " + fields+
+                    "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> "+
+                    "<span>[Domain Rule: "+rName+"]</span>"+
+                    fields+
                     "<span style='white-space: pre-wrap;padding-left: 10px;'>" + parsedData.data + "</span></div>");
             }
 
@@ -380,11 +387,14 @@ function mqttMesageRule(topicName, parsedData) {
                     fields+= ' ['+parsedData.session+'] '
                 }
 
-                var rName = topicName.split("/")[4];
+                var rName = getLastItem(topicName);
+
                 $(".loggerHtml").append("<div title='Message Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
                     "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
                     "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
-                    "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " + fields +
+                    "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> "+
+                    "<span>[Message Rule: "+rName+"]</span>"+
+                    fields +
                     "<span style='white-space: pre-wrap;padding-left: 10px;'>" + parsedData.data + "</span></div>");
             }
 
@@ -420,11 +430,13 @@ function mqttNamedRule(topicName, parsedData) {
                     fields+= ' ['+parsedData.session+'] '
                 }
 
-                var rName = topicName.split("/")[4];
+                var rName = getLastItem(topicName);
+
                 $(".loggerHtml").append("<div title='Named Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
                     "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
                     "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
-                    "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " + fields +
+                    "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " +
+                    "<span>[Named Rule: "+rName+"]</span>"+ fields +
                     "<span style='white-space: pre-wrap;padding-left: 10px;'>" + parsedData.data + "</span></div>");
             }
 
@@ -460,11 +472,13 @@ function mqttFileRule(topicName, parsedData) {
                     fields+= ' ['+parsedData.session+'] '
                 }
 
-                var rName = topicName.split("/")[4];
+                var rName = getLastItem(topicName);
+
                 $(".loggerHtml").append("<div title='File Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
                     "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
                     "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
-                    "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " + fields +
+                    "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " +
+                    "<span>[File Rule: "+rName+"]</span>"+fields +
                     "<span style='white-space: pre-wrap;padding-left: 10px;'>" + parsedData.data + "</span></div>");
             }
 
@@ -500,11 +514,13 @@ function mqttScheduleRule(topicName, parsedData) {
                     fields+= ' ['+parsedData.session+'] '
                 }
 
-                var rName = topicName.split("/")[4];
+                var rName = getLastItem(topicName);
+
                 $(".loggerHtml").append("<div title='Schedule Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
                     "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
                     "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
-                    "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " + fields +
+                    "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " +
+                    "<span>[Schedule Rule: "+rName+"]</span>"+fields +
                     "<span style='white-space: pre-wrap;padding-left: 10px;'>" + parsedData.data + "</span></div>");
             }
 
@@ -540,11 +556,13 @@ function mqttBinaryRule(topicName, parsedData) {
                     fields+= ' ['+parsedData.session+'] '
                 }
 
-                var rName = topicName.split("/")[4];
+                var rName = getLastItem(topicName);
+
                 $(".loggerHtml").append("<div title='Binary Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
                     "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
                     "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
-                    "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " + fields +
+                    "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " +
+                    "<span>[Binary Rule: "+rName+"]</span>"+fields +
                     "<span style='white-space: pre-wrap;padding-left: 10px;'>" + parsedData.data + "</span></div>");
             }
 
@@ -579,11 +597,12 @@ function mqttProcessRule(topicName, parsedData) {
                     fields+= ' ['+parsedData.session+'] '
                 }
 
-                var rName = topicName.split("/")[4];
+                var rName = getLastItem(topicName);
                 $(".loggerHtml").append("<div title='Process Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
                     "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
                     "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
-                    "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " + fields +
+                    "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " +
+                    "<span>[Process Rule: "+rName+"]</span>"+fields +
                     "<span style='white-space: pre-wrap;padding-left: 10px;'>" + parsedData.data + "</span></div>");
             }
 
@@ -618,11 +637,13 @@ function mqttJobRule(topicName, parsedData) {
                     fields+= ' ['+parsedData.session+'] '
                 }
 
-                var rName = topicName.split("/")[4];
+                var rName = getLastItem(topicName);
+
                 $(".loggerHtml").append("<div title='Job Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
                     "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
                     "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
-                    "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " + fields +
+                    "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " +
+                    "<span>[Job Rule: "+rName+"]</span>"+fields +
                     "<span style='white-space: pre-wrap;padding-left: 10px;'>" + parsedData.data + "</span></div>");
             }
 
@@ -658,11 +679,13 @@ function mqttSftpRule(topicName, parsedData) {
                     fields+= ' ['+parsedData.session+'] '
                 }
 
-                var rName = topicName.split("/")[4];
+                var rName = getLastItem(topicName);
+
                 $(".loggerHtml").append("<div title='SFTP Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
                     "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
                     "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
-                    "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " + fields +
+                    "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " +
+                    "<span>[SFTP Rule: "+rName+"]</span>"+fields +
                     "<span style='white-space: pre-wrap;padding-left: 10px;'>" + parsedData.data + "</span></div>");
             }
 
@@ -697,11 +720,13 @@ function mqttMqttRule(topicName, parsedData) {
                     fields+= ' ['+parsedData.session+'] '
                 }
 
-                var rName = topicName.split("/")[4];
+                var rName = getLastItem(topicName);
+
                 $(".loggerHtml").append("<div title='MQTT Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
                     "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
                     "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
-                    "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " + fields +
+                    "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " +
+                    "<span>[MQTT Rule: "+rName+"]</span>"+fields +
                     "<span style='white-space: pre-wrap;padding-left: 10px;'>" + parsedData.data + "</span></div>");
             }
 
@@ -735,11 +760,13 @@ function mqttUdpRule(topicName, parsedData) {
                     fields+= ' ['+parsedData.session+'] '
                 }
 
-                var rName = topicName.split("/")[4];
+                var rName = getLastItem(topicName);
+
                 $(".loggerHtml").append("<div title='UDP Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
                     "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
                     "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
-                    "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " + fields +
+                    "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " +
+                    "<span>[UDP Rule: "+rName+"]</span>"+fields +
                     "<span style='white-space: pre-wrap;padding-left: 10px;'>" + parsedData.data + "</span></div>");
             }
 
@@ -774,11 +801,13 @@ function mqttTcpRule(topicName, parsedData) {
                     fields+= ' ['+parsedData.session+'] '
                 }
 
-                var rName = topicName.split("/")[4];
+                var rName = getLastItem(topicName);
+
                 $(".loggerHtml").append("<div title='TCP Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
                     "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
                     "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
-                    "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " + fields +
+                    "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " +
+                    "<span>[UDP Rule: "+rName+"]</span>"+fields +
                     "<span style='white-space: pre-wrap;padding-left: 10px;'>" + parsedData.data + "</span></div>");
             }
 
@@ -813,11 +842,13 @@ function mqttEmailRule(topicName, parsedData) {
                     fields+= ' ['+parsedData.session+'] '
                 }
 
-                var rName = topicName.split("/")[4];
+                var rName = getLastItem(topicName);
+
                 $(".loggerHtml").append("<div title='Email Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
                     "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
                     "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
-                    "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " + fields +
+                    "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " +
+                    "<span>[Email Rule: "+rName+"]</span>"+fields +
                     "<span style='white-space: pre-wrap;padding-left: 10px;'>" + parsedData.data + "</span></div>");
             }
 
@@ -852,11 +883,13 @@ function mqttMicroRule(topicName, parsedData) {
                     fields+= ' ['+parsedData.session+'] '
                 }
 
-                var rName = topicName.split("/")[4];
+                var rName = getLastItem(topicName);
+
                 $(".loggerHtml").append("<div title='Email Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
                     "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
                     "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
-                    "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " + fields +
+                    "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " +
+                    "<span>[Micro API Rule: "+rName+"]</span>"+fields +
                     "<span style='white-space: pre-wrap;padding-left: 10px;'>" + parsedData.data + "</span></div>");
             }
 
@@ -3950,15 +3983,15 @@ function openModal(e) {
         $("#addNamedRule").modal('show');
     } else if (id === 3) {
 
-        if(ADMIN_ACCESS) {
+        // if(ADMIN_ACCESS) {
             $("#addScheduleRule form")[0].reset();
             $('#pattren_desc').html("");
             // $("#sch_id").attr('min', USER_OBJ.domain.startId)
             // $("#sch_id").attr('max', USER_OBJ.domain.startId + ID_RANGE_COUNT)
             $("#addScheduleRule").modal('show');
-        }else{
-            errorMsg('Access Denied!')
-        }
+        // }else{
+        //     errorMsg('Access Denied!')
+        // }
     } else if (id === 4) {
         $("#addGroovyClass").modal('show');
     } else if (id === 5) {
@@ -7565,3 +7598,22 @@ function resetAPISlug(){
         }
     })
 }
+
+
+function toggleHandle(id){
+    if(id === 1){
+        $(".liveBlocks").css('display','none')
+        $(".bottomBar").css('height',0)
+        $(".btnHandle").html('Live Logs <i class="icon-chevron-up"></i>')
+        $(".btnHandle").attr('onclick','toggleHandle(2)')
+    }else{
+
+        $(".btnHandle").html('Live Logs <i class="icon-chevron-down"></i>')
+        $(".liveBlocks").css('display','block')
+        $(".bottomBar").css('height',175)
+        $(".btnHandle").attr('onclick','toggleHandle(1)')
+    }
+
+}
+
+

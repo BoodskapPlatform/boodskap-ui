@@ -135,6 +135,7 @@
         <li class="active"><a href="<%= basepath %>/rules-engine">Rules Engine</a></li>
     </ul>
 </div>-->
+<div style="position: relative" id="rulesBlock">
 <div class="row-fluid loaderBlock">
     <h1 style="color:#fff;text-align: center;margin-top: 15%"><i class="fa fa-spinner fa-spin"></i> <span
             style="font-size: 25px;">Please Wait...</span></h1>
@@ -202,7 +203,7 @@
 
         </div>
         <!--<div class="pane ui-layout-north"></div>-->
-        <div class="ui-layout-south bottomSide">
+       <!-- <div class="ui-layout-south bottomSide">
 
 
             <div class="row" style="font-size: 11px !important;">
@@ -288,7 +289,7 @@
                 </div>
 
             </div>
-        </div>
+        </div>-->
         <div class="ui-layout-east rightSide">
 
             <div class="row-fluid" style="margin-bottom: 5px;margin-top: 10px;">
@@ -604,6 +605,96 @@
 
         </div>
     </div>
+
+</div>
+
+<div class="row bottomBar" style="margin:0px;z-index: 9;font-size: 11px !important;position: absolute;width:100%;bottom:0px;left:0px;background: #333;padding:10px;height: 175px">
+
+    <button class="btn btn-dark btnHandle" onclick="toggleHandle(1)">Live Logs <i
+            class="icon-chevron-down"></i></button>
+
+    <div class="col-md-2 liveBlocks">
+
+        <table style="width: 100%;border:0px">
+            <tr>
+                <td style="width: 40%">
+                    <p style="margin-bottom: 5px;">Logs Filter:<br>
+
+                        <label style="color: #fff;display: block;margin-bottom: 0px"><input type="checkbox"
+                                                                                            value="true"
+                                                                                            class="fatal mt-1"
+                                                                                            onclick="Cookies.set('fatal', $('.fatal').is(':checked'));"
+                                                                                            checked>
+                            Fatal</label>
+                        <label style="color: #fff;display: block;margin-bottom: 0px"><input type="checkbox"
+                                                                                            value="true"
+                                                                                            class="error mt-1"
+                                                                                            onclick="Cookies.set('error', $('.error').is(':checked'));"
+                                                                                            checked>
+                            Error</label>
+                        <label style="color: #fff;display: block;margin-bottom: 0px"><input type="checkbox"
+                                                                                            value="true"
+                                                                                            class="warn mt-1"
+                                                                                            onclick="Cookies.set('warn', $('.warn').is(':checked'));"
+                                                                                            checked>
+                            Warn</label>
+                        <label style="color: #fff;display: block;margin-bottom: 0px"><input type="checkbox"
+                                                                                            value="true"
+                                                                                            class="info mt-1"
+                                                                                            onclick="Cookies.set('info', $('.info').is(':checked'));"
+                                                                                            checked>
+                            Info</label>
+                        <label style="color: #fff;display: block;margin-bottom: 0px"><input type="checkbox"
+                                                                                            value="true"
+                                                                                            class="debug mt-1"
+                                                                                            onclick="Cookies.set('debug', $('.debug').is(':checked'));">
+                            Debug</label>
+                        <label style="color: #fff;display: block;margin-bottom: 0px"><input type="checkbox"
+                                                                                            value="true"
+                                                                                            class="trace mt-1"
+                                                                                            onclick="Cookies.set('trace', $('.trace').is(':checked'));">
+                            Trace</label>
+
+                    </p>
+                </td>
+                <td style="vertical-align: text-top">
+                    <label style="color: #fff;"><input type="checkbox" value="true" class="allLogs mt-1"
+                                                       checked
+                                                       onclick="enableLogs()"> All rules logs </label>
+                    <p style="margin-bottom: 5px;">Fields Filter:<br>
+                        <label style="color: #fff;display: block;margin-bottom: 0px"><input type="checkbox"
+                                                                                            value="true"
+                                                                                            class="node mt-1">
+                            Node</label>
+                        <label style="color: #fff;display: block;margin-bottom: 0px"><input type="checkbox"
+                                                                                            value="true"
+                                                                                            class="session mt-1">
+                            Session</label>
+                    </p>
+                    <p class="mt-2">Live Status: <br><span class="serverStatus"><span
+                            class="label label-danger">Not Connected</span></span>
+
+                    </p>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-md-10 liveBlocks" style="position:relative;padding: 0px">
+<span style="position: absolute;top: 2px;right: 2px;cursor: pointer;z-index:9999;">
+                            <button class="btn btn-sm btn-icon btn-default" onclick="clearLogs()" title="Clear Logs"><i
+                                    class="icon-trash-o"></i></button>
+                            <button class="btn btn-sm btn-icon btn-default" onclick="toggleFullscreen('consoleBox')" title="Clear Logs"><i
+                                    class="icon-maximize"></i></button>
+                        </span>
+        <div class="consoleBox" id="consoleBox" style="position: relative;height:155px">
+
+            <div class="loggerHtml"></div>
+        </div>
+
+    </div>
+
+</div>
+
 </div>
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.js"></script>
@@ -975,8 +1066,8 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="inputLabel">Pattern</label>
-                                <input class="form-control input-sm" placeholder="" onkeyup="validateCron()" type="text"
-                                       id="sch_pattern" value="0 0 0 ? * * *" required>
+                                <input class="form-control input-sm" placeholder=""  type="text"
+                                       id="sch_pattern" value="* * * * *" required>
                                 <div id="pattren_desc"></div>
                             </div>
                         </div>
