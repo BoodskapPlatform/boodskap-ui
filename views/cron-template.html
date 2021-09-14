@@ -1539,17 +1539,17 @@
 
         if ($('#cronEveryDay:checked').length) {
             dow = '*';
-            dom = '?';
+            dom = '*';
         } else if ($('#cronDowIncrement:checked').length) {
             dow = $('#cronDowIncrementStart').val();
             dow += '/';
             dow += $('#cronDowIncrementIncrement').val();
-            dom = '?';
+            dom = '*';
         } else if ($('#cronDomIncrement:checked').length) {
             dom = $('#cronDomIncrementStart').val();
             dom += '/';
             dom += $('#cronDomIncrementIncrement').val();
-            dow = '?';
+            dow = '*';
         } else if ($('#cronDowSpecific:checked').length) {
             dom = '?';
             $('[name="cronDowSpecificSpecific"]:checked').each(function (i, chck) {
@@ -1573,21 +1573,21 @@
                 dom = dom.slice(0, -1);
             }
         } else if ($('#cronLastDayOfMonth:checked').length) {
-            dow = '?';
+            dow = '*';
             dom = 'L';
         } else if ($('#cronLastWeekdayOfMonth:checked').length) {
-            dow = '?';
+            dow = '*';
             dom = 'LW';
         } else if ($('#cronLastSpecificDom:checked').length) {
-            dow = '?';
+            dow = '*';
             dom = $('#cronLastSpecificDomDay').val();
             dom += 'L';
         } else if ($('#cronDaysBeforeEom:checked').length) {
-            dow = '?';
+            dow = '*';
             dom = 'L-';
             dom += $('#cronDaysBeforeEomMinus').val();
         } else if ($('#cronDaysNearestWeekdayEom:checked').length) {
-            dow = '?';
+            dow = '*';
             dom = $('#cronDaysNearestWeekday').val();
             dom += 'W';
         } else if ($('#cronNthDay:checked').length) {
