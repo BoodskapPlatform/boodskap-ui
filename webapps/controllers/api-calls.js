@@ -3778,12 +3778,12 @@ function checkMongoAccess(dkey, cbk) {
 
     var domainKey = '';
 
-    if(dkey){
-        domainKey = '?dkey=' + dkey;
-    }
+    // if(dkey){
+    //     domainKey = '?dkey=' + dkey;
+    // }
 
     $.ajax({
-        url: API_BASE_PATH + "/mongo/access/check/" + API_TOKEN + domainKey,
+        url: API_BASE_PATH + "/domain/access/" + API_TOKEN + "/"+dkey+"/MONGO",
         type: 'GET',
         success: function (data) {
             //called when successful
@@ -3799,7 +3799,7 @@ function checkMongoAccess(dkey, cbk) {
 function setMongoAccess(dkey, state, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/mongo/access/set/" + API_TOKEN + '/' + dkey + '/' + state,
+        url: API_BASE_PATH + "/domain/access/" + API_TOKEN + '/' + dkey + '/MONGO/' + state,
         type: 'PUT',
         success: function (data) {
             //called when successful
@@ -3825,7 +3825,7 @@ function checkCassandraAccess(dkey, cbk) {
     }
 
     $.ajax({
-        url: API_BASE_PATH + "/cassandra/access/check/" + API_TOKEN + domainKey,
+        url: API_BASE_PATH + "/domain/access/" + API_TOKEN + "/"+dkey+"/CASSANDRA",
         type: 'GET',
         success: function (data) {
             //called when successful
@@ -3841,7 +3841,7 @@ function checkCassandraAccess(dkey, cbk) {
 function setCassandraAccess(dkey, state, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/cassandra/access/set/" + API_TOKEN + '/' + dkey + '/' + state,
+        url: API_BASE_PATH + "/domain/access/" + API_TOKEN + '/' + dkey + '/CASSANDRA/' + state,
         type: 'PUT',
         success: function (data) {
             //called when successful
@@ -3867,7 +3867,7 @@ function checkGlobalAccess(dkey, cbk) {
     }
 
     $.ajax({
-        url: API_BASE_PATH + "/global/access/check/" + API_TOKEN + domainKey,
+        url: API_BASE_PATH + "/domain/access/" + API_TOKEN + "/"+dkey+"/GLOBAL",
         type: 'GET',
         success: function (data) {
             //called when successful
@@ -3883,7 +3883,7 @@ function checkGlobalAccess(dkey, cbk) {
 function setGlobalAccess(dkey, state, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/cassandra/global/set/" + API_TOKEN + '/' + dkey + '/' + state,
+        url: API_BASE_PATH + "/domain/access/" + API_TOKEN + '/' + dkey + '/GLOBAL/' + state,
         type: 'PUT',
         success: function (data) {
             //called when successful
@@ -3909,7 +3909,7 @@ function checkSystemAccess(dkey, cbk) {
     }
 
     $.ajax({
-        url: API_BASE_PATH + "/system/access/check/" + API_TOKEN + domainKey,
+        url: API_BASE_PATH + "/domain/access/" + API_TOKEN + "/"+dkey+"/SYSTEM",
         type: 'GET',
         success: function (data) {
             //called when successful
@@ -3925,7 +3925,7 @@ function checkSystemAccess(dkey, cbk) {
 function setSystemAccess(dkey, state, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/system/global/set/" + API_TOKEN + '/' + dkey + '/' + state,
+        url: API_BASE_PATH + "/domain/access/" + API_TOKEN + '/' + dkey + '/SYSTEM/' + state,
         type: 'PUT',
         success: function (data) {
             //called when successful
