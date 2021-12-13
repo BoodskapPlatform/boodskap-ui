@@ -58,19 +58,24 @@ function setDate(start, end) {
 function mqttListen() {
     console.log(new Date + ' | MQTT Started to Subscribe');
 
-    mqttSubscribe("/" + USER_OBJ.domainKey + "/log/incoming", 0);
+    mqttSubscribe("/" + USER_OBJ.domainKey + "/log/#", 0);
 
 
     mqtt_client.onMessageArrived = function (message) {
 
-        console.log(new Date + ' | MQTT Message Received :', message);
+        // console.log(new Date + ' | MQTT Message Received :', message);
 
         var parsedData = JSON.parse(message.payloadString);
         var topicName = message.destinationName;
 
-        if(LIVE_UPDATE === 'ON') {
-            if (liveInterval) {
-                loadMessages(parsedData.mid);
+
+        if (topicName.includes("/log/mrule/"+$(".msgList").val())) {
+
+            if(LIVE_UPDATE === 'ON') {
+                setTimeout(function (){
+                    loadMessages(parsedData.mid);
+                },1500);
+
             }
         }
 
@@ -110,7 +115,7 @@ function loadMsgSpec() {
 
 function loadMessages(id) {
 
-    liveInterval = false;
+
 
 
     if(!id){
@@ -210,14 +215,14 @@ function loadMessages(id) {
                                                     "field": "min",
                                                     "size":60
                                                 },
-                                                "aggs" :{
-                                                    "group_by_second": {
-                                                        "terms": {
-                                                            "field": "sec",
-                                                            "size":60
-                                                        }
-                                                    }
-                                                }
+                                                // "aggs" :{
+                                                //     "group_by_second": {
+                                                //         "terms": {
+                                                //             "field": "sec",
+                                                //             "size":60
+                                                //         }
+                                                //     }
+                                                // }
                                             }
                                         }
                                     }
@@ -327,9 +332,6 @@ function loadMessages(id) {
                     if(resultData.recordsFiltered >= 10000){
                         resultData.recordsFiltered = 10000;
                     }
-                    setTimeout(function () {
-                        liveInterval = true;
-                    }, 3000);
 
                     fnCallback(resultData);
                 },

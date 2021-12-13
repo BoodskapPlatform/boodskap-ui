@@ -230,6 +230,9 @@ function avoidSpaces(obj) {
 
 function onlyAlphaNumeric(obj) {
     $(obj).val($(obj).val().replace(/[^a-z0-9]/gi, ""));
+
+}function onlyAlphaNumericUs(obj) {
+    $(obj).val($(obj).val().replace(/[^a-z0-9_]/gi, ""));
 }
 
 function getLastItem(arr){

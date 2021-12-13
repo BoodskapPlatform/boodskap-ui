@@ -225,7 +225,7 @@ function addMessageField() {
 
     var str = `<tr id="msg_field_row_` + id + `">
     <td>
-        <input class="form-control input-sm" placeholder="Field Name" type="text"  id="msg_field_` + id + `" required>
+        <input class="form-control input-sm" placeholder="Field Name" type="text" onkeyup="onlyAlphaNumericUs(this)" onkeydown="onlyAlphaNumericUs(this)"  id="msg_field_` + id + `" required>
     </td>
     <td>
     <select class="form-control input-sm" required id="msg_datatype_` + id + `">

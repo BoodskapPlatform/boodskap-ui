@@ -429,7 +429,7 @@ function mqttGlobalListen() {
 
         console.log(new Date + ' | Global MQTT Started to Subscribe');
 
-        mqttSubscribeGlobal("/" + USER_OBJ.domainKey + "/log/incoming", 0);
+        mqttSubscribeGlobal("/" + USER_OBJ.domainKey + "/log/mrule/#", 0);
 
 
         mqtt_global_client.onMessageArrived = function (message) {
@@ -441,18 +441,20 @@ function mqttGlobalListen() {
                 $(".iconLiveStatus").css('color',switchColor);
             },1000);
 
-            if(LIVE_UPDATE_GLOBAL === 'ON') {
+            if(LIVE_UPDATE_GLOBAL === 'ON' && message.payloadString.includes('deviceid')) {
 
 
                 var parsedData = JSON.parse(message.payloadString);
                 var topicName = message.destinationName;
 
-                // console.log(parsedData)
+                console.log(topicName+" === ",parsedData)
+
+                var mid = parsedData.mid ? '<span class="label label-warning">' + parsedData.mid + '</span>' : '';
 
                 var str = `
                 <li>
                 <p style="font-size: 11px;">
-                    <label class="pull-left"> <span class="label label-warning">` + parsedData.mid + `</span> <b>` + parsedData.did + `</b></label>
+                    <label class="pull-left"> `+mid+`</label>
                     <label class="pull-right"><small>` + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + `</small></label>
                 </p>
                 <p class="codeStyle">` + $.trim(parsedData.data) + `</p>
