@@ -172,7 +172,7 @@ Routes.prototype.init = function () {
             }
 
         }else{
-            res.render('login.html',{layout:false,basepath: getBasePath(req),});
+            res.render('login.html',{layout:false,basepath: getBasePath(req),key:''});
         }
     });
 
@@ -188,7 +188,7 @@ Routes.prototype.init = function () {
                 res.redirect(self.app.conf.basepath+'/home');
             }
         }else{
-            res.render('login.html', {layout:false,basepath: getBasePath(req),});
+            res.render('login.html', {layout:false,basepath: getBasePath(req),key:''});
         }
     });
     // self.router.get('/register', function (req, res) {
@@ -558,7 +558,7 @@ Routes.prototype.init = function () {
     self.router.get('/:key', function (req, res) {
         var userObj = req.cookies['user_details'];
         if(!userObj) {
-            res.render('login.html',{layout:false,basepath: getBasePath(req) });
+            res.render('login.html',{layout:false,basepath: getBasePath(req),key:req.params['key']});
 
         }else{
             res.redirect(getBasePath(req)+"/404");
