@@ -20,23 +20,28 @@ $(document).ready(function () {
     //
     // } else {
 
-        // if (DOMAIN_KEY === 'login' || DOMAIN_KEY === '') {
-            $(".titleName").html(DEFAULT_LOGIN_THEME.titleName)
-            $(".sloganText").html(DEFAULT_LOGIN_THEME.sloganText)
-            DOMAIN_KEY = null;
-            Cookies.remove('domain');
-            $(".loginCustom").css('display', 'block');
-            // $(".loginLogo").attr('src', DEFAULT_LOGIN_LOGO_PATH);
-            $(".poweredBy").html('Powered by Boodskap Inc.,');
-            loadLoginMenu();
-        // } else {
-        //     Cookies.set('domain', DOMAIN_KEY);
-        //     $(".loginCustom").html('');
-        //     $(".loginCustom").css('display', 'block');
-        //     $(".poweredBy").html('<img src="' + DEFAULT_POWERED_BY + '" style="height: 25px" />');
-        //     getLoginProp();
-        // }
+    // if (DOMAIN_KEY === 'login' || DOMAIN_KEY === '') {
+    // } else {
+    //     Cookies.set('domain', DOMAIN_KEY);
+    //     $(".loginCustom").html('');
+    //     $(".loginCustom").css('display', 'block');
+    //     $(".poweredBy").html('<img src="' + DEFAULT_POWERED_BY + '" style="height: 25px" />');
+    //     getLoginProp();
     // }
+    // }
+    if($("#customLogin").val()){
+        DOMAIN_KEY = $("#customLogin").val()
+        getLoginProp();
+    }else{
+        $(".titleName").html(DEFAULT_LOGIN_THEME.titleName)
+        $(".sloganText").html(DEFAULT_LOGIN_THEME.sloganText)
+        DOMAIN_KEY = null;
+        Cookies.remove('domain');
+        $(".loginCustom").css('display', 'block');
+        $(".loginLogo").attr('src', DEFAULT_LOGIN_LOGO_PATH);
+        $(".poweredBy").html('Powered by Boodskap Inc.,');
+        // loadLoginMenu();
+    }
 
 });
 
@@ -44,18 +49,17 @@ $(document).ready(function () {
 
 function loadLoginMenu() {
 
-    var dKey = $("#customLogin").val();
+    var dKey = '';
 
+    getGlobalPropertyWithKey(ADMIN_DOMAIN_BRANDING_PROPERTY, dKey,function (status, data) {
+        if (status) {
+            var src = data.data;
+            $(".loginLogo").attr('src', API_BASE_PATH + '/files/public/download/' +src);
+        } else {
+            $(".loginLogo").attr('src', DEFAULT_LOGIN_LOGO_PATH);
+        }
 
-        getGlobalPropertyWithKey(DOMAIN_UUID, dKey, function (status, data) {
-            if (status) {
-                var src = JSON.parse(data.data);
-                $(".loginLogo").attr('src', API_BASE_PATH + '/files/public/download/' +src.logoid );
-            } else {
-                $(".loginLogo").attr('src', DEFAULT_LOGIN_LOGO_PATH);
-            }
-
-        })
+    })
 }
 
 
