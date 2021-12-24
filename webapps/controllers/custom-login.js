@@ -32,6 +32,7 @@ $(document).ready(function () {
     if($("#customLogin").val()){
         DOMAIN_KEY = $("#customLogin").val()
         $(".alert-warning").remove()
+        $(".loginCustom").css('display', 'block');
         getLoginProp();
     }else{
         $(".titleName").html(DEFAULT_LOGIN_THEME.titleName)
