@@ -32,7 +32,6 @@ $(document).ready(function () {
     if($("#customLogin").val()){
         DOMAIN_KEY = $("#customLogin").val()
         $(".alert-warning").remove()
-        $(".loginCustom").css('display', 'block');
         getLoginProp();
     }else{
         $(".titleName").html(DEFAULT_LOGIN_THEME.titleName)
@@ -78,7 +77,7 @@ function getLoginProp() {
             $(".loginLogo").attr('src', API_BASE_PATH + '/files/public/download/' + resultData.logoid);
 
             $(".loginCustom").html(resultData.customHtml);
-
+            $(".loginCustom").css('display', 'block');
             $(".textColor").css('color',resultData.textColor +'!important')
             $("#submitButton").css({
                 'background-color': resultData.buttonColor,
