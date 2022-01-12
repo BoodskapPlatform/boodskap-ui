@@ -271,3 +271,16 @@ function forgetPassword() {
         successMsg('Password reset successfully. Please check your Registered Email!');
     });
 }
+
+function toggleBox(){
+
+    if($("#password").attr('type') === 'password'){
+        $(".passwordIcon").removeClass('fa-eye')
+        $(".passwordIcon").addClass('fa-eye-slash')
+        $("#password").attr('type','text')
+    }else{
+        $(".passwordIcon").removeClass('fa-eye-slash')
+        $(".passwordIcon").addClass('fa-eye')
+        $("#password").attr('type','password')
+    }
+}

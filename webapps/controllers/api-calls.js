@@ -832,24 +832,88 @@ function executeMicroAPI(slug,api,method,data,key,token,obj,cbk) {
     else if(obj.authType == 'KEY'){
         headers['KEY'] = key;
     }
+    var methodType = $("."+method).val();
 
+    console.log(methodType)
 
-    $.ajax({
-        url: API_BASE_PATH + "/micro/service/"+slug+"/"+api+"/" + method,
-        headers:headers,
-        data: JSON.stringify(data),
-        contentType: "application/json",
-        type: 'POST',
-        success: function (data) {
-            //called when successful
-            cbk(true, data);
-        },
-        error: function (e) {
-            //called when there is an error
-            //console.log(e.message);
-            cbk(false, null);
+    if(methodType === 'get'){
+
+        $.ajax({
+            url: API_BASE_PATH + "/micro/service/call/get/"+slug+"/"+api+"/" + method,
+            // headers:headers,
+            // data: JSON.stringify(data),
+            contentType: "application/json",
+            type: 'GET',
+            success: function (data) {
+                //called when successful
+                cbk(true, data);
+            },
+            error: function (e) {
+                //called when there is an error
+                //console.log(e.message);
+                cbk(false, {status:e.status,msg: e.statusText});
+            }
+        });
+
+    }else if(methodType === 'upload'){
+        var file = document.getElementById('f_'+method).files[0]; //$("#class_file")
+        var xhr = new XMLHttpRequest();
+        xhr.addEventListener('progress', function (e) {
+            var done = e.position || e.loaded, total = e.totalSize || e.total;
+            console.log('xhr progress: ' + (Math.floor(done / total * 1000) / 10) + '%');
+        }, false);
+        if (xhr.upload) {
+            xhr.upload.onprogress = function (e) {
+                var done = e.position || e.loaded, total = e.totalSize || e.total;
+                console.log('xhr.upload progress: ' + done + ' / ' + total + ' = ' + (Math.floor(done / total * 1000) / 10) + '%');
+            };
         }
-    });
+        xhr.onreadystatechange = function (e) {
+
+            if (4 == this.readyState) {
+                console.log(this)
+                if (this.status === 200) {
+                    cbk(true, this.response);
+                }
+                else {
+                    cbk(false, this.response);
+                }
+
+            }else{
+                cbk(false, null)
+            }
+        };
+        xhr.open('POST', API_BASE_PATH + "/micro/service/call/upload/"+slug+"/"+api+"/" + method, true);
+
+        // xhr.setRequestHeader("Content-Type","multipart/form-data");
+
+        var formData = new FormData();
+        formData.append("file", file, file.name);
+        xhr.send(formData);
+    }else{
+
+        $.ajax({
+            url: API_BASE_PATH + "/micro/service/call/"+methodType+"/"+slug+"/"+api+"/" + method,
+            headers:headers,
+            data: JSON.stringify(data),
+            contentType: "application/json",
+            type: methodType == 'del' ? 'DELETE' : methodType.toUpperCase(),
+            success: function (data) {
+                //called when successful
+                cbk(true, data);
+            },
+            error: function (e) {
+                //called when there is an error
+                console.log(e.status);
+                console.log(e.statusText);
+                cbk(false, {status:e.status,msg: e.statusText});
+            }
+        });
+
+    }
+
+
+
 
 }
 function deleteMicroAPISlug(slug,cbk) {

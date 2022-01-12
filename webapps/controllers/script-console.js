@@ -561,3 +561,151 @@ function executeScriptCommand() {
     }
 
 }
+
+
+
+
+
+function openModalClasses() {
+    $(".logResult").html("");
+    $("#class_type").val("");
+    loadClassTemplate("");
+    $("#addClass").modal({
+        backdrop: 'static',
+        keyboard: false
+    });
+}
+
+
+function loadClassTemplate(id) {
+    var template = "";
+    $(".logResult").html("");
+    if (id === 'GROOVY') {
+        template = `
+                    <!-- <div  class="col-md-6">
+                        <div  class="form-group">
+                            <label  class="inputLabel">
+                                <input type="checkbox" id="class_public" /> Is Public
+                            </label> <br>
+                            <label  class="inputLabel">
+                                <input type="checkbox" id="class_opensource"/> Is OpenSource
+                            </label>
+                        </div>
+                    </div> -->
+                    <div  class="col-md-6">
+                        <div  class="form-group">
+                            <label  class="inputLabel">Choose File</label>
+                            <input type="file" class="form-control input-sm" id="class_file" required />
+                        </div>
+                    </div>`;
+
+
+    } else if (id === 'JAR') {
+        template = `<div  class="col-md-6">
+                        <div  class="form-group">
+                            <label  class="inputLabel">Name</label>
+                            <input type="text" class="form-control input-sm" id="class_name" required />
+                        </div>
+                       <!-- <div  class="form-group">
+                            <label  class="inputLabel">
+                                <input type="checkbox" id="class_public" /> Is Public
+                            </label>
+                        </div> -->
+                    </div>
+                    <div  class="col-md-6">
+                        <div  class="form-group">
+                            <label  class="inputLabel">Choose File</label>
+                            <input type="file" class="form-control input-sm" id="class_file" required />
+                        </div>
+                    </div>`;
+    }
+
+    $(".classTemplate").html(template);
+}
+
+function uploadClassFile() {
+    $(".logResult").html("");
+
+    var type = $("#class_type").val();
+    if (type === 'GROOVY') {
+        var isPublic = false; // $("#class_public").is(":checked");
+        var isOpen = false; // $("#class_opensource").is(":checked");
+
+        if (ADMIN_ACCESS) {
+            isPublic = $("input[name='fileType']:checked").val() === 'PUBLIC_GROOVY' ? true : false;
+
+        }
+
+        uploadClass(1, isPublic, isOpen, null);
+    } else {
+        var isPublic = false; //$("#class_public").is(":checked");
+        var jarName = $("#class_name").val();
+
+        if (ADMIN_ACCESS) {
+            isPublic = $("input[name='fileType']:checked").val() === 'PUBLIC_GROOVY' ? true : false;
+
+        }
+
+
+        uploadClass(2, isPublic, null, jarName);
+    }
+}
+
+function uploadClass(type, ispublic, isopen, jarname) {
+
+    var url = "";
+    if (type === 1) {
+        url = API_BASE_PATH + "/groovy/upload/script/file/" + API_TOKEN + "/" + ispublic + "/" + isopen;
+    } else {
+        url = API_BASE_PATH + "/groovy/upload/jar/" + API_TOKEN + "/" + ispublic + "/" + jarname;
+    }
+
+    var file = document.getElementById('class_file').files[0]; //$("#class_file")
+    var xhr = new XMLHttpRequest();
+    xhr.addEventListener('progress', function (e) {
+        var done = e.position || e.loaded, total = e.totalSize || e.total;
+        console.log('xhr progress: ' + (Math.floor(done / total * 1000) / 10) + '%');
+    }, false);
+    if (xhr.upload) {
+        xhr.upload.onprogress = function (e) {
+            var done = e.position || e.loaded, total = e.totalSize || e.total;
+            console.log('xhr.upload progress: ' + done + ' / ' + total + ' = ' + (Math.floor(done / total * 1000) / 10) + '%');
+        };
+    }
+    xhr.onreadystatechange = function (e) {
+
+        if (4 == this.readyState) {
+
+            if (this.status === 200) {
+                successMsg('Successfully uploaded');
+                loadCodeType();
+                $("#addClass").modal('hide');
+            }
+            else {
+                errorMsg('Error in Uploading')
+                var jsonResponse = JSON.parse(this.response);
+                if (jsonResponse) {
+                    if (jsonResponse.code === 'SERVER_ERROR') {
+                        $(".logResult").html('<label class="label label-danger">ERROR</label>' +
+                            '<pre style="height: 200px;overflow: auto;margin-top:10px;overflow-x: hidden;word-wrap: break-word;white-space: pre-line;">' +
+                            jsonResponse.message + "</pre>")
+                    }
+                }
+            }
+
+
+        }
+    };
+    xhr.open('POST', url, true);
+
+    // xhr.setRequestHeader("Content-Type","multipart/form-data");
+
+    var formData = new FormData();
+    if (type === 1) {
+        formData.append("scriptFile", file, file.name);
+    } else {
+        formData.append("jarFile", file, file.name);
+    }
+    xhr.send(formData);
+
+}

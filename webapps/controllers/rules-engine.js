@@ -864,10 +864,10 @@ function mqttMicroRule(topicName, parsedData) {
     var nodeClass = new Date().getTime();
     var color = 'default';
 
-    console.log("EMAIL =>", topicName)
+    console.log("MICRO =>", topicName)
     topicName = topicName.toLowerCase();
 
-    if (topicName.includes("micro")) {
+    if (topicName.includes("/log/svc")) {
 
         if (parsedData.data !== '__ALL_DONE__') {
             var level = parsedData.level;
@@ -885,7 +885,7 @@ function mqttMicroRule(topicName, parsedData) {
 
                 var rName = getLastItem(topicName);
 
-                $(".loggerHtml").append("<div title='Email Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
+                $(".loggerHtml").append("<div title='Micro Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
                     "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
                     "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
                     "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " +
@@ -2524,6 +2524,8 @@ function loadMicroDetails(id,obj) {
 
     $(".inputBlock tbody").append('<tr><td>Auth Type</td><td>'+(obj.authType ? obj.authType : '-')+'</td></tr>')
     $(".inputBlock tbody").append('<tr><td>API Key</td><td>'+(obj.apiKey ? obj.apiKey : '-')+'</td></tr>')
+
+    $(".inputBlock tbody").append('<tr><td>Method</td><td>'+(obj.allowedMethods ? obj.allowedMethods.split(",") : '-')+'</td></tr>')
     
     var str = '<div class="row mt-2">'+
         '<div class="col-md-8"><label>Method Name</label></div>'+
@@ -4130,6 +4132,12 @@ function openModal(e) {
         $("#addMicroRule form")[0].reset();
         $("#micro_id").removeAttr('disabled')
 
+        $("#methodGet").prop('checked',true)
+        $("#methodPost").prop('checked',true)
+        $("#methodDelete").prop('checked',true)
+        $("#methodPut").prop('checked',true)
+        $("#methodUpload").prop('checked',true)
+
         $(".micro_apiKey").css('display','none')
         $("#addMicroRule").modal('show');
 
@@ -4576,6 +4584,41 @@ function editMicroModal() {
     $("#micro_id").val(obj.name);
     $("#micro_authType").val(obj.authType);
     $("#micro_apiKey").val(obj.apiKey ? obj.apiKey : '');
+
+
+    if(obj.allowedMethods)
+    {
+        $("#methodGet").prop('checked',false)
+        $("#methodPost").prop('checked',false)
+        $("#methodDelete").prop('checked',false)
+        $("#methodPut").prop('checked',false)
+        $("#methodUpload").prop('checked',false)
+
+        for (var i = 0; i < obj.allowedMethods.length; i++) {
+            if (obj.allowedMethods[i].toLowercase() == 'get') {
+                $("#methodGet").prop('checked', true)
+            }
+            if (obj.allowedMethods[i].toLowercase() == 'post') {
+                $("#methodPost").prop('checked', true)
+            }
+            if (obj.allowedMethods[i].toLowercase() == 'delete') {
+                $("#methodDelete").prop('checked', true)
+            }
+            if (obj.allowedMethods[i].toLowercase() == 'put') {
+                $("#methodPut").prop('checked', true)
+            }
+            if (obj.allowedMethods[i].toLowercase() == 'upload') {
+                $("#methodUpload").prop('checked', true)
+            }
+        }
+    }else{
+        $("#methodGet").prop('checked',true)
+        $("#methodPost").prop('checked',true)
+        $("#methodDelete").prop('checked',true)
+        $("#methodPut").prop('checked',true)
+        $("#methodUpload").prop('checked',true)
+    }
+
 
     $("#micro_properties").val(obj.properties ? JSON.stringify(obj.properties) : '{}')
 
@@ -5734,7 +5777,25 @@ def myApiMethod(def args) {
     return results;
 }
 
-`
+`;
+
+    var methods = [];
+
+    if($("#methodGet").prop('checked')){
+        methods.push('GET')
+    }
+    if($("#methodPost").prop('checked')){
+        methods.push('POST')
+    }
+    if($("#methodDelete").prop('checked')){
+        methods.push('DELETE')
+    }
+    if($("#methodPut").prop('checked')){
+        methods.push('PUT')
+    }
+    if($("#methodUpload").prop('checked')){
+        methods.push('UPLOAD')
+    }
 
     var dataObj = {
         // lang: $("#micro_language").val(),
@@ -5742,7 +5803,8 @@ def myApiMethod(def args) {
         name: $("#micro_id").val(),
         authType : $("#micro_authType").val(),
         apiKey : $("#micro_apiKey").val() ? $("#micro_apiKey").val() : null,
-        props : $("#micro_properties").val() ? JSON.parse($("#micro_properties").val()) : {}
+        props : $("#micro_properties").val() ? JSON.parse($("#micro_properties").val()) : {},
+        allowedMethods : methods
     };
     updateMicroRuleCode(dataObj, function (status, data) {
         if (status) {
@@ -7462,7 +7524,7 @@ function openAPIModal(mn){
 
     methodName = mn ? mn : null;
 
-    $(".micro_apiPath").html(API_BASE_PATH+"/micro/service/")
+    $(".micro_apiPath").html(API_BASE_PATH+"/micro/service/call/[METHOD]/")
     $(".microRuleName").html(CURRENT_ID)
 
     $(".apiBody").html('');
@@ -7499,6 +7561,38 @@ function renderAPIBody(microBaseUrl){
 
     var methods = obj.methods;
 
+    var methodStr = ''
+
+    if(obj.allowedMethods){
+
+
+
+        for(var i=0;i<obj.allowedMethods.length;i++){
+
+            if (obj.allowedMethods[i].toLowercase() == 'get') {
+                methodStr += '<option value="get">GET</option>';
+            }
+            if (obj.allowedMethods[i].toLowercase() == 'post') {
+                methodStr += '<option value="post">POST</option>';
+            }
+            if (obj.allowedMethods[i].toLowercase() == 'delete') {
+                methodStr += '<option value="del">DELETE</option>';
+            }
+            if (obj.allowedMethods[i].toLowercase() == 'put') {
+                methodStr += '<option value="put">PUT</option>';
+            }
+            if (obj.allowedMethods[i].toLowercase() == 'upload') {
+                methodStr += '<option value="upload">UPLOAD</option>';
+            }
+        }
+    }else{
+        methodStr = '<option value="post">POST</option>' +
+            '<option value="get">GET</option>' +
+            '<option value="put">PUT</option>' +
+            '<option value="del">DELETE</option>' +
+            '<option value="upload">UPLOAD</option>';
+    }
+
     for(var i=0;i<methods.length;i++){
 
         var bodyParams = {};
@@ -7508,25 +7602,27 @@ function renderAPIBody(microBaseUrl){
         }
 
         var str = '<form action="javascript:void(0)" onSubmit="simulateAPI(\''+methods[i].name+'\')"><div class="row mb-2" style="border: 1px solid #eee;padding-bottom: 10px;background-color: #eee"><div class="col-md-12 pt-2 alert alert-warning">' +
-            '<label class="badge badge-success">POST</label> <label class="ml-2">' +
-            '/'+CURRENT_ID+"/"+methods[i].slug + '</label></div>' +
-            (obj.authType == 'TOKEN' ?   '<div class="col-md-4">' +
+            '<select class="'+methods[i].slug+'" onchange="methodChange(\''+methods[i].slug+'\')">'+methodStr+'</select> <label class="ml-2">' +
+            '/'+CURRENT_ID+"/"+methods[i].slug + '</label>' +
+            '<input type="file" id="f_'+methods[i].slug+'" style="float:right;display:none" /> ' +
+            '</div>' +
+            (obj.authType == 'TOKEN' ?   '<div class="col-md-3">' +
              '<strong>TOKEN</strong><br><small>String (Header)</small>' +
             '</div>' +
             '<div class="col-md-6">' +
             ' <input class="form-control form-control-sm" onkeyup="avoidSpaces(this)" placeholder=""' +
             'type="text" id="m_'+methods[i].name+'_token" required value="'+API_TOKEN+'">' +
             '</div>' : '') +
-            (obj.authType == 'KEY' ?  '<div class="col-md-4 mt-1">' +
+            (obj.authType == 'KEY' ?  '<div class="col-md-3 mt-1">' +
             '<strong>KEY</strong><br><small>String (Header)</small>' +
             '</div>' +
             '<div class="col-md-6">' +
             ' <input class="form-control form-control-sm" onkeyup="avoidSpaces(this)" placeholder=""' +
             'type="text" id="m_'+methods[i].name+'_key" required value="'+(obj.apiKey ? obj.apiKey : API_KEY)+'">' +
             '</div>'  : '') +
-            '<div class="col-md-12 mt-1"><strong>Body Params:</strong>' +
+            '<div class="col-md-12 mt-1"><div style="display:none" class="mt_'+methods[i].name+'"><strong>Body Params:</strong><small></small>' +
             '<textarea class="form-control form-control-sm" required  id="m_'+methods[i].name+'_params">'+JSON.stringify(bodyParams)+'</textarea>' +
-            '<small>Content-Type: <label>application/json</label></small>' +
+            '<small>Content-Type: <label>application/json</label></small> </div>' +
             '<button type="submit" class="btn btn-sm btn-danger pull-right mt-2">Try It Out</button></div>' +
             '<div class="col-md-12 mt-2 m_'+methods[i].name+'_result"></div> ' +
             '</div></form>'
@@ -7534,11 +7630,29 @@ function renderAPIBody(microBaseUrl){
         if(methodName){
            if(methodName == methods[i].name){
                $(".apiBody").append(str);
+               methodChange(methods[i].name)
            }
         }else{
             $(".apiBody").append(str);
+            methodChange(methods[i].name)
         }
 
+    }
+}
+
+function methodChange(nam){
+
+    var meth = $("."+nam).val();
+$(".m_"+nam+"_result").html('')
+    if(meth === 'upload'){
+        $("#f_"+nam).css('display','block')
+        $(".mt_"+nam).css('display','none')
+    } else if(meth === 'get'){
+        $("#f_"+nam).css('display','none')
+        $(".mt_"+nam).css('display','none')
+    }else{
+        $("#f_"+nam).css('display','none')
+        $(".mt_"+nam).css('display','block')
     }
 }
 
@@ -7571,7 +7685,7 @@ function simulateAPI(nam){
 }
 
 function updateAPISlug(){
-    var microBaseUrl = API_BASE_PATH+"/micro/service/";
+    var microBaseUrl = API_BASE_PATH+"/micro/service/call/[METHOD]/";
     setMicroAPISlug($("#micro_apiSlug").val(),function (status,data){
         if(status){
             successMsg('Successfully updated')
@@ -7586,7 +7700,7 @@ function updateAPISlug(){
 
 
 function resetAPISlug(){
-    var microBaseUrl = API_BASE_PATH+"/micro/service/";
+    var microBaseUrl = API_BASE_PATH+"/micro/service/call/[METHOD]/";
     deleteMicroAPISlug(slugId, function (status, data) {
         if (status) {
             successMsg('Successfully updated')

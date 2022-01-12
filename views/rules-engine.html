@@ -2596,6 +2596,26 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
+                                <label class="inputLabel">
+                                    <input type="checkbox" id="methodGet" /> GET
+                                </label>
+
+                                <label class="inputLabel ml-3">
+                                    <input type="checkbox" id="methodPost" /> POST
+                                </label>
+                                <label class="inputLabel ml-3">
+                                    <input type="checkbox" id="methodDelete" /> DELETE
+                                </label>
+                                <label class="inputLabel ml-3">
+                                    <input type="checkbox" id="methodPut" /> PUT
+                                </label>
+                                <label class="inputLabel ml-3">
+                                    <input type="checkbox" id="methodUpload" /> UPLOAD
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
                                 <label class="inputLabel">Properties</label>
                                 <textarea style="height: 100px" class="form-control input-sm" id="micro_properties">{}</textarea>
                                 <small>JSON value</small>
@@ -2614,7 +2634,7 @@
 </div><!-- /.modal -->
 
 <div id="microAPIModal" class="modal fade" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title"><span class="microRuleName"></span> - API Console</h4>
@@ -2632,6 +2652,7 @@
                                        style="display: inline-block;border: 0px;border-bottom: 1px solid #cccccc;width:150px;font-weight: bold" required>
                                 <button type="submit" class="btn btnModal btn-xs"><i class="fa fa-save"></i></button>
                                 <button type="button" class="btn btn-default btn-xs" onclick="resetAPISlug()"><i class="fa fa-refresh"></i></button>
+                               <br> <small> [METHOD] - get,post,put,del (delete),upload </small>
                             </div>
                         </div>
                     </form>
