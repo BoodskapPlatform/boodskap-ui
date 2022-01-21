@@ -20,22 +20,65 @@ var tree_menu = {
             //         loadTabbar(node.obj._id,4);
             //     }
             // },
+            {
+                text: 'Delete Package',
+                icon: 'images/delete.png',
+                action: function (node) {
+                    deleteNodes(node,node.obj);
+
+
+                }
+            }
+        ]
+    },
+    'emptyMenu': {
+        elements : [
+
+        ]
+    }
+}
+
+var tree_menu_class = {
+    'emptyMenu': {
+        elements : [
+
+        ]
+    },
+    'packageMenu': {
+        elements : [
             // {
-            //     text: 'Delete Package',
-            //     icon: 'images/delete.png',
+            //     text: 'Create Class',
+            //     icon: 'images/add.png',
             //     action: function (node) {
-            //         node.removeNode();
+            //         node.createChildNode('NewClass', false, 'images/file.png', null, 'packageMenu');
             //     }
-            // }
+            // },
+            // {
+            //     text: 'View/Edit',
+            //     icon: 'images/edit.png',
+            //     action: function (node) {
+            //        console.log(node);
+            //         loadTabbar(node.obj._id,4);
+            //     }
+            // },
+            {
+                text: 'Delete Class',
+                icon: 'images/delete.png',
+                action: function (node) {
+                    deleteNodes(node,node.obj);
+
+                }
+            }
         ]
     }
 }
 
 
 function loadGroovyTreeMenu(obj) {
+    console.log(obj)
     var GROOVY_CODE = obj;
     //Creating the tree
-    groovyTree = createTree('groovy_tree', 'white', tree_menu);
+    groovyTree = createTree('groovy_tree', 'white', tree_menu_class);
 
 //Setting custom events
     groovyTree.nodeBeforeOpenEvent = function (node) {
@@ -53,7 +96,7 @@ function loadGroovyTreeMenu(obj) {
 
 //Loop to create test nodes
     for (var i = 0; i < GROOVY_CODE.length; i++) {
-        node1 = groovyTree.createNode(GROOVY_CODE[i].packageName, false, 'images/folder.png', null, null, 'packageMenu', GROOVY_CODE[i], 1);
+        node1 = groovyTree.createNode(GROOVY_CODE[i].packageName, false, GROOVY_CODE[i].domainKey == DOMAIN_KEY ? 'images/folder.png' : 'images/folder_16.png', null, null, GROOVY_CODE[i].domainKey == DOMAIN_KEY ? 'packageMenu' : 'emptyMenu', GROOVY_CODE[i], 1);
         for (var j = 0; j < GROOVY_CODE[i].classes.length; j++) {
             var className = GROOVY_CODE[i].classes[j].name;
             node2 = node1.createChildNode(GROOVY_CODE[i].classes[j].name, false, 'images/file.png', null, 'classMenu', GROOVY_CODE[i].classes[j], 2);
@@ -90,7 +133,7 @@ function loadGroovyTreeMenu(obj) {
 }
 
 function loadJarTreeMenu(obj) {
-
+    console.log(obj)
     var GROOVY_CODE = obj;
     //Creating the tree
     jarTree = createTree('jar_tree', 'white', tree_menu);
@@ -111,7 +154,7 @@ function loadJarTreeMenu(obj) {
 
 //Loop to create test nodes
     for (var i = 0; i < GROOVY_CODE.length; i++) {
-        node1 = jarTree.createNode(GROOVY_CODE[i].file, false, 'images/folder.png', null, null, 'packageMenu', GROOVY_CODE[i], 5);
+        node1 = jarTree.createNode(GROOVY_CODE[i].file, false, GROOVY_CODE[i].domainKey == DOMAIN_KEY ? 'images/folder.png' : 'images/folder_16.png', null, null, GROOVY_CODE[i].domainKey == DOMAIN_KEY ? 'packageMenu' : 'emptyMenu', GROOVY_CODE[i], 5);
     }
 
     jarTree.drawTree();
@@ -132,7 +175,6 @@ function collapse_all() {
 
 function loadPackageCode(obj) {
 
-    console.log(obj)
     var str = "";
     var codeObj = obj.obj;
 
@@ -265,5 +307,46 @@ function loadPackageCode(obj) {
         }
     }
 
+
+}
+
+
+function deleteNodes(node,obj){
+
+    var searchType = $("input[name='fileType']:checked").val();
+
+    var isPublic = searchType == 'GROOVY' ? false : true;
+
+
+
+    if($("#codeType").val() == 'JAR'){
+        $.ajax({
+            url: API_BASE_PATH + "/groovy/delete/jar/" + API_TOKEN + "/" + isPublic + "/" + obj.file,
+            contentType: 'application/json',
+            type: 'DELETE',
+            success: function (data) {
+                //called when successful
+                node.removeNode();
+            },
+            error: function (e) {
+                //called when there is an error
+                //console.log(e.message);
+            }
+        });
+    }else{
+        $.ajax({
+            url: API_BASE_PATH + "/groovy/delete/script/" + API_TOKEN + "/" + isPublic + "/" + obj.packageName,
+            contentType: 'application/json',
+            type: 'DELETE',
+            success: function (data) {
+                //called when successful
+                node.removeNode();
+            },
+            error: function (e) {
+                //called when there is an error
+                //console.log(e.message);
+            }
+        });
+    }
 
 }

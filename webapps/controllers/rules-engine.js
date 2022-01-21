@@ -6076,6 +6076,8 @@ function loadCodeType() {
                         dataList[i].classes[j]['code'] = dataList[i].code;
                         dataList[i].classes[j]['_id'] = dataList[i]._id;
                         dataList[i].classes[j]['packageName'] = dataList[i].packageName;
+                        dataList[i].classes[j]['domainKey'] = dataList[i].domainKey;
+
                     }
                 }
 
@@ -6100,7 +6102,7 @@ function loadCodeType() {
                         }
                     }
 
-                    resList.push({packageName:dpList[i], classes:classes, _id:guid()});
+                    resList.push({domainKey:obj[i].domainKey,packageName:dpList[i], classes:classes, _id:guid()});
 
                 }
                 // console.log(resList)
