@@ -307,6 +307,12 @@ Routes.prototype.init = function () {
     self.router.get('/query-console', onlyAdmin, function (req, res) {
         res.render('query-console.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
     });
+    self.router.get('/mongodb', onlyAdmin, function (req, res) {
+        res.render('mongodb.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+    });
+    self.router.get('/mongo-console', onlyAdmin, function (req, res) {
+        res.render('mongo-console.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+    });
 
     self.router.get('/site-noop', billingModuleCheck, function (req, res) {
         res.render('site-noop.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});

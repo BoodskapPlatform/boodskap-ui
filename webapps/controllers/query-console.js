@@ -6,7 +6,7 @@ var resultEditor = null;
 
 
 var defaultQuery = {
-    'MODEL' : '{"query":{"bool":{"must":[{"match":{"domainkey":"' + DOMAIN_KEY + '"}}]}},"from":0,"size":10}',
+    'MODEL' : '{"query":{"bool":{"must":[{"match":{"domainKey":"' + DOMAIN_KEY + '"}}]}},"from":0,"size":10}',
     'MESSAGE' : '{"from":0,"size":10}',
     'RECORD' : '{"from":0,"size":10}'
 }

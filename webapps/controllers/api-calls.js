@@ -3842,12 +3842,12 @@ function checkMongoAccess(dkey, cbk) {
 
     var domainKey = '';
 
-    // if(dkey){
-    //     domainKey = '?dkey=' + dkey;
-    // }
+    if(dkey){
+        domainKey = '?dkey=' + dkey;
+    }
 
     $.ajax({
-        url: API_BASE_PATH + "/domain/access/" + API_TOKEN + "/"+dkey+"/MONGO",
+        url: API_BASE_PATH + "/mongo/access/check/" + API_TOKEN +domainKey,
         type: 'GET',
         success: function (data) {
             //called when successful
@@ -3863,7 +3863,7 @@ function checkMongoAccess(dkey, cbk) {
 function setMongoAccess(dkey, state, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/domain/access/" + API_TOKEN + '/' + dkey + '/MONGO/' + state,
+        url: API_BASE_PATH + "/mongo/access/set/" + API_TOKEN + '/' + dkey + '/' + state,
         type: 'PUT',
         success: function (data) {
             //called when successful
@@ -4107,6 +4107,40 @@ function executeDBQuery(data, cbk) {
 
 
 
+function executeMongoQuery(data, cbk) {
+
+    let qType = 'find';
+    if(data.type == 'FIND'){
+        qType = 'find';
+    }
+    else if(data.type == 'AGG'){
+        qType = 'aggregate';
+    }else if(data.type == 'COUNT'){
+        qType = 'count';
+    }
+
+    $.ajax({
+        url: API_BASE_PATH + "/mongo/"+qType+"/" + API_TOKEN+'/'+ data.pool +'/'+data.collection,
+        data: JSON.stringify(data.query),
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+        },
+        type: 'POST',
+        success: function (data) {
+            //called when successful
+            cbk(true, data);
+        },
+        error: function (e) {
+            //called when there is an error
+            //console.log(e.message);
+            cbk(false, e);
+        }
+    });
+}
+
+
+
 function syncDBPool(pool,async, cbk) {
 
     var str = '';
@@ -4153,7 +4187,6 @@ function deleteDBPool(id, cbk) {
 
 }
 
-
 function retreiveDBPool(id, cbk) {
 
     $.ajax({
@@ -4174,12 +4207,75 @@ function retreiveDBPool(id, cbk) {
 
 }
 
-
 function upsertDBPool(data, cbk) {
 
 
     $.ajax({
         url: API_BASE_PATH + "/db/pool/upsert/" + API_TOKEN,
+        data: JSON.stringify(data),
+        contentType: "application/json",
+        type: 'POST',
+        success: function (data) {
+            //called when successful
+            cbk(true, data);
+        },
+        error: function (e) {
+            //called when there is an error
+            //console.log(e.message);
+            cbk(false, e);
+        }
+    });
+}
+
+
+// MongoDB
+
+
+
+function deleteMongoDBPool(id, cbk) {
+
+    $.ajax({
+        url: API_BASE_PATH + "/mongo/config/delete/" + API_TOKEN + "/" + id,
+        type: 'DELETE',
+        success: function (data) {
+            //called when successful
+            cbk(true, data);
+        },
+        error: function (e) {
+            //called when there is an error
+            //console.log(e.message);
+            cbk(false, null);
+        }
+    });
+
+
+}
+
+function retreiveMongoDBPool(id, cbk) {
+
+    $.ajax({
+        url: API_BASE_PATH + "/mongo/config/get/" + API_TOKEN + '/' + id,
+        // data:  JSON.stringify(data),
+        contentType: "application/json",
+        type: 'GET',
+        success: function (data) {
+            //called when successful
+            cbk(true, data);
+        },
+        error: function (e) {
+            //called when there is an error
+            //console.log(e.message);
+            cbk(false, null);
+        }
+    });
+
+}
+
+function upsertMongoDBPool(data, cbk) {
+
+
+    $.ajax({
+        url: API_BASE_PATH + "/mongo/config/upsert/" + API_TOKEN,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',

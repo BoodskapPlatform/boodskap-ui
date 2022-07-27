@@ -3,7 +3,8 @@ var MENU_LINKS = [BASE_PATH+'/home', BASE_PATH+'/dashboard', BASE_PATH+'/message
     BASE_PATH+"/machine-learning", BASE_PATH+"/block-chain", BASE_PATH+"/templates", BASE_PATH+"/events", BASE_PATH+"/geofence", BASE_PATH+"/mobile-platform",
     BASE_PATH+"/device-management", BASE_PATH+"/firmware-management", BASE_PATH+"/asset-management", BASE_PATH+"/user-management", BASE_PATH+"/dashboard-editor", BASE_PATH+"/event-logs",
     BASE_PATH+"/messages", BASE_PATH+"/log-console", BASE_PATH+"/marketplace", BASE_PATH+"/domain-audit", BASE_PATH+"/files", BASE_PATH+"/code-editor", BASE_PATH+"/alexa", BASE_PATH+"/query-console", BASE_PATH+"/sql-query-console",
-    BASE_PATH+"/sql-templates",BASE_PATH+"/sql-table",BASE_PATH+"/db-table",BASE_PATH+"/db-query-console",BASE_PATH+"/db-templates",BASE_PATH+"/plugin-management",BASE_PATH+"/manage-billing",BASE_PATH+"/site-noop",,BASE_PATH+"/widgets"]; //upto 34
+    BASE_PATH+"/sql-templates",BASE_PATH+"/sql-table",BASE_PATH+"/db-table",BASE_PATH+"/db-query-console",BASE_PATH+"/db-templates",BASE_PATH+"/plugin-management",BASE_PATH+"/manage-billing",BASE_PATH+"/site-noop",BASE_PATH+"/widgets",
+    BASE_PATH+"/mongodb",BASE_PATH+"/mongo-console"]
 
 
 $(document).ready(function () {
@@ -250,8 +251,8 @@ function loadDomains() {
 
                 var mstr = '<a href="javascript:void(0)" onclick="checkMongo(\''+data+'\')" ' +
                     'style="display:block;color:#333;font-size:11px;" class="m_'+data+'"><i class="icon-database2"></i> Check Mongo Access</a>'
-                var cstr = '<a href="javascript:void(0)" onclick="checkCassandra(\''+data+'\')" ' +
-                    'style="display:block;color:#333;font-size:11px;" class="ca_'+data+'"><i class="icon-database2"></i> Check Cassandra Access</a>'
+                var cstr = ''; //'<a href="javascript:void(0)" onclick="checkCassandra(\''+data+'\')" ' +
+                    //'style="display:block;color:#333;font-size:11px;" class="ca_'+data+'"><i class="icon-database2"></i> Check Cassandra Access</a>'
 
                 return data ? sqlstr+dbstr+mstr+cstr : '-';
             }
@@ -425,7 +426,7 @@ function sqlAccess(dkey, state) {
 
 
             if(state == 'true'){
-                $(".c_"+dkey).html('<span style="color:forestgreen"><i class="icon-check"></i> Already SQL Access Granted!</span><br>' +
+                $(".c_"+dkey).html('<span style="color:forestgreen"><i class="icon-check"></i> SQL Access Granted!</span><br>' +
                     '<span style="cursor: pointer;color:#333;text-decoration: underline" onclick="sqlAccess(\''+dkey+'\',\''+false+'\')">click here to revoke access</span>');
 
                 $(".c_"+dkey).css('text-decoration','none')
@@ -484,7 +485,7 @@ function dbAccess(dkey, state) {
         if(status){
 
             if(state == 'true'){
-                $(".d_"+dkey).html('<span style="color:forestgreen"><i class="icon-check"></i> Already DB Access Granted!</span><br>' +
+                $(".d_"+dkey).html('<span style="color:forestgreen"><i class="icon-check"></i> DB Access Granted!</span><br>' +
                     '<span style="cursor: pointer;color:#333;text-decoration: underline" onclick="dbAccess(\''+dkey+'\',\''+false+'\')">click here to revoke access</span>');
 
                 $(".d_"+dkey).css('text-decoration','none')
@@ -539,11 +540,11 @@ function checkMongo(dkey) {
 }
 function mongoAccess(dkey, state) {
 
-    setAccess(dkey,'MONGO', state, function (status, data) {
+    setMongoAccess(dkey,state, function (status, data) {
         if(status){
 
             if(data.state){
-                $(".m_"+dkey).html('<span style="color:forestgreen"><i class="icon-check"></i> Already Mongo Access Granted!</span><br>' +
+                $(".m_"+dkey).html('<span style="color:forestgreen"><i class="icon-check"></i> Mongo Access Granted!</span><br>' +
                     '<span style="cursor: pointer;color:#333;text-decoration: underline" onclick="mongoAccess(\''+dkey+'\',\''+false+'\')">click here to revoke access</span>');
 
                 $(".m_"+dkey).css('text-decoration','none')
