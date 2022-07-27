@@ -95,6 +95,16 @@ function executeQuery() {
         return false
     }
 
+    if($("#dbName").val() === ""){
+        errorMsgBorder('Database name cannot be empty', 'dbName')
+        return false
+    }
+
+    if($("#col_name").val() === ""){
+        errorMsgBorder('Collection name cannot be empty', 'col_name')
+        return false
+    }
+
     if ($.trim(query)) {
 
         var q = query.toLowerCase();
