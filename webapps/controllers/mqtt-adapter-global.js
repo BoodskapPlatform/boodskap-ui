@@ -28,8 +28,9 @@ function mqttConnectGlobal() {
             // mqttConnectGlobal();
             if(message.errorMessage.includes('bad user name or password') || message.errorMessage.includes('rejected') || message.errorMessage.includes('error')){
                 console.log('Bad username and password! Please reload the page')
-                Cookies.remove('user_details');
-                document.location = BASE_PATH+'/login';
+
+                // Cookies.remove('user_details');
+                // document.location = BASE_PATH+'/login';
             }else{
                 mqttConnectGlobal();
             }

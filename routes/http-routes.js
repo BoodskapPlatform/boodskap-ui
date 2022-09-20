@@ -314,9 +314,9 @@ Routes.prototype.init = function () {
         res.render('mongo-console.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
     });
 
-    self.router.get('/site-noop', billingModuleCheck, function (req, res) {
-        res.render('site-noop.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
-    });
+    // self.router.get('/site-noop', billingModuleCheck, function (req, res) {
+    //     res.render('site-noop.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+    // });
 
 
     //SQL Calls
@@ -443,12 +443,12 @@ Routes.prototype.init = function () {
 
 
     //Billing
-    self.router.get('/manage-billing', billingModuleCheck, function (req, res) {
-        res.render('billing-management.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
-    });
-    self.router.get('/invoice', roleCheck, function (req, res) {
-        res.render('invoice.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
-    });
+    // self.router.get('/manage-billing', billingModuleCheck, function (req, res) {
+    //     res.render('billing-management.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+    // });
+    // self.router.get('/invoice', roleCheck, function (req, res) {
+    //     res.render('invoice.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+    // });
 
 
     self.router.get('/status',function (req, res) {
@@ -553,6 +553,7 @@ Routes.prototype.init = function () {
         });
 
     });
+
     self.router.get('/swagger-doc',function (req, res) {
         res.render('swagger.html',{layout:false,basepath: getBasePath(req)});
     });
