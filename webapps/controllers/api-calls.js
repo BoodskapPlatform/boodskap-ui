@@ -12,14 +12,16 @@ $(document).ajaxError(function myErrorHandler(event, xhr, ajaxOptions, thrownErr
 });
 $(document).ready(function () {
 
-    // $.ajaxSetup({
-    //     global: false,
-    //     crossDomain: true,
-    //     "headers": {
-    //         "accept": "application/json",
-    //         "Access-Control-Allow-Origin": "*"
-    //     }
-    // })
+    if(API_TOKEN){
+        $.ajaxSetup({
+            // global: false,
+            // crossDomain: true,
+            "headers": {
+                "TOKEN": API_TOKEN
+            }
+        })
+    }
+
 });
 
 //login, register, forget password
