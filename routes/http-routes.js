@@ -2,12 +2,15 @@ const YAML = require('yamljs');
 const request = require('request');
 const async = require('async');
 
+const License = require('../modules/license');
+
 var Routes = function (app,router) {
 
     this.app = app;
     this.router = router;
     this.init();
 
+    this.license = new License(app);
 
     this.mobileLayout = app.mobileLayout;
 
@@ -172,40 +175,49 @@ Routes.prototype.init = function () {
             }
 
         }else{
-            res.render('login.html',{layout:false,basepath: getBasePath(req),key:''});
+            res.redirect(self.app.conf.basepath+'/login');
         }
     });
 
     self.router.get('/login', function (req, res) {
-        var userObj = req.cookies['user_details'];
-        if(userObj) {
-            var role = JSON.parse(userObj).user.roles;
-            req.session.userObj = JSON.parse(userObj);
 
-            if (role.indexOf('user') !== -1) {
-                res.redirect(self.app.conf.basepath+'/dashboard');
-            } else {
-                res.redirect(self.app.conf.basepath+'/home');
+        var userObj = req.cookies['user_details'];
+            if(userObj) {
+                var role = JSON.parse(userObj).user.roles;
+                req.session.userObj = JSON.parse(userObj);
+
+                if (role.indexOf('user') !== -1) {
+                    res.redirect(self.app.conf.basepath+'/dashboard');
+                } else {
+                    res.redirect(self.app.conf.basepath+'/home');
+                }
+            }else{
+                let apiUrl = self.app.conf.development ? self.app.conf.api : self.app.conf.protocol+"://"+req.headers.host+"/"+self.app.conf.api;
+                self.license.getLicense(apiUrl,function (status){
+                    if(status){
+                        res.render('login.html', {layout:false,basepath: getBasePath(req),key:''});
+                    }else{
+                        res.redirect(self.app.conf.basepath+'/license-activation');
+                    }
+                });
             }
-        }else{
-            res.render('login.html', {layout:false,basepath: getBasePath(req),key:''});
-        }
+
     });
-    // self.router.get('/register', function (req, res) {
-    //     var userObj = req.cookies['user_details'];
-    //     if(userObj) {
-    //         var role = JSON.parse(userObj).user.roles;
-    //         req.session.userObj = JSON.parse(userObj);
-    //
-    //         if (role.indexOf('user') !== -1) {
-    //             res.redirect('/dashboard');
-    //         } else {
-    //             res.redirect('/home');
-    //         }
-    //     }else{
-    //         res.render('register.html', {layout:false,basepath: getBasePath(req),});
-    //     }
-    // });
+    self.router.get('/license-activation',function (req, res) {
+        let apiUrl = self.app.conf.development ? self.app.conf.api : self.app.conf.protocol+"://"+req.headers.host+"/"+self.app.conf.api;
+        self.license.getLicense(apiUrl,function (status){
+            if(status){
+                res.redirect(self.app.conf.basepath+'/login');
+            }else{
+                res.render('license-activation.html', {layout:false,basepath: getBasePath(req),key:''});
+            }
+        });
+
+    });
+    self.router.post('/apply-license',function (req, res) {
+        let apiUrl = self.app.conf.development ? self.app.conf.api : self.app.conf.protocol+"://"+req.headers.host+"/"+self.app.conf.api;
+        self.license.applyLicense(apiUrl,req,res)
+    });
     self.router.get('/profile', roleCheck,function (req, res) {
         res.render('profile.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, response : ''});
     });

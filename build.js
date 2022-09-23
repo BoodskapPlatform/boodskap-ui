@@ -52,7 +52,9 @@ async.series({
                 port: Number(getProperty('server.port'))
             },
             basepath : BASE_PATH,
-            protocol : getProperty('server.ssl') ? 'https' : 'http'
+            protocol : getProperty('server.ssl') ? 'https' : 'http',
+            api: getProperty('boodskap.api'),
+            development: getProperty("env.development")
         };
 
         let txt = 'module.exports = ' + JSON.stringify(server_config);
