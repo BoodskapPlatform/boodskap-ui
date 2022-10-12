@@ -193,15 +193,18 @@ Routes.prototype.init = function () {
                 }
             }else{
                 let apiUrl = self.app.conf.development ? self.app.conf.api : self.app.conf.protocol+"://"+req.headers.host+"/"+self.app.conf.api;
-                self.license.getLicense(apiUrl,function (status){
+                self.license.getLicense(apiUrl,function (status, result){
                     if(status){
-                        res.render('login.html', {layout:false,basepath: getBasePath(req),key:''});
+                        if(result["licensed"] && result["accountActive"] && result["domainActive"] ){
+                            res.render('login.html', {layout:false,basepath: getBasePath(req),key:''});
+                        }else{
+                            res.redirect(self.app.conf.basepath+'/license-activation');
+                        }
                     }else{
                         res.redirect(self.app.conf.basepath+'/license-activation');
                     }
                 });
             }
-
     });
     self.router.get('/license-activation',function (req, res) {
         let apiUrl = self.app.conf.development ? self.app.conf.api : self.app.conf.protocol+"://"+req.headers.host+"/"+self.app.conf.api;

@@ -14,18 +14,15 @@ License.prototype.getLicense = function (apiUrl,cbk){
     }, function (err, res, body) {
 
         if(!err) {
-
             if (res.statusCode === 200) {
                 let result =  JSON.parse(res.body);
-                cbk(result.licensed);
-
+                cbk(true, result);
             } else {
-                cbk(false)
+                cbk(false, null)
             }
         }else{
-            cbk(false)
+            cbk(false, null)
         }
-
     });
 }
 License.prototype.applyLicense = function (apiUrl,req,res){
