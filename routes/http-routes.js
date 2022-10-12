@@ -195,10 +195,14 @@ Routes.prototype.init = function () {
                 let apiUrl = self.app.conf.development ? self.app.conf.api : self.app.conf.protocol+"://"+req.headers.host+"/"+self.app.conf.api;
                 self.license.getLicense(apiUrl,function (status, result){
                     if(status){
-                        if(result["licensed"] && result["accountActive"] && result["domainActive"] ){
-                            res.render('login.html', {layout:false,basepath: getBasePath(req),key:''});
-                        }else{
+                        if(result["licensed"]){
                             res.redirect(self.app.conf.basepath+'/license-activation');
+                        }else if(!result["accountActive"]){
+                            res.redirect(self.app.conf.basepath+'/account-activation');
+                        }else if(!result["domainActive"] ){
+                            res.redirect(self.app.conf.basepath+'/domain-activation');
+                        }else{
+                            res.render('login.html', {layout:false,basepath: getBasePath(req),key:''});
                         }
                     }else{
                         res.redirect(self.app.conf.basepath+'/license-activation');
@@ -208,14 +212,33 @@ Routes.prototype.init = function () {
     });
     self.router.get('/license-activation',function (req, res) {
         let apiUrl = self.app.conf.development ? self.app.conf.api : self.app.conf.protocol+"://"+req.headers.host+"/"+self.app.conf.api;
-        self.license.getLicense(apiUrl,function (status){
+        self.license.getLicense(apiUrl,function (status, result){
             if(status){
                 res.redirect(self.app.conf.basepath+'/login');
             }else{
                 res.render('license-activation.html', {layout:false,basepath: getBasePath(req),key:''});
             }
         });
-
+    });
+    self.router.get('/account-activation',function (req, res) {
+        let apiUrl = self.app.conf.development ? self.app.conf.api : self.app.conf.protocol+"://"+req.headers.host+"/"+self.app.conf.api;
+        self.license.getLicense(apiUrl,function (status, result){
+            if(status){
+                res.redirect(self.app.conf.basepath+'/login');
+            }else{
+                res.render('account-activation.html', {layout:false,basepath: getBasePath(req),key:''});
+            }
+        });
+    });
+    self.router.get('/domain-activation',function (req, res) {
+        let apiUrl = self.app.conf.development ? self.app.conf.api : self.app.conf.protocol+"://"+req.headers.host+"/"+self.app.conf.api;
+        self.license.getLicense(apiUrl,function (status, result){
+            if(status){
+                res.redirect(self.app.conf.basepath+'/login');
+            }else{
+                res.render('domain-activation.html', {layout:false,basepath: getBasePath(req),key:''});
+            }
+        });
     });
     self.router.post('/apply-license',function (req, res) {
         let apiUrl = self.app.conf.development ? self.app.conf.api : self.app.conf.protocol+"://"+req.headers.host+"/"+self.app.conf.api;
