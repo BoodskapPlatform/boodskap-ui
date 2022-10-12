@@ -37,11 +37,11 @@ function mqttConnectGlobal() {
         }
     };
 
-    options['userName'] = MQTT_CLIENT_ID + '_' + API_TOKEN;
-    // options['userName'] = MQTT_CLIENT_ID + '_' + USER_OBJ.domainKey;
-    options['password'] = USER_OBJ.apiKey;
+    options['userName'] = "-";
+    options['password'] = "-";
 
-    var sessionClientId = MQTT_CLIENT_ID + '_' + new Date().getTime();
+    // var sessionClientId = MQTT_CLIENT_ID + '_' + new Date().getTime();
+    var sessionClientId = API_TOKEN;
 
     if (MQTT_CONFIG.portNo) {
         mqtt_global_client = new Messaging.Client(MQTT_CONFIG.hostName, MQTT_CONFIG.portNo, sessionClientId);
