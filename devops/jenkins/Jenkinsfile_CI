@@ -28,17 +28,17 @@ pipeline{
                   echo "Test process done"
             }
           }
-           stage("SonarQube Analysis") {
-          steps{
-            script{
-         def scannerHome = tool 'SonarQube';
-          withSonarQubeEnv() {
-          sh "${scannerHome}/bin/sonar-scanner"
-            }
-          }
+  //          stage("SonarQube Analysis") {
+  //         steps{
+  //           script{
+  //        def scannerHome = tool 'SonarQube';
+  //         withSonarQubeEnv() {
+  //         sh "${scannerHome}/bin/sonar-scanner"
+  //           }
+  //         }
          
-    }
-  }
+  //   }
+  // }
         }
     post{
       always{
