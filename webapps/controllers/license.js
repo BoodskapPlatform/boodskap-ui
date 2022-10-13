@@ -14,7 +14,8 @@ function applyLicense(type){
 
     if(type === "cluster-license"){
         $.ajax({
-            url: WEB_BASE_PATH+"/license/cluster/apply",
+            // url: WEB_BASE_PATH+"/license/cluster/apply",
+            url: WEB_BASE_PATH+"/apply/cluster-license",
             type: 'POST',
             contentType: "application/json",
             data: JSON.stringify({data:$("#licenseData").val()}),
@@ -35,7 +36,8 @@ function applyLicense(type){
         });
     }else if(type === "account-license"){
         $.ajax({
-            url: WEB_BASE_PATH+"/license/account/apply",
+            // url: WEB_BASE_PATH+"/license/account/apply",
+            url: WEB_BASE_PATH+"/apply/account-license",
             type: 'POST',
             contentType: "application/json",
             data: JSON.stringify({data:$("#licenseData").val()}),
@@ -56,7 +58,8 @@ function applyLicense(type){
         });
     }else if(type === "domain-license"){
         $.ajax({
-            url: WEB_BASE_PATH+"/license/domain/apply",
+            // url: WEB_BASE_PATH+"/license/domain/apply",
+            url: WEB_BASE_PATH+"/apply/domain-license",
             type: 'POST',
             contentType: "application/json",
             data: JSON.stringify({data:$("#licenseData").val()}),

@@ -196,12 +196,8 @@ Routes.prototype.init = function () {
 
 
                 self.license.getLicense(apiUrl,function (status, result){
-                    console.log("log 1");
-                    console.log(result);
                     if(status){
-                        console.log("log 2");
                         if(!result["licensed"]){
-                            console.log("log 3");
                             res.redirect(self.app.conf.basepath+'/license-activation');
                         }else if(!result["accountActive"]){
                             res.redirect(self.app.conf.basepath+'/account-activation');
@@ -211,7 +207,6 @@ Routes.prototype.init = function () {
                             res.render('login.html', {layout:false,basepath: getBasePath(req),key:''});
                         }
                     }else{
-                        console.log("log 5");
                         res.redirect(self.app.conf.basepath+'/license-activation');
                     }
                 });
@@ -247,9 +242,17 @@ Routes.prototype.init = function () {
             }
         });
     });
-    self.router.post('/apply-license',function (req, res) {
+    self.router.post('/apply/cluster-license',function (req, res) {
         let apiUrl = self.app.conf.development ? self.app.conf.api : self.app.conf.protocol+"://"+req.headers.host+"/"+self.app.conf.api;
-        self.license.applyLicense(apiUrl,req,res)
+        self.license.applyClusterLicense(apiUrl,req,res)
+    });
+    self.router.post('/apply/account-license',function (req, res) {
+        let apiUrl = self.app.conf.development ? self.app.conf.api : self.app.conf.protocol+"://"+req.headers.host+"/"+self.app.conf.api;
+        self.license.applyAccountLicense(apiUrl,req,res)
+    });
+    self.router.post('/apply/domain-license',function (req, res) {
+        let apiUrl = self.app.conf.development ? self.app.conf.api : self.app.conf.protocol+"://"+req.headers.host+"/"+self.app.conf.api;
+        self.license.applyDomainLicense(apiUrl,req,res)
     });
     self.router.get('/profile', roleCheck,function (req, res) {
         res.render('profile.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, response : ''});
