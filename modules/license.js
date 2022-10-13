@@ -16,10 +16,9 @@ License.prototype.getLicense = function (apiUrl,cbk){
 
     }, function (err, res, body) {
 
-        console.log("getLicense api -------------body");
-        console.log(body);
+        console.log(res.statusCode);
         console.log("getLicense api -------------res");
-        console.log(res);
+        console.log(res.body);
         console.log("getLicense api -------------err");
         console.log(err);
 
