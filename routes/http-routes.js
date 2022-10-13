@@ -194,8 +194,12 @@ Routes.prototype.init = function () {
             }else{
                 let apiUrl = self.app.conf.development ? self.app.conf.api : self.app.conf.protocol+"://"+req.headers.host+"/"+self.app.conf.api;
                 self.license.getLicense(apiUrl,function (status, result){
+                    console.log("log 1");
+                    console.log(result);
                     if(status){
+                        console.log("log 2");
                         if(!result["licensed"]){
+                            console.log("log 3");
                             res.redirect(self.app.conf.basepath+'/license-activation');
                         }else if(!result["accountActive"]){
                             res.redirect(self.app.conf.basepath+'/account-activation');
@@ -205,6 +209,7 @@ Routes.prototype.init = function () {
                             res.render('login.html', {layout:false,basepath: getBasePath(req),key:''});
                         }
                     }else{
+                        console.log("log 5");
                         res.redirect(self.app.conf.basepath+'/license-activation');
                     }
                 });

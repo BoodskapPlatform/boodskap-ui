@@ -8,7 +8,7 @@ module.exports = License;
 License.prototype.getLicense = function (apiUrl,cbk){
 
     request.get({
-        uri: apiUrl + '/license/status',
+            uri: apiUrl + '/license/status',
         headers: {'content-type': 'application/json'},
 
     }, function (err, res, body) {
