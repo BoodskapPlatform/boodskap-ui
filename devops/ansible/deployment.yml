@@ -63,6 +63,10 @@
       args:
         chdir: /home/boodskapui/webapps/boodskap-ui
       register: command_output
+    
+    - name: Restart output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
 
 
 
