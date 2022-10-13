@@ -33,16 +33,16 @@
 
     - debug: msg="{{ dependencies_output }}"
 
-    - 
-      name: This command will restart the node process.
-      command: pm2 restart boodskap-platform-node.js
-      args:
-        chdir: /home/boodskapui/webapps/boodskap-ui
-      register: command_output
+    # - 
+    #   name: This command will restart the node process.
+    #   command: pm2 restart boodskap-platform-node.js
+    #   args:
+    #     chdir: /home/boodskapui/webapps/boodskap-ui
+    #   register: command_output
 
-    - name: Restart output
-      ansible.builtin.debug:
-        var: command_output.stdout_lines
+    # - name: Restart output
+    #   ansible.builtin.debug:
+    #     var: command_output.stdout_lines
 
 
 -
@@ -63,14 +63,7 @@
       args:
         chdir: /home/boodskapui/webapps/boodskap-ui
       register: command_output
-    
+
     - name: Restart output
       ansible.builtin.debug:
         var: command_output.stdout_lines
-
-
-
-    
-
-
-        
