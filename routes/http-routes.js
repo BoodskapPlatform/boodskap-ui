@@ -193,6 +193,8 @@ Routes.prototype.init = function () {
                 }
             }else{
                 let apiUrl = self.app.conf.development ? self.app.conf.api : self.app.conf.protocol+"://"+req.headers.host+"/"+self.app.conf.api;
+
+
                 self.license.getLicense(apiUrl,function (status, result){
                     console.log("log 1");
                     console.log(result);

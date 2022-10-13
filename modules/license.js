@@ -7,11 +7,21 @@ module.exports = License;
 
 License.prototype.getLicense = function (apiUrl,cbk){
 
+    console.log("getLicense api -------------");
+    console.log(apiUrl);
+
     request.get({
             uri: apiUrl + '/license/status',
         headers: {'content-type': 'application/json'},
 
     }, function (err, res, body) {
+
+        console.log("getLicense api -------------body");
+        console.log(body);
+        console.log("getLicense api -------------res");
+        console.log(res);
+        console.log("getLicense api -------------err");
+        console.log(err);
 
         if(!err) {
             if (res.statusCode === 200) {
