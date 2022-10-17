@@ -26,6 +26,10 @@ License.prototype.getLicense = function (apiUrl,cbk){
 }
 License.prototype.applyClusterLicense = function (apiUrl,req,res){
 
+    console.log("applyClusterLicense-----------------------");
+    console.log(apiUrl);
+    console.log(req.body.data);
+
     request.post({
         uri: apiUrl + '/license/cluster/apply',
         headers: {'content-type': 'text/plain'},
@@ -48,6 +52,10 @@ License.prototype.applyClusterLicense = function (apiUrl,req,res){
 
 License.prototype.applyAccountLicense = function (apiUrl,req,res){
 
+    console.log("applyAccountLicense-----------------------");
+    console.log(apiUrl);
+    console.log(req.body.data);
+
     request.post({
         uri: apiUrl + '/license/account/apply',
         headers: {'content-type': 'text/plain'},
@@ -69,6 +77,10 @@ License.prototype.applyAccountLicense = function (apiUrl,req,res){
 }
 
 License.prototype.applyDomainLicense = function (apiUrl,req,res){
+
+    console.log("applyDomainLicense-----------------------");
+    console.log(apiUrl);
+    console.log(req.body.data);
 
     request.post({
         uri: apiUrl + '/license/domain/apply',
