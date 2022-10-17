@@ -216,7 +216,11 @@ Routes.prototype.init = function () {
         let apiUrl = self.app.conf.development ? self.app.conf.api : self.app.conf.protocol+"://"+req.headers.host+"/"+self.app.conf.api;
         self.license.getLicense(apiUrl,function (status, result){
             if(status){
-                res.redirect(self.app.conf.basepath+'/login');
+                if(!result["licensed"]){
+                    res.render('license-activation.html', {layout:false,basepath: getBasePath(req),key:''});
+                }else{
+                    res.redirect(self.app.conf.basepath+'/login');
+                }
             }else{
                 res.render('license-activation.html', {layout:false,basepath: getBasePath(req),key:''});
             }
@@ -226,7 +230,11 @@ Routes.prototype.init = function () {
         let apiUrl = self.app.conf.development ? self.app.conf.api : self.app.conf.protocol+"://"+req.headers.host+"/"+self.app.conf.api;
         self.license.getLicense(apiUrl,function (status, result){
             if(status){
-                res.redirect(self.app.conf.basepath+'/login');
+                if(!result["accountActive"]){
+                    res.render('account-activation.html', {layout:false,basepath: getBasePath(req),key:''});
+                }else{
+                    res.redirect(self.app.conf.basepath+'/login');
+                }
             }else{
                 res.render('account-activation.html', {layout:false,basepath: getBasePath(req),key:''});
             }
@@ -236,7 +244,11 @@ Routes.prototype.init = function () {
         let apiUrl = self.app.conf.development ? self.app.conf.api : self.app.conf.protocol+"://"+req.headers.host+"/"+self.app.conf.api;
         self.license.getLicense(apiUrl,function (status, result){
             if(status){
-                res.redirect(self.app.conf.basepath+'/login');
+                if(!result["domainActive"]){
+                    res.render('domain-activation.html', {layout:false,basepath: getBasePath(req),key:''});
+                }else{
+                    res.redirect(self.app.conf.basepath+'/login');
+                }
             }else{
                 res.render('domain-activation.html', {layout:false,basepath: getBasePath(req),key:''});
             }

@@ -80,10 +80,11 @@
                    <div style="text-align: center">
                     <img src="<%=basepath%>/images/bdskap-logo.png" style="height: 55px" />
                     </div>
-                   <h5>Activate License.</h5>
+                   <h5>Cluster License.</h5>
                     <form action="javascript:void(0)" onsubmit="applyLicense('cluster-license')">
-                   <textarea class="form-control" id="licenseData" required  style="border:1px solid #ccc;resize: none;height:350px;"></textarea>
-                   <button type="submit" class="btn btn-block btn-warning mt-2">Activate Platform License</button>
+                        <div id="showFeedback" style="display: none;color: red;margin-top: 7px;margin-bottom: 7px;"></div>
+                        <textarea class="form-control" id="licenseData" required  style="border:1px solid #ccc;resize: none;height:350px;"></textarea>
+                        <button type="submit" class="btn btn-block btn-warning mt-2">Activate Cluster License</button>
                     </form>
                    <p class="text-center text-grey-darker mt-3">
                        &copy; <span class="currentYear"></span> All rights reserved.

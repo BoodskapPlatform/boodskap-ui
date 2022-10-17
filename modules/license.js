@@ -7,6 +7,9 @@ module.exports = License;
 
 License.prototype.getLicense = function (apiUrl,cbk){
 
+    console.log("getLicense--------------1");
+    console.log(apiUrl);
+
     request.get({
             uri: apiUrl + '/license/status',
         headers: {'content-type': 'application/json'},
@@ -15,6 +18,8 @@ License.prototype.getLicense = function (apiUrl,cbk){
         if(!err) {
             if (res.statusCode === 200) {
                 let result =  JSON.parse(res.body);
+                console.log("getLicense----------------------2");
+                console.log(result);
                 cbk(true, result);
             } else {
                 cbk(false, null)
@@ -26,21 +31,24 @@ License.prototype.getLicense = function (apiUrl,cbk){
 }
 License.prototype.applyClusterLicense = function (apiUrl,req,res){
 
-    console.log("applyClusterLicense-----------------------");
-    console.log(apiUrl);
-    console.log(req.body.data);
-
     request.post({
         uri: apiUrl + '/license/cluster/apply',
         headers: {'content-type': 'text/plain'},
         body: JSON.stringify(req.body.data),
 
     }, function (err, resp, body) {
-
         if(!err) {
-
             if (resp.statusCode === 200) {
                 res.json({status:true,result:resp.body})
+            } else if (resp.statusCode === 417) {
+                if(resp.body.includes("ClusterLicense.decode")){
+                    var resObj = {
+                        "code" : "INVALID_KEY",
+                        "message" : "Invalid License Key!"
+                    }
+                    resp.body = JSON.stringify(resObj);
+                }
+                res.json({status:false,result:resp.body})
             } else {
                 res.json({status:false,result:resp.body})
             }
@@ -52,10 +60,6 @@ License.prototype.applyClusterLicense = function (apiUrl,req,res){
 
 License.prototype.applyAccountLicense = function (apiUrl,req,res){
 
-    console.log("applyAccountLicense-----------------------");
-    console.log(apiUrl);
-    console.log(req.body.data);
-
     request.post({
         uri: apiUrl + '/license/account/apply',
         headers: {'content-type': 'text/plain'},
@@ -64,13 +68,21 @@ License.prototype.applyAccountLicense = function (apiUrl,req,res){
     }, function (err, resp, body) {
 
         if(!err) {
-
             if (resp.statusCode === 200) {
                 res.json({status:true,result:resp.body})
+            } else if(resp.statusCode === 417) {
+                if(resp.body.includes("AccountSettings.decode")){
+                    var resObj = {
+                        "code" : "INVALID_KEY",
+                        "message" : "Invalid License Key!"
+                    }
+                    resp.body = JSON.stringify(resObj);
+                }
+                res.json({status:false,result:resp.body})
             } else {
                 res.json({status:false,result:resp.body})
             }
-        }else{
+        } else{
             res.json({status:false,result:err})
         }
     });
@@ -78,21 +90,24 @@ License.prototype.applyAccountLicense = function (apiUrl,req,res){
 
 License.prototype.applyDomainLicense = function (apiUrl,req,res){
 
-    console.log("applyDomainLicense-----------------------");
-    console.log(apiUrl);
-    console.log(req.body.data);
-
     request.post({
         uri: apiUrl + '/license/domain/apply',
         headers: {'content-type': 'text/plain'},
         body: JSON.stringify(req.body.data),
 
     }, function (err, resp, body) {
-
         if(!err) {
-
             if (resp.statusCode === 200) {
                 res.json({status:true,result:resp.body})
+            } else if(resp.statusCode === 417) {
+                if(resp.body.includes("DomainLicense.decode")){
+                    var resObj = {
+                        "code" : "INVALID_KEY",
+                        "message" : "Invalid License Key!"
+                    }
+                    resp.body = JSON.stringify(resObj);
+                }
+                res.json({status:false,result:resp.body})
             } else {
                 res.json({status:false,result:resp.body})
             }
