@@ -195,7 +195,11 @@ Routes.prototype.init = function () {
                 let apiUrl = self.app.conf.development ? self.app.conf.api : self.app.conf.protocol+"://"+req.headers.host+"/"+self.app.conf.api;
 
 
+                console.log("getLicense----------------1");
+                console.log(apiUrl);
                 self.license.getLicense(apiUrl,function (status, result){
+                    console.log("getLicense----------------2");
+                    console.log(result);
                     if(status){
                         if(!result["licensed"]){
                             res.redirect(self.app.conf.basepath+'/license-activation');
