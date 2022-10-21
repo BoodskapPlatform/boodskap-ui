@@ -11,12 +11,13 @@ var cookieParser = require('cookie-parser')
 var session = require('cookie-session');
 var compression = require('compression')
 var router = express.Router()
-
+var pjson = require('./package.json');
 
 /*******************************
  * Require Configuration
  ****************************/
 var conf = require('./conf');
+conf["buildVersion"] = pjson.version;
 
 app.use(bodyParser.urlencoded({
     extended: true

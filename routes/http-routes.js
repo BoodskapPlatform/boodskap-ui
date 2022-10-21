@@ -193,14 +193,14 @@ Routes.prototype.init = function () {
                 }
             }else{
                 let apiUrl = self.app.conf.development ? self.app.conf.api : self.app.conf.protocol+"://"+req.headers.host+self.app.conf.api;
-
-
-                console.log("getLicense----------------1");
-                console.log(apiUrl);
+               
                 self.license.getLicense(apiUrl,function (status, result){
-                    console.log("getLicense----------------2");
+                    console.log("***************** License Status *********************");
+                    console.log("API : "+apiUrl);
+                    console.log("Response : "+status);
                     console.log(result);
-                    if(status){
+                    console.log("***************** License status *********************");
+                    if(status && (result != null)){
                         if(!result["licensed"]){
                             res.redirect(self.app.conf.basepath+'/license-activation');
                         }else if(!result["accountActive"]){
@@ -216,6 +216,11 @@ Routes.prototype.init = function () {
                 });
             }
     });
+
+    self.router.get('/register',function (req, res) {
+        res.render('register.html', {layout:false,basepath: getBasePath(req),key:''});
+    });
+
     self.router.get('/license-activation',function (req, res) {
         let apiUrl = self.app.conf.development ? self.app.conf.api : self.app.conf.protocol+"://"+req.headers.host+"/"+self.app.conf.api;
         self.license.getLicense(apiUrl,function (status, result){
