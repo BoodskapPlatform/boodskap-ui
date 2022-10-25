@@ -2250,9 +2250,9 @@ function retrieveDeviceModelProperty(id, name, cbk) {
 
 function simulateDeviceMessage(id, data, cbk) {
 
-
     $.ajax({
-        url: API_BASE_PATH + "/push/raw/" + DOMAIN_KEY + "/" + API_KEY + "/SIMULATOR_" + id + "/BOODSKAP/1.0/" + id + '?type=JSON',
+        // url: API_BASE_PATH + "/push/raw/" + DOMAIN_KEY + "/" + API_KEY + "/SIMULATOR_" + id + "/BOODSKAP/1.0/" + id + '?type=JSON',
+        url: API_BASE_PATH + "/push/message/SIMULATOR_" + id,
         data: JSON.stringify(data),
         contentType: "text/plain",
         type: 'POST',

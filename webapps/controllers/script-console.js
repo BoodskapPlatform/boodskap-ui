@@ -23,7 +23,7 @@ $(document).ready(function () {
     // $(".editorBlock").height($(window).height() + 'px')
     // initiateEditor();
 
-    mqttConnect();
+    // mqttConnectGlobal(); //TODO: v5 platform not allowing 2nd time connection
     loadTerminal();
     loadCodeType();
 });

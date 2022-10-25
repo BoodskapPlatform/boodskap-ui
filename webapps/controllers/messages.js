@@ -11,7 +11,7 @@ var chartView = false;
 
 
 $(document).ready(function () {
-     mqttConnect();
+    // mqttConnectGlobal(); //TODO: v5 platform not allowing 2nd time connection
     // $("#header").remove();
     loadMsgSpec();
     $("body").removeClass('bg-white');

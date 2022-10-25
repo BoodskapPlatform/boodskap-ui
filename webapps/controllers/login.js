@@ -48,12 +48,13 @@ function textSlider() {
 
     sliderCtrl = setInterval(function(){
         counter++;
-        if(counter === 6){
+        if(counter === 4){
             counter = 1;
         }
 
         $('#loginPageSlider .col').hide();
         $('#loginPageSlider .col'+counter).toggle('slide');
+        console.log(counter);
     }, 2500);
 }
 

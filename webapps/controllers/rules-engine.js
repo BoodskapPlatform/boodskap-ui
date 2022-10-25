@@ -88,7 +88,7 @@ $(document).ready(function () {
 
 
 
-    mqttConnect();
+    // mqttConnectGlobal(); //TODO: v5 platform not allowing 2nd time connection
 
     if(Cookies.get('fatal')){
         $(".fatal").prop("checked", Cookies.get('fatal') === 'true' ? true : false)
@@ -212,11 +212,11 @@ function mqttListen() {
 
         mqttSubscribe("/" + USER_OBJ.domainKey + "/log/#", 0);
 
-        mqttSubscribe("/global/#", 0);
+        // mqttSubscribe("/global/#", 0);
 
-        if(ADMIN_ACCESS){
+       /* if(ADMIN_ACCESS){
             mqttSubscribe("/system/#", 0);
-        }
+        }*/
 
 
         mqtt_client.onMessageArrived = function (message) {

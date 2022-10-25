@@ -15,7 +15,7 @@ var selectedNode = 'ALL';
 
 $(document).ready(function () {
     $("#header").remove();
-    mqttConnect();
+    // mqttConnectGlobal(); //TODO: v5 platform not allowing 2nd time connection
     $(".logCard").css('height', ($(window).height() - 130) + 'px');
 
     $(".logLevelList").html('<option value="ALL">All Logs</option>')
@@ -31,12 +31,12 @@ function mqttListen() {
 
         console.log(new Date + ' | MQTT Started to Subscribe');
 
-        if (ADMIN_ACCESS) {
+        /*if (ADMIN_ACCESS) {
             mqttSubscribe("/syslog/#", 0);
         }else{
             mqttSubscribe("/syslog/"+USER_OBJ.domainKey+"/#", 0);
 
-        }
+        }*/
 
         setTimeout(function () {
             mqttSubscribe("/" + USER_OBJ.domainKey + "/log/#", 0);

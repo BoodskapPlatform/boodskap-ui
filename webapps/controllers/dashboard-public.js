@@ -99,8 +99,7 @@ $(document).ready(function () {
 function mqttListen() {
     console.log(new Date + ' | MQTT Started to Subscribe');
 
-    mqttSubscribe("/" + USER_OBJ.domainKey + "/log/incoming", 0);
-
+    // mqttSubscribe("/" + USER_OBJ.domainKey + "/log/incoming", 0);
 
     mqtt_client.onMessageArrived = function (message) {
 

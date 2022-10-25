@@ -429,8 +429,7 @@ function mqttGlobalListen() {
 
         console.log(new Date + ' | Global MQTT Started to Subscribe');
 
-        mqttSubscribeGlobal("/" + USER_OBJ.domainKey + "/log/mrule/#", 0);
-
+        // mqttSubscribeGlobal("/" + USER_OBJ.domainKey + "/log/mrule/#", 0);
 
         mqtt_global_client.onMessageArrived = function (message) {
 
