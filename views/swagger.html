@@ -124,13 +124,30 @@
     loadStatistics();
 
     function loadStatistics() {
-        $.ajax({
+        /*$.ajax({
             url: API_BASE_PATH+"/cluster/statistics",
             // url: "https://dev.boodskap.io/api/cluster/statistics",
             type: 'GET',
             // "headers": {
             //     "contentType": "application/json",
             // },
+            success: function (data) {
+                if (data) {
+                    try{
+                        loadAPI(data.version)
+                    }
+                    catch(e){}
+
+                }
+            },
+            error: function (e) {
+
+            }
+        });*/
+
+        $.ajax({
+            url: API_BASE_PATH+'/license/status',
+            type: 'GET',
             success: function (data) {
                 if (data) {
                     try{

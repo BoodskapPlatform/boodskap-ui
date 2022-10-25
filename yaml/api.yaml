@@ -6,7 +6,7 @@ schemes:
 produces: 
   - "application/json"
 info: 
-  version: "5.0.0-10"
+  version: "5.0.0-25"
   title: "Boodskap API"
   description: "Boodskap IoT Platform API"
   termsOfService: "https://boodskap.io/terms-conditions"
@@ -28,7 +28,7 @@ paths:
       parameters:
         - name: atoken
           in: path
-          description: Auth token of the logged in user
+          description: "**depricated** just use - (hyphon)"
           required: true
           type: string
         - name: entity
@@ -61,7 +61,7 @@ paths:
       parameters:
         - name: atoken
           in: path
-          description: Auth token of the logged in user
+          description: "**depricated** just use - (hyphon)"
           required: true
           type: string
         - name: messageId
@@ -94,7 +94,7 @@ paths:
       parameters:
         - name: atoken
           in: path
-          description: Auth token of the logged in user
+          description: "**depricated** just use - (hyphon)"
           required: true
           type: string
         - name: messageId
@@ -127,7 +127,7 @@ paths:
       parameters:
         - name: atoken
           in: path
-          description: Auth token of the logged in user
+          description: "**depricated** just use - (hyphon)"
           required: true
           type: string
         - name: pageSize
@@ -174,7 +174,7 @@ paths:
       parameters:
         - name: atoken
           in: path
-          description: Auth token of the logged in user
+          description: "**depricated** just use - (hyphon)"
           required: true
           type: string
         - name: type
@@ -206,7 +206,7 @@ paths:
       parameters:
         - name: atoken
           in: path
-          description: Auth token of the logged in user
+          description: "**depricated** just use - (hyphon)"
           required: true
           type: string
         - name: type
@@ -244,7 +244,7 @@ paths:
       parameters:
         - name: atoken
           in: path
-          description: Auth token of the logged in user
+          description: "**depricated** just use - (hyphon)"
           required: true
           type: string
         - name: messageId
@@ -281,7 +281,7 @@ paths:
       parameters:
         - name: atoken
           in: path
-          description: Auth token of the logged in user
+          description: "**depricated** just use - (hyphon)"
           required: true
           type: string
         - name: messageId
@@ -318,7 +318,7 @@ paths:
       parameters:
         - name: atoken
           in: path
-          description: Auth token of the logged in user
+          description: "**depricated** just use - (hyphon)"
           required: true
           type: string
         - name: pageSize
@@ -705,531 +705,84 @@ paths:
             $ref: "#/definitions/ApiError"
       security:
       - authtoken: []
-  '/push/json/message':
+  '/push/message/{mid}':
     post:
       tags:
         - Push
-      summary: Push New Message
+      summary: Push Device Message
       operationId: pushMessage
       consumes:
         - "application/json"
       produces:
         - "application/json"
       parameters:
+        - in: path
+          name: mid
+          description: Message Spec ID. Refer to (Message Specification  -> Create / Update Message Definition. /mspec/upsert/)
+          required: true
+          type: integer
+          format: int64
         - in: body
           name: entity
           description: Message JSON object
           required: true
           schema:
-            $ref: '#/definitions/PushJSONMessage'
+            type: object
       responses:
         '200':
           description: successful operation
           schema:
             $ref: '#/definitions/PushResult'
-  '/push/message':
+      security:
+      - authtoken: []
+  '/push/json/{type}':
     post:
       tags:
         - Push
-      summary: Push Old Message
-      operationId: pushOldMessage
+      summary: Push Binary JSON
+      operationId: pushBinJson
       consumes:
         - "application/json"
       produces:
         - "application/json"
       parameters:
-        - name: entity
-          in: body
+        - in: path
+          name: type
+          description: Binary rule type. Refer to (Binaray Rule -> Create / Update Binaray Rule. /brules/upsert/)
+          required: true
+          type: string
+        - in: body
+          name: entity
           description: Message JSON object
           required: true
           schema:
-            $ref: '#/definitions/PushMessage'
-      responses:
-        '200':
-          description: successful operation
-          schema:
-            $ref: '#/definitions/PushResult'
-  '/push/json/{dkey}/{akey}/{did}/{dmdl}/{fwver}/{mid}':
-    post:
-      tags:
-        - Push
-      summary: Push JSON Data
-      operationId: pushJSONData
-      consumes:
-        - "application/json"
-      produces:
-        - "application/json"
-      parameters:
-        - name: dkey
-          in: path
-          description: Domain key
-          required: true
-          type: string
-        - name: akey
-          in: path
-          description: API key
-          required: true
-          type: string
-        - name: did
-          in: path
-          description: Device ID
-          required: true
-          type: string
-        - name: dmdl
-          in: path
-          description: Device model
-          required: true
-          type: string
-        - name: fwver
-          in: path
-          description: Device firmware version
-          required: true
-          type: string
-        - name: mid
-          in: path
-          description: Message ID (defined through message spec)
-          required: true
-          type: integer
-          format: int64
-        - in: body
-          name: data
-          description: JSON Data
-          required: true
-          schema:
             type: object
       responses:
         '200':
           description: successful operation
           schema:
             $ref: '#/definitions/PushResult'
-  '/push/raw/{dkey}/{akey}/{did}/{dmdl}/{fwver}/{mid}':
-    post:
-      tags:
-        - Push
-      summary: Push Raw Message
-      operationId: pushRawMessage
-      consumes:
-        - "*/*"
-      produces:
-        - "application/json"
-      parameters:
-        - name: dkey
-          in: path
-          description: Domain key
-          required: true
-          type: string
-        - name: akey
-          in: path
-          description: API key
-          required: true
-          type: string
-        - name: did
-          in: path
-          description: Device ID
-          required: true
-          type: string
-        - name: dmdl
-          in: path
-          description: Device model
-          required: true
-          type: string
-        - name: fwver
-          in: path
-          description: Device firmware version
-          required: true
-          type: string
-        - name: mid
-          in: path
-          description: Message ID (defined through message spec)
-          required: true
-          type: integer
-          format: int64
-        - name: format
-          in: query
-          description: data encoding format (default JSON as string)
-          required: false
-          type: string
-          enum:
-            - JSON
-            - TEXT
-            - HEX
-            - BASE64
-        - in: body
-          name: data
-          description: data as text
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: successful operation
-          schema:
-            $ref: '#/definitions/PushResult'
-  '/push/bin/file/{dkey}/{akey}/{did}/{dmdl}/{fwver}/{type}':
-    post:
-      tags:
-        - Push
-      summary: Push Binary File
-      operationId: pushBinaryFile
-      consumes:
-        - multipart/form-data
-      produces:
-        - application/json
-      parameters:
-        - name: dkey
-          in: path
-          description: Domain key
-          required: true
-          type: string
-        - name: akey
-          in: path
-          description: API key
-          required: true
-          type: string
-        - name: did
-          in: path
-          description: Device ID
-          required: true
-          type: string
-        - name: dmdl
-          in: path
-          description: Device model
-          required: true
-          type: string
-        - name: fwver
-          in: path
-          description: Device firmware version
-          required: true
-          type: string
-        - name: type
-          in: path
-          description: binary rule type
-          required: true
-          type: string
-        - name: binfile
-          in: formData
-          description: Binary file content
-          type: file
-          required: true
-        - in: formData
-          name: properties
-          description: extra properties for decoding
-          type: string
-          required: false
-      responses:
-        '200':
-          description: successful operation
-          schema: 
-            $ref: "#/definitions/Success"
-        "417":
-          description: "API Error"
-          schema: 
-            $ref: "#/definitions/ApiError"
-  '/push/bin/data/{dkey}/{akey}/{did}/{dmdl}/{fwver}/{type}':
+      security:
+      - authtoken: []
+  '/push/base64/{type}':
     post:
       tags:
         - Push
       summary: Push Binary Data
-      operationId: pushBinaryData
+      operationId: pushBase64Data
       consumes:
-        - "*/*"
-      produces:
-        - application/json
-      parameters:
-        - name: dkey
-          in: path
-          description: Domain key
-          required: true
-          type: string
-        - name: akey
-          in: path
-          description: API key
-          required: true
-          type: string
-        - name: did
-          in: path
-          description: Device ID
-          required: true
-          type: string
-        - name: dmdl
-          in: path
-          description: Device model
-          required: true
-          type: string
-        - name: fwver
-          in: path
-          description: Device firmware version
-          required: true
-          type: string
-        - name: type
-          in: path
-          description: binary rule type
-          required: true
-          type: string
-        - name: format
-          in: query
-          description: data decoding format
-          required: false
-          type: string
-          enum:
-            - TEXT
-            - HEX
-            - BASE64
-        - name: contentType
-          in: query
-          description: content type, ex filename.jpg
-          required: false
-          type: string
-        - name: properties
-          in: query
-          description: extra properties for decoding
-          required: false
-          type: string
-        - in: body
-          name: data
-          description: content text
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: successful operation
-          schema: 
-            $ref: "#/definitions/Success"
-        "417":
-          description: "API Error"
-          schema: 
-            $ref: "#/definitions/ApiError"
-  '/push/bin/json/{dkey}/{akey}/{did}/{dmdl}/{fwver}/{type}':
-    post:
-      tags:
-        - Push
-      summary: Push Binary JSON
-      operationId: pushBinaryJSON
-      consumes:
-        - application/json
-        - Application/json
-      produces:
-        - application/json
-      parameters:
-        - name: dkey
-          in: path
-          description: Domain key
-          required: true
-          type: string
-        - name: akey
-          in: path
-          description: API key
-          required: true
-          type: string
-        - name: did
-          in: path
-          description: Device ID
-          required: true
-          type: string
-        - name: dmdl
-          in: path
-          description: Device model
-          required: true
-          type: string
-        - name: fwver
-          in: path
-          description: Device firmware version
-          required: true
-          type: string
-        - name: type
-          in: path
-          description: binary rule type
-          required: true
-          type: string
-        - name: properties
-          in: query
-          description: extra properties for decoding
-          required: false
-          type: string
-        - in: body
-          name: data
-          description: json document
-          required: true
-          schema:
-            type: object
-      responses:
-        '200':
-          description: successful operation
-          schema: 
-            $ref: "#/definitions/Success"
-        "417":
-          description: "API Error"
-          schema: 
-            $ref: "#/definitions/ApiError"
-  '/push/bin/form/{dkey}/{akey}/{did}/{dmdl}/{fwver}/{type}':
-    post:
-      tags:
-        - Push
-      summary: Push Binary Form
-      operationId: pushBinaryForm
-      consumes:
-        - application/x-www-form-urlencoded
-      produces:
-        - application/json
-      parameters:
-        - name: dkey
-          in: path
-          description: Domain key
-          required: true
-          type: string
-        - name: akey
-          in: path
-          description: API key
-          required: true
-          type: string
-        - name: did
-          in: path
-          description: Device ID
-          required: true
-          type: string
-        - name: dmdl
-          in: path
-          description: Device model
-          required: true
-          type: string
-        - name: fwver
-          in: path
-          description: Device firmware version
-          required: true
-          type: string
-        - name: type
-          in: path
-          description: binary rule type
-          required: true
-          type: string
-        - name: properties
-          in: query
-          description: extra properties for decoding
-          required: false
-          type: string
-        - in: formData
-          name: data
-          description: form data
-          required: true
-          type: string
-      responses:
-        '200':
-          description: successful operation
-          schema: 
-            $ref: "#/definitions/Success"
-        "417":
-          description: "API Error"
-          schema: 
-            $ref: "#/definitions/ApiError"
-  '/push/v2/json/{did}/{dmdl}/{fwver}/{mid}':
-    post:
-      tags:
-        - Push
-      summary: Push JSON Data
-      operationId: pushJSONDataV2
-      consumes:
-        - "application/json"
+        - "text/plain"
       produces:
         - "application/json"
       parameters:
-        - name: dkey
-          in: header
-          description: Domain key
+        - in: path
+          name: type
+          description: Binary rule type. Refer to (Binaray Rule -> Create / Update Binaray Rule. /brules/upsert/)
           required: true
           type: string
-        - name: akey
-          in: header
-          description: API key
-          required: true
-          type: string
-        - name: did
-          in: path
-          description: Device ID
-          required: true
-          type: string
-        - name: dmdl
-          in: path
-          description: Device model
-          required: true
-          type: string
-        - name: fwver
-          in: path
-          description: Device firmware version
-          required: true
-          type: string
-        - name: mid
-          in: path
-          description: Message ID (defined through message spec)
-          required: true
-          type: integer
-          format: int64
         - in: body
-          name: data
-          description: JSON Data
-          required: true
-          schema:
-            type: object
-      responses:
-        '200':
-          description: successful operation
-          schema:
-            $ref: '#/definitions/PushResult'
-  '/push/v2/raw/{did}/{dmdl}/{fwver}/{mid}':
-    post:
-      tags:
-        - Push
-      summary: Push Raw Message
-      operationId: pushRawMessageV2
-      consumes:
-        - "*/*"
-      produces:
-        - "application/json"
-      parameters:
-        - name: dkey
-          in: header
-          description: Domain key
-          required: true
-          type: string
-        - name: akey
-          in: header
-          description: API key
-          required: true
-          type: string
-        - name: did
-          in: path
-          description: Device ID
-          required: true
-          type: string
-        - name: dmdl
-          in: path
-          description: Device model
-          required: true
-          type: string
-        - name: fwver
-          in: path
-          description: Device firmware version
-          required: true
-          type: string
-        - name: mid
-          in: path
-          description: Message ID (defined through message spec)
-          required: true
-          type: integer
-          format: int64
-        - name: format
-          in: query
-          description: data encoding format (default JSON as string)
-          required: false
-          type: string
-          enum:
-            - JSON
-            - TEXT
-            - HEX
-            - BASE64
-        - in: body
-          name: data
-          description: data as text
+          name: entity
+          description: BASE64 encoded byte array
           required: true
           schema:
             type: string
@@ -1238,322 +791,94 @@ paths:
           description: successful operation
           schema:
             $ref: '#/definitions/PushResult'
-  '/push/v2/bin/file/{did}/{dmdl}/{fwver}/{type}':
-    post:
-      tags:
-        - Push
-      summary: Push Binary File
-      operationId: pushBinaryFileV2
-      consumes:
-        - multipart/form-data
-      produces:
-        - application/json
-      parameters:
-        - name: dkey
-          in: header
-          description: Domain key
-          required: true
-          type: string
-        - name: akey
-          in: header
-          description: API key
-          required: true
-          type: string
-        - name: did
-          in: path
-          description: Device ID
-          required: true
-          type: string
-        - name: dmdl
-          in: path
-          description: Device model
-          required: true
-          type: string
-        - name: fwver
-          in: path
-          description: Device firmware version
-          required: true
-          type: string
-        - name: type
-          in: path
-          description: binary rule type
-          required: true
-          type: string
-        - name: binfile
-          in: formData
-          description: Binary file content
-          type: file
-          required: true
-        - in: formData
-          name: properties
-          description: extra properties for decoding
-          type: string
-          required: false
-      responses:
-        '200':
-          description: successful operation
-          schema: 
-            $ref: "#/definitions/Success"
-        "417":
-          description: "API Error"
-          schema: 
-            $ref: "#/definitions/ApiError"
-  '/push/v2/bin/data/{did}/{dmdl}/{fwver}/{type}':
+      security:
+      - authtoken: []
+  '/push/hex/{type}':
     post:
       tags:
         - Push
       summary: Push Binary Data
-      operationId: pushBinaryDataV2
+      operationId: pushHexData
       consumes:
-        - "*/*"
+        - "text/plain"
       produces:
-        - application/json
+        - "application/json"
       parameters:
-        - name: dkey
-          in: header
-          description: Domain key
+        - in: path
+          name: type
+          description: Binary rule type. Refer to (Binaray Rule -> Create / Update Binaray Rule. /brules/upsert/)
           required: true
-          type: string
-        - name: akey
-          in: header
-          description: API key
-          required: true
-          type: string
-        - name: did
-          in: path
-          description: Device ID
-          required: true
-          type: string
-        - name: dmdl
-          in: path
-          description: Device model
-          required: true
-          type: string
-        - name: fwver
-          in: path
-          description: Device firmware version
-          required: true
-          type: string
-        - name: type
-          in: path
-          description: binary rule type
-          required: true
-          type: string
-        - name: format
-          in: query
-          description: data decoding format
-          required: false
-          type: string
-          enum:
-            - TEXT
-            - HEX
-            - BASE64
-        - name: contentType
-          in: query
-          description: content type, ex filename.jpg
-          required: false
-          type: string
-        - name: properties
-          in: query
-          description: extra properties for decoding
-          required: false
           type: string
         - in: body
-          name: data
-          description: content text
+          name: entity
+          description: Hex encoded byte array
           required: true
           schema:
             type: string
       responses:
         '200':
           description: successful operation
-          schema: 
-            $ref: "#/definitions/Success"
-        "417":
-          description: "API Error"
-          schema: 
-            $ref: "#/definitions/ApiError"
-  '/push/v2/bin/json/{did}/{dmdl}/{fwver}/{type}':
+          schema:
+            $ref: '#/definitions/PushResult'
+      security:
+      - authtoken: []
+  '/push/text/{type}':
     post:
       tags:
         - Push
-      summary: Push Binary JSON
-      operationId: pushBinaryJSONV2
+      summary: Push Text Data
+      operationId: pushTextData
       consumes:
-        - application/json
+        - "text/plain"
       produces:
-        - application/json
+        - "application/json"
       parameters:
-        - name: dkey
-          in: header
-          description: Domain key
+        - in: path
+          name: type
+          description: Binary rule type. Refer to (Binaray Rule -> Create / Update Binaray Rule. /brules/upsert/)
           required: true
-          type: string
-        - name: akey
-          in: header
-          description: API key
-          required: true
-          type: string
-        - name: did
-          in: path
-          description: Device ID
-          required: true
-          type: string
-        - name: dmdl
-          in: path
-          description: Device model
-          required: true
-          type: string
-        - name: fwver
-          in: path
-          description: Device firmware version
-          required: true
-          type: string
-        - name: type
-          in: path
-          description: binary rule type
-          required: true
-          type: string
-        - name: properties
-          in: query
-          description: extra properties for decoding
-          required: false
           type: string
         - in: body
-          name: data
-          description: json document
+          name: entity
+          description: Message JSON object
           required: true
           schema:
-            type: object
+            type: string
       responses:
         '200':
           description: successful operation
-          schema: 
-            $ref: "#/definitions/Success"
-        "417":
-          description: "API Error"
-          schema: 
-            $ref: "#/definitions/ApiError"
-  '/push/v2/bin/form/{did}/{dmdl}/{fwver}/{type}':
+          schema:
+            $ref: '#/definitions/PushResult'
+      security:
+      - authtoken: []
+  '/push/file/{type}':
     post:
       tags:
         - Push
-      summary: Push Binary Form
-      operationId: pushBinaryFormV2
-      consumes:
-        - application/x-www-form-urlencoded
-      produces:
-        - application/json
-      parameters:
-        - name: dkey
-          in: header
-          description: Domain key
-          required: true
-          type: string
-        - name: akey
-          in: header
-          description: API key
-          required: true
-          type: string
-        - name: did
-          in: path
-          description: Device ID
-          required: true
-          type: string
-        - name: dmdl
-          in: path
-          description: Device model
-          required: true
-          type: string
-        - name: fwver
-          in: path
-          description: Device firmware version
-          required: true
-          type: string
-        - name: type
-          in: path
-          description: binary rule type
-          required: true
-          type: string
-        - name: properties
-          in: query
-          description: extra properties for decoding
-          required: false
-          type: string
-        - in: formData
-          name: data
-          description: form data
-          required: true
-          type: string
-      responses:
-        '200':
-          description: successful operation
-          schema: 
-            $ref: "#/definitions/Success"
-        "417":
-          description: "API Error"
-          schema: 
-            $ref: "#/definitions/ApiError"
-  '/push/file/{dkey}/{akey}/{did}/{dmdl}/{fwver}/{type}':
-    post:
-      tags:
-        - Push
-      summary: Push File Rule
-      operationId: pushFile
+      summary: Push File Data
+      operationId: pushFileData
       consumes:
         - multipart/form-data
       produces:
         - application/json
       parameters:
-        - name: dkey
-          in: path
-          description: Domain key
+        - in: path
+          name: type
+          description: Binary rule type. Refer to (Binaray Rule -> Create / Update Binaray Rule. /brules/upsert/)
           required: true
           type: string
-        - name: akey
-          in: path
-          description: API key
-          required: true
-          type: string
-        - name: did
-          in: path
-          description: Device ID
-          required: true
-          type: string
-        - name: dmdl
-          in: path
-          description: Device model
-          required: true
-          type: string
-        - name: fwver
-          in: path
-          description: Device firmware version
-          required: true
-          type: string
-        - name: type
-          in: path
-          description: file rule type
-          required: true
-          type: string
-        - in: formData
-          name: binfile
-          description: Binary file content
+        - name: file
+          in: formData
+          description: File content
           type: file
           required: true
-        - name: rtype
-          in: query
-          description: One of [DOMAIN, GLOBAL, SYSTEM], default is DOMAIN
-          required: false
-          type: string
       responses:
         '200':
           description: successful operation
-          schema: 
-            $ref: "#/definitions/Success"
-        "417":
-          description: "API Error"
-          schema: 
-            $ref: "#/definitions/ApiError"
+          schema:
+            $ref: '#/definitions/PushResult'
+      security:
+      - authtoken: []
   '/rules/upsert/{atoken}':
     post:
       tags:
@@ -8540,11 +7865,6 @@ paths:
       summary: Register New Domain
       operationId: "register"
       parameters:
-        - name: targetDomainKey
-          in: query
-          description: If the user needs to be a part of existing domain
-          required: false
-          type: string
         - name: user
           in: body
           description: User object
@@ -8553,9 +7873,9 @@ paths:
             $ref: "#/definitions/User"
       responses: 
         "200":
-          description: "Newly created user and domain"
+          description: "Newly created account details"
           schema: 
-            $ref: "#/definitions/UserDomain"
+            $ref: "#/definitions/RegisterResponse"
         "417":
           description: "API Error"
           schema: 
@@ -21011,6 +20331,7 @@ paths:
       operationId: "getClusterStatistics"
       consumes:
         - "application/json"
+        - "text/plain"
       produces:
         - "application/json"
       parameters:
@@ -21097,121 +20418,6 @@ paths:
             $ref: "#/definitions/ApiError"
       security:
       - authtoken: []
-  '/cluster/reindex/{atoken}/{type}': 
-    get: 
-      tags:
-        - Cluster
-      summary: Re Index Cluster
-      operationId: "reindexCluster"
-      consumes:
-        - "application/json"
-      produces:
-        - "application/json"
-      parameters:
-        - name: atoken
-          in: path
-          description: Auth token of the logged in user
-          required: true
-          type: string
-        - name: type
-          in: path
-          required: true
-          type: string
-          enum:
-            - 'DEVICES'
-            - 'DOMAIN'
-        - name: domainKey
-          in: query
-          required: false
-          type: string
-          description: 'Required if **type** is not **DEVICES**'
-      responses: 
-        "200":
-          description: "Success"
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Success'
-        "417":
-          description: "API Error"
-          schema: 
-            $ref: "#/definitions/ApiError"
-      security:
-      - authtoken: []
-  '/cluster/service/activate/{atoken}/{sname}/{active}': 
-    get: 
-      tags:
-        - Cluster
-      summary: Activate / Deactivate Service
-      operationId: "activateService"
-      consumes:
-        - "application/json"
-      produces:
-        - "application/json"
-      parameters:
-        - name: atoken
-          in: path
-          description: Auth token of the logged in user
-          required: true
-          type: string
-        - name: sname
-          in: path
-          required: true
-          type: string
-        - name: active
-          in: path
-          description: Boolean to activate or deactivate
-          required: true
-          type: boolean
-        - name: domainKey
-          in: query
-          required: false
-          type: string
-          description: 'Required if the service is a domain specific service'
-      responses: 
-        "200":
-          description: "Success"
-          schema:
-            $ref: "#/definitions/Counter"
-        "417":
-          description: "API Error"
-          schema: 
-            $ref: "#/definitions/ApiError"
-      security:
-      - authtoken: []
-  '/cluster/counter/upsert/{dkey}':
-    post:
-      tags:
-        - Cluster
-      summary: Create Update Domain Counter
-      operationId: upsertDomainCounter
-      consumes:
-        - "application/json"
-      produces:
-        - application/json
-      parameters:
-        - name: dkey
-          in: path
-          description: Domain key of the instance
-          required: true
-          type: string
-        - name: counter
-          in: body
-          description: DomainCounter JSON object
-          required: true
-          schema:
-            $ref: '#/definitions/DomainCounter'
-      responses:
-        '200':
-          description: successful operation
-          schema: 
-            $ref: "#/definitions/Success"
-        "417":
-          description: "API Error"
-          schema: 
-            $ref: "#/definitions/ApiError"
-      security:
-      - authtoken: []
   '/cluster/process/check': 
     get: 
       tags:
@@ -21269,70 +20475,267 @@ paths:
             $ref: "#/definitions/ApiError"
       security:
       - authtoken: []
-  '/cluster/domain/add/{atoken}/{dkey}': 
+  '/cluster/usage/list': 
     get: 
       tags:
-        - Cluster
-      summary: Add Cluster Domain
-      operationId: "addClusterDomain"
+        - Cluster Usage
+      summary: List Usage by Month
+      operationId: "listClusterUsage"
       consumes:
         - "application/json"
       produces:
         - "application/json"
-      parameters:
-        - name: atoken
-          in: path
-          description: Auth token of the logged in user
-          required: true
-          type: string
-        - name: dkey
-          in: path
-          description: Domain Key
-          required: true
-          type: string
       responses: 
         "200":
           description: "Success"
           schema:
-            $ref: "#/definitions/ClusterDomains"
+            type: array
+            items:
+              $ref: '#/definitions/DomainUsage'
         "417":
           description: "API Error"
           schema: 
             $ref: "#/definitions/ApiError"
       security:
       - authtoken: []
-  '/cluster/domain/remove/{atoken}/{dkey}': 
+  '/cluster/usage/get':
     get: 
       tags:
-        - Cluster
-      summary: Remove Cluster Domain
-      operationId: "removeClusterDomain"
+        - Cluster Usage
+      summary: Get Current Month's Usage
+      operationId: "getClusterUsage"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      responses: 
+        "200":
+          description: "Success"
+          schema:
+            $ref: "#/definitions/DomainUsage"
+        "417":
+          description: "API Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/cluster/usage/account/get/{accountId}':
+    get: 
+      tags:
+        - Cluster Usage
+      summary: Get Account Usage
+      operationId: "getClusterAccountUsage"
       consumes:
         - "application/json"
       produces:
         - "application/json"
       parameters:
-        - name: atoken
+        - name: accountId
           in: path
-          description: Auth token of the logged in user
+          description: Account ID
           required: true
           type: string
-        - name: dkey
+        - name: month
+          in: query
+          description: yyyyMM, by default current month is returned
+          required: false
+          type: string
+      responses: 
+        "200":
+          description: "Success"
+          schema:
+            $ref: "#/definitions/DomainUsage"
+        "417":
+          description: "API Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/cluster/usage/plan/get/{accountId}/{planId}':
+    get: 
+      tags:
+        - Cluster Usage
+      summary: Get Account's Plan Usage
+      operationId: "getClusterPlanUsage"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: accountId
+          in: path
+          description: Account ID
+          required: true
+          type: string
+        - name: planId
+          in: path
+          description: Plan ID
+          required: true
+          type: string
+        - name: month
+          in: query
+          description: yyyyMM, by default current month is returned
+          required: false
+          type: string
+      responses: 
+        "200":
+          description: "Success"
+          schema:
+            $ref: "#/definitions/DomainUsage"
+        "417":
+          description: "API Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/cluster/usage/domain/get/{accountId}/{planId}/{domainKey}':
+    get: 
+      tags:
+        - Cluster Usage
+      summary: Get Account's Domain Usage
+      operationId: "getClusterDomainUsage"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: accountId
+          in: path
+          description: Account ID
+          required: true
+          type: string
+        - name: planId
+          in: path
+          description: Plan ID
+          required: true
+          type: string
+        - name: domainKey
           in: path
           description: Domain Key
+          required: true
+          type: string
+        - name: month
+          in: query
+          description: yyyyMM, by default current month is returned
+          required: false
+          type: string
+      responses: 
+        "200":
+          description: "Success"
+          schema:
+            $ref: "#/definitions/DomainUsage"
+        "417":
+          description: "API Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/cluster/connected/count':
+    get: 
+      tags:
+        - Cluster Usage
+      summary: Get Cluster Connected Entities Count
+      operationId: "getClusterConnectedCount"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      responses: 
+        "200":
+          description: "Success"
+          schema:
+            $ref: "#/definitions/Count"
+        "417":
+          description: "API Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/cluster/account/connected/count/{accountId}':
+    get: 
+      tags:
+        - Cluster Usage
+      summary: Get Account Connected Entities Count
+      operationId: "getClusterAccountConnectedCount"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: accountId
+          in: path
+          description: Account ID
           required: true
           type: string
       responses: 
         "200":
           description: "Success"
           schema:
-            $ref: "#/definitions/ClusterDomains"
+            $ref: "#/definitions/Count"
         "417":
           description: "API Error"
           schema: 
             $ref: "#/definitions/ApiError"
-      security:
-      - authtoken: []
+  '/cluster/plan/connected/count/{accountId}/{planId}':
+    get: 
+      tags:
+        - Cluster Usage
+      summary: Get Account Plan's' Connected Entities Count
+      operationId: "getClusterPlanConnectedCount"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: accountId
+          in: path
+          description: Account ID
+          required: true
+          type: string
+        - name: planId
+          in: path
+          description: Plan ID
+          required: true
+          type: string
+      responses: 
+        "200":
+          description: "Success"
+          schema:
+            $ref: "#/definitions/Count"
+        "417":
+          description: "API Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/cluster/domain/connected/count/{accountId}/{planId}/{domainKey}':
+    get: 
+      tags:
+        - Cluster Usage
+      summary: Get Account's Domain Connected Entities Count
+      operationId: "getClusterDomainConnectedCount"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: accountId
+          in: path
+          description: Account ID
+          required: true
+          type: string
+        - name: planId
+          in: path
+          description: Plan ID
+          required: true
+          type: string
+        - name: domainKey
+          in: path
+          description: Domain Key
+          required: true
+          type: string
+        - name: type
+          in: query
+          description: Default 0, 0-> All Entities, 1-> Devices, 2-> Users
+          required: true
+          type: integer
+      responses: 
+        "200":
+          description: "Success"
+          schema:
+            $ref: "#/definitions/Count"
+        "417":
+          description: "API Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
   '/settings/set/email/{atoken}':
     post:
       tags:
@@ -23757,39 +23160,6 @@ paths:
             $ref: "#/definitions/ApiError"
       security:
       - authtoken: []
-  '/auth/touch/{atoken}/{expireAt}': 
-    get: 
-      tags:
-        - Auth & Authorization
-      summary: Touch Auth Token
-      consumes:
-        - "application/json"
-      produces:
-        - "application/json"
-      operationId: "touchAuthToken"
-      parameters:
-        - name: atoken
-          in: path
-          description: External Auth Token
-          required: true
-          type: string
-        - name: expireAt
-          in: path
-          description: Token Expiry Time in millis
-          required: true
-          type: integer
-          format: int64
-      responses: 
-        "200":
-          description: "Success"
-          schema: 
-            $ref: "#/definitions/Success"
-        "417":
-          description: "API Error"
-          schema: 
-            $ref: "#/definitions/ApiError"
-      security:
-      - authtoken: []
   '/auth/expire/{atoken}': 
     delete: 
       tags:
@@ -23902,6 +23272,68 @@ paths:
             $ref: "#/definitions/ApiError"
       security:
       - authtoken: []
+  '/emqx/auth/{version}': 
+    post: 
+      tags:
+        - EMQX Auth
+      summary: EMQX Authenticate
+      consumes:
+        - "application/json"
+      produces: 
+        - "application/json"
+      operationId: "emqxAuthenticate"
+      parameters:
+        - name: version
+          description: EMQX version string
+          in: path
+          required: true
+          type: string
+        - name: entity
+          in: body
+          description: Request JSON object
+          required: true
+          schema:
+            $ref: '#/definitions/EmqxRequest'
+      responses: 
+        "200":
+          description: "Success"
+          schema: 
+            $ref: "#/definitions/EmqxResponse"
+        "417":
+          description: "API Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+  '/emqx/authz/{version}': 
+    post: 
+      tags:
+        - EMQX Auth
+      summary: EMQX Authorize
+      consumes:
+        - "application/json"
+      produces: 
+        - "application/json"
+      operationId: "emqxAuthorize"
+      parameters:
+        - name: version
+          description: EMQX version string
+          in: path
+          required: true
+          type: string
+        - name: entity
+          in: body
+          description: Request JSON object
+          required: true
+          schema:
+            $ref: '#/definitions/EmqxRequest'
+      responses: 
+        "200":
+          description: "Success"
+          schema: 
+            $ref: "#/definitions/EmqxResponse"
+        "417":
+          description: "API Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
   '/emqtt/auth': 
     post: 
       tags:
@@ -24548,7 +23980,8 @@ paths:
       summary: Get License Status
       operationId: getLicenseStatus
       consumes:
-        - "*/*"
+        - "application/json"
+        - "text/plain"
       produces:
         - "application/json"
       responses:
@@ -24567,7 +24000,7 @@ paths:
       summary: Apply Cluster License
       operationId: applyClusterLicense
       consumes:
-        - "text/plain"
+        - "application/json"
       produces:
         - "application/json"
       parameters:
@@ -24576,12 +24009,12 @@ paths:
           description: Encrypted Data
           required: true
           schema:
-            type: string
+            $ref: "#/definitions/StringResult"
       responses:
         '200':
           description: successful operation
           schema: 
-            type: string
+            $ref: "#/definitions/Success"
         "417":
           description: "API Error"
           schema: 
@@ -24593,7 +24026,7 @@ paths:
       summary: Apply Account Settings
       operationId: applyAccountSettings
       consumes:
-        - "text/plain"
+        - "application/json"
       produces:
         - "application/json"
       parameters:
@@ -24602,12 +24035,12 @@ paths:
           description: Encrypted Data
           required: true
           schema:
-            type: string
+            $ref: "#/definitions/StringResult"
       responses:
         '200':
           description: successful operation
           schema: 
-            type: string
+            $ref: "#/definitions/Success"
         "417":
           description: "API Error"
           schema: 
@@ -24619,7 +24052,7 @@ paths:
       summary: Apply Domain License
       operationId: applyDomainLicense
       consumes:
-        - "text/plain"
+        - "application/json"
       produces:
         - "application/json"
       parameters:
@@ -24628,12 +24061,12 @@ paths:
           description: Encrypted Data
           required: true
           schema:
-            type: string
+            $ref: "#/definitions/StringResult"
       responses:
         '200':
           description: successful operation
           schema: 
-            type: string
+            $ref: "#/definitions/Success"
         "417":
           description: "API Error"
           schema: 
@@ -24647,7 +24080,7 @@ paths:
       consumes:
         - "application/json"
       produces:
-        - "text/plain"
+        - "application/json"
       parameters:
         - name: mode
           in: path
@@ -24664,7 +24097,7 @@ paths:
         '200':
           description: successful operation
           schema: 
-            type: string
+            $ref: "#/definitions/StringResult"
         "417":
           description: "API Error"
           schema: 
@@ -24678,7 +24111,7 @@ paths:
       summary: Encryption
       operationId: decryptData
       consumes:
-        - "text/plain"
+        - "application/json"
       produces:
         - "application/json"
       parameters:
@@ -24692,7 +24125,7 @@ paths:
           description: data to be decrypted
           required: true
           schema:
-            type: string
+            $ref: "#/definitions/StringResult"
       responses:
         '200':
           description: successful operation
@@ -24704,6 +24137,60 @@ paths:
             $ref: "#/definitions/ApiError"
       security:
       - authtoken: []
+  '/license/domain/get':
+    get:
+      tags:
+        - License
+      summary: Get Domain License Information
+      operationId: getDomainLicenseInfo
+      consumes:
+        - "application/json"
+        - "text/plain"
+      produces:
+        - "application/json"
+      parameters:
+        - name: domainKey
+          in: query
+          description: Optional domainKey, admin access required
+          required: false
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          schema: 
+            type: object
+        "417":
+          description: "API Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
+      security:
+      - authtoken: []
+  '/license/activate/{uid}':
+    get:
+      tags:
+        - License
+      summary: Activate License
+      operationId: activateLicense
+      consumes:
+        - "text/plain"
+        - "*/*"
+      produces:
+        - "text/html"
+      parameters:
+        - name: uid
+          in: path
+          description: unique identifier
+          required: true
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          schema: 
+            type: string
+        "417":
+          description: "API Error"
+          schema: 
+            $ref: "#/definitions/ApiError"
   '/dfs/file/upload/{atoken}':
     post:
       tags:
@@ -25947,11 +25434,23 @@ definitions:
   PushResult:
     type: object
     required:
-      - muid
+    - success
     properties:
+      success:
+        type: boolean
       muid:
         type: string
         description: message unique identifier
+      queue:
+        type: integer
+        format: int64
+        description: system pending queue size
+      error:
+        type: string
+        description: error message if any
+      trace:
+        type: string
+        description: stack trace of the error
   MessageHeader:
     type: object
     properties:
@@ -30181,15 +29680,15 @@ definitions:
     required:
       - domainKey
       - type
-      - token
     properties:
       domainKey:
         type: string
       type:
         type: string
-      token:
-        type: string
       entity:
+        type: string
+        description: "Required if type is [DEVICE or USER] (deviceId or userId)"
+      token:
         type: string
       mode:
         type: string
@@ -30219,3 +29718,86 @@ definitions:
         type: boolean
       policies:
         type: object
+  StringResult: 
+    type: "object"
+    required:
+      - value
+    properties: 
+      value: 
+        type: "string"
+  RegisterResponse:
+    type: object
+    properties:
+      accountId:
+        type: string
+      planId:
+        type: string
+  DomainUsage:
+    type: object
+    properties:
+      accountId:
+        type: string
+      planId:
+        type: string
+      domainKey:
+        type: string
+      month:
+        type: integer
+        format: int64
+      apiHits:
+        type: integer
+        format: int64
+      apOverflow:
+        type: integer
+        format: int64
+      dataPoints:
+        type: integer
+        format: int64
+      storagePoints:
+        type: integer
+        format: int64
+      dpOverflow:
+        type: integer
+        format: int64
+      users:
+        type: integer
+        format: int64
+      connectedUsers:
+        type: integer
+        format: int64
+      devices:
+        type: integer
+        format: int64
+      connectedDevices:
+        type: integer
+        format: int64
+  EmqxRequest:
+    type: object
+    properties:
+      clientid:
+        type: string
+      username:
+        type: string
+      password:
+        type: string
+      ipaddress:
+        type: string
+      topic:
+        type: string
+      action:
+        type: string
+      protocol:
+        type: string
+      mountpoint:
+        type: string
+      cert_subject:
+        type: string
+      cert_common_name:
+        type: string
+  EmqxResponse:
+    type: object
+    properties:
+      status:
+        type: string
+      is_superuser:
+        type: boolean
