@@ -530,6 +530,28 @@ function listInputRules(type,cbk) {
 
 }
 
+function listAuthToken(authType, cbk) {
+
+    var url = "/auth/token/list";
+    if(authType !== ""){
+        url = "/auth/token/list?type="+authType;
+    }
+
+    $.ajax({
+        url: API_BASE_PATH + url,
+        type: 'GET',
+        success: function (data) {
+            //called when successful
+            cbk(true, data);
+        },
+        error: function (e) {
+            //called when there is an error
+            //console.log(e.message);
+            cbk(false, null);
+        }
+    });
+
+}
 
 function listMessageSpec(pageSize, direction, mid, cbk) {
 
@@ -1576,8 +1598,22 @@ function deleteUser(id, cbk) {
             cbk(false, null);
         }
     });
+}
 
-
+function expireToken(authToken, cbk) {
+    $.ajax({
+        url: API_BASE_PATH + "/auth/expire/" + authToken,
+        type: 'DELETE',
+        success: function (data) {
+            //called when successful
+            cbk(true, data);
+        },
+        error: function (e) {
+            //called when there is an error
+            //console.log(e.message);
+            cbk(false, null);
+        }
+    });
 }
 
 function getUserList(data, cbk) {

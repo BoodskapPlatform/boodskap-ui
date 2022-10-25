@@ -367,6 +367,9 @@ Routes.prototype.init = function () {
     self.router.get('/user-management', roleCheck, function (req, res) {
         res.render('user-management.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
     });
+    self.router.get('/token-management', roleCheck, function (req, res) {
+        res.render('token-management.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+    });
     self.router.get('/user-group', roleCheck, function (req, res) {
         res.render('user-group.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
     });
