@@ -65,7 +65,7 @@
         <div class="news-feed" style="border-right:1px solid #eee;background-color: #fac300;">
             <div class="col-lg-12 loginCustom" style="display: none">
 
-                <% include text-slider.html %>
+                <% include reg-text-slider.html %>
 
             </div>
             <div class="news-caption leftBottomBg">
@@ -86,7 +86,7 @@
                     <a href="<%= basepath %>/login"><img src="" class="loginLogo" style="width: 175px" /></a>
                 </div>
             </div>
-            <div class="login-content"  style="">
+            <div class="login-content register-content" id="regBoxes">
                 <form action="javascript:void(0)" id="registerForm" class="margin-bottom-0"  onsubmit="register()">
                     <div class="form-group m-b-15">
                         <label>First Name</label>
@@ -118,6 +118,26 @@
                     </div>
                     <div class="m-t-20 m-b-40 p-b-40 text-inverse">
                         Already a member? Click <a href="<%= basepath %>/login" class="text-warning loginHref textColor">here</a> to login.
+                    </div>
+                    <hr />
+                    <p class="text-center text-grey-darker" style="margin-bottom: 20px;">
+                        &copy; <span class="currentYear"></span> All rights reserved. <a href="https://boodskap.io" target="_blank" class="text-warning poweredBy"></a>
+                    </p>
+                    <p class="text-center" style="font-size: 11px;color:#ccc">Dashboard Version: <b><span class="webVersion"></span></b>
+                        <span style="color:#ccc">|</span> Platform Version: <b><span class="apiVersion"></span></b></p>
+                </form>
+            </div>
+
+            <div class="login-content register-content" id="regFeedback" style="display: none;">
+                <form action="javascript:void(0)" class="margin-bottom-0" style="margin-top: 20px;">
+                    <div style="text-align: center;margin: 0 auto;">
+                        <img src="images/check.png" style="height: 60px;">
+                        <h3 style="margin-top: 20px;">Registration Successful!</h3>
+                        <p><b>Your account has been registered successfully, <br>Please check your email.</b></p>
+                        <p style="font-size: 11px;">Click on "Goto Login" otherwise wait a moment, it will redirect to login.</p>
+                    </div>
+                    <div class="login-buttons">
+                        <button type="button" class="btn btn-warning btn-block btn-lg" id="gotoLogin" onclick="redirectToLogin()">Goto Login</button>
                     </div>
                     <hr />
                     <p class="text-center text-grey-darker" style="margin-bottom: 20px;">

@@ -26,15 +26,15 @@ $(document).ready(function () {
     $(".right-content").css('height',$(window).height());
 
 
-    $(".col").hide();
-    $(".col1").show();
+    $("#loginPageSlider .col").hide();
+    $("#loginPageSlider .col1").show();
     textSlider();
 
-    $( ".col" ).mouseover(function() {
+    $( "#loginPageSlider .col" ).mouseover(function() {
         clearInterval(sliderCtrl)
     });
 
-    $( ".col" ).mouseout(function() {
+    $( "#loginPageSlider .col" ).mouseout(function() {
         textSlider();
     });
 
@@ -48,12 +48,12 @@ function textSlider() {
 
     sliderCtrl = setInterval(function(){
         counter++;
-        if(counter === 14){
+        if(counter === 6){
             counter = 1;
         }
 
-        $('.col').hide();
-        $('.col'+counter).toggle('slide');
+        $('#loginPageSlider .col').hide();
+        $('#loginPageSlider .col'+counter).toggle('slide');
     }, 2500);
 }
 
@@ -109,6 +109,11 @@ function login(){
             errorMsg('Authentication Failed. Incorrect Username/Password')
         }
     })
+}
+
+function redirectToLogin(){
+
+    window.location.href = "/login";
 }
 
 function loadPartDomain() {
@@ -176,7 +181,7 @@ function register(){
     var lastname = $.trim($("#lastname").val());
     var email = $.trim($("#email").val());
     var password = $("#password").val();
-    var confirmpassword = $("#confirmpassword").val();
+    // var confirmpassword = $("#confirmpassword").val();
 
     if(firstname == ""){
         errorMsgBorder('First Name cannot be empty','firstname');
@@ -208,11 +213,11 @@ function register(){
         errorMsgBorder('Password cannot be empty','password');
         return false;
     }
-
+/*
     if(password !== confirmpassword){
         errorMsgBorder('Password & Confirm Password should be same','password');
         return false;
-    }
+    }*/
 
     $("#submitButton").attr('disabled','disabled');
     loading('Please wait');
@@ -230,14 +235,18 @@ function register(){
         $("#submitButton").removeAttr('disabled');
         if(status){
             $('#registerForm')[0].reset();
-            successMsg('Account Successfully created. Please check your email to activate your account!')
+            successMsg('Account Successfully created. Please check your email to activate your account!');
+            $(".register-content").hide();
+            $("#regFeedback").show();
 
-            if(Cookies.get('domain')){
-                var domainKey = Cookies.get('domain');
-                document.location=BASE_PATH+'/'+domainKey;
-            }else{
-                document.location=BASE_PATH+'/login';
-            }
+            setTimeout(function(){
+                if(Cookies.get('domain')){
+                    var domainKey = Cookies.get('domain');
+                    document.location=BASE_PATH+'/'+domainKey;
+                }else{
+                    document.location=BASE_PATH+'/login';
+                }
+            },3000);
         }else{
             console.log(data)
             if(data.message === 'USER_EXISTS'){

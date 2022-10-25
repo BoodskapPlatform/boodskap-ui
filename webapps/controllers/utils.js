@@ -4,7 +4,7 @@ var boodskapEditor = false;
 $(document).ready(function () {
     loadGoogleAnalytics();
     loadStatistics();
-
+    getLicenseStatus();
 });
 
 
@@ -433,7 +433,7 @@ function loadGoogleAnalytics() {
 
 
 function loadStatistics() {
-    $(".webVersion").html(WEB_VERSION)
+    // $(".webVersion").html(WEB_VERSION)
     $.ajax({
         url: API_BASE_PATH + "/cluster/statistics",
         cache: false,
@@ -445,8 +445,41 @@ function loadStatistics() {
             // "Access-Control-Allow-Origin": "*"
         },
         success: function (data) {
-            if (data) {
+            /*if (data) {
                 $('.apiVersion').html(data.version)
+
+                try{
+                    loadAPI(data.version.includes(' ') ? '3.0.2' : data.version)
+                }
+                catch(e){}
+
+            }*/
+        },
+        error: function (e) {
+
+        }
+    });
+}
+
+function getLicenseStatus() {
+    $(".webVersion").html(WEB_VERSION)
+    $.ajax({
+        url: API_BASE_PATH + '/license/status',
+        cache: false,
+        type: 'GET',
+        global: false,
+        crossDomain: true,
+        "headers": {
+            "accept": "application/json",
+            // "Access-Control-Allow-Origin": "*"
+        },
+        success: function (data) {
+
+            console.log(data);
+
+            if (data) {
+                $('.apiVersion').html(data.apiVersion);
+                $('.platformVersion').html(data.version);
 
                 try{
                     loadAPI(data.version.includes(' ') ? '3.0.2' : data.version)
