@@ -34,7 +34,7 @@ function mqttListen() {
 
         console.log(new Date + ' | MQTT Started to Subscribe');
 
-        mqttSubscribe("/" + USER_OBJ.domainKey + "/log/#", 0);
+        mqttSubscribeGlobal("/" + USER_OBJ.domainKey + "/log/#", 0);
 
 
         mqtt_client.onMessageArrived = function (message) {

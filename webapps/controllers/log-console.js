@@ -32,14 +32,14 @@ function mqttListen() {
         console.log(new Date + ' | MQTT Started to Subscribe');
 
         /*if (ADMIN_ACCESS) {
-            mqttSubscribe("/syslog/#", 0);
+            mqttSubscribeGlobal("/syslog/#", 0);
         }else{
-            mqttSubscribe("/syslog/"+USER_OBJ.domainKey+"/#", 0);
+            mqttSubscribeGlobal("/syslog/"+USER_OBJ.domainKey+"/#", 0);
 
         }*/
 
         setTimeout(function () {
-            mqttSubscribe("/" + USER_OBJ.domainKey + "/log/#", 0);
+            mqttSubscribeGlobal("/" + USER_OBJ.domainKey + "/log/#", 0);
         }, 500)
 
 

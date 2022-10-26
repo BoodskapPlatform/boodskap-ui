@@ -210,12 +210,12 @@ function mqttListen() {
 
         console.log(new Date + ' | MQTT Started to Subscribe');
 
-        mqttSubscribe("/" + USER_OBJ.domainKey + "/log/#", 0);
+        mqttSubscribeGlobal("/" + USER_OBJ.domainKey + "/log/#", 0);
 
-        // mqttSubscribe("/global/#", 0);
+        // mqttSubscribeGlobal("/global/#", 0);
 
        /* if(ADMIN_ACCESS){
-            mqttSubscribe("/system/#", 0);
+            mqttSubscribeGlobal("/system/#", 0);
         }*/
 
 

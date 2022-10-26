@@ -58,6 +58,26 @@ $(document).ready(function () {
 
     $(".rightSideBarPanel").css('height',$(window).height());
 
+
+    //Cookie & Tab
+    if (+Cookies.get('tabs') > 0)
+        alert('Already open!');
+    else
+        Cookies.set('tabs', 0);
+
+    Cookies.set('tabs', +Cookies.get('tabs') + 1);
+
+    window.onunload = function () {
+        Cookies.set('tabs', +Cookies.get('tabs') - 1);
+    };
+
+
+    var tabID = sessionStorage.tabID && sessionStorage.closedLastTab !== '2' ? sessionStorage.tabID : sessionStorage.tabID = Math.random();
+    sessionStorage.closedLastTab = '2';
+    $(window).on('unload beforeunload', function() {
+        sessionStorage.closedLastTab = '1';
+    });
+
 });
 
 function restrictAccess() {
@@ -418,8 +438,6 @@ function liveUpdateGlobal(obj) {
         Cookies.set('live_update', 'OFF');
         LIVE_UPDATE_GLOBAL = 'OFF'
     }
-
-
 }
 
 
@@ -430,6 +448,7 @@ function mqttGlobalListen() {
         console.log(new Date + ' | Global MQTT Started to Subscribe');
 
         // mqttSubscribeGlobal("/" + USER_OBJ.domainKey + "/log/mrule/#", 0);
+        mqttSubscribeGlobal("/" + USER_OBJ.domainKey + "/log/#", 0);
 
         mqtt_global_client.onMessageArrived = function (message) {
 
