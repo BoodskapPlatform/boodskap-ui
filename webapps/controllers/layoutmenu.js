@@ -60,7 +60,7 @@ $(document).ready(function () {
 
 
     //Cookie & Tab
-    if (+Cookies.get('tabs') > 0)
+    /*if (+Cookies.get('tabs') > 0)
         alert('Already open!');
     else
         Cookies.set('tabs', 0);
@@ -76,7 +76,7 @@ $(document).ready(function () {
     sessionStorage.closedLastTab = '2';
     $(window).on('unload beforeunload', function() {
         sessionStorage.closedLastTab = '1';
-    });
+    });*/
 
 });
 
