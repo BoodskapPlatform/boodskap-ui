@@ -284,6 +284,9 @@ Routes.prototype.init = function () {
     self.router.get('/home', roleCheck, function (req, res) {
         res.render('home.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
     });
+    self.router.get('/statistics-dashboard', roleCheck, function (req, res) {
+        res.render('statistics-dashboard.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+    });
     self.router.get('/dashboard', roleCheck,function (req, res) {
         res.render('dashboard.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
     });
