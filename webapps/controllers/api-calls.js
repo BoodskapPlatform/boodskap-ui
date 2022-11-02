@@ -530,29 +530,6 @@ function listInputRules(type,cbk) {
 
 }
 
-function listAuthToken(authType, cbk) {
-
-    var url = "/auth/token/list";
-    if(authType !== ""){
-        url = "/auth/token/list?type="+authType;
-    }
-
-    $.ajax({
-        url: API_BASE_PATH + url,
-        type: 'GET',
-        success: function (data) {
-            //called when successful
-            cbk(true, data);
-        },
-        error: function (e) {
-            //called when there is an error
-            //console.log(e.message);
-            cbk(false, null);
-        }
-    });
-
-}
-
 function listMessageSpec(pageSize, direction, mid, cbk) {
 
     var data = {};
@@ -1600,22 +1577,6 @@ function deleteUser(id, cbk) {
     });
 }
 
-function expireToken(authToken, cbk) {
-    $.ajax({
-        url: API_BASE_PATH + "/auth/expire/" + authToken,
-        type: 'DELETE',
-        success: function (data) {
-            //called when successful
-            cbk(true, data);
-        },
-        error: function (e) {
-            //called when there is an error
-            //console.log(e.message);
-            cbk(false, null);
-        }
-    });
-}
-
 function getUserList(data, cbk) {
 
 
@@ -2128,9 +2089,89 @@ function downloadFirmware(dmid, version, cbk) {
 
 }
 
+//Token Management
+function createToken(obj, cbk) {
+
+    // token type : API, DEVICE & USER
+
+   var data = {
+        "domainKey": DOMAIN_KEY,
+        "type": obj.type,
+        "entity": obj.entity,
+        "token": API_TOKEN,
+        "registeredStamp": new Date().getTime(),
+        "updatedStamp": new Date().getTime(),
+        "sqlAccess": true,
+        "dbAccess": true,
+        "mongoAccess": true,
+        "cassandraAccess": true,
+        "globalAccess": true,
+        "systemAccess": true
+       // "mode": "string",
+       // "orgId": 0,
+       // "ttl": 0,
+        // "policies": {}
+    }
+
+    $.ajax({
+        url: API_BASE_PATH + "/auth/token/create",
+        data: JSON.stringify(data),
+        contentType: "application/json",
+        type: 'POST',
+        success: function (data) {
+            //called when successful
+            cbk(true, data);
+        },
+        error: function (e) {
+            //called when there is an error
+            //console.log(e.message);
+            cbk(false, e);
+        }
+    });
+}
+
+function listAuthToken(authType, cbk) {
+
+    var url = "/auth/token/list";
+    if(authType !== ""){
+        url = "/auth/token/list?type="+authType;
+    }
+
+    $.ajax({
+        url: API_BASE_PATH + url,
+        type: 'GET',
+        success: function (data) {
+            //called when successful
+            cbk(true, data);
+        },
+        error: function (e) {
+            //called when there is an error
+            //console.log(e.message);
+            cbk(false, null);
+        }
+    });
+
+}
+
+function expireToken(authToken, cbk) {
+    $.ajax({
+        url: API_BASE_PATH + "/auth/expire/" + authToken,
+        type: 'DELETE',
+        success: function (data) {
+            //called when successful
+            cbk(true, data);
+        },
+        error: function (e) {
+            //called when there is an error
+            //console.log(e.message);
+            cbk(false, null);
+        }
+    });
+}
+
+
 //Device Management
 function upsertDevice(data, cbk) {
-
 
     $.ajax({
         url: API_BASE_PATH + "/device/upsert/" + API_TOKEN,
@@ -2149,11 +2190,11 @@ function upsertDevice(data, cbk) {
     });
 }
 
-function retreiveDevice(id, cbk) {
+function retreiveDevice(pageSize, cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/device/get/" + API_TOKEN + '/' + id,
+        url: API_BASE_PATH + "/device/get/" + API_TOKEN + '/' + pageSize,
         // data:  JSON.stringify(data),
         contentType: "application/json",
         type: 'GET',
@@ -2284,14 +2325,19 @@ function retrieveDeviceModelProperty(id, name, cbk) {
 }
 
 
-function simulateDeviceMessage(id, data, cbk) {
+function simulateDeviceMessage(id, data, devToken, cbk) {
+
+    var headers = {
+        'TOKEN' : devToken
+    }
 
     $.ajax({
         // url: API_BASE_PATH + "/push/raw/" + DOMAIN_KEY + "/" + API_KEY + "/SIMULATOR_" + id + "/BOODSKAP/1.0/" + id + '?type=JSON',
-        url: API_BASE_PATH + "/push/message/SIMULATOR_" + id,
+        url: API_BASE_PATH + "/push/message/" + id,
         data: JSON.stringify(data),
-        contentType: "text/plain",
+        contentType: "application/json",
         type: 'POST',
+        headers: headers,
         success: function (data) {
             //called when successful
             cbk(true, data);
