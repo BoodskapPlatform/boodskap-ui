@@ -109,6 +109,10 @@ function initialChecks(){
         });
 }
 
+function setMsgDefForm(){
+
+}
+
 function openGetStartedModal(results) {
 
     stepsWizard = $("#getStartedForm").steps({
@@ -381,7 +385,8 @@ function createDevice() {
                 "id": $("#device_model").val(),
                 "description": $("#device_desc").val(),
                 "version": $("#device_version").val()
-            }
+            };
+
             current_dev_obj = deviceObj;
 
             if (status1) {
@@ -392,9 +397,9 @@ function createDevice() {
                 addDeviceModel(deviceModelObj, function (status2, data2) {
                     if(status2){
                         upsertDevice(deviceObj,function (status3, data3) {
+                            $(".btnSubmit").removeAttr('disabled');
                             if (status3) {
                                 closeLoading();
-                                $(".btnSubmit").removeAttr('disabled');
                                 successMsg('Device Created Successfully');
 
                                 $("a[href$='next']").click();
