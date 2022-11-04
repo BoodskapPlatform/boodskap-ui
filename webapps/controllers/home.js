@@ -14,9 +14,7 @@ $(document).ready(function () {
         $(".curTime").html(moment().format('MM/DD/YYYY hh:mm:ss A'))
     }, 10)
 
-    $("#getstartedmodal").modal({backdrop: 'static', keyboard: false }, 'show',$(".platformBody").addClass("blur")); // model UI open
-   
-
+    
     $("body").removeClass('bg-white');
     // $(".homeMenuList").append($("#logConsole").html());
     if (ADMIN_ACCESS) {

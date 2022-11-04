@@ -103,9 +103,9 @@ function initialChecks(){
             console.log("isMsgDefListEmpty=>",results["isMsgDefListEmpty"]);
             console.log("isDeviceListEmpty=>",results["isDeviceListEmpty"]);
             // results["isMessageListEmpty"] = true; //Todo: remove once the development done
-            if(results["isMsgDefListEmpty"] || results["isDeviceListEmpty"]){
-                openGetStartedModal(results);
-            }
+            // if(results["isMsgDefListEmpty"] || results["isDeviceListEmpty"]){
+            //     openGetStartedModal(results);
+            // }
         });
 }
 
