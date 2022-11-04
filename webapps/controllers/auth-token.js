@@ -115,69 +115,6 @@ function openModal(type, id) {
     }
 }
 
-function addToken() {
-    var userObj = {
-        "firstName": $("#firstName").val(),
-        "lastName": $("#lastName").val(),
-        "primaryPhone": $("#mobileNo").val(),
-        "email": $("#emailId").val(),
-        "password": $("#password").val(),
-        "roles": [$("#role").val()]
-    }
-    $(".btnSubmit").attr('disabled', 'disabled');
-    retreiveUser(userObj.email, function (status, data) {
-        if (status) {
-            $(".btnSubmit").removeAttr('disabled');
-            errorMsgBorder('User Email ID already exist', 'emailId');
-        } else {
-            upsertUser(userObj, function (status, data) {
-                if (status) {
-                    successMsg('User Created Successfully');
-                    setTimeout(function () {
-                        loadTokenList();
-                    }, 700)
-                    $("#addUser").modal('hide');
-                } else {
-                    errorMsg('Error in Creating User')
-                }
-                $(".btnSubmit").removeAttr('disabled');
-            })
-        }
-    })
-}
-
-function updateToken() {
-
-    var userObj = {
-        "firstName": $("#firstName").val(),
-        "lastName": $("#lastName").val(),
-        "primaryPhone": $("#mobileNo").val(),
-        "email": $("#emailId").val(),
-        "roles": [$("#role").val()]
-    };
-
-    if ($.trim($("#password").val()) === '') {
-        userObj['password'] = ' ';
-    } else {
-        userObj['password'] = $.trim($("#password").val());
-    }
-
-    $(".btnSubmit").attr('disabled', 'disabled');
-
-    upsertUser(userObj, function (status, data) {
-        if (status) {
-            successMsg('User Updated Successfully');
-            setTimeout(function () {
-                loadTokenList();
-            }, 700)
-            $("#addUser").modal('hide');
-        } else {
-            errorMsg('Error in Updating User')
-        }
-        $(".btnSubmit").removeAttr('disabled');
-    })
-}
-
 function proceedExpire() {
 
     expireToken(current_token_id, function (status, data) {
