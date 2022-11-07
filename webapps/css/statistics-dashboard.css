@@ -140,22 +140,22 @@ font-weight:600;
 #statistics label{
     font-size: 15px;
 }
-.pr-1rem{
+#statistics .pr-1rem{
     padding-right: 1.5rem;
 }
-.profile-count{
+#statistics .profile-count{
     font-size: 18px;
     font-weight: bold;
     color: #323232;
 }
-.contact-tab select{
+#statistics .contact-tab select{
     width: 200px;
 }
-.check-connection{
+#statistics .check-connection{
     color: #05b805;
     font-weight: 600;
 }
-.trash-button{
+#statistics .trash-button{
     background: white;
     border: 1px solid #d3d8de;
     border-radius: 8px;
@@ -163,12 +163,13 @@ font-weight:600;
     font-size: 13px;
     color: darkslategrey;
 }
-select.form-control:not([size]):not([multiple]) {
+#statistics select.form-control:not([size]):not([multiple]) {
     height: 30px;
 }
-.pull-left{
-    float:left!important;}
-.search-left{
+#statistics  .pull-left{
+    float:left!important;
+}
+#statistics .search-left{
     width: 50%;
     position: relative;
     float:left!important;
@@ -178,7 +179,7 @@ select.form-control:not([size]):not([multiple]) {
 .search-left .d-inline-flex {
     width: 100% !important;
 }
-.search-left input{
+#statistics .search-left input{
 width: 100% !important;
 height: 30px;
 padding: 6px 32px 6px 30px;
@@ -186,14 +187,14 @@ background: #f7fbfd;
 margin: 0 !important;
 border-radius: 12px;
 }
-.search-left i{
+#statistics .search-left i{
     font-size: 10px;
     position: absolute;
     color: darkgray;
     left: 18px;
     top: 10px;
 }
-.search-btn{
+#statistics .search-btn{
     height: 30px;
     position: absolute;
     right: -3px;
@@ -203,7 +204,7 @@ border-radius: 12px;
     color: white;
     border: none;
 }
-.appLog{
+#statistics .appLog{
 width: 100%;
 background: #204260;
 color: white;
@@ -211,54 +212,54 @@ border-radius: 10px;
 padding:12px;
 height: 250px;
 }
-.search-btn i{
+#statistics .search-btn i{
     position: unset;
     color: white;
     font-size: 14px;
 }
-.sec-head{
+#statistics .sec-head{
     font-size: 20px;
     font-weight: 700;
     color: black;
     padding-bottom: 10px;
 }
-.close :active { 
+#statistics .close :active { 
     border: none !important;
 }
-td.details-control {
+#statistics td.details-control {
     text-align:center;
     color:rgb(71, 195, 71);
 cursor: pointer;
 }
-tr.shown td.details-control {
+#statistics tr.shown td.details-control {
 text-align:center; 
 color:rgb(225, 54, 54);
 } 
-.inner-row th{
+#statistics .inner-row th{
 background:#e6f0f4 !important;
 }
-.pull-left select{
+#statistics .pull-left select{
     height: 28px !important;
 }
 
-.pagination>.active>a{
+#statistics .pagination>.active>a{
     background: rgb(242 242 242 / 75%) !important;
     color: black !important;
     border: 1px solid #b4b4b4 !important;
 }
 
 /* SVG progress bar */
-.skill-container {
+#statistics .skill-container {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.skill-container .skill {
+#statistics .skill-container .skill {
     position: relative;
 }
 
-.skill-container .skill .outer {
+#statistics .skill-container .skill .outer {
     height: 180px;
     width: 180px;
     border-radius: 50%;
@@ -267,7 +268,7 @@ background:#e6f0f4 !important;
     background: #eeeeee;
 }
 
-.skill-container .skill .outer .inner {
+#statistics .skill-container .skill .outer .inner {
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -278,17 +279,17 @@ background:#e6f0f4 !important;
         background: #fefefe;
 }
 
-.skill-container .skill .outer .inner .number {
+#statistics .skill-container .skill .outer .inner .number {
     font-weight: 800;
 }
 
 
-.skill-container .skill:nth-child(1) .outer .inner .number {
+#statistics .skill-container .skill:nth-child(1) .outer .inner .number {
     color: #393939;
     font-size: 18px;
 }
 
-circle {
+#statistics circle {
     fill: none;
     stroke-width: 18px;
     stroke-dasharray: 495;
@@ -296,46 +297,46 @@ circle {
     transition: 6s linear;
 }
 
-svg {
+#statistics svg {
     position: absolute;
     top: 0;
     left: 0;
     rotate: 270deg;
 }
 
-.skill-container .skill:nth-child(1) circle {
+#statistics .skill-container .skill:nth-child(1) circle {
     stroke: #7811f7;
 }
-.inner-head{
+#statistics .inner-head{
 font-size: 10px;
 font-weight: 600;
 }
-.inner-total{
+#statistics .inner-total{
     font-size: 40px;
     font-weight: bolder;
     color: #333333;
 }
-.active-dev i{
+#statistics .active-dev i{
     color: #580bb7;
     
 }
-.active-count{
+#statistics .active-count{
     font-size: 25px;
     font-weight: bold;
     color: #580bb7;
 }
-.inactive-count{
+#statistics .inactive-count{
     font-size: 25px;
     font-weight: bold;
 }
-.device-functionality{
+#statistics .device-functionality{
     text-align: center;
 }
-.dev-label{
+#statistics .dev-label{
     font-weight: 600;
     color: #6e6e6e;
 }
-.line-tip{
+#statistics .line-tip{
     background-color: white;
     color: black;
     text-align: center;
@@ -343,7 +344,7 @@ font-weight: 600;
     padding: 3px 8px !important;
     border-radius: 4px;
 }
-.mini-denot{
+#statistics .mini-denot{
     font-size: 30px;
 }
 #statistics #messageListTable_wrapper select.form-control.input-sm {
@@ -351,13 +352,13 @@ height: 30px !important;
 }
 
 @media screen and (min-width: 1024px) {
-    .switch-wrapper {
+    #statistics .switch-wrapper {
         font-size: 12px;
     }
 }
 
 @media screen and (max-width: 600px) {
-    .switch-wrapper{
+    #statistics .switch-wrapper{
         font-size: 12px;
     }
 }
@@ -365,7 +366,7 @@ height: 30px !important;
 /* container for all of the switch elements 
     - adjust "width" to fit the content accordingly 
 */
-.switches-container {
+#statistics .switches-container {
     width: 16rem;
     border: 1px solid rgb(213, 213, 213);
     position: relative;
@@ -378,14 +379,14 @@ height: 30px !important;
 }
 
 /* input (radio) for toggling. hidden - use labels for clicking on */
-.switches-container input {
+#statistics .switches-container input {
     visibility: hidden;
     position: absolute;
     top: 0;
 }
 
 /* labels for the input (radio) boxes - something to click on */
-.switches-container label {
+#statistics .switches-container label {
     width: 50%;
     padding: 0;
     margin: 0;
@@ -398,7 +399,7 @@ height: 30px !important;
 /* switch highlighters wrapper (sliding left / right) 
     - need wrapper to enable the even margins around the highlight box
 */
-.switch-wrapper {
+#statistics .switch-wrapper {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -409,7 +410,7 @@ height: 30px !important;
 }
 
 /* switch box highlighter */
-.switch {
+#statistics .switch {
     border-radius: 6px;
     background: #4670be;
     height: 100%;
@@ -420,7 +421,7 @@ height: 30px !important;
     - default setup
     - toggle afterwards based on radio:checked status 
 */
-.switch div {
+#statistics .switch div {
     width: 100%;
     text-align: center;
     opacity: 0;
@@ -434,26 +435,26 @@ height: 30px !important;
 }
 
 /* slide the switch box from right to left */
-.switches-container input:nth-of-type(1):checked~.switch-wrapper {
+#statistics .switches-container input:nth-of-type(1):checked~.switch-wrapper {
     transform: translateX(0%);
 }
 
 /* slide the switch box from left to right */
-.switches-container input:nth-of-type(2):checked~.switch-wrapper {
+#statistics .switches-container input:nth-of-type(2):checked~.switch-wrapper {
     transform: translateX(100%);
 }
 
 /* toggle the switch box labels - first checkbox:checked - show first switch div */
-.switches-container input:nth-of-type(1):checked~.switch-wrapper .switch div:nth-of-type(1) {
+#statistics .switches-container input:nth-of-type(1):checked~.switch-wrapper .switch div:nth-of-type(1) {
     opacity: 1;
 }
 
 /* toggle the switch box labels - second checkbox:checked - show second switch div */
-.switches-container input:nth-of-type(2):checked~.switch-wrapper .switch div:nth-of-type(2) {
+#statistics .switches-container input:nth-of-type(2):checked~.switch-wrapper .switch div:nth-of-type(2) {
     opacity: 1;
 }
 
-.log-select{
+#statistics .log-select{
     padding: 3px 12px;
     font-size: 13px !important;
 }

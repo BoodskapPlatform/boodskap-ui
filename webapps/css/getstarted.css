@@ -48,6 +48,7 @@
 
 #getstartedmodal .fs-18 {
     font-size: 18px;
+   
 }
 
 #getstartedmodal .fs-14 {
@@ -56,7 +57,7 @@
 
 #getstartedmodal #mesgDefine input, textarea, select {
     border-radius: 10px !important;
-    font-size: 14px !important;
+    font-size: 12px !important;
 }
 
 #getstartedmodal label {
@@ -129,7 +130,7 @@
         margin: 1.75rem auto;
     }
 
-    .mesgDefine {
+    #getstartedmodal .mesgDefine {
         max-width: 585px !important;
     }
 }
@@ -255,6 +256,7 @@
 
 #getstartedmodal .active-dot {
     color: #000 !important;
+    cursor: pointer !important;
 }
 
 #getstartedmodal .StepProgress strong {
@@ -299,7 +301,7 @@
 }
 
 #getstartedmodal td {
-    padding: 19px 0px;
+    padding: 10px 0px;
 }
 
 #getstartedmodal th {
@@ -380,16 +382,16 @@
 }
 
 
-.simulate td {
+#getstartedmodal .simulate td {
     padding: 11px 6px !important;
 }
 
-.simulate tbody {
+#getstartedmodal .simulate tbody {
     font-size: 15px !important;
     color: rgb(35, 35, 35);
 }
 
-.lang-tag {
+#getstartedmodal .lang-tag {
     font-weight: 500;
     color: black;
     background: #e7f5f2;
@@ -398,35 +400,23 @@
     border-radius: 5px;
 }
 
-.fs-13 {
+#getstartedmodal .fs-13 {
     font-size: 13px;
 }
 
-.sub-sec {
+#getstartedmodal .sub-sec {
     font-size: 16px;
     color: #484848;
     font-weight: 600;
 }
 
-.text-lite {
+#getstartedmodal .text-lite {
     color: #959595 !important;
     font-style: italic !important;
     padding-top: 7px;
 }
 
-.modal-backdrop {
-    background-color: rgba(181, 58, 58, 0);
-}
-
-.blur {
-    -webkit-filter: blur(5px);
-    -moz-filter: blur(5px);
-    -o-filter: blur(5px);
-    -ms-filter: blur(5px);
-    filter: blur(5px);
-}
-
-.livelog-bg {
+#getstartedmodal .livelog-bg {
     height: 250px;
     border-radius: 10px;
     overflow: auto;
@@ -434,11 +424,37 @@
     background-color: #00263E;
 }
 
-.livelog-text {
+#getstartedmodal .livelog-text {
     padding: 20px;
 }
 
-.livelog-text p {
+#getstartedmodal .livelog-text p {
     color: #ffffff;
     font-weight: 600;
+}
+
+#getstartedmodal .form-control {
+    padding: 5px 12px !important;
+}
+#getstartedmodal .active-dot {
+cursor: pointer;
+}
+#getstartedmodal #msgDefDetails {
+width: 100%;
+background: #f0f0f0;
+padding: 15px 10px;
+margin-bottom: 10px;
+border-radius: 5px;
+border: 1px solid #dddddd;
+}
+#getstartedmodal .msg-spec-title {
+color: #464646;
+font-size: 13px;
+padding: 12px 10px;
+margin-bottom: 5px;
+background: #f0f0f0;
+border-radius: 5px 5px 0 0;
+}
+#getstartedmodal  button[disabled]{
+opacity: .6;
 }
