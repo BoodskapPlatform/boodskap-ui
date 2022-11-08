@@ -426,6 +426,7 @@ height: 30px !important;
     text-align: center;
     opacity: 0;
     display: block;
+    font-weight: 600;   
     color: white ;
     transition: opacity .2s cubic-bezier(.77, 0, .175, 1) .125s;
     will-change: opacity;
