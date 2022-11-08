@@ -458,3 +458,14 @@ border-radius: 5px 5px 0 0;
 #getstartedmodal  button[disabled]{
 opacity: .6;
 }
+#getstartedmodal .modal-dialog {
+    min-height: calc(100vh - 60px) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+}
+@media(max-width: 768px) {
+#getstartedmodal  .modal-dialog {
+    min-height: calc(100vh - 20px) !important;
+  }
+}

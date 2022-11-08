@@ -1,399 +1,462 @@
 <style>
-    .modules {
-        text-align: center;
-        background-color: #eeeeee69;
-        border: 1px solid #eee;
-        height: 110px;
+  .modules {
+    text-align: center;
+    background-color: #eeeeee69;
+    border: 1px solid #eee;
+    height: 110px;
 
-    }
+  }
 
-    .modules label {
-        font-weight: 400;
-        width:90%;
-        white-space: pre-line;
-    }
-    .modules:hover {
-        background-color: #ffc10754;
-        cursor: pointer;
-    }
+  .modules label {
+    font-weight: 400;
+    width: 90%;
+    white-space: pre-line;
+  }
 
-    .modules img {
-        width: auto;
-        height: 42px;
-        margin-top: 10px;
-    }
+  .modules:hover {
+    background-color: #ffc10754;
+    cursor: pointer;
+  }
 
+  .modules img {
+    width: auto;
+    height: 42px;
+    margin-top: 10px;
+  }
 </style>
 <link rel="stylesheet" type="text/css" href="css/statistics-dashboard.css" />
 
 <div class="container mt-3 platformBody static-contain" style="background-color: #f5f5f5;">
-    <!-- begin breadcrumb -->
-    <ol class="breadcrumb pull-right hidden-xs">
-        <li class="breadcrumb-item">
-            <a href="<%= basepath %>/" class="currentTime">Boodskap Platform</a></li>
-    </ol>
-    <!-- end breadcrumb -->
-    <!-- begin page-header -->
-    <h1 class="page-header">Welcome to Boodskap IoT Platform!
-        <small class="hidden-xs" style="font-size: 50%">Let's start building your IoT Solutions on the fly. </small>
+  <!-- begin breadcrumb -->
+  <ol class="breadcrumb pull-right hidden-xs">
+    <li class="breadcrumb-item">
+      <a href="<%= basepath %>/" class="currentTime">Boodskap Platform</a>
+    </li>
+  </ol>
+  <!-- end breadcrumb -->
+  <!-- begin page-header -->
+  <h1 class="page-header">Welcome to Boodskap IoT Platform!
+    <small class="hidden-xs" style="font-size: 50%">Let's start building your IoT Solutions on the fly. </small>
 
-    </h1>
-    <div class="panel panel-inverse pt-2" style="background-color: #f5f5f5;padding-bottom: 30px;">
-        <div class="panel-body p-0" id="statistics">
-    <div class="row m-0" style="padding-bottom: 30px!important;">
+  </h1>
+  <div class="panel panel-inverse pt-2" style="background-color: #f5f5f5;padding-bottom: 30px;">
+    <div class="panel-body p-0" id="statistics">
+      <div class="row m-0" style="padding-bottom: 30px!important;">
         <div class="col-lg-4">
-             <div class="row m-0 pb-2">
-               <div class="pl-2 sec-head"> Overview</div>
-               <div class="ml-auto">
-                <div class="btn-group mr-2">
-                    <button class="btn btn-secondary btn-sm dropdown-toggle drop-static" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      All Time
-                    </button>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="javascript:void(0)">6 hours</a>
-                        <a class="dropdown-item" href="javascript:void(0)">12 hours</a>
-                        <a class="dropdown-item" href="javascript:void(0)">1 day</a>
-                    </div>
-                  </div>
-               </div>
-             </div>
-             <div class="row m-0 mb-20px">
-                     <div class="col-md-6 stat-min-size">
-                          <div class="stat-frame count-side"> 
-                                <div class="tile">
-                                    <p class="title m-0"> Devices</p>  
-                                    <div class="logo-side">
-                                       <div class="purplebg logo">
-                                        <i class="fa fa-laptop purple" aria-hidden="true"></i>
-                                       </div>
-                                        
-                                      </div>
-                                </div>
-                             <div class="row">
-                                <div class="col-md-7"> <div class="total-count">1.2K</div> </div>    
-                             <div class="col-md-5 d-flex justify-content-end align-self-end fullcount">
-                                  <span class="purple mb-3">2,200,200</span>
-                                </div>
-                             </div>
-                             <div class="time-period"><span class="stat-ratio green">+0.02%</span> Last 7 days </div>             
-                          </div>
-                     </div>
-
-                     <div class="col-md-6 stat-min-size">
-                        <div class="stat-frame count-side"> 
-                              <div class="tile">
-                                  <p class="title m-0"> Devices</p>  
-                                  <div class="logo-side">
-                                     <div class="logo bluebg">
-                                      <i class="fa fa-user-o blue" aria-hidden="true"></i>
-                                     </div>
-                                      
-                                    </div>
-                              </div>
-                           <div class="row">
-                              <div class="col-md-7"> <div class="total-count">145</div> </div>    
-                           <div class="col-md-5 d-flex justify-content-end align-self-end fullcount"><span class="blue mb-3">2,200,200</span></div>
-                           </div>
-                           <div class="time-period"><span class="stat-ratio red" >+0.02%</span> Last 7 days </div>             
-                        </div>
-                   </div>
-            
-             </div>
-             <div class="row m-0 mb-20px">
-                <div class="col-md-6 stat-min-size">
-                    <div class="stat-frame count-side"> 
-                          <div class="tile">
-                              <p class="title m-0"> Devices</p>  
-                              <div class="logo-side">
-                                 <div class="logo orangebg">
-                                  <i class="fa fa-envelope-o orange" aria-hidden="true"></i>
-                                 </div>
-                                  
-                                </div>
-                          </div>
-                       <div class="row">
-                          <div class="col-md-7"> <div class="total-count">2.5<span class="mini-denot">m</span> </div> </div>    
-                       <div class="col-md-5 d-flex justify-content-end align-self-end fullcount"><span class="orange mb-3">2,200,200</span></div>
-                       </div>
-                       <div class="time-period"><span class="stat-ratio red">+0.02%</span> Last 7 days </div>             
-                    </div>
-               </div>
-
-               <div class="col-md-6 stat-min-size">
-                <div class="stat-frame count-side"> 
-                      <div class="tile">
-                          <p class="title m-0"> Devices</p>  
-                          <div class="logo-side">
-                             <div class="logo pgreenbg">
-                              <i class="fa fa-cogs pgreen" aria-hidden="true"></i>
-                             </div>
-                              
-                            </div>
-                      </div>
-                   <div class="row">
-                      <div class="col-md-7"> <div class="total-count">1.3<span class="mini-denot">k</span> </div> </div>    
-                   <div class="col-md-5 d-flex justify-content-end align-self-end fullcount"><span class="pgreen mb-3">2,200,200</span></div>
-                   </div>
-                   <div class="time-period"><span class="stat-ratio green">+0.02%</span> Last 7 days </div>             
-                </div>
-           </div>
-         </div>
-        </div>
-        <div class="col-lg-8">
-             <div class="row m-0 pb-2">
-                 <div class="sec-head">Devices</div>
-             </div>
-             <div class="row m-0 stat-frame pl-0">
-                    <div class="col-lg-4">
-                        <div class="row m-0">
-                            <div class="ml-auto">
-                                <div class="btn-group">
-                                    <button class="btn btn-secondary btn-sm dropdown-toggle drop-static" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                      Today
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="javascript:void(0)">Yesterday</a>
-                                        <a class="dropdown-item" href="javascript:void(0)">one month</a>
-                                        <a class="dropdown-item" href="javascript:void(0)">3 month</a>
-                                    </div>
-                                  </div>
-                               </div>
-                        </div>  
-                        <div class="skill-container">
-                          <div class="skill">
-                              <div class="outer">
-                                  <div class="inner">
-                                    <div class="inner-head">Total</div>
-                                    <div class="inner-total">1.2k</div>
-                                    <div class="number" data-num="65">
-                                    </div>
-                                  </div>
-                              </div>
-                              <svg  width="180px" height="180px">
-                                  <defs>
-                                      <linearGradient id="GradientColor">
-                                          <stop offset="0%" stop-color="#e9e63" />
-                                          <stop offset="100%" stop-color="#6737" />
-                                      </linearGradient>
-                                  </defs>
-                                  <circle cx="90" cy="90" r="80" stroke-linecap="round" />
-                              </svg>
-                          </div>
-                          </div>
-                          <div class="row pt-3 m-0 device-functionality ">
-                            <div class="col-lg-6">
-                            <div class="active-dev" style="border-right: 1px dashed lightgrey;">
-                                <i class="fa fa-square" aria-hidden="true"></i>
-                              <div class="dev-label py-2">
-                                Active Devices
-                              </div>
-                               <div class="active-count">  943   </div>
-                            </div>
-                             </div>
-                             <div class="col-lg-6 inactive-dev">
-                              <i class="fa fa-square" aria-hidden="true"></i>
-                              <div class="dev-label py-2">
-                                Inactive Devices
-                              </div>
-                              <div class="inactive-count">  300   </div>
-                            </div>
-
-                          </div>
-                    </div>
-                    <div class="col-lg-8" style="border-left: 1px solid #dfdfdf;">
-                        <div class="row m-0">
-                          <div class="pl-1 mr-auto" style="color:rgb(64, 64, 64) ;font-weight: 700;">
-                               Active <br> Devices
-                          </div>
-                            <div class="ml-auto"> 
-                                <div class="btn-group">
-                                    <button class="btn btn-secondary btn-sm dropdown-toggle drop-static" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                      Today
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="javascript:void(0)">Yesterday</a>
-                                        <a class="dropdown-item" href="javascript:void(0)">one month</a>
-                                        <a class="dropdown-item" href="javascript:void(0)">3 month</a>
-                                    </div>
-                                  </div>
-                               </div>
-                        </div>
-                        <div id="deviceChart" style="height:285px;"> </div>
-                    </div>
-             </div>
-        </div>
-    </div>
-    <div class="row m-0">
-        <div class="col-lg-12 mb-3">
-            <div class="sec-head">Log Monitor</div>
-        </div>
-        <div class="col-lg-12">
-            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                <li class="nav-item">
-                  <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Message</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Event Logs</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Aplication Logs</a>
-                </li>
-              </ul>
-              <div class="tab-content stat-frame" id="pills-tabContent" style="padding: 17px 8px;">
-                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                     <div class="row m-0 pb-2">
-                          <div class="col-lg-4">
-                            <form>
-                                <div class="form-group">
-                                    <label for="exampleFormControlSelect1">Message Id</label>
-                                    <select class="form-control log-select" id="exampleFormControlSelect1">
-                                      <option>chat001</option>
-                                      <option>chat002</option>
-                                      <option>chat003</option>
-                                    </select>
-                                  </div>
-                            </form>
-                          </div>
-                          <div class="col-lg-3">
-                            <form>
-                                <div class="form-group">
-                                    <label for="exampleFormControlSelect1">Data Range</label>
-                                    <div id="reportrange" class="p-date shade" style="cursor: pointer">
-                                      <i class="fa fa-calendar"></i>&nbsp;
-                                      <span
-                                        class="d-inline-block"
-                                        id="dateRangePickerDate text-theme"
-                                        style="font-weight: 400 !important"
-                                        >March 29 / 2022 - March 30 /2022</span
-                                      >
-                                      <p class="m-0 d-none" id="customeDate">Date</p>
-                                      <i class="fa fa-angle-down" aria-hidden="true"></i>
-                                    </div>
-                                  </div>
-                            </form>
-                          </div> 
-                          <div class="col-lg-2">
-                            <form>
-                              <div class="form-group">
-                                  <label for="exampleFormControlSelect1">Statistics</label>
-                                  <div class="switches-container">
-                                      <input type="radio" id="switchMonthly" name="switchPlan" value="Monthly" checked="checked" />
-                                      <input type="radio" id="switchYearly" name="switchPlan" value="Yearly" />
-                                      <label for="switchMonthly"><i class="fa fa-table" aria-hidden="true"></i> Table View</label>
-                                      <label for="switchYearly"><i class="fa fa-bar-chart" aria-hidden="true"></i> Chart View</label>
-                                      <div class="switch-wrapper">
-                                        <div class="switch">
-                                          <div><i class="fa fa-table" aria-hidden="true"></i> Table View</div>
-                                          <div><i class="fa fa-bar-chart" aria-hidden="true"></i> Chart View</div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                </div>
-                          </form>
-                          </div> 
-                          <div class="col-lg-2 ml-auto">
-                            <div class="form-check pt-0 d-flex">
-                              <input class="form-check-input ml-auto position-static pr-2" type="checkbox" value="" id="defaultCheck1">
-                              <label class="form-check-label align-self-center pl-2 pr-4" for="defaultCheck1">
-                               Live Update
-                              </label>
-                              <button class="btn-refresh"> <i class="fa fa-refresh" aria-hidden="true"></i></button>
-                            </div>
-                          </div>
-                     </div>
-                     <div class="row no-gutters  mt-1">
-                      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="position: relative;padding: 0 15px;">
-                         <table id="messageListTable" class="table table-bordered no-wrap" cellspacing="0" width="100%">
-                         </table>
-                      </div>
-                   </div>
-                </div>
-                <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                  <div class="row m-0 pb-2">
-                    <div class="col-lg-4">
-                      <form>
-                          <div class="form-group">
-                              <label for="exampleFormControlSelect1">Select</label>
-                              <select class="form-control log-select" id="exampleFormControlSelect1">
-                                <option>Rules</option>
-                                <option>Message Rule</option>
-                                <option>Application</option>
-                              </select>
-                            </div>
-                      </form>
-                    </div>
-                    <div class="col-lg-3">
-                      <form>
-                          <div class="form-group">
-                              <label for="exampleFormControlSelect1">Data Range</label>
-                              <div class="profile-count"> 1.200</div>
-                            </div>
-                      </form>
-                    </div> 
-                   
-                    <div class="col-lg-2 ml-auto">
-                      <div class="form-check pt-0 d-flex">
-                        <input class="form-check-input ml-auto position-static pr-2" type="checkbox" value="" id="defaultCheck1">
-                        <label class="form-check-label align-self-center pl-2 pr-4" for="defaultCheck1">
-                         Live Update
-                        </label>
-                        <button class="btn-refresh"> <i class="fa fa-refresh" aria-hidden="true"></i></button>
-                      </div>
-                    </div>
-               </div>
-               <div class="row no-gutters  mt-1">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="position: relative;padding: 0 15px;">
-                   <table id="profileListTable" class="table table-bordered no-wrap" cellspacing="0" width="100%">
-                   </table>
-                </div>
-             </div>
-                </div>
-                <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
-                  <div class="row m-0 pb-2 contact-tab">
-                    <div class="col-lg-2">
-                      <div class="check-connection" style="line-height: 2.6;"><span><i  style="font-size: 6px;" class="fa fa-circle" aria-hidden="true"></i></span> Conneted</div>
-                    </div>
-                    <div class="col-lg-4">
-                      <form>
-                        <div class="form-group d-flex">
-                          <label class="pr-1rem mb-0 pt-1">Filter By Log Level</label>
-                          <select class="form-control log-select" id="exampleFormControlSelect1">
-                            <option>All Log</option>
-                            <option>Log 1</option>
-                            <option>Log 2</option>
-                          </select>
-                          </div>
-                    </form>
-                    </div>
-                    <div class="col-lg-4">
-                      <form>
-                          <div class="form-group d-flex">
-                            <label class="pr-1rem mb-0 pt-1">Filter By Nodes</label>
-                            <select class="form-control log-select" id="exampleFormControlSelect1">
-                              <option>All Nodes</option>
-                              <option>Node 1</option>
-                              <option>Node 2</option>
-                            </select>
-                            </div>
-                      </form>
-                    </div> 
-                   
-                    <div class="col-lg-2 ml-auto" style="text-align:end;">
-                      <button class="btn trash-button"><i class="fa fa-trash-o" aria-hidden="true"></i> Clear Logs</button>
-                    </div>
-               </div>
-               <div class="row m-0" style="padding: 10px;">
-                    <div class="appLog">
-                           <p>Welcome to Boodskap</p>
-                    </div>
-                </div>                
+          <div class="row m-0 pb-2">
+            <div class="pl-2 sec-head"> Overview</div>
+            <div class="ml-auto">
+              <div class="btn-group mr-2">
+                <button class="btn btn-secondary btn-sm dropdown-toggle drop-static" type="button"
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  All Time
+                </button>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="javascript:void(0)">6 hours</a>
+                  <a class="dropdown-item" href="javascript:void(0)">12 hours</a>
+                  <a class="dropdown-item" href="javascript:void(0)">1 day</a>
                 </div>
               </div>
+            </div>
+          </div>
+          <div class="row m-0 mb-20px">
+            <div class="col-md-6 stat-min-size">
+              <div class="stat-frame count-side">
+                <div class="tile">
+                  <p class="title m-0"> Devices</p>
+                  <div class="logo-side">
+                    <div class="purplebg logo">
+                      <i class="fa fa-laptop purple" aria-hidden="true"></i>
+                    </div>
+
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-7">
+                    <div class="total-count">1.2K</div>
+                  </div>
+                  <div class="col-md-5 d-flex justify-content-end align-self-end fullcount">
+                    <span class="purple mb-3">2,200,200</span>
+                  </div>
+                </div>
+                <div class="time-period"><span class="stat-ratio green">+0.02%</span> Last 7 days </div>
+              </div>
+            </div>
+
+            <div class="col-md-6 stat-min-size">
+              <div class="stat-frame count-side">
+                <div class="tile">
+                  <p class="title m-0"> Devices</p>
+                  <div class="logo-side">
+                    <div class="logo bluebg">
+                      <i class="fa fa-user-o blue" aria-hidden="true"></i>
+                    </div>
+
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-7">
+                    <div class="total-count">145</div>
+                  </div>
+                  <div class="col-md-5 d-flex justify-content-end align-self-end fullcount"><span
+                      class="blue mb-3">2,200,200</span></div>
+                </div>
+                <div class="time-period"><span class="stat-ratio red">+0.02%</span> Last 7 days </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="row m-0 mb-20px">
+            <div class="col-md-6 stat-min-size">
+              <div class="stat-frame count-side">
+                <div class="tile">
+                  <p class="title m-0"> Devices</p>
+                  <div class="logo-side">
+                    <div class="logo orangebg">
+                      <i class="fa fa-envelope-o orange" aria-hidden="true"></i>
+                    </div>
+
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-7">
+                    <div class="total-count">2.5<span class="mini-denot">m</span> </div>
+                  </div>
+                  <div class="col-md-5 d-flex justify-content-end align-self-end fullcount"><span
+                      class="orange mb-3">2,200,200</span></div>
+                </div>
+                <div class="time-period"><span class="stat-ratio red">+0.02%</span> Last 7 days </div>
+              </div>
+            </div>
+
+            <div class="col-md-6 stat-min-size">
+              <div class="stat-frame count-side">
+                <div class="tile">
+                  <p class="title m-0"> Devices</p>
+                  <div class="logo-side">
+                    <div class="logo pgreenbg">
+                      <i class="fa fa-cogs pgreen" aria-hidden="true"></i>
+                    </div>
+
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-7">
+                    <div class="total-count">1.3<span class="mini-denot">k</span> </div>
+                  </div>
+                  <div class="col-md-5 d-flex justify-content-end align-self-end fullcount"><span
+                      class="pgreen mb-3">2,200,200</span></div>
+                </div>
+                <div class="time-period"><span class="stat-ratio green">+0.02%</span> Last 7 days </div>
+              </div>
+            </div>
+          </div>
         </div>
-    </div>       
+        <div class="col-lg-8">
+          <div class="row m-0 pb-2">
+            <div class="sec-head">Devices</div>
+          </div>
+          <div class="row m-0 stat-frame pl-0">
+            <div class="col-lg-4">
+              <div class="row m-0">
+                <div class="ml-auto">
+                  <div class="btn-group">
+                    <button class="btn btn-secondary btn-sm dropdown-toggle drop-static" type="button"
+                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Today
+                    </button>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="javascript:void(0)">Yesterday</a>
+                      <a class="dropdown-item" href="javascript:void(0)">one month</a>
+                      <a class="dropdown-item" href="javascript:void(0)">3 month</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="skill-container">
+                <div class="skill">
+                  <div class="outer">
+                    <div class="inner">
+                      <div class="inner-head">Total</div>
+                      <div class="inner-total">1.2k</div>
+                      <div class="number" data-num="65">
+                      </div>
+                    </div>
+                  </div>
+                  <svg width="180px" height="180px">
+                    <defs>
+                      <linearGradient id="GradientColor">
+                        <stop offset="0%" stop-color="#e9e63" />
+                        <stop offset="100%" stop-color="#6737" />
+                      </linearGradient>
+                    </defs>
+                    <circle cx="90" cy="90" r="80" stroke-linecap="round" />
+                  </svg>
+                </div>
+              </div>
+              <div class="row pt-3 m-0 device-functionality ">
+                <div class="col-lg-6">
+                  <div class="active-dev" style="border-right: 1px dashed lightgrey;">
+                    <i class="fa fa-square" aria-hidden="true"></i>
+                    <div class="dev-label py-2">
+                      Active Devices
+                    </div>
+                    <div class="active-count"> 943 </div>
+                  </div>
+                </div>
+                <div class="col-lg-6 inactive-dev">
+                  <i class="fa fa-square" aria-hidden="true"></i>
+                  <div class="dev-label py-2">
+                    Inactive Devices
+                  </div>
+                  <div class="inactive-count"> 300 </div>
+                </div>
+
+              </div>
+            </div>
+            <div class="col-lg-8" style="border-left: 1px solid #dfdfdf;">
+              <div class="row m-0">
+                <div class="pl-1 mr-auto" style="color:rgb(64, 64, 64) ;font-weight: 700;">
+                  Active <br> Devices
+                </div>
+                <div class="ml-auto">
+                  <div class="btn-group">
+                    <button class="btn btn-secondary btn-sm dropdown-toggle drop-static" type="button"
+                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Today
+                    </button>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="javascript:void(0)">Yesterday</a>
+                      <a class="dropdown-item" href="javascript:void(0)">one month</a>
+                      <a class="dropdown-item" href="javascript:void(0)">3 month</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="deviceChart" style="height:285px;"> </div>
+            </div>
+          </div>
         </div>
+      </div>
+      <div class="row m-0">
+        <div class="col-lg-12 mb-3">
+          <div class="sec-head">Log Monitor</div>
+        </div>
+        <div class="col-lg-12">
+          <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab"
+                aria-controls="pills-home" aria-selected="true">Message</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab"
+                aria-controls="pills-profile" aria-selected="false">Event Logs</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab"
+                aria-controls="pills-contact" aria-selected="false">Aplication Logs</a>
+            </li>
+          </ul>
+          <div class="tab-content stat-frame" id="pills-tabContent" style="padding: 17px 8px;">
+            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+              <div class="row m-0 pb-2">
+                <div class="col-lg-3">
+                  <form>
+                    <div class="form-group">
+                      <label for="exampleFormControlSelect1">Message Id</label>
+                      <select class="form-control log-select" id="exampleFormControlSelect1">
+                        <option>chat001</option>
+                        <option>chat002</option>
+                        <option>chat003</option>
+                      </select>
+                    </div>
+                  </form>
+                </div>
+                <div class="col-lg-3">
+                  <form>
+                    <div class="form-group">
+                      <label for="exampleFormControlSelect1">Data Range</label>
+                      <div id="reportrange" class="p-date shade" style="cursor: pointer">
+                        <i class="fa fa-calendar"></i>&nbsp;
+                        <span class="d-inline-block" id="dateRangePickerDate text-theme"
+                          style="font-weight: 400 !important">March 29 / 2022 - March 30 /2022</span>
+                        <p class="m-0 d-none" id="customeDate">Date</p>
+                        <i class="fa fa-angle-down" aria-hidden="true"></i>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="col-lg-2">
+                  <form>
+                    <div class="form-group">
+                      <label for="exampleFormControlSelect1">Statistics</label>
+                      <div class="switches-container">
+                        <input type="radio" id="switchTable" name="switchPlan" value="Table" checked="checked" />
+                        <input type="radio" id="switchChart" name="switchPlan" value="Chart" />
+                        <label for="switchTable" onclick="toggleView('Table')"><i class="fa fa-table"
+                            aria-hidden="true"></i> Table View</label>
+                        <label for="switchChart" onclick="toggleView('Chart')"><i class="fa fa-bar-chart"
+                            aria-hidden="true"></i> Chart View</label>
+                        <div class="switch-wrapper">
+                          <div class="switch">
+                            <div><i class="fa fa-table" aria-hidden="true"></i> Table View</div>
+                            <div><i class="fa fa-bar-chart" aria-hidden="true"></i> Chart View</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="col-md-2" id="tablemode">
+                  <div class="form-group">
+                    <form>
+                      <div class="form-group">
+                        <label for="exampleFormControlSelect1">Grid View</label>
+                        <div class="switches-container">
+                          <input type="radio" id="switchCompact" name="switchPlan" value="Table" checked="checked" />
+                          <input type="radio" id="switchFull" name="switchPlan" value="Chart" />
+                          <label for="switchCompact" onclick="tableView('Compact')"><i class="icon-th"></i> Compact</label>
+                          <label for="switchFull" onclick="tableView('Full')"><i class="icon-th-large"></i> Full</label>
+                          <div class="switch-wrapper">
+                            <div class="switch">
+                              <div><i class="icon-th"></i> Compact</div>
+                              <div><i class="icon-th-large" aria-hidden="true"></i> Full</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+
+              </div>
+                <div class="col-lg-2 ml-auto">
+                  <div class="form-check pt-0 d-flex">
+                    <input class="form-check-input ml-auto position-static pr-2" type="checkbox" value=""
+                      id="defaultCheck1">
+                    <label class="form-check-label align-self-center pl-2 pr-4" for="defaultCheck1">
+                      Live Update
+                    </label>
+                    <button class="btn-refresh"> <i class="fa fa-refresh" aria-hidden="true"></i></button>
+                  </div>
+                </div>
+              </div>
+              <div class="row no-gutters viewmode mt-1" id="tablePanel">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="position: relative;padding: 0 15px;">
+                  <table id="messageListTable" class="table table-bordered no-wrap" cellspacing="0" width="100%">
+                  </table>
+                </div>
+              </div>
+              <div class="row no-gutters viewmode mt-1 d-none px-2" id="chartPanel">
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label class="inputLabel"><i class="icon-filter" style="font-size: 13px;"></i> Filter By</label>
+                    <select class="form-control input-sm" id="filterBy" onchange="buildChartData()">
+                      <option value="YEAR">By Year</option>
+                      <option value="MONTH">By Month</option>
+                      <option value="DATE">By Date</option>
+                      <option value="HOUR" selected="">By Hour</option>
+                      <option value="MINUTE">By Minutes</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pt-2 pb-4" style="padding: 0 15px;">
+                  <div id="mesgstatChart" style="height:300px;"> </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pt-2 pb-3" style="padding: 0 15px;">
+                  <div id="mesgprocessChart" style="height:300px;"> </div>
+                </div>
+              </div>
+            </div>
+          
+          <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+            <div class="row m-0 pb-2">
+              <div class="col-lg-4">
+                <form>
+                  <div class="form-group">
+                    <label for="exampleFormControlSelect1">Select</label>
+                    <select class="form-control log-select" id="exampleFormControlSelect1">
+                      <option>Rules</option>
+                      <option>Message Rule</option>
+                      <option>Application</option>
+                    </select>
+                  </div>
+                </form>
+              </div>
+              <div class="col-lg-3">
+                <form>
+                  <div class="form-group">
+                    <label for="exampleFormControlSelect1">Data Range</label>
+                    <div class="profile-count"> 1.200</div>
+                  </div>
+                </form>
+              </div>
+
+              <div class="col-lg-2 ml-auto">
+                <div class="form-check pt-0 d-flex">
+                  <input class="form-check-input ml-auto position-static pr-2" type="checkbox" value=""
+                    id="defaultCheck1">
+                  <label class="form-check-label align-self-center pl-2 pr-4" for="defaultCheck1">
+                    Live Update
+                  </label>
+                  <button class="btn-refresh"> <i class="fa fa-refresh" aria-hidden="true"></i></button>
+                </div>
+              </div>
+            </div>
+            <div class="row no-gutters  mt-1">
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="position: relative;padding: 0 15px;">
+                <table id="profileListTable" class="table table-bordered no-wrap" cellspacing="0" width="100%">
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+            <div class="row m-0 pb-2 contact-tab">
+              <div class="col-lg-2">
+                <div class="check-connection" style="line-height: 2.6;"><span><i style="font-size: 6px;"
+                      class="fa fa-circle" aria-hidden="true"></i></span> Conneted</div>
+              </div>
+              <div class="col-lg-4">
+                <form>
+                  <div class="form-group d-flex">
+                    <label class="pr-1rem mb-0 pt-1">Filter By Log Level</label>
+                    <select class="form-control log-select" id="exampleFormControlSelect1">
+                      <option>All Log</option>
+                      <option>Log 1</option>
+                      <option>Log 2</option>
+                    </select>
+                  </div>
+                </form>
+              </div>
+              <div class="col-lg-4">
+                <form>
+                  <div class="form-group d-flex">
+                    <label class="pr-1rem mb-0 pt-1">Filter By Nodes</label>
+                    <select class="form-control log-select" id="exampleFormControlSelect1">
+                      <option>All Nodes</option>
+                      <option>Node 1</option>
+                      <option>Node 2</option>
+                    </select>
+                  </div>
+                </form>
+              </div>
+
+              <div class="col-lg-2 ml-auto" style="text-align:end;">
+                <button class="btn trash-button"><i class="fa fa-trash-o" aria-hidden="true"></i> Clear Logs</button>
+              </div>
+            </div>
+            <div class="row m-0" style="padding: 10px;">
+              <div class="appLog">
+                <p>Welcome to Boodskap</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
     </div>
-    <!-- end panel -->
+  </div>
+</div>
+<!-- end panel -->
 </div>
 <script src="resources/js/echarts.lib.min.js" type="text/javascript"></script>
 <script src="controllers/statistics-dashboard.js"></script>

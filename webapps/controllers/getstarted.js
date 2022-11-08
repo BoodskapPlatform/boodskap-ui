@@ -91,32 +91,34 @@ function initialChecks(){
             console.log("isMsgDefListEmpty=>",results["isMsgDefListEmpty"]);
             console.log("isDeviceListEmpty=>",results["isDeviceListEmpty"]);
             // results["isMessageListEmpty"] = true; //Todo: remove once the development done
-            if(results["isMsgDefListEmpty"] || results["isDeviceListEmpty"]){
+            if(results["isMsgDefListEmpty"] && results["isDeviceListEmpty"]){
                 openGetStartedModal(results);
             }
         });
 }
 
 function openGetStartedModal(results) {
-   
-    message_obj = {};
-
-    $("#getstartedmodal form")[0].reset();
+   message_obj = {};
+   $("#getstartedmodal form")[0].reset();
     $("#msg_id").removeAttr('disabled');
     $(".msgFieldBody").html("");
     addMessageField();
 
-
-    $("#getstartedmodal").modal({
+ $("#getstartedmodal").modal({
+        backdrop: 'static',
         keyboard: false ,
         }, 
-        'show',$(".platformBody").addClass("blur")
-        ); // model UI open
+        'show',$(".platformBody").addClass("blur"),
+        $("#header").addClass("blur"),
+        $("footer").addClass("blur")
+   ); // model UI open
 
 }
 
 function closeGetStart() {
-    $(".platformBody").removeClass("blur")
+    $(".platformBody").removeClass("blur"),
+    $("#header").removeClass("blur"),
+        $("footer").removeClass("blur")
 }
 
 function definedFields(obj) {
