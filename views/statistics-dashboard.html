@@ -23,6 +23,12 @@
     height: 42px;
     margin-top: 10px;
   }
+
+  .compactTable tr td {
+    padding: 2px !important;
+    font-size: 11px;
+    line-height: 15px;
+  }
 </style>
 <link rel="stylesheet" type="text/css" href="css/statistics-dashboard.css" />
 
@@ -246,29 +252,44 @@
           <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
             <li class="nav-item">
               <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab"
-                aria-controls="pills-home" aria-selected="true">Message</a>
+                aria-controls="pills-home" onclick="startmqt('mesgLog')" aria-selected="true">Message</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab"
-                aria-controls="pills-profile" aria-selected="false">Event Logs</a>
+                aria-controls="pills-profile" onclick="loadLogs()" aria-selected="false">Event Logs</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab"
-                aria-controls="pills-contact" aria-selected="false">Aplication Logs</a>
+                aria-controls="pills-contact" onclick="startmqt('appLog')" aria-selected="false">Aplication Logs</a>
             </li>
           </ul>
           <div class="tab-content stat-frame" id="pills-tabContent" style="padding: 17px 8px;">
+       <!--  Message Logs -->
             <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-              <div class="row m-0 pb-2">
+              <div class="row m-0">
+                <div class="col-lg-2  mr-auto">
+                  <h4 class="panel-title">
+                    Total Reported Messages: <b><span class="totalCount">0</span></b>
+                  </h4>
+                </div>
+                <div class="col-lg-2 ml-auto">
+                  <div class="form-check pt-0 d-flex">
+                    <input class="form-check-input ml-auto position-static pr-2" type="checkbox" value="ON"
+                      id="liveUpdate" onchange="liveUpdate(this)">
+                    <label class="form-check-label align-self-center pl-2 pr-4" for="defaultCheck1">
+                      Live Update
+                    </label>
+                    <button class="btn-refresh" onclick="loadMessages()"> <i class="fa fa-refresh"
+                        aria-hidden="true"></i></button>
+                  </div>
+                </div>
+              </div>
+              <div class="row m-0 pt-4 pb-2">
                 <div class="col-lg-3">
                   <form>
                     <div class="form-group">
                       <label for="exampleFormControlSelect1">Message Id</label>
-                      <select class="form-control log-select" id="exampleFormControlSelect1">
-                        <option>chat001</option>
-                        <option>chat002</option>
-                        <option>chat003</option>
-                      </select>
+                      <select class="form-control log-select msgList" onchange="loadMessages(this.value)"> </select>
                     </div>
                   </form>
                 </div>
@@ -278,10 +299,8 @@
                       <label for="exampleFormControlSelect1">Data Range</label>
                       <div id="reportrange" class="p-date shade" style="cursor: pointer">
                         <i class="fa fa-calendar"></i>&nbsp;
-                        <span class="d-inline-block" id="dateRangePickerDate text-theme"
-                          style="font-weight: 400 !important">March 29 / 2022 - March 30 /2022</span>
-                        <p class="m-0 d-none" id="customeDate">Date</p>
-                        <i class="fa fa-angle-down" aria-hidden="true"></i>
+                        <span></span> <label style="display: inline-block;float:right"><i
+                            class="fa fa-caret-down"></i></label>
                       </div>
                     </div>
                   </form>
@@ -313,10 +332,10 @@
                       <div class="form-group">
                         <label for="exampleFormControlSelect1">Grid View</label>
                         <div class="switches-container">
-                          <input type="radio" id="switchCompact" name="switchPlan" value="Table" checked="checked" />
-                          <input type="radio" id="switchFull" name="switchPlan" value="Chart" />
-                          <label for="switchCompact" onclick="tableView('Compact')"><i class="icon-th"></i> Compact</label>
-                          <label for="switchFull" onclick="tableView('Full')"><i class="icon-th-large"></i> Full</label>
+                          <input type="radio" id="switchCompact" name="switchPlan" value="Compact" />
+                          <input type="radio" id="switchFull" name="switchPlan" value="Full" checked="checked" />
+                          <label for="switchCompact" onclick="tableView(1)"><i class="icon-th"></i> Compact</label>
+                          <label for="switchFull" onclick="tableView(2)"><i class="icon-th-large"></i> Full</label>
                           <div class="switch-wrapper">
                             <div class="switch">
                               <div><i class="icon-th"></i> Compact</div>
@@ -328,25 +347,15 @@
                     </form>
                   </div>
 
-              </div>
-                <div class="col-lg-2 ml-auto">
-                  <div class="form-check pt-0 d-flex">
-                    <input class="form-check-input ml-auto position-static pr-2" type="checkbox" value=""
-                      id="defaultCheck1">
-                    <label class="form-check-label align-self-center pl-2 pr-4" for="defaultCheck1">
-                      Live Update
-                    </label>
-                    <button class="btn-refresh"> <i class="fa fa-refresh" aria-hidden="true"></i></button>
-                  </div>
                 </div>
               </div>
-              <div class="row no-gutters viewmode mt-1" id="tablePanel">
+              <div class="row no-gutters mt-1" id="tablePanel">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="position: relative;padding: 0 15px;">
-                  <table id="messageListTable" class="table table-bordered no-wrap" cellspacing="0" width="100%">
+                  <table id="messageTable" class="table table-bordered no-wrap" cellspacing="0" width="100%">
                   </table>
                 </div>
               </div>
-              <div class="row no-gutters viewmode mt-1 d-none px-2" id="chartPanel">
+              <div class="row no-gutters mt-1 px-2" id="chartPanel" style="display: none">
                 <div class="col-md-3">
                   <div class="form-group">
                     <label class="inputLabel"><i class="icon-filter" style="font-size: 13px;"></i> Filter By</label>
@@ -360,97 +369,139 @@
                   </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pt-2 pb-4" style="padding: 0 15px;">
-                  <div id="mesgstatChart" style="height:300px;"> </div>
+                  <div id="message_view" style="height:300px;"> </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pt-2 pb-3" style="padding: 0 15px;">
-                  <div id="mesgprocessChart" style="height:300px;"> </div>
+                  <div id="message_processed_view" style="height:300px;"> </div>
                 </div>
               </div>
             </div>
-          
-          <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-            <div class="row m-0 pb-2">
-              <div class="col-lg-4">
-                <form>
-                  <div class="form-group">
-                    <label for="exampleFormControlSelect1">Select</label>
-                    <select class="form-control log-select" id="exampleFormControlSelect1">
-                      <option>Rules</option>
-                      <option>Message Rule</option>
-                      <option>Application</option>
-                    </select>
+       <!--  Event Logs -->
+            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+              <div class="row m-0">
+                <div class="col-lg-2  mr-auto">
+                  <h4 class="panel-title">
+                    FAILURE RULES Logs
+                  </h4>
+                </div>
+                <div class="col-lg-2 ml-auto">
+                  <div class="form-check pt-0 d-flex">
+                    <input class="form-check-input ml-auto position-static pr-2" type="checkbox" value="ON"
+                      id="liveUpdate" onchange="liveUpdate(this)">
+                    <label class="form-check-label align-self-center pl-2 pr-4" for="defaultCheck1">
+                      Live Update
+                    </label>
+                    <button class="btn-refresh" onclick="loadLogs()"> <i class="fa fa-refresh"
+                        aria-hidden="true"></i></button>
                   </div>
-                </form>
+                </div>
               </div>
-              <div class="col-lg-3">
-                <form>
-                  <div class="form-group">
-                    <label for="exampleFormControlSelect1">Data Range</label>
-                    <div class="profile-count"> 1.200</div>
-                  </div>
-                </form>
+              <div class="row m-0 pt-3 pb-2">
+                <div class="col-lg-4">
+                  <form>
+                    <div class="form-group">
+                      <label >Select</label>
+                      <select class="form-control log-select" id="logType" onchange="loadLogs()">
+                      </select>
+                    </div>
+                  </form>
+                </div>
+                <div class="col-lg-3">
+                  <form>
+                    <div class="form-group">
+                      <label for="exampleFormControlSelect1">Total Count</label>
+                      <h5 class="event_totalCount">0</h5>
+                    </div>
+                  </form>
+                </div>
               </div>
-
-              <div class="col-lg-2 ml-auto">
-                <div class="form-check pt-0 d-flex">
-                  <input class="form-check-input ml-auto position-static pr-2" type="checkbox" value=""
-                    id="defaultCheck1">
-                  <label class="form-check-label align-self-center pl-2 pr-4" for="defaultCheck1">
-                    Live Update
-                  </label>
-                  <button class="btn-refresh"> <i class="fa fa-refresh" aria-hidden="true"></i></button>
+              <div class="row no-gutters  mt-1">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="position: relative;padding: 0 15px;">
+                  <table id="logTable" class="table table-bordered no-wrap" cellspacing="0" width="100%">
+                  </table>
                 </div>
               </div>
             </div>
-            <div class="row no-gutters  mt-1">
-              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="position: relative;padding: 0 15px;">
-                <table id="profileListTable" class="table table-bordered no-wrap" cellspacing="0" width="100%">
-                </table>
-              </div>
-            </div>
-          </div>
-          <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
-            <div class="row m-0 pb-2 contact-tab">
-              <div class="col-lg-2">
-                <div class="check-connection" style="line-height: 2.6;"><span><i style="font-size: 6px;"
-                      class="fa fa-circle" aria-hidden="true"></i></span> Conneted</div>
-              </div>
-              <div class="col-lg-4">
-                <form>
-                  <div class="form-group d-flex">
-                    <label class="pr-1rem mb-0 pt-1">Filter By Log Level</label>
-                    <select class="form-control log-select" id="exampleFormControlSelect1">
-                      <option>All Log</option>
-                      <option>Log 1</option>
-                      <option>Log 2</option>
-                    </select>
-                  </div>
-                </form>
-              </div>
-              <div class="col-lg-4">
-                <form>
-                  <div class="form-group d-flex">
-                    <label class="pr-1rem mb-0 pt-1">Filter By Nodes</label>
-                    <select class="form-control log-select" id="exampleFormControlSelect1">
-                      <option>All Nodes</option>
-                      <option>Node 1</option>
-                      <option>Node 2</option>
-                    </select>
-                  </div>
-                </form>
-              </div>
+       <!--  Application Logs -->     
+            <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+              <div class="row m-0 pb-2 contact-tab">
+                <div class="col-lg-2">
+                  <!-- <div class="check-connection" style="line-height: 2.6;"><span><i style="font-size: 6px;"
+                        class="fa fa-circle" aria-hidden="true"></i></span> Connected</div> -->
+                        <span class="serverStatus" style="float:left;margin-top: 5px;"></span>
+                </div>
+                <div class="col-lg-4">
+                  <form>
+                    <div class="form-group d-flex">
+                      <label class="pr-1rem mb-0 pt-1">Filter By Log Level</label>
+                      <select class="form-control log-select logLevelList" >
+                        <option value="ALL">All Logs</option>
+                        </select>
+                    </div>
+                  </form>
+                </div>
+                <div class="col-lg-4">
+                  <form>
+                    <div class="form-group d-flex">
+                      <label class="pr-1rem mb-0 pt-1">Filter By Nodes</label>
+                      <select class="form-control log-select nodesList" id="exampleFormControlSelect1">
+                        <option value="ALL">All Nodes</option>
+                        </select>
+                    </div>
+                  </form>
+                </div>
 
-              <div class="col-lg-2 ml-auto" style="text-align:end;">
-                <button class="btn trash-button"><i class="fa fa-trash-o" aria-hidden="true"></i> Clear Logs</button>
+                <div class="col-lg-2 ml-auto" style="text-align:end;">
+                  <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                  <button class="btn trash-button" onclick="clearLogs()"><i class="fa fa-trash-o" aria-hidden="true" ></i> Clear Logs</button>
+                </div>
               </div>
-            </div>
-            <div class="row m-0" style="padding: 10px;">
-              <div class="appLog">
-                <p>Welcome to Boodskap</p>
+              <div class="row m-0" style="padding: 10px;">
+                <!-- <div class="appLog">
+                  <p>Welcome to Boodskap</p>
+                </div> -->
+                <div class="col-lg-12 appLog logCard" style="overflow: auto;overflow-x: hidden;">
+                  <ul class="logList nav">
+
+                  </ul>
               </div>
+              </div>
+              <div id="idModal" class="modal fade" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Message</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="modal-body">
+                            <code><p class="idData"></p></code>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+            
+            
+            <div id="cmdModal" class="modal fade" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Command</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="modal-body">
+                            <code><p class="cmdData"></p></code>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
             </div>
           </div>
-        </div>
         </div>
       </div>
     </div>

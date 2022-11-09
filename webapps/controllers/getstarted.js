@@ -242,9 +242,14 @@ function modalnavigate(currentStep){
 
    
 function createMsgDef() {
-    if($("#msg_id").val() === ""){
-
+    if($("#msg_id").val() === "" ){
+   
         errorMsgBorder('Message ID is required', 'msg_id');
+        return false;
+       
+    }else if( parseInt($("#msg_id").val()) <= 1 &&  $("#msg_id").val().length < 3){
+
+        errorMsgBorder('Message ID must have atleast 3 digit and greater than 999', 'msg_id');
         return false;
 
     }else if($("#msg_name").val() === ""){
@@ -283,23 +288,23 @@ function createMsgDef() {
         }
         console.log(fields);
     console.log(fields.length);
-        for (var i = 0; i < fields.length; i++) {
+        // for (var i = 0; i < fields.length; i++) {
 
-            if (RESERVED_FIELDS.indexOf(fields[i].name) !== -1) {
-                errorMsgBorder('Reserved Fields cannot be used as a field name', 'msg_field_' + i);
-                return false;
-            }
+        //     if (RESERVED_FIELDS.indexOf(fields[i].name) !== -1) {
+        //         errorMsgBorder('Reserved Fields cannot be used as a field name', 'msg_field_' + i);
+        //         return false;
+        //     }
 
-            if (DATABASE_KEYWORDS.indexOf(fields[i].name) !== -1) {
-                errorMsgBorder('Database keywords cannot be used as a field name', 'msg_field_' + i);
-                return false;
-            }
+        //     if (DATABASE_KEYWORDS.indexOf(fields[i].name) !== -1) {
+        //         errorMsgBorder('Database keywords cannot be used as a field name', 'msg_field_' + i);
+        //         return false;
+        //     }
 
-            if (fields[i].dataType.includes('BLOB')) {
-                fields[i].format = fields[i].dataType.split(":")[1];
-                fields[i].dataType = 'BLOB';
-            }
-        }
+        //     if (fields[i].dataType.includes('BLOB')) {
+        //         fields[i].format = fields[i].dataType.split(":")[1];
+        //         fields[i].dataType = 'BLOB';
+        //     }
+        // }
 
         if (message_obj && message_obj.fields && message_obj.fields.length > 0) {
             fields = _.union(message_obj.fields, fields);

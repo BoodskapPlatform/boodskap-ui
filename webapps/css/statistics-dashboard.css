@@ -99,7 +99,7 @@ font-weight:600;
     box-shadow:0px 0px 8px 2px #eaeaed !important 
  }
  #statistics .nav .nav-link, .nav-pills>li>a {
-    font-size: 16px;
+    font-size: 15px;
     padding: 8px 50px 4px 16px;
     border-radius: 10px 10px 3px 3px;
 }
@@ -138,7 +138,7 @@ font-weight:600;
 
 /* recent */
 #statistics label{
-    font-size: 15px;
+    font-size: 14px;
 }
 #statistics .pr-1rem{
     padding-right: 1.5rem;
@@ -458,5 +458,14 @@ height: 30px !important;
 #statistics .log-select{
     padding: 3px 12px;
     font-size: 13px !important;
+    border-radius: 8px !important;
 }
 
+#statistics .panel-title {
+    font-size: 14px;
+    color: #366cc3;
+}
+
+#scriptTerminal {
+    font-family: 'Share Tech Mono', monospace;
+}
