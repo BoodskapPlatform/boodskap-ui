@@ -280,16 +280,16 @@
         <div class="col-lg-12">
           <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
             <li class="nav-item">
-              <a class="nav-link active xs-tab" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab"
-                aria-controls="pills-home"  aria-selected="true">Messages</a>
+              <a class="nav-link active xs-tab" id="pills-home-tab" data-toggle="pill" style="margin-left:5px" href="#pills-home" role="tab"
+                aria-controls="pills-home"  aria-selected="true"><i class="fa fa-envelope-o" aria-hidden="true"></i>&nbsp; Messages</a>
             </li>
             <li class="nav-item">
               <a class="nav-link xs-tab" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab"
-                aria-controls="pills-profile" onclick="loadLogs()" aria-selected="false"><i class="fa fa-calendar-o" aria-hidden="true"></i> Event Logs</a>
+                aria-controls="pills-profile" onclick="loadLogs()" aria-selected="false"><i class="fa fa-calendar-o" aria-hidden="true"></i>&nbsp; Event Logs</a>
             </li>
             <li class="nav-item">
               <a class="nav-link xs-tab" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab"
-                aria-controls="pills-contact"  aria-selected="false">Application Logs</a>
+                aria-controls="pills-contact"  aria-selected="false"><i class="fa fa-mobile" style="font-size: 20px;" aria-hidden="true"></i>&nbsp; Application Logs</a>
             </li>
           </ul>
           <div class="tab-content stat-frame" id="pills-tabContent" style="padding: 17px 8px;">
@@ -463,7 +463,7 @@
                   <form>
                     <div class="form-group d-flex flex-col">
                       <label class="pr-1rem mb-0 pt-1 pb-2">Filter By Log Level</label>
-                      <select class="form-control log-select w-100 flex-50 logLevelList" >
+                      <select class="form-control log-select w-xs-100 flex-50 logLevelList" >
                         <option value="ALL">All Logs</option>
                         </select>
                     </div>
@@ -473,7 +473,7 @@
                   <form>
                     <div class="form-group d-flex flex-col">
                       <label class="pr-1rem mb-0 pt-1 pb-2">Filter By Nodes</label>
-                      <select class="form-control log-select w-100 flex-50 nodesList" id="exampleFormControlSelect1">
+                      <select class="form-control log-select w-xs-100 flex-50 nodesList" id="exampleFormControlSelect1">
                         <option value="ALL">All Nodes</option>
                         </select>
                     </div>

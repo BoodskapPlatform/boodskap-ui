@@ -108,7 +108,7 @@ function openGetStartedModal(results) {
         backdrop: 'static',
         keyboard: false ,
         }, 
-        'show',$(".platformBody").addClass("blur"),
+        'hide',$(".platformBody").addClass("blur"),
         $("#header").addClass("blur"),
         $("footer").addClass("blur")
    ); // model UI open
@@ -180,7 +180,7 @@ function addMessageField() {
     MSG_FIELD_COUNT++;
 }
 function tabnavigate(d,navto){
-    $(d).hasClass("active-dot") ? prevnavigate(navto):'';
+     $(d).hasClass("active-dot") ? prevnavigate(navto):'';
   // prevnavigate(navto)
 }
 
