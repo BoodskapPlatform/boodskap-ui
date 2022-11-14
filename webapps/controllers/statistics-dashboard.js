@@ -29,7 +29,7 @@ var selectedNode = 'ALL';
 $(document).ready(function () {
     device_linechart()  
     date()
-
+    $("#reportrange button").css("background", "pink");
     if(LIVE_UPDATE === 'ON'){
         $("#liveUpdate").prop('checked', true);
      }else{
@@ -82,22 +82,19 @@ $(window).on('resize', function(){
     device_linechart() 
     buildChartData()
     loadProcessedMsgData();
-    console.log("-------- resize ------");
-    // if(chart != null && chart != undefined){
-    //     chart.resize();
-    //     console.log("-------- resize ------");
-    // }
 });
 function toggleView() {
     chartView = chartView ? false : true;
     $('#tablePanel').toggle();
      $('#chartPanel').toggle();
      if(chartView){
+        $('.togTable').attr('disabled', 'disabled')
         buildChartData()
         loadProcessedMsgData();
+    }else{
+
     }
 }
-
 function tableView(id) {
     if(id === 1){
         $("#messageTable").addClass('compactTable')
@@ -872,7 +869,7 @@ function loadMsgChart(obj,myChart) {
                 saveAsImage: {show: true},
             },
             showTitle: false,
-
+            top: "8%"
         },
 
         tooltip : {
@@ -1032,7 +1029,7 @@ function loadProcessedMsgChart(obj,myChart) {
                 saveAsImage: {show: true},
             },
             showTitle: false,
-
+            top: "8%"
         },
 
         tooltip : {
