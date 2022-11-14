@@ -29,6 +29,15 @@
     font-size: 11px;
     line-height: 15px;
   }
+  .btn.btn-success{
+    background: #4670be !important;
+    border: 1px solid #4670be !important;
+  }
+  .daterangepicker .ranges li.active, .daterangepicker .ranges li:hover {
+    background: #e6f0f4!important;
+    border-color: #4670be78!important;
+    color: #000000!important;
+}
 </style>
 <link rel="stylesheet" type="text/css" href="css/statistics-dashboard.css" />
 
@@ -45,10 +54,10 @@
     <small class="hidden-xs" style="font-size: 50%">Let's start building your IoT Solutions on the fly. </small>
 
   </h1>
-  <div class="panel panel-inverse pt-2" style="background-color: #f5f5f5;padding-bottom: 30px;">
+  <div class="panel panel-inverse pt-3" style="background-color: #f5f5f5;padding-bottom: 30px;">
     <div class="panel-body p-0" id="statistics">
       <div class="row m-0" style="padding-bottom: 30px!important;">
-        <div class="col-lg-4">
+        <div class="col-lg-4 full-md-width">
           <div class="row m-0 pb-2">
             <div class="pl-2 sec-head"> Overview</div>
             <div class="ml-auto">
@@ -65,23 +74,22 @@
               </div>
             </div>
           </div>
-          <div class="row m-0 mb-20px">
-            <div class="col-md-6 stat-min-size">
+          <div class="row m-0 ">
+            <div class="col-md-6 mb-20px stat-min-size">
               <div class="stat-frame count-side">
                 <div class="tile">
                   <p class="title m-0"> Devices</p>
                   <div class="logo-side">
-                    <div class="purplebg logo">
-                      <i class="fa fa-laptop purple" aria-hidden="true"></i>
+                    <div class="logo">
+                      <i class="fa fa-laptop purple purplebg" aria-hidden="true"></i>
                     </div>
-
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-md-7">
+                  <div class="col-6">
                     <div class="total-count">1.2K</div>
                   </div>
-                  <div class="col-md-5 d-flex justify-content-end align-self-end fullcount">
+                  <div class="col-6 d-flex justify-content-end align-self-end fullcount">
                     <span class="purple mb-3">2,200,200</span>
                   </div>
                 </div>
@@ -89,22 +97,22 @@
               </div>
             </div>
 
-            <div class="col-md-6 stat-min-size">
+            <div class="col-md-6 mb-20px stat-min-size">
               <div class="stat-frame count-side">
                 <div class="tile">
-                  <p class="title m-0"> Devices</p>
+                  <p class="title m-0"> Users</p>
                   <div class="logo-side">
-                    <div class="logo bluebg">
-                      <i class="fa fa-user-o blue" aria-hidden="true"></i>
+                    <div class="logo">
+                      <i class="fa fa-user-o blue bluebg" aria-hidden="true"></i>
                     </div>
 
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-md-7">
+                  <div class="col-6">
                     <div class="total-count">145</div>
                   </div>
-                  <div class="col-md-5 d-flex justify-content-end align-self-end fullcount"><span
+                  <div class="col-6 d-flex justify-content-end align-self-end fullcount"><span
                       class="blue mb-3">2,200,200</span></div>
                 </div>
                 <div class="time-period"><span class="stat-ratio red">+0.02%</span> Last 7 days </div>
@@ -112,45 +120,45 @@
             </div>
 
           </div>
-          <div class="row m-0 mb-20px">
-            <div class="col-md-6 stat-min-size">
+          <div class="row m-0">
+            <div class="col-md-6 mb-20px stat-min-size">
               <div class="stat-frame count-side">
                 <div class="tile">
-                  <p class="title m-0"> Devices</p>
+                  <p class="title m-0"> Messages</p>
                   <div class="logo-side">
-                    <div class="logo orangebg">
-                      <i class="fa fa-envelope-o orange" aria-hidden="true"></i>
+                    <div class="logo">
+                      <i class="fa fa-envelope-o orange orangebg" aria-hidden="true"></i>
                     </div>
 
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-md-7">
+                  <div class="col-6">
                     <div class="total-count">2.5<span class="mini-denot">m</span> </div>
                   </div>
-                  <div class="col-md-5 d-flex justify-content-end align-self-end fullcount"><span
+                  <div class="col-6 d-flex justify-content-end align-self-end fullcount"><span
                       class="orange mb-3">2,200,200</span></div>
                 </div>
                 <div class="time-period"><span class="stat-ratio red">+0.02%</span> Last 7 days </div>
               </div>
             </div>
 
-            <div class="col-md-6 stat-min-size">
+            <div class="col-md-6 mb-20px stat-min-size">
               <div class="stat-frame count-side">
                 <div class="tile">
-                  <p class="title m-0"> Devices</p>
+                  <p class="title m-0"> API Tokens</p>
                   <div class="logo-side">
-                    <div class="logo pgreenbg">
-                      <i class="fa fa-cogs pgreen" aria-hidden="true"></i>
+                    <div class="logo">
+                      <i class="fa fa-cogs pgreen pgreenbg" aria-hidden="true"></i>
                     </div>
 
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-md-7">
+                  <div class="col-6">
                     <div class="total-count">1.3<span class="mini-denot">k</span> </div>
                   </div>
-                  <div class="col-md-5 d-flex justify-content-end align-self-end fullcount"><span
+                  <div class="col-6 d-flex justify-content-end align-self-end fullcount"><span
                       class="pgreen mb-3">2,200,200</span></div>
                 </div>
                 <div class="time-period"><span class="stat-ratio green">+0.02%</span> Last 7 days </div>
@@ -158,13 +166,13 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-8">
+        <div class="col-lg-8 full-md-width">
           <div class="row m-0 pb-2">
             <div class="sec-head">Devices</div>
           </div>
           <div class="row m-0 stat-frame pl-0">
-            <div class="col-lg-4">
-              <div class="row m-0">
+            <div class="col-md-4 pb-lg-0 pb-4">
+              <div class="row m-0 pb-2">
                 <div class="ml-auto">
                   <div class="btn-group">
                     <button class="btn btn-secondary btn-sm dropdown-toggle drop-static" type="button"
@@ -200,9 +208,30 @@
                   </svg>
                 </div>
               </div>
+            
+              <!-- <div class="skill-container">
+                <div class="skill">
+                  <div class="outer">
+                    <div class="inner">
+                      <div class="inner-head">Total</div>
+                      <div class="inner-total">1.2k</div>
+                      <div class="number" data-num="65">1243</div>
+                    </div>
+                  </div>
+                  <svg width="160px" height="160px">
+                    <defs>
+                      <linearGradient id="GradientColor">
+                        <stop offset="0%" stop-color="#e9e63"></stop>
+                        <stop offset="100%" stop-color="#6737"></stop>
+                      </linearGradient>
+                    </defs>
+                    <circle cx="80" cy="80" r="69" stroke-linecap="round" style="stroke-dashoffset: 553;"></circle>
+                  </svg>
+                </div>
+              </div> -->
               <div class="row pt-3 m-0 device-functionality ">
-                <div class="col-lg-6">
-                  <div class="active-dev" style="border-right: 1px dashed lightgrey;">
+                <div class="col-sm-6 col-xs-6 no-border-xs" style="border-right: 1px dashed lightgrey;">
+                  <div class="active-dev" >
                     <i class="fa fa-square" aria-hidden="true"></i>
                     <div class="dev-label py-2">
                       Active Devices
@@ -210,7 +239,7 @@
                     <div class="active-count"> 943 </div>
                   </div>
                 </div>
-                <div class="col-lg-6 inactive-dev">
+                <div class="col-sm-6 col-xs-6 inactive-dev">
                   <i class="fa fa-square" aria-hidden="true"></i>
                   <div class="dev-label py-2">
                     Inactive Devices
@@ -220,7 +249,7 @@
 
               </div>
             </div>
-            <div class="col-lg-8" style="border-left: 1px solid #dfdfdf;">
+            <div class="col-md-8 b-md-none pt-lg-0 pt-4 no-border-xs" style="border-left: 1px solid #dfdfdf;">
               <div class="row m-0">
                 <div class="pl-1 mr-auto" style="color:rgb(64, 64, 64) ;font-weight: 700;">
                   Active <br> Devices
@@ -251,30 +280,30 @@
         <div class="col-lg-12">
           <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
             <li class="nav-item">
-              <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab"
-                aria-controls="pills-home" onclick="startmqt('mesgLog')" aria-selected="true">Message</a>
+              <a class="nav-link active xs-tab" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab"
+                aria-controls="pills-home"  aria-selected="true">Messages</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab"
-                aria-controls="pills-profile" onclick="loadLogs()" aria-selected="false">Event Logs</a>
+              <a class="nav-link xs-tab" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab"
+                aria-controls="pills-profile" onclick="loadLogs()" aria-selected="false"><i class="fa fa-calendar-o" aria-hidden="true"></i> Event Logs</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab"
-                aria-controls="pills-contact" onclick="startmqt('appLog')" aria-selected="false">Aplication Logs</a>
+              <a class="nav-link xs-tab" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab"
+                aria-controls="pills-contact"  aria-selected="false">Application Logs</a>
             </li>
           </ul>
           <div class="tab-content stat-frame" id="pills-tabContent" style="padding: 17px 8px;">
        <!--  Message Logs -->
             <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-              <div class="row m-0">
-                <div class="col-lg-2  mr-auto">
+              <div class="row m-0 row-gap">
+                <div class="col-sm-6  mr-auto">
                   <h4 class="panel-title">
                     Total Reported Messages: <b><span class="totalCount">0</span></b>
                   </h4>
                 </div>
-                <div class="col-lg-2 ml-auto">
+                <div class="col-sm-6">
                   <div class="form-check pt-0 d-flex">
-                    <input class="form-check-input ml-auto position-static pr-2" type="checkbox" value="ON"
+                    <input class="form-check-input ml-sm-auto position-static pr-2" type="checkbox" value="ON"
                       id="liveUpdate" onchange="liveUpdate(this)">
                     <label class="form-check-label align-self-center pl-2 pr-4" for="defaultCheck1">
                       Live Update
@@ -284,8 +313,8 @@
                   </div>
                 </div>
               </div>
-              <div class="row m-0 pt-4 pb-2">
-                <div class="col-lg-3">
+              <div class="row m-0 pt-4 row-gap pb-2">
+                <div class="col-lg-3 flex-50">
                   <form>
                     <div class="form-group">
                       <label for="exampleFormControlSelect1">Message Id</label>
@@ -293,7 +322,7 @@
                     </div>
                   </form>
                 </div>
-                <div class="col-lg-3">
+                <div class="col-lg-3 flex-50">
                   <form>
                     <div class="form-group">
                       <label for="exampleFormControlSelect1">Data Range</label>
@@ -305,14 +334,14 @@
                     </div>
                   </form>
                 </div>
-                <div class="col-lg-2">
+                <div class="col-lg-3 flex-50">
                   <form>
                     <div class="form-group">
                       <label for="exampleFormControlSelect1">Statistics</label>
                       <div class="switches-container">
                         <input type="radio" id="switchTable" name="switchPlan" value="Table" checked="checked" />
                         <input type="radio" id="switchChart" name="switchPlan" value="Chart" />
-                        <label for="switchTable" onclick="toggleView('Table')"><i class="fa fa-table"
+                        <label for="switchTable" class="togTable" onclick="toggleView('Table')"><i class="fa fa-table"
                             aria-hidden="true"></i> Table View</label>
                         <label for="switchChart" onclick="toggleView('Chart')"><i class="fa fa-bar-chart"
                             aria-hidden="true"></i> Chart View</label>
@@ -326,7 +355,7 @@
                     </div>
                   </form>
                 </div>
-                <div class="col-md-2" id="tablemode">
+                <div class="col-lg-3 flex-50" id="tablemode">
                   <div class="form-group">
                     <form>
                       <div class="form-group">
@@ -359,7 +388,7 @@
                 <div class="col-md-3">
                   <div class="form-group">
                     <label class="inputLabel"><i class="icon-filter" style="font-size: 13px;"></i> Filter By</label>
-                    <select class="form-control input-sm" id="filterBy" onchange="buildChartData()">
+                    <select class="form-control log-select input-sm" id="filterBy" onchange="buildChartData()">
                       <option value="YEAR">By Year</option>
                       <option value="MONTH">By Month</option>
                       <option value="DATE">By Date</option>
@@ -369,7 +398,7 @@
                   </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pt-2 pb-4" style="padding: 0 15px;">
-                  <div id="message_view" style="height:300px;"> </div>
+                  <div id="message_view" class="echarts__demo" style="height:300px;"> </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pt-2 pb-3" style="padding: 0 15px;">
                   <div id="message_processed_view" style="height:300px;"> </div>
@@ -378,15 +407,15 @@
             </div>
        <!--  Event Logs -->
             <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-              <div class="row m-0">
-                <div class="col-lg-2  mr-auto">
+              <div class="row row-gap m-0">
+                <div class="col-sm-6  mr-auto">
                   <h4 class="panel-title">
                     FAILURE RULES Logs
                   </h4>
                 </div>
-                <div class="col-lg-2 ml-auto">
+                <div class="col-sm-6 ">
                   <div class="form-check pt-0 d-flex">
-                    <input class="form-check-input ml-auto position-static pr-2" type="checkbox" value="ON"
+                    <input class="form-check-input ml-sm-auto position-static pr-2" type="checkbox" value="ON"
                       id="liveUpdate" onchange="liveUpdate(this)">
                     <label class="form-check-label align-self-center pl-2 pr-4" for="defaultCheck1">
                       Live Update
@@ -396,7 +425,7 @@
                   </div>
                 </div>
               </div>
-              <div class="row m-0 pt-3 pb-2">
+              <div class="row m-0 row-gap pt-3 pb-2">
                 <div class="col-lg-4">
                   <form>
                     <div class="form-group">
@@ -424,7 +453,7 @@
             </div>
        <!--  Application Logs -->     
             <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
-              <div class="row m-0 pb-2 contact-tab">
+              <div class="row m-0 pb-2 row-gap contact-tab">
                 <div class="col-lg-2">
                   <!-- <div class="check-connection" style="line-height: 2.6;"><span><i style="font-size: 6px;"
                         class="fa fa-circle" aria-hidden="true"></i></span> Connected</div> -->
@@ -432,9 +461,9 @@
                 </div>
                 <div class="col-lg-4">
                   <form>
-                    <div class="form-group d-flex">
-                      <label class="pr-1rem mb-0 pt-1">Filter By Log Level</label>
-                      <select class="form-control log-select logLevelList" >
+                    <div class="form-group d-flex flex-col">
+                      <label class="pr-1rem mb-0 pt-1 pb-2">Filter By Log Level</label>
+                      <select class="form-control log-select w-100 flex-50 logLevelList" >
                         <option value="ALL">All Logs</option>
                         </select>
                     </div>
@@ -442,17 +471,16 @@
                 </div>
                 <div class="col-lg-4">
                   <form>
-                    <div class="form-group d-flex">
-                      <label class="pr-1rem mb-0 pt-1">Filter By Nodes</label>
-                      <select class="form-control log-select nodesList" id="exampleFormControlSelect1">
+                    <div class="form-group d-flex flex-col">
+                      <label class="pr-1rem mb-0 pt-1 pb-2">Filter By Nodes</label>
+                      <select class="form-control log-select w-100 flex-50 nodesList" id="exampleFormControlSelect1">
                         <option value="ALL">All Nodes</option>
                         </select>
                     </div>
                   </form>
                 </div>
 
-                <div class="col-lg-2 ml-auto" style="text-align:end;">
-                  <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                <div class="col-lg-2 ml-sm-auto text-sm-left" >
                   <button class="btn trash-button" onclick="clearLogs()"><i class="fa fa-trash-o" aria-hidden="true" ></i> Clear Logs</button>
                 </div>
               </div>

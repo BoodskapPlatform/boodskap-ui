@@ -75,8 +75,19 @@ $(document).ready(function () {
     });
     // End - circle %
 
-});
+   
 
+});
+$(window).on('resize', function(){
+    device_linechart() 
+    buildChartData()
+    loadProcessedMsgData();
+    console.log("-------- resize ------");
+    // if(chart != null && chart != undefined){
+    //     chart.resize();
+    //     console.log("-------- resize ------");
+    // }
+});
 function toggleView() {
     chartView = chartView ? false : true;
     $('#tablePanel').toggle();
@@ -156,7 +167,9 @@ function device_linechart() {
         ]
     };
 
+  
     option && myChart.setOption(option);
+  
 
 }
 
@@ -225,183 +238,176 @@ function format(d) {
         '</table>';
 }
 
-function name(startMqtt) {
-    switch (startMqtt) {
-        case 'mesgLog':
-            function mqttListen() {
+ 
+function mqttListen() {
                 console.log(new Date + ' | MQTT Started to Subscribe');
+
+    mqttSubscribeGlobal("/" + USER_OBJ.domainKey + "/log/#", 0);
             
-                mqttSubscribeGlobal("/" + USER_OBJ.domainKey + "/log/#", 0);
-            
-                mqtt_client.onMessageArrived = function (message) {
-            
-                    // console.log(new Date + ' | MQTT Message Received :', message);
-            
-                    var parsedData = JSON.parse(message.payloadString);
-                    var topicName = message.destinationName;
-            
-            
-                    if (topicName.includes("/log/mrule/"+$(".msgList").val())) {
-            
-                        if(LIVE_UPDATE === 'ON') {
-                            setTimeout(function (){
-                                loadMessages(parsedData.mid);
-                            },1500);
-            
-                        }
-                    }
-            
-                    /*if(parsedData.mid === Number($(".msgList").val())){
-            
-            
-                    }*/
-                };
+    mqtt_client.onMessageArrived = function (message) {
+
+        // console.log(new Date + ' | MQTT Message Received :', message);
+
+        var parsedData = JSON.parse(message.payloadString);
+        var topicName = message.destinationName;
+
+
+        if (topicName.includes("/log/mrule/"+$(".msgList").val())) {
+
+            if(LIVE_UPDATE === 'ON') {
+                setTimeout(function (){
+                    loadMessages(parsedData.mid);
+                },1500);
+
             }
-            break;
-        case 'appLog':
-            function mqttListen() {
-    
-                if (MQTT_STATUS) {
-            
-                    console.log(new Date + ' | MQTT Started to Subscribe');
-            
-                    /*if (ADMIN_ACCESS) {
-                        mqttSubscribeGlobal("/syslog/#", 0);
-                    }else{
-                        mqttSubscribeGlobal("/syslog/"+USER_OBJ.domainKey+"/#", 0);
-            
-                    }*/
-            
-                    setTimeout(function () {
-                        mqttSubscribeGlobal("/" + USER_OBJ.domainKey + "/log/#", 0);
-                    }, 500)
-            
-            
-                    mqtt_client.onMessageArrived = function (message) {
-            
-                        var parsedData = JSON.parse(message.payloadString);
-                        var topicName = message.destinationName;
-            
-                        // console.log("topicName => "+topicName, parsedData)
-            
-                        var nodeClass = new Date().getTime();
-                        var color = 'default';
-            
-            
-                        selectedNode = $(".nodesList").val();
-                        var nodeClass = new Date().getTime();
-                        if(parsedData.node) {
-                            nodesList.push(parsedData.node);
-                            nodesList = _.uniq(nodesList);
-                        }
-            
-                        loadNodeList();
-            
-                        var logLevel = $(".logLevelList").val()
-            
-            
-                        if ($(".nodesList").val() === 'ALL' || $(".nodesList").val() === parsedData.node) {
-            
-                            if (topicName.includes("cstatus")) {
-            
-                                var str = '';
-            
-                                try {
-                                    var id = DOMAIN_KEY+"_"+parsedData.deviceid+"_"+parsedData.corrid;
-                                    if (id) {
-                                        str = '<a href="javascript:void(0)" style="color:#FF9800" onclick="openCorrID(\'' + id + '\')">' + parsedData.corrid + '</a>';
-                                    } else {
-                                        str = parsedData.corrid;
-                                    }
-            
-                                }
-                                catch (e) {
-                                }
-            
-            
-                                $(".logList").append("<li class='" + nodeClass + "' style='font-size: 12px;'><span class='label label-yellow' style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>COMMAND</span>" +
-                                    "<b style='color: #9e9e9e8a'>" + moment().format('MM/DD/YYYY hh:mm:ss a') + "</b> " +
-                                    (parsedData.node ? "<span style='font-weight: bold;display: inline-block;margin-left: 5px;color:#ffeb3bf0'> " + parsedData.node + "</span> " : '') +
-                                    "<span style='white-space: pre-wrap;padding-left: 10px;'> [Device Id: " + parsedData.deviceid + "] [Correlation Id: "+ str +"] " +
-                                    "[Status : "+parsedData.status+"] [Reason : "+(parsedData.reason ? parsedData.reason : '-')+"]" +
-                                    "</span><br></li>");
-            
-                                $('.logCard').animate({
-                                    scrollTop: $(".logList").height()
-                                }, 1);
-            
-                            }
-                            else if (topicName.includes("incoming")) {
-            
-                                $(".logList").append("<li class='" + nodeClass + "' style='font-size: 12px;'><span class='label label-grey' style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>MESSAGE</span>  " +
-                                    "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " +
-                                    (parsedData.node ? "<span style='font-weight: bold;display: inline-block;margin-left: 5px;color:#ffeb3bf0' > " + parsedData.node + "</span> " : '') +
-                                    "<span style='white-space: pre-wrap;padding-left: 10px;'> [Device Id: " + parsedData.did + "] [Message Id: "+ parsedData.mid +"] " +
-                                    "[Data : "+JSON.stringify(parsedData.data)+"] "+
-                                    "</span><br></li>");
-            
-                                $('.logCard').animate({
-                                    scrollTop: $(".logList").height()
-                                }, 1);
-            
-                            }
-                            else {
-                                if(parsedData.data !== '__ALL_DONE__') {
-                                    var str = '';
-            
-                                    try {
-                                        var id = parsedData.data.split(" ")[1].split(":")[1];
-                                        if (id) {
-                                            str = '<a href="javascript:void(0)" style="color:#FF9800" onclick="openID(\'' + id + '\')">' + id + '</a>';
-                                        } else {
-                                            str = id;
-                                        }
-            
-                                        parsedData.data = parsedData.data.replace(id, str)
-                                    }
-                                    catch (e) {
-                                    }
-            
-            
-                                    if(logLevel === 'ALL' || logLevel === parsedData.level) {
-            
-            
-                                        $(".logList").append("<li class='" + nodeClass + "' style='font-size: 12px;'>" +
-                                            "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> "+
-                                            " | <b style='color: #9e9e9e8a'>" + parsedData.domain + "</b> "+
-                                            " | <b style='color: #9e9e9e8a'>" + parsedData.session + "</b> "+
-                                            " | <b style='color: #9e9e9e8a'>" + parsedData.node + "</b> "+
-                                            " | <b style='color: #9e9e9e8a'>" + parsedData.line + "</b> "+
-                                            "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
-                                            "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
-                                            " <span style='white-space: pre-wrap;padding-left: 10px;' class='text-"+logLevels[parsedData.level]+"'>" + parsedData.data + "</span><br></li>");
-            
-            
-                                        /*$(".logList").append("<li class='" + nodeClass + "' style='font-size: 12px;'><span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
-                                            "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
-                                            "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " +
-                                            (parsedData.node ? "<span style='font-weight: bold;display: inline-block;margin-left: 5px;color:#ffeb3bf0' > " + parsedData.node + "</span>" : '') +
-                                            " <span style='white-space: pre-wrap;padding-left: 10px;'>" + parsedData.data + "</span><br></li>");*/
-                                    }
-            
-                                    $('.logCard').animate({
-                                        scrollTop: $(".logList").height()
-                                    }, 1);
-                                }
-                            }
-            
-                        }
-            
-            
-                    };
-            
-                }
-            
-            }
-            break;
-       
-    }
+        }
+
+        /*if(parsedData.mid === Number($(".msgList").val())){
+
+
+        }*/
+    };
 }
+
+// function mqttListen() {
+
+//     if (MQTT_STATUS) {
+
+//         console.log(new Date + ' | MQTT Started to Subscribe');
+
+//         /*if (ADMIN_ACCESS) {
+//             mqttSubscribeGlobal("/syslog/#", 0);
+//         }else{
+//             mqttSubscribeGlobal("/syslog/"+USER_OBJ.domainKey+"/#", 0);
+
+//         }*/
+
+//         setTimeout(function () {
+//             mqttSubscribeGlobal("/" + USER_OBJ.domainKey + "/log/#", 0);
+//         }, 500)
+
+
+//         mqtt_client.onMessageArrived = function (message) {
+
+//             var parsedData = JSON.parse(message.payloadString);
+//             var topicName = message.destinationName;
+
+//             // console.log("topicName => "+topicName, parsedData)
+
+//             var nodeClass = new Date().getTime();
+//             var color = 'default';
+
+
+//             selectedNode = $(".nodesList").val();
+//             var nodeClass = new Date().getTime();
+//             if(parsedData.node) {
+//                 nodesList.push(parsedData.node);
+//                 nodesList = _.uniq(nodesList);
+//             }
+
+//             loadNodeList();
+
+//             var logLevel = $(".logLevelList").val()
+
+
+//             if ($(".nodesList").val() === 'ALL' || $(".nodesList").val() === parsedData.node) {
+
+//                 if (topicName.includes("cstatus")) {
+
+//                     var str = '';
+
+//                     try {
+//                         var id = DOMAIN_KEY+"_"+parsedData.deviceid+"_"+parsedData.corrid;
+//                         if (id) {
+//                             str = '<a href="javascript:void(0)" style="color:#FF9800" onclick="openCorrID(\'' + id + '\')">' + parsedData.corrid + '</a>';
+//                         } else {
+//                             str = parsedData.corrid;
+//                         }
+
+//                     }
+//                     catch (e) {
+//                     }
+
+
+//                     $(".logList").append("<li class='" + nodeClass + "' style='font-size: 12px;'><span class='label label-yellow' style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>COMMAND</span>" +
+//                         "<b style='color: #9e9e9e8a'>" + moment().format('MM/DD/YYYY hh:mm:ss a') + "</b> " +
+//                         (parsedData.node ? "<span style='font-weight: bold;display: inline-block;margin-left: 5px;color:#ffeb3bf0'> " + parsedData.node + "</span> " : '') +
+//                         "<span style='white-space: pre-wrap;padding-left: 10px;'> [Device Id: " + parsedData.deviceid + "] [Correlation Id: "+ str +"] " +
+//                         "[Status : "+parsedData.status+"] [Reason : "+(parsedData.reason ? parsedData.reason : '-')+"]" +
+//                         "</span><br></li>");
+
+//                     $('.logCard').animate({
+//                         scrollTop: $(".logList").height()
+//                     }, 1);
+
+//                 }
+//                 else if (topicName.includes("incoming")) {
+
+//                     $(".logList").append("<li class='" + nodeClass + "' style='font-size: 12px;'><span class='label label-grey' style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>MESSAGE</span>  " +
+//                         "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " +
+//                         (parsedData.node ? "<span style='font-weight: bold;display: inline-block;margin-left: 5px;color:#ffeb3bf0' > " + parsedData.node + "</span> " : '') +
+//                         "<span style='white-space: pre-wrap;padding-left: 10px;'> [Device Id: " + parsedData.did + "] [Message Id: "+ parsedData.mid +"] " +
+//                         "[Data : "+JSON.stringify(parsedData.data)+"] "+
+//                         "</span><br></li>");
+
+//                     $('.logCard').animate({
+//                         scrollTop: $(".logList").height()
+//                     }, 1);
+
+//                 }
+//                 else {
+//                     if(parsedData.data !== '__ALL_DONE__') {
+//                         var str = '';
+
+//                         try {
+//                             var id = parsedData.data.split(" ")[1].split(":")[1];
+//                             if (id) {
+//                                 str = '<a href="javascript:void(0)" style="color:#FF9800" onclick="openID(\'' + id + '\')">' + id + '</a>';
+//                             } else {
+//                                 str = id;
+//                             }
+
+//                             parsedData.data = parsedData.data.replace(id, str)
+//                         }
+//                         catch (e) {
+//                         }
+
+
+//                         if(logLevel === 'ALL' || logLevel === parsedData.level) {
+
+
+//                             $(".logList").append("<li class='" + nodeClass + "' style='font-size: 12px;'>" +
+//                                 "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> "+
+//                                 " | <b style='color: #9e9e9e8a'>" + parsedData.domain + "</b> "+
+//                                 " | <b style='color: #9e9e9e8a'>" + parsedData.session + "</b> "+
+//                                 " | <b style='color: #9e9e9e8a'>" + parsedData.node + "</b> "+
+//                                 " | <b style='color: #9e9e9e8a'>" + parsedData.line + "</b> "+
+//                                 "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
+//                                 "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
+//                                 " <span style='white-space: pre-wrap;padding-left: 10px;' class='text-"+logLevels[parsedData.level]+"'>" + parsedData.data + "</span><br></li>");
+
+
+//                             /*$(".logList").append("<li class='" + nodeClass + "' style='font-size: 12px;'><span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
+//                                 "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
+//                                 "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " +
+//                                 (parsedData.node ? "<span style='font-weight: bold;display: inline-block;margin-left: 5px;color:#ffeb3bf0' > " + parsedData.node + "</span>" : '') +
+//                                 " <span style='white-space: pre-wrap;padding-left: 10px;'>" + parsedData.data + "</span><br></li>");*/
+//                         }
+
+//                         $('.logCard').animate({
+//                             scrollTop: $(".logList").height()
+//                         }, 1);
+//                     }
+//                 }
+
+//             }
+
+
+//         };
+
+//     }
+
+// }
 // Start Message Logs
 
 function liveUpdate(obj) {
@@ -573,8 +579,8 @@ function loadMessages(id) {
         aaSorting:  [[indexLength+2, 'desc']],
         iDisplayLength: 10,
         language: {
-            "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> &nbsp;',
-            "searchPlaceholder": "Search here...",
+            "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> &nbsp; <button class="search-btn"> <i class="fa fa-search" aria-hidden="true"></i></button>    ',
+            "searchPlaceholder": "Search ehere...",
             "emptyTable": "No data found!",
             "processing": '<div class="p-2"><i class="fa fa-spinner fa-spin"></i> Processing</div>',
             loadingRecords: '',
@@ -591,7 +597,7 @@ function loadMessages(id) {
           <button type="button" class="close d-none position-absolute" aria-label="Close" style="right: 42px; bottom:7px;font-size: 20px;">
             <span aria-hidden="true">&times;</span>
           </button>
-          <button class="search-btn"> <i class="fa fa-search" aria-hidden="true"></i></button> 
+          
       `).attr('required', 'required').attr('title', 'Search');
 
             // Click Event on Clear button
@@ -944,6 +950,10 @@ function loadMsgChart(obj,myChart) {
 
     myChart.setOption(chartOption);
 
+    window.addEventListener('resize',function(){
+        myChart.resize();
+      })
+
 }
 
 function loadProcessedMsgData() {
@@ -1099,7 +1109,10 @@ function loadProcessedMsgChart(obj,myChart) {
 
 
     myChart.setOption(chartOption);
-
+    
+    window.addEventListener('resize',function(){
+        myChart.resize();
+      })
 }
 // End Message Logs
 
@@ -1644,7 +1657,7 @@ function loadLogs() {
         aaSorting: sortOrder,
         "ordering": true,
         iDisplayLength: 10,language: {
-            "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> &nbsp;',
+            "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> &nbsp; <button class="search-btn"> <i class="fa fa-search" aria-hidden="true"></i></button> ',
             "searchPlaceholder": "Search here...",
             "emptyTable": "No data found!",
             "processing": '<div class="p-2"><i class="fa fa-spinner fa-spin"></i> Processing</div>',
@@ -1662,7 +1675,7 @@ function loadLogs() {
           <button type="button" class="close d-none position-absolute" aria-label="Close" style="right: 42px; bottom:7px;font-size: 20px;">
             <span aria-hidden="true">&times;</span>
           </button>
-          <button class="search-btn"> <i class="fa fa-search" aria-hidden="true"></i></button> 
+         
       `).attr('required', 'required').attr('title', 'Search');
 
             // Click Event on Clear button
