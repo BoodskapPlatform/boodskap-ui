@@ -54,7 +54,6 @@ function textSlider() {
 
         $('#loginPageSlider .col').hide();
         $('#loginPageSlider .col'+counter).toggle('slide');
-        console.log(counter);
     }, 2500);
 }
 
@@ -156,6 +155,7 @@ function switchDomain(dkey,token) {
 
 function logout() {
     loginOutCall(function (status,data) {
+        Cookies.remove('mqttConnCount');
         Cookies.remove('user_details');
         Cookies.remove('domain_logo');
         Cookies.remove('user_picture');

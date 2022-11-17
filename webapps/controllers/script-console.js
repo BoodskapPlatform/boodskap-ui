@@ -23,21 +23,19 @@ $(document).ready(function () {
     // $(".editorBlock").height($(window).height() + 'px')
     // initiateEditor();
 
-    // mqttConnectGlobal(); //TODO: v5 platform not allowing 2nd time connection
+    mqttConnect();
     loadTerminal();
     loadCodeType();
 });
 
 function mqttListen() {
-
     if (MQTT_STATUS) {
-
         console.log(new Date + ' | MQTT Started to Subscribe');
-
-        mqttSubscribeGlobal("/" + USER_OBJ.domainKey + "/log/#", 0);
-
-
+        mqttSubscribe("/" + USER_OBJ.domainKey + "/log/#", 0);
         mqtt_client.onMessageArrived = function (message) {
+
+            console.log("mqtt_client ============> Connected!!!!!!!");
+            console.log(message);
 
             var parsedData = JSON.parse(message.payloadString);
             var topicName = message.destinationName;
@@ -157,6 +155,9 @@ function loadTerminal() {
 
             if (event.ctrlKey && event.keyCode === 13) {
 
+                console.log("commandsList--------------------1");    
+                console.log(commandsList);    
+
                 if (commandsList.length > 0) {
                     var id = guid();
 
@@ -166,10 +167,11 @@ function loadTerminal() {
                     };
 
                     // console.log("cmdObj =>",cmdObj);
-
-                    /*console.log('<div class="log_'+id+'">' + moment().format("MM/DD/YYYY hh:mm a") +
+                    /*
+                    console.log('<div class="log_'+id+'">' + moment().format("MM/DD/YYYY hh:mm a") +
                         " | Command executed successfully </div><div class='console_loader_" + id + "'>" +
-                        '<i class="fa fa-spinner fa-spin"></i> waiting for command response</div><div class="console_' + id + '"></div>')*/
+                        '<i class="fa fa-spinner fa-spin"></i> waiting for command response</div><div class="console_' + id + '"></div>')
+                        */
 
 
                     commandsList = [];
@@ -250,14 +252,23 @@ function loadTerminal() {
                             }
                         })
                     } else {
+
+                        console.log("cmdObj--------------------2");    
+                        console.log(cmdObj);   
+
                         this.echo('<div class="log_' + id + '">' + moment().format("MM/DD/YYYY hh:mm a") +
                             " | Command executed successfully </div><div class='console_" + id + "'></div><div class='console_loader_" + id + " text-info'>" +
                             '<i class="fa fa-spinner fa-spin"></i> waiting for command response</div>', {raw: true});
                         executeConsoleScript(cmdObj, function (status, data) {
+
+                            console.log("executeConsoleScript----------------res----3");    
+                            console.log(status); 
+                            console.log(data); 
+
                             if (status) {
                                 // console.log(data)
                             } else {
-                                self.echo("<span class='red'>" + moment().format("MM/DD/YYYY hh:mm a") + " | Error in command execution</span>");
+                                self.echo("<span class='red'>" + moment().format("MM/DD/YYYY hh:mm a") + " | Error in command execution 1</span>");
                             }
 
                         });
@@ -293,7 +304,7 @@ function executeCommand() {
             if (status) {
                 console.log(data)
             } else {
-                scriptTerminal.echo("<span class='red'>" + moment().format("MM/DD/YYYY hh:mm a") + " | Error in command execution</span>");
+                scriptTerminal.echo("<span class='red'>" + moment().format("MM/DD/YYYY hh:mm a") + " | Error in command execution 2</span>");
             }
 
         });
@@ -558,10 +569,15 @@ function executeScriptCommand() {
             '<i class="fa fa-spinner fa-spin"></i> waiting for command response</div>', {raw: true});
 
         executeConsoleScript(cmdObj, function (status, data) {
+
+            console.log("executeConsoleScript-----------------1");
+            console.log(status);
+            console.log(data);
+
             if (status) {
                 console.log(data)
             } else {
-                $("#consoleBox").html("<span class='red'>" + moment().format("MM/DD/YYYY hh:mm a") + " | Error in command execution</span>");
+                $("#consoleBox").html("<span class='red'>" + moment().format("MM/DD/YYYY hh:mm a") + " | Error in command execution 3</span>");
             }
 
         });
@@ -716,6 +732,5 @@ function uploadClass(type, ispublic, isopen, jarname) {
     xhr.send(formData);
 
 }
-
 
 
