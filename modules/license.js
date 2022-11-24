@@ -15,6 +15,12 @@ License.prototype.getLicense = function (apiUrl,cbk){
         headers: {'content-type': 'application/json'},
 
     }, function (err, res, body) {
+        console.log("error ------------------")
+        console.log(err);
+        console.log("res ------------------")
+        console.log(res);
+        console.log("body ------------------")
+        console.log(body);
         if(!err) {
             if (res.statusCode === 200) {
                 let result =  JSON.parse(res.body);
