@@ -1,3 +1,34 @@
+<style>
+.bskp-modal tbody > tr:first-child > td{
+        padding: 20px 15px 8px 15px !important;
+}
+.bskp-modal tbody > tr > td:first-child{
+   padding-left: 0px !important;
+}
+.bskp-modal thead > tr >th:last-child{
+   text-align: center !important;
+}
+#defineMesg tbody > tr ,#defineMesg tbody > tr > td{
+    border: 0px !important;
+}
+.bskp-modal .add {
+    background: #478ecc;
+    padding: 5px 7px;
+    color: white;
+    border-radius: 50%;
+    vertical-align: top;
+    font-size: 15px;
+}
+
+.bskp-modal .minus {
+    background: #90a1b7;
+    padding: 6.5px 8px;
+    color: white;
+    border-radius: 50%;
+    vertical-align: top;
+}
+
+</style>
 <!--<div class="row-fluid">
     <ul class="nav submenu" style="">
         <li class=""><a href="<%= basepath %>/home"><i class="fa fa-home"></i> </a></li>
@@ -5,46 +36,53 @@
         <li class="active"><a href="<%= basepath %>/message-definition">Message Definition</a></li>
     </ul>
 </div>-->
-<div class="container mt-3 msgDef platformBody">
-    <!-- begin breadcrumb -->
-    <ol class="breadcrumb pull-right">
-        <li class="breadcrumb-item"><a href="<%= basepath %>/dashboard">Domain</a></li>
-        <li class="breadcrumb-item"><a href="<%= basepath %>/message-definition">Message Definition</a></li>
-        <li class="breadcrumb-item active">Define Message</li>
-    </ol>
+<div class="container msgDef platformBody bskp-mt-30">
+      
+    <!-- begin panel -->
+    <div class="panel panel-inverse bskp-container-frame" >
+
+         <!-- begin breadcrumb -->
+    <div>
+        <ol class="breadcrumb pull-right bskp-align-icon" >
+            <li class="breadcrumb-item"><a href="<%= basepath %>/dashboard">Domain</a></li>
+            <li class="breadcrumb-item"><a href="<%= basepath %>/message-definition">Message Definition</a> </li>
+            <li class="breadcrumb-item active">Define Message</li>
+           <div class="ml-4">
+            <a href="javascript:;" class="btn btn-sm btn-icon btn-circle  bskp-icon-bg" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+           </div>
+        </ol>
+    </div>
     <!-- end breadcrumb -->
     <!-- begin page-header -->
-    <h1 class="page-header">Message Definition</h1>
+    <div class="page-header bskp-page-topic"><img src="images/menu/message-definition_1-bskp.png" class="bskp-topic-icon mr-1" > Message Definition 
+        <span class="panel-title ml-3" style="color: #478ecc;">Total Count: <b><span class="messageCount"></span></b></span> </div>
+    
     <!-- end page-header -->
 
-    <!-- begin panel -->
-    <div class="panel panel-inverse">
-        <div class="panel-heading">
-            <div class="panel-heading-btn">
-                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
-                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-success" data-click="panel-reload" onclick="loadMessageDef()"><i class="fa fa-redo"></i></a>
-                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-warning" title="Help" onclick="startTour()"><i class="icon-help"></i></a>
+       
+        <div class="panel-body" style="background-color: #eeeeee00;">
+            <div class="row m-0">
+                <div class="col-12">
+                <div class="btn-group btn-group-justified pull-right bskp-btn-group-align" >
+                    <a class="btn bskp-btn-shadow bskp-blue-bg" onclick="openModal()"><i class="fa fa-plus-square"></i> <span class="hidden-xs">&nbsp;Define Message</span></a>
+                    <a class="btn bskp-radius-btn" id="exportMsg"><img src="images/download.svg" alt=""> </a>
+                    <a class="btn bskp-radius-btn" id="importMsg" onclick="importMsg()"><img src="images/upload.svg" alt=""> </a>
+                    <a class="btn bskp-refresh-bg" data-click="panel-reload" onclick="loadMessageDef()" ><i class="fa fa-refresh"></i></a>
+                </div>
 
+                <div class="bskp-table-layout">
+                    <table class="table table-bordered bskp-table responsive no-wrap" id="messageTable"  cellspacing="0" width="100%">
+
+                    </table>
+                </div>
+
+                </div>
             </div>
-            <h4 class="panel-title">Total Defined Messages: <b><span class="messageCount"></span></b></h4>
-        </div>
-        <div class="panel-body" style="background-color: #eeeeee00;border: 1px solid #eee;padding-bottom: 30px">
-
-            <div class="btn-group btn-group-justified pull-right">
-                <a class="btn btn-default btnDefine" onclick="openModal()"><i class="fa fa-plus-square"></i> <span class="hidden-xs">Define Message</span></a>
-                <a class="btn btn-default btnDefine" id="exportMsg"><i class="fa fa-download"></i> <span class="hidden-xs">Export Definition</span></a>
-                <a class="btn btn-default btnDefine" id="importMsg" onclick="importMsg()"><i class="fa fa-upload"></i> <span class="hidden-xs">Import Definition</span></a>
-                <a class="btn btn-default" data-click="panel-reload" onclick="loadMessageDef()"><i class="fa fa-refresh"></i></a>
-            </div>
-
-
-            <table class="table table-bordered responsive no-wrap" id="messageTable"  cellspacing="0" width="100%">
-
-            </table>
 
 
         </div>
     </div>
+    
     <!-- end panel -->
 
 </div>
@@ -61,44 +99,44 @@
 
 
 
-<div id="addMessageRule" class="modal fade" tabindex="-1" role="dialog">
+<div id="addMessageRule" class="modal bskp-modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Define Message</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal"   aria-label="Close"> <i class="fa fa-times" aria-hidden="true"></i> </button>
             </div>
             <form action="javascript:void(0)" onsubmit="addMessageRule();">
                 <div class="modal-body">
                     <div  class="row">
                         <div  class="col-md-6 msg_id">
                             <div  class="form-group">
-                                <label  class="inputLabel">Message ID *</label>
-                                <input  class="form-control input-sm" placeholder="" type="number" id="msg_id"  required>
+                                <label  class="inputLabel">Message Id</label>
+                                <input  class="form-control input-sm" placeholder="Enter Message ld" autocomplete="off" type="number" id="msg_id"  required>
                                 <!--<small>ID Range from <b><span class="idRange"></span></b></small>-->
                             </div>
                         </div>
                         <div  class="col-md-6 msg_name">
                             <div  class="form-group">
-                                <label  class="inputLabel">Message Name *</label>
-                                <input  class="form-control input-sm" placeholder="" type="text" id="msg_name" required>
+                                <label  class="inputLabel">Message Name</label>
+                                <input  class="form-control input-sm" placeholder="Enter Message Name" autocomplete="off" type="text" id="msg_name" required>
                             </div>
                         </div>
                     </div>
                     <div  class="row">
                         <div  class="col-md-12 msg_desc">
                             <div  class="form-group">
-                                <label  class="inputLabel">Description *</label>
-                                <textarea  class="form-control input-sm" placeholder="" type="text"  id="msg_desc" required></textarea>
+                                <label  class="inputLabel">Description</label>
+                                <textarea  class="form-control input-sm" placeholder="Enter Message Description" autocomplete="off" type="text"  id="msg_desc" required></textarea>
                             </div>
                         </div>
                     </div>
                     <div  class="row" style="height: 250px;overflow:auto;overflow-x: hidden">
                         <div class="col-md-12">
-                            <table class="table table-border">
+                            <table class="table bskp-table table-border" id="defineMesg">
                                 <thead>
                                 <tr>
-                                    <th>Field Name</th><th>DataType</th><th>Action</th>
+                                    <th>Field Name</th><th>Data Type</th><th>Action</th>
                                 </tr>
                                 </thead>
                                 <tbody class="msgFieldBody">
@@ -109,8 +147,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btnModal btnSubmit">Proceed</button>
+                    <button type="button" class="btn btn-secondary btn-close"  data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btnModal btn-secondary btn-proceed btnSubmit">Proceed </button>
                 </div>
             </form>
         </div><!-- /.modal-content -->
@@ -119,19 +157,19 @@
 
 
 
-<div id="deleteModal" class="modal fade" tabindex="-1" role="dialog">
+<div id="deleteModal" class="modal fade bskp-modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Delete <span class="delete_rule_name"></span> Rule</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal"   aria-label="Close"> <i class="fa fa-times" aria-hidden="true"></i> </button>
             </div>
             <div class="modal-body">
                 <h5>Are you sure want to delete <b><span class="delete_rule_id"></span> <span class="delete_rule_name"></span></b> Rule?</h5>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btnModal" onclick="proceedDelete()">Proceed</button>
+                <button type="button" class="btn btn-secondary btn-close" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btnModal btn-secondary btn-proceed" onclick="proceedDelete()">Proceed</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -140,12 +178,12 @@
 
 
 
-<div id="importModal" class="modal fade" tabindex="-1" role="dialog">
+<div id="importModal" class="modal fade bskp-modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content" style="">
             <div class="modal-header">
                 <h4 class="modal-title">Import Definition</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal"  aria-label="Close"> <i class="fa fa-times" aria-hidden="true"></i> </button>
             </div>
             <form action="javascript:void(0)" onsubmit="importContent()">
                 <div class="modal-body">
@@ -153,7 +191,7 @@
                         <div  class="col-md-12">
                             <div  class="form-group">
                                 <label  class="inputLabel">Choose File</label>
-                                <input  class="form-control input-sm" placeholder="" type="file" id="importFile"  required/>
+                                <input  class="form-control input-sm" placeholder="" type="file" id="importFile" style="font-size:10px !important;" required/>
                             </div>
                         </div>
                     </div>
@@ -163,14 +201,14 @@
                                 <label  class="inputLabel">Imported Content</label>
                                 <!--<textarea style="height: 300px;" class="form-control input-sm" placeholder="" type="text"  id="imported_content" required></textarea>-->
 
-                                <div id="imported_content" style="width:100%;height: 300px;"></div>
+                                <div id="imported_content" style="width:100%;height: 300px; border-radius: 10px;"></div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btnModal btnSubmit">Proceed</button>
+                    <button type="button" class="btn btn-secondary btn-close" data-dismiss="modal" >Close</button>
+                    <button type="submit" class="btn btnModal btn-secondary btn-proceed btnSubmit">Proceed </button>
                 </div>
             </form>
         </div><!-- /.modal-content -->

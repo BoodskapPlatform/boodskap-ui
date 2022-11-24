@@ -60,7 +60,7 @@ function loadDBPool() {
         },
         {
             mData: 'updatedStamp',
-            sTitle: 'updatedStamp',
+            sTitle: 'Updated Stamp',
             orderable: true,
             mRender: function (data, type, row) {
                 return moment(data).format('MM/DD/YYYY hh:mm A');
@@ -73,9 +73,9 @@ function loadDBPool() {
             sWidth: '10%',
             mRender: function (data, type, row) {
 
-                var str = '<button class="btn btn-sm btn-icon btn-default" onclick="openModal(2,\'' + row['name'] + '\')"><i class="icon-trash-o"></i></button>'
+                var str = '<button class="btn bskp-trash-btn " onclick="openModal(2,\'' + row['name'] + '\')"> <img src="images/trash2.svg" alt=""> </button>'
 
-                return '<button class="btn btn-sm btn-icon btn-default" onclick="openModal(3,\'' + row["name"] + '\')"><i class="icon-edit2"></i></button>' +
+                return '<button class="btn bskp-edit-btn mr-2" onclick="openModal(3,\'' + row["name"] + '\')"> <img src="images/edit.svg" alt=""> </button>' +
                     str;
             }
         }
@@ -98,6 +98,16 @@ function loadDBPool() {
         paging: true,
         aoColumns: fields,
         searching: true,
+        dom: '<"bskp-search-left" f> lrtip',
+        language: {
+            "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
+            "searchPlaceholder": "Search here...",
+            loadingRecords: '',
+            paginate: {
+                previous: '< Prev',
+                next: 'Next >'
+            }
+        },
         aaSorting: [[4, 'desc']],
         "ordering": false,
         iDisplayLength: 10,

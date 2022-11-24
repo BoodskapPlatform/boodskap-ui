@@ -4,35 +4,46 @@
         font-size: 11px;
         line-height: 15px;
     }
+    .btn.btn-success {
+    background: #4670be !important;
+    border: 1px solid #4670be !important;
+}
+.daterangepicker .ranges li.active, .daterangepicker .ranges li:hover {
+    background: #e6f0f4!important;
+    border-color: #4670be78!important;
+    color: #000000!important;
+}
 </style>
 
-<div class="container-fluid mt-3">
-    <ol class="breadcrumb pull-right">
-        <li class="breadcrumb-item"><a href="<%= basepath %>/home">Domain</a></li>
-        <li class="breadcrumb-item active">Messages</li>
-    </ol>
-    <h1 class="page-header">Reported Messages </h1>
+<div class="container-fluid montFont bskp-mt-30">
+    
+   <!-- begin panel -->
+    <div class="panel panel-inverse bskp-container-frame">
 
-    <div class="panel panel-inverse">
-        <div class="panel-heading">
-            <div class="panel-heading-btn">
-                <a href="javascript:;">
-                    <label class="text-warning"><input type="checkbox" value="ON" id="liveUpdate"
-                                                       onchange="liveUpdate(this)"/> Live Update</label>
-                </a>
-
-                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-default" data-click="panel-expand"><i
-                        class="fa fa-expand"></i></a>
-                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-success" data-click="panel-reload"
-                   onclick="loadMessages()"><i class="fa fa-redo"></i></a>
-                <!--<a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-warning" title="Help"><i class="icon-help"></i></a>-->
-
-            </div>
-            <h4 class="panel-title">
-                Total Reported Messages: <b><span class="totalCount"></span></b>
-            </h4>
+        <!-- begin breadcrumb -->
+        <div>
+            <ol class="breadcrumb pull-right bskp-align-icon">
+                <li class="breadcrumb-item"><a href="<%= basepath %>/home">Domain</a></li>
+                <li class="breadcrumb-item active">Messages</li>
+                <div class="ml-4">
+                    <a href="javascript:;">
+                        <label class="text-primary mb-0"><input type="checkbox" value="ON" id="liveUpdate" style="vertical-align: middle !important;"
+                                                        onchange="liveUpdate(this)"/> Live Update</label>
+                    </a>
+                    <a href="javascript:;" class="btn btn-sm btn-icon btn-circle  bskp-icon-bg" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                        
+                </div>
+            </ol>
+            
         </div>
-        <div class="panel-body" style="background-color: #eeeeee00;border: 1px solid #eee;padding-bottom: 30px;">
+        <!-- end breadcrumb -->
+     <!-- begin page-header -->
+     <div class="page-header bskp-page-topic"><img src="images/menu/message-definition_1-bskp.png" class="bskp-topic-icon mr-1" >Reported Messages
+        <span class="panel-title ml-3" style="color: #478ecc;">Total Reported Messages: <b><span class="totalCount"></span></b></span> </div>
+    
+    <!-- end page-header -->
+     
+        <div class="panel-body bskp-raw-mesg"  style="background-color: #eeeeee00;">
 
             <div class="row">
                 <div class="col-md-3">

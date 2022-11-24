@@ -108,7 +108,7 @@ function openGetStartedModal(results) {
         backdrop: 'static',
         keyboard: false ,
         }, 
-        'hide',$(".platformBody").addClass("blur"),
+        'show',$(".platformBody").addClass("blur"),
         $("#header").addClass("blur"),
         $("footer").addClass("blur")
    ); // model UI open

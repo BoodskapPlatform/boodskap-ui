@@ -8,13 +8,7 @@ var MENU_LINKS = [BASE_PATH+'/home', BASE_PATH+'/dashboard', BASE_PATH+'/message
 
 
 $(document).ready(function () {
-    
-    $(".currentTime").html('<i class="fa fa-clock"></i> <span class="curTime">' + moment().format('MM/DD/YYYY hh:mm:ss A') + '</span>')
-    setInterval(function () {
-        $(".curTime").html(moment().format('MM/DD/YYYY hh:mm:ss A'))
-    }, 10)
-
-    
+   
     $("body").removeClass('bg-white');
     // $(".homeMenuList").append($("#logConsole").html());
     if (ADMIN_ACCESS) {
@@ -47,7 +41,7 @@ $(document).ready(function () {
         Cookies.set('greetings', 'true');
         playSound();
     }
-
+    recentUpdate()
 });
 
 
@@ -989,8 +983,6 @@ function register(){
 }
 
 function deleteDomain(dkey) {
-
-
     swal({
         title: "Are you sure?",
         text: "Domain ("+dkey+") will the permanently deleted from the system.",
@@ -1026,6 +1018,124 @@ function deleteDomain(dkey) {
 
             }
         });
+}
+var rdata=[]
 
+function recentUpdate() {
+ 
+    $.ajax({
+        url: API_BASE_PATH+'/domain/property/get/'+API_TOKEN+'/'+USER_OBJ.user.email,
+        contentType: "application/json",
+        type: 'get',
+        success: function (res) {
+            rdata=JSON.parse(res.value)
+ 
+            if(res){
+                if(rdata[0].id){
+                    $('.recenthead').html(`<span onclick="recentUpdate()" style="padding-bottom: 4px; border-bottom: 3px solid #2d2f79bf;">Recently</span>&nbsp;Visited `)
+                   
+                }            
+                
+                else{
+                    $('.recenthead').html(`<span onclick="recentUpdate()" style="padding-bottom: 4px; border-bottom: 3px solid #2d2f79bf;">Features</span> `)
+                   
+                }
+               
+                //  rdata.pop()
+               rdata.sort(function(x, y){
+               return  y.update_ts - x.update_ts ;
+                })
+               
+                recentcard(rdata)
+          
+        }
+    },
+        error: function (err) {
+            console.log(err.message);
+            var obj={
+                "name":USER_OBJ.user.email,
+                "value":[],               
+            }
+            $.ajax({
+                url: API_BASE_PATH+'/domain/property/upsert/'+API_TOKEN,
+                data: JSON.stringify(obj),
+                contentType: "application/json",
+                type: 'post',
+                success: function (res) {
+                    if(res){
+                    $('.recenthead').html(`<span onclick="recentUpdate()" style="padding-bottom: 4px; border-bottom: 3px solid #2d2f79bf;">Featured</span> `)
+                    }
+                },
+                error: function (err) {
+                    console.log(err.message);
+                }
+            });
+        }
+    });
+}
+
+function clickRecent(tabname,tabid,loadmenu,cardno) {
+  
+    let newclick = true;
+     for(i=0; i< rdata.length;i++){
+        if(tabid === (rdata[i].id)){
+            rdata[i].update_ts = Date.now()
+            newclick = false
+        }
+     }
+    
+    if(newclick){
+    var inp={'name':tabname,
+        'id':tabid,
+        'loadmenu':loadmenu,
+        'cardno':cardno,
+        "update_ts":Date.now()
+    }
+   rdata.push(inp)
+//   rdata.pop()
+    }
+
+//   rdata.pop()
+
+    var obj= {
+        "dataType": "VARCHAR",
+        "format": "AS_IS",
+        "name":  USER_OBJ.user.email,
+        "value": JSON.stringify(rdata)
+        }
+   
+    $.ajax({
+        url: API_BASE_PATH+'/domain/property/upsert/'+API_TOKEN,
+        data: JSON.stringify(obj),
+        contentType: "application/json",
+        type: 'post',
+        success: function (res) {
+            if(res){
+            }
+        },
+        error: function (err) {
+          
+            console.log(err.message);
+        }
+    });
+
+}
+
+function recentcard(rdata) {
+    if(rdata){
+      
+     for (let i = 0; i < rdata.length; i++) {
+        $('#recentMenuList').append(` <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 hmsgdef" onclick="loadMenu(`+rdata[i].loadmenu+`)">
+        <div class="card modules bskp-home-modules"onclick="clickRecent('`+rdata[i].name+`','`+rdata[i].id+`')">
+            <div class="bskp-icon-frame">
+                <div class="bskp-Dbg bskp-Dimg`+rdata[i].cardno+`"> </div>
+            </div>
+            <p class="mt-2"><label>`+rdata[i].name+`</label></p>
+        </div>
+    </div>`)
+        
+     }  
+     
+    }
 }
 

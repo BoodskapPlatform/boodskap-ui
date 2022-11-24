@@ -9,16 +9,42 @@
     color: #242a30;
     background-color: #f2f3f5;
 }
+
+
+.user_profile_name{
+    color:black;
+    font-size: 14px;
+
+}
+.header-style{
+    background: white !important;
+     padding: 8px 38px ;
+     box-shadow: 0px 2px 12px 2px #e7eefa !important;
+     z-index: 1020 !important;
+}
+@media (max-width: 767px){
+.navbar-header {
+    border-bottom: none !important;
+}
+}
+@media (max-width:426px){
+    .header-style {
+        background: white !important;
+        padding: 8px 15px !important;
+        box-shadow: 0px 2px 12px 2px #e7eefa !important;
+        z-index: 1020 !important;
+    }
+}
 </style>
 
-<div id="header" class="header navbar-inverse">
+<div id="header" class="header header-style" >
     <!-- begin navbar-header -->
-    <div class="navbar-header">
+    <div class="navbar-header ">
 
-        <span class="barmenu" onclick="openNav()"><i class="icon-bars"></i></span>
+        <span class="barmenu bskp-bardiv bskp-frame-shadow" onclick="openNav()" style=""><i class="icon-bars" style="font-size: 19px;"></i></span>
 
-        <a href="javascript:void(0)" class="navbar-brand" style="margin-left: 25px;padding: 5px 25px;">
-            <img src="" class="domain_logo" style="height:40px"  onclick="openNav()" > </a>
+        <a href="javascript:void(0)" class="navbar-brand" style="padding: 2px 5px;width: 130px;">
+            <img src="image" class="domain_logo" style="height:45px"  onclick="openNav()" > </a>
 
         <button type="button"  class="navbar-toggle btn btn-circle btn-danger btn-sm btnMobile" onclick="logout()">
             <i class="icon-sign-out"></i>
@@ -42,10 +68,10 @@
        <!-- <li class="menulink">
             <a href="<%= basepath %>/home">Platform Home</a>
         </li>-->
-        <li class="googletranslate hidden-sm">
+        <li class="googletranslate bskp-frame-shadow bskp-select-pad hidden-sm">
 
 
-            <div id="google_translate_element"  style="margin-top: 10px;"></div><script type="text/javascript">
+            <div id="google_translate_element"  ></div><script type="text/javascript">
             function googleTranslateElementInit() {
                 new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'da,de,en,es,fr,ga,hi,id,it,ja,ms,nl,pt,ro,ru,sv,ta,ur,zh-CN', layout: google.translate.TranslateElement.InlineLayout.SIMPLE, multilanguagePage: true}, 'google_translate_element');
             }
@@ -59,8 +85,8 @@
 
         </li>
         <li class="dropdown menulink">
-            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
-                Boodskap Platform <b class="caret"></b>
+            <a href="javascript:;" class="dropdown-toggle bskp-select-pad mr-3 bskp-frame-shadow"  style="font-weight:600; padding: 4px 8px 4px 8px !important;" data-toggle="dropdown">
+                <img src="images/logo.jpeg" class="mr-2" alt="" style="width: 20px;"> Boodskap Platform <b class="caret"></b>
             </a>
             <div class="dropdown-menu dropdown-menu-right" style="min-width: 22rem">
 
@@ -173,10 +199,27 @@
                 </li>
             </ul>&ndash;&gt;
         </li>-->
-
+        <li class="dropdown modelink">
+            <div class="bskp-lightmode-container bskp-frame-shadow ">
+              <input type="radio" id="nightMode" name="switchPlan" value="night"  />
+              <input type="radio" id="dayMode" name="switchPlan" value="sun" checked="checked"/>
+              <label for="nightMode" class="togTable" onclick="pagemode('night')">
+                <img src="images/moon.svg" class="bskp-w-16px" alt=""> </label>
+              <label for="dayMode" onclick="pagemode('day')">
+                <img src="images/sun.svg" class="bskp-w-16px" alt=""> </label>
+              <div class="bskp-switch-wrapper">
+                <div class="bskp-tog-switch modebg">
+                  <div> <img src="images/moon (1).svg" class="bskp-w-16px" alt=""></div>
+                  <div>  <img src="images/sun (1).svg" class="bskp-w-16px" alt=""> </div>
+                </div>
+              </div>
+            </div>
+          
+    </li>
         <li class="dropdown menulink">
-            <a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle f-s-14">
-                <i class="fa fa-bell"></i>
+            <a href="javascript:;" data-toggle="dropdown"  style="padding: 5px;" class="dropdown-toggle f-s-14 bskp-frame-shadow">
+                <!-- <i class="fa fa-bell"></i> -->
+                <img src="images/bell.svg" class="bskp-w-18px" alt="">
                 <!--<span class="label">5</span>-->
             </a>
             <ul class="dropdown-menu media-list dropdown-menu-right hide">
@@ -220,9 +263,9 @@
                 </li>
             </ul>
         </li>
-
-        <li class="dropdown navbar-user">
-            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+        
+        <li class="dropdown navbar-user mr-3">
+            <a href="javascript:;" class="dropdown-toggle" style="padding: 15px 2px;"  data-toggle="dropdown">
                 <img src="" alt="" class="user_profile_picture">
                 <span class="d-none d-md-inline"></span><span class="user_profile_name"></span> <b class="caret"></b>
             </a>
@@ -239,15 +282,27 @@
         </li>
 
         <li class="menulink" title="Live Data">
-            <a href="javascript:;" class="f-s-14" onclick="showLiveNotification()">
-                <i class="icon-bolt iconLiveStatus"></i>
+            <a href="javascript:;" class="f-s-14 bskp-frame-shadow" style="padding: 5px 5px;" onclick="showLiveNotification()">
+                <!-- <i class="icon-bolt iconLiveStatus"></i> -->
+                <img src="images/bolt.svg" class="iconLiveStatus bskp-w-18px" alt="">
             </a>
         </li>
     </ul>
     <!-- end header navigation right -->
 </div>
 
-
+<script>
+  function pagemode(value){
+    if(value ==='night'){
+        console.log('g');
+       
+        $('.modebg').css({background: "-webkit-gradient(linear-gradient(157deg, rgba(218,218,218,1) 0%, rgba(126,126,126,1) 43%, rgba(27,27,27,1) 100%)) "})
+    }else{
+        console.log('d');
+        $('.modebg').css({background: "-webkit-gradient(linear-gradient(157deg, rgba(209,188,2,1) 0%, rgba(239,175,20,1) 43%, rgba(249,157,35,1) 100%)) "})
+    }
+    }
+</script>
 
 <% include right-sidebar.html %>
 

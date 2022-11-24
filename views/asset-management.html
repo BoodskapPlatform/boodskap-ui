@@ -5,41 +5,47 @@
         <li class="active"><a href="<%= basepath %>/asset-management">Manage Assets</a></li>
     </ul>
 </div>-->
-<div class="container mt-3 platformBody">
-    <!-- begin breadcrumb -->
-    <ol class="breadcrumb pull-right">
-        <li class="breadcrumb-item"><a href="<%= basepath %>/dashboard">Domain</a></li>
-        <li class="breadcrumb-item"><a href="<%= basepath %>/user-management">Asset Management</a></li>
-        <li class="breadcrumb-item active">Manage Assets</li>
-    </ol>
+<div class="container  bskp-mt-30 platformBody">
+   
+    <!-- begin panel -->
+    <div class="panel panel-inverse bskp-container-frame">
+
+         <!-- begin breadcrumb -->
+    <div>
+        <ol class="breadcrumb pull-right bskp-align-icon" >
+            <li class="breadcrumb-item"><a href="<%= basepath %>/dashboard">Domain</a></li>
+            <li class="breadcrumb-item"><a href="<%= basepath %>/user-management">Asset Management</a></li>
+            <li class="breadcrumb-item active">Manage Assets</li>
+            <div class="ml-4">
+                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle  bskp-icon-bg" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg" title="Help" onclick="startTour()"><i class="icon-help"></i></a>
+            </div>
+        </ol>
+    </div>
     <!-- end breadcrumb -->
     <!-- begin page-header -->
-    <h1 class="page-header">Manage Assets</h1>
+    <div class="page-header bskp-page-topic"><img src="images/menu/message-definition_1-bskp.png" class="bskp-topic-icon mr-1" > Manage Assets
+        <span class="panel-title ml-3" style="color: #478ecc;">Total Assets: <b><span class="assetCount"></span></b></span> </div>
+    
     <!-- end page-header -->
 
-    <!-- begin panel -->
-    <div class="panel panel-inverse">
-        <div class="panel-heading">
-            <div class="panel-heading-btn">
-                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
-                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-success" data-click="panel-reload" onclick="loadAssetList()"><i class="fa fa-redo"></i></a>
-                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-warning" title="Help"><i class="icon-help"></i></a>
+        <div class="panel-body" style="background-color: #eeeeee00;">
 
-            </div>
-            <h4 class="panel-title">Total Assets: <b><span class="assetCount"></span></b></h4>
-        </div>
-        <div class="panel-body" style="background-color: #eeeeee00;border: 1px solid #eee;padding-bottom:30px;">
+           <div class="row m-0">
+              <div class="col-12">
+                <div class="btn-group btn-group-justified pull-right bskp-btn-group-align" >
+                <a class="btn bskp-btn-shadow bskp-blue-bg" onclick="openModal(1)"><i class="fa fa-plus-square"></i> <span class="hidden-xs">Add New Asset</span></a>
+                <a class="btn bskp-refresh-bg" data-click="panel-reload" onclick="loadAssetList()"><i class="fa fa-refresh"></i></a>
+                </div>
 
-            <div class="btn-group btn-group-justified pull-right">
-                <a class="btn btn-default" onclick="openModal(1)"><i class="fa fa-plus-square"></i> <span class="hidden-xs">Add New Asset</span></a>
-                <a class="btn btn-default" data-click="panel-reload" onclick="loadAssetList()"><i class="fa fa-refresh"></i></a>
-            </div>
+                <div class="bskp-table-layout">
+                    <table class="table table-bordered bskp-table responsive no-wrap" id="assetTable"  cellspacing="0" width="100%">
 
+                    </table>
+                </div>
 
-            <table class="table table-bordered table-hover responsive no-wrap" id="assetTable"  cellspacing="0" width="100%">
-
-            </table>
-
+              </div>
+           </div>
 
         </div>
     </div>
@@ -51,12 +57,12 @@
 
 
 
-<div id="addAsset" class="modal fade" tabindex="-1" role="dialog">
+<div id="addAsset" class="modal bskp-modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title"><span class="templateAction"></span> Asset</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal"   aria-label="Close"> <i class="fa fa-times" aria-hidden="true"></i> </button>
             </div>
             <form action="javascript:void(0)">
                 <div class="modal-body">
@@ -64,13 +70,13 @@
                         <div  class="col-md-6">
                             <div  class="form-group">
                                 <label  class="inputLabel">Asset Id</label>
-                                <input  class="form-control input-sm" placeholder="" type="text" id="asset_id" required>
+                                <input  class="form-control input-sm" placeholder="Enter Asset ld" autocomplete="off" type="text" id="asset_id" required>
                             </div>
                         </div>
                         <div  class="col-md-6">
                             <div  class="form-group">
                                 <label  class="inputLabel">Asset Name</label>
-                                <input  class="form-control input-sm" placeholder="" type="text" id="asset_name" required>
+                                <input  class="form-control input-sm" placeholder="Enter Asset Name" autocomplete="off" type="text" id="asset_name" required>
                             </div>
                         </div>
                     </div>
@@ -78,46 +84,46 @@
                         <div  class="col-md-12">
                             <div  class="form-group">
                                 <label  class="inputLabel">Description</label>
-                                <textarea class="form-control input-sm" id="asset_desc" required ></textarea>
+                                <textarea class="form-control input-sm" placeholder="Enter Description" autocomplete="off" id="asset_desc" required ></textarea>
                                 </select>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btnModal btnSubmit">Proceed</button>
+                    <button type="button" class="btn btn-secondary btn-close"  data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btnModal btn-secondary btn-proceed btnSubmit">Proceed </button>
                 </div>
             </form>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-<div id="deleteModal" class="modal fade" tabindex="-1" role="dialog">
+<div id="deleteModal" class="modal bskp-modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Delete Asset</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal"   aria-label="Close"> <i class="fa fa-times" aria-hidden="true"></i> </button>
             </div>
             <div class="modal-body">
                 <h5>Are you sure want to delete <b><span class="assetId"></span> asset</b>?</h5>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btnModal" onclick="proceedDelete()">Proceed</button>
+                <button type="button" class="btn btn-secondary btn-close"  data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btnModal btn-secondary btn-proceed btnSubmit" onclick="proceedDelete()">Proceed </button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
 
-<div id="linkModal" class="modal fade" tabindex="-1" role="dialog">
+<div id="linkModal" class="modal bskp-modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Link Devices to <span class="assetId"></span></h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal"   aria-label="Close"> <i class="fa fa-times" aria-hidden="true"></i> </button>
             </div>
             <div class="modal-body">
 

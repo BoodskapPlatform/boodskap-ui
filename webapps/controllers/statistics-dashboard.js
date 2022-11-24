@@ -1653,7 +1653,8 @@ function loadLogs() {
         searching: true,
         aaSorting: sortOrder,
         "ordering": true,
-        iDisplayLength: 10,language: {
+        iDisplayLength: 10,
+        language: {
             "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> &nbsp; <button class="search-btn"> <i class="fa fa-search" aria-hidden="true"></i></button> ',
             "searchPlaceholder": "Search here...",
             "emptyTable": "No data found!",

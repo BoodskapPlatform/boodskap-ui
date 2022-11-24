@@ -5,9 +5,15 @@
     .sidebar .nav>li.active>a, .sidebar .nav>li.active>a:focus, .sidebar .nav>li.active>a:hover {
         background: transparent;
     }
+    li.nav-header  {
+        color: #2d2f79 !important;
+    }
+    .sidebar .nav>li.nav-header {
+        font-size: 12px;
+    }
 </style>
-<div id="mySidenav" class="sidenav" style="background-color: #000000d1">
-    <div class="sidebar">
+<div id="mySidenav" class="sidenav bskp-sidenav" style="background-color:white">
+    <div class="sidebar" style="width: 250px;">
     <ul class="nav" style="margin-bottom: 50px">
         <li class="has-sub active sideMain homeMenu">
             <a href="<%= basepath %>/home">

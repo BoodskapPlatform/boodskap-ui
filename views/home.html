@@ -1,31 +1,14 @@
 <link href="css/jquery.steps.css" type="text/css" rel="stylesheet" />
 <link rel="stylesheet" type="text/css" href="css/getstarted.css" />
 <!-- <link href="css/getstarted-modal.css" type="text/css" rel="stylesheet" /> -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
 <style>
-.modules {
-    text-align: center;
-    background-color: #eeeeee69;
-    border: 1px solid #eee;
-    height: 110px;
-
+   
+.card {
+    margin-bottom: 20px !important;
 }
-
-.modules label {
-    font-weight: 400;
-    width:90%;
-    white-space: pre-line;
-}
-.modules:hover {
-    background-color: #ffc10754;
-    cursor: pointer;
-}
-
-.modules img {
-    width: auto;
-    height: 42px;
-    margin-top: 10px;
-}
-
 .blur {
     -webkit-filter: blur(6px);
     -moz-filter: blur(6px);
@@ -40,322 +23,451 @@
 
 <div class="container mt-3 platformBody">
     <!-- begin breadcrumb -->
-    <ol class="breadcrumb pull-right hidden-xs">
-        <li class="breadcrumb-item">
-            <a href="<%= basepath %>/" class="currentTime">Boodskap Platform</a></li>
-    </ol>
+    
     <!-- end breadcrumb -->
     <!-- begin page-header -->
-    <h1 class="page-header">Welcome to Boodskap IoT Platform!
-        <small class="hidden-xs" style="font-size: 50%">Let's start building your IoT Solutions on the fly. </small>
+    <div class="d-flex bskp-dash-head" >
+        <h1 class="page-header fw-900" style="margin:0 0 3px">Welcome to Boodskap IoT Platform!
+            <small class="hidden-xs" style=" font-size: 55%;color: #868686de;font-weight: 600;">Let's start building your IoT Solutions on the fly. </small>
+    
+        </h1>
+    </div>
 
-    </h1>
-    <div class="panel panel-inverse">
-        <div class="panel-body" style="background-color: #eeeeee00;border: 1px solid #eee;padding-bottom: 30px;">
+    <div class="panel panel-inverse" style="background-color: #fafdff;">
+        <div class="panel-body bskp-px-4" style="background-color: #eeeeee00;padding-bottom: 30px;">
+           
 
             <div class="row">
 
-                <div class="col-lg-8">
-
-
+                <div class="col-lg-9  mb-3 bskp-main-sec">
+                    <div class="d-flex bskp-dash-head pt-2" style="margin:0px !important;" >
+                        <h1 class="page-header fw-900 recenthead" style="font-size:16px;"> <span onclick="recentUpdate()" style="padding-bottom: 4px; border-bottom: 3px solid #2d2f79bf;">Features</span> </h1>
+                        <ol class="breadcrumb pull-right mb-2 hidden-xs">
+                            <li class="breadcrumb-item">
+                              <form class="bskp-dash-search position-relative">
+                                <label><i class="fa fa-search" aria-hidden="true"></i> &nbsp;  
+                                    <div class="d-inline-flex ">
+                                      <input type="search" class="form-control input-sm" placeholder="Search here..." aria-controls="messageTable" required="required" title="Search">
+                                      <button type="button" class="close d-none position-absolute" aria-label="Close" style="right: 42px; bottom:7px;font-size: 20px;">
+                                        <span aria-hidden="true">×</span>
+                                      </button>
+                                   </div>
+                                  </label>
+                              </form>
+                            </li>
+                        </ol>
+                    </div>
+                    <div class="row mb-4" id="recentMenuList"style="border-bottom: 1px solid #e2e2e2;">
+                                                    
+                    </div>  
                     <div class="row homeMenuList">
-                        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 hmarketplace" onclick="loadMenu(20)">
-                            <div class="card modules">
-                                <img src="images/menu/market-place.png"/>
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 hmarketplace" onclick="loadMenu(20)">
+                            <div class="card modules bskp-home-modules"  onclick="clickRecent('Boodskap Marketplace','market_place',20,1)">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg1"> </div>
+                                </div>
                                 <p class="mt-2"><label>Boodskap Marketplace</label></p>
                             </div>
                         </div>
 
-                        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 hwidgetlibrary" onclick="loadMenu(35)">
-                            <div class="card modules">
-                                <img src="images/menu/library.png"/>
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 hwidgetlibrary" onclick="loadMenu(35)">
+                            <div class="card modules bskp-home-modules"onclick="clickRecent('Widget Library','widget_library',35,2)">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg2"> </div>
+                                </div>
                                 <p class="mt-2"><label>Widget Library</label></p>
                             </div>
                         </div>
-                        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 hmsgdef" onclick="loadMenu(2)">
-                            <div class="card modules">
-                                <img src="images/menu/message-definition_1-bskp.png"/>
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 hmsgdef" onclick="loadMenu(2)">
+                            <div class="card modules bskp-home-modules"onclick="clickRecent('Message Definition','message_definition',2,3)">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg3"> </div>
+                                </div>
                                 <p class="mt-2"><label>Message Definition</label></p>
                             </div>
                         </div>
-                        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 hrecdef sqlqueryhome" onclick="loadMenu(28)">
-                            <div class="card modules">
-                                <img src="images/menu/sql-table.png"/>
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 hrecdef sqlqueryhome" onclick="loadMenu(28)">
+                            <div class="card modules bskp-home-modules" onclick="clickRecent('DSQL Tables','dSQL_tables',28,4)">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg4"> </div>
+                                </div>
                                 <p class="mt-2"><label>DSQL Tables</label></p>
                             </div>
                         </div>
-                        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 hrecdef dbqueryhome" onclick="loadMenu(29)">
-                            <div class="card modules">
-                                <img src="images/menu/db-table.png"/>
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 hrecdef dbqueryhome" onclick="loadMenu(29)">
+                            <div class="card modules bskp-home-modules" onclick="clickRecent('DB Tables','db_tables',29,5)">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg5"> </div>
+                                </div>
                                 <p class="mt-2"><label>DB Tables</label></p>
                             </div>
                         </div>
 
-                        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 hmongo" onclick="loadMenu(36)">
-                            <div class="card modules">
-                                <img src="images/menu/mongodb.png"/>
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 hmongo" onclick="loadMenu(36)">
+                            <div class="card modules bskp-home-modules" onclick="clickRecent('MongoDB','mongoDB',36,6)" >
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg6"> </div>
+                                </div>
                                 <p class="mt-2"><label>MongoDB</label></p>
                             </div>
                         </div>
 
-
-
-                    </div>
-                    <div class="row homeMenuList">
-                        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 hdashboard" onclick="loadMenu(1)">
-                            <div class="card modules">
-                                <img src="images/menu/widgets-bskp.png"/>
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 hdashboard" onclick="loadMenu(1)">
+                            <div class="card modules bskp-home-modules" onclick="clickRecent('Dashboard','dashboard',1,7)">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg7"> </div>
+                                </div>
                                 <p class="mt-2"><label>Dashboard</label></p>
                             </div>
 
                         </div>
-                        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 hrecdef" onclick="loadMenu(3)">
-                            <div class="card modules">
-                                <img src="images/menu/record-definition-bskp.png"/>
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 hrecdef" onclick="loadMenu(3)">
+                            <div class="card modules bskp-home-modules" onclick="clickRecent('Record Definition','record_definition',3,8)">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg8"> </div>
+                                </div>
                                 <p class="mt-2"><label>Record Definition</label></p>
                             </div>
                         </div>
-                        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 htemplates sqlqueryhome" onclick="loadMenu(27)">
-                            <div class="card modules">
-                                <img src="images/menu/sql-templates.png"/>
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 htemplates sqlqueryhome" onclick="loadMenu(27)">
+                            <div class="card modules bskp-home-modules">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg9"> </div>
+                                </div>
                                 <p class="mt-2"><label>DSQL Templates</label></p>
                             </div>
                         </div>
-                        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 htemplates dbqueryhome" onclick="loadMenu(31)">
-                            <div class="card modules">
-                                <img src="images/menu/sql-templates.png"/>
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 htemplates dbqueryhome" onclick="loadMenu(31)">
+                            <div class="card modules bskp-home-modules">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg10"> </div>
+                                </div>
                                 <p class="mt-2"><label>DB Templates</label></p>
                             </div>
                         </div>
-                        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 hdevice" onclick="loadMenu(12)">
-                            <div class="card modules">
-                                <img src="images/menu/hardware-fanta_1-bskp.png"/>
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 hdevice" onclick="loadMenu(12)">
+                            <div class="card modules bskp-home-modules">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg11"> </div>
+                                </div>
                                 <p class="mt-2"><label>Device Management</label></p>
                             </div>
                         </div>
-                        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 hmessages" onclick="loadMenu(22)">
-                            <div class="card modules">
-                                <img src="images/menu/folder.png"/>
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 hmessages" onclick="loadMenu(22)">
+                            <div class="card modules bskp-home-modules">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg12"> </div>
+                                </div>
                                 <p class="mt-2"><label>File Storage</label></p>
                             </div>
                         </div>
-
-                    </div>
-                    <div class="row homeMenuList">
-                        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 hdasheditor" onclick="loadMenu(16)">
-                            <div class="card modules">
-                                <img src="images/menu/dashboard-editor.png"/>
+                  
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 hdasheditor" onclick="loadMenu(16)">
+                            <div class="card modules bskp-home-modules">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg13"> </div>
+                                </div>
                                 <p class="mt-2"><label>Dashboard Editor</label></p>
                             </div>
                         </div>
-                        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 hevents" onclick="loadMenu(9)">
-                            <div class="card modules">
-                                <img src="images/menu/events&notifications-bskp.png"/>
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 hevents" onclick="loadMenu(9)">
+                            <div class="card modules bskp-home-modules">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg14"> </div>
+                                </div>
                                 <p class="mt-2"><label>Events & Notification</label></p>
                             </div>
                         </div>
-                        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 sqlqueryhome" onclick="loadMenu(26)">
-                            <div class="card modules">
-                                <img src="images/menu/sql-query.png"/>
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 sqlqueryhome" onclick="loadMenu(26)">
+                            <div class="card modules bskp-home-modules">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg15"> </div>
+                                </div>
                                 <p class="mt-2"><label>DSQL Query Console</label></p>
                             </div>
                         </div>
-                        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 dbqueryhome" onclick="loadMenu(30)">
-                            <div class="card modules">
-                                <img src="images/menu/db-query.png"/>
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 dbqueryhome" onclick="loadMenu(30)">
+                            <div class="card modules bskp-home-modules">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg16"> </div>
+                                </div>
                                 <p class="mt-2"><label>DB Query Console</label></p>
                             </div>
                         </div>
-                        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 hassets" onclick="loadMenu(14)">
-                            <div class="card modules">
-                                <img src="images/menu/assets-management-bskp.png"/>
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 hassets" onclick="loadMenu(14)">
+                            <div class="card modules bskp-home-modules">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg17"> </div>
+                                </div>
                                 <p class="mt-2"><label>Asset Management </label></p>
                             </div>
                         </div>
-                        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 heventlogs" onclick="loadMenu(17)">
-                            <div class="card modules">
-                                <img src="images/menu/log.png"/>
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 heventlogs" onclick="loadMenu(17)">
+                            <div class="card modules bskp-home-modules">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg18"> </div>
+                                </div>
                                 <p class="mt-2"><label>Event Logs</label></p>
                             </div>
                         </div>
-
-                    </div>
-                    <div class="row homeMenuList ">
-                        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 hmobile" onclick="loadMenu(11)">
-                            <div class="card modules">
-                                <img src="images/menu/mobile.png"/>
+                   
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 hmobile" onclick="loadMenu(11)">
+                            <div class="card modules bskp-home-modules">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg19"> </div>
+                                </div>
                                 <p class="mt-2"><label>Mobile Editor</label></p>
                             </div>
                         </div>
-                        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 hscript" onclick="loadMenu(5)">
-                            <div class="card modules">
-                                <img src="images/menu/script-console-fanta-bskp.png"/>
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 hscript" onclick="loadMenu(5)">
+                            <div class="card modules bskp-home-modules">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg20"> </div>
+                                </div>
                                 <p class="mt-2"><label>Script Console</label></p>
                             </div>
                         </div>
-                        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 hmessages" onclick="loadMenu(18)">
-                            <div class="card modules">
-                                <img src="images/menu/messages.png"/>
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 hmessages" onclick="loadMenu(18)">
+                            <div class="card modules bskp-home-modules">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg21"> </div>
+                                </div>
                                 <p class="mt-2"><label>Raw Messages</label></p>
                             </div>
                         </div>
-                        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 hmessages" onclick="loadMenu(37)">
-                            <div class="card modules">
-                                <img src="images/menu/mongodb.png"/>
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 hmessages" onclick="loadMenu(37)">
+                            <div class="card modules bskp-home-modules">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg22"> </div>
+                                </div>
                                 <p class="mt-2"><label>Mongo Query Console</label></p>
                             </div>
                         </div>
-                        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 hfirmware" onclick="loadMenu(13)">
-                            <div class="card modules">
-                                <img src="images/menu/firmware-management-fanta-bskp.png"/>
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 hfirmware" onclick="loadMenu(13)">
+                            <div class="card modules bskp-home-modules">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg23"> </div>
+                                </div>
                                 <p class="mt-2"><label>Firmware Management</label></p>
                             </div>
                         </div>
-                        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 hlogs" onclick="loadMenu(19)">
-                            <div class="card modules" style="position: relative;">
-                                <img src="images/menu/log.png"/>
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 hlogs" onclick="loadMenu(19)">
+                            <div class="card modules bskp-home-modules" style="position: relative;">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg24"> </div>
+                                </div>
                                 <p class="mt-2"><label>Application Logs</label></p>
                             </div>
                         </div>
 
-                    </div>
-                    <div class="row homeMenuList ">
-                        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 hrules" onclick="loadMenu(4)">
-                            <div class="card modules">
-                                <img src="images/menu/rules-engine-fanta-bskp.png"/>
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 hrules" onclick="loadMenu(4)">
+                            <div class="card modules bskp-home-modules">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg25"> </div>
+                                </div>
                                 <p class="mt-2"><label>Rules Engine</label></p>
                             </div>
                         </div>
-                        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 hquery" onclick="loadMenu(25)">
-                            <div class="card modules">
-                                <img src="images/menu/search-console.png"/>
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 hquery" onclick="loadMenu(25)">
+                            <div class="card modules bskp-home-modules">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg26"> </div>
+                                </div>
                                 <p class="mt-2"><label>Search Query Console</label></p>
                             </div>
                         </div>
-                        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 htemplates" onclick="loadMenu(8)">
-                            <div class="card modules">
-                                <img src="images/menu/templates-bskp.png"/>
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 htemplates" onclick="loadMenu(8)">
+                            <div class="card modules bskp-home-modules">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg27"> </div>
+                                </div>
                                 <p class="mt-2"><label>Platform Templates</label></p>
                             </div>
                         </div>
-                        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 hmessages" onclick="">
-                            <div class="card modules">
-                                <img src="images/menu/cassandra.png"/>
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 hmessages" onclick="">
+                            <div class="card modules bskp-home-modules">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg28"> </div>
+                                </div>
                                 <p class="mt-2"><label>Cassandra Query Console</label></p>
                             </div>
                         </div>
-                        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 hgeofence" onclick="loadMenu(10)">
-                            <div class="card modules">
-                                <img src="images/menu/geofence-fanta-bskp.png"/>
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 hgeofence" onclick="loadMenu(10)">
+                            <div class="card modules bskp-home-modules">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg29"> </div>
+                                </div>
                                 <p class="mt-2"><label>Geofence Management</label></p>
                             </div>
                         </div>
-                        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 husers" onclick="loadMenu(15)">
-                            <div class="card modules">
-                                <img src="images/menu/user-management-fanta-bskp.png"/>
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 husers" onclick="loadMenu(15)">
+                            <div class="card modules bskp-home-modules">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg30"> </div>
+                                </div>
                                 <p class="mt-2"><label>User Management</label></p>
                             </div>
                         </div>
-                    </div>
-                    <div class="row homeMenuList billingManagement siteNoop loginAs">
-                        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 hmachine" onclick="loadMenu(6)">
-                            <div class="card modules">
-                                <img src="images/menu/machine-learning-bskp.png"/>
+                  
+                       <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 hmachine" onclick="loadMenu(6)">
+                            <div class="card modules bskp-home-modules">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg31"> </div>
+                                </div>
                                 <p class="mt-2"><label>AI & Machine Learning</label></p>
                             </div>
                         </div>
-                        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 hamazon" onclick="loadMenu(24)">
-                            <div class="card modules">
-                                <img src="images/menu/mic.png" />
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 hamazon" onclick="loadMenu(24)">
+                            <div class="card modules bskp-home-modules">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg32"> </div>
+                                </div>
                                 <p class="mt-2"><label>Amazon Alexa</label></p>
                             </div>
                         </div>
-                        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 hmessages" onclick="">
-                            <div class="card modules">
-                                <img src="images/menu/mic.png"/>
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 hmessages" onclick="">
+                            <div class="card modules bskp-home-modules">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg33"> </div>
+                                </div>
                                 <p class="mt-2"><label>Google Voice</label></p>
                             </div>
                         </div>
-                        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 hcode" onclick="loadMenu(23)">
-                            <div class="card modules">
-                                <img src="images/menu/code-editor.png"/>
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 hcode" onclick="loadMenu(23)">
+                            <div class="card modules bskp-home-modules">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg34"> </div>
+                                </div>
                                 <p class="mt-2"><label>Code Editor</label></p>
                             </div>
                         </div>
-                        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 hgeofence" onclick="loadMenu(32)">
-                            <div class="card modules">
-                                <img src="images/menu/plugin.png"/>
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 hgeofence" onclick="loadMenu(32)">
+                            <div class="card modules bskp-home-modules">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg35"> </div>
+                                </div>
                                 <p class="mt-2"><label>Plugin Management</label></p>
                             </div>
                         </div>
                     </div>
+                    
+                    <!-- <div class="row homeMenuList billingManagement siteNoop loginAs">
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 hmachine" onclick="loadMenu(6)">
+                            <div class="card modules bskp-home-modules">
+                                <div class="bskp-icon-frame">
+                                    <img src="images/menu/market-place.png"/>
+                                </div>
+                                <p class="mt-2"><label>AI & Machine Learning</label></p>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 hamazon" onclick="loadMenu(24)">
+                            <div class="card modules bskp-home-modules">
+                                <div class="bskp-icon-frame">
+                                    <img src="images/menu/market-place.png"/>
+                                </div>
+                                <p class="mt-2"><label>Amazon Alexa</label></p>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 hmessages" onclick="">
+                            <div class="card modules bskp-home-modules">
+                                <div class="bskp-icon-frame">
+                                    <img src="images/menu/market-place.png"/>
+                                </div>
+                                <p class="mt-2"><label>Google Voice</label></p>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 hcode" onclick="loadMenu(23)">
+                            <div class="card modules bskp-home-modules">
+                                <div class="bskp-icon-frame">
+                                    <img src="images/menu/market-place.png"/>
+                                </div>
+                                <p class="mt-2"><label>Code Editor</label></p>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 hgeofence" onclick="loadMenu(32)">
+                            <div class="card modules bskp-home-modules">
+                                <div class="bskp-icon-frame">
+                                    <img src="images/menu/market-place.png"/>
+                                </div>
+                                <p class="mt-2"><label>Plugin Management</label></p>
+                            </div>
+                        </div>
+                    </div> -->
 
 
                 </div>
 
-                <div class="col-lg-4">
+                <div class="col-lg-3 bskp-right-sec">
                     <div class="row">
-                        <div class="panel panel-inverse col-lg-12" data-sortable-id="ui-widget-1">
+                        <div class="panel panel-inverse bskp-rightpanel col-lg-12" data-sortable-id="ui-widget-1" style="background: none !important;">
                             <div class="panel-heading">
 
-                                <h4 class="panel-title"><i class="fa fa-globe"></i> Domain
-
-
-                                    <a href="javascript:;" onclick="startTour()" class="pull-right btn btn-icon btn-sm btn-default"
-                                       title="Help"><i class="icon-help"></i></a>
-
-                                    <a href="<%= basepath %>/domain" class="pull-right btn btn-icon btn-sm btn-default mr-2" title="Domain Settings"><i class="fa fa-cog"></i></a>
+                                <h4 class="panel-title"><img src="images/globe.svg" class="pl-1" height="16" alt=""> <span> Domain Details</span>
+                                     <a href="javascript:;" onclick="startTour()" class="pull-right btn btn-sm btn-icon btn-circle bskp-icon-bg bskp-bord-icon" style="color: #3b3ea0 !important" title="Help"><i class="icon-help"></i></a>
+                                     <a href="<%= basepath %>/domain" onclick="openGetStartedModal()" class="pull-right btn btn-sm btn-icon btn-circle bskp-icon-bg bskp-bord-icon mr-1"  style="color: #3b3ea0 !important" title="Domain Settings"><i class="fa fa-cog"></i></a>
                                     <a href="javascript:void(0)" onclick="openLinkModal()"
-                                       class="pull-right mr-2 btn btn-icon btn-sm btn-default" title="Link Domain"><i class="fa fa-link"></i></a>
+                                       class="pull-right mr-1 btn btn-sm btn-icon btn-circle bskp-icon-bg bskp-bord-icon" style="color: #3b3ea0 !important" title="Link Domain"><i class="fa fa-link"></i></a>
+                                       <a href="javascript:;" onclick="openGetStartedModal()" class="pull-right btn btn-sm btn-icon btn-circle bskp-icon-bg bskp-bord-icon" style="color: #3b3ea0 !important" title="getmodal"><i class="icon-stack-2"></i></a>
                                 </h4>
                             </div>
-                            <div class="panel-body" style="border: 1px solid #eee">
+                            <div class="panel-body" style="background-color: white; border-radius: 0px 0px 10px 10px;">
                                 <ul class="nav">
-                                    <li class="col-lg-6"><label>Domain Name </label></li>
-                                    <li class="col-lg-6"><span class="domain_name"></span>  <a href="javascript:void(0)" onclick="editDomainName()" style="text-decoration: none"
-                                                                                               title="Edit Domain Name"><i class="icon-edit2"></i></a></li>
+
+                                    <li class="col-lg-12 mb-2"><span class="domain_name" style="font-weight: 600; color: #3b3ea0 ;"></span>  
+                                        <i class="fa fa-user-o bskp-icon-bg mr-1 bskp-user-icon  ml-auto" style="color: #3b3ea0 !important; background: #c0c2f773;" aria-hidden="true"></i>
+                                        <a href="javascript:void(0)" onclick="editDomainName()" style="text-decoration: none" title="Edit Domain Name">
+                                        &nbsp;&nbsp;  <i class="icon-edit2" style="color: #3b3ea0;"></i></a></li>
+                                </ul>
+                                
+                                <ul class="nav">
+                                   
+                                    <li class="col-lg-12 mb-2">  <i class="fa fa-envelope-o mr-1 bskp-user-icon  ml-auto" style="color:black" aria-hidden="true"></i>
+                                        <span class="domain_email" style="max-width: 100%;text-overflow: ellipsis;overflow: hidden;display: block;font-weight: 600; ">
+                                        </span>
+                                    </li>
+                                </ul> 
+
+                                <ul class="nav">
+                                    
+                                    <li class="col-lg-12 mb-2"> <i class="fa fa-id-card-o mr-1 bskp-user-icon  ml-auto" style="color:rgb(70, 70, 70) ;" aria-hidden="true"></i>
+                                        <span style="cursor: help;font-weight: 600;color:#595959; ">Developer License</span>
+                                    </li>
+                                </ul>
+
+                                <ul class="nav">
+                                    <li class="col-lg-6 col-md-6 col-sm-6"><label class="mb-0">Token </label></li>
+                                    <li class="col-lg-6 col-md-6 col-sm-6"><span class="api_token_show">*********</span> <span
+                                            class="api_token hide"></span>
+                                        <a href="javascript:void(0)" onclick="toggleKeys(1,'tokenToggle')" class="tokenToggle">
+                                            <i class="fa fa-eye mx-1" style="color: #3b3ea0;vertical-align: text-top;"></i> </a>
+                                        <a href="javascript:void(0)" class="apiToken"  style="text-decoration: none" title="Click here to copy Current Session Token">
+                                            <i class="icon-copy2 mr-1" style="color: #3b3ea0;"></i> </a>
+                                        <a href="<%= basepath %>/token-management" style="text-decoration: none" title="Goto Manage Token(s)">
+                                            <i class="icon-key2" style="color: #3b3ea0;"></i> </a>
+                                    </li>
                                 </ul>
                                 <ul class="nav">
-                                    <li class="col-lg-6"><label>Domain Key </label></li>
-                                    <li class="col-lg-6"><span class="domain_key_show">***********</span> <span
+                                    <li class="col-lg-6 col-md-6 col-sm-6"><label  class="mb-0">Domain Key </label></li>
+                                    <li class="col-lg-6 col-md-6 col-sm-6"><span class="domain_key_show">*********</span> <span
                                             class="domain_key hide"></span>
-                                        <a href="javascript:void(0)" onclick="toggleKeys(1,'domainToggle')"
-                                           class="domainToggle"><i class="fa fa-eye"></i></a>
-                                        <a href="javascript:void(0)" class="domainKey" style="text-decoration: none"
-                                           title="Click here to copy Domain Key"><i class="icon-copy2"></i></a>
+                                        <a href="javascript:void(0)" onclick="toggleKeys(1,'domainToggle')" class="domainToggle">
+                                            <i class="fa fa-eye mx-1" style="color: #3b3ea0; vertical-align: text-top;"></i></a>
+                                        <a href="javascript:void(0)" class="domainKey" style="text-decoration: none"  title="Click here to copy Domain Key">
+                                            <i class="icon-copy2" style="color: #3b3ea0;"></i></a>
                                     </li>
                                 </ul>
                                 <!-- <ul class="nav">
-                                    <li class="col-lg-6"><label>API Key </label></li>
+                                    <li class="col-lg-6"><label class="mb-0">API Key </label></li>
                                     <li class="col-lg-6"><span class="api_key_show">***********</span> <span
                                             class="api_key hide"></span>
                                         <a href="javascript:void(0)" onclick="toggleKeys(1,'apiToggle')" class="apiToggle"><i
-                                                class="fa fa-eye"></i></a>
+                                                class="fa fa-eye" style="color: #4693cfd4;vertical-align: text-top;"></i></a>
                                         <a href="javascript:void(0)" class="apiKey"  style="text-decoration: none"
                                            title="Click here to copy API Key"><i class="icon-copy2"></i></a>
                                     </li>
                                 </ul> -->
-                                <ul class="nav">
-                                    <li class="col-lg-6"><label>Token </label></li>
-                                    <li class="col-lg-6"><span class="api_token_show">***********</span> <span
-                                            class="api_token hide"></span>
-                                        <a href="javascript:void(0)" onclick="toggleKeys(1,'tokenToggle')" class="tokenToggle"><i
-                                                class="fa fa-eye"></i></a>
-                                        <a href="javascript:void(0)" class="apiToken"  style="text-decoration: none"
-                                           title="Click here to copy Current Session Token"><i class="icon-copy2"></i></a>
-                                        <a href="<%= basepath %>/token-management" style="text-decoration: none"
-                                           title="Goto Manage Token(s)"><i class="icon-key2"></i></a>
-                                    </li>
-                                </ul>
-                                <ul class="nav">
-                                    <li class="col-lg-6"><label>Admin Email</label></li>
-                                    <li class="col-lg-6"><span class="domain_email" style="max-width: 100%;text-overflow: ellipsis;overflow: hidden;display: block;"></span></li>
-                                </ul>
-                                <ul class="nav">
-                                    <li class="col-lg-6"><label>License </label>
-                                    </li>
-                                    <li class="col-lg-6"><span style="border-bottom: 1px dashed #ccc;cursor: help;color:#333">Developer License</span></li>
-                                </ul>
+                              
+                                
                                 <% if(userRole.toLowerCase() === 'admin'){ %>
                                 <div style="text-align: center" class="adminAccess">
                                     <button class="btn btn-sm btn-warning mt-3" onclick="createDomain()"><i class="fa fa-globe"></i> Create New Domain</button>
@@ -383,60 +495,54 @@
 
                             </div>
                         </div>
-                        <div class="panel panel-inverse col-lg-12" data-sortable-id="ui-widget-1">
+                        <div class="panel panel-inverse bskp-rightpanel bskp-rp-2  col-lg-12" data-sortable-id="ui-widget-1" style="background: none !important;">
                             <div class="panel-heading">
                                 <!--<div class="panel-heading-btn">
                                     <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default"><i class="fa fa-expand"></i></a>
                                 </div>-->
-                                <h4 class="panel-title"><i class="fa fa-book"></i> Developers
-
-                                    <a href="http://developer.boodskap.io/" target="_blank" class="pull-right btn btn-icon btn-sm btn-default"
-                                       title="Help Docs"><i class="icon-help"></i></a>
+                                <h4 class="panel-title"><i class="fa fa-code pl-1" style="font-size: 16px; color: black; vertical-align: middle;"></i> 
+                                    <span>Developers</span>
+                                    <a href="http://developer.boodskap.io/" target="_blank"  style="color: #3b3ea0 !important" class="pull-right btn btn-icon btn-sm btn-circle bskp-icon-bg bskp-bord-icon" title="Help Docs">
+                                        <i class="icon-help"></i> 
+                                    </a>
                                 </h4>
 
                             </div>
-                            <div class="panel-body" style="border: 1px solid #eee;">
+                            <div class="panel-body" style="border: 1px solid #eee;background-color: white;border-radius: 0px 0px 10px 10px;">
 
                                 <ul class="nav">
-                                    <li class="col-lg-6"><label>Download Platform </label></li>
-                                    <li class="col-lg-6"><a href="https://hub.docker.com/r/boodskapiot/platform" class="" target="_blank">
-                                        <i class="icon-download"></i> Docker Container
+                                    <li class="col-lg-12"><a href="https://hub.docker.com/r/boodskapiot/platform" class="" target="_blank">
+                                        <i class="icon-download"></i>&nbsp; <span>Docker Container </span> 
                                     </a></li>
                                 </ul>
                                 <!-- <ul class="nav">
-                                     <li class="col-lg-6"><label>Documentation</label></li>
-                                     <li class="col-lg-6"><a href="https://developer.boodskap.io/docs" target="_blank">
-                                         <i class="fa fa-book"></i> Platform Guide</a></li>
+                                     <li class="col-lg-12"><a href="https://developer.boodskap.io/docs" target="_blank">
+                                         <i class="fa fa-book"></i>&nbsp; <span> </span> Platform Guide</a></li>
                                  </ul>-->
                                 <ul class="nav">
-                                    <li class="col-lg-6"><label>API </label></li>
-                                    <li class="col-lg-6"><a href="https://developer.boodskap.io/reference" class="" target="_blank">
-                                        <i class="icon-file-code-o"></i> API Docs
+                                    <li class="col-lg-12"><a href="https://developer.boodskap.io/reference" class="" target="_blank">
+                                        <i class="icon-file-code-o"></i>&nbsp; <span>API Docs </span> 
                                     </a></li>
                                 </ul>
                                 <ul class="nav">
-                                    <li class="col-lg-6"><label>API Explorer</label></li>
-                                    <li class="col-lg-6"><a href="<%= basepath %>/documentation" class="" target="_blank">
-                                        <i class="icon-file-code-o"></i> API Console
+                                    <li class="col-lg-12"><a href="<%= basepath %>/documentation" class="" target="_blank">
+                                        <i class="icon-file-code-o"></i>&nbsp; <span> API Console</span> 
                                     </a>
                                     </li>
                                 </ul>
                                 <ul class="nav">
-                                    <li class="col-lg-6"><label>Video Tutorials </label></li>
-                                    <li class="col-lg-6"><a href="https://www.youtube.com/channel/UC1yOEmlV7mBfKI1aHSMk3GQ"
+                                    <li class="col-lg-12"><a href="https://www.youtube.com/channel/UC1yOEmlV7mBfKI1aHSMk3GQ"
                                                             target="_blank">
-                                        <i class="fa fa-youtube"></i> Youtube Channel</a></li>
+                                        <i class="fa fa-youtube"></i>&nbsp; <span>Youtube Channel </span> </a></li>
                                 </ul>
                                 <ul class="nav">
-                                    <li class="col-lg-6"><label>Sample Codes </label></li>
-                                    <li class="col-lg-6"><a href="https://github.com/BoodskapPlatform" target="_blank">
-                                        <i class="fa fa-github"></i> Github
+                                    <li class="col-lg-12"><a href="https://github.com/BoodskapPlatform" target="_blank">
+                                        <i class="fa fa-github"></i>&nbsp; <span> Github</span> 
                                     </a></li>
                                 </ul>
                                 <ul class="nav">
-                                    <li class="col-lg-6"><label>Swagger API Doc</label></li>
-                                    <li class="col-lg-6"><a href="<%= basepath %>/swagger-doc" class="" target="_blank">
-                                        <i class="icon-file"></i> Swagger Spec
+                                    <li class="col-lg-12"><a href="<%= basepath %>/swagger-doc" class="" target="_blank">
+                                        <i class="icon-file"></i>&nbsp; <span>Swagger Spec </span> 
                                     </a></li>
                                 </ul>
                             </div>
@@ -895,7 +1001,7 @@
                            
                         </div>
                         <div class="col-12 d-xs-show mt-3">
-                           <div class="col-12">
+                           <div class="col-12 p-0">
                             <p class="mt-2 pl-1 fs-14" style="color:black;">Check out our tutorial video on YouTube for
                                 <span class="video-title d-xs-show"> Message Specification</span></p>
                             <iframe height="250" style="border-radius: 1rem;width:100%;"
@@ -911,7 +1017,7 @@
     </div>
 </div>
 
-<div id="greetingsModal" class="modal fade" tabindex="-1" role="dialog">
+<div id="greetingsModal" class="modal bskp-modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-body">
@@ -934,7 +1040,7 @@
    
 </div>
 
-<div id="linkModal" class="modal fade" tabindex="-1" role="dialog">
+<div id="linkModal" class="modal bskp-modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -992,7 +1098,7 @@
     </div>
 </div>
 
-<div id="domainModal" class="modal fade" tabindex="-1" role="dialog">
+<div id="domainModal" class="modal bskp-modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg" role="document" >
         <div class="modal-content" style="">
             <div class="modal-header">
@@ -1038,8 +1144,10 @@
 <script type="text/html" id="loginAs">
     <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6" onclick="openDomainModal()" title="Only Visible to Admin">
 
-        <div class="card modules" style="border:1px solid #f09713">
-            <img src="images/menu/lock.png"/>
+        <div class="card modules bskp-home-modules" style="border:1px solid #f09713">
+            <div class="bskp-icon-frame">
+                <img src="images/menu/market-place.png"/>
+            </div>
             <p class="mt-2"><label>Login As</label></p>
         </div>
 
@@ -1049,8 +1157,10 @@
 <script type="text/html" id="billingManagement">
 
     <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6" onclick="loadMenu(33)" title="Only Visible to Admin">
-        <div class="card modules" style="border:1px solid #f09713">
-            <img src="images/menu/dollar.png"/>
+        <div class="card modules bskp-home-modules" style="border:1px solid #f09713">
+            <div class="bskp-icon-frame">
+                <img src="images/menu/market-place.png"/>
+            </div>
             <p class="mt-2"><label>Billing Management</label></p>
         </div>
     </div>
@@ -1059,14 +1169,16 @@
 <script type="text/html" id="siteNoop">
 
     <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6" onclick="loadMenu(34)" title="Only Visible to Admin">
-        <div class="card modules" style="border:1px solid #f09713">
-            <img src="images/menu/site-noop.png"/>
+        <div class="card modules bskp-home-modules" style="border:1px solid #f09713">
+            <div class="bskp-icon-frame">
+                <img src="images/menu/market-place.png"/>
+            </div>
             <p class="mt-2"><label>Site Noop</label></p>
         </div>
     </div>
 </script>
 
-<div id="createDomain" class="modal fade" tabindex="-1" role="dialog">
+<div id="createDomain" class="modal bskp-modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document" >
         <div class="modal-content" style="">
             <div class="modal-header">

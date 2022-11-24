@@ -55,11 +55,11 @@ function loadRecordDef() {
             mData: 'action',
             sTitle: 'Action',
             orderable : false,
-            sWidth : '5%',
+            sWidth : '10%',
             mRender: function (data, type, row) {
 
-                return '<button class="btn btn-sm btn-icon btn-default" onclick="openEditModal('+row['id']+')"><i class="icon-edit2"></i></button>'+
-                    '<button class="btn btn-sm btn-icon btn-default" onclick="openDeleteModal('+row['id']+')"><i class="icon-trash-o"></i></button>';
+                return '<button class="btn bskp-edit-btn mr-2" onclick="openEditModal('+row['id']+')"><img src="images/edit.svg" alt=""></button>'+
+                    '<button class="btn bskp-trash-btn" onclick="openDeleteModal(' + row['id'] + ')"> <img src="images/trash2.svg" alt=""> </button>';
             }
         }
 
@@ -72,6 +72,16 @@ function loadRecordDef() {
         searching: true,
         "ordering": true,
         iDisplayLength: 10,
+        dom: '<"bskp-search-left" f> lrtip',
+        language: {
+            "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
+            "searchPlaceholder": "Search here...",
+            loadingRecords: '',
+            paginate: {
+                previous: '< Prev',
+                next: 'Next >'
+            }
+        },
         lengthMenu: [[10, 50, 100], [10, 50, 100]],
         aoColumns: fields,
         data: []
@@ -225,7 +235,7 @@ function addMessageField() {
 
     var str = `<tr id="msg_field_row_` + id + `">
     <td>
-        <input class="form-control input-sm" placeholder="Field Name" type="text" onkeyup="onlyAlphaNumericUs(this)" onkeydown="onlyAlphaNumericUs(this)"  id="msg_field_` + id + `" required>
+        <input class="form-control input-sm" placeholder="Field Name" autocomplete="off" type="text" onkeyup="onlyAlphaNumericUs(this)" onkeydown="onlyAlphaNumericUs(this)"  id="msg_field_` + id + `" required>
     </td>
     <td>
     <select class="form-control input-sm" required id="msg_datatype_` + id + `">
@@ -250,8 +260,8 @@ function addMessageField() {
       <option value="TIMESTAMP" >TIMESTAMP</option>
     </select>
     </td>
-    <td style="text-align: center;vertical-align: middle"><img src="images/add1.png" onclick="addMessageField()" style="cursor: pointer" />` +
-        (id > 0 ? '<img src="images/delete.png" style="margin-left:5px;cursor: pointer" onclick="deleteMessageField(' + id + ')"/>' : '')
+    <td style="text-align: center;vertical-align: middle"> <i class="fa fa-plus add" onclick="addMessageField()" style="cursor: pointer" aria-hidden="true"></i>` +
+        (id > 0 ? '<i class="fa fa-minus minus" style="margin-left:5px;cursor: pointer" onclick="deleteMessageField(' + id + ')" aria-hidden="true"></i>' : '')
         + ` </td>
   </tr>`;
 

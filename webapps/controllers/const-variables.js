@@ -38,7 +38,7 @@ $.ajaxSetup({
 })
 
 var DEFAULT_POWERED_BY = "images/powered-by-boodskap.png";
-var DEFAULT_LOGO_PATH =  "images/boodskap-logo.png";
+var DEFAULT_LOGO_PATH =  "images/boodskap-logo-1.png";
 var DEFAULT_LOGIN_LOGO_PATH =  "images/bdskap-logo.png";
 var MARKETPLACE_URL = "https://marketplace.boodskap.io"
 var MARKETPLACE_API_URL = "https://platform.boodskap.io/api"

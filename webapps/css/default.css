@@ -251,7 +251,7 @@ div::-webkit-scrollbar-thumb {
     width: 0;
     position: fixed;
     z-index: 9;
-    top: 0;
+    top: 25px;
     left: 0;
     background-color: #2f2b2df7;
     overflow-x: hidden;

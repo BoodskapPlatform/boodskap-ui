@@ -55,11 +55,11 @@ function loadMessageDef() {
             mData: 'action',
             sTitle: 'Action',
             orderable: false,
-            sWidth: '5%',
+            sWidth: '10%',
             mRender: function (data, type, row) {
 
-                return '<button class="btn btn-sm btn-icon btn-default" onclick="openEditModal(' + row['id'] + ')"><i class="icon-edit2"></i></button>' +
-                    '<button class="btn btn-sm btn-icon btn-default" onclick="openDeleteModal(' + row['id'] + ')"><i class="icon-trash-o"></i></button>';
+                return '<button class="btn bskp-edit-btn mr-2" onclick="openEditModal(' + row['id'] + ')"> <img src="images/edit.svg" alt="">  </button>' +
+                    '<button class="btn bskp-trash-btn" onclick="openDeleteModal(' + row['id'] + ')"> <img src="images/trash2.svg" alt=""> </button>';
             }
         }
 
@@ -74,6 +74,16 @@ function loadMessageDef() {
         responsive: true,
         paging: true,
         searching: true,
+        dom: '<"bskp-search-left" f> lrtip',
+        language: {
+            "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
+            "searchPlaceholder": "Search here...",
+            loadingRecords: '',
+            paginate: {
+                previous: '< Prev',
+                next: 'Next >'
+            }
+        },
         "ordering": true,
         iDisplayLength: 10,
         lengthMenu: [[10, 50, 100], [10, 50, 100]],
@@ -176,11 +186,15 @@ function openModal() {
     $("#addMessageRule").modal({
         backdrop: 'static',
         keyboard: false
-    });
+    }
+    ,'show'
+    );
+    
     $(".msgFieldBody").html("");
 
-    addMessageField();
+    addMessageField();  
 }
+
 
 function openEditModal(id) {
     $(".modal-title").html("Edit Message")
@@ -202,8 +216,10 @@ function openEditModal(id) {
 
     $("#addMessageRule").modal({
         backdrop: 'static',
-        keyboard: false
-    });
+        keyboard: false,
+    }
+   
+    );
     $(".msgFieldBody").html("");
 
     for (var i = 0; i < message_obj.fields.length; i++) {
@@ -242,7 +258,7 @@ function addMessageField() {
 
     var str = `<tr id="msg_field_row_` + id + `">
     <td>
-        <input class="form-control input-sm" onkeyup="onlyAlphaNumericUs(this)" onkeydown="onlyAlphaNumericUs(this)" placeholder="Field Name" type="text"  id="msg_field_` + id + `" required>
+        <input class="form-control input-sm" onkeyup="onlyAlphaNumericUs(this)" onkeydown="onlyAlphaNumericUs(this)" placeholder="Field Name" autocomplete="off" type="text"  id="msg_field_` + id + `" required>
     </td>
     <td>
     <select class="form-control input-sm" required id="msg_datatype_` + id + `">
@@ -267,8 +283,8 @@ function addMessageField() {
       <option value="TIMESTAMP" >TIMESTAMP</option>
     </select>
     </td>
-    <td style="text-align: center;vertical-align: middle;" class="addMsg"><img src="images/add1.png" onclick="addMessageField()" style="cursor: pointer" />` +
-        (id > 0 ? '<img src="images/delete.png" style="margin-left:5px;cursor: pointer" onclick="deleteMessageField(' + id + ')"/>' : '')
+    <td style="text-align: center;vertical-align: middle;" class="addMsg"><i class="fa fa-plus add" onclick="addMessageField()" style="cursor: pointer" aria-hidden="true"></i>` +
+        (id > 0 ? '<i class="fa fa-minus minus" style="margin-left:5px;cursor: pointer" onclick="deleteMessageField(' + id + ')" aria-hidden="true"></i>' : '')
         + ` </td>
   </tr>`;
 
@@ -334,6 +350,7 @@ function addMessageRule() {
             if (status) {
                 successMsg('Message Definition Updated Successfully');
                 loadMessageDef();
+                closeGetStart();
                 $("#addMessageRule").modal('hide');
             } else {
                 errorMsg('Error in Define Message')
@@ -352,6 +369,7 @@ function addMessageRule() {
                     if (status) {
                         successMsg('Message Defined Successfully');
                         loadMessageDef();
+                        closeGetStart();
                         $("#addMessageRule").modal('hide');
                     } else {
                         errorMsg('Error in Define Message')
@@ -513,7 +531,12 @@ function importMsg() {
     $("#imported_content").val('')
     $("#importFile").val('')
     loadJsEditor('');
-    $("#importModal").modal('show');
+    $("#importModal").modal(
+        {
+            backdrop: 'static',
+            keyboard: false
+        }
+        ,'show')
 }
 
 
@@ -524,7 +547,6 @@ function loadJsEditor(code) {
     }
 
     $("#jsEditor").html("");
-
 
     jsEditor = ace.edit("imported_content");
     jsEditor.setTheme("ace/theme/monokai");

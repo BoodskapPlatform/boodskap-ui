@@ -78,8 +78,8 @@ function loadEvents() {
             mRender: function (data, type, row) {
 
 
-                return '<button class="btn btn-sm btn-icon btn-default" onclick="openModal(2,' + row["id"] + ')"><i class="icon-edit2"></i></button>' +
-                    '<button class="btn btn-sm btn-icon btn-default" onclick="openModal(3,' + row['id'] + ')"><i class="icon-trash-o"></i></button>';
+                return '<button class="btn bskp-edit-btn mr-2" onclick="openModal(2,' + row["id"] + ')"><img src="images/edit.svg" alt=""></button>' +
+                    '<button class="btn bskp-trash-btn" onclick="openModal(3,' + row['id'] + ')"><img src="images/trash2.svg" alt=""></button>';
             }
         }
 
@@ -94,6 +94,16 @@ function loadEvents() {
         responsive: true,
         paging: true,
         searching: true,
+        dom: '<"bskp-search-left" f> lrtip',
+        language: {
+            "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
+            "searchPlaceholder": "Search here...",
+            loadingRecords: '',
+            paginate: {
+                previous: '< Prev',
+                next: 'Next >'
+            }
+        },
         "ordering": true,
         iDisplayLength: 10,
         lengthMenu: [[10, 50, 100], [10, 50, 100]],
@@ -254,7 +264,11 @@ function openModal(type, id, channel) {
         $("#event_id").removeAttr('readonly');
         $(".eventAction").html('Create');
         $("#addEvent form")[0].reset();
-        $("#addEvent").modal('show');
+        $("#addEvent").modal({
+            backdrop: 'static',
+            keyboard: false
+        }
+        ,'show');
 
 
         // $("#event_id").attr('min',USER_OBJ.domain.startId)
