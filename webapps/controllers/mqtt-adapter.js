@@ -51,7 +51,8 @@ function mqttConnect() {
     options['userName'] = "-";
     options['password'] = "-";
 
-    var sessionClientId = API_TOKEN;
+    var randomId = (Math.floor(Math.random() * 10000) + 10000).toString().substring(1);
+    var sessionClientId = API_TOKEN+":"+randomId;
 
     if (MQTT_CONFIG.portNo) {
         mqtt_client = new Messaging.Client(MQTT_CONFIG.hostName, MQTT_CONFIG.portNo, sessionClientId);

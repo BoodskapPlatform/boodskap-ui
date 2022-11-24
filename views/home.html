@@ -663,27 +663,6 @@
                             </form>
                         </div>
 
-                    </section>
-                    <h3>
-                        <div><b>Device</b></div>
-                        <div>Create Your First Device</div>
-                    </h3>
-                    <section>
-                        <div>
-                            <div class="gs-step-title">
-                                <div>
-                                    <div class="step-cir" style="background: #ea1965d9;">
-                                        <i class="fa fa-hdd"></i>
-                                    </div>
-                                    <div class="gs-disp">
-                                        <div class="gs-title-head">Device</div>
-                                        <div><b>Step 2 :</b> Create Your First Device</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <form action="javascript:void(0)" style="margin-top: 10px; margin-left: 10px;">
-                                <div class="jq-wiz-content-area">
-
                                     <div  class="row">
                                         <div  class="col-md-6">
                                             <div  class="form-group">
@@ -1219,3 +1198,291 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+<!-- <div class="modal fade bd-example-modal-lg" id="getstartedmodal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+    <div class="modal-content" style="border-radius: 1rem;">
+    
+        <div class="modal-body p-0"  style="background: #f9fbfc;">
+        <div class="modal-header">
+            <img src="images/logo.jpeg" class="logo-img"alt="">
+            <h3 class="modal-title pl-3 mr-auto fw-900" id="exampleModalLongTitle">Getting Started</h3>
+            <button type="button" class="btn-sm btn-secondary btn-skip" onclick="closeGetStart()" data-dismiss="modal" aria-label="Close">
+            Skip
+            </button>
+        </div>
+    <div style="padding: 16px !important;">
+        <div class="row mx-3 mb-4 roadmap-info fs-14">
+        First things first! We shall start working by defining the messages. 
+        <div class="ml-auto"> <a href="javascript:void(0)"><u>Need help?</u></a> </div>
+        </div>
+        <div class="row m-0 mt-4">
+        <!-- left side--->
+        <!-- <div class="left-sec px-35">
+            <section>
+            <div class="wrapper pt-3">
+            <ul class="StepProgress fs-18">
+                <div class="active-step tab1" style="top: -5px;"> <span class="spot"><i class="fa fa-circle" aria-hidden="true"></i> </span> Message Definition  <span class="ml-2 check"><i class="fa fa-check" aria-hidden="true"></i></span></i></div> 
+                <div class="StepProgress-item tab1 landmark pt-0 is-done active-dot"><span>Message Definition</span>   <span class="ml-2 check"><i class="fa fa-check" aria-hidden="true"></i></span></i></div>
+                <div class="active-step tab2 d-none"> <span class="spot"><i class="fa fa-circle" aria-hidden="true"></i> </span> Add/Create Device(s) <span class="ml-2 check"><i class="fa fa-check" aria-hidden="true"></i></span></i></div> 
+                <div class="StepProgress-item tab2 landmark">Add/Create Device(s)  <span class="ml-2 check"><i class="fa fa-check" aria-hidden="true"></i></span></i></div>
+                <div class="active-step tab3 d-none"> <span class="spot"><i class="fa fa-circle" aria-hidden="true"></i> </span> Simulate the Message  <span class="ml-2 check"><i class="fa fa-check" aria-hidden="true"></i></span></i></div> 
+                <div class="StepProgress-item tab3 landmark">Simulate the Message  <span class="ml-2 check"><i class="fa fa-check" aria-hidden="true"></i></span></i></div>
+                <div class="active-step tab4 d-none"> <span class="spot"><i class="fa fa-circle" aria-hidden="true"></i> </span> Send Message <span class="ml-2 check"><i class="fa fa-check" aria-hidden="true"></i></span></i></div> 
+                <div class="StepProgress-item tab4 landmark">Send Message  <span class="ml-2 check"><i class="fa fa-check" aria-hidden="true"></i></span></i></div>
+             </ul>
+            </div>  
+                <p class="mt-2 pl-1 fs-14" style="color:black;">Check out our tutorial video on Youtube for
+                <span class="video-title"> Message Specification</span></p>  
+                    <iframe  height="220" style="border-radius: 1rem;width:100%;"
+    src="https://www.youtube.com/embed/s8Zb6CIA2nU?playlist=s8Zb6CIA2nU&loop=1">
+    </iframe> 
+            </section>
+        </div> -->
+             
+            <!-- right side--->
+             <!-- <div class="col mb-2" id="mesgDefine" style="margin-right: 33px;">
+                 <section class="right-content sec1  pt-3">
+                       <div class="row m-0">
+                        <div class="col-12">
+                            <p class="fs-25 content-head fw-900 fs-18">Define your first message</p>
+                            <form>
+                             <div class="form-row justify-content-between">
+                               <div class="form-group col-md-6 pr-4">
+                                 <label for="mesgid">Message ld</label>
+                                 <input type="text" class="form-control" id="mesgid" placeholder="Enter Message ld">
+                               </div>
+                               <div class="form-group col-md-6 pl-4">
+                                 <label for="mesgnam">Message Name</label>
+                                 <input type="text" class="form-control" id="mesgnam" placeholder="Enter Message Name">
+                               </div>
+                             </div>
+                             <div class="form-group">
+                               <label for="mesgnote">Description</label>
+                                <textarea class="form-control" id="mesgnote" placeholder="Enter Message Description" required></textarea>
+                             </div>
+                         </form>
+                       </div>
+                       <div class="col-12 mt-2">
+                         <table class="display" style="width:100%;">
+                             <thead>
+                                 <tr>
+                                     <th>Field Name</th> 
+                                     <th>Data Type</th>
+                                     <th style="text-align:center;">Action</th>
+                                 </tr>
+                             </thead>
+                             <tbody>
+                                 <tr>
+                                     <td>
+                                         <form>
+                                         <div class="form-row justify-content-between">
+                                           <div class="form-group col-md-12 pr-4 m-0">
+                                             <input type="text" class="form-control" id="fieldname" placeholder="Field Name">
+                                           </div>
+                                           </div>
+                                           </form>
+                                      </td>
+                                     <td> <form>
+                                       <div class="form-row justify-content-between">
+                                         <div class="form-group col-md-12 pr-4 m-0">
+                                           <select id="inputState" class="form-control">
+                                             <option selected class="text-grey">Choose Data Type</option>
+                                             <option>INTEGER</option>
+                                             <option>DOUBLE</option>
+                                             <option>FLOAT</option>
+                                           </select>
+                                         </div>
+                                         </div>
+                                         </form> 
+                                     </td>
+                                     <td class="action-cell">
+                                      <div class="row m-0">
+                                        <i class="fa fa-plus-circle px-2 addrow-icon" aria-hidden="true"></i>
+                                        <i class="fa fa-minus-circle px-2 addrow-icon" aria-hidden="true"></i>
+                                      </div>
+                                      </td>
+                                 </tr>
+                             </tbody>
+                         </table>
+                       </div>
+                       <div class="footer">
+                        <div class="row m-0 foot-sec-1 justify-content-center" style="padding:25px 0px 35px 0px;border-top: 1px solid #dedede;">
+                          <button  class="btn-sm btn-secondary btn-proceed" onclick="modalnavigate(2)">Proceed <i class="fa fa-angle-right" aria-hidden="true"></i> </button>
+                         </div>                        
+                        </div>
+                        
+                        </div>
+                      </section>
+                      <section class="right-content sec2 d-none pt-3">
+                        <div class="row m-0">
+                         <div class="col-12">
+                             <p class="fs-25 content-head fw-900 fs-18">Add your device(s) here</p>
+                             <form>
+                              <div class="form-row justify-content-between">
+                                <div class="form-group col-md-6 pr-4">
+                                  <label for="devid">Device ld</label>
+                                  <input type="text" class="form-control" id="devid" placeholder="Enter Device ld">
+                                </div>
+                                <div class="form-group col-md-6 pl-4">
+                                  <label for="devnam">Device Name</label>
+                                  <input type="text" class="form-control" id="devnam" placeholder="Enter Device Name">
+                                </div>
+                                <div class="form-group col-md-6 pr-4">
+                                  <div class="form-row justify-content-between">
+                                    <div class="form-group col-md-12 m-0">
+                                      <label for="devnam">Choose Device Model</label>
+                                      <select id="inputState" class="form-control">
+                                        <option selected class="text-grey">- - - - </option>
+                                        <option>Model 1</option>
+                                        <option>Model 2</option>
+                                        <option>Model 3</option>
+                                      </select>
+                                    </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group col-md-6 pl-4">
+                                  <label for="devVersion">Device Version</label>
+                                  <input type="text" class="form-control" id="devVersion" disabled>
+                                </div>
+                              </div>
+                              
+                          </form>
+                        </div>
+                      </div>
+                      <div class="footer">
+                        <div class="row m-0 foot-sec-1 justify-content-between" style="padding:25px 0px 35px 0px;border-top: 1px solid #dedede;">
+                        <button  class="btn-sm btn-secondary btn-previous" onclick="modalnavigate(1)"><i class="fa fa-angle-left" aria-hidden="true"></i>  Previous </button>
+                       <button  class="btn-sm btn-secondary btn-proceed" onclick="modalnavigate(3)">Proceed <i class="fa fa-angle-right" aria-hidden="true"></i> </button>
+                         </div>                        
+                        </div>
+                    </section>
+                    <section class="right-content sec3 d-none pt-3">
+                        <div class="row m-0">
+                         <div class="col-12">
+                             <p class="fs-25 content-head fw-900 fs-18">Simulate your defined message</p>
+                           <p class="sub-sec">Rule Details</p>
+                            </div>
+                          
+                      
+                        <div class="col-12 px-2 mt-2 pb-4">
+                          <table class="simulate" style="width:100%;">
+                              <thead>
+                                  <tr>
+                                      <th>Rule ID</th> 
+                                      <th>Rule Type</th>
+                                      <th>Language</th>
+                                      <th style="text-align:center;">Action</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr>
+                                      <td style="padding-left:20px !important ;">
+                                         <div class="mb-2">1000</div>
+                                         <div class="fs-13">Device Entry Message</div>
+                                       </td>
+                                      <td> 
+                                        <p >Message Rule</p>
+                                      </td>
+                                      <td>
+                                        <span class="lang-tag">Groovy</span>
+                                     </td>
+                                      <td class="action-cell">
+                                       <div class="row m-0">
+                                         <i class="fa fa-plus-circle addrow-icon" aria-hidden="true"></i>
+                                       </div>
+                                       </td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                        </div>
+                        </div>
+                        <div class="row px-3 mt-3 mx-0 mb-3 sub-sec">
+                          Message Fields <div  class="ml-auto"> <u> <a href="javascript:void(0)" class="text-secondary">Default Fields</a></u> </div>                         
+                          </div>
+                          <div class="row m-0">
+                         <div class="col-12 px-2 mt-2">
+                            <table class="simulate" style="width:60%;">
+                                <thead>
+                                    <tr>
+                                        <th>Fields</th> 
+                                        <th>Data Type</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                           <div style="padding-left:20px !important ;">Frame_Id</div>
+                                         </td>
+                                        <td> 
+                                           <span class="lang-tag" style="background:#f9eef9 ;">Keyword</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                           <div style="padding-left:20px !important ;">Muid</div>
+                                         </td>
+                                        <td> 
+                                           <span class="lang-tag" style="background:#f9eef9 ;">Keyword</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                          </div>
+                        </div>
+                   
+                          <div class="footer">
+                            <div class="row m-0 foot-sec-1 justify-content-between" style="padding:25px 0px 35px 0px;border-top: 1px solid #dedede;">
+                            <button  class="btn-sm btn-secondary btn-previous" onclick="modalnavigate(2)"><i class="fa fa-angle-left" aria-hidden="true"></i>  Previous </button>
+                           <button  class="btn-sm btn-secondary btn-proceed btn-simulate" onclick="modalnavigate(4)"><i class="fa fa-play f-s-12" aria-hidden="true"></i> Simulate </button>
+                             </div>                        
+                            </div>
+                     </section>
+                      <section class="right-content sec4 d-none pt-3">
+                        <div class="row m-0">
+                         <div class="col-12">
+                             <p class="fs-25 content-head fw-900 fs-18">Send your message</p>
+                             <form>
+                              <div class="form-row justify-content-between">
+                                <div class="form-group col-md-6 pr-4">
+                                    <label for="Frame_id">Device ld</label>
+                                    <input type="text" class="form-control" id="Frame_id" >
+                                    <div> <p class="mb-2 text-lite"> Data type KEYWORD </p></div>
+                                </div>
+                                <div class="form-group col-md-6 pl-4">
+                                    <label for="Muid">Device Name</label>
+                                    <input type="text" class="form-control" id="Muid" >
+                                    <div> <p class="mb-2 text-lite"> Data type KEYWORD </p></div>
+                                </div>
+                              </div>               
+                             </form>
+                            </div>
+                         </div>
+                         <div class="footer" style="position: unset;padding: 0px 10px;">
+                            <div class="row m-0 foot-sec-1 justify-content-between" style="padding:25px 0px 35px 0px;border-top: 1px solid #dedede;">
+                            <button  class="btn-sm btn-secondary btn-previous" onclick="modalnavigate(3)"><i class="fa fa-angle-left" aria-hidden="true"></i>  Previous </button>
+                           <button  class="btn-sm btn-secondary btn-proceed btn-simulate" onclick="modalnavigate(4)">Send Message <i class="fa fa-angle-right" aria-hidden="true"></i> </button>
+                             </div>                        
+                            </div>
+                            <div class="row m-0">
+                                <div class="col-12">
+                                    <div class="livelog-bg">
+                                        <div class="livelog-text">
+                                            <p>Wed Oct 12/20/2022 </p>
+                                        </div>
+                                        
+                                    </div>
+                               </div>
+                            </div>           
+                       </section>
+                       
+                       </div> -->
+                 
+             <!-- </div>
+            </div>
+            </div>
+            </div>
+        
+     </div>
+</div> --> -->
