@@ -215,7 +215,7 @@ Routes.prototype.init = function () {
                     }
                 }); */
 
-                // res.redirect(self.app.conf.basepath+'/login');
+                res.render('login.html', {layout:false,basepath: getBasePath(req),key:''});
             }
     });
 
