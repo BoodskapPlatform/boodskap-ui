@@ -192,7 +192,7 @@ Routes.prototype.init = function () {
                     res.redirect(self.app.conf.basepath+'/home');
                 }
             }else{
-                let apiUrl = self.app.conf.development ? self.app.conf.api : self.app.conf.protocol+"://"+req.headers.host+"/"+self.app.conf.api;
+                let apiUrl = self.app.conf.development ? self.app.conf.api : self.app.conf.protocol+"://"+req.headers.host+self.app.conf.api;
                
                 self.license.getLicense(apiUrl,function (status, result){
                     console.log("***************** License Status *********************");
@@ -222,7 +222,7 @@ Routes.prototype.init = function () {
     });
 
     self.router.get('/license-activation',function (req, res) {
-        let apiUrl = self.app.conf.development ? self.app.conf.api : self.app.conf.protocol+"://"+req.headers.host+"/"+self.app.conf.api;
+        let apiUrl = self.app.conf.development ? self.app.conf.api : self.app.conf.protocol+"://"+req.headers.host+self.app.conf.api;
         self.license.getLicense(apiUrl,function (status, result){
             if(status){
                 if(!result["licensed"]){
@@ -236,7 +236,7 @@ Routes.prototype.init = function () {
         });
     });
     self.router.get('/account-activation',function (req, res) {
-        let apiUrl = self.app.conf.development ? self.app.conf.api : self.app.conf.protocol+"://"+req.headers.host+"/"+self.app.conf.api;
+        let apiUrl = self.app.conf.development ? self.app.conf.api : self.app.conf.protocol+"://"+req.headers.host+self.app.conf.api;
         self.license.getLicense(apiUrl,function (status, result){
             if(status){
                 if(!result["accountActive"]){
@@ -250,7 +250,7 @@ Routes.prototype.init = function () {
         });
     });
     self.router.get('/domain-activation',function (req, res) {
-        let apiUrl = self.app.conf.development ? self.app.conf.api : self.app.conf.protocol+"://"+req.headers.host+"/"+self.app.conf.api;
+        let apiUrl = self.app.conf.development ? self.app.conf.api : self.app.conf.protocol+"://"+req.headers.host+self.app.conf.api;
         self.license.getLicense(apiUrl,function (status, result){
             if(status){
                 if(!result["domainActive"]){
@@ -264,15 +264,15 @@ Routes.prototype.init = function () {
         });
     });
     self.router.post('/apply/cluster-license',function (req, res) {
-        let apiUrl = self.app.conf.development ? self.app.conf.api : self.app.conf.protocol+"://"+req.headers.host+"/"+self.app.conf.api;
+        let apiUrl = self.app.conf.development ? self.app.conf.api : self.app.conf.protocol+"://"+req.headers.host+self.app.conf.api;
         self.license.applyClusterLicense(apiUrl,req,res)
     });
     self.router.post('/apply/account-license',function (req, res) {
-        let apiUrl = self.app.conf.development ? self.app.conf.api : self.app.conf.protocol+"://"+req.headers.host+"/"+self.app.conf.api;
+        let apiUrl = self.app.conf.development ? self.app.conf.api : self.app.conf.protocol+"://"+req.headers.host+self.app.conf.api;
         self.license.applyAccountLicense(apiUrl,req,res)
     });
     self.router.post('/apply/domain-license',function (req, res) {
-        let apiUrl = self.app.conf.development ? self.app.conf.api : self.app.conf.protocol+"://"+req.headers.host+"/"+self.app.conf.api;
+        let apiUrl = self.app.conf.development ? self.app.conf.api : self.app.conf.protocol+"://"+req.headers.host+self.app.conf.api;
         self.license.applyDomainLicense(apiUrl,req,res)
     });
     self.router.get('/profile', roleCheck,function (req, res) {
