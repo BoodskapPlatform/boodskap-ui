@@ -613,9 +613,25 @@ select {
     background-color: #fefefeba !important;
     opacity: .9 !important;
 }
-
+.bskp-btnsize{
+    width: 30px; 
+    height: 30px;
+    font-size: 11px;
+     line-height: 30px;
+}
+.bskp-mm-search{
+    background: #f2f9ffc2  !important;
+    height: 30px !important;
+}
 /* - Modal end -*/
-
+.bskp-fs-12{
+font-size: 12px !important;
+}
+.bskp-mm-fullwin{
+    font-size: 12px;
+    vertical-align: text-top;
+    margin-top: 2px;
+}
 .bskp-mt-30 {
     margin-top: 30px;
 }
