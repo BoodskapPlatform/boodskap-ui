@@ -10,6 +10,10 @@ var MENU_LINKS = [BASE_PATH+'/home', BASE_PATH+'/dashboard', BASE_PATH+'/message
 $(document).ready(function () {
    
     $("body").removeClass('bg-white');
+    // $("#megaMenu").modal({
+    //     backdrop: 'static',
+    //     keyboard: false
+    // });
     // $(".homeMenuList").append($("#logConsole").html());
     if (ADMIN_ACCESS) {
 
@@ -50,12 +54,9 @@ function mqttCancelSubscribe(id) {
     if (!id) {
         id = CURRENT_ID;
     }
-
     try {
-
         mqttUnsubscribe("/" + USER_OBJ.domainKey + "/log/#");
-
-    }
+ }
     catch (e) {
     }
 
@@ -1051,10 +1052,10 @@ function recentUpdate() {
         }
     },
         error: function (err) {
-            console.log(err.message);
+            console.log('Error in execution')
             var obj={
                 "name":USER_OBJ.user.email,
-                "value":[],               
+                "value":'',               
             }
             $.ajax({
                 url: API_BASE_PATH+'/domain/property/upsert/'+API_TOKEN,
@@ -1067,7 +1068,7 @@ function recentUpdate() {
                     }
                 },
                 error: function (err) {
-                    console.log(err.message);
+                    console.log('Error in execution')
                 }
             });
         }
@@ -1114,8 +1115,7 @@ function clickRecent(tabname,tabid,loadmenu,cardno) {
             }
         },
         error: function (err) {
-          
-            console.log(err.message);
+            console.log('Error in execution')
         }
     });
 
@@ -1125,17 +1125,54 @@ function recentcard(rdata) {
     if(rdata){
       
      for (let i = 0; i < rdata.length; i++) {
-        $('#recentMenuList').append(` <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 hmsgdef" onclick="loadMenu(`+rdata[i].loadmenu+`)">
+        $('#recentMenuList').append(` <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 homecard" onclick="loadMenu(`+rdata[i].loadmenu+`)">
         <div class="card modules bskp-home-modules"onclick="clickRecent('`+rdata[i].name+`','`+rdata[i].id+`')">
             <div class="bskp-icon-frame">
                 <div class="bskp-Dbg bskp-Dimg`+rdata[i].cardno+`"> </div>
             </div>
-            <p class="mt-2"><label>`+rdata[i].name+`</label></p>
+            <p class="mt-2"><label class="cardtitle">`+rdata[i].name+`</label></p>
         </div>
     </div>`)
-        
      }  
      
     }
+}
+
+// SEARCH FUNCTION
+var btsearch = {
+	init: function(search_home, searchable_elements, searchable_text_class) {
+		$(search_home).keyup(function(e){
+			var query = $(this).val().toLowerCase();
+         	if(query){
+                $('.sclose').removeClass('d-none')
+                // loop through all elements to find match
+				$.each($(searchable_elements), function(){
+                  var title = $(this).find(searchable_text_class).text().toLowerCase();
+                  if(title.indexOf(query) == -1){
+						$(this).hide();
+					} else {
+						$(this).show();
+					}
+				});
+			} else {
+                $('.sclose').addClass('d-none')
+				// empty query so show everything
+				$(searchable_elements).show();
+			}
+		});
+	}
+}
+
+// INIT
+$(function(){
+  // USAGE: btsearch.init(('search field element', 'searchable children elements', 'searchable text class');
+  btsearch.init('#search_home', '.homecard', '.cardtitle');
+});
+function refresh() {
+    $('.sclose').addClass('d-none')
+    $('#search_home').val('')
+    $('.homecard').show();
+  
+
 }
 

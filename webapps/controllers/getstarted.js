@@ -112,7 +112,6 @@ function openGetStartedModal(results) {
         $("#header").addClass("blur"),
         $("footer").addClass("blur")
    ); // model UI open
-
 }
 
 function closeGetStart() {

@@ -706,8 +706,10 @@ select {
 .bskp-home-modules:hover .bskp-Dbg{
     background-color: white;
 }
+
+   
+/* Home-page Icons start */
 .bskp-Dimg1{
-     /* defines the background color of the image */
     mask: url(images/menu/market-place.svg) no-repeat center / contain ;
     -webkit-mask: url(images/menu/market-place.svg) no-repeat center / contain;
 }
@@ -847,4 +849,10 @@ select {
     mask: url(images/menu/templates-bskp.svg) no-repeat center / contain ;
     -webkit-mask: url(images/menu/templates-bskp.svg) no-repeat center / contain;
  }
- 
+ /* Home-page Icons ends */
+
+ /* Mega-menu start */
+.bskp-w-100{
+    width:100% !important;
+}
+  /* Mega-menu end */
