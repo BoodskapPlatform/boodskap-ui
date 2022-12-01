@@ -68,6 +68,13 @@
        <!-- <li class="menulink">
             <a href="<%= basepath %>/home">Platform Home</a>
         </li>-->
+        <li class="">
+            <a href="javascript:;" data-toggle="dropdown" style="padding: 5px;" class="dropdown-toggle f-s-14 bskp-frame-shadow" onclick="openmegamenu()">
+                <!-- <i class="fa fa-bell"></i> -->
+                <i class="fa fa-search" class="bskp-w-18px" style="color:#4c4eb9;" aria-hidden="true"></i>
+                <!--<span class="label">5</span>-->
+            </a>
+        </li>
         <li class="googletranslate bskp-frame-shadow bskp-select-pad hidden-sm">
 
 
@@ -291,7 +298,637 @@
     <!-- end header navigation right -->
 </div>
 
+<div id="megaMenu" class="modal bskp-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document" style=" max-width: 56%;margin: 0rem 3rem;min-height:unset !important;">
+        <div class="modal-content">
+            <div class="modal-header" style="padding: 18px 12px 8px 12px !important;border-radius: 5px !important;background: white !important;">
+                <div class="modal-title" style="width:80%;">   
+                  <form class="bskp-dash-search position-relative">
+                    <label class="bskp-w-100 d-flex"><i class="fa fa-search bskp-fs-12" aria-hidden="true"></i> &nbsp;  
+                        <div class="d-inline-flex bskp-w-100">
+                          <input type="search" class="form-control bskp-mm-search input-sm searchcard" style="width:100% !important;" onkeyup="" id="search_megahome" placeholder="Search here..." aria-controls="messageTable" required="required" title="Search">
+                          <span class="sclose d-none position-absolute" onclick="Mrefresh()" aria-label="Close" style="right: 14px;cursor: pointer;">
+                            <img src="images/close.svg" height="15" alt=""> </span>
+                        </div>
+                      </label>
+                  </form>
+                </div>
+                <div><a href="javascript:;" data-dismiss="modal" aria-label="Close" style="border: 1px solid #ffc5c5 !important;background: #ffe5e5 !important;" class="btn bskp-btnsize btn-icon btn-circle bskp-icon-bg" > 
+                        <img src="images/redclose.svg" height="16" alt="" style="vertical-align: baseline;  margin-top: 5px;"></span> </a>
+                </div>
+            </div>
+            
+           <div class="modal-body p-0" style="height:500px;">
+               
+            <div class="row m-0" style="height:100%;">
+                <div class="col-lg-4 bskp-meganav" style="position:relative; background: rgb(220, 235, 234);">
+                    <div class="sidebar" style="padding: 0px;position: static !important;width: 100%;">
+                        <div class="card mt-3 p-0 bskp-rad-10">
+                            <div class="card-header p-0 bskp-rad-10" id="headingOne" style="background:#2d2f79;">
+                            <p class="mb-0">
+                                <button class="btn btn-link bskp-w-100 text-left text-white collapsed" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"style="text-decoration:none">
+                                    <i class="fa fa-undo" aria-hidden="true"></i>&nbsp; Recently Visited 
+                                    <i class="fa fa-angle-right" aria-hidden="true" style="font-size: 16px;float: right;"></i>
+                                </button >
+                            </p>
+                            </div>
+                        
+                            <div id="collapseOne" style="height:unset!important;"aria-labelledby="headingOne" data-parent="#accordionExample"> <!-- removed the class="collapse" -->
+                            <div class="card-body p-0" >
+                                <ul class="nav bskp-mega-nav mb-0" style=" padding: 0px 12px;">
+                                    <li class="has-sub sideMain hmachine">
+                                        <a href="http://localhost:4201/machine-learning" style="color: #2d2f79;">
+                                            <i class="icon-ios-monitor"></i>
+                                            <span>AI & Machine Learning</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            </div>
+                        </div>
+                        
+                    <ul class="nav bskp-mega-nav">
+                        
+                        <li class="has-sub sideMain hmachine">
+                            <a href="http://localhost:4201/machine-learning" style="color: #2d2f79;">
+                                <i class="icon-ios-monitor"></i>
+                                <span>AI & Machine Learning</span>
+                            </a>
+                        </li>
+                        <li class="has-sub sideMain alexaMenu">
+                            <a href="http://localhost:4201/alexa" style="color: #2d2f79;">
+                                <i class="icon-microphone"></i>
+                                <span>Amazon Alexa</span>
+                            </a>
+                        </li>
+                        
+                        <li class="has-sub sideMain marketMenu">
+                            <a href="http://localhost:4201/log-console" target="_blank" style="color: #2d2f79;">
+                                <i class="icon-file-o"></i>
+                                <span>Application Logs</span>
+                            </a>
+                        <li class="has-sub sideMain assetHeader">
+                            <a href="javascript:;" style="color: #2d2f79;">
+                                <b class="caret"></b>
+                                <i class="icon-suitcase"></i>
+                                <span>Asset Management</span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li class="sideSub assetMenu"><a href="http://localhost:4201/asset-management" style="color: #2d2f79;">Mange Assets</a></li>
+                            </ul>
+                        </li>
+                        <li class="has-sub sideMain marketMenu">
+                            <a href="http://localhost:4201/marketplace" style="color: #2d2f79;">
+                                <i class="icon-android-playstore"></i>
+                                <span>Boodskap Marketplace</span>
+                            </a>
+                    </li>
+                    <li class="has-sub sideMain Cassandra">
+                        <a  style="color: #2d2f79;">
+                            <i class="icon-code2"></i>
+                            <span>Cassandra Query Console</span>
+                        </a>
+                    </li> 
+                    <li class="has-sub sideMain codeEditor">
+                        <a href="http://localhost:4201/code-editor" style="color: #2d2f79;">
+                            <i class="icon-code2"></i>
+                            <span>Code Editor</span>
+                        </a>
+                    </li>
+                                                
+                    <li class="has-sub sideMain marketMenu">
+                        <a href="http://localhost:4201/dashboard" style="color: #2d2f79;">
+                            <i class="icon-dashboard"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    
+                    <li class="has-sub sideMain dashboardEditor">
+                            <a href="http://localhost:4201/dashboard-editor" style="color: #2d2f79;">
+                                <i class="icon-edit2"></i>
+                                <span>Dashboard Editor Studio</span>
+                            </a>
+                    </li>
+                    <li class="has-sub sideMain deviceHeader">
+                        <a href="javascript:;" style="color: #2d2f79;">
+                            <b class="caret"></b>
+                            <i class="icon-hdd-o"></i>
+                            <span>Device Management</span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li class="sideSub deviceMenu"><a href="http://localhost:4201/device-management" style="color: #2d2f79;">Mange Devices</a></li>
+                            <li class="sideSub deviceModelMenu"><a href="http://localhost:4201/device-models" style="color: #2d2f79;">Manage Device Models</a></li>
+                            <li class="sideSub deviceSimMenu"><a href="http://localhost:4201/sim-provisioning" style="color: #2d2f79;">Sim Provisioning</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-sub sideMain marketMenu">
+                        <a href="http://localhost:4201/query-console" style="color: #2d2f79;">
+                            <i class="icon-search5"></i>
+                            <span>Elastic Search Query</span>
+                        </a>
+                    </li>
+                    <li class="has-sub sideMain marketMenu">
+                        <a href="http://localhost:4201/event-logs" style="color: #2d2f79;">
+                            <i class="icon-file-o"></i>
+                            <span>Event Logs</span>
+                        </a>
+                    </li>
+                    <li class="has-sub sideMain eventMenu">
+                        <a href="http://localhost:4201/events" style="color: #2d2f79;">
+                            <i class="icon-bell3"></i>
+                            <span>Events &amp; Notification</span>
+                        </a>
+                    </li> 
+                    
+                    <li class="has-sub sideMain marketMenu">
+                        <a href="http://localhost:4201/files" style="color: #2d2f79;">
+                            <i class="icon-file-image-o"></i>
+                            <span>File Storage</span>
+                        </a>
+                    </li>     <li class="has-sub sideMain firmwareHeader">
+                        <a href="javascript:;" style="color: #2d2f79;">
+                            <b class="caret"></b>
+                            <i class="icon-file-o"></i>
+                            <span>Firmware Management</span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li class="sideSub firmwareMenu"><a href="http://localhost:4201/firmware-management" style="color:#2d2f79 !important; ">Mange Firmware</a></li>
+                            <!--&lt;!&ndash; <li class="sideSub otadeviceMenu"><a href="http://localhost:4201/ota-device-batches">OTA Device Batches</a></li>-->
+                            <li class="sideSub otalMenu"><a href="http://localhost:4201/firmware/ota-upgrade" style="color: #2d2f79;">OTA Upgrade</a></li>
+                        </ul>
+                    </li>
+            
+                    <li class="has-sub sideMain geofenceMenu">
+                        <a href="http://localhost:4201/geofence" style="color: #2d2f79;">
+                            <i class="icon-map-marker"></i>
+                            <span>Geofence Management</span>
+                        </a>
+                    </li> 
+                    <li class="has-sub sideMain billingMenu">
+                        <a href="http://localhost:4201/invoice" style="color: #2d2f79;">
+                            <i class="icon-coin-dollar"></i>
+                            <span>Invoice</span>
+                        </a>
+                    </li>
+                    <li class="has-sub sideMain msgDefMenu">
+                        <a href="http://localhost:4201/message-definition" style="color: #2d2f79;">
+                            <i class="icon-stack-2"></i>
+                            <span>Message Definition</span>
+                        </a>
+                    </li>
+                    <li class="has-sub sideMain marketMenu">
+                        <a href="http://localhost:4201/messages" style="color: #2d2f79;">
+                            <i class="icon-th-list"></i>
+                            <span>Messages</span>
+                        </a>
+                    </li>
+                    <li class="has-sub sideMain mobMenu">
+                        <a href="http://localhost:4201/mobile-platform" style="color: #2d2f79;">
+                            <i class="icon-mobile"></i>
+                            <span>Mobile Editor Studio</span>
+                        </a>
+                    </li>
+                    <li class="has-sub sideMain eventMenu">
+                        <a href="http://localhost:4201/templates" style="color: #2d2f79;">
+                            <i class="icon-list-alt"></i>
+                            <span>Plaform Templates</span>
+                        </a>
+                    </li>
+                
+                    <li class="has-sub sideMain pluginMenu">
+                        <a href="http://localhost:4201/plugin-management" style="color: #2d2f79;">
+                            <i class="icon-puzzle-piece"></i>
+                            <span>Plugin Management</span>
+                        </a>
+                    </li>
+                    <li class="has-sub sideMain recordDefMenu">
+                        <a href="http://localhost:4201/record-definition" style="color: #2d2f79;">
+                            <i class="icon-th"></i>
+                            <span>Record Definition</span>
+                        </a>
+                    </li>
+                    <li class="has-sub sideMain rulesMenu">
+                        <a href="http://localhost:4201/rules-engine" style="color: #2d2f79;">
+                            <i class="icon-file-code-o"></i>
+                            <span>Rules Engine</span>
+                        </a>
+                    </li>
+                    <li class="has-sub sideMain scriptMenu">
+                        <a href="http://localhost:4201/script-console" style="color: #2d2f79;">
+                            <i class="icon-ios-monitor"></i>
+                            <span>Script Console</span>
+                        </a>
+                    </li>
+                    <li class="has-sub sideMain tokenHeader">
+                        <a href="javascript:void(0);" style="color: #2d2f79;">
+                            <b class="caret"></b>
+                            <i class="icon-key2"></i>
+                            <span>Token Management</span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li class="sideSub tokenMenu"><a href="http://localhost:4201/token-management" style="color: #2d2f79;">Manage Tokens</a></li>
+                            <!--<li class="sideSub userRoleMenu"><a href="http://localhost:4201/user-roles">Manage User Roles</a></li>-->
+                        </ul>
+                    </li>
+                    <li class="has-sub sideMain userHeader">
+                        <a href="javascript:;" style="color: #2d2f79;">
+                            <b class="caret"></b>
+                            <i class="icon-users"></i>
+                            <span>User Management</span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li class="sideSub userMenu"><a href="http://localhost:4201/user-management" style="color: #2d2f79;">Manage Users</a></li>
+                            <!--<li class="sideSub userRoleMenu"><a href="http://localhost:4201/user-roles">Manage User Roles</a></li>-->
+                        </ul>
+                    </li>
+            
+                    <li class="has-sub sideMain widgets">
+                            <a href="http://localhost:4201/widgets" style="color: #2d2f79;">
+                                <i class="icon-book"></i>
+                                <span>Widget Library</span>
+                            </a>
+                    </li>
+                    </ul>
+                    </div>
+                </div>
+                <div class="col-lg-8" style="padding: 8px 28px 0px 28px; height: 485px; overflow: auto;">
+                   
+                   <div class="megdiv">
+                    <p class="bskp-mega-head"><span class="bskp-bb">Recently</span> Visited</p>
+                    
+                    <div class="row mb-2 pt-2" id="recentMegaMenuList" style="border-bottom: 1px solid #e2e2e2;">
+                        
+                    </div>
+                   </div>
+                   <div class="megdiv">
+                    <p class="bskp-mega-head"><span class="bskp-bb">Platform</span></p>
+                    <div class="row  mb-2 pt-2" id="mm-sec2" style="border-bottom: 1px solid #e2e2e2;">
+                        <div class="col-sm-6 col-xs-6 megacard" onclick="loadMenu(1)">
+                            <div class="card modules bskp-home-modules" onclick="clickRecent('Dashboard','dashboard',1,7)" style="padding: 8px 14px;">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg7" > </div>
+                                </div>
+                                <p class="mt-2"><label class="cardtitle" >Dashboard</label></p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xs-6 megacard" onclick="loadMenu(9)">
+                            <div class="card modules bskp-home-modules" onclick="clickRecent('Events & Notification','events_notification',9,14)" style="padding: 8px 14px;">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg14"> </div>
+                                </div>
+                                <p class="mt-2"><label class="cardtitle" >Events & Notification</label></p>
+                            </div>
+                        </div>
+                    </div>
+                   </div>
+                   <div class="megdiv">
+                    <p class="bskp-mega-head"><span class="bskp-bb">Developer</span> &nbsp; Modules</p>
+                    <div class="row mb-2 pt-2" id="mm-sec3" style="border-bottom: 1px solid #e2e2e2;">
+                        <div class="col-sm-6 col-xs-6 megacard" onclick="loadMenu(16)">
+                            <div class="card modules bskp-home-modules" onclick="clickRecent('Dashboard Editor','Dashboard Editor',16,13)" style="padding: 8px 14px;">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg13" > </div>
+                                </div>
+                                <p class="mt-2"><label class="cardtitle" >Dashboard Editor</label></p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xs-6 megacard" onclick="loadMenu(11)">
+                            <div class="card modules bskp-home-modules" onclick="clickRecent('Mobile Editor','mobile_editor',11,19)" style="padding: 8px 14px;">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg19" > </div>
+                                </div>
+                                <p class="mt-2"><label class="cardtitle">Mobile Editor</label></p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xs-6 megacard" onclick="loadMenu(35)">
+                            <div class="card modules bskp-home-modules" onclick="clickRecent('Widget Library','widget_library',35,2)" style="padding: 8px 14px;">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg2" > </div>
+                                </div>
+                                <p class="mt-2"><label class="cardtitle" >Widget Library</label></p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xs-6 megacard" onclick="loadMenu(20)">
+                            <div class="card modules bskp-home-modules" onclick="clickRecent('Boodskap Marketplace','market_place',20,1)" style="padding: 8px 14px;">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg1" > </div>
+                                </div>
+                                <p class="mt-2"><label class="cardtitle" >Boodskap Marketplace</label></p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xs-6 megacard" onclick="loadMenu(3)">
+                            <div class="card modules bskp-home-modules" onclick="clickRecent('Record Definition','record_definition',3,8)" style="padding: 8px 14px;">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg8"> </div>
+                                </div>
+                                <p class="mt-2"><label class="cardtitle" >Record Definition</label></p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xs-6 megacard" onclick="loadMenu(5)">
+                            <div class="card modules bskp-home-modules" onclick="clickRecent('Script Console','script_console',5,20)" style="padding: 8px 14px;">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg20" > </div>
+                                </div>
+                                <p class="mt-2"><label class="cardtitle" >Script Console</label></p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xs-6 megacard" onclick="loadMenu(4)">
+                            <div class="card modules bskp-home-modules" onclick="clickRecent('Rules Engine','rules_engine',4,25)" style="padding: 8px 14px;">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg25" > </div>
+                                </div>
+                                <p class="mt-2"><label class="cardtitle" >Rules Engine</label></p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xs-6 megacard" onclick="loadMenu(23)">
+                            <div class="card modules bskp-home-modules" onclick="clickRecent('Code Editor','code_editor',23,34)" style="padding: 8px 14px;">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg34" > </div>
+                                </div>
+                                <p class="mt-2"><label class="cardtitle" >Code Editor</label></p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xs-6 megacard" onclick="loadMenu(9)">
+                            <div class="card modules bskp-home-modules" onclick="clickRecent('Widget Library','widget_library',35,2)" style="padding: 8px 14px;">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg14" > </div>
+                                </div>
+                                <p class="mt-2"><label class="cardtitle" >Events & Notification</label></p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xs-6 megacard" onclick="loadMenu(8)">
+                            <div class="card modules bskp-home-modules" onclick="clickRecent('Platform Templates','platform_templates')" style="padding: 8px 14px;">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg27" > </div>
+                                </div>
+                                <p class="mt-2"><label class="cardtitle" >Platform Templates</label></p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xs-6 megacard" onclick="loadMenu(6)">
+                            <div class="card modules bskp-home-modules" onclick="clickRecent('AI & Machine Learning','ai_machine',6,31)" style="padding: 8px 14px;">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg31" > </div>
+                                </div>
+                                <p class="mt-2"><label class="cardtitle" >AI & Machine Learning</label></p>
+                            </div>
+                        </div>
+                    </div>
+                   </div>
+                  <div class="megdiv">
+                    <p class="bskp-mega-head"><span class="bskp-bb">Billing</span></p>
+                    <div class="row mb-2 pt-2" style="border-bottom: 1px solid #e2e2e2;">
+                        <div class="col-sm-6 col-xs-6 megacard" onclick="loadMenu()">
+                            <div class="card modules bskp-home-modules" onclick="" >
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg7"> </div>
+                                </div>
+                                <p class="mt-2"><label class="cardtitle" >Invoice</label></p>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="megdiv">
+                      <p class="bskp-mega-head"><span class="bskp-bb">Administration</span></p>
+                    <div class="row mb-2 pt-2" style="border-bottom: 1px solid #e2e2e2;">
+                        <div class="col-sm-6 col-xs-6 megacard" onclick="loadMenu(15)">
+                            <div class="card modules bskp-home-modules" onclick="clickRecent('User Management','user_management',15,30)" style="padding: 8px 14px;">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg30"> </div>
+                                </div>
+                                <p class="mt-2"><label class="cardtitle" >User Management</label></p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xs-6 megacard" onclick="loadMenu(38)">
+                            <div class="card modules bskp-home-modules" onclick="" >
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg7"> </div>
+                                </div>
+                                <p class="mt-2"><label class="cardtitle" style="font-size:12px">Token Management</label></p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xs-6 megacard" onclick="loadMenu(12)">
+                            <div class="card modules bskp-home-modules" onclick="clickRecent('Device Management','device_management',12,11)" style="padding: 8px 14px;">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg11" > </div>
+                                </div>
+                                <p class="mt-2"><label class="cardtitle" >Device Management</label></p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xs-6 megacard" onclick="loadMenu(14)">
+                            <div class="card modules bskp-home-modules" onclick="clickRecent('Asset Management','asset_management',14,17)" style="padding: 8px 14px;">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg17" > </div>
+                                </div>
+                                <p class="mt-2"><label class="cardtitle" >Asset Management</label></p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xs-6 megacard" onclick="loadMenu(13)">
+                            <div class="card modules bskp-home-modules" onclick="clickRecent('Firmware Management','firmware_management',13,23)" style="padding: 8px 14px;">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg23" > </div>
+                                </div>
+                                <p class="mt-2"><label class="cardtitle" >Firmware Management</label></p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xs-6 megacard" onclick="loadMenu(10)">
+                            <div class="card modules bskp-home-modules" onclick="clickRecent('Geofence Management','geofence_management',10,29)" style="padding: 8px 14px;">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg29" > </div>
+                                </div>
+                                <p class="mt-2"><label class="cardtitle" style="font-size:12px">Geofence Management</label></p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xs-6 megacard" onclick="loadMenu(32)">
+                            <div class="card modules bskp-home-modules" onclick="clickRecent('Plugin Management','plugin_management',32,35)" style="padding: 8px 14px;">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg35" > </div>
+                                </div>
+                                <p class="mt-2"><label class="cardtitle" >Plugin Management</label></p>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="megdiv">
+                    <p class="bskp-mega-head"><span class="bskp-bb">Administration</span></p>
+                    <div class="row mb-2 pt-2" style="border-bottom: 1px solid #e2e2e2;">
+                        <div class="col-sm-6 col-xs-6 megacard" onclick="loadMenu(15)">
+                            <div class="card modules bskp-home-modules" onclick="clickRecent('User Management','user_management',15,30)" style="padding: 8px 14px;">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg30"> </div>
+                                </div>
+                                <p class="mt-2"><label class="cardtitle" >User Management</label></p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xs-6 megacard" onclick="loadMenu(38)">
+                            <div class="card modules bskp-home-modules" onclick="" >
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg7"> </div>
+                                </div>
+                                <p class="mt-2"><label class="cardtitle" style="font-size:12px">Token Management</label></p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xs-6 megacard" onclick="loadMenu(12)">
+                            <div class="card modules bskp-home-modules" onclick="clickRecent('Device Management','device_management',12,11)" style="padding: 8px 14px;">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg11" > </div>
+                                </div>
+                                <p class="mt-2"><label class="cardtitle" >Device Management</label></p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xs-6 megacard" onclick="loadMenu(14)">
+                            <div class="card modules bskp-home-modules" onclick="clickRecent('Asset Management','asset_management',14,17)" style="padding: 8px 14px;">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg17" > </div>
+                                </div>
+                                <p class="mt-2"><label class="cardtitle" >Asset Management</label></p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xs-6 megacard" onclick="loadMenu(13)">
+                            <div class="card modules bskp-home-modules" onclick="clickRecent('Firmware Management','firmware_management',13,23)" style="padding: 8px 14px;">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg23" > </div>
+                                </div>
+                                <p class="mt-2"><label class="cardtitle" >Firmware Management</label></p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xs-6 megacard" onclick="loadMenu(10)">
+                            <div class="card modules bskp-home-modules" onclick="clickRecent('Geofence Management','geofence_management',10,29)" style="padding: 8px 14px;">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg29" > </div>
+                                </div>
+                                <p class="mt-2"><label class="cardtitle" style="font-size:12px">Geofence Management</label></p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xs-6 megacard" onclick="loadMenu(32)">
+                            <div class="card modules bskp-home-modules" onclick="clickRecent('Plugin Management','plugin_management',32,35)" style="padding: 8px 14px;">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg35" > </div>
+                                </div>
+                                <p class="mt-2"><label class="cardtitle" >Plugin Management</label></p>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="megdiv">
+                    <p class="bskp-mega-head"><span class="bskp-bb">Plugins</span></p>
+                    <div class="row mega-row mb-2 pt-2" style="border-bottom: 1px solid #e2e2e2;">
+                        <div class="col-sm-6 col-xs-6 megacard" onclick="loadMenu(24)">
+                            <div class="card modules bskp-home-modules" onclick="clickRecent('Amazon Alexa','amazon_alexa',24,32)" style="padding: 8px 14px;">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg32" > </div>
+                                </div>
+                                <p class="mt-2"><label class="cardtitle" >Amazon Alexa</label></p>
+                            </div>
+                        </div>
+                       
+                    </div>
+                  </div>
+                  <div class="megdiv">
+                    <p class="bskp-mega-head"><span class="bskp-bb">Utilities</span></p>
+                    <div class="row mb-2 pt-2" style="border-bottom: 1px solid #e2e2e2;">
+                        <div class="col-sm-6 col-xs-6 megacard" onclick="loadMenu(18)">
+                            <div class="card modules bskp-home-modules" onclick="clickRecent('Raw Messages','raw_messages',18,21)" style="padding: 8px 14px;">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg21" > </div>
+                                </div>
+                                <p class="mt-2"><label class="cardtitle" >Raw Messages</label></p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xs-6 megacard" onclick="loadMenu(25)">
+                            <div class="card modules bskp-home-modules" onclick="clickRecent('Search Query Console','search_query_console',25,26)" style="padding: 8px 14px;">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg26" > </div>
+                                </div>
+                                <p class="mt-2"><label class="cardtitle" >Query Console</label></p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xs-6 megacard" onclick="loadMenu(22)">
+                            <div class="card modules bskp-home-modules" onclick="clickRecent('File Storage','file_storage',22,12)" style="padding: 8px 14px;">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg12" style="height: 28px; width: 28px;"> </div>
+                                </div>
+                                <p class="mt-2"><label class="cardtitle" style="font-size:12px">File Storage</label></p>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                   
+                   
+                   
+                </div>
+           </div>
+
+
+                </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 <script>
+   function openmegamenu() {
+        $("#megaMenu").modal({
+        backdrop: 'static',
+        keyboard: false
+        });
+       }
+
+       var megasearch = {
+	init: function(search_home, searchable_elements, searchable_text_class) {
+		$(search_home).keyup(function(e){
+			var query = $(this).val().toLowerCase().trim();
+            console.log(query);
+            console.log(searchable_elements);
+          	if(query){
+                $('.sclose').removeClass('d-none')
+                // loop through all elements to find match
+				$.each($(searchable_elements), function(){
+                  var title = $(this).find(searchable_text_class).text().toLowerCase();
+            //  console.log($(this).parent().parent());
+              console.log(title);
+                  if(title.indexOf(query) == -1){
+                    console.log("tif"+ title.indexOf(query));
+						$(this).hide();
+                        // $(this).parent().parent().hide();
+					} else { 
+                        console.log("telse"+ title.indexOf(query));
+						$(this).show();
+                        // $(this).parent().parent().show();
+					}  
+				});
+         
+                // if(! $('#mm-sec'+m+' .megacard').is(':visible')){
+                //     $('#mm-sec'+m+' .megacard').parent().parent().hide()
+                // }else{
+                //     $('#mm-sec'+m+' .megacard').parent().parent().show()
+                // }
+                
+                 
+			} else {
+                console.log("elselog");
+                $(this).show();
+                $('.sclose').addClass('d-none')
+                $(this).parent().parent().show();
+				// empty query so show everything
+				$(searchable_elements).show(); 
+                $('.megdiv').show();
+                
+			}
+		});
+	}
+}
+// INIT
+$(function(){
+  // USAGE: btsearch.init(('search field element', 'searchable children elements', 'searchable text class');
+  megasearch.init('#search_megahome', '.megacard', '.cardtitle');
+});
+function Mrefresh() {
+    console.log("clean");
+    $('.sclose').addClass('d-none')
+    $('#search_megahome').val('')
+    $('.megacard').show();
+    $('.megdiv').show();
+    
+}
+
   function pagemode(value){
     if(value ==='night'){
         console.log('g');

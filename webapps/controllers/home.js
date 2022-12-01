@@ -4,16 +4,13 @@ var MENU_LINKS = [BASE_PATH+'/home', BASE_PATH+'/dashboard', BASE_PATH+'/message
     BASE_PATH+"/device-management", BASE_PATH+"/firmware-management", BASE_PATH+"/asset-management", BASE_PATH+"/user-management", BASE_PATH+"/dashboard-editor", BASE_PATH+"/event-logs",
     BASE_PATH+"/messages", BASE_PATH+"/log-console", BASE_PATH+"/marketplace", BASE_PATH+"/domain-audit", BASE_PATH+"/files", BASE_PATH+"/code-editor", BASE_PATH+"/alexa", BASE_PATH+"/query-console", BASE_PATH+"/sql-query-console",
     BASE_PATH+"/sql-templates",BASE_PATH+"/sql-table",BASE_PATH+"/db-table",BASE_PATH+"/db-query-console",BASE_PATH+"/db-templates",BASE_PATH+"/plugin-management",BASE_PATH+"/manage-billing",BASE_PATH+"/site-noop",BASE_PATH+"/widgets",
-    BASE_PATH+"/mongodb",BASE_PATH+"/mongo-console"]
+    BASE_PATH+"/mongodb",BASE_PATH+"/mongo-console",BASE_PATH+"/token-management"]
 
 
 $(document).ready(function () {
    
     $("body").removeClass('bg-white');
-    // $("#megaMenu").modal({
-    //     backdrop: 'static',
-    //     keyboard: false
-    // });
+
     // $(".homeMenuList").append($("#logConsole").html());
     if (ADMIN_ACCESS) {
 
@@ -46,6 +43,8 @@ $(document).ready(function () {
         playSound();
     }
     recentUpdate()
+
+   
 });
 
 
@@ -1120,22 +1119,85 @@ function clickRecent(tabname,tabid,loadmenu,cardno) {
     });
 
 }
+function togmore(x) {
+    $(".more-Hrecent").toggle();
+    $(".dropR").toggleClass('bskp-angleR');
+    console.log(x);
+    if (x === "More...") {
+        $(".recentmore-title").text('Less...')
+        $(".Megamore-title").text('Less...')
+      } else {
+        $(".recentmore-title").text('More...')
+        $(".Megamore-title").text('More...')
+      }
+}
 
 function recentcard(rdata) {
     if(rdata){
       
-     for (let i = 0; i < rdata.length; i++) {
-        $('#recentMenuList').append(` <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 homecard" onclick="loadMenu(`+rdata[i].loadmenu+`)">
-        <div class="card modules bskp-home-modules"onclick="clickRecent('`+rdata[i].name+`','`+rdata[i].id+`')">
-            <div class="bskp-icon-frame">
-                <div class="bskp-Dbg bskp-Dimg`+rdata[i].cardno+`"> </div>
+     for (let i = 0; i < 10; i++) {
+       
+          if(i >= 0 && i <= 5){
+            $('#recentMenuList').append(` <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 homecard" onclick="loadMenu(`+rdata[i].loadmenu+`)">
+            <div class="card modules bskp-home-modules"onclick="clickRecent('`+rdata[i].name+`','`+rdata[i].id+`')">
+                <div class="bskp-icon-frame">
+                    <div class="bskp-Dbg bskp-Dimg`+rdata[i].cardno+`"> </div>
+                </div>
+                <p class="mt-2"><label class="cardtitle">`+rdata[i].name+`</label></p>
             </div>
-            <p class="mt-2"><label class="cardtitle">`+rdata[i].name+`</label></p>
+        </div>`)
+          }
+         
+        else if(i > 5){
+            $('#recentMenuList').append(` <div class="col-lg-3 more-Hrecent col-md-4 col-sm-6 col-xs-6 homecard" onclick="loadMenu(`+rdata[i].loadmenu+`)">
+            <div class="card modules bskp-home-modules"onclick="clickRecent('`+rdata[i].name+`','`+rdata[i].id+`')">
+                <div class="bskp-icon-frame">
+                    <div class="bskp-Dbg bskp-Dimg`+rdata[i].cardno+`"> </div>
+                </div>
+                <p class="mt-2"><label class="cardtitle">`+rdata[i].name+`</label></p>
+            </div>
+        </div>`)
+          }
+     } 
+     $('#recentMenuList').append(`  <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 homecard"  style="display: flex; align-items: center;" onclick='togmore($(".recentmore-title").text())'>
+     <div class="card modules bskp-home-modules"onclick="" style="padding: 8px; width: 100px; height: 37px;">
+         <div class="bskp-icon-frame" style=" height: 24px;padding:3px; text-align: center; width: 24px;">
+         <i class="fa fa-angle-down dropR " aria-hidden="true" style="font-size: 18px;"></i> 
+         </div>
+         <p class="mt-2"><label class="cardtitle recentmore-title ml-2" style="font-size:14px">More...</label></p>
+     </div>
+ </div>`)
+     for (let i = 0; i < 5; i++) { 
+        if(i >= 0 && i <= 2){
+     $('#recentMegaMenuList').append(` <div class="col-sm-6 col-xs-6 megacard" onclick="loadMenu(`+rdata[i].loadmenu+`)">
+     <div class="card modules bskp-home-modules"onclick="clickRecent('`+rdata[i].name+`','`+rdata[i].id+`')" style="padding: 8px 14px;">
+         <div class="bskp-icon-frame">
+             <div class="bskp-Dbg bskp-Dimg`+rdata[i].cardno+`" style="height: 28px; width: 28px;"> </div>
+         </div>
+         <p class="mt-2"><label class="cardtitle" style="font-size:12px">`+rdata[i].name+`</label></p>
+     </div>
+ </div>`)
+     }
+     if(i > 2){
+        $('#recentMegaMenuList').append(` <div class="col-sm-6 col-xs-6 more-Hrecent megacard" onclick="loadMenu(`+rdata[i].loadmenu+`)">
+        <div class="card modules bskp-home-modules"onclick="clickRecent('`+rdata[i].name+`','`+rdata[i].id+`')" style="padding: 8px 14px;">
+            <div class="bskp-icon-frame">
+                <div class="bskp-Dbg bskp-Dimg`+rdata[i].cardno+`" style="height: 28px; width: 28px;"> </div>
+            </div>
+            <p class="mt-2"><label class="cardtitle" style="font-size:12px">`+rdata[i].name+`</label></p>
         </div>
     </div>`)
-     }  
-     
+        }
     }
+    $('#recentMegaMenuList').append(` <div class="col-sm-6 col-xs-6  megacard" onclick="togmore($('.Megamore-title').text())">
+    <div class="card modules bskp-home-modules"onclick="" style="padding: 6px 9px;width: 100px; height: 40px;">
+    <div class="bskp-icon-frame" style=" height: 24px;padding:3px; text-align: center; width: 24px;">
+    <i class="fa fa-angle-down dropR " aria-hidden="true" style="font-size: 18px;"></i> 
+    </div>
+        <p class="mt-2"><label class="cardtitle Megamore-title" style="font-size:12px">More...</label></p>
+    </div>
+</div>`)
+}
 }
 
 // SEARCH FUNCTION
@@ -1167,12 +1229,13 @@ var btsearch = {
 $(function(){
   // USAGE: btsearch.init(('search field element', 'searchable children elements', 'searchable text class');
   btsearch.init('#search_home', '.homecard', '.cardtitle');
+ 
 });
 function refresh() {
     $('.sclose').addClass('d-none')
     $('#search_home').val('')
     $('.homecard').show();
-  
-
 }
+
+
 
