@@ -114,9 +114,6 @@ function loadMsgSpec() {
 
 function loadMessages(id) {
 
-
-
-
     if(!id){
         id = $(".msgList").val();
     }
@@ -245,10 +242,37 @@ function loadMessages(id) {
         paging: true,
         searching: true,
         "ordering": true,
+        dom: '<"bskp-search-left" f> lrtip',
+        language: {
+            "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
+            "searchPlaceholder": "Search here...",
+            loadingRecords: '',
+            paginate: {
+                previous: '< Prev',
+                next: 'Next >'
+            }
+        },
         aaSorting:  [[indexLength+2, 'desc']],
         iDisplayLength: 10,
         lengthMenu: [[10, 50, 100,250,500,1000], [10, 50, 100,250,500,1000]],
         aoColumns: fields,
+        "initComplete": function (settings, json) {
+            $('#' + settings.nTable.id + '_filter input').wrap(`
+          <div class="d-inline-flex"></div>
+      `).after(`
+          <button type="button" class="close d-none position-absolute" aria-label="Close" style="right: 42px; bottom:7px;font-size: 20px;">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          
+      `).attr('required', 'required').attr('title', 'Search');
+
+            // Click Event on Clear button
+            $(document).on('click', '#' + settings.nTable.id + '_filter button', function () {
+                $('#' + settings.nTable.id).DataTable({
+                    "retrieve": true,
+                }).search('').draw(); // reDraw table
+            });
+        },
         "bProcessing": true,
         "bServerSide": true,
         "sAjaxSource": API_BASE_PATH + '/elastic/search/query/' + API_TOKEN,
@@ -848,4 +872,24 @@ function loadProcessedMsgChart(obj,myChart) {
 
     myChart.setOption(chartOption);
 
+}
+
+function toggleViewRaw() {
+    chartView = chartView ? false : true;
+    $('#tablePanel').toggle();
+     $('#chartPanel').toggle();
+     if(chartView){
+        $('.tograwTable').attr('disabled', 'disabled')
+        buildChartData()
+        loadProcessedMsgData();
+    }else{
+
+    }
+}
+function tableViewRaw(id) {
+    if(id === 1){
+        $("#messageTable").addClass('compactTable')
+    }else{
+        $("#messageTable").removeClass('compactTable')
+    }
 }

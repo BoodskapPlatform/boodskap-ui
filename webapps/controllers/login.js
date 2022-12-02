@@ -11,9 +11,11 @@ $(document).ready(function () {
 
             if (USER_ROLE.indexOf('user') !== -1) {
                 document.location = BASE_PATH+'/dashboard';
-            } else if (roles.indexOf('domainadmin') !== -1) {
-                document.location = BASE_PATH+'/statistics-dashboard';
-            } else {
+            } 
+            // else if (roles.indexOf('domainadmin') !== -1) {
+            //     document.location = BASE_PATH+'/statistics-dashboard';
+            // } 
+            else {
                 document.location = BASE_PATH+'/home';
             }
         }else{
@@ -102,9 +104,11 @@ function login(){
 
                 if (roles.indexOf('user') !== -1) {
                     document.location = BASE_PATH+'/dashboard';
-                } else if (roles.indexOf('domainadmin') !== -1) {
-                    document.location = BASE_PATH+'/statistics-dashboard';
-                } else {
+                }
+                //  else if (roles.indexOf('domainadmin') !== -1) {
+                //     document.location = BASE_PATH+'/statistics-dashboard';
+                // }
+                 else {
                     document.location = BASE_PATH+'/home';
                 }
             }

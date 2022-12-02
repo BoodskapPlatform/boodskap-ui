@@ -773,7 +773,7 @@ margin-bottom: 10px  !important;
 /* - Submenu end -*/
 
 .bskp-raw-mesg label {
-    font-size: 16px;
+    font-size: 14px;
 }
 
 .bskp-raw-mesg select,
@@ -953,7 +953,101 @@ margin-bottom: 10px  !important;
 .bskp-w-100{
     width:100% !important;
 }
-.bskp-mega-nav-recent {
-    
-}
+
   /* Mega-menu end */
+
+
+  /* View Toggle Raw-Message  */
+  /* container for all of the switch elements 
+    - adjust "width" to fit the content accordingly 
+*/
+.raw-message .switches-container {
+    border: 1px solid rgb(213, 213, 213);
+    position: relative;
+    display: flex;
+    padding: 0;
+    position: relative;
+    background: white;
+    line-height: 30px;
+    border-radius: 8px;
+}
+
+/* input (radio) for toggling. hidden - use labels for clicking on */
+.raw-message .switches-container input {
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+}
+
+/* labels for the input (radio) boxes - something to click on */
+.raw-message .switches-container label {
+    width: 50%;
+    padding: 0;
+    margin: 0;
+    font-size: 12px;
+    text-align: center;
+    cursor: pointer;
+    color: rgb(63, 63, 63);
+}
+
+/* switch highlighters wrapper (sliding left / right) 
+    - need wrapper to enable the even margins around the highlight box
+*/
+.raw-message .switch-wrapper {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 50%;
+    z-index: 3;
+    transition: transform .5s cubic-bezier(.77, 0, .175, 1);
+    /* transition: transform 1s; */
+}
+
+/* switch box highlighter */
+.raw-message .switch {
+    border-radius: 6px;
+    background: #2D2F79;
+    height: 100%;
+    font-weight: 500;
+}
+
+/* switch box labels
+    - default setup
+    - toggle afterwards based on radio:checked status 
+*/
+.raw-message .switch div {
+    width: 100%;
+    text-align: center;
+    opacity: 0;
+    display: block;
+    font-weight: 600;   
+    color: white ;
+    transition: opacity .2s cubic-bezier(.77, 0, .175, 1) .125s;
+    will-change: opacity;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* slide the switch box from right to left */
+.raw-message .switches-container input:nth-of-type(1):checked~.switch-wrapper {
+    transform: translateX(0%);
+}
+
+/* slide the switch box from left to right */
+.raw-message .switches-container input:nth-of-type(2):checked~.switch-wrapper {
+    transform: translateX(100%);
+}
+
+/* toggle the switch box labels - first checkbox:checked - show first switch div */
+.raw-message .switches-container input:nth-of-type(1):checked~.switch-wrapper .switch div:nth-of-type(1) {
+    opacity: 1;
+}
+
+/* toggle the switch box labels - second checkbox:checked - show second switch div */
+.raw-message .switches-container input:nth-of-type(2):checked~.switch-wrapper .switch div:nth-of-type(2) {
+    opacity: 1;
+}
+.raw-message .switches-container {
+    max-width: 280px;
+}
