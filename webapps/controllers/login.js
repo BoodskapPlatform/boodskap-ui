@@ -229,7 +229,7 @@ function register(){
         firstName: firstname,
         lastName: lastname
     };
-
+    console.log(data)
 
     registerCall(data,function (status, data) {
         closeLoading();
@@ -266,7 +266,7 @@ function resetPasswordModal(){
 
 function forgetPassword() {
     var emailId = $.trim($("#emailId").val());
-
+    console.log(data)
     if(emailId == ""){
         errorMsgBorder('Email ID cannot be empty','emailId');
         return false;
