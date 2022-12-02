@@ -13,6 +13,8 @@
     border-color: #4670be78!important;
     color: #000000!important;
 }
+
+ 
 </style>
 
 <div class="container-fluid montFont bskp-mt-30">
@@ -45,63 +47,84 @@
         <div class="panel-body bskp-raw-mesg"  style="background-color: #eeeeee00;">
 
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-lg-3 col-md-6">
                     <div class="form-group">
                         <label class="inputLabel">Message Id</label>
                         <select class="form-control input-sm msgList" onchange="loadMessages(this.value)"></select>
                     </div>
 
                 </div>
-                <div class="col-md-3">
+                <div class="col-lg-3 col-md-6">
                     <div class="form-group">
                         <label class="inputLabel">Date Range</label>
                         <div id="reportrange"
                              style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc;">
                             <i class="fa fa-calendar"></i>&nbsp;
-                            <span></span> <label style="display: inline-block;float:right"><i
-                                class="fa fa-caret-down"></i></label>
+                            <span></span> <label style="display: inline-block;float:right">
+                            <i class="fa fa-caret-down"></i></label>
                         </div>
 
                     </div>
 
                 </div>
-                <div class="col-md-2">
-                    <div class="form-group">
+                <div class="col-md-3">
+                    <div class="form-group raw-message" >
 
                         <label class="inputLabel">Statistics</label> <br>
-                        <a class="btn btn-default" onclick="toggleTable()"><i class="icon-line-chart"></i> Chart
-                            View</a>
+                        <div class="switches-container">
+                            <input type="radio" id="switchTable" name="switchView" value="Table" checked="checked">
+                            <input type="radio" id="switchChart" name="switchView" value="Chart">
+                            <label for="switchTable" class="tograwTable" onclick="toggleViewRaw('Table')"><i class="fa fa-table" aria-hidden="true"></i> Table View</label>
+                            <label for="switchChart" onclick="toggleViewRaw('Chart')"><i class="fa fa-bar-chart" aria-hidden="true"></i> Chart View</label>
+                            <div class="switch-wrapper">
+                              <div class="switch">
+                                <div><i class="fa fa-table" aria-hidden="true"></i> Table View</div>
+                                <div><i class="fa fa-bar-chart" aria-hidden="true"></i> Chart View</div>
+                              </div>
+                            </div>
+                          </div>
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <div class="form-group">
-
-                        <label class="inputLabel">Grid View</label> <br>
-                        <div class="btn-group btn-group-justified">
-                            <a class="btn btn-default" onclick="switchTable(1)"><i class="icon-th"></i> Compact</a>
-                            <a class="btn btn-default" onclick="switchTable(2)"><i class="icon-th-large"></i> Full</a>
-                            <button class="btn bskp-refresh-bg" onclick="loadMessages()"> <i class="fa fa-refresh" aria-hidden="true"></i></button>  
-                  
+                    <div class="form-group raw-message" >
+                      <label class="inputLabel">Grid View</label> <br>
+                        <div class="switches-container">
+                            <input type="radio" id="switchCompact" name="switchgrid" value="Compact">
+                            <input type="radio" id="switchFull" name="switchgrid" value="Full" checked="checked">
+                            <label for="switchCompact" onclick="tableViewraw(1)"><i class="icon-th"></i> Compact</label>
+                            <label for="switchFull" onclick="tableViewraw(2)"><i class="icon-th-large"></i> Full</label>
+                            <div class="switch-wrapper">
+                              <div class="switch">
+                                <div><i class="icon-th"></i> Compact</div>
+                                <div><i class="icon-th-large" aria-hidden="true"></i> Full</div>
+                              </div>
+                            </div>
                         </div>
                     </div>
-
                 </div>
-                
+               
+                <!-- <div class="col-md-1">
+                    <a class="btn bskp-refresh-bg" data-click="panel-reload" onclick="loadRecordDef()"><i class="fa fa-refresh"></i></a>
+                </div> -->
             </div>
 
 
             <div class="row">
-                <div class="col-md-12 tableDiv">
-                    <table class="table table-bordered table-hover responsive no-wrap" id="messageTable" cellspacing="0"
+                <div class="col-md-12" id="tablePanel">
+                    <div class="btn-group btn-group-justified pull-right bskp-btn-group-align" >
+                        <a class="btn bskp-refresh-bg" data-click="panel-reload" onclick="loadMessages()"><i class="fa fa-refresh"></i></a>
+                    </div>
+                    <div class="bskp-table-layout">
+                    <table class="table table-bordered bskp-table table-hover responsive no-wrap" id="messageTable" cellspacing="0"
                            width="100%">
-
                     </table>
+                    </div>
                 </div>
-                <div class="col-md-12 chartDiv" style="display: none">
+                <div class="col-md-12"id="chartPanel" style="display: none">
 
                     <div class="row">
                         <div class="col-md-3">
-                            <div class="form-group">
+                            <div class="form-group" >
                                 <label class="inputLabel"><i class="icon-filter"></i> Filter By</label>
                                 <select class="form-control input-sm" id="filterBy" onchange="buildChartData()">
                                     <option value="YEAR">By Year</option>
