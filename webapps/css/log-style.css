@@ -1,0 +1,129 @@
+body{
+    font-family: "adobe-clean", sans-serif;
+    font-size: 12px;
+}
+.content-background{
+    background-image: url("../images/background.png");
+    background-size: cover;
+}
+.sub-image{
+    position: relative;
+    width: 100px;
+    left: 250px;
+    top: 80px;
+}
+.sub-image1{
+    /* background-image: url("../images/3D_Sphere_2.png"); */
+    position: absolute;
+    width: 100px;
+    top: 550px;
+    left: 8px;
+}
+.sub-image2{
+    width: 1000px;
+    position: absolute;
+    top: 200px;
+    left: 300px;
+}
+.box{
+    position: absolute;
+    background: rgba(82, 110, 180, .5);
+    color: #fff;
+    width: 230px;
+    top: 295px;
+    left: 50px;
+    padding: 19px;
+    border: 1px solid #fff;
+    border-radius: 14px;
+}
+/* .box1{
+    background: rgba(82, 110, 180, .5);
+    color: #ffffff;
+    opacity: .5;
+} */
+.anchor-text{
+    text-decoration: none;
+    color: #000;
+}
+.log-head{
+    color: #18184e;
+    font-weight: 200px;
+    font-size: 27px;
+}
+.caption-text{
+    font-size: 12px;
+    line-height: 1;
+}
+.wrap-input{
+    width: 100%;
+    position: relative;
+    border-bottom: 2px solid #adadad;
+    margin-bottom: 37px;
+}
+input{
+    outline: none;
+    border: none;
+}
+.input-text{
+    font-size: 15px;
+    color: #555;
+    line-height: 1.2;
+    display: block;
+    width: 100%;
+    /* height: 45px; */
+    background: 0 0;
+    padding: 0 5px;
+}
+.loginput{
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 20px;
+    left: 0;
+    pointer-events: none;
+    
+}
+.icon-position{
+    position: absolute;
+    top: -23px;
+    right: 0px;
+}
+.text-color{
+    color: #2c2c78;;
+}
+/* button:hover{
+    color: #fff;
+} */
+.hover-text{
+    color: #fff;
+}
+.btn-background{
+    background-color: #2c2c78;
+}
+.btn-background:hover{
+    background-color: #7171b9;
+    color: #fff;
+}
+.btn-size{
+    color: #fff;
+    border-radius: 15px;
+}
+.btn-outline{
+    border: 2px solid #2c2c78;
+    background-color: white;
+    border-radius: 15px;
+    color: #2c2c78;
+    cursor: pointer;
+}
+.btn-outline:hover{
+    background-color: #2c2c78;
+}
+.btn-outline > a:hover{
+    color: #fff;
+}
+/* @media (max-width:500px){
+    .sub-image2{
+        width: 500px;
+    }
+} */

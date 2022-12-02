@@ -958,27 +958,27 @@ function register(){
         firstName: firstname,
         lastName: lastname
     };
+    console.log(data)
 
+    // registerCall(data,function (status, data) {
+    //     closeLoading();
+    //     $("#submitButton").removeAttr('disabled');
+    //     if(status){
+    //         if(data.message === 'USER_EXISTS') {
+    //             errorMsg('Email ID already exists!')
+    //         }else{
+    //             successMsg('Domain Created Successfully!')
+    //             $('#createDomain').modal('hide');
+    //         }
+    //     }else{
+    //         if(data.message === 'USER_EXISTS'){
+    //             errorMsg('Email ID already exists!')
+    //         }else{
+    //             errorMsg('Something went wrong!')
+    //         }
 
-    registerCall(data,function (status, data) {
-        closeLoading();
-        $("#submitButton").removeAttr('disabled');
-        if(status){
-            if(data.message === 'USER_EXISTS') {
-                errorMsg('Email ID already exists!')
-            }else{
-                successMsg('Domain Created Successfully!')
-                $('#createDomain').modal('hide');
-            }
-        }else{
-            if(data.message === 'USER_EXISTS'){
-                errorMsg('Email ID already exists!')
-            }else{
-                errorMsg('Something went wrong!')
-            }
-
-        }
-    })
+    //     }
+    // })
 }
 
 function deleteDomain(dkey) {
