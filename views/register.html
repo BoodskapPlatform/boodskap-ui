@@ -59,6 +59,13 @@
     <link href="css/fontawesome-all.min.css" rel="stylesheet"  />
     <link href="css/log-style.css" rel="stylesheet"/>
     <script src="libraries/pace.min.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap'); 
+        body{
+           font-family: Montserrat;
+        }
+   </style>
 </head>
 <body class="pace-top bg-white">
 <div id="page-loader" class="fade show"><span class="spinner"></span></div>
@@ -76,9 +83,9 @@
                 <!-- <button type="button" class="btn text-white mt-4 rounded-3 fw-lighter" style="background-color: #6098d9;">Schedule a demo<i class="ps-3 fa fa-arrow-right"></i></button> -->
             </div>
             <div class="">
-                <img src="../webapps/images/3D_Sphere_2.png" class="sub-image">
-                <img src="../webapps/images/Screen.png" class="sub-image2">
-                <img src="../webapps/images/3D_Sphere_2.png" class="sub-image1">
+                <img src="images/3D_Sphere_2.png" class="sub-image">
+                <img src="images/Screen.png" class="sub-image2">
+                <img src="images/3D_Sphere_2.png" class="sub-image1">
                 <div class="box ">
                     <h1 class="text-uppercase">connect build & publish</h1>
                     <p>With our low code,No code IoT Platform</p>
@@ -92,8 +99,8 @@
         </div>
         <div class="right-content" style="position:relative;box-shadow: 0px 5px 30px  #8686bd;">
 
-            <div class="container pt-4">
-                <div class="d-flex align-items-center px-4">
+            <div class="container">
+                <div class="d-flex align-items-center px-4 py-4">
                     <div class="brand">
                         <a href="<%= basepath %>/login"><img class="loginLogo" style="width: 120px"/></a>
                     </div>
@@ -106,54 +113,54 @@
                     </div>
                 </div>
                 <!-- <div class="login-content register-content" id="regBoxes"> -->
-                <div class=" px-4 py-5">
+                <div class=" px-4">
                     <div>
                         <span class="log-head">Register to Boodskap</span>
                         <div class="caption-text py-2">Fill in the required details below</div>
                     </div>
-                    <form action="javascript:void(0)" id="registerForm" class="mb-0 pt-5"  onsubmit="register()">
+                    <form action="javascript:void(0)" id="registerForm" class="mb-0 pt-4"  onsubmit="register()">
                         
                         <div class="wrap-input pb-2">
                             <input type="text" class="input-text nameField" id="firstname" placeholder="First name" required/>
                             <span class="loginput text-end" data-placeholder="">
-                                <img class="icon-position" src="../webapps/images/person.png" style="width: 20px;">
+                                <img class="icon-position" src="images/person.png" style="width: 20px;">
                             </span>
                         </div>
                         <div class="wrap-input pb-2">
                             <input type="text" class="input-text nameField" id="lastname" placeholder="Last name" required/>
                             <span class="loginput text-end" data-placeholder="">
-                                <img class="icon-position" src="../webapps/images/person.png" style="width: 20px;">
+                                <img class="icon-position" src="images/person.png" style="width: 20px;">
                             </span>
                         </div>
                         <div class="wrap-input pb-2">
                             <input type="email" class="input-text" id="email" placeholder="Email address" required/>
                             <span class="loginput text-end" data-placeholder="">
-                                <img class="icon-position" src="../webapps/images/email.png" style="width: 20px;">
+                                <img class="icon-position" src="images/email.png" style="width: 20px;">
                             </span>
                         </div>
                         
-                        <div class="form-group text-center text-dark pt-2" style="width:100%;">
+                        <div class="form-group text-center text-dark " style="width:100%;">
 
                             <small class=" ">By clicking Register, you agree to our Terms & Conditions and Privacy Policy.
                             </small>
                         </div>
-                        <div class="login-buttons pt-4">
+                        <div class="login-buttons pt-2">
                             <button type="submit" class="btn btn-background btn-size fw-bold fs-6 d-grid  col-8 mx-auto" id="submitButton">Register
                             </button>
                             
                         </div>
-                        <div class="mt-3 pt-4 text-center ">
+                        <div class="mt-3 pt-2 text-center " style="font-size: 16px;">
                             Already have an Boodskap account?<a href="<%= basepath %>/login" class="text-decoration-none text-color"><span class="text-decoration fw-bold fs-6 ps-2">Login.</span> </a>
                         </div>
-                        <div class="pt-5">
-                            <p class="mt-3 pt-5 text-center">
+                        <div>
+                            <p class="mt-3 pt-3 text-center">
                                 <small><a href="https://boodskap.io/terms-conditions" target="_blank"
                                         class=" text-color">Terms & Conditions</a> |
                                     <a href="https://boodskap.io/privacy-policy" target="_blank" class="text-color">Privacy
                                         Policy</a>
                                 </small>
                             </p>
-                            <p class="text-center text-grey-darker fs-6 mb-0">
+                            <p class="text-center text-grey-darker mb-0">
                                 &copy; <span class="currentYear"></span> All rights reserved.
                                 <!-- <a href="https://boodskap.io" target="_blank" class="text-warning textColor poweredBy"></a> -->
                             </p>
@@ -166,7 +173,7 @@
                     </form>
                 </div>
 
-                <div class="login-content register-content" id="regFeedback" style="display: none;">
+                <!-- <div class="login-content register-content" id="regFeedback" style="display: none;">
                     <form action="javascript:void(0)" class="margin-bottom-0" style="margin-top: 20px;">
                         <div style="text-align: center;margin: 0 auto;">
                             <img src="images/check.png" style="height: 60px;">
@@ -184,7 +191,7 @@
                         <p class="text-center" style="font-size: 11px;color:#ccc">Dashboard Version: <b><span class="webVersion"></span></b>
                             <span style="color:#ccc">|</span> Platform Version: <b><span class="apiVersion"></span></b></p>
                     </form>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
