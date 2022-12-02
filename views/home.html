@@ -7,8 +7,9 @@
 <style>
    
 .card {
-    margin-bottom: 20px !important;
+    margin-bottom: 20px;
 }
+
 .blur {
     -webkit-filter: blur(6px);
     -moz-filter: blur(6px);
@@ -28,7 +29,7 @@
     <!-- begin page-header -->
     <div class="d-flex bskp-dash-head" >
         <h1 class="page-header fw-900" style="margin:0 0 3px">Welcome to Boodskap IoT Platform!
-            <small class="hidden-xs" style=" font-size: 55%;color: #868686de;font-weight: 600;">Let's start building your IoT Solutions on the fly. </small>
+            <small class="hidden-xs" style=" font-size: 55%;color: #868686de;font-weight: 600;"> <u onclick="openGetStartedModal()" style="color:#565656;cursor: pointer;">Let's start</u> building your IoT Solutions on the fly. </small>
     
         </h1>
     </div>
@@ -47,7 +48,7 @@
                               <form class="bskp-dash-search position-relative">
                                 <label><i class="fa fa-search" aria-hidden="true"></i> &nbsp;  
                                     <div class="d-inline-flex ">
-                                      <input type="search" class="form-control input-sm" onkeyup="" id="search_home" placeholder="Search here..." aria-controls="messageTable" required="required" title="Search">
+                                      <input type="search" class="form-control input-sm searchcard" onkeyup=""  autocomplete="off" maxlength="50" id="search_home" placeholder="Search here..." aria-controls="messageTable" required="required" title="Search">
                                       <span class="sclose d-none position-absolute" onclick="refresh()" aria-label="Close" style="right: 14px;cursor: pointer;">
                                         <img src="images/close.svg" height="15" alt=""> </span>
                                    </div>
@@ -405,10 +406,9 @@
 
                                 <h4 class="panel-title"><img src="images/globe.svg" class="pl-1" height="16" alt=""> <span> Domain Details</span>
                                      <a href="javascript:;" onclick="startTour()" class="pull-right btn btn-sm btn-icon btn-circle bskp-icon-bg bskp-bord-icon" style="color: #3b3ea0 !important" title="Help"><i class="icon-help"></i></a>
-                                     <a href="<%= basepath %>/domain" onclick="openGetStartedModal()" class="pull-right btn btn-sm btn-icon btn-circle bskp-icon-bg bskp-bord-icon mr-1"  style="color: #3b3ea0 !important" title="Domain Settings"><i class="fa fa-cog"></i></a>
+                                     <a href="<%= basepath %>/domain"  class="pull-right btn btn-sm btn-icon btn-circle bskp-icon-bg bskp-bord-icon mr-1"  style="color: #3b3ea0 !important" title="Domain Settings"><i class="fa fa-cog"></i></a>
                                     <a href="javascript:void(0)" onclick="openLinkModal()"
                                        class="pull-right mr-1 btn btn-sm btn-icon btn-circle bskp-icon-bg bskp-bord-icon" style="color: #3b3ea0 !important" title="Link Domain"><i class="fa fa-link"></i></a>
-                                       <a href="javascript:;" onclick="openGetStartedModal()" class="pull-right btn btn-sm btn-icon btn-circle bskp-icon-bg bskp-bord-icon" style="color: #3b3ea0 !important" title="getmodal"><i class="fa fa-plus bskp-fs-12"></i></a>
                                 </h4>
                             </div>
                             <div class="panel-body" style="background-color: white; border-radius: 0px 0px 10px 10px;">
@@ -436,8 +436,8 @@
                                 </ul>
 
                                 <ul class="nav">
-                                    <li class="col-lg-6 col-md-6 col-sm-6"><label class="mb-0">Token </label></li>
-                                    <li class="col-lg-6 col-md-6 col-sm-6"><span class="api_token_show">*********</span> <span
+                                    <li ><label class="mb-0 pr-2">Token </label></li>
+                                    <li><span class="api_token_show">*********</span> <span
                                             class="api_token hide"></span>
                                         <a href="javascript:void(0)" onclick="toggleKeys(1,'tokenToggle')" class="tokenToggle">
                                             <i class="fa fa-eye mx-1" style="color: #3b3ea0;vertical-align: text-top;"></i> </a>
@@ -448,8 +448,8 @@
                                     </li>
                                 </ul>
                                 <ul class="nav">
-                                    <li class="col-lg-6 col-md-6 col-sm-6"><label  class="mb-0">Domain Key </label></li>
-                                    <li class="col-lg-6 col-md-6 col-sm-6"><span class="domain_key_show">*********</span> <span
+                                    <li><label  class="mb-0">Domain Key </label></li>
+                                    <li><span class="domain_key_show">*********</span> <span
                                             class="domain_key hide"></span>
                                         <a href="javascript:void(0)" onclick="toggleKeys(1,'domainToggle')" class="domainToggle">
                                             <i class="fa fa-eye mx-1" style="color: #3b3ea0; vertical-align: text-top;"></i></a>
@@ -589,6 +589,7 @@
 <script src="js/jquery.steps.js"></script>
 <script src="controllers/home.js"></script>
 <script src="controllers/getstarted.js"></script>
+<script src="js/common.js" type="text/javascript"></script>
 <!-- <script src="controllers/getstarted-modal.js"></script> -->
 
 <!-- <div id="getStartedModal" class="modal" tabindex="-1" role="dialog">
@@ -1200,365 +1201,7 @@
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-<div id="megaMenu" class="modal bskp-modal fade" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document" style=" max-width: 55%;margin: 0rem 3rem;">
-        <div class="modal-content">
-            <div class="modal-header" style=" padding: 18px 12px 8px 12px !important;border-radius: 5px !important; ">
-                <div class="modal-title">   <form class="bskp-dash-search position-relative">
-                    <label><i class="fa fa-search bskp-fs-12" aria-hidden="true"></i> &nbsp;  
-                        <div class="d-inline-flex ">
-                          <input type="search" class="form-control bskp-mm-search input-sm" onkeyup="" id="search_home" placeholder="Search here..." aria-controls="messageTable" required="required" title="Search">
-                          <span class="sclose d-none position-absolute" onclick="refresh()" aria-label="Close" style="right: 14px;cursor: pointer;">
-                            <img src="images/close.svg" height="15" alt=""> </span>
-                        </div>
-                      </label>
-                  </form>
-                </div>
-                <div><a href="javascript:;" class="btn bskp-btnsize btn-icon btn-circle bskp-bord-icon bskp-icon-bg" style="color: #3b3ea0 !important"  data-click="panel-expand"><i class="fa fa-expand bskp-mm-fullwin"></i></a>
-                    <a href="javascript:;" onclick="startTour()"  class="btn bskp-btnsize btn-icon btn-circle bskp-icon-bg bskp-bord-icon" style="color: #3b3ea0 !important" title="Help"><i class="icon-help"></i></a>
-                    <a href="javascript:;" data-dismiss="modal" aria-label="Close" style="border: 1px solid #ffc5c5 !important;background: #ffe5e5 !important;" class="btn bskp-btnsize btn-icon btn-circle bskp-icon-bg" > 
-                        <img src="images/redclose.svg" height="16" alt="" style="vertical-align: baseline;  margin-top: 5px;"></span> </a>
-                </div>
-            </div>
-            <form action="javascript:void(0)" id="registerForm" class="margin-bottom-0"  onsubmit="register()">
 
-                <div class="modal-body" style="max-height: 700px;overflow: auto;overflow-x: hidden">
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div id="mySidenav" class="sidenav bskp-sidenav barwidth" style="background-color:white">
-                                <div class="sidebar" style="width: 250px;">
-                                    <ul class="nav" style="margin-bottom: 50px">
-                                        <div id="mySidenav" class="sidenav bskp-sidenav barwidth" style="background-color:white">
-                                            <div class="sidebar" style="width: 250px;">
-                                            <ul class="nav" style="margin-bottom: 50px">
-                                                <li class="has-sub active sideMain homeMenu">
-                                                    <a href="http://localhost:4201/home" style="color: rgb(238, 238, 238);">
-                                                        <i class="fa fa-home" style="color: rgb(247, 152, 2);"></i>
-                                                        <span>Home</span>
-                                                    </a>
-                                                </li>
-                                        
-                                                <li class="nav-header" style="color: rgb(247, 152, 2);">Platform</li>
-                                                <li class="has-sub sideMain marketMenu">
-                                                <a href="http://localhost:4201/dashboard" style="color: rgb(238, 238, 238);">
-                                                    <i class="icon-dashboard"></i>
-                                                    <span>Dashboard</span>
-                                                </a>
-                                                </li>
-                                                <li class="has-sub sideMain marketMenu">
-                                                <a href="http://localhost:4201/userevents" style="color: rgb(238, 238, 238);">
-                                                    <i class="icon-bell4"></i>
-                                                    <span>Event Subscriptions</span>
-                                                </a>
-                                                </li>
-                                        
-                                        
-                                        
-                                        
-                                                <li class="nav-header" style="color: rgb(247, 152, 2);">Developer Modules</li>
-                                        
-                                                <li class="has-sub sideMain dashboardEditor">
-                                                    <a href="http://localhost:4201/dashboard-editor" style="color: rgb(238, 238, 238);">
-                                                        <i class="icon-edit2"></i>
-                                                        <span>Dashboard Editor Studio</span>
-                                                    </a>
-                                                </li>
-                                                <li class="has-sub sideMain mobMenu">
-                                                    <a href="http://localhost:4201/mobile-platform" style="color: rgb(238, 238, 238);">
-                                                        <i class="icon-mobile"></i>
-                                                        <span>Mobile Editor Studio</span>
-                                                    </a>
-                                                </li>
-                                        
-                                                <li class="has-sub sideMain widgets">
-                                                    <a href="http://localhost:4201/widgets" style="color: rgb(238, 238, 238);">
-                                                        <i class="icon-book"></i>
-                                                        <span>Widget Library</span>
-                                                    </a>
-                                                </li>
-                                        
-                                                <li class="has-sub sideMain marketMenu">
-                                                    <a href="http://localhost:4201/marketplace" style="color: rgb(238, 238, 238);">
-                                                        <i class="icon-android-playstore"></i>
-                                                        <span>Boodskap Marketplace</span>
-                                                    </a>
-                                                </li>
-                                        
-                                        
-                                                <li class="has-sub sideMain msgDefMenu">
-                                                    <a href="http://localhost:4201/message-definition" style="color: rgb(238, 238, 238);">
-                                                        <i class="icon-stack-2"></i>
-                                                        <span>Message Definition</span>
-                                                    </a>
-                                                </li>
-                                                <li class="has-sub sideMain recordDefMenu">
-                                                    <a href="http://localhost:4201/record-definition" style="color: rgb(238, 238, 238);">
-                                                        <i class="icon-th"></i>
-                                                        <span>Record Definition</span>
-                                                    </a>
-                                                </li>
-                                                
-                                                
-                                                <li class="has-sub sideMain scriptMenu">
-                                                    <a href="http://localhost:4201/script-console" style="color: rgb(238, 238, 238);">
-                                                        <i class="icon-ios-monitor"></i>
-                                                        <span>Script Console</span>
-                                                    </a>
-                                                </li>
-                                                <li class="has-sub sideMain rulesMenu">
-                                                    <a href="http://localhost:4201/rules-engine" style="color: rgb(238, 238, 238);">
-                                                        <i class="icon-file-code-o"></i>
-                                                        <span>Rules Engine</span>
-                                                    </a>
-                                                </li>
-                                                <li class="has-sub sideMain codeEditor">
-                                                    <a href="http://localhost:4201/code-editor" style="color: rgb(238, 238, 238);">
-                                                        <i class="icon-code2"></i>
-                                                        <span>Code Editor</span>
-                                                    </a>
-                                                </li>
-                                                <li class="has-sub sideMain eventMenu">
-                                                    <a href="http://localhost:4201/events" style="color: rgb(238, 238, 238);">
-                                                        <i class="icon-bell3"></i>
-                                                        <span>Events &amp; Notification</span>
-                                                    </a>
-                                                </li>
-                                                <li class="has-sub sideMain eventMenu">
-                                                    <a href="http://localhost:4201/templates" style="color: rgb(238, 238, 238);">
-                                                        <i class="icon-list-alt"></i>
-                                                        <span>Plaform Templates</span>
-                                                    </a>
-                                                </li>
-                                        
-                                                
-                                        
-                                                
-                                        
-                                        
-                                        
-                                                <li class="has-sub sideMain mlHeader">
-                                                    <a href="javascript:;" style="color: rgb(238, 238, 238);">
-                                                        <b class="caret"></b>
-                                                        <i class="icon-android-bulb"></i>
-                                                        <span>AI &amp; Machine Learning</span>
-                                                    </a>
-                                                    <ul class="sub-menu">
-                                                        <li class="sideSub dataLearnMenu"><a href="http://localhost:4201/machine-learning" style="color: rgb(238, 238, 238);">Data Learning</a></li>
-                                                        <li class="sideSub faceRegMenu"><a href="http://localhost:4201/face-recognition" style="color: rgb(238, 238, 238);">Face Recognition</a></li>
-                                                       <!-- <li class="sideSub opencvMenu"><a href="http://localhost:4201/opencv-recognition">OpenCV Object Recognition</a></li>
-                                                        <li class="sideSub tensorflowMenu"><a href="http://localhost:4201/tensorflow-recognition">TensorFlow Object Recognition</a></li>
-                                                        <li class="sideSub msgImgMenu"><a href="http://localhost:4201/message-image-recognition">Message Image Recognition</a></li>-->
-                                                    </ul>
-                                                </li>
-                                        
-                                        
-                                                <li class="nav-header" style="color: rgb(247, 152, 2);">Billing</li>
-                                        
-                                        
-                                                
-                                                <li class="has-sub sideMain billingMenu">
-                                                    <a href="http://localhost:4201/invoice" style="color: rgb(238, 238, 238);">
-                                                        <i class="icon-coin-dollar"></i>
-                                                        <span>Invoice</span>
-                                                    </a>
-                                                </li>
-                                        
-                                                <li class="nav-header" style="color: rgb(247, 152, 2);">Administration</li>
-                                        
-                                                <li class="has-sub sideMain userHeader">
-                                                    <a href="javascript:;" style="color: rgb(238, 238, 238);">
-                                                        <b class="caret"></b>
-                                                        <i class="icon-users"></i>
-                                                        <span>User Management</span>
-                                                    </a>
-                                                    <ul class="sub-menu">
-                                                        <li class="sideSub userMenu"><a href="http://localhost:4201/user-management" style="color: rgb(238, 238, 238);">Manage Users</a></li>
-                                                        <!--<li class="sideSub userRoleMenu"><a href="http://localhost:4201/user-roles">Manage User Roles</a></li>-->
-                                                    </ul>
-                                                </li>
-                                        
-                                                <li class="has-sub sideMain tokenHeader">
-                                                    <a href="javascript:void(0);" style="color: rgb(238, 238, 238);">
-                                                        <b class="caret"></b>
-                                                        <i class="icon-key2"></i>
-                                                        <span>Token Management</span>
-                                                    </a>
-                                                    <ul class="sub-menu">
-                                                        <li class="sideSub tokenMenu"><a href="http://localhost:4201/token-management" style="color: rgb(238, 238, 238);">Manage Tokens</a></li>
-                                                        <!--<li class="sideSub userRoleMenu"><a href="http://localhost:4201/user-roles">Manage User Roles</a></li>-->
-                                                    </ul>
-                                                </li>
-                                        
-                                                <li class="has-sub sideMain deviceHeader">
-                                                    <a href="javascript:;" style="color: rgb(238, 238, 238);">
-                                                        <b class="caret"></b>
-                                                        <i class="icon-hdd-o"></i>
-                                                        <span>Device Management</span>
-                                                    </a>
-                                                    <ul class="sub-menu">
-                                                        <li class="sideSub deviceMenu"><a href="http://localhost:4201/device-management" style="color: rgb(238, 238, 238);">Mange Devices</a></li>
-                                                        <li class="sideSub deviceModelMenu"><a href="http://localhost:4201/device-models" style="color: rgb(238, 238, 238);">Manage Device Models</a></li>
-                                                        <li class="sideSub deviceSimMenu"><a href="http://localhost:4201/sim-provisioning" style="color: rgb(238, 238, 238);">Sim Provisioning</a></li>
-                                        
-                                                        <!-- Delete Later -->
-                                                       <!-- <li class="sideSub deviceSimMenu"><a href="http://localhost:4201/module-profile">Module Profile</a></li>
-                                                        <li class="sideSub deviceSimMenu"><a href="http://localhost:4201/module-attributes">Module Attributes</a></li>
-                                                        <li class="sideSub deviceSimMenu"><a href="http://localhost:4201/device-profile">Device Profile</a></li>
-                                                        <li class="sideSub deviceSimMenu"><a href="http://localhost:4201/sensor-profile-attributes">Sensor Profile & Attributes</a></li>
-                                                        <li class="sideSub deviceSimMenu"><a href="http://localhost:4201/message-services-profile">Message Services Profile</a></li>
-                                                        <li class="sideSub deviceSimMenu"><a href="http://localhost:4201/carrier-profile">Carrier Profile</a></li>-->
-                                        
-                                        
-                                                    </ul>
-                                                </li>
-                                                <li class="has-sub sideMain assetHeader">
-                                                    <a href="javascript:;" style="color: rgb(238, 238, 238);">
-                                                        <b class="caret"></b>
-                                                        <i class="icon-suitcase"></i>
-                                                        <span>Asset Management</span>
-                                                    </a>
-                                                    <ul class="sub-menu">
-                                                        <li class="sideSub assetMenu"><a href="http://localhost:4201/asset-management" style="color: rgb(238, 238, 238);">Mange Assets</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="has-sub sideMain firmwareHeader">
-                                                    <a href="javascript:;" style="color: rgb(238, 238, 238);">
-                                                        <b class="caret"></b>
-                                                        <i class="icon-file-o"></i>
-                                                        <span>Firmware Management</span>
-                                                    </a>
-                                                    <ul class="sub-menu">
-                                                        <li class="sideSub firmwareMenu"><a href="http://localhost:4201/firmware-management" style="color: rgb(238, 238, 238);">Mange Firmware</a></li>
-                                                       <!--&lt;!&ndash; <li class="sideSub otadeviceMenu"><a href="http://localhost:4201/ota-device-batches">OTA Device Batches</a></li>-->
-                                                        <li class="sideSub otalMenu"><a href="http://localhost:4201/firmware/ota-upgrade" style="color: rgb(238, 238, 238);">OTA Upgrade</a></li>
-                                                    </ul>
-                                                </li>
-                                        
-                                                <li class="has-sub sideMain geofenceMenu">
-                                                    <a href="http://localhost:4201/geofence" style="color: rgb(238, 238, 238);">
-                                                        <i class="icon-map-marker"></i>
-                                                        <span>Geofence Management</span>
-                                                    </a>
-                                                </li>
-                                                <li class="has-sub sideMain pluginMenu">
-                                                    <a href="http://localhost:4201/plugin-management" style="color: rgb(238, 238, 238);">
-                                                        <i class="icon-puzzle-piece"></i>
-                                                        <span>Plugin Management</span>
-                                                    </a>
-                                                </li>
-                                        
-                                        
-                                                <li class="nav-header" style="color: rgb(247, 152, 2);">Plugins</li>
-                                        
-                                                <li class="has-sub sideMain alexaMenu">
-                                                    <a href="http://localhost:4201/alexa" style="color: rgb(238, 238, 238);">
-                                                        <i class="icon-microphone"></i>
-                                                        <span>Amazon Alexa</span>
-                                                    </a>
-                                                </li>
-                                        
-                                        
-                                                <li class="nav-header" style="color: rgb(247, 152, 2);">Utilities</li>
-                                        
-                                        
-                                                <li class="has-sub sideMain marketMenu">
-                                                    <a href="http://localhost:4201/files" style="color: rgb(238, 238, 238);">
-                                                        <i class="icon-file-image-o"></i>
-                                                        <span>File Storage</span>
-                                                    </a>
-                                                </li>
-                                                <li class="has-sub sideMain marketMenu">
-                                                    <a href="http://localhost:4201/query-console" style="color: rgb(238, 238, 238);">
-                                                        <i class="icon-search5"></i>
-                                                        <span>Elastic Search Query</span>
-                                                    </a>
-                                                </li>
-                                                
-                                                
-                                                <li class="has-sub sideMain marketMenu">
-                                                    <a href="http://localhost:4201/messages" style="color: rgb(238, 238, 238);">
-                                                        <i class="icon-th-list"></i>
-                                                        <span>Messages</span>
-                                                    </a>
-                                                </li>
-                                                <li class="has-sub sideMain marketMenu">
-                                                    <a href="http://localhost:4201/event-logs" style="color: rgb(238, 238, 238);">
-                                                        <i class="icon-file-o"></i>
-                                                        <span>Event Logs</span>
-                                                    </a>
-                                                </li>
-                                                <li class="has-sub sideMain marketMenu">
-                                                    <a href="http://localhost:4201/log-console" target="_blank" style="color: rgb(238, 238, 238);">
-                                                        <i class="icon-file-o"></i>
-                                                        <span>Application Logs</span>
-                                                    </a>
-                                                </li>
-                                               <!-- <li class="has-sub sideMain marketMenu">
-                                                    <a href="http://localhost:4201/api-doc">
-                                                        <i class="icon-file-text-o"></i>
-                                                        <span>API Docs</span>
-                                                    </a>
-                                                </li>-->
-                                        
-                                               <!-- <li class="has-sub sideMain marketMenu">
-                                                    <a href="javascript:;">
-                                                        <b class="caret"></b>
-                                                        <i class="icon-android-playstore"></i>
-                                                        <span>Boodskap Marketplace</span>
-                                                    </a>
-                                                    <ul class="sub-menu">
-                                                        <li class="sideSub deviceMenu"><a href="http://localhost:4201/marketplace">Dashboard</a></li>
-                                                        <li class="sideSub deviceMenu"><a href="http://localhost:4201/widgets">Widgets</a></li>
-                                                        <li class="sideSub deviceModelMenu"><a href="http://localhost:4201/marketplace/verticals">Verticals</a></li>
-                                                    </ul>
-                                                </li>-->
-                                        
-                                               <!-- <li class="has-sub sideMain widgetsMenu">
-                                                    <a href="http://localhost:4201/widgets">
-                                                        <i class="icon-film2"></i>
-                                                        <span>Widgets</span>
-                                                    </a>
-                                                </li>
-                                                <li class="has-sub sideMain applicationMenu">
-                                                    <a href="http://localhost:4201/marketplace/applications">
-                                                        <i class="icon-cube2"></i>
-                                                        <span>Applications</span>
-                                                    </a>
-                                                </li>-->
-                                        
-                                            </ul>
-                                            </div>
-                                        </div>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-8">
-                            <div class="form-group m-b-15">
-                                <label>Domain Name <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control form-control-lg" id="firstname" placeholder="" required />
-                            </div>
-                            <div class="form-group m-b-15">
-                                <label>Email ID <span class="text-danger">*</span></label>
-                                <input type="email" class="form-control form-control-lg" id="email" placeholder="" required />
-                            </div>
-                            <div class="form-group m-b-15">
-                                <label>Password <span class="text-danger">*</span></label>
-                                <input type="password" class="form-control form-control-lg" id="password" placeholder="" required />
-                            </div>
-                            <div class="form-group m-b-15">
-                                <label>Confirm Password <span class="text-danger">*</span></label>
-                                <input type="password" class="form-control form-control-lg" id="confirmpassword" placeholder="" required />
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
-            </form>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
 
 <!-- <div class="modal fade bd-example-modal-lg" id="getstartedmodal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">

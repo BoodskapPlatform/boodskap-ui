@@ -545,6 +545,7 @@ function saveAndDownload(text, name, type, id) {
     var file = new Blob([text], {type: type});
     a.href = URL.createObjectURL(file);
     a.download = name;
+    console.log(name);
 }
 
 function isJSON(str) {

@@ -542,7 +542,7 @@ function loadLogs() {
 
     if(type === 'RULES'){
         type = 'RULE_FAILURE';
-        $(".eventType").html('FAILURE RULES');
+        $(".eventType").html('Rule_Failure');
     }
 
 
@@ -555,6 +555,16 @@ function loadLogs() {
         "ordering": true,
         iDisplayLength: 10,
         lengthMenu: [[10, 50, 100], [10, 50, 100]],
+                       dom: '<"bskp-search-left" f> lrtip',
+            language: {
+                "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
+             "searchPlaceholder": "Search here...",
+                loadingRecords: '',
+                paginate: {
+                    previous: 'Previous',
+                    next: 'Next'
+                }
+            },
         "bProcessing": true,
         "bServerSide": true,
         "sAjaxSource": API_BASE_PATH + '/elastic/search/query/' + API_TOKEN,

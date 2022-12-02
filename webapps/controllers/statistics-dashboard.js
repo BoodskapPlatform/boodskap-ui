@@ -576,8 +576,8 @@ function loadMessages(id) {
         aaSorting:  [[indexLength+2, 'desc']],
         iDisplayLength: 10,
         language: {
-            "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> &nbsp; <button class="search-btn"> <i class="fa fa-search" aria-hidden="true"></i></button>    ',
-            "searchPlaceholder": "Search ehere...",
+            "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> &nbsp;',
+            "searchPlaceholder": "Search here...",
             "emptyTable": "No data found!",
             "processing": '<div class="p-2"><i class="fa fa-spinner fa-spin"></i> Processing</div>',
             loadingRecords: '',

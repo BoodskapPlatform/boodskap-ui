@@ -31,7 +31,6 @@
                                                         onchange="liveUpdate(this)"/> Live Update</label>
                     </a>
                     <a href="javascript:;" class="btn btn-sm btn-icon btn-circle  bskp-icon-bg" data-click="panel-expand"><i class="fa fa-expand"></i></a>
-                        
                 </div>
             </ol>
             
@@ -66,7 +65,7 @@
                     </div>
 
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-2">
                     <div class="form-group">
 
                         <label class="inputLabel">Statistics</label> <br>
@@ -74,17 +73,20 @@
                             View</a>
                     </div>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <div class="form-group">
 
                         <label class="inputLabel">Grid View</label> <br>
                         <div class="btn-group btn-group-justified">
                             <a class="btn btn-default" onclick="switchTable(1)"><i class="icon-th"></i> Compact</a>
                             <a class="btn btn-default" onclick="switchTable(2)"><i class="icon-th-large"></i> Full</a>
+                            <button class="btn bskp-refresh-bg" onclick="loadMessages()"> <i class="fa fa-refresh" aria-hidden="true"></i></button>  
+                  
                         </div>
                     </div>
 
                 </div>
+                
             </div>
 
 

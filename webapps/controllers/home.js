@@ -4,16 +4,13 @@ var MENU_LINKS = [BASE_PATH+'/home', BASE_PATH+'/dashboard', BASE_PATH+'/message
     BASE_PATH+"/device-management", BASE_PATH+"/firmware-management", BASE_PATH+"/asset-management", BASE_PATH+"/user-management", BASE_PATH+"/dashboard-editor", BASE_PATH+"/event-logs",
     BASE_PATH+"/messages", BASE_PATH+"/log-console", BASE_PATH+"/marketplace", BASE_PATH+"/domain-audit", BASE_PATH+"/files", BASE_PATH+"/code-editor", BASE_PATH+"/alexa", BASE_PATH+"/query-console", BASE_PATH+"/sql-query-console",
     BASE_PATH+"/sql-templates",BASE_PATH+"/sql-table",BASE_PATH+"/db-table",BASE_PATH+"/db-query-console",BASE_PATH+"/db-templates",BASE_PATH+"/plugin-management",BASE_PATH+"/manage-billing",BASE_PATH+"/site-noop",BASE_PATH+"/widgets",
-    BASE_PATH+"/mongodb",BASE_PATH+"/mongo-console"]
+    BASE_PATH+"/mongodb",BASE_PATH+"/mongo-console",BASE_PATH+"/token-management"]
 
 
 $(document).ready(function () {
    
     $("body").removeClass('bg-white');
-    // $("#megaMenu").modal({
-    //     backdrop: 'static',
-    //     keyboard: false
-    // });
+
     // $(".homeMenuList").append($("#logConsole").html());
     if (ADMIN_ACCESS) {
 
@@ -45,7 +42,8 @@ $(document).ready(function () {
         Cookies.set('greetings', 'true');
         playSound();
     }
-    recentUpdate()
+   
+   
 });
 
 
@@ -1022,157 +1020,10 @@ function deleteDomain(dkey) {
 }
 var rdata=[]
 
-function recentUpdate() {
- 
-    $.ajax({
-        url: API_BASE_PATH+'/domain/property/get/'+API_TOKEN+'/'+USER_OBJ.user.email,
-        contentType: "application/json",
-        type: 'get',
-        success: function (res) {
-            rdata=JSON.parse(res.value)
- 
-            if(res){
-                if(rdata[0].id){
-                    $('.recenthead').html(`<span onclick="recentUpdate()" style="padding-bottom: 4px; border-bottom: 3px solid #2d2f79bf;">Recently</span>&nbsp;Visited `)
-                   
-                }            
-                
-                else{
-                    $('.recenthead').html(`<span onclick="recentUpdate()" style="padding-bottom: 4px; border-bottom: 3px solid #2d2f79bf;">Features</span> `)
-                   
-                }
-               
-                //  rdata.pop()
-               rdata.sort(function(x, y){
-               return  y.update_ts - x.update_ts ;
-                })
-               
-                recentcard(rdata)
-          
-        }
-    },
-        error: function (err) {
-            console.log('Error in execution')
-            var obj={
-                "name":USER_OBJ.user.email,
-                "value":'',               
-            }
-            $.ajax({
-                url: API_BASE_PATH+'/domain/property/upsert/'+API_TOKEN,
-                data: JSON.stringify(obj),
-                contentType: "application/json",
-                type: 'post',
-                success: function (res) {
-                    if(res){
-                    $('.recenthead').html(`<span onclick="recentUpdate()" style="padding-bottom: 4px; border-bottom: 3px solid #2d2f79bf;">Featured</span> `)
-                    }
-                },
-                error: function (err) {
-                    console.log('Error in execution')
-                }
-            });
-        }
-    });
-}
 
-function clickRecent(tabname,tabid,loadmenu,cardno) {
-  
-    let newclick = true;
-     for(i=0; i< rdata.length;i++){
-        if(tabid === (rdata[i].id)){
-            rdata[i].update_ts = Date.now()
-            newclick = false
-        }
-     }
-    
-    if(newclick){
-    var inp={'name':tabname,
-        'id':tabid,
-        'loadmenu':loadmenu,
-        'cardno':cardno,
-        "update_ts":Date.now()
-    }
-   rdata.push(inp)
-//   rdata.pop()
-    }
 
-//   rdata.pop()
 
-    var obj= {
-        "dataType": "VARCHAR",
-        "format": "AS_IS",
-        "name":  USER_OBJ.user.email,
-        "value": JSON.stringify(rdata)
-        }
-   
-    $.ajax({
-        url: API_BASE_PATH+'/domain/property/upsert/'+API_TOKEN,
-        data: JSON.stringify(obj),
-        contentType: "application/json",
-        type: 'post',
-        success: function (res) {
-            if(res){
-            }
-        },
-        error: function (err) {
-            console.log('Error in execution')
-        }
-    });
 
-}
 
-function recentcard(rdata) {
-    if(rdata){
-      
-     for (let i = 0; i < rdata.length; i++) {
-        $('#recentMenuList').append(` <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 homecard" onclick="loadMenu(`+rdata[i].loadmenu+`)">
-        <div class="card modules bskp-home-modules"onclick="clickRecent('`+rdata[i].name+`','`+rdata[i].id+`')">
-            <div class="bskp-icon-frame">
-                <div class="bskp-Dbg bskp-Dimg`+rdata[i].cardno+`"> </div>
-            </div>
-            <p class="mt-2"><label class="cardtitle">`+rdata[i].name+`</label></p>
-        </div>
-    </div>`)
-     }  
-     
-    }
-}
 
-// SEARCH FUNCTION
-var btsearch = {
-	init: function(search_home, searchable_elements, searchable_text_class) {
-		$(search_home).keyup(function(e){
-			var query = $(this).val().toLowerCase();
-         	if(query){
-                $('.sclose').removeClass('d-none')
-                // loop through all elements to find match
-				$.each($(searchable_elements), function(){
-                  var title = $(this).find(searchable_text_class).text().toLowerCase();
-                  if(title.indexOf(query) == -1){
-						$(this).hide();
-					} else {
-						$(this).show();
-					}
-				});
-			} else {
-                $('.sclose').addClass('d-none')
-				// empty query so show everything
-				$(searchable_elements).show();
-			}
-		});
-	}
-}
-
-// INIT
-$(function(){
-  // USAGE: btsearch.init(('search field element', 'searchable children elements', 'searchable text class');
-  btsearch.init('#search_home', '.homecard', '.cardtitle');
-});
-function refresh() {
-    $('.sclose').addClass('d-none')
-    $('#search_home').val('')
-    $('.homecard').show();
-  
-
-}
 

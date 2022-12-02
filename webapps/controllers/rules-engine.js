@@ -6753,8 +6753,6 @@ function exportRule(type) {
         delete obj._id;
 
         data = obj;
-
-
     }
 
     var dObj = {

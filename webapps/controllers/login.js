@@ -11,6 +11,8 @@ $(document).ready(function () {
 
             if (USER_ROLE.indexOf('user') !== -1) {
                 document.location = BASE_PATH+'/dashboard';
+            } else if (roles.indexOf('domainadmin') !== -1) {
+                document.location = BASE_PATH+'/statistics-dashboard';
             } else {
                 document.location = BASE_PATH+'/home';
             }
@@ -86,7 +88,7 @@ function login(){
             userObj = data;
 
             var roles = data.user.roles;
-
+            console.log();
             if(roles.indexOf('user') === -1 && roles.indexOf('developer') === -1 && roles.indexOf('domainadmin') === -1 && roles.indexOf('admin') === -1) {
                 data.user.roles = ['user'];
                 roles = ['user'];
@@ -100,6 +102,8 @@ function login(){
 
                 if (roles.indexOf('user') !== -1) {
                     document.location = BASE_PATH+'/dashboard';
+                } else if (roles.indexOf('domainadmin') !== -1) {
+                    document.location = BASE_PATH+'/statistics-dashboard';
                 } else {
                     document.location = BASE_PATH+'/home';
                 }
