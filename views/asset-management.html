@@ -70,13 +70,13 @@
                         <div  class="col-md-6">
                             <div  class="form-group">
                                 <label  class="inputLabel">Asset Id</label>
-                                <input  class="form-control input-sm" placeholder="Enter Asset ld" autocomplete="off" type="text" id="asset_id" required>
+                                <input  class="form-control input-sm" placeholder="Enter Asset ld" autocomplete="off"  maxlength="50" type="text" id="asset_id" required>
                             </div>
                         </div>
                         <div  class="col-md-6">
                             <div  class="form-group">
                                 <label  class="inputLabel">Asset Name</label>
-                                <input  class="form-control input-sm" placeholder="Enter Asset Name" autocomplete="off" type="text" id="asset_name" required>
+                                <input  class="form-control input-sm" placeholder="Enter Asset Name" autocomplete="off"  maxlength="50" type="text" id="asset_name" required>
                             </div>
                         </div>
                     </div>
@@ -134,7 +134,7 @@
                             <div class="dropdown">
                                 <div class="btn btn-sm dropdown-toggle" style="width: 100%;border: 1px solid #3e373738;" type="" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                     <input type="text" style="" class="input-sm inputDevice"
-                                           placeholder="Search by device id, name, model, version" id="deviceID" onkeyup="loadDeviceList(this.value)">
+                                           placeholder="Search by device id, name, model, version"  maxlength="50" id="deviceID" onkeyup="loadDeviceList(this.value)">
                                 </div>
                                 <ul class="dropdown-menu deviceListUl" aria-labelledby="dropdownMenu1">
                                     <!--<li class="deviceListLi" onclick="setDeviceId()">

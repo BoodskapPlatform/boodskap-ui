@@ -1,5 +1,4 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap'); */
-
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 /* ------- Header -------*/
 .bskp-frame-shadow {
     /* padding: 4px 5px; */
@@ -315,13 +314,15 @@ color: #1a1a1a !important;
     font-weight: 600;
     color: #3e3e3e;
     padding: 12px 30px;
+    border-bottom: 1px solid #e5e5e5;
     box-shadow: 0px 2px 15px 0px #e6eaf8e3;
 }
 
 .bskp-container-frame {
     background: white;
     border-radius: 10px;
-    box-shadow: 0px 0px 8px 2px #eaeaed !important;
+    border: 1px solid rgba(204, 204, 204, 0.742);
+    box-shadow: 0px 1px 8px 2px #d8d8d89c !important;
     margin: 0px 25px;
 }
 
@@ -624,7 +625,7 @@ select {
     background: #f2f9ffc2  !important;
     height: 30px !important;
 }
-.more-Hrecent{
+.more-Hrecent,.more-Mrecent{
    display: none; 
 }
 /* - Modal end -*/
@@ -671,7 +672,7 @@ font-size: 12px !important;
     border-radius: 10px;
     overflow: auto;
    overflow-x: hidden;
-   max-height: 220px;
+   max-height: 410px;
 }
 .searchcard{
     font-size: 12px !important;
