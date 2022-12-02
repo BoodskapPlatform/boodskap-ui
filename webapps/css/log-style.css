@@ -1,5 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap'); 
 body{
-    font-family: "adobe-clean", sans-serif;
+    font-family: "Montserrat", sans-serif;
     font-size: 12px;
 }
 .content-background{
@@ -48,10 +49,10 @@ body{
 .log-head{
     color: #18184e;
     font-weight: 200px;
-    font-size: 27px;
+    font-size: 32px;
 }
 .caption-text{
-    font-size: 12px;
+    font-size: 16px;
     line-height: 1;
 }
 .wrap-input{
@@ -64,8 +65,12 @@ input{
     outline: none;
     border: none;
 }
+.text-size{
+    font-size: 16px;
+    font-weight: 600;
+}
 .input-text{
-    font-size: 15px;
+    font-size: 16px;
     color: #555;
     line-height: 1.2;
     display: block;
@@ -88,6 +93,9 @@ input{
     position: absolute;
     top: -23px;
     right: 0px;
+}
+a{
+
 }
 .text-color{
     color: #2c2c78;;
