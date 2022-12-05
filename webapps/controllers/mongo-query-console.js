@@ -54,7 +54,7 @@ function loadqueryEditor() {
     queryEditor.focus();
 
 
-    $('#queryEditor').height(($(window).height() - 250) + 'px');
+    $('#queryEditor').height(($(window).height() - 300) + 'px');
     $('.dbTable').height(($(window).height() - 250) + 'px');
 
     queryEditor.resize();
@@ -180,7 +180,7 @@ function loadresultEditor(code) {
     resultEditor.clearSelection();
 
 
-    $('#resultEditor').height(($(window).height() - 250) + 'px');
+    $('#resultEditor').height(($(window).height() - 300) + 'px');
 
     resultEditor.resize();
 

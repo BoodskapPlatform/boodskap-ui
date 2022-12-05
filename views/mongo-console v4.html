@@ -1,0 +1,96 @@
+<!--<div class="row-fluid">
+    <ul class="nav submenu" style="">
+        <li class=""><a href="<%= basepath %>/home"><i class="fa fa-home"></i> </a></li>
+        <li class=""><a href="<%= basepath %>/dashboard">Dashboard</a></li>
+        <li class="active"><a href="<%= basepath %>/message-definition">Message Definition</a></li>
+    </ul>
+</div>-->
+<style>
+    #queryEditor, #resultEditor {
+ position: relative;
+ top: 0;
+     right: 0;
+     bottom: 0;
+    left: 0;
+    width: 100%;
+     border:1px solid #eee
+     }
+    </style>
+    <div class="container mt-3 msgDef platformBody">
+        <!-- begin breadcrumb -->
+        <ol class="breadcrumb pull-right">
+            <li class="breadcrumb-item"><a href="<%= basepath %>/home">Domain</a></li>
+            <li class="breadcrumb-item active">Mongo DB Query Console</li>
+        </ol>
+        <!-- end breadcrumb -->
+        <!-- begin page-header -->
+        <h1 class="page-header">Mongo DB Query Console</h1>
+        <!-- end page-header -->
+    
+        <!-- begin panel -->
+        <div class="panel panel-inverse">
+            <div class="panel-body" style="background-color: rgba(0, 0, 0, 0.01);border: 1px solid #eee;padding-bottom: 30px">
+    
+                <div class="row">
+                    <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Connection Pool</label>
+                                <select id="pool_name" class="form-control" onchange="setConnection(this.value)">
+                                </select>
+                                <small id="pool_url"></small>
+                            </div>
+                            <div class="form-group">
+                                <label>Database Name</label>
+                               <input type="text" class="form-control" id="dbName" />
+                            </div>
+                            <div class="form-group">
+                                <label>Collection Name</label>
+                                <select id="col_name" class="form-control" onchange="">
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Query Type</label>
+                                <select id="query_type" class="form-control" onchange="loadQueryType(this.value)">
+                                    <option value="FIND">Find</option>
+                                    <option value="AGG">Aggregate</option>
+                                    <option value="COUNT">Count</option>
+                                </select>
+                            </div>
+    
+                    </div>
+                    <div class="col-md-5">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <small style="">(Press <b>CTRL + ENTER</b> to execute the query)</small>
+    
+                                <button class="btn btn-warning btn-sm float-right" onclick="executeQuery()">Execute</button>
+    
+                                <div id="queryEditor" style="width: 100%"></div>
+                            </div>
+                        </div>
+    
+                    </div>
+                    <div class="col-md-5" style="border-left:1px solid #eee">
+                        <h5>Output Console <small style="float:right;font-size: 12px" class="loadingText"></small></h5>
+                        <div id="resultEditor" style="width: 100%"></div>
+                    </div>
+                </div>
+    
+    
+            </div>
+        </div>
+        <!-- end panel -->
+    
+    </div>
+    
+    
+    <script src="js/editor/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/editor/src-noconflict/ext-language_tools.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/editor/src-noconflict/ext-searchbox.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/editor/src-noconflict/ext-beautify.js"    type="text/javascript" charset="utf-8"></script>
+    <script src="js/editor/src-noconflict/snippets/javascript.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/beautify.min.js" type="text/javascript"></script>
+    
+    <script src="controllers/mongo-query-console.js" type="text/javascript"></script>
+    
+    
