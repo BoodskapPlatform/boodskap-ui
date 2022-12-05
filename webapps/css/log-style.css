@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap'); 
 body{
-    font-family: "Montserrat", sans-serif;
+    font-family: "Montserrat", sans-serif !important;
     font-size: 12px;
 }
 .content-background{
-    background-image: url("../images/background.png");
+    background-image: url("images/background.png");
     background-size: cover;
 }
 .sub-image{
@@ -27,11 +27,11 @@ body{
     left: 300px;
 }
 .box{
-    position: absolute;
+    position: relative;
     background: rgba(82, 110, 180, .5);
     color: #fff;
     width: 230px;
-    top: 295px;
+    top: 30px;
     left: 50px;
     padding: 19px;
     border: 1px solid #fff;
