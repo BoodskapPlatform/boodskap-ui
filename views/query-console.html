@@ -6,10 +6,11 @@
     </ul>
 </div>-->
 <style>
-    .ace_error{
+     @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');   
+     #searchQueryConsole .ace_error{
         display: none !important;
     }
-    #queryEditor, #resultEditor {
+    #searchQueryConsole #queryEditor, #resultEditor {
         position: relative;
         top: 0;
         right: 0;
@@ -18,31 +19,136 @@
         width: 100%;
         border:1px solid #eee
     }
+    #searchQueryConsole .bskp-icon-bg{
+       margin-top: 5px;
+      
+     
+       
+    }
+   
+
+    @media screen and (max-width:499px){
+       
+        /* .exe-btn{
+text-align: end;
+        } */
+        #searchQueryConsole .bskp-icon-bg{
+          position: relative;
+          left: 100px;
+          
+        }
+       
+    }
+  
+    
+    #searchQueryConsole .execute_btn{
+        margin-left: 170px;
+        background-color:#2d2f79;
+        border: none;
+        color: white;
+      width: 90px;
+    
+      border-radius: 7px;
+      margin-bottom: 7px;
+      border-style: none;
+      cursor: pointer;
+      padding-bottom: 6px;
+    
+
+    }
+    #searchQueryConsole .breadcrumb{
+       margin: 5px;
+    }
+    #searchQueryConsole .ace-eclipse .ace_gutter{
+        background-color: #eaf1f6;
+        border: 2px solid #eaf1f6;
+        border-radius: 10px;
+        
+      
+    }
+    #searchQueryConsole .panel{
+       background-color: #fafdff;
+       
+    }
+    #searchQueryConsole .table_border{
+        border: 2px solid #eaf1f6;border-radius: 15px;margin:5px;
+        background-color: #ffffff;
+    }
+    #searchQueryConsole .ace_content{
+        position: relative;
+        left: 8px;
+        border: 2px solid  #eaf1f6;
+     
+       
+       border-left: 2px solid  #eaf1f6;
+      
+        border-radius: 10px;
+       
+    }
+    #searchQueryConsole #queryEditor, #resultEditor{
+      /* border-top: none;
+      border-bottom: none;
+      border-color: #eaf1f6;
+      border-radius: 10px; */
+      border: 2px solid #eaf1f6;
+      border-top: none;
+      border-bottom: none;
+      border-radius: 10px;
+    }
+   
+    #searchQueryConsole #resultEditor{
+       border-radius:10px;
+    
+    }
+  
+    #searchQueryConsole .panel-body{
+      padding-bottom: 3px;
+      margin: 5px;
+      
+     
+    }
+    #searchQueryConsole .bskp-icon-bg{
+        background-color: #ffffff;
+    }
+    #searchQueryConsole .page-header{
+        color: black;
+        margin-left: 6px;
+    }
+
+   
+ 
+
+    
+
 </style>
-<div class="container mt-3 msgDef platformBody">
+<div id="searchQueryConsole" class="container panel mt-3 msgDef platformBody ">
     <!-- begin breadcrumb -->
-    <ol class="breadcrumb pull-right">
+    <ol  class=" panel-inverse breadcrumb pull-right ">
         <li class="breadcrumb-item"><a href="<%= basepath %>/home">Domain</a></li>
         <li class="breadcrumb-item active">Query Console</li>
+       
+            <a href="javascript:;" class="btn btn-sm btn-icon btn-circle  bskp-icon-bg" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+            <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg" title="Help" onclick="startTour()"><i class="icon-help"></i></a>
+          
     </ol>
-    <!-- end breadcrumb -->
+    <!-- end breadcrumb --> 
     <!-- begin page-header -->
-    <h1 class="page-header">Elastic Search Query</h1>
+    <img class="mb-2" src="images/search.png " alt="logo"><span class="page-header">Elastic Search Query</span>
     <!-- end page-header -->
 
     <!-- begin panel -->
-    <div class="panel panel-inverse">
-        <div class="panel-body" style="background-color: rgba(0, 0, 0, 0.01);border: 1px solid #eee;padding-bottom: 30px">
+    <div  class="table_border panel panel-inverse">
+        <div class="panel-body" style="background-color:#ffffff;">
 
             <div class="row">
                 <div class="col-md-5">
 
-                    <div class="row">
+                    <div  class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label style="text-decoration: underline">Choose Index</label>
+                                <label>Choose Index</label>
 
-                                <select class="form-control input-sm" onchange="loadIdList(this.value)">
+                                <select style="border:2px solid #eaf1f6;" class="form-control input-sm " onchange="loadIdList(this.value)">
                                     <option value="1">Message</option>
                                     <option value="2">Record</option>
                                     <option value="3">Model</option>
@@ -54,38 +160,43 @@
                             <div class="form-group">
 
                                 <label>Choose <span class="actionName"></span> <strong style="color:red">*</strong></label>
-                                <select class="form-control input-sm" id="idList" style="" onchange="selectChange()"></select>
-
+                                <select style="border:2px solid #eaf1f6;" class="form-control input-sm" id="idList" style="" onchange="selectChange()"></select>
+                             
                             </div>
 
                         </div>
                     </div>
 
+                   
 
 
 
                     <div class="row">
 
-                        <div class="col-md-12">
+                        <div class="col-md-12 ">
                             <div class="form-group queryBox">
-                                <label>Elastic Search Query <small style="text-decoration: underline">v 5.5.0</small> <strong style="color:red">*</strong></label>
-                                <small>(Select & Press <b>CTRL + ENTER</b> to execute the query)</small>
+                                <span>Elastic Search Query <small style="text-decoration: underline">v 5.5.0</small> <strong style="color:red">*</strong></span><br>
+                                    <small>(Select & Press <b>CTRL + ENTER</b> to execute the query)</small>
+                              
+                                    <button class="execute_btn btn" onclick="executeQuery()">Execute</button>
+
+                               
+                               
+                        
+
                                 <div id="queryEditor" style="width: 100%"></div>
                             </div>
                         </div>
-                        <div class="col-md-12">
-                            <button class="btn btn-warning btn-sm" onclick="executeQuery()">Execute</button>
-                        </div>
-
+                       
 
                     </div>
 
                 </div>
-                <div class="col-md-5" style="border-left:1px solid #eee">
+                <div class="col-md-5" style="border-left:2px solid  #eaf1f6;height:360px;">
                     <h5>Output Console <small style="float:right;font-size: 12px" class="loadingText"></small></h5>
-                    <div id="resultEditor" style="width: 100%"></div>
+                    <div id="resultEditor" style="width: 100%;"></div>
                 </div>
-                <div class="col-md-2" style="border-left:1px solid #eee">
+                <div class="col-md-2" style="border:2px solid  #eaf1f6;border-radius: 15px;background-color:#f3f5f7;height:360px;">
                     <div class="fields" style="width: 100%;overflow: auto;overflow-x: hidden"></div>
                 </div>
             </div>
