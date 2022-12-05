@@ -51,7 +51,7 @@ function loadIdList(id) {
 
 function loadMessageDef() {
 
-    $(".actionName").html('Message ID');
+    $(".actionName").html('Message Id');
 
     $("#idList").html('<option value="">--- Choose ---</option>')
 
@@ -82,7 +82,7 @@ function loadRecordDef() {
 
         for (var i = 0; i < data.length; i++) {
 
-            $("#idList").append('<option value="' + data[i]['id'] + '">' + data[i]['id'] + ' - ' + data[i]['name'] + '</option>')
+            $("#idList").append('<option  value="' + data[i]['id'] + '">' + data[i]['id'] + ' - ' + data[i]['name'] + '</option>')
         }
 
 
@@ -183,7 +183,7 @@ function loadqueryEditor() {
     queryEditor.focus();
 
 
-    $('#queryEditor').css('height',$(window).height()-275);
+    $('#queryEditor').css('height',$(window).height()-390);
 
 
     queryEditor.resize();
@@ -294,7 +294,7 @@ function loadresultEditor(code) {
     resultEditor.clearSelection();
 
 
-    $('#resultEditor').height(($(window).height() - 275) + 'px');
+    $('#resultEditor').height(($(window).height() - 285) + 'px');
 
     resultEditor.resize();
 
