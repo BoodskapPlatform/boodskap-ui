@@ -77,7 +77,7 @@
                 <div class="lh-base fw-lighter">Insanely powerful incredibly simple ioT platform</div>
                 <!-- <div class=""> -->
                     <a href="https://calendly.com/boodskap/demo" target="_blank" class="btn text-white mt-4 rounded-3 fw-lighter" style="background-color: #6098d9;">
-                        Schedule a demo<i class="ps-3 fa fa-arrow-right"></i>
+                         Schedule a demo&nbsp;&nbsp;<img src="images/right-arrow.png" style="color:#fff"><!--<i class="ps-3 fa fa-arrow-right"></i> -->
                     </a>
                 <!-- </div> -->
                 <!-- <button type="button" class="btn text-white mt-4 rounded-3 fw-lighter" style="background-color: #6098d9;">Schedule a demo<i class="ps-3 fa fa-arrow-right"></i></button> -->
@@ -87,11 +87,11 @@
                 <img src="images/Screen.png" class="sub-image2">
                 <img src="images/3D_Sphere_2.png" class="sub-image1">
                 <div class="box ">
-                    <h1 class="text-uppercase">connect build & publish</h1>
+                    <h2 class="text-uppercase">connect build & publish</h2>
                     <p>With our low code,No code IoT Platform</p>
                     <div class="px-4 text-center">
-                        <button type="button" class="btn rounded-3 lh-1 text-white" style="background-color: #2c2c78;">Learn more</button><br>
-                        <button type="button" class="btn rounded-3 lh-1 mt-2 text-primary" style="background-color: #fff;">Contact Us</button>
+                        <button type="button" class="btn rounded-3 lh-1 text-white px-3 " style="background-color: #2c2c78;"><small>Learn more</small></button><br>
+                        <button type="button" class="btn rounded-3 lh-1 mt-3 text-primary px-3" style="background-color: #fff;"><small>Contact Us</small></button>
                     </div>
                 </div>
                 
@@ -141,8 +141,8 @@
                             </span>
                             <div id="logemail"></div>
                         </div>
-                        <div class="g-recaptcha"
-                        data-sitekey="6Lel4Z4UAAAAAOa8LO1Q9mqKRUiMYl_00o5mXJrR"></div>
+                        <div class="g-recaptcha" id="captchaFeedback" data-sitekey="6Lel4Z4UAAAAAOa8LO1Q9mqKRUiMYl_00o5mXJrR"></div>
+                        <div id="logcaptchaFeedback"></div>
                         
                         <div class="form-group text-center text-dark mt-2" style="width:100%;">
                              <small class=" ">By clicking Register, you agree to our Terms & Conditions and Privacy Policy.
@@ -169,9 +169,9 @@
                                 &copy; <span class="currentYear"></span> All rights reserved.
                                 <!-- <a href="https://boodskap.io" target="_blank" class="text-warning textColor poweredBy"></a> -->
                             </p>
-                            <p class="text-center" style="color:#ccc">
+                            <p class="text-center" style="color:#aaaaaa">
                                 Dashboard Version: <b><span  class="webVersion"></span></b>
-                            <span style="color:#ccc">|</span> Platform Version: <b><span class="platformVersion"></span></b>
+                            <span style="color:#aaaaaa">|</span> Platform Version: <b><span class="platformVersion"></span></b>
                                 <!-- <span style="color:#ccc">|</span> Platform Version: <b><span class="apiVersion"></span></b> -->
                             </p>
                         </div>
@@ -231,8 +231,6 @@
 <script>
     $(document).ready(function() {
         App.init();
-
-       
     });
     function onSubmit(token) {
      document.getElementById("registerForm").submit();

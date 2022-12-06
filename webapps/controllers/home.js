@@ -13,7 +13,6 @@ $(document).ready(function () {
 
     // $(".homeMenuList").append($("#logConsole").html());
     if (ADMIN_ACCESS) {
-
         $(".siteNoop").append($("#loginAs").html());
         // $(".billingManagement").append($("#billingManagement").html());
         // $(".siteNoop").append($("#siteNoop").html());
