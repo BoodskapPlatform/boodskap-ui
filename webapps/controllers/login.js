@@ -189,8 +189,12 @@ function register(){
   var firstname = $.trim($("#firstname").val());
     var lastname = $.trim($("#lastname").val());
     var email = $.trim($("#email").val());
-    var password = $("#password").val();
+    // var password = $("#password").val();
     // var confirmpassword = $("#confirmpassword").val();
+    var captchaStatus = grecaptcha.getResponse();
+
+    console.log("captchaStatus-----------");
+    console.log(typeof captchaStatus);
 
     if(firstname == ""){
         errorMsgBorder('First Name cannot be empty','firstname');
@@ -203,37 +207,41 @@ function register(){
     }
 
   
-        if (email === "") {
-            errorMsgBorder('Email ID cannot be empty', 'email');
+    if (email === "") {
+        errorMsgBorder('Email ID cannot be empty', 'email');
+        return false;
+    }else{
+        var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        var eFlag = regex.test(email);
+
+        if(!eFlag){
+            errorMsgBorder('Invalid Email ID', 'email');
             return false;
-        }else{
-            var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-            var eFlag = regex.test(email);
-
-            if(!eFlag){
-                errorMsgBorder('Invalid Email ID', 'email');
-                return false;
-            }
-
         }
+    }
    
-
-    if(password === ""){
+    /* if(password === ""){
         errorMsgBorder('Password cannot be empty','password');
         return false;
-    }
-/*
+    } */
+    
+    /*
     if(password !== confirmpassword){
         errorMsgBorder('Password & Confirm Password should be same','password');
         return false;
     }*/
+
+    if(captchaStatus === ""){
+        // $("#rc-anchor-container").css('border', '1px solid red!important');
+        errorMsgBorder('Please verify the captcha!','captchaFeedback');
+        return false;
+    }
 
     $("#submitButton").attr('disabled','disabled');
     loading('Please wait');
 
     var data = {
         email: email.toLowerCase(),
-        password: password,
         firstName: firstname,
         lastName: lastname
     };
@@ -290,12 +298,11 @@ function forgetPassword() {
     resetPasswordCall(emailId.toLowerCase(),function (status, data) {
        if(status){
         $("#passwordButton").removeAttr('disabled');
-        document.location = BASE_PATH+'/success';
-        // $("#forgotModal").modal('hide');
-        // successMsg('Password reset successfully. Please check your Registered Email!', 'emailId');
+        $("#forgotModal").modal('hide');
+        successMsg('Password reset successfully. Please check your Registered Email!', 'emailId');
        }else{
-        errorMsgBorder('Something went wrong !', 'emailId');
-        $("#passwordButton").removeAttr('disabled');
+            errorMsgBorder('Something went wrong !', 'emailId');
+            $("#passwordButton").removeAttr('disabled');
        }
     });
 }
