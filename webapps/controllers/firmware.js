@@ -29,6 +29,8 @@ function loadDeviceModels() {
             }
             // $("#deviceModel").val(data[0].id);
 
+        }else{
+            $("#deviceModel").html('<option value="">No Device Linked</option>')
         }
 
         loadFirmwareList();
@@ -311,7 +313,7 @@ function openModal(type, id) {
 
 
     if (type === 1) {
-        $(".templateAction").html('Add')
+        $(".templateAction").html('Upload')
         $("#addFirmware form")[0].reset();
         $("#f_device_model").val($("#deviceModel").val());
         $("#addFirmware").modal('show');
@@ -607,4 +609,8 @@ function checkCommandStatus(corid) {
 
         }
     });
+}
+
+function onclosebutton () {
+    $("#firmware_desc").css('height','10px');
 }

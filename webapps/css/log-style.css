@@ -10,31 +10,31 @@ body{
 .sub-image{
     position: relative;
     width: 100px;
-    left: 250px;
-    top: 80px;
+    left: 310px;
+    top: 55px;
 }
 .sub-image1{
     /* background-image: url("../images/3D_Sphere_2.png"); */
     position: absolute;
     width: 100px;
-    top: 550px;
-    left: 8px;
+    top: 575px;
+    left: 10px;
 }
 .sub-image2{
     width: 1000px;
     position: absolute;
     top: 200px;
-    left: 300px;
+    left: 360px;
 }
 .box{
     position: relative;
-    background: rgba(82, 110, 180, .5);
+    background: rgb(96 124 193 / 50%);
     color: #fff;
-    width: 230px;
-    top: 30px;
-    left: 50px;
+    width: 255px;
+    top: -18px;
+    left: 80px;
     padding: 19px;
-    border: 1px solid #fff;
+    border: 1px solid rgb(142 142 244);
     border-radius: 14px;
 }
 /* .box1{
@@ -49,10 +49,10 @@ body{
 .log-head{
     color: #18184e;
     font-weight: 200px;
-    font-size: 30px;
+    font-size: 28px;
 }
 .caption-text{
-    font-size: 14px;
+    font-size: 12px;
     line-height: 1;
 }
 .wrap-input{
@@ -64,6 +64,21 @@ body{
 input{
     outline: none;
     border: none;
+    font-weight: 600;
+}
+::-webkit-input-placeholder {
+    font-weight: 500;
+ }
+ 
+ :-moz-placeholder { /* Firefox 18- */
+    font-weight: 500;
+ }
+ 
+ ::-moz-placeholder {  /* Firefox 19+ */
+    font-weight: 500;
+ }
+:-ms-input-placeholder{
+    font-weight: 500;
 }
 .text-size{
     font-size: 14px;
@@ -93,9 +108,13 @@ input{
     top: -23px;
     right: 0px;
 }
+.leftside-head{
+    font-size:35 !important ;
+    font-weight: 700 !important;
+}
 
 .text-color{
-    color: #2c2c78;;
+    color: #2c2c78;
 }
 /* button:hover{
     color: #fff;
@@ -121,16 +140,19 @@ input{
     border: 2px solid #2c2c78;
     background-color: white;
     border-radius: 15px;
-    color: #2c2c78;
     cursor: pointer;
+}
+.btnsecondary{
+    color: #2c2c78;
+    font-weight: 600 !important;
 }
 .btn-outline:hover{
     background-color: #2c2c78;
 }
-.btn-outline > a:hover{
+/* .btn-outline > a:hover{
     color: #fff;
 
-}
+} */
 .backlogin:hover{
     color: white;
 }

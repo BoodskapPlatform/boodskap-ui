@@ -1,60 +1,159 @@
+<style>
+    .bskp-submenu li.active {
+        background-color: #90a1b7;
+        font-weight: 600;
+        border-radius: 4px;
+    }
+
+    .bskp-submenu li.active>a {
+        color: white;
+    }
+
+    .bskp-submenu {
+        background-color: #ffffff !important;
+        height: 35px;
+        border-radius: 10px;
+        margin: 30px 38px 25px 38px !important;
+    }
+
+    .bskp-submenu li a {
+        color: rgb(0, 0, 0);
+    }
+
+    .bskp-submenu li {
+        line-height: 30px;
+        padding: 3px 15px;
+        border-right: 1px solid #e8e8e8;
+    }
+
+    .bskp-submenu li:first-child {
+        border-left: 1px solid #e8e8e8;
+    }
+
+    .bskp-submenu li a:hover {
+        text-decoration: none;
+        color: rgb(126, 126, 126) !important;
+    }
+
+    .bskp-submenu li.active a:hover {
+        text-decoration: none;
+        color: rgb(255, 255, 255) !important;
+    }
+
+    .bskp-submenu li:first-child>a>i {
+        font-size: 16px;
+        color: darkslategrey;
+    }
+
+    .bskp-submenu li:first-child>a:hover>i {
+        font-size: 16px;
+        color: rgb(132, 132, 132);
+    }
+
+
+
+    .bskp-page-topic {
+        font-size: 10px;
+        font-weight: 600;
+        color: #3e3e3e;
+        padding: 12px 30px;
+        box-shadow: 0px 2px 15px 0px #e6eaf8e3;
+    }
+
+    .ota-upgrade {
+        border: 1px solid #d3d8de;
+    }
+    .firmwareicon{
+        position: relative;
+        bottom: 3px;
+        width: 30px;
+        height: 30px;
+    }
+    
+</style>
 <div class="row-fluid">
-    <ul class="nav submenu" style="">
+    <ul class="nav submenu bskp-submenu" style="">
         <li class=""><a href="<%= basepath %>/home"><i class="fa fa-home"></i> </a></li>
         <li class=""><a href="<%= basepath %>/dashboard">Dashboard</a></li>
         <li><a href="<%= basepath %>/firmware-management">Manage Firmwares</a></li>
         <li class="active"><a href="<%= basepath %>/firmware/ota-upgrade">OTA Upgrade</a></li>
     </ul>
 </div>
-<div class="container-fluid mt-2 platformBody">
-    <ol class="breadcrumb pull-right">
-        <li class="breadcrumb-item"><a href="<%= basepath %>/dashboard">Domain</a></li>
-        <li class="breadcrumb-item"><a href="<%= basepath %>/firmware-management">Firmware Management</a></li>
-        <li class="breadcrumb-item active">OTA Upgrade</li>
-    </ol>
-    <h1 class="page-header">OTA <small>(On The Air)</small> Upgrade</h1>
 
-    <!-- begin panel -->
-    <div class="panel panel-inverse">
-        <div class="panel-heading">
-            <div class="panel-heading-btn">
+<div class="container platformBody mt-3">
 
-                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
-                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-success" data-click="panel-reload" onclick="loadOTA()"><i class="fa fa-redo"></i></a>
-                <!--<a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-warning" title="Help"><i class="icon-help"></i></a>-->
+    <div class="panel panel-inverse bskp-container-frame">
+        <div>
+            <ol class="breadcrumb pull-right bskp-align-icon">
+                <li class="breadcrumb-item"><a href="<%= basepath %>/dashboard">Domain</a></li>
+                <li class="breadcrumb-item"><a href="<%= basepath %>/firmware-management">Firmware Management</a></li>
+                <li class="breadcrumb-item active">OTA Upgrade</li>
+                <div class="ml-4">
+                    <a href="javascript:;" class="btn btn-xsm btn-icon btn-circle  bskp-icon-bg"
+                        data-click="panel-expand"><image src="/images/maximize-2.SVG"></a>
+                    <a href="javascript:;" class="btn btn-xsm btn-icon btn-circle bskp-icon-bg " title="Help"><img src="images/help-circle.SVG"></a>
 
-            </div>
-            <h4 class="panel-title">
-                <select class="form-control-sm" id="otaType" onchange="loadOTA()">
-                    <option value="1">Device Batches</option>
-                    <option value="2">Device Model Batches</option>
-                </select>
-            </h4>
-        </div>
-        <div class="panel-body" style="background-color: #eeeeee00;border: 1px solid #eee;padding-bottom: 30px;">
-
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="btn-group btn-group-justified pull-right">
-                        <a class="btn btn-default" onclick="openModal(1)"><i class="fa fa-plus-square"></i> <span class="hidden-xs">Create OTA Batch</span></a>
-                        <a class="btn btn-default" data-click="panel-reload" onclick="loadOTA()"><i class="fa fa-refresh"></i></a>
-                    </div>
-
-                    <table class="table table-bordered table-hover responsive no-wrap" id="otaTable"  cellspacing="0" width="100%">
-
-                    </table>
                 </div>
-            </div>
-
-
-
-
-
+            </ol>
         </div>
+        <!-- <h1 class="page-header">OTA <small>(On The Air)</small> Upgrade</h1> -->
+        <!-- <div class="page-header bskp-page-topic"><img src="images/menu/message-definition_1-bskp.png"
+                class="bskp-topic-icon mr-1"> OTA (On The Air) Upgrade
+            <span class="panel-title ml-3" style="color: #478ecc;">Total Devices: <b><span
+                        class="">0</span></b></span>
+
+        </div> -->
+        <div class="page-header bskp-page-topic"><img src="images/firmware.SVG"
+            class="bskp-topic-icon mr-1 firmwareicon" > 
+    <span class="page-header" style="margin-left:0px;color: black;">OTA (On The Air) Upgrade</span>
+
+        <span class="panel-title ml-3 " style="color: #2d2f79;">Total Devices:<span
+                    class="firmwareCount">0</span></span>
+
     </div>
-    <!-- end panel -->
 
+        <!-- begin panel -->
+        <div>
+            <div class="panel-heading bg-white">
+
+                <h4 class="panel-title">
+                    <div class="form-group col-md-3">
+
+                        <select class="form-control-sm input-sm ota-upgrade" id="otaType" onchange="loadOTA()">
+                            <option value="1">Device Batches</option>
+                            <option value="2">Device Model Batches</option>
+                        </select>
+                    </div>
+                </h4>
+            </div>
+            <div class="panel-body" style="background-color: #eeeeee00;padding-bottom: 30px;">
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="btn-group btn-group-justified pull-right bskp-btn-group-align">
+                            <a class="btn btn bskp-btn-shadow bskp-blue-bg" onclick="openModal(1)"><i
+                                    class="fa fa-plus-square"></i> <span class="hidden-xs">Create OTA Batch</span></a>
+                            <a class="btn bskp-refresh-bg" data-click="panel-reload" onclick="loadOTA()"><i
+                                    class="fa fa-refresh"></i></a>
+                        </div>
+                        <div class="bskp-table-layout">
+
+                            <table class="table table-bordered table-hover bskp-table responsive no-wrap" id="otaTable"
+                                cellspacing="0" width="100%">
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+            </div>
+        </div>
+        <!-- end panel -->
+
+    </div>
 </div>
-
 <script src="controllers/ota-upgrade.js" type="text/javascript"></script>
-

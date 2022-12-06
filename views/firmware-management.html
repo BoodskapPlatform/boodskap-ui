@@ -1,65 +1,78 @@
 <style>
     .bskp-submenu li.active {
-    background-color: #90a1b7;
-    font-weight: 600;
-    border-radius: 4px;
-}
+        background-color: #90a1b7;
+        font-weight: 600;
+        border-radius: 4px;
+    }
 
-.bskp-submenu li.active>a {
-    color: white;
-}
+    .bskp-submenu li.active>a {
+        color: white;
+    }
 
-.bskp-submenu {
-    background-color: #ffffff !important;
-    height: 35px;
-    border-radius: 10px;
-    margin: 30px 38px 25px 38px !important;
-}
+    .bskp-submenu {
+        background-color: #ffffff !important;
+        height: 35px;
+        border-radius: 10px;
+        margin: 30px 38px 25px 38px !important;
+    }
 
-.bskp-submenu li a {
-    color: rgb(0, 0, 0);
-}
+    .bskp-submenu li a {
+        color: rgb(0, 0, 0);
+    }
 
-.bskp-submenu li {
-    line-height: 30px;
-    padding: 3px 15px;
-    border-right: 1px solid #e8e8e8;
-}
+    .bskp-submenu li {
+        line-height: 30px;
+        padding: 3px 15px;
+        border-right: 1px solid #e8e8e8;
+    }
 
-.bskp-submenu li:first-child {
-    border-left: 1px solid #e8e8e8;
-}
+    .bskp-submenu li:first-child {
+        border-left: 1px solid #e8e8e8;
+    }
 
-.bskp-submenu li a:hover {
-    text-decoration: none;
-    color: rgb(126, 126, 126) !important;
-}
+    .bskp-submenu li a:hover {
+        text-decoration: none;
+        color: rgb(126, 126, 126) !important;
+    }
 
-.bskp-submenu li.active a:hover {
-    text-decoration: none;
-    color: rgb(255, 255, 255) !important;
-}
+    .bskp-submenu li.active a:hover {
+        text-decoration: none;
+        color: rgb(255, 255, 255) !important;
+    }
 
-.bskp-submenu li:first-child>a>i {
-    font-size: 16px;
-    color: darkslategrey;
-}
+    .bskp-submenu li:first-child>a>i {
+        font-size: 16px;
+        color: darkslategrey;
+    }
 
-.bskp-submenu li:first-child>a:hover>i {
-    font-size: 16px;
-    color: rgb(132, 132, 132);
-}
+    .bskp-submenu li:first-child>a:hover>i {
+        font-size: 16px;
+        color: rgb(132, 132, 132);
+    }
 
 
 
-.bskp-page-topic {
-    font-size: 10px;
-    font-weight: 600;
-    color: #3e3e3e;
-    padding: 12px 30px;
-    box-shadow: 0px 2px 15px 0px #e6eaf8e3;
-}
+    .bskp-page-topic {
+        font-size: 10px;
+        font-weight: 600;
+        color: #3e3e3e;
+        padding: 12px 30px;
+        box-shadow: 0px 2px 15px 0px #e6eaf8e3;
+    }
 
+    .bskp-modal textarea {
+        min-height: 50px;
+    }
+    div a .fa-refresh:hover{
+        color: green;
+    }
+    .firmwareicon{
+        position: relative;
+        bottom: 3px;
+        width: 30px;
+        height: 30px;
+    }
+    
 </style>
 <div class="row-fluid">
     <ul class="nav submenu bskp-submenu">
@@ -91,13 +104,12 @@
         <div>
             <ol class="breadcrumb pull-right bskp-align-icon">
                 <li class="breadcrumb-item"><a href="<%= basepath %>/dashboard">Domain</a></li>
-                <li class="breadcrumb-item"><a href="<%= basepath %>/firmware-management">Firmwarm Management</a></li>
+                <li class="breadcrumb-item"><a href="<%= basepath %>/firmware-management">Firmware Management</a></li>
                 <li class="breadcrumb-item active">Manage Firmwares</li>
                 <div class="ml-4">
-                    <a href="javascript:;" class="btn btn-sm btn-icon btn-circle  bskp-icon-bg"
-                        data-click="panel-expand"><i class="fa fa-expand"></i></a>
-                    <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg" title="Help"><i
-                            class="icon-help"></i></a>
+                    <a href="javascript:;" class="btn btn-xsm btn-icon btn-circle  bskp-icon-bg"
+                        data-click="panel-expand"><image src="/images/maximize-2.SVG"></a>
+                    <a href="javascript:;" class="btn btn-xsm btn-icon btn-circle bskp-icon-bg " title="Help"><img src="images/help-circle.SVG"></a>
 
                 </div>
                 <!-- <div class="panel-heading-btn">
@@ -110,32 +122,35 @@
 
         </div>
         <!-- end breadcrumb -->
-        <div class="page-header bskp-page-topic"><img src="images/menu/message-definition_1-bskp.png"
-                class="bskp-topic-icon mr-1"> Manage Firmware
-            <span class="panel-title ml-3" style="color: #478ecc;">Total Devices: <b><span
-                        class="firmwareCount"></span></b></span>
+        <div class="page-header bskp-page-topic"><img src="images/firmware.SVG"
+                class="bskp-topic-icon mr-1 firmwareicon" > 
+        <span class="page-header" style="margin-left:0px;color: black;">Manage Firmware</span>
+
+            <span class="panel-title ml-3 " style="color: #2d2f79;">Total Devices:<span
+                        class="firmwareCount"></span></span>
 
         </div>
 
         <!-- end page-header -->
 
-        <div class="panel-body" style="background-color: #eeeeee00;border: 1px solid #eee;padding-bottom: 30px;">
+        <div class="panel-body" style="background-color: #eeeeee00;padding-bottom: 30px;">
 
             <div class="well well-sm">
                 <div class="row">
-<div class="col-12">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label>Choose Device Model</label>
-                            <select id="deviceModel" class="ml-1 mr-1 form-control input-sm"
-                                onchange="loadFirmwareList()">
-                                <option value=""></option>
-                            </select>
+                    <div class="col-12">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Choose Device Model</label>
+                                <select id="deviceModel" class="ml-1 mr-1 form-control input-sm"
+                                    onchange="loadFirmwareList()">
+                                    <option value=""></option>
+
+                                </select>
+                            </div>
                         </div>
                     </div>
-                </div>
                     <div class="col-md-12">
-                        <div class="">
+                        <div>
                             <div class="btn-group btn-group-justified pull-right bskp-btn-group-align">
                                 <a class="btn  btn bskp-btn-shadow bskp-blue-bg" onclick="openModal(1)"><i
                                         class="fa fa-plus-square"></i> <span class="hidden-xs">Upload
@@ -181,8 +196,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title"><span class="templateAction"></span> Firmware</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i
-                        class="fa fa-times"></i><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close " data-dismiss="modal" aria-label="Close"><i
+                        class="fa fa-times bg-secondary"></i><span aria-hidden="true">&times;</span></button>
             </div>
             <form action="javascript:void(0)" onsubmit="addFirmware()">
                 <div class="modal-body">
@@ -190,21 +205,22 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="inputLabel">Model ID</label>
-                                <select class="form-control input-sm" id="f_device_model" required>
+                                <select class="form-control input-sm modelId" id="f_device_model" required>
                                 </select>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="inputLabel">Firmware Version</label>
-                                <input class="form-control input-sm" placeholder="Enter The Firmware Version"
-                                    type="text" id="firmware_version" required>
+                                <input class="form-control input-sm firmwareVersion" maxlength="10"
+                                    placeholder="Enter The Firmware Version" type="text" id="firmware_version" required>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="inputLabel">Description</label>
-                                <textarea class="form-control input-sm" id="firmware_desc" required></textarea>
+                                <textarea class="form-control input-sm Description" id="firmware_desc" maxlength="1000"
+                                    required></textarea>
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -217,7 +233,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn  btn-secondary btn-close" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn  btn-secondary btn-close" onclick='onclosebutton()'
+                        data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btnModal btn-secondary btn-proceed btnSubmit">Proceed</button>
                 </div>
             </form>
