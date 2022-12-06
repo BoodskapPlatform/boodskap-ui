@@ -100,14 +100,12 @@ function loginAsCall(email, password, key, id, cbk) {
             cbk(false, null);
         }
     });
-
 }
 
 function resetPasswordCall(email, cbk) {
 
     var str = DOMAIN_KEY ? '?targetDomainKey=' + DOMAIN_KEY : '';
-    console.log(email , str)
-    $.ajax({
+     $.ajax({
         url: API_BASE_PATH + "/domain/password/reset/" + email + str,
         type: 'GET',
         success: function (data) {
