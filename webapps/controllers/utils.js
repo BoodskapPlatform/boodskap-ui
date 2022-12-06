@@ -78,10 +78,10 @@ function showNotification(msg, type, time) {
 }
 
 //Notifications
-function errorMsg(msg) {
-
+function errorMsg(msg , id) {
     // $(".errorFeedBack").html("<i class='fa fa-exclamation-triangle'></i> "+msg);
-    $("#snackbar").html("<i class='fa fa-exclamation-triangle'></i> " + msg);
+   
+    $("#log"+id).html("<i class='fa fa-exclamation-triangle'></i> " + msg).css("color","red");;
     var width = $(".errorFeedBack").outerWidth();
     var totalWidth = $(document).width();
     var position = (parseInt(totalWidth) - parseInt(width)) / 2;
@@ -96,23 +96,27 @@ function errorMsg(msg) {
     $(".errorFeedBack").css('top', 105);
 
     $(".errorFeedBack").show().delay(2500).fadeOut();
-
-    snackBar();
+    snackBar(id)
     // $.growl.error({title:"<i class='fa fa-exclamation-triangle'></i> Error", message: msg });
 }
 
 
-function snackBar() {
-    $("#snackbar").addClass('show');
+function snackBar(id) {
+    $("#log"+id).css("display","block")
     setTimeout(function () {
-        $("#snackbar").removeClass('show');
-    }, 2000);
+        $("#log"+id).css("display","none");
+    }, 4000);
 }
 
 function errorMsgBorder(msg, id) {
-
-    // $(".errorFeedBack").html("<i class='fa fa-exclamation-triangle'></i> "+msg);
+ if(id){
+    $("#log"+id).html(msg).css("color","red");
+  }
+  else{
     $("#snackbar").html("<i class='fa fa-exclamation-triangle'></i> " + msg);
+    snackBar();
+  }
+    // $(".errorFeedBack").html("<i class='fa fa-exclamation-triangle'></i> "+msg);
     var width = $(".errorFeedBack").outerWidth();
     var totalWidth = $(document).width();
     var position = (parseInt(totalWidth) - parseInt(width)) / 2;
@@ -128,19 +132,19 @@ function errorMsgBorder(msg, id) {
 
     $(".errorFeedBack").show().delay(2500).fadeOut();
 
-    $("#" + id).css("border", "1px solid red");
-
+    $("#" + id).css("border-bottom", "1px solid red");
+    $("#log"+id).css("display","block")
     setTimeout(function () {
-        $("#" + id).css("border", "1px solid #ccc");
-
-    }, 2000);
-    snackBar();
+        $("#" + id).css("border-bottom", "1px solid #ccc");
+         $("#log"+id).css("display","none")
+    }, 4000);
+  
 
 }
 
-function successMsg(feedText) {
+function successMsg(feedText,id) {
     // $(".feedBack").html('<i class="fa fa-check"></i>  '+feedText);
-    $("#snackbar").html('<i class="fa fa-check"></i>  ' + feedText);
+    $("#log"+id).html('<i class="fa fa-check"></i>' + feedText).css("color","green");
     positionFeedback();
 
     var $window = $(window),
@@ -160,7 +164,7 @@ function successMsg(feedText) {
     });
     $(".feedBack").show().delay(1900).fadeOut();
 
-    snackBar();
+    snackBar(id);
 }
 
 function feedback(feedText) {

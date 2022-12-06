@@ -121,33 +121,34 @@
                     </div>
                 </div>
                 <div class=" px-4 py-3">
-                    <div>
+                    <div class="mb-3">
                         <span class="log-head">Login to Boodskap</span>
                         <div class="caption-text py-2">Enter the account details below</div>
                     </div>
-                    <form action="javascript:void(0)" class="mb-0 pt-3" onsubmit="login()">
-                        <div class="wrap-input pb-2">
+                    <form action="javascript:void(0)" novalidate class="mb-0 pt-4" onsubmit="login()">
+                        <div class="wrap-input">
                             <input type="text" class="input-text" id="username" placeholder="Username" required/>
                             <span class="loginput text-end" >
                                 <img class=" icon-position" src="images/person.png" style="width: 20px;">
                             </span>
-                            
+                            <div id="logusername"></div>
                         </div>
-                        <div class="wrap-input pb-2">
+                        <div class="wrap-input">
                             <input type="password" class="input-text" id="password" placeholder="Password" required/>
                             <!-- <span class="" data-placeholder=""></span> -->
                             <i onclick="toggleBox()" class="fa fa-eye form-control-feedback passwordIcon icon-position" style="position: absolute;right: 1px;top: 0px;"></i>
+                            <div id="logpassword"></div>
                         </div>
-                        <div class="checkbox checkbox-css pt-1">
+<div class="checkbox checkbox-css pt-1" style="line-height: 25px;">         <!--  -->
                             <input type="checkbox" id="remember_me_checkbox" value=""/>
-                            <label for="remember_me_checkbox"  style="color: #000;font-weight: 500; font-size:16px;">
+                            <label for="remember_me_checkbox"  style="color: #000;font-weight: 500; font-size:14px;">
                                 Remember Me
                             </label>
                             <p style="float: right;">
                                 <!-- <a href="javascript:void(0)" onclick="resetPasswordModal()" class="text-decoration-none text-color">Forgot
                                     Password?</a> -->
-                                <a href="<%= basepath %>/forgotpassword" class="text-decoration-none text-color text-size">Forgot
-                                    Password?</a>
+                                <!-- <a href="<%= basepath %>/forgotpassword" class="text-decoration-none text-color text-size">Forgot
+                                    Password?</a> -->
                             </p>
                         </div>
                         <div class="login-buttons pt-4">
@@ -209,9 +210,9 @@
             </form>
         </div>
     </div>
-</div>
+</div>-->
 
-<div id="snackbar"></div> -->
+<div id="snackbar"></div> 
 <% include cookies.html %>
 
 

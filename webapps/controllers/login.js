@@ -114,7 +114,7 @@ function login(){
             }
 
         }else{
-            errorMsg('Authentication Failed. Incorrect Username/Password')
+            errorMsg('Authentication Failed. Incorrect Username/Password','username')
         }
     })
 }
@@ -185,8 +185,7 @@ function logout() {
 }
 
 function register(){
-
-    var firstname = $.trim($("#firstname").val());
+  var firstname = $.trim($("#firstname").val());
     var lastname = $.trim($("#lastname").val());
     var email = $.trim($("#email").val());
     var password = $("#password").val();
@@ -202,7 +201,7 @@ function register(){
         return false;
     }
 
-    if(email) {
+  
         if (email === "") {
             errorMsgBorder('Email ID cannot be empty', 'email');
             return false;
@@ -216,7 +215,7 @@ function register(){
             }
 
         }
-    }
+   
 
     if(password === ""){
         errorMsgBorder('Password cannot be empty','password');
@@ -244,7 +243,7 @@ function register(){
         $("#submitButton").removeAttr('disabled');
         if(status){
             $('#registerForm')[0].reset();
-            successMsg('Account Successfully created. Please check your email to activate your account!');
+            successMsg('Account Successfully created. Please check your email to activate your account!','firstname');
             $(".register-content").hide();
             $("#regFeedback").show();
 
@@ -257,13 +256,11 @@ function register(){
                 }
             },3000);
         }else{
-            console.log(data)
             if(data.message === 'USER_EXISTS'){
-                errorMsg('User already exists!')
+                errorMsg('User already exists!','firstname')
             }else{
-                errorMsg('Something went wrong!')
+                errorMsg('Something went wrong!','firstname') 
             }
-
         }
     })
 }
@@ -274,19 +271,30 @@ function resetPasswordModal(){
 
 function forgetPassword() {
     var emailId = $.trim($("#emailId").val());
-    console.log(data)
-    if(emailId == ""){
+    if(emailId === ""){
         errorMsgBorder('Email ID cannot be empty','emailId');
         return false;
+    }else{
+        var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+            var eFlag = regex.test(emailId);
+            if(!eFlag){
+                errorMsgBorder('Invalid Email ID', 'emailId');
+                return false;
+            } 
     }
 
     $("#passwordButton").attr('disabled','disabled');
 
 
     resetPasswordCall(emailId.toLowerCase(),function (status, data) {
+       if(status){
         $("#passwordButton").removeAttr('disabled');
         $("#forgotModal").modal('hide');
-        successMsg('Password reset successfully. Please check your Registered Email!');
+        successMsg('Password reset successfully. Please check your Registered Email!', 'emailId');
+       }else{
+        errorMsgBorder('Something went wrong !', 'emailId');
+        $("#passwordButton").removeAttr('disabled');
+       }
     });
 }
 
