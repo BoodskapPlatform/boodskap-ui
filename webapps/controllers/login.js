@@ -288,7 +288,6 @@ function forgetPassword() {
 
 
     resetPasswordCall(emailId.toLowerCase(),function (status, data) {
-        console.log(status)
        if(status){
         $("#passwordButton").removeAttr('disabled');
         document.location = BASE_PATH+'/success';
