@@ -170,7 +170,7 @@
     align-items: center;
     padding: 12px;
     border-radius: 18px;
-    box-shadow: -1px 0px 8px 1px #cedeeccf;
+    box-shadow: -1px 0px 8px 1px #dededecf;
 }
 
 .bskp-home-modules p {
@@ -189,7 +189,6 @@
 .bskp-home-modules:hover {
     background-color: #f2f6ff;
     border: 1px solid #9b9ef3ca;
-    box-shadow: -1px 0px 8px 1px #bec7cfcf;
     cursor: pointer;
 }
 .bskp-home-modules:hover label {
@@ -531,11 +530,11 @@ color: #1a1a1a !important;
 }
 
 .bskp-modal .close i {
-    background: #e21559;
-    padding: 4px 6.5px 5px 6.5px;
+    background: #90a1b7;
+    padding: 4px 7px 5px 6.5px;
     color: white;
     border-radius: 50%;
-    font-size: 16px;
+    font-size: 18px;
 }
 
 .bskp-modal .modal-body {
@@ -546,8 +545,10 @@ color: #1a1a1a !important;
 textarea,
 select {
     border-radius: 10px !important;
-    font-size: 12px !important;
-}
+    font-size: 14px !important;
+    color: #2a2a2a;
+    font-weight: 600;
+}   
 
 .bskp-modal label {
     color: #171717;
@@ -567,11 +568,13 @@ select {
     justify-content: center;
 }
 
-.bskp-modal .btn-proceed {
-    background-color: #478ecc;
+.bskp-modal .btn-proceed ,.btn-proceed {
+    background-color: #2D2F79;
     border-radius: 12px;
     border: none;
+    font-size: 14px;
     padding: 5px 30px;
+    box-shadow: 0px 0px 2px 2px #e5e9f1 !important;
 }
 
 .bskp-modal .btn-proceed i {
@@ -584,8 +587,10 @@ select {
     background-color: #90a1b7;
     border-radius: 12px;
     border: none;
+    font-size: 14px;
     padding: 5px 30px;
     margin-right: 5px;
+    box-shadow: 0px 0px 2px 2px #e5e9f1 !important;
 }
 
 .bskp-modal button[disabled] {
@@ -600,7 +605,7 @@ select {
 }
 
 .bskp-modal .modal-dialog {
-    max-width: 40%;
+    max-width: 60%;
     margin: 1.75rem auto;
 }
 
@@ -627,6 +632,18 @@ select {
 }
 .more-Hrecent,.more-Mrecent{
    display: none; 
+}
+@media(max-width:1024px){
+    .bskp-modal .modal-dialog {
+        max-width: 70%;
+        margin: 1.75rem auto;
+    }
+}
+@media(max-width:425px){
+    .bskp-modal .modal-dialog {
+        max-width: 90%;
+        margin: 1.75rem auto;
+    }
 }
 /* - Modal end -*/
 
@@ -1050,4 +1067,16 @@ margin-bottom: 10px  !important;
 }
 .raw-message .switches-container {
     max-width: 280px;
+}
+.btn-bskp{
+color: white;
+background: #2D2F79;
+}
+button:hover {
+    opacity: .9;
+    cursor: pointer;
+    border: none;
+}
+input[type=file]{
+    font-size: 12px !important;
 }

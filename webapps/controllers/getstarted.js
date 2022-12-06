@@ -170,12 +170,11 @@ function addMessageField() {
       <option value="TIMESTAMP" >TIMESTAMP</option>
     </select>
     </td>
-    <td style="text-align: center;vertical-align: middle;" class="addMsg"><img src="images/add1.png" onclick="addMessageField()" style="cursor: pointer" />` +
-        (id > 0 ? '<img src="images/delete.png" style="margin-left:5px;cursor: pointer" onclick="deleteMessageField(' + id + ')"/>' : '')
+    <td style="text-align: center;vertical-align: middle;" class="addMsg"><i class="fa fa-plus add" onclick="addMessageField()" style="cursor: pointer" aria-hidden="true"></i>` +
+        (id > 0 ? '<i class="fa fa-minus minus" style="margin-left:5px;cursor: pointer" onclick="deleteMessageField(' + id + ')"aria-hidden="true"></i> ' : '')
         + ` </td>
   </tr>`;
-
-    $(".msgFieldBody").append(str);
+  $(".msgFieldBody").append(str);
     MSG_FIELD_COUNT++;
 }
 function tabnavigate(d,navto){
@@ -574,10 +573,10 @@ function simulateMessage() {
             $('.active-step').addClass('d-none'); 
             $('.roadmap-info').text('Send the simulated message with inputs');  
             $('.video-title').text('Rules Engine - Message rule'); 
-            $('.right-content.sec2').removeClass('d-none');
-            $('.landmark.tab1').addClass('is-done active-dot'); 
-            $('.landmark.tab2').addClass('active-dot'); 
-            $('.active-step.tab2').removeClass('d-none'); 
+            $('.right-content.sec4').removeClass('d-none');
+            $('.landmark.tab3').addClass('is-done active-dot'); 
+            $('.landmark.tab4').addClass('active-dot'); 
+            $('.active-step.tab4').removeClass('d-none'); 
             $('iframe').attr('src',"https://www.youtube.com/embed/A6gswxLTx_o");
         }else{
             $(".msgDefCode").append('<p>'+new Date() +' | Error in sent message</p>');

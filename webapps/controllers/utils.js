@@ -80,8 +80,12 @@ function showNotification(msg, type, time) {
 //Notifications
 function errorMsg(msg , id) {
     // $(".errorFeedBack").html("<i class='fa fa-exclamation-triangle'></i> "+msg);
+   if(id){
+    $("#log"+id).html("<i class='fa fa-exclamation-triangle'></i> " + msg).css("color","red");
    
-    $("#log"+id).html("<i class='fa fa-exclamation-triangle'></i> " + msg).css("color","red");;
+   }else{
+    $("#snackbar").html("<i class='fa fa-exclamation-triangle'></i> " + msg);
+   }
     var width = $(".errorFeedBack").outerWidth();
     var totalWidth = $(document).width();
     var position = (parseInt(totalWidth) - parseInt(width)) / 2;
@@ -102,15 +106,24 @@ function errorMsg(msg , id) {
 
 
 function snackBar(id) {
+   if(id){
     $("#log"+id).css("display","block")
     setTimeout(function () {
         $("#log"+id).css("display","none");
     }, 4000);
+   }
+    else{
+        $("#snackbar").addClass('show');
+    setTimeout(function () {
+        $("#snackbar").removeClass('show');
+    }, 4000);
+    }
 }
 
-function errorMsgBorder(msg, id) {
+function errorMsgBorder(msg, id,authvalue) {
+    
  if(id){
-    $("#log"+id).html(msg).css("color","red");
+    $("#log"+id).html(msg).css({"color":"red","font-weight":"600"});
   }
   else{
     $("#snackbar").html("<i class='fa fa-exclamation-triangle'></i> " + msg);
@@ -131,20 +144,26 @@ function errorMsgBorder(msg, id) {
     $(".errorFeedBack").css('top', 105);
 
     $(".errorFeedBack").show().delay(2500).fadeOut();
-
-    $("#" + id).css("border-bottom", "1px solid red");
+    if(authvalue){
+        $("#" + id).css("border-bottom", "1px solid red");
+    }else{
+        $("#" + id).css("border", "1px solid red");
+    }
+    
     $("#log"+id).css("display","block")
     setTimeout(function () {
         $("#" + id).css("border-bottom", "1px solid #ccc");
+        $("#" + id).css("border", "1px solid #ccc");
          $("#log"+id).css("display","none")
-    }, 4000);
+    }, 3000);
   
 
 }
 
 function successMsg(feedText,id) {
     // $(".feedBack").html('<i class="fa fa-check"></i>  '+feedText);
-    $("#log"+id).html('<i class="fa fa-check"></i>' + feedText).css("color","green");
+    // $("#log"+id).html('<i class="fa fa-check"></i>' + feedText).css("color","green");
+    $("#snackbar").html('<i class="fa fa-check"></i>  ' + feedText);
     positionFeedback();
 
     var $window = $(window),

@@ -34,7 +34,7 @@
         </h1>
     </div>
 
-    <div class="panel panel-inverse" style="background-color: #fafdff;">
+    <div class="panel panel-inverse" style="background-color: #eaf1f6;">
         <div class="panel-body bskp-px-4" style="background-color: #eeeeee00;padding-bottom: 30px;">
            
 
@@ -58,7 +58,7 @@
                         </ol>
                     </div>
 
-                    <div class="row mb-4" id="recentMenuList"style="border-bottom: 1px solid #e2e2e2;">
+                    <div class="row mb-4" id="recentMenuList"style="border-bottom: 1px solid #d4d4d4;">
                                                     
                     </div> 
 
@@ -415,7 +415,7 @@
                                 <ul class="nav">
 
                                     <li class="col-lg-12 mb-2"><span class="domain_name" style="font-weight: 600; color: #3b3ea0 ;"></span>  
-                                        <i class="fa fa-user-o bskp-icon-bg mr-1 bskp-user-icon  ml-auto" style="color: #3b3ea0 !important; background: #c0c2f773;" aria-hidden="true"></i>
+                                        <i class="fa fa-user-o bskp-icon-bg mr-1 bskp-user-icon  ml-auto" style="color: #3b3ea0 !important; background: #f2f6ff;" aria-hidden="true"></i>
                                         <a href="javascript:void(0)" onclick="editDomainName()" style="text-decoration: none" title="Edit Domain Name">
                                         &nbsp;&nbsp;  <i class="icon-edit2" style="color: #3b3ea0;"></i></a></li>
                                 </ul>
@@ -471,7 +471,7 @@
                                 
                                 <% if(userRole.toLowerCase() === 'admin'){ %>
                                 <div style="text-align: center" class="adminAccess">
-                                    <button class="btn btn-sm btn-warning mt-3" onclick="createDomain()"><i class="fa fa-globe"></i> Create New Domain</button>
+                                    <button class="btn btn-bskp w-xs-100 btn-proceed mt-3" onclick="createDomain()"><i class="fa fa-globe"></i> Create New Domain</button>
                                     <br><small>Only visible to platform ADMIN</small>
                                 </div>
                                 <% }  %>
@@ -589,7 +589,6 @@
 <script src="js/jquery.steps.js"></script>
 <script src="controllers/home.js"></script>
 <script src="controllers/getstarted.js"></script>
-<script src="js/common.js" type="text/javascript"></script>
 <!-- <script src="controllers/getstarted-modal.js"></script> -->
 
 <!-- <div id="getStartedModal" class="modal" tabindex="-1" role="dialog">
@@ -785,7 +784,7 @@
     </div> 
 </div>  -->
 
-<div class="modal fade bd-example-modal-lg" id="getstartedmodal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div class="modal fade bskp-getmodal bd-example-modal-lg" id="getstartedmodal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content" style="border-radius: 1rem;">
             <div class="modal-body p-0"  style="background: #f9fbfc;">
@@ -1026,7 +1025,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Manage Linked Domains</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <i class="fa fa-times" aria-hidden="true"></i> </button>
             </div>
             <div class="modal-body">
 
@@ -1040,7 +1039,7 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <label>API Key</label>
+                                <label>API Input</label>
                                 <input class="form-control input-sm" id="apiKey" />
                             </div>
                         </div>
@@ -1054,7 +1053,7 @@
                         </div>
                         <div class="col-lg-3">
                             <div class="form-group">
-                                <button class="btn btn-secondary" style="margin-top: 22px" type="submit">Link Domain</button>
+                                <button class="btn btnModal btn-secondary btn-proceed btnSubmit" style="margin-top: 22px" type="submit">Link Domain</button>
                             </div>
                         </div>
                     </div>
@@ -1073,7 +1072,7 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary btn-close" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
@@ -1084,7 +1083,7 @@
         <div class="modal-content" style="">
             <div class="modal-header">
                 <h4 class="modal-title">Login As</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <i class="fa fa-times" aria-hidden="true"></i> </button>
             </div>
             <div class="modal-body" style="max-height: 700px;overflow: auto;overflow-x: hidden">
 
@@ -1123,11 +1122,11 @@
 </script>
 
 <script type="text/html" id="loginAs">
-    <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6" onclick="openDomainModal()" title="Only Visible to Admin">
+    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 homecard" onclick="openDomainModal()" title="Only Visible to Admin">
 
-        <div class="card modules bskp-home-modules" style="border:1px solid #f09713">
+        <div class="card modules bskp-home-modules" onclick="clickRecent('DB Tables','db_tables',29,5)">
             <div class="bskp-icon-frame">
-                <img src="images/menu/market-place.png"/>
+                <div class="bskp-Dbg bskp-Dimg30"> </div>
             </div>
             <p class="mt-2"><label class="cardtitle">Login As</label></p>
         </div>
@@ -1137,10 +1136,10 @@
 
 <script type="text/html" id="billingManagement">
 
-    <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6" onclick="loadMenu(33)" title="Only Visible to Admin">
-        <div class="card modules bskp-home-modules" style="border:1px solid #f09713">
+    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 homecard" onclick="loadMenu(33)" title="Only Visible to Admin">
+        <div class="card modules bskp-home-modules" onclick="clickRecent('DB Tables','db_tables',29,5)">
             <div class="bskp-icon-frame">
-                <img src="images/menu/market-place.png"/>
+                <div class="bskp-Dbg bskp-Dimg30"> </div>
             </div>
             <p class="mt-2"><label class="cardtitle">Billing Management</label></p>
         </div>
@@ -1149,10 +1148,10 @@
 
 <script type="text/html" id="siteNoop">
 
-    <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6" onclick="loadMenu(34)" title="Only Visible to Admin">
-        <div class="card modules bskp-home-modules" style="border:1px solid #f09713">
+    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 homecard" onclick="loadMenu(34)" title="Only Visible to Admin">
+        <div class="card modules bskp-home-modules" onclick="clickRecent('DB Tables','db_tables',29,5)">
             <div class="bskp-icon-frame">
-                <img src="images/menu/market-place.png"/>
+                <div class="bskp-Dbg bskp-Dimg30"> </div>
             </div>
             <p class="mt-2"><label class="cardtitle">Site Noop</label></p>
         </div>
@@ -1163,29 +1162,33 @@
     <div class="modal-dialog" role="document" >
         <div class="modal-content" style="">
             <div class="modal-header">
-                <h4 class="modal-title">Create Domain</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"><i class="fa fa-globe"></i> Create Domain</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <i class="fa fa-times" aria-hidden="true"></i> </button>
             </div>
-            <form action="javascript:void(0)" id="registerForm" class="margin-bottom-0"  onsubmit="register()">
+            <form action="javascript:void(0)" novalidate id="registerForm" class="margin-bottom-0"  onsubmit="register()">
 
                 <div class="modal-body" style="max-height: 700px;overflow: auto;overflow-x: hidden">
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="form-group m-b-15">
-                                <label>Domain Name <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control form-control-lg" id="firstname" placeholder="" required />
+                                <label>Domain Name</label>
+                                <input type="text" class="form-control" id="firstname" placeholder="Enter Domain Name" maxlength="50" required />
+                                 <div id="logfirstname"></div>
                             </div>
                             <div class="form-group m-b-15">
-                                <label>Email ID <span class="text-danger">*</span></label>
-                                <input type="email" class="form-control form-control-lg" id="email" placeholder="" required />
+                                <label>Email ID</label>
+                                <input type="email" class="form-control" id="email" placeholder="Enter Email ID" maxlength="50" required />
+                                 <div id="logemail"></div>
                             </div>
                             <div class="form-group m-b-15">
-                                <label>Password <span class="text-danger">*</span></label>
-                                <input type="password" class="form-control form-control-lg" id="password" placeholder="" required />
+                                <label>Password</label>
+                                <input type="password" class="form-control" id="password" placeholder="Enter Password" maxlength="50" required />
+                                 <div id="logpassword"></div>
                             </div>
                             <div class="form-group m-b-15">
-                                <label>Confirm Password <span class="text-danger">*</span></label>
-                                <input type="password" class="form-control form-control-lg" id="confirmpassword" placeholder="" required />
+                                <label>Confirm Password</label>
+                                <input type="password" class="form-control" id="confirmpassword" placeholder="Enter Confirm Password" maxlength="50" required />
+                                 <div id="logconfirmpassword"></div>
                             </div>
                         </div>
                     </div>
@@ -1193,8 +1196,8 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" id="submitButton" class="btn btn-warning">Create</button>
+                    <button type="button" class="btn  btn-secondary btn-close" data-dismiss="modal">Close</button>
+                    <button type="submit" id="submitButton" class="btn btnModal btn-secondary btn-proceed btnSubmit">Create</button>
                 </div>
             </form>
         </div><!-- /.modal-content -->

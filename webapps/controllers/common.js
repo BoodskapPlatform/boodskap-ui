@@ -129,7 +129,7 @@ function recentcard(rdata) {
             </div>
         </div>`
                 );
-            } else if (i > 5) {
+            } else if (i > 5 && rdata[i] !== undefined) {
                 $("#recentMenuList").append(
                     ` <div class="col-lg-3 more-Hrecent col-md-4 col-sm-6 col-xs-6 homecard" onclick="loadMenu(` +
                     rdata[i].loadmenu +
@@ -235,10 +235,7 @@ var megasearch = {
     ) {
         $(search_home).keyup(function (e) {
             var query = $(this).val().toLowerCase().trim();
-            console.log($(this));
-            console.log(head_class);
-            console.log(searchable_elements);
-            if (query) {
+           if (query) {
                 $(".sclose").removeClass("d-none");
                 $(".Megamore").hide();
                 // loop mega section
@@ -253,12 +250,10 @@ var megasearch = {
                             .text()
                             .toLowerCase();
                        if (title.indexOf(query) == -1) {
-                            console.log("tif " + title);
                             $(this).hide();
                             count++;
                         } else {
-                             console.log("telse " + title);
-                            $(this).show();
+                           $(this).show();
                         }
                     });
                     if(cardcount === count ){
@@ -266,13 +261,9 @@ var megasearch = {
                     }else{
                         $(this).show()
                     }
-                    console.log(cardcount);
-                    console.log(count + "  ------");
-                   
-                }
+               }
                 );
             } else {
-                console.log("elselog");
                 $(this).show();
                 $(".sclose").addClass("d-none");
                 // empty query so show everything
@@ -328,7 +319,6 @@ $(function () {
 function Rtogmore(x) {
     $(".more-Hrecent").toggle();
     $(".Homemore .dropR").toggleClass("bskp-angleR"); //toggle arrow
-    console.log(x);
     if (x === "More...") {
         $(".recentmore-title").text("Less");
     } else {
@@ -338,7 +328,6 @@ function Rtogmore(x) {
 function Mtogmore(x) {
     $(".more-Mrecent").toggle();
     $(".Megamore .dropR").toggleClass("bskp-angleR");
-    console.log(x);
     if (x === "More...") {
         $(".Megamore-title").text("Less");
     } else {
@@ -346,7 +335,6 @@ function Mtogmore(x) {
     }
 }
 function Mrefresh() {
-    console.log("clean");
     $(".sclose").addClass("d-none");
     $("#search_megahome").val("");
     $(".megacard").show();

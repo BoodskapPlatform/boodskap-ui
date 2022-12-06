@@ -89,10 +89,7 @@ function loadDeviceList() {
             sWidth: '10%',
             mRender: function (data, type, row) {
 
-                return '<button class="btn bskp-edit-btn mr-2" onclick="openEditModal(' + row['id'] + ')"> <img src="images/edit.svg" alt="">  </button>' +
-                '<button class="btn bskp-trash-btn" onclick="openDeleteModal(' + row['id'] + ')"> <img src="images/trash2.svg" alt=""> </button>'+
-
-                '<button class="btn bskp-edit-btn mr-2" onclick="openModal(4,\'' + row["id"] + '\')" title="Board Configuration"> <img src="images/settings.svg" alt="">  </button>' +
+                return  '<button class="btn bskp-edit-btn mr-2" onclick="openModal(4,\'' + row["id"] + '\')" title="Board Configuration"> <img src="images/settings.svg" alt="">  </button>' +
                 '<button class="btn bskp-edit-btn mr-2" onclick="openModal(2,\'' + row["id"] + '\')"><img src="images/edit.svg" alt="">  </button>' +
                     '<button class="btn bskp-trash-btn" onclick="openModal(3,\'' + row['id'] + '\')"> <img src="images/trash2.svg" alt="">  </button>';
             }

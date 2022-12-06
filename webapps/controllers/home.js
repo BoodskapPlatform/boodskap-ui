@@ -911,18 +911,18 @@ function createDomain() {
 
 function register(){
 
-    var firstname = $.trim($("#firstname").val());
+  var firstname = $.trim($("#firstname").val());
     var lastname = "";
     var email = $.trim($("#email").val());
     var password = $("#password").val();
     var confirmpassword = $("#confirmpassword").val();
 
     if(firstname == ""){
-        errorMsgBorder('First Name cannot be empty','firstname');
+        errorMsgBorder('Domain Name cannot be empty','firstname');
         return false;
     }
 
-    if(email) {
+   
         if (email === "") {
             errorMsgBorder('Email ID cannot be empty', 'email');
             return false;
@@ -936,10 +936,13 @@ function register(){
             }
 
         }
-    }
 
     if(password === ""){
         errorMsgBorder('Password cannot be empty','password');
+        return false;
+    }
+    if(confirmpassword === ""){
+        errorMsgBorder('confirm Password cannot be empty','confirmpassword');
         return false;
     }
 
