@@ -1,6 +1,7 @@
 var userObj = Cookies.get('user_details');
 var counter = 1;
 var sliderCtrl = null;
+// var BASE_PATH=$("#BASE_PATH").val()
 $(document).ready(function () {
 
     if(userObj){
@@ -287,10 +288,12 @@ function forgetPassword() {
 
 
     resetPasswordCall(emailId.toLowerCase(),function (status, data) {
+        console.log(status)
        if(status){
         $("#passwordButton").removeAttr('disabled');
-        $("#forgotModal").modal('hide');
-        successMsg('Password reset successfully. Please check your Registered Email!', 'emailId');
+        document.location = BASE_PATH+'/success';
+        // $("#forgotModal").modal('hide');
+        // successMsg('Password reset successfully. Please check your Registered Email!', 'emailId');
        }else{
         errorMsgBorder('Something went wrong !', 'emailId');
         $("#passwordButton").removeAttr('disabled');
