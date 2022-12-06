@@ -6,7 +6,7 @@ $(document).ready(function () {
     for(var i=0;i<DOMAIN_LOGS_FOR.length;i++){
         $("#logType").append('<option value="'+DOMAIN_LOGS_FOR[i]+'">'+DOMAIN_LOGS_FOR[i]+'</option>');
     }
-
+    
     loadLogs();
 
     $("body").removeClass('bg-white');
@@ -565,7 +565,6 @@ function loadLogs() {
                     next: 'Next'
                 }
             },
-        "bProcessing": true,
         "bServerSide": true,
         "sAjaxSource": API_BASE_PATH + '/elastic/search/query/' + API_TOKEN,
         "fnServerData": function (sSource, aoData, fnCallback, oSettings) {

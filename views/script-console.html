@@ -3,8 +3,9 @@
 
 <link href="css/Aimara.css" rel=stylesheet>
 <style>
+      @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
     .consoleBody{
-        background-color: #000;overflow: auto;overflow-x: hidden
+        background-color:hsl(205deg 40% 94%) ;overflow: auto;overflow-x: hidden
     }
     #scriptTerminal{
         font-family: 'Share Tech Mono', monospace;
@@ -87,6 +88,25 @@
         margin-left: -15px;
     }
 
+    .terminal, .cmd{
+        background-color: hsl(208deg 50% 25%);
+        border-radius: 6px;
+    }
+    #btnEditor,#btnMax,#btnExec{
+        background-color: hsl(0deg 0% 100%);
+    }
+    .label{
+        position:relative;
+        left: 30px;
+        top: 20px;
+        border-radius: 6px;
+        
+    }
+    .label.label-green{
+        background-color: hsl(116deg 87% 39%);
+    }
+    
+
 </style>
 <!--<div class="row-fluid">
     <ul class="nav submenu" style="">
@@ -100,21 +120,21 @@
         <div class="panel-body consoleBody" style="position: relative">
             <span class="serverStatus" style="position: absolute;top: 0px;left: 0px;z-index:1;"></span>
             <div class="row">
-                <div class="col-lg-12 leftSide" style="position: relative">
+                <div class="col-lg-12 leftSide " style="position: relative;">
 
-                    <button class="btn btn-sm btn-default hidden-xs hidden-sm" id="btnMax" style="position: absolute;right: 10px;top: 0px;z-index: 999999999;"
+                    <button class="btn btn-sm btn-default hidden-xs hidden-sm" id="btnMax" style="position: absolute;right: 10px;top: 0px;z-index: 999999999;margin:10px;border-radius:10px;"
                          onclick="resizePanel()">
-                        <i class="icon-eye4"></i> Show Class
+                        <i class="icon-eye4 mt-3"></i> Show Class
                     </button>
 
-                    <button class="btn btn-sm btn-default" id="btnEditor" style="position: absolute;right: 120px;top: 0px;z-index: 999999999;"
+                    <button class="btn btn-sm btn-default" id="btnEditor" style="position: absolute;right: 120px;top: 0px;z-index: 999999999;margin:10px;border-radius:10px;"
                             onclick="showEditor()">
-                        <i class="icon-eye4"></i> Show Editor
+                        <i class="icon-eye4 mt-3"></i> Show Editor
                     </button>
 
-                    <button class="btn btn-sm btn-default hidden-lg hidden-md" id="btnExec" style="position: absolute;right: 10px;top: 0px;z-index: 999999999;"
+                    <button class="btn btn-sm btn-default hidden-lg hidden-md" id="btnExec" style="position: absolute;right: 10px;top: 0px;z-index: 999999999;margin:10px;border-radius:10px;"
                          onclick="executeCommand()">
-                        <i class="icon-bolt"></i> Execute
+                        <i class="icon-bolt mt-3"></i> Execute
                     </button>
                     <div id="scriptTerminal" ></div>
                 </div>
