@@ -5,7 +5,9 @@
         <li class="active"><a href="<%= basepath %>/message-definition">Message Definition</a></li>
     </ul>
 </div>-->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <style>
+    
      @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');   
      #searchQueryConsole .ace_error{
         display: none !important;
@@ -66,7 +68,7 @@ text-align: end;
         
       
     }
-    #searchQueryConsole .panel{
+    .panel{
        background-color: #fafdff;
        
     }
@@ -110,7 +112,7 @@ text-align: end;
     #searchQueryConsole .bskp-icon-bg{
         background-color: #ffffff;
     }
-    #searchQueryConsole .page-header{
+   #searchQueryConsole .page-header{
         color: black;
         margin-left: 6px;
     }
@@ -148,7 +150,7 @@ text-align: end;
                             <div class="form-group">
                                 <label>Choose Index</label>
 
-                                <select style="border:2px solid #eaf1f6;" class="form-control input-sm " onchange="loadIdList(this.value)">
+                                <select id="options" style="border:2px solid #eaf1f6;" class="form-control input-sm " onchange="loadIdList(this.value)">
                                     <option value="1">Message</option>
                                     <option value="2">Record</option>
                                     <option value="3">Model</option>
@@ -192,11 +194,11 @@ text-align: end;
                     </div>
 
                 </div>
-                <div class="col-md-5" style="border-left:2px solid  #eaf1f6;height:360px;">
+                <div class="col-md-5" style="border-left:2px solid  #eaf1f6;height:400px;">
                     <h5>Output Console <small style="float:right;font-size: 12px" class="loadingText"></small></h5>
                     <div id="resultEditor" style="width: 100%;"></div>
                 </div>
-                <div class="col-md-2" style="border:2px solid  #eaf1f6;border-radius: 15px;background-color:#f3f5f7;height:360px;">
+                <div class="col-md-2" style="border:2px solid  #eaf1f6;border-radius: 15px;background-color:#f3f5f7;height:400px;">
                     <div class="fields" style="width: 100%;overflow: auto;overflow-x: hidden"></div>
                 </div>
             </div>
@@ -207,7 +209,14 @@ text-align: end;
     <!-- end panel -->
 
 </div>
+<script>
+   $(document).ready(function(){
+    $("#options").select2()
+    $("#idList").select2()
+   })
+</script>
 
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 <script src="js/editor/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/editor/src-noconflict/ext-language_tools.js" type="text/javascript" charset="utf-8"></script>
