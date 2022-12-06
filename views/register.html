@@ -73,31 +73,31 @@
     <div class="login login-with-news-feed">
         <div class="news-feed content-background" >
             <div class="px-5 text-white text-capitalize">
-                <div class="pt-4 fs-2 " style="font-weight: 500px;">Boodskap highly scalable ioT platform</div>
+                <div class="pt-4 leftside-head fs-1 " style="font-weight: 500px;">Boodskap highly scalable ioT platform</div>
                 <div class="lh-base fw-lighter">Insanely powerful incredibly simple ioT platform</div>
                 <!-- <div class=""> -->
-                    <a href="https://calendly.com/boodskap/demo" target="_blank" class="btn text-white mt-4 rounded-3 fw-lighter" style="background-color: #6098d9;">
-                        Schedule a demo<i class="ps-3 fa fa-arrow-right"></i>
+                    <a href="https://calendly.com/boodskap/demo" target="_blank" class="btn text-white mt-4 rounded-3 fw-lighter px-4 py-2" style="background-color: #6098d9;">
+                         Schedule a demo&nbsp;<img src="images/arrow-right.png" width="22px"><!--<i class="ps-3 fa fa-arrow-right"></i> -->
                     </a>
                 <!-- </div> -->
                 <!-- <button type="button" class="btn text-white mt-4 rounded-3 fw-lighter" style="background-color: #6098d9;">Schedule a demo<i class="ps-3 fa fa-arrow-right"></i></button> -->
             </div>
             <div class="">
-                <img src="images/3D_Sphere_2.png" class="sub-image">
+                <img src="images/3D_Sphere.png" class="sub-image">
                 <img src="images/Screen.png" class="sub-image2">
                 <img src="images/3D_Sphere_2.png" class="sub-image1">
                 <div class="box ">
                     <h1 class="text-uppercase">connect build & publish</h1>
                     <p>With our low code,No code IoT Platform</p>
-                    <div class="px-4 text-center">
-                        <button type="button" class="btn rounded-3 lh-1 text-white" style="background-color: #2c2c78;">Learn more</button><br>
-                        <button type="button" class="btn rounded-3 lh-1 mt-2 text-primary" style="background-color: #fff;">Contact Us</button>
+                    <div class="px-4 py-4 text-center">
+                        <button onclick="location.href='https://developer.boodskap.io/'" type="button" class="btn rounded-3 lh-1 text-white px-4 py-2 " style="background-color: #2c2c78;border-radius: 10px;"><small>Learn more</small></button><br>
+                        <button onclick="location.href='https://boodskap.io/contact-us'" type="button" class="btn rounded-3 lh-1 mt-3  px-4 py-2" style="background-color: #fff;border-radius: 10px;"><small class="btnsecondary">Contact Us</small></button>
                     </div>
                 </div>
                 
             </div>    
         </div>
-        <div class="right-content" style="position:relative;box-shadow: 0px 5px 30px  #8686bd;">
+        <div class="right-content" style="position:relative;box-shadow: 0px 5px 30px  #8686bd;height:100% !important;">
 
             <div class="container">
                 <div class="d-flex align-items-center px-4 py-4">
@@ -121,14 +121,14 @@
                     <form action="javascript:void(0)" id="registerForm" novalidate class="mb-0 pt-4"  onsubmit="register()">
                         
                         <div class="wrap-input">
-                            <input type="text" class="input-text nameField" id="firstname" placeholder="First name" required/>
+                            <input type="text" class="input-text " id="firstname" placeholder="First name" required/>
                             <span class="loginput text-end" data-placeholder="">
                                 <img class="icon-position" src="images/person.png" style="width: 20px;">
                             </span>
                             <div id="logfirstname"></div>
                         </div>
                         <div class="wrap-input">
-                            <input type="text" class="input-text nameField" id="lastname" placeholder="Last name" required/>
+                            <input type="text" class="input-text " id="lastname" placeholder="Last name" required/>
                             <span class="loginput text-end" data-placeholder="">
                                 <img class="icon-position" src="images/person.png" style="width: 20px;">
                             </span>
@@ -141,8 +141,8 @@
                             </span>
                             <div id="logemail"></div>
                         </div>
-                        <div class="g-recaptcha"
-                        data-sitekey="6Lel4Z4UAAAAAOa8LO1Q9mqKRUiMYl_00o5mXJrR"></div>
+                        <div class="g-recaptcha" id="captchaFeedback" data-sitekey="6Lel4Z4UAAAAAOa8LO1Q9mqKRUiMYl_00o5mXJrR"></div>
+                        <div id="logcaptchaFeedback"></div>
                         
                         <div class="form-group text-center text-dark mt-2" style="width:100%;">
                              <small class=" ">By clicking Register, you agree to our Terms & Conditions and Privacy Policy.
@@ -155,7 +155,7 @@
                         </div>
                        
                         <div class="mt-3 pt-2 text-center " style="font-size: 14px;">
-                            Already have an account?<a href="<%= basepath %>/login" class="text-decoration-none text-color"><span class="text-decoration fw-bold fs-6 ps-2"style="font-size:14px !important">Login.</span> </a>
+                            Already have an account?<a href="<%= basepath %>/login" class="text-decoration-none text-color"><span class="text-decoration fw-bold fs-6 ps-2"style="font-size:14px !important">Login</span> </a>
                         </div>
                         <div>
                             <p class="mt-3 pt-3 text-center">
@@ -169,9 +169,9 @@
                                 &copy; <span class="currentYear"></span> All rights reserved.
                                 <!-- <a href="https://boodskap.io" target="_blank" class="text-warning textColor poweredBy"></a> -->
                             </p>
-                            <p class="text-center" style="color:#ccc">
+                            <p class="text-center" style="color:#aaaaaa">
                                 Dashboard Version: <b><span  class="webVersion"></span></b>
-                            <span style="color:#ccc">|</span> Platform Version: <b><span class="platformVersion"></span></b>
+                            <span style="color:#aaaaaa">|</span> Platform Version: <b><span class="platformVersion"></span></b>
                                 <!-- <span style="color:#ccc">|</span> Platform Version: <b><span class="apiVersion"></span></b> -->
                             </p>
                         </div>
@@ -231,8 +231,6 @@
 <script>
     $(document).ready(function() {
         App.init();
-
-       
     });
     function onSubmit(token) {
      document.getElementById("registerForm").submit();

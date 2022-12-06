@@ -67,12 +67,8 @@
     <link href="css/log-style.css" rel="stylesheet"/>
     <script src="libraries/pace.min.js"></script>
 
-    <!-- Montserrat Font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
-    
-    
-
     <base href="<%=basepath %>/" />
+
 </head>
 <body class="pace-top bg-white">
 <input type="hidden" id="customLogin" value="<%= key %>" />
@@ -82,10 +78,10 @@
         <!-- <div class="news-feed" style="border-right:1px solid #eee;background-color: #fac300;"> -->
         <div class="news-feed content-background" >
             <div class="px-5 text-white text-capitalize">
-                <div class="pt-4 leftside-head fs-1 ">Boodskap highly scalable ioT platform</div>
+                <div class="pt-4 leftside-head fs-1 " style="font-weight: 500px;">Boodskap highly scalable ioT platform</div>
                 <div class="lh-base fw-lighter">Insanely powerful incredibly simple ioT platform</div>
                 <!-- <div class=""> -->
-                    <a href="https://calendly.com/boodskap/demo" target="_blank" class="btn text-white mt-4 rounded-3 fw-bold px-4 py-2" style="background-color: #6098d9;">
+                    <a href="https://calendly.com/boodskap/demo" target="_blank" class="btn text-white mt-4 rounded-3 px-4 py-2" style="background-color: #6098d9;">
                         Schedule a demo&nbsp;<img src="images/arrow-right.png" width="22px"><!-- <i class="ps-3 fa fa-arrow-right"></i> -->
                     </a>
                 <!-- </div> -->
@@ -100,7 +96,7 @@
                     <p>With our low code,No code IoT Platform</p>
                     <div class="px-4 py-4 text-center">
                         <button onclick="location.href='https://developer.boodskap.io/'" type="button" class="btn rounded-3 lh-1 text-white px-4 py-2 " style="background-color: #2c2c78;border-radius: 10px;"><small>Learn more</small></button><br>
-                        <button onclick="location.href='https://boodskap.io/contact-us'" type="button" class="btn rounded-3 lh-1 mt-3 px-4 py-2 " style="background-color: #fff;border-radius: 10px;"><small class="btnsecondary">Contact Us</small></button>
+                        <button onclick="location.href='https://boodskap.io/contact-us'" type="button" class="btn rounded-3 lh-1 mt-3 text-color px-4 py-2" style="background-color: #fff;border-radius: 10px;"><small class="btnsecondary">Contact Us</small></button>
                     </div>
                 </div>
                 
@@ -121,49 +117,30 @@
                     </div>
                 </div>
                 <div class=" px-4 py-3">
-                    <div class="mb-3">
-                        <span class="log-head">Login to Boodskap</span>
-                        <div class="caption-text py-2">Enter the account details below</div>
+                    <div>
+                        <span class="log-head">Check your mail</span>
+                        <div class="caption-text py-2">Password reset successfully. Please check your Email address</div>
                     </div>
-                    <form action="javascript:void(0)" novalidate class="mb-0 pt-4" onsubmit="login()">
-                        <div class="wrap-input">
-                            <input type="text" class="input-text" id="username" placeholder="Username" required/>
-                            <span class="loginput text-end" >
-                                <img class=" icon-position" src="images/person.png" style="width: 20px;">
-                            </span>
-                            <div id="logusername"></div>
+                    <form action="javascript:void(0)" novalidate class="mb-0" onsubmit="forgetPassword()"><!-- onsubmit="login()" -->
+                        <div class="p-3 text-center">
+                            <img src="images/artboard.png" width="190px" >
                         </div>
-                        <div class="wrap-input">
-                            <input type="password" class="input-text" id="password" placeholder="Password" required/>
-                            <!-- <span class="" data-placeholder=""></span> -->
-                            <i onclick="toggleBox()" class="fa fa-eye form-control-feedback passwordIcon icon-position" style="position: absolute;right: 1px;top: 0px;"></i>
-                            <div id="logpassword"></div>
-                        </div>
-<div class="checkbox checkbox-css pt-1" style="line-height: 25px;">         <!--  -->
-                            <input type="checkbox" id="remember_me_checkbox" value=""/>
-                            <label for="remember_me_checkbox"  style="color: #000;font-weight: 500; font-size:14px;">
-                                Remember Me
-                            </label>
-                            <p style="float: right;">
-                                <!-- <a href="javascript:void(0)" onclick="resetPasswordModal()" class="text-decoration-none text-color">Forgot
-                                    Password?</a> -->
-                                <a href="<%= basepath %>/forgotpassword" class="text-decoration-none text-color text-size">Forgot
-                                    Password?</a>
-                            </p>
-                        </div>
-                        <div class="login-buttons pt-4">
-                            <button type="submit" class="btn btn-background btn-size fw-bold fs-6 d-grid  col-8 mx-auto" id="submitButton">Login
-                            </button>
-                            
+                       
+                        <div class="login-buttons">
+                            <!-- <button type="submit" class="btn btn-background btn-size hover  fs-6 d-grid  col-8 mx-auto" id="passwordButton">Submit</button> 
+                            <button type="submit" class="btn btn-background btn-size fs-6 d-grid  col-8 mx-auto" id="passwordButton">Submit</button>-->
+                            <a href="<%= basepath %>/login" class="btn btn-background btn-size fs-6 mt-4 d-grid  col-8 mx-auto" id="backLogin" style="font-size:14px !important ;">
+                                Back to Login
+                            </a> 
                         </div>
 
                     
-                        <div class="d-flex pt-5 justify-content-center" style="font-size:16px">
+                        <div class="d-flex pt-5 justify-content-center" style="font-size: 14px;">
                             Don't have an account?<a href="<%= basepath %>/register" class="text-decoration-none fw-bold text-color">Sign up</a>
                         </div>
 
                         <div>
-                            <p class="mt-3  text-center">
+                            <p class="mt-3 pt-3 text-center">
                                 <small><a href="https://boodskap.io/terms-conditions" target="_blank"
                                         class=" text-color">Terms & Conditions</a> |
                                     <a href="https://boodskap.io/privacy-policy" target="_blank" class="text-color">Privacy
@@ -265,7 +242,6 @@
     </div>
 
 </script>
-
 <script>
     $(document).ready(function () {
         App.init();

@@ -100,28 +100,26 @@ function loginAsCall(email, password, key, id, cbk) {
             cbk(false, null);
         }
     });
-
 }
 
-// function resetPasswordCall(email, cbk) {
+function resetPasswordCall(email, cbk) {
 
-//     var str = DOMAIN_KEY ? '?targetDomainKey=' + DOMAIN_KEY : '';
+    var str = DOMAIN_KEY ? '?targetDomainKey=' + DOMAIN_KEY : '';
+     $.ajax({
+        url: API_BASE_PATH + "/domain/password/reset/" + email + str,
+        type: 'GET',
+        success: function (data) {
+            //called when successful
+            cbk(true, data);
+        },
+        error: function (e) {
+            //called when there is an error
+            //console.log(e.message);
+            cbk(false, null);
+        }
+    });
 
-//     $.ajax({
-//         url: API_BASE_PATH + "/domain/password/reset/" + email + str,
-//         type: 'GET',
-//         success: function (data) {
-//             //called when successful
-//             cbk(true, data);
-//         },
-//         error: function (e) {
-//             //called when there is an error
-//             //console.log(e.message);
-//             cbk(false, null);
-//         }
-//     });
-
-// }
+}
 
 function registerCall(data, cbk) {
 
