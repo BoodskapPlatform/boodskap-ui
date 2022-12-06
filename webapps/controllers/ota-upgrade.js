@@ -133,7 +133,17 @@ function loadOTA() {
         "ordering": true,
         iDisplayLength: 10,
         lengthMenu: [[10, 50, 100], [10, 50, 100]],
-        aoColumns: fields,
+        dom: '<"bskp-search-left" f> lrtip',
+        language: {
+            "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
+            "searchPlaceholder": "Search here...",
+            loadingRecords: '',
+            paginate: {
+                previous: '< Previous',
+                next: 'Next >'
+            }
+        },
+     aoColumns: fields,
         data: []
     };
 
