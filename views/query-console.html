@@ -23,6 +23,7 @@
     }
     #searchQueryConsole .bskp-icon-bg{
        margin-top: 5px;
+       
       
      
        
@@ -44,28 +45,30 @@ text-align: end;
   
     
     #searchQueryConsole .execute_btn{
-        margin-left: 170px;
-        background-color:#2d2f79;
+       
+        background-color:hsl(238deg 46% 33%);
         border: none;
         color: white;
-      width: 90px;
-    
-      border-radius: 7px;
-      margin-bottom: 7px;
+     
+      font-size:12px;
+      border-radius: 10px;
+    width: 80px;
       border-style: none;
       cursor: pointer;
-      padding-bottom: 6px;
-    
+     height: 30px;
+     margin-left: 193px;
+     margin-bottom: 5px;
+   
 
     }
     #searchQueryConsole .breadcrumb{
        margin: 5px;
     }
     #searchQueryConsole .ace-eclipse .ace_gutter{
-        background-color: #eaf1f6;
+        background-color: hsl(210deg 31% 95%);
         border: 2px solid #eaf1f6;
         border-radius: 10px;
-        
+       
       
     }
     .panel{
@@ -73,7 +76,7 @@ text-align: end;
        
     }
     #searchQueryConsole .table_border{
-        border: 2px solid #eaf1f6;border-radius: 15px;margin:5px;
+        border: 1px solid hsl(214deg 23% 79%);border-radius: 15px;margin:5px;
         background-color: #ffffff;
     }
     #searchQueryConsole .ace_content{
@@ -113,29 +116,57 @@ text-align: end;
         background-color: #ffffff;
     }
    #searchQueryConsole .page-header{
-        color: black;
+        color: hsl(0deg 0% 25%);
         margin-left: 6px;
+        font-weight: 700;
+        font-size: 20px;
     }
 
+    .platformBody{
+      
+       background-color: hsl(205deg 40% 94%);
+       padding-top: 10px;
+      
+    } 
+    
+    .select2-container--default .select2-selection--single{
+    border-radius: 10px;
    
- 
+    
+   
+ }
+ .form-group{
+    margin-bottom: 5px;
+ }
+ .btn-g{
+justify-content: space-between;
+ }
+
 
     
 
 </style>
-<div id="searchQueryConsole" class="container panel mt-3 msgDef platformBody ">
+<div id="searchQueryConsole" class="container panel  msgDef platformBody ">
     <!-- begin breadcrumb -->
     <ol  class=" panel-inverse breadcrumb pull-right ">
-        <li class="breadcrumb-item"><a href="<%= basepath %>/home">Domain</a></li>
-        <li class="breadcrumb-item active">Query Console</li>
+    
+            <li class="breadcrumb-item"><a href="<%= basepath %>/home">Domain</a></li>
+            <li class="breadcrumb-item active">Query Console</li>
        
-            <a href="javascript:;" class="btn btn-sm btn-icon btn-circle  bskp-icon-bg" data-click="panel-expand"><i class="fa fa-expand"></i></a>
-            <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg" title="Help" onclick="startTour()"><i class="icon-help"></i></a>
+        
+
+        <div class="ml-2 mr-4">
+            <a href="javascript:;" class="btn btn-sm btn-icon btn-circle  bskp-icon-bg" data-click="panel-expand"><img style="height:14px ;" src="images/expand-icon.SVG" alt=""></a>
+             <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg" title="Help" > <img src="images/Question_icon.PNG" alt=""> </a>
+           </div>
+       
+            <!-- <a href="javascript:;" class="btn btn-sm btn-icon btn-circle  bskp-icon-bg" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+            <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg" title="Help" onclick="startTour()"><i class="icon-help"></i></a> -->
           
     </ol>
     <!-- end breadcrumb --> 
     <!-- begin page-header -->
-    <img class="mb-2" src="images/search.png " alt="logo"><span class="page-header">Elastic Search Query</span>
+    <img style="height:22px;" class=" ml-2 mb-2" src="images/search.png " alt="logo"><span class="page-header">Elastic Search Query</span>
     <!-- end page-header -->
 
     <!-- begin panel -->
@@ -177,10 +208,14 @@ text-align: end;
 
                         <div class="col-md-12 ">
                             <div class="form-group queryBox">
-                                <span>Elastic Search Query <small style="text-decoration: underline">v 5.5.0</small> <strong style="color:red">*</strong></span><br>
-                                    <small>(Select & Press <b>CTRL + ENTER</b> to execute the query)</small>
+                                <span class="" style="font-weight:600 ;font-size:10px">Elastic Search Query <small class="ml-2" style="text-decoration: underline">v 5.5.0</small> <strong style="color:red">*</strong></span><br>
+                                <div class="btn-g"> <small>(Select & Press <b style="font-weight:600 ;font-size:9px">CTRL + ENTER</b> to execute the query)</small> 
+                                   
+                                    <button  class="execute_btn btn " onclick="executeQuery()">Execute</button>
                               
-                                    <button class="execute_btn btn" onclick="executeQuery()">Execute</button>
+                                   </div>
+                                  
+                                    
 
                                
                                
@@ -194,11 +229,11 @@ text-align: end;
                     </div>
 
                 </div>
-                <div class="col-md-5" style="border-left:2px solid  #eaf1f6;height:400px;">
+                <div id="sideBorder" class="col-md-5" style="border-left:2px solid  #eaf1f6;">
                     <h5>Output Console <small style="float:right;font-size: 12px" class="loadingText"></small></h5>
                     <div id="resultEditor" style="width: 100%;"></div>
                 </div>
-                <div class="col-md-2" style="border:2px solid  #eaf1f6;border-radius: 15px;background-color:#f3f5f7;height:400px;">
+                <div id="messageData" class="col-md-2" style="border:2px solid  #eaf1f6;border-radius: 15px;background-color:#f3f5f7;">
                     <div class="fields" style="width: 100%;overflow: auto;overflow-x: hidden"></div>
                 </div>
             </div>
