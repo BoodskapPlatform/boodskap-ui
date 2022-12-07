@@ -251,9 +251,10 @@ function register(){
         $("#submitButton").removeAttr('disabled');
         if(status){
             $('#registerForm')[0].reset();
-            successMsg('Account Successfully created. Please check your email to activate your account!','firstname');
-            $(".register-content").hide();
-            $("#regFeedback").show();
+            document.location=BASE_PATH+'/registerSuccess';
+            // successMsg('Account Successfully created. Please check your email to activate your account!','firstname');
+            // $(".register-content").hide();
+            // $("#regFeedback").show();
 
             setTimeout(function(){
                 if(Cookies.get('domain')){
