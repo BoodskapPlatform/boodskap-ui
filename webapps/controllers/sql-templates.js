@@ -95,6 +95,16 @@ function loadTemplates() {
         paging: true,
         aoColumns: fields,
         searching: true,
+        dom: '<"bskp-search-left" f> lrtip',
+        language: {
+            "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
+            "searchPlaceholder": "Search here...",
+            loadingRecords: '',
+            paginate: {
+                previous: '< Prev',
+                next: 'Next >'
+            }
+        },
         // aaSorting: sortOrder,
         "ordering": false,
         iDisplayLength: 10,
