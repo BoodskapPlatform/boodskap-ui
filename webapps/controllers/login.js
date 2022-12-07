@@ -290,15 +290,17 @@ function forgetPassword() {
                 return false;
             } 
     }
-
+   
     $("#passwordButton").attr('disabled','disabled');
 
 
     resetPasswordCall(emailId.toLowerCase(),function (status, data) {
+        // console.log(status)
        if(status){
         $("#passwordButton").removeAttr('disabled');
-        $("#forgotModal").modal('hide');
-        successMsg('Password reset successfully. Please check your Registered Email!', 'emailId');
+        document.location=BASE_PATH+'/success';
+        // $("#forgotModal").modal('hide');
+        // successMsg('Password reset successfully. Please check your Registered Email!', 'emailId');
        }else{
         errorMsgBorder('Something went wrong !', 'emailId',1);
         $("#passwordButton").removeAttr('disabled');

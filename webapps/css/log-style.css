@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap'); 
 body{
     font-family: "Montserrat", sans-serif !important;
+    font-size: 14px;
 }
 
 .content-background{
@@ -10,14 +11,14 @@ body{
 .sub-image{
     position: relative;
     width: 100px;
-    left: 310px;
-    top: 55px;
+    left: 295px;
+    top: 35px;
 }
 .sub-image1{
     /* background-image: url("../images/3D_Sphere_2.png"); */
     position: absolute;
     width: 100px;
-    top: 575px;
+    top: 600px;
     left: 10px;
 }
 .sub-image2{
@@ -30,9 +31,9 @@ body{
     position: relative;
     background: rgb(96 124 193 / 50%);
     color: #fff;
-    width: 255px;
-    top: -18px;
-    left: 80px;
+    width: 275px;
+    top: -8px;
+     left: 39px;
     padding: 19px;
     border: 1px solid rgb(142 142 244);
     border-radius: 14px;
@@ -48,7 +49,7 @@ body{
 }
 .log-head{
     color: #18184e;
-    font-weight: 200px;
+    font-weight: 400;
     font-size: 28px;
 }
 .caption-text{
@@ -131,7 +132,7 @@ input{
 }
 .btn-size{
     color: #fff;
-    border-radius: 15px;
+    border-radius: 10px;
     padding: 6px;
     font-size: 14px !important;
     font-weight: 500 !important;
@@ -156,7 +157,12 @@ input{
 .backlogin:hover{
     color: white;
 }
-
+.show-eye{
+    background-image: url("images/show.png");
+}
+.hide-eye{
+    background-image: url("images/hide.png");
+}
 /* @media (max-width:500px){
     .sub-image2{
         width: 500px;

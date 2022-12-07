@@ -25,7 +25,7 @@ function loadTemplates() {
         {
             mData: 'id',
             sTitle: 'Template Name',
-            sWidth: '25%',
+            sWidth: '15%',
             mRender: function (data, type, row) {
 
                 var str = '<button style="float: right" class="btn btn-sm btn-icon btn-default" onclick="openModal(6,\'' + row["id"] + '\')"><i class="icon-play"></i></button>';
@@ -37,7 +37,7 @@ function loadTemplates() {
             mData: 'query',
             sTitle: 'Template Query',
             orderable: false,
-            sWidth: '55%',
+            sWidth: '65%',
             mRender: function (data, type, row) {
 
                 return '<code>' + (data) + '</code>';
@@ -83,18 +83,6 @@ function loadTemplates() {
         "ordering": false,
         iDisplayLength: 10,
         lengthMenu: [[10, 50, 100], [10, 50, 100]],
-        dom: '<"bskp-search-left" f> lrtip',
-            language: {
-                "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
-             "searchPlaceholder": "Search here...",
-            //  "emptyTable":"No data available",
-                loadingRecords: '',
-                paginate: {
-                    previous: '< Prev',
-                    next: 'Next >'
-                },
-
-            },
         "bProcessing": true,
         "bServerSide": true,
         "sAjaxSource": API_BASE_PATH + '/elastic/search/query/' + API_TOKEN,
