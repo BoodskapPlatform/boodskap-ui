@@ -18,9 +18,9 @@
 }
 .header-style{
     background: white !important;
-     padding: 0px 38px ;
+     padding: 2px 38px ;
      box-shadow: 0px 2px 12px 2px #e7eefa !important;
-     z-index: 1020 !important;
+     z-index: 400 !important;
 }
 @media (max-width: 767px){
 .navbar-header {
@@ -32,7 +32,7 @@
         background: white !important;
         padding: 8px 15px !important;
         box-shadow: 0px 2px 12px 2px #e7eefa !important;
-        z-index: 1020 !important;
+        z-index: 400 !important;
     }
 }
 </style>
@@ -68,13 +68,7 @@
        <!-- <li class="menulink">
             <a href="<%= basepath %>/home">Platform Home</a>
         </li>-->
-        <li class="">
-            <a href="javascript:;" data-toggle="dropdown" style="padding: 5px;" class="dropdown-toggle f-s-14 bskp-frame-shadow" onclick="openmegamenu()">
-                <!-- <i class="fa fa-bell"></i> -->
-                <i class="fa fa-search" class="bskp-w-18px" style="color:#4c4eb9;" aria-hidden="true"></i>
-                <!--<span class="label">5</span>-->
-            </a>
-        </li>
+        
         <li class="googletranslate bskp-frame-shadow bskp-select-pad hidden-sm">
 
 
@@ -92,77 +86,10 @@
 
         </li>
         <li class="dropdown menulink">
-            <a href="javascript:;" class="dropdown-toggle bskp-select-pad mr-3 bskp-frame-shadow"  style="font-weight:600; padding: 4px 8px 4px 8px !important;" data-toggle="dropdown">
-                <img src="images/logo.jpeg" class="mr-2" alt="" style="width: 20px;"> Boodskap Platform <b class="caret"></b>
+            <a href="javascript:;" onclick="openmegamenu()" class="dropdown-toggle bskp-select-pad mr-3 bskp-frame-shadow"  style="font-weight:600; padding: 4px 8px 4px 8px !important;" >
+                <i class="fa fa-search bskp-w-18px " style="color:#4c4eb9;" aria-hidden="true"></i> Boodskap Platform <b class="caret"></b>
             </a>
-            <div class="dropdown-menu dropdown-menu-right" style="min-width: 22rem">
-
-                <div class="row">
-                    <div class="col-lg-6" style="border-right: 1px solid #eee;">
-                        <a href="<%= basepath %>/home" class="dropdown-item"><i class="icon-home"></i> Home</a>
-                        <div class="dropdown-divider"></div>
-                        <label style="margin-left: 10px;">Platform</label>
-                        <a href="<%= basepath %>/dashboard" class="dropdown-item">Dashboard</a>
-                        <a href="<%= basepath %>/userevents" class="dropdown-item">Event Subscriptions</a>
-<!--
-                        <div class="dropdown-divider"></div>
-                        <label style="margin-left: 10px;">Marketplace</label>
-                       -->
-
-                        <div class="dropdown-divider"></div>
-                        <label style="margin-left: 10px;">Utilities</label>
-                        <a href="<%= basepath %>/files" class="dropdown-item">File Storage</a>
-                        <a href="<%= basepath %>/query-console" class="dropdown-item">Elastic Search Query</a>
-                        <a href="<%= basepath %>/db-query-console" class="dropdown-item db">DB Search Query</a>
-                        <a href="<%= basepath %>/sql-query-console" class="dropdown-item sqlquery">Ignite SQL Query</a>
-                        <a href="<%= basepath %>/messages"  class="dropdown-item">Messages</a>
-                        <a href="<%= basepath %>/event-logs" class="dropdown-item">Event Logs</a>
-                        <a href="<%= basepath %>/log-console" target="_blank" class="dropdown-item">Application Logs</a>
-
-                        <div class="dropdown-divider"></div>
-                        <label style="margin-left: 10px;">Plugins</label>
-                        <a href="<%= basepath %>/alexa" class="dropdown-item"><i class="icon-microphone"></i> Amazon Alexa </a>
-
-                      <!--  <div class="dropdown-divider"></div>
-                        <label style="margin-left: 10px;">Billing</label>
-                        <a href="<%= basepath %>/manage-billing" class="dropdown-item adminMenu"><i class="icon-dollar"></i> Manage Billing </a>
-                        <a href="<%= basepath %>/invoice" class="dropdown-item"><i class="icon-coin-dollar"></i> Invoice</a>-->
-
-                    </div>
-                    <div class="col-lg-6">
-                        <label style="margin-left: 10px;">Developer Modules</label>
-                        <a href="<%= basepath %>/dashboard-editor" class="dropdown-item">Dashboard Editor Studio</a>
-                        <a href="<%= basepath %>/mobile-platform" class="dropdown-item">Mobile Editor Studio</a>
-                        <a href="<%= basepath %>/widgets" class="dropdown-item">Widget Library</a>
-                        <a href="<%= basepath %>/marketplace" class="dropdown-item">Boodskap Marketplace</a>
-                        <a href="<%= basepath %>/message-definition" class="dropdown-item">Message Definition</a>
-                        <a href="<%= basepath %>/record-definition" class="dropdown-item">Record Definition</a>
-                        <a href="<%= basepath %>/sql-table" class="dropdown-item sqlquery">SQL Table</a>
-                        <a href="<%= basepath %>/db-table" class="dropdown-item dbquery">DB Table</a>
-                        <a href="<%= basepath %>/rules-engine" class="dropdown-item">Rules Engine</a>
-                        <a href="<%= basepath %>/script-console" class="dropdown-item">Script Console</a>
-                        <a href="<%= basepath %>/machine-learning" class="dropdown-item">Machine Learning</a>
-                        <a href="<%= basepath %>/templates" class="dropdown-item">Plaform Templates</a>
-                        <a href="<%= basepath %>/sql-templates" class="dropdown-item sqlquery">SQL Templates</a>
-                        <a href="<%= basepath %>/db-templates" class="dropdown-item dbquery">DB Templates</a>
-                        <a href="<%= basepath %>/events" class="dropdown-item">Events & Notification</a>
-                        <a href="<%= basepath %>/code-editor" class="dropdown-item">Code Editor</a>
-                        <div class="dropdown-divider"></div>
-                        <label style="margin-left: 10px;">Administration</label>
-                        <a href="<%= basepath %>/user-management" class="dropdown-item">User Management</a>
-                        <a href="<%= basepath %>/token-management" class="dropdown-item">Token Management</a>
-                        <a href="<%= basepath %>/device-management" class="dropdown-item">Device Management</a>
-                        <a href="<%= basepath %>/asset-management" class="dropdown-item">Asset Management</a>
-                        <a href="<%= basepath %>/firmware-management" class="dropdown-item">Firmware Management</a>
-                        <a href="<%= basepath %>/geofence" class="dropdown-item">Geofence Management</a>
-
-                        <a href="<%= basepath %>/plugin-management" class="dropdown-item">Plugin Management</a>
-
-                    </div>
-                </div>
-
-
-            </div>
+            
         </li>
 
 
@@ -322,7 +249,7 @@
            <div class="modal-body p-0" style="height:500px;">
                
             <div class="row m-0" style="height:100%;">
-                <div class="col-lg-4 bskp-meganav" style="position:relative; background: rgb(220, 235, 234);">
+                <div class="col-lg-4 bskp-meganav" style="position:relative; background: #eaf1f6;">
                     <div class="sidebar" style="padding: 0px;position: static !important;width: 100%;">
                         <div class="card mt-3 p-0 bskp-rad-10">
                             <div class="card-header p-0 " id="headingOne" style="background:#2d2f79;border-radius: 10px 10px 3px 3px;">
@@ -371,12 +298,12 @@
                                             <span>Boodskap Marketplace</span>
                                         </a>
                                 </li>
-                                <li class="has-sub sideMain Cassandra">
+                                <!-- <li class="has-sub sideMain Cassandra">
                                     <a  style="color: #2d2f79;">
                                         <i class="icon-code2"></i>
                                         <span>Cassandra Query Console</span>
                                     </a>
-                                </li> 
+                                </li>  -->
                                 <li class="has-sub sideMain codeEditor">
                                     <a href="http://localhost:4201/code-editor" style="color: #2d2f79;">
                                         <i class="icon-code2"></i>
@@ -452,12 +379,12 @@
                                         <span>Geofence Management</span>
                                     </a>
                                 </li> 
-                                <li class="has-sub sideMain billingMenu">
+                                <!-- <li class="has-sub sideMain billingMenu">
                                     <a href="http://localhost:4201/invoice" style="color: #2d2f79;">
                                         <i class="icon-coin-dollar"></i>
                                         <span>Invoice</span>
                                     </a>
-                                </li>
+                                </li> -->
                                 <li class="has-sub sideMain msgDefMenu">
                                     <a href="http://localhost:4201/message-definition" style="color: #2d2f79;">
                                         <i class="icon-stack-2"></i>
@@ -483,12 +410,12 @@
                                     </a>
                                 </li>
                             
-                                <li class="has-sub sideMain pluginMenu">
+                                <!-- <li class="has-sub sideMain pluginMenu">
                                     <a href="http://localhost:4201/plugin-management" style="color: #2d2f79;">
                                         <i class="icon-puzzle-piece"></i>
                                         <span>Plugin Management</span>
                                     </a>
-                                </li>
+                                </li> -->
                                 <li class="has-sub sideMain recordDefMenu">
                                     <a href="http://localhost:4201/record-definition" style="color: #2d2f79;">
                                         <i class="icon-th"></i>
@@ -667,7 +594,7 @@
                         </div>
                     </div>
                    </div>
-                  <div class="megdiv">
+                  <!-- <div class="megdiv">
                     <p class="bskp-mega-head"><span class="bskp-bb">Billing</span></p>
                     <div class="row mb-2 pt-2" style="border-bottom: 1px solid #e2e2e2;">
                         <div class="col-sm-6 col-xs-6 megacard" onclick="loadMenu()">
@@ -679,7 +606,7 @@
                             </div>
                         </div>
                     </div>
-                  </div>
+                  </div> -->
                   <div class="megdiv">
                       <p class="bskp-mega-head"><span class="bskp-bb">Administration</span></p>
                     <div class="row mb-2 pt-2" style="border-bottom: 1px solid #e2e2e2;">
@@ -731,14 +658,14 @@
                                 <p class="mt-2"><label class="cardtitle" style="font-size:12px">Geofence Management</label></p>
                             </div>
                         </div>
-                        <div class="col-sm-6 col-xs-6 megacard" onclick="loadMenu(32)">
+                        <!-- <div class="col-sm-6 col-xs-6 megacard" onclick="loadMenu(32)">
                             <div class="card modules bskp-home-modules" onclick="clickRecent('Plugin Management','plugin_management',32,35)" style="padding: 8px 14px;">
                                 <div class="bskp-icon-frame">
                                     <div class="bskp-Dbg bskp-Dimg35" > </div>
                                 </div>
                                 <p class="mt-2"><label class="cardtitle" >Plugin Management</label></p>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                   </div>
                   <div class="megdiv">
@@ -792,14 +719,14 @@
                                 <p class="mt-2"><label class="cardtitle" style="font-size:12px">Geofence Management</label></p>
                             </div>
                         </div>
-                        <div class="col-sm-6 col-xs-6 megacard" onclick="loadMenu(32)">
+                        <!-- <div class="col-sm-6 col-xs-6 megacard" onclick="loadMenu(32)">
                             <div class="card modules bskp-home-modules" onclick="clickRecent('Plugin Management','plugin_management',32,35)" style="padding: 8px 14px;">
                                 <div class="bskp-icon-frame">
                                     <div class="bskp-Dbg bskp-Dimg35" > </div>
                                 </div>
                                 <p class="mt-2"><label class="cardtitle" >Plugin Management</label></p>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                   </div>
                   <div class="megdiv">
@@ -841,6 +768,14 @@
                                     <div class="bskp-Dbg bskp-Dimg12" style="height: 28px; width: 28px;"> </div>
                                 </div>
                                 <p class="mt-2"><label class="cardtitle" style="font-size:12px">File Storage</label></p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xs-6 megacard" onclick="loadMenu(17)">
+                            <div class="card modules bskp-home-modules" onclick="clickRecent('Event Logs','event_logs',17,18)" style="padding: 8px 14px;">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg18" style="height: 28px; width: 28px;"> </div>
+                                </div>
+                                <p class="mt-2"><label class="cardtitle" style="font-size:12px">Event Logs</label></p>
                             </div>
                         </div>
                     </div>

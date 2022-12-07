@@ -558,12 +558,14 @@ function loadLogs() {
                        dom: '<"bskp-search-left" f> lrtip',
             language: {
                 "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
-             "searchPlaceholder": "Search here...",
+             "searchPlaceholder": "Search by Rule ID / Name",
+             "emptyTable":"No data available",
                 loadingRecords: '',
                 paginate: {
                     previous: 'Previous',
                     next: 'Next'
-                }
+                },
+
             },
         "bServerSide": true,
         "sAjaxSource": API_BASE_PATH + '/elastic/search/query/' + API_TOKEN,

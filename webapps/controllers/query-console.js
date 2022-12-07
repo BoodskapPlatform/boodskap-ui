@@ -183,11 +183,14 @@ function loadqueryEditor() {
     queryEditor.focus();
 
 
-    $('#queryEditor').css('height',$(window).height()-390);
+    $('#queryEditor').css('height',$(window).height()-335);
 
+    $('#messageData').css('height',$(window).height()-230).resize();
+    $('#sideBorder').css('height',$(window).height()-230).resize();
 
     queryEditor.resize();
-
+   
+   
 
     queryEditor.commands.addCommand({
         name: 'saveFile',
@@ -294,8 +297,9 @@ function loadresultEditor(code) {
     resultEditor.clearSelection();
 
 
-    $('#resultEditor').height(($(window).height() - 285) + 'px');
-
+    $('#resultEditor').height(($(window).height() - 250) + 'px');
+   
+   
     resultEditor.resize();
 
 }

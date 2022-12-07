@@ -143,8 +143,9 @@
 #getstartedmodal .btn-skip {
     background: #90a1b7;
     border: none;
-    border-radius: 11px;
-    padding: 4px 20px;
+    border-radius: 10px;
+    font-size: 14PX;
+    padding: 5.5px 30px;
 }
 
 #getstartedmodal .btn-simulate {
@@ -259,9 +260,9 @@
 
 #getstartedmodal .btn-proceed {
     background-color: #2d2f79;
-    border-radius: 13px;
+    border-radius: 10px;
     border: none;
-    padding: 5px 30px;
+    padding: 5.5px 30px;
 }
 
 #getstartedmodal .btn-previous {
