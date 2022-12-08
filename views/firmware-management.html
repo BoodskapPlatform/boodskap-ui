@@ -1,85 +1,123 @@
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
 <style>
-    .bskp-submenu li.active {
-        background-color: #90a1b7;
+    #page-container{
+        background-color: hsl(205deg 40% 94%);
+    }
+    .bskp-submenu2 li.active {
+        background-color: #2d2f79;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+
         font-weight: 600;
-        border-radius: 4px;
+        
+        color:white;
     }
 
-    .bskp-submenu li.active>a {
-        color: white;
-    }
+    .bskp-submenu2 li.active>a {
+        color:white;
+        
+    } 
 
-    .bskp-submenu {
-        background-color: #ffffff !important;
+    .bskp-submenu2 {
         height: 35px;
         border-radius: 10px;
-        margin: 30px 38px 25px 38px !important;
+        margin: 40px 39px 0px 40px !important;
+    
     }
 
-    .bskp-submenu li a {
+    .bskp-submenu2 li a {
         color: rgb(0, 0, 0);
     }
 
-    .bskp-submenu li {
+    .bskp-submenu2 li {
         line-height: 30px;
         padding: 3px 15px;
-        border-right: 1px solid #e8e8e8;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+
+        /* border-right: 1px solid #e8e8e8; */
+        background-color:#fff;
     }
 
-    .bskp-submenu li:first-child {
-        border-left: 1px solid #e8e8e8;
-    }
 
-    .bskp-submenu li a:hover {
+    .bskp-submenu2 li a:hover {
         text-decoration: none;
-        color: rgb(126, 126, 126) !important;
+        color: rgb(54, 48, 48) !important;
     }
 
-    .bskp-submenu li.active a:hover {
-        text-decoration: none;
-        color: rgb(255, 255, 255) !important;
+    .bskp-submenu2 li.active a:hover {
+        /* text-decoration: none; */
+        color: rgb(58, 41, 41) !important;
+        /* background-color: none!important; */
     }
 
-    .bskp-submenu li:first-child>a>i {
+    .bskp-submenu2 li:first-child>a>i {
         font-size: 16px;
         color: darkslategrey;
     }
-
-    .bskp-submenu li:first-child>a:hover>i {
+ 
+    .bskp-submenu2 li:first-child>a:hover>i {
         font-size: 16px;
-        color: rgb(132, 132, 132);
+        
     }
 
-
+    /* .bskp-container-frame{
+        position: relative!important;
+        top: -5px;
+    } */ 
 
     .bskp-page-topic {
         font-size: 10px;
         font-weight: 600;
         color: #3e3e3e;
         padding: 12px 30px;
-        box-shadow: 0px 2px 15px 0px #e6eaf8e3;
+        box-shadow: 0px 2px 8px 0px #e6eaf8e3;
     }
 
     .bskp-modal textarea {
         min-height: 50px;
     }
-    div a .fa-refresh:hover{
-        color: green;
+    .refreshbutton:hover{
+        background-color: #2d2f79;
     }
     .firmwareicon{
-        position: relative;
-        bottom: 3px;
+        
+        
         width: 30px;
-        height: 30px;
+        height: 24px;
+    }
+    .select2-container--default .select2-selection--single{
+        border-radius: 20px !important;
+    }
+    .refresh:hover{
+        background-color:#2d2f79;
     }
     
+    .bskp-modal label{
+        font-size:13px ;
+        font-weight: 600;
+    }
+    .bskp-submenu2{
+        position: relative;
+        top:4px;
+    }
+    .bskp-container-frame{
+        position: sticky;
+    }
+    a{
+        padding-bottom: 5px;
+    }
+     .nav>li.firmwareactive>:hover{
+        background:#2d2f79 !important;
+        color: #ffffff;
+        list-style: none;
+    }
 </style>
 <div class="row-fluid">
-    <ul class="nav submenu bskp-submenu">
-        <li class=""><a href="<%= basepath %>/home"><i class="fa fa-home"></i> </a></li>
-        <li class=""><a href="<%= basepath %>/dashboard">Dashboard</a></li>
-        <li class="active"><a href="<%= basepath %>/firmware-management">Manage Firmwares</a></li>
-        <li><a href="<%= basepath %>/firmware/ota-upgrade">OTA Upgrade</a></li>
+    <ul class="nav bskp-submenu2">
+        <li class="active firmwareactive" style="font-size: 13px !important;font-weight:600; padding-bottom:10px"><a href="<%= basepath %>/firmware-management">Manage Firmwares</a></li>
+        <li style="font-size: 13px !important;font-weight:600;padding-bottom:10px"><a href="<%= basepath %>/firmware/ota-upgrade">OTA Upgrade</a></li>
     </ul>
 
     <!-- <ul class="nav submenu bskp-submenu"style="background-color: rgb(88, 92, 98);">
@@ -92,7 +130,7 @@
 
 </div>
 
-<div class="container platformBody mt-3">
+<div class="container platformBody ">
     <div class="panel panel-inverse bskp-container-frame">
         <!-- <ol class="breadcrumb pull-right">
         <li class="breadcrumb-item"><a href="<%= basepath %>/dashboard">Domain</a></li>
@@ -106,10 +144,10 @@
                 <li class="breadcrumb-item"><a href="<%= basepath %>/dashboard">Domain</a></li>
                 <li class="breadcrumb-item"><a href="<%= basepath %>/firmware-management">Firmware Management</a></li>
                 <li class="breadcrumb-item active">Manage Firmwares</li>
-                <div class="ml-4">
-                    <a href="javascript:;" class="btn btn-xsm btn-icon btn-circle  bskp-icon-bg"
-                        data-click="panel-expand"><image src="/images/maximize-2.SVG"></a>
-                    <a href="javascript:;" class="btn btn-xsm btn-icon btn-circle bskp-icon-bg " title="Help"><img src="images/help-circle.SVG"></a>
+                <div class="ml-3">
+                    <a href="javascript:;" class="btn btn-sm btn-icon btn-circle  bskp-icon-bg"
+                        data-click="panel-expand"><image src="images/max.SVG" height="14px"></a>
+                    <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg" title="Help"><image src="images/Question_icon (2).PNG"></a>
 
                 </div>
                 <!-- <div class="panel-heading-btn">
@@ -123,8 +161,8 @@
         </div>
         <!-- end breadcrumb -->
         <div class="page-header bskp-page-topic"><img src="images/firmware.SVG"
-                class="bskp-topic-icon mr-1 firmwareicon" > 
-        <span class="page-header" style="margin-left:0px;color: black;">Manage Firmware</span>
+                class="bskp-topic-icon mr-1  firmwareicon" > 
+        <span class="page-header" style="margin-left:0px;font-size:20px ;font-weight: 600;">Manage Firmware</span>
 
             <span class="panel-title ml-3 " style="color: #2d2f79;">Total Devices:<span
                         class="firmwareCount"></span></span>
@@ -151,12 +189,13 @@
                     </div>
                     <div class="col-md-12">
                         <div>
-                            <div class="btn-group btn-group-justified pull-right bskp-btn-group-align">
-                                <a class="btn  btn bskp-btn-shadow bskp-blue-bg" onclick="openModal(1)"><i
-                                        class="fa fa-plus-square"></i> <span class="hidden-xs">Upload
-                                        Firmware</span></a>
-                                <a class="btn bskp-refresh-bg" data-click="panel-reload" onclick="loadFirmwareList()"><i
+                           <div class="btn-group btn-group-justified pull-right bskp-btn-group-align">
+                                <a class="btn btn bskp-btn-shadow bskp-blue-bg" style="font-size: 14px;font-weight: 500;" onclick="openModal(1)"> 
+                                    <image src="images/plusic.SVG" style="position: relative;bottom:1px"> <span class="hidden-xs">Upload Firmware</span></a>
+                               <div data-toggle="tooltip" data-placement="top" title="Refresh">
+                                        <a class="btn bskp-refresh-bg refreshbutton" data-click="panel-reload" onclick="loadOTA()"><i
                                         class="fa fa-refresh"></i></a>
+                                    </div>
                             </div>
                             <div class="bskp-table-layout">
                                 <table class="table table-bordered table-hover bskp-table responsive no-wrap"
@@ -186,18 +225,14 @@
 </div>
 <!-- end panel -->
 
-</div>
-
-<script src="controllers/firmware.js" type="text/javascript"></script>
-
 
 <div id="addFirmware" class="modal bskp-modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title"><span class="templateAction"></span> Firmware</h4>
-                <button type="button" class="close " data-dismiss="modal" aria-label="Close"><i
-                        class="fa fa-times bg-secondary"></i><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close " data-dismiss="modal" aria-label="Close">
+                    <image src="images/x.svg" class="bg-secondary" style="border-radius: 13px;padding:3px">  <span aria-hidden="true">&times;</span></button>
             </div>
             <form action="javascript:void(0)" onsubmit="addFirmware()">
                 <div class="modal-body">
@@ -225,7 +260,8 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label class="inputLabel" style="display: block">Choose Firmware File</label>
+                                <label class="inputLabel" style="display: block; font-size:13px ;
+                                font-weight: 600;">Choose Firmware File</label>
                                 <input type="file" name="tfile" id="firmwareFile" class="btn" required>
                             </div>
                         </div>
@@ -234,8 +270,8 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn  btn-secondary btn-close" onclick='onclosebutton()'
-                        data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btnModal btn-secondary btn-proceed btnSubmit">Proceed</button>
+                        data-dismiss="modal" style="width:110px;font-size: 14px;font-weight: 500;">Close</button>
+                    <button type="submit" class="btn btnModal  btn-proceed btnSubmit" style="font-weight:500;background-color: #2d2f79; width:110px;font-size: 14px;">Proceed</button>
                 </div>
             </form>
         </div><!-- /.modal-content -->
@@ -324,3 +360,16 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+<script>
+    $(document).ready(function(){
+        $("#deviceModel").select2();
+      
+    })
+    
+    </script>
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<script src="controllers/firmware.js" type="text/javascript"></script>
+
