@@ -88,7 +88,7 @@ $(document).ready(function () {
 
 
 
-    // mqttConnectGlobal(); //TODO: v5 platform not allowing 2nd time connection
+    mqttConnect();
 
     if(Cookies.get('fatal')){
         $(".fatal").prop("checked", Cookies.get('fatal') === 'true' ? true : false)
@@ -210,13 +210,13 @@ function mqttListen() {
 
         console.log(new Date + ' | MQTT Started to Subscribe');
 
-        mqttSubscribeGlobal("/" + USER_OBJ.domainKey + "/log/#", 0);
+        mqttSubscribe("/" + USER_OBJ.domainKey + "/log/#", 0);
 
-        // mqttSubscribeGlobal("/global/#", 0);
+        mqttSubscribe("/global/#", 0);
 
-       /* if(ADMIN_ACCESS){
-            mqttSubscribeGlobal("/system/#", 0);
-        }*/
+        if(ADMIN_ACCESS){
+            mqttSubscribe("/system/#", 0);
+        }
 
 
         mqtt_client.onMessageArrived = function (message) {
@@ -318,14 +318,13 @@ function mqttListen() {
         };
 
     }
-
 }
 
 function mqttDomainRule(topicName, parsedData) {
     var nodeClass = new Date().getTime();
     var color = 'default';
 
-    console.log("DOMAIN =>", topicName)
+    // console.log("DOMAIN =>", topicName)
 
     if (topicName.includes("/log/drule")) {
 
@@ -538,7 +537,7 @@ function mqttBinaryRule(topicName, parsedData) {
     var nodeClass = new Date().getTime();
     var color = 'default';
 
-    console.log("BINARY =>", topicName)
+    // console.log("BINARY =>", topicName)
 
     if (topicName.includes("/log/brule")) {
 
@@ -3129,7 +3128,7 @@ function loadJobRule(id) {
     var data = returnObj(id, 7);
     $("#codeEditor").html('');
 
-    loadEditor(data.code ? data.code : '', 'jobTab_'+id);
+    loadEditor(data.jobCode ? data.jobCode : '', 'jobTab_'+id);
 
         CURRENT_ID = id;
         CURRENT_TYPE = 7;
@@ -3527,7 +3526,7 @@ function loadEditor(code, tabid) {
 
                 for (var i = 0; i < job_rules_list.length; i++) {
                     if (CHANGED_ID === job_rules_list[i].id) {
-                        job_rules_list[i].code = CHANGED_TEXT;
+                        job_rules_list[i].jobCode = CHANGED_TEXT;
                     }
                 }
 
@@ -3758,7 +3757,7 @@ function loadEditor(code, tabid) {
                     "jobType": obj.jobType,
                     "jobState": obj.jobState,
                     "jobLanguage": obj.jobLanguage,
-                    "code": consoleText,
+                    "jobCode": consoleText,
                     "instances": obj.instances,
                     "startOnBoot": obj.startOnBoot,
                     "systemJob": obj.systemJob,
@@ -5298,7 +5297,7 @@ function addJobRule(code) {
         "jobType": $("#job_type").val(),
         "jobState": $("#job_state").val(),
         "jobLanguage": $("#job_lang").val(),
-        "code": code ? codeEditor.getSession().getValue() : "",
+        "jobCode": code ? codeEditor.getSession().getValue() : "",
         "instances": Number($("#job_instance").val() ? $("#job_instance").val() : 0),
         "startOnBoot": $("#job_boot").val() === "1" ? true : false,
         "systemJob": ADMIN_ACCESS ?  ($("#job_system").val() === "1" ? true : false) : false,
@@ -6700,7 +6699,7 @@ function exportRule(type) {
             "jobType": obj.jobType,
             "jobState": obj.jobState,
             "jobLanguage": obj.jobLanguage,
-            "code": consoleText,
+            "jobCode": consoleText,
             "instances": obj.instances,
             "startOnBoot": obj.startOnBoot,
             "systemJob": obj.systemJob,
@@ -6753,6 +6752,8 @@ function exportRule(type) {
         delete obj._id;
 
         data = obj;
+
+
     }
 
     var dObj = {
@@ -7729,5 +7730,4 @@ function toggleHandle(id){
     }
 
 }
-
 

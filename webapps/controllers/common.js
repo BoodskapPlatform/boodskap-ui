@@ -107,9 +107,7 @@ function clickRecent(tabname, tabid, loadmenu, cardno) {
 
 function recentcard(rdata) {
     if (rdata) {
-        console.log(rdata);
         for (let i = 0; i < (rdata.length >= 10 ? 10 : rdata.length ); i++) {
-            console.log(rdata[i]);
            
             if (i >= 0 && i <= 5) {
                 $("#recentMenuList").append(

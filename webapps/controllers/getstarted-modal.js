@@ -565,7 +565,7 @@ function simulateMessage() {
     $(".btnSubmit").attr('disabled', 'disabled');
 
     loading('Please wait');
-    simulateDeviceMessage(id, jsonObj, current_dev_token, function (status, data) {
+    simulateDeviceMessage(id, jsonObj, function (status, data) {
         closeLoading();
         $(".btnSubmit").removeAttr('disabled');
         if(status){

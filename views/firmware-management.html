@@ -120,25 +120,10 @@
         <li style="font-size: 13px !important;font-weight:600;padding-bottom:10px"><a href="<%= basepath %>/firmware/ota-upgrade">OTA Upgrade</a></li>
     </ul>
 
-    <!-- <ul class="nav submenu bskp-submenu"style="background-color: rgb(88, 92, 98);">
-        <li class=""><a href="<%= basepath %>/home"><i class="fa fa-home"></i> </a></li>
-        <li class=""><a href="<%= basepath %>/dashboard">Dashboard</a></li>
-        <li class="active"><a href="<%= basepath %>/device-management">Manage Firmwares</a></li>
-        <li><a href="<%= basepath %>/device-models"></a></li>
-    
-    </ul> -->
-
 </div>
 
 <div class="container platformBody ">
     <div class="panel panel-inverse bskp-container-frame">
-        <!-- <ol class="breadcrumb pull-right">
-        <li class="breadcrumb-item"><a href="<%= basepath %>/dashboard">Domain</a></li>
-        <li class="breadcrumb-item"><a href="<%= basepath %>/firmware-management">Firmware Management</a></li>
-        <li class="breadcrumb-item active">Manage Firmwares</li>
-    </ol> -->
-        <!-- end breadcrumb -->
-        <!-- begin breadcrumb -->
         <div>
             <ol class="breadcrumb pull-right bskp-align-icon">
                 <li class="breadcrumb-item"><a href="<%= basepath %>/dashboard">Domain</a></li>
@@ -146,21 +131,16 @@
                 <li class="breadcrumb-item active">Manage Firmwares</li>
                 <div class="ml-3">
                     <a href="javascript:;" class="btn btn-sm btn-icon btn-circle  bskp-icon-bg"
-                        data-click="panel-expand"><image src="images/max.SVG" height="14px"></a>
-                    <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg" title="Help"><image src="images/Question_icon (2).PNG"></a>
+                        data-click="panel-expand"><image src="images/menu/max.SVG" height="14px"></a>
+                    <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg" title="Help">
+                        <image src="images/menu/Question_icon (2).PNG"></a>
 
                 </div>
-                <!-- <div class="panel-heading-btn">
-                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
-               
-                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-warning" title="Help"><i class="icon-help"></i></a>
-    
-            </div> -->
-            </ol>
+                            </ol>
 
         </div>
         <!-- end breadcrumb -->
-        <div class="page-header bskp-page-topic"><img src="images/firmware.SVG"
+        <div class="page-header bskp-page-topic"><img src="images/menu/firmware.SVG"
                 class="bskp-topic-icon mr-1  firmwareicon" > 
         <span class="page-header" style="margin-left:0px;font-size:20px ;font-weight: 600;">Manage Firmware</span>
 
@@ -191,7 +171,7 @@
                         <div>
                            <div class="btn-group btn-group-justified pull-right bskp-btn-group-align">
                                 <a class="btn btn bskp-btn-shadow bskp-blue-bg" style="font-size: 14px;font-weight: 500;" onclick="openModal(1)"> 
-                                    <image src="images/plusic.SVG" style="position: relative;bottom:1px"> <span class="hidden-xs">Upload Firmware</span></a>
+                                    <image src="images/menu/plusic.SVG" style="position: relative;bottom:1px"> <span class="hidden-xs">Upload Firmware</span></a>
                                <div data-toggle="tooltip" data-placement="top" title="Refresh">
                                         <a class="btn bskp-refresh-bg refreshbutton" data-click="panel-reload" onclick="loadOTA()"><i
                                         class="fa fa-refresh"></i></a>
@@ -232,7 +212,7 @@
             <div class="modal-header">
                 <h4 class="modal-title"><span class="templateAction"></span> Firmware</h4>
                 <button type="button" class="close " data-dismiss="modal" aria-label="Close">
-                    <image src="images/x.svg" class="bg-secondary" style="border-radius: 13px;padding:3px">  <span aria-hidden="true">&times;</span></button>
+                    <image src="images/menu/x.svg" class="bg-secondary" style="border-radius: 13px;padding:3px">  <span aria-hidden="true">&times;</span></button>
             </div>
             <form action="javascript:void(0)" onsubmit="addFirmware()">
                 <div class="modal-body">
