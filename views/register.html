@@ -110,9 +110,9 @@
                     </div>
                     <div class="w-100 header-option">
                         <span class="d-flex justify-content-end">
-                        <a href="https://developer.boodskap.io/" class="px-3 anchor-text align-items-center justify-content-center">Help</a>
-                        <a href="https://dev.boodskap.io/platform/swagger-doc/" class="px-3 anchor-text align-items-center justify-content-center">API</a>
-                        <a href="https://developer.boodskap.io/docs" class="ps-3 anchor-text align-items-center justify-content-center">Docs</a>
+                        <a href="https://developer.boodskap.io/" class="px-3 anchor-text align-items-center justify-content-center">Developer Docs</a>
+                        <a href="https://dev.boodskap.io/platform/swagger-doc/" class="px-3 anchor-text align-items-center justify-content-center">API Console</a>
+                        <a href="https://developer.boodskap.io/docs" class="ps-3 anchor-text align-items-center justify-content-center">Video Tutorials</a>
                         </span>
                     </div>
                 </div>
@@ -235,6 +235,11 @@
 <script>
     $(document).ready(function() {
         App.init();
+
+        $(window).resize(function() {
+        resizeContent();
+        // alert('hello')
+    });
     });
     function onSubmit(token) {
      document.getElementById("registerForm").submit();

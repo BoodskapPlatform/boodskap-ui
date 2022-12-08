@@ -73,15 +73,18 @@
     
 
     <base href="<%=basepath %>/" />
+
+    
 </head>
 <body class="pace-top bg-white">
+    
 <input type="hidden" id="customLogin" value="<%= key %>" />
 <div id="page-loader" class="fade show"><span class="spinner"></span></div>
 <div id="page-container" class="fade">
     <div class="login login-with-news-feed" style="height: 100%;">
         <!-- <div class="news-feed" style="border-right:1px solid #eee;background-color: #fac300;"> -->
         <div class="news-feed content-background" >
-            <div class="px-5 text-white text-capitalize">
+            <div class="ps-5 text-white text-capitalize">
                 <div class="pt-4 leftside-head fs-1 ">Boodskap highly scalable ioT platform</div>
                 <div class="lh-base fw-lighter">Insanely powerful incredibly simple ioT platform</div>
                 <!-- <div class=""> -->
@@ -111,6 +114,7 @@
             </div>    
         </div>
         <div class="right-content" style="position:relative;box-shadow: 0px 5px 30px  #8686bd;">
+            
             <div class="container">
                 <div class="d-flex align-items-center px-4 py-4">
                     <div class="brand">
@@ -118,9 +122,9 @@
                     </div>
                     <div class="w-100 header-option">
                         <span class="d-flex justify-content-end">
-                        <a href="https://developer.boodskap.io/" class="px-3 anchor-text align-items-center justify-content-center">Help</a>
-                        <a href="https://dev.boodskap.io/platform/swagger-doc/" class="px-3 anchor-text align-items-center justify-content-center">API</a>
-                        <a href="https://developer.boodskap.io/docs" class="ps-3 anchor-text align-items-center justify-content-center">Docs</a>
+                        <a href="https://developer.boodskap.io/" class="px-3 anchor-text align-items-center justify-content-center">Developer Docs</a>
+                        <a href="https://dev.boodskap.io/platform/swagger-doc/" class="px-3 anchor-text align-items-center justify-content-center">API Console</a>
+                        <a href="https://www.youtube.com/channel/UC1yOEmlV7mBfKI1aHSMk3GQ" class="ps-3 anchor-text align-items-center justify-content-center">Video Tutorials</a>
                         </span>
                     </div>
                 </div>
@@ -144,7 +148,7 @@
                             <i onclick="toggleBox()" class="fa fa-eye form-control-feedback passwordIcon icon-position" style="position: absolute;right: 1px;top: 6px;"></i>
                             <div id="logpassword"></div>
                         </div>
-<div class="checkbox checkbox-css pt-1" style="line-height: 25px;">         <!--  -->
+                            <div class="checkbox checkbox-css pt-1" style="line-height: 25px;">         <!--  -->
                             <input type="checkbox" id="remember_me_checkbox" value=""/>
                             <label for="remember_me_checkbox"  style="color: #000;font-weight: 500; font-size:14px;">
                                 Remember Me
@@ -274,6 +278,13 @@
 <script>
     $(document).ready(function () {
         App.init();
+
+        // resize the right content height
+
+        $(window).resize(function() {
+        resizeContent();
+        // alert('hello')
+    });
     });
 </script>
 </body>
