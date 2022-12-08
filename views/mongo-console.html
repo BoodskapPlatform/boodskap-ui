@@ -5,6 +5,8 @@
         <li class="active"><a href="<%= basepath %>/message-definition">Message Definition</a></li>
     </ul>
 </div>-->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
@@ -20,11 +22,14 @@
     }
 
    #mongoConsole .executebutton {
-        background-color: darkblue !important;
-        border-color: darkblue !important;
-        width: 90px;
-        border-radius: 7px;
-
+            background-color: #2d2f79 !important;
+        
+        border-color: #2d2f79 !important;
+        width: 110px;
+        border-radius: 10px;
+        font-size: 14px;
+        height: 32px;
+        font-weight: 500;
     }
 
     #mongoConsole .expand {
@@ -45,10 +50,10 @@
         background-color: #eaf1f6;
         /* border: 3px solid #eaf1f6; */
         border-radius: 8px;
-
+        border-right: none !important;
     }
 
-    #mongoConsole .panel {
+    .panel {
         background-color: #fafdff;
     }
 
@@ -76,16 +81,12 @@
     }
 
     #mongoConsole  #resultEditor {
-        margin-top: 15px;
-    }
-
-    #mongoConsole  #dbName {
-        border-radius: 10px;
+        margin-top: 22px;
     }
 
     #mongoConsole .table {
-        border: 1px solid #eaf1f6;
-        border-radius: 23px;
+        border: 1px solid #cdd3d6;
+        border-radius: 12px;
         background-color: #fff;
     }
     #mongoConsole .logo{
@@ -106,12 +107,27 @@
             position: relative;
             bottom: 5px !important;
             /* left: 1px !important; */
-            width: 65px;
+            background-color: #2d2f79;
+            width: 110px !important;
+            font-size: 14px !important;
         }
     }
-  
+  .platformBody{
+    background-color: hsl(205deg 40% 94%);
+    padding-top: 10px;
+  }
+  .mt-2,.my-2{
+    margin-top: 0px !important;
+  }
+  .option{
+    border-radius: 10px !important;
+  }
+  .select2-container .select2-selection--single, .select2-container--default .select2-selection--multiple{
+    border-radius: 10px !important;
+
+  }
 </style>
-<div class="container mt-3 msgDef panel platformBody" id="mongoConsole">
+<div class="container msgDef panel platformBody" id="mongoConsole">
     <!-- begin breadcrumb -->
 
     <ol class="breadcrumb pull-right content">
@@ -119,46 +135,48 @@
         <li class="breadcrumb-item active">Mongodb Query Console</li>
         <div class="ml-3">
             <a href="javascript:;" class="btn btn-sm btn-icon btn-circle  bskp-icon-bg icon"
-                data-click="panel-expand"><i class="fa fa-expand expand"></i></a>
-            <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg icon" title="Help"><i
-                    class="icon-help expand"></i></a>
+                data-click="panel-expand"><img style="height:14px ;" src="images/expand-icon.SVG" alt=""></a>
+            <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg icon" title="Help"><img src="images/Question_icon.PNG" alt=""> </a>
+                    
 
         </div>
+            
+            
     </ol>
 
     <!-- end breadcrumb -->
     <!-- begin page-header -->
     <div class="mx-2 my-2">
-        <img src="/images/mongo db.png" class="logo">
+        <img src="images/mongo db.png" class="logo" height="20px">
 
-        <span class="page-header" style="margin-left:0px;color: black;">Mongodb Query Console</span>
+        <span class="page-header" style="margin-left:0px;color: hsl(0deg 0% 25%); font-weight: 700;font-size: 20px;">Mongodb Query Console</span>
     </div>
 
 
     <div class="table panel panel-inverse">
         <div class="panel-body"
-            style="background-color:#fff;border: 1px solid #eee;padding-bottom: 30px; border-radius:20px;">
+            style="background-color:#fff;border: 1px solid #cdd3d6;padding-bottom: 30px; border-radius:10px;">
 
             <div class="row">
                 <div class="col-md-2">
                     <div class="form-group">
                         <label>Connection Pool</label>
-                        <select id="pool_name" class="form-control" onchange="setConnection(this.value)">
+                        <select id="pool_name" class="form-control option" onchange="setConnection(this.value)">
                         </select>
                         <small id="pool_url"></small>
                     </div>
                     <div class="form-group">
                         <label>Database Name</label>
-                        <input type="text" class="form-control" id="dbName" />
+                        <input type="text" class="form-control option" />
                     </div>
                     <div class="form-group">
                         <label>Collection Name</label>
-                        <select id="col_name" class="form-control" onchange="">
+                        <select id="col_name" class="form-control option" onchange="">
                         </select>
                     </div>
                     <div class="form-group">
                         <label>Query Type</label>
-                        <select id="query_type" class="form-control" onchange="loadQueryType(this.value)">
+                        <select id="query_type" class="form-control " onchange="loadQueryType(this.value)">
                             <option value="FIND">Find</option>
                             <option value="AGG">Aggregate</option>
                             <option value="COUNT">Count</option>
@@ -166,7 +184,7 @@
                     </div>
 
                 </div>
-                <div class="col-md-5" style="border-left:3px solid #eaf1f6">
+                <div class="col-md-5" style="border-left:2px solid #eaf1f6">
                     <div class="row">
                         <div class="col-md-12">
                             <small style="">(Press <b>CTRL + ENTER</b> to execute the query)</small>
@@ -179,7 +197,7 @@
                     </div>
 
                 </div>
-                <div class="col-md-5" style="border-left:3px solid #eaf1f6">
+                <div class="col-md-5" style="border-left:2px solid #eaf1f6">
                     <h5>Output Console <small style="float:right;font-size: 12px" class="loadingText"></small></h5>
                     <div id="resultEditor" style="width: 100%"></div>
                 </div>
@@ -190,9 +208,18 @@
     </div>
     <!-- end panel -->
 
+
 </div>
+<script>
+$(document).ready(function(){
+    $("#query_type").select2();
+   $("#pool_name").select2();
+   $("#col_name").select2();
 
+})
 
+</script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="js/editor/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/editor/src-noconflict/ext-language_tools.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/editor/src-noconflict/ext-searchbox.js" type="text/javascript" charset="utf-8"></script>
