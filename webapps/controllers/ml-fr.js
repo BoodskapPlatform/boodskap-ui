@@ -149,8 +149,6 @@ function viewImages(id, label,lastId) {
     $(".img_"+id+"_"+label).html("");
     getMachineLearningFRLabelsImageList(id, label, fr_img_page_count, lastId, function (status, data) {
         if(status){
-            console.log(data);
-
             for(var i=0;i<data.urls.length;i++){
                 $(".img_"+id+"_"+label).append('<img src="'+API_BASE_PATH+''+data.urls[i]+'" width="'+$(".imgw_"+id).html()+'"' +
                     'height="'+$(".imgh_"+id).html()+'" style="margin:5px;border:2px solid #eee"/>');
