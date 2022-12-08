@@ -318,7 +318,6 @@ function mqttListen() {
         };
 
     }
-
 }
 
 function mqttDomainRule(topicName, parsedData) {
@@ -538,7 +537,7 @@ function mqttBinaryRule(topicName, parsedData) {
     var nodeClass = new Date().getTime();
     var color = 'default';
 
-    console.log("BINARY =>", topicName)
+    // console.log("BINARY =>", topicName)
 
     if (topicName.includes("/log/brule")) {
 
