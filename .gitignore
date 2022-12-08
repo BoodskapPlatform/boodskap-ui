@@ -43,5 +43,5 @@ Thumbs.db
 /package-lock.json
 
 conf.js
-/webapps/platform-config.js
+webapps/platform-config.js
 yaml/api-dev.yaml
