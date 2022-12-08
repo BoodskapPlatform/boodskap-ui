@@ -104,9 +104,8 @@ function loginAsCall(email, password, key, id, cbk) {
 
 function resetPasswordCall(email, cbk) {
 
-    var str = DOMAIN_KEY ? '?targetDomainKey=' + DOMAIN_KEY : '';
      $.ajax({
-        url: API_BASE_PATH + "/license/password/forgot/" + email + str,
+        url: API_BASE_PATH + "/license/password/forgot/" + email,
         type: 'GET',
         success: function (data) {
             //called when successful
@@ -2325,14 +2324,14 @@ function retrieveDeviceModelProperty(id, name, cbk) {
 }
 
 
-function simulateDeviceMessage(id, data, devToken, cbk) {
+function simulateDeviceMessage(id, data, cbk) {
+
 
     var headers = {
-        'TOKEN' : devToken
+        'TOKEN' : DEVICE_API_TOKEN
     }
 
     $.ajax({
-        // url: API_BASE_PATH + "/push/raw/" + DOMAIN_KEY + "/" + API_KEY + "/SIMULATOR_" + id + "/BOODSKAP/1.0/" + id + '?type=JSON',
         url: API_BASE_PATH + "/push/message/" + id,
         data: JSON.stringify(data),
         contentType: "application/json",

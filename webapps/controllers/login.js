@@ -321,3 +321,8 @@ function toggleBox(){
         $("#password").attr('type','password')
     }
 }
+function resizeContent() {
+    $height = $(window).height();
+    $('.right-content').css("height",$height);
+    console.log($height)
+}

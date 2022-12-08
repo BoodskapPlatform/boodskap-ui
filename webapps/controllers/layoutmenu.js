@@ -37,7 +37,6 @@ $(document).ready(function () {
             }
         }
 
-
         loadUserProfilePicture();
         loadLogoPicture();
         geThemeProperty();
@@ -46,6 +45,7 @@ $(document).ready(function () {
         mqttConnectGlobal();
         checkDomainSQLAccess();
         checkDomainDBAccess();
+        getDevToken();
     }
 
     $(".api_server_status").html('<i class="fa fa-circle" style="color: green"></i>');
@@ -502,6 +502,18 @@ function mqttGlobalListen() {
     // }, 1000);
 
 
+}
+
+
+function getDevToken(){
+    listAuthToken("DEVICE", function (status, data) {
+        if (status && data.length > 0) {
+            DEVICE_API_TOKEN = data[0].token;
+        } else {
+            $(".tokenCount").html(0);
+            DEVICE_API_TOKEN = "";
+        }
+    });
 }
 
 

@@ -18,7 +18,7 @@ body{
     /* background-image: url("../images/3D_Sphere_2.png"); */
     position: absolute;
     width: 100px;
-    top: 600px;
+    top: 620px;
     left: 10px;
 }
 .sub-image2{
@@ -32,7 +32,7 @@ body{
     background: rgb(96 124 193 / 50%);
     color: #fff;
     width: 275px;
-    top: -8px;
+    top: 30px;
      left: 39px;
     padding: 19px;
     border: 1px solid rgb(142 142 244);
@@ -89,7 +89,8 @@ input{
     font-size: 14px;
     color: #555;
     line-height: 1.6;
-    border-bottom: 2px solid rgb(195 194 194);
+    border: none !important;
+    border-bottom: 2px solid rgb(195 194 194) !important;
     display: block;
     width: 100%;
     background: 0 0;
@@ -120,6 +121,9 @@ input{
 /* button:hover{
     color: #fff;
 } */
+.login-ref{
+    font-size: 12px;
+}
 .hover-text{
     color: #fff;
 }

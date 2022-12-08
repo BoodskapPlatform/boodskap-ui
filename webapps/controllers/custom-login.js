@@ -39,13 +39,13 @@ $(document).ready(function () {
         DOMAIN_KEY = null;
         Cookies.remove('domain');
         $(".loginCustom").css('display', 'block');
-        $(".loginLogo").attr('src', DEFAULT_LOGIN_LOGO_PATH);
+        $(".loginLogo").attr('src', DEFAULT_LOGO_PATH);
         $(".poweredBy").html('Powered by Boodskap Inc.,');
         // loadLoginMenu();
     }
 
 });
-
+       
 
 
 function loadLoginMenu() {
