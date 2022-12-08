@@ -1,4 +1,6 @@
+
 $(".consoleBody").height($(window).height() - 120 + 'px')
+
 var logLevels = {
     trace: 'default',
     debug: 'primary',
