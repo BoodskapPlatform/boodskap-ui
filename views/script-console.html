@@ -98,7 +98,7 @@
     }
     .label{
         position:relative;
-        left: 30px;
+        left: 28px;
         top: 20px;
         border-radius: 6px;
         
@@ -112,7 +112,39 @@
     .editorBlock{
         background-color: hsl(208deg 50% 25%) ;
     }
+    .ace_content{
+       
+       border: none;
+        background-color: #fefefe;
+        
+    }
     
+    .ace-solarized-light .ace_gutter{
+        background-color: hsl(210deg 31% 95%);
+        border: 2px solid #eaf1f6;
+        border-radius: 10px;
+       
+       
+      
+    }
+    .ace-solarized-light{
+        background-color:#ffffff;
+       
+        border-radius: 10px;
+    }
+    .ace_folding-enabled > .ace_gutter-cell{
+        background-color: #a8a3a3;
+    }
+    .btnExec {
+        background-color: hsl(240deg 46% 32%) ;
+        color: #ffffff;
+        border-radius: 10px;
+        font-size: 14px;
+        height: 32px;
+        border-style: none;
+        width: 60px;
+    }
+   
 
 </style>
 <!--<div class="row-fluid">
@@ -145,23 +177,24 @@
                     </button>
                     <div id="scriptTerminal" ></div>
                 </div>
-                <div class="editorBlock" style="background-color: rgb(39, 39, 39)">
+                <div class="editorBlock" style="background-color: hsl(208deg 50% 25%);padding-top:90px;border-radius: 10px;">
 
-                    <div style="padding: 5px;position: relative">
+                    <div style="padding: 19px;position: relative;border: 2px solid  hsl(208deg 50% 25%);background-color:#ffffff;margin:25px;border-radius: 10px;">
 
-                    <h5 style="color: #fff"><i class="icon-code2"></i> Editor
-
-                    </h5>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div id="codeEditor"></div>
-                            <button class="btn btn-block btn-warning btnExec" style="margin-top: 10px" onclick="executeScriptCommand()">Execute</button>
+                        <h5 style="color:black;border-bottom: 1px solid rgb(140, 152, 223);"><i class="icon-code2"></i> Editor </h5>
+                        <div class="text-right">
+                            <button class=" btnExec" onclick="executeScriptCommand()">Execute</button> 
                         </div>
+                    
 
+
+                    <div class="col-md-12">
+                        <div id="codeEditor"></div>
                     </div>
 
-                    <div id="consoleBox" style="overflow: auto;overflow-x: hidden;    background-color: rgb(0, 0, 0);padding: 10px;margin-top: 10px;"></div>
+                  
+
+                    <div id="consoleBox" style="overflow: auto;overflow-x: hidden;    background-color: rgb(0, 0, 0);padding: 10px;margin-top: 10px;border-radius:10px;"></div>
 
 
                     </div>
