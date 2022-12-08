@@ -106,7 +106,7 @@ function resetPasswordCall(email, cbk) {
 
     var str = DOMAIN_KEY ? '?targetDomainKey=' + DOMAIN_KEY : '';
      $.ajax({
-        url: API_BASE_PATH + "/domain/password/reset/" + email + str,
+        url: API_BASE_PATH + "/license/password/forgot/" + email + str,
         type: 'GET',
         success: function (data) {
             //called when successful

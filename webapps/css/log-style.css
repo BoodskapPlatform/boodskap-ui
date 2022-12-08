@@ -12,7 +12,7 @@ body{
     position: relative;
     width: 100px;
     left: 295px;
-    top: 35px;
+    top: 100px;
 }
 .sub-image1{
     /* background-image: url("../images/3D_Sphere_2.png"); */
@@ -25,7 +25,7 @@ body{
     width: 1000px;
     position: absolute;
     top: 200px;
-    left: 360px;
+    left: 460px;
 }
 .box{
     position: relative;
@@ -49,8 +49,8 @@ body{
 }
 .log-head{
     color: #18184e;
-    font-weight: 400;
-    font-size: 28px;
+    font-weight: 600;
+    font-size: 25px;
 }
 .caption-text{
     font-size: 12px;
@@ -127,7 +127,7 @@ input{
     background-color: #2c2c78;
 }
 .btn-background:hover{
-    background-color: #7171b9;
+    /* background-color: #7171b9; */
     color: #fff;
 }
 .btn-size{
@@ -135,12 +135,12 @@ input{
     border-radius: 10px;
     padding: 6px;
     font-size: 14px !important;
-    font-weight: 500 !important;
+    font-weight: 600 !important;
 }
 .btn-outline{
     border: 2px solid #2c2c78;
     background-color: white;
-    border-radius: 15px;
+    border-radius: 10px;
     cursor: pointer;
 }
 .btnsecondary{

@@ -228,6 +228,9 @@ Routes.prototype.init = function () {
     self.router.get('/success',function (req, res) {
         res.render('success-message.html', {layout:false,basepath: getBasePath(req),key:''});
     });
+    self.router.get('/registerSuccess',function (req, res) {
+        res.render('register-success.html', {layout:false,basepath: getBasePath(req),key:''});
+    });
 
     self.router.get('/license-activation',function (req, res) {
         let apiUrl = self.app.conf.development ? self.app.conf.api : self.app.conf.protocol+"://"+req.headers.host+self.app.conf.api;
