@@ -136,7 +136,10 @@ function loadOTA() {
         dom: '<"bskp-search-left" f> lrtip',
         language: {
             "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
-            "searchPlaceholder": "Search here...",
+            "searchPlaceholder": "Search by Name",
+            "emptyTable":"No data available",
+
+
             loadingRecords: '',
             paginate: {
                 previous: '< Previous',

@@ -228,7 +228,6 @@ function recentcard(rdata) {
 
 function openmegamenu() {
     $("#megaMenu").modal({
-        backdrop: "static",
         keyboard: false,
     });
 }

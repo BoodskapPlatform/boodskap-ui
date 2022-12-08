@@ -350,7 +350,6 @@ function addMessageRule() {
             if (status) {
                 successMsg('Message Definition Updated Successfully');
                 loadMessageDef();
-                closeGetStart();
                 $("#addMessageRule").modal('hide');
             } else {
                 errorMsg('Error in Define Message')
@@ -369,7 +368,6 @@ function addMessageRule() {
                     if (status) {
                         successMsg('Message Defined Successfully');
                         loadMessageDef();
-                        closeGetStart();
                         $("#addMessageRule").modal('hide');
                     } else {
                         errorMsg('Error in Define Message')
