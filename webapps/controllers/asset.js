@@ -6,7 +6,7 @@ var current_asset_id = null;
 $(document).ready(function () {
 
     loadAssetList();
-
+    $('.dataTables_filter input').attr('maxlength', 50);
     $("body").removeClass('bg-white');
 
 });
@@ -114,6 +114,8 @@ function openModal(type, id) {
         $("#addAsset form")[0].reset();
         $("#addAsset").modal('show');
         $("#addAsset form").attr('onsubmit', 'addAsset()')
+        $("#asset_desc").css('height','90px');
+        
     } else if (type === 2) {
         $(".templateAction").html('Update');
         var obj = {};
@@ -130,6 +132,7 @@ function openModal(type, id) {
         $("#asset_desc").val(obj.description);
         $("#addAsset").modal('show');
         $("#addAsset form").attr('onsubmit', 'updateAsset()')
+        $("#asset_desc").css('height','90px');
 
     } else if (type === 3) {
         current_asset_id = id;

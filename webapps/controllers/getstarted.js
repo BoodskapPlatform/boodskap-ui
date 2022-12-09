@@ -111,7 +111,7 @@ function openGetStartedModal(results) {
         'show',$(".platformBody").addClass("blur"),
         $("#header").addClass("blur"),
         $("footer").addClass("blur")
-   ); // model UI open
+   ); // model UI open 
 }
 
 function closeGetStart() {
@@ -137,6 +137,7 @@ function definedFields(obj) {
 function deleteMessageField(id) {
     $("#msg_field_row_" + id).remove();
     MSG_FIELD_COUNT--;
+    MSG_FIELD_COUNT === 1 ? $(".minus").addClass('minus-none'):''  ;
 }
 
 function addMessageField() {
@@ -145,8 +146,9 @@ function addMessageField() {
 
     var str = `<tr id="msg_field_row_` + id + `">
     <td class="pr-4">
-        <input class="form-control input-sm" onkeyup="onlyAlphaNumericUs(this)" onkeydown="onlyAlphaNumericUs(this)" placeholder="Field Name" type="text"  id="msg_field_` + id + `" required>
-    </td>
+        <input class="form-control mesg-field input-sm " onkeyup="onlyAlphaNumericUs(this)" onkeydown="onlyAlphaNumericUs(this)" placeholder="Field Name" type="text"  id="msg_field_` + id + `" required>
+        <span id="logmsg_field_` + id + `"></span>
+        </td>
     <td>
     <select class="form-control input-sm" required id="msg_datatype_` + id + `">
       <option value="" >Choose Data Type</option>
@@ -169,11 +171,13 @@ function addMessageField() {
       <option value="DATE" >DATE</option>
       <option value="TIMESTAMP" >TIMESTAMP</option>
     </select>
+    <span id="logmsg_datatype_`+ id +`"></span>
     </td>
     <td style="text-align: center;vertical-align: middle;" class="addMsg"><i class="fa fa-plus add" onclick="addMessageField()" style="cursor: pointer" aria-hidden="true"></i>` +
-        (id > 0 ? '<i class="fa fa-minus minus" style="margin-left:5px;cursor: pointer" onclick="deleteMessageField(' + id + ')"aria-hidden="true"></i> ' : '')
+        (id > 0 ? '<i class="fa fa-minus minus" style="margin-left:5px;cursor: pointer" onclick="deleteMessageField(' + id + ')"aria-hidden="true"></i> ' : '<i class="fa fa-minus minus minus-none" style="margin-left:5px;cursor: pointer" onclick="deleteMessageField(' + id + ')"aria-hidden="true"></i>')
         + ` </td>
   </tr>`;
+  id > 0 ? $(".minus").removeClass('minus-none'):'';
   $(".msgFieldBody").append(str);
     MSG_FIELD_COUNT++;
 }
@@ -245,12 +249,14 @@ function createMsgDef() {
         errorMsgBorder('Message ID is required', 'msg_id');
         return false;
        
-    }else if( parseInt($("#msg_id").val()) <= 1 &&  $("#msg_id").val().length < 3){
+    }
+    // else if( parseInt($("#msg_id").val()) <= 1 &&  $("#msg_id").val().length < 3){
 
-        errorMsgBorder('Message ID must have atleast 3 digit and greater than 999', 'msg_id');
-        return false;
+    //     errorMsgBorder('Message ID must have atleast 3 digit and greater than 999', 'msg_id');
+    //     return false;
 
-    }else if($("#msg_name").val() === ""){
+    // }
+    else if($("#msg_name").val() === ""){
 
         errorMsgBorder('Message name is required', 'msg_name');
         return false;
@@ -261,15 +267,27 @@ function createMsgDef() {
         return false;
 
     }else{
-        for (var i = 0; i < MSG_FIELD_COUNT; i++) {
-            if( $("#msg_field_" + i).val() === ""){  
-            errorMsgBorder('Field Name is required', 'msg_field_'+i);
-            return false;
-            }else if( $("#msg_datatype_" + i).val() === ""){
-            errorMsgBorder('Data Type is required', 'msg_datatype_'+i);
-            return false;
-            }
-        }
+        $.each($('.mesg-field'),function () {
+            console.log($(this).attr('id'));
+
+            if($(this).attr('id').val() === ""){  
+                errorMsgBorder('Field Name is required', $(this).attr('id'));
+                return false;
+                }
+            // else if( $("#msg_datatype_" + i).val() === ""){
+            //     errorMsgBorder('Data Type is required', 'msg_datatype_'+i);
+            //     return false;
+            //     }
+        })
+        // for (var i = 0; i < MSG_FIELD_COUNT; i++) {
+        //     if( $("#msg_field_" + i).val() === ""){  
+        //     errorMsgBorder('Field Name is required', 'msg_field_'+i);
+        //     return false;
+        //     }else if( $("#msg_datatype_" + i).val() === ""){
+        //     errorMsgBorder('Data Type is required', 'msg_datatype_'+i);
+        //     return false;
+        //     }
+        // }
     
         console.log("check");
         var fields = [];
