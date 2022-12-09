@@ -1,52 +1,52 @@
-var rules_page_size = 100;
-var rules_direction = null;
-var rules_id = null;
-var message_rules_list = [];
-var message_spec_list = [];
-var schedule_rules_list = [];
-var named_rules_list = [];
-var binary_rules_list = [];
-var file_rules_list = [];
-var job_rules_list = [];
-var process_rules_list = [];
-var sftp_rules_list = [];
-var mqtt_rules_list = [];
-var udp_rules_list = [];
-var tcp_rules_list = [];
-var email_rules_list = [];
-var micro_rules_list = [];
-var groovy_class_list = [];
-var jar_class_list = [];
-var tabbar_list = [];
-var domain_rule_obj = {};
-var codeEditor = null;
-var CURRENT_ID = null;
-var CURRENT_TYPE = null;
-var editorToggle = false;
+let rules_page_size = 100;
+let rules_direction = null;
+let rules_id = null;
+let message_rules_list = [];
+let message_spec_list = [];
+let schedule_rules_list = [];
+let named_rules_list = [];
+let binary_rules_list = [];
+let file_rules_list = [];
+let job_rules_list = [];
+let process_rules_list = [];
+let sftp_rules_list = [];
+let mqtt_rules_list = [];
+let udp_rules_list = [];
+let tcp_rules_list = [];
+let email_rules_list = [];
+let micro_rules_list = [];
+let groovy_class_list = [];
+let jar_class_list = [];
+let tabbar_list = [];
+let domain_rule_obj = {};
+let codeEditor = null;
+let CURRENT_ID = null;
+let CURRENT_TYPE = null;
+let editorToggle = false;
 
-var current_msg_id = null;
-var current_msg_obj = null;
-var current_namedrule_obj = null;
-var current_binaryrule_obj = null;
-var current_filerule_obj = null;
-var current_processrule_obj = null;
-var current_sftprule_obj = null;
-var current_mqttrule_obj = null;
-var current_udprule_obj = null;
-var current_tcprule_obj = null;
-var current_emailrule_obj = null;
-var current_microrule_obj = null;
-var simulatorModal = {};
-var simulator = {};
-var scriptTerminal = null;
+let current_msg_id = null;
+let current_msg_obj = null;
+let current_namedrule_obj = null;
+let current_binaryrule_obj = null;
+let current_filerule_obj = null;
+let current_processrule_obj = null;
+let current_sftprule_obj = null;
+let current_mqttrule_obj = null;
+let current_udprule_obj = null;
+let current_tcprule_obj = null;
+let current_emailrule_obj = null;
+let current_microrule_obj = null;
+let simulatorModal = {};
+let simulator = {};
+let scriptTerminal = null;
 
-var editorChange = false;
-var CHANGED_ID = null;
-var CHANGED_TYPE = null;
-var CHANGED_TEXT = null;
-var CHANGED_DEFAULT_TEXT = null;
+let editorChange = false;
+let CHANGED_ID = null;
+let CHANGED_TYPE = null;
+let CHANGED_TEXT = null;
+let CHANGED_DEFAULT_TEXT = null;
 
-var logLevels = {
+let logLevels = {
     trace: 'default',
     debug: 'primary',
     info: 'info',
@@ -57,8 +57,26 @@ var logLevels = {
     all: 'default'
 };
 
-var docLayout = null;
-var mqttTimer = null;
+let rule_types = {
+    "1" : "message_rule.groovy",
+    "2" : "named_rule.groovy",
+    "3" : "scheduled_rule.groovy",
+    "4" : "groovy_class.groovy",
+    "5" : "jar_class.groovy",
+    "6" : "binary_rule.groovy",
+    "7" : "job_rule.groovy",
+    "8" : "file_rule.groovy",
+    "9" : "process_rule.groovy",
+    "10" : "sftp_rule.groovy",
+    "11" : "mqtt_rule.groovy",
+    "12" : "udp.groovy",
+    "13" : "tcp_rule.groovy",
+    "14" : "email_rule.groovy",
+    "15" : "micro_api_rule.groovy",
+};
+
+let docLayout = null;
+let mqttTimer = null;
 
 $(".barMenu").removeClass('active');
 $(".menuEditor").addClass('active');
@@ -203,7 +221,6 @@ $(document).ready(function () {
 
 });
 
-
 function mqttListen() {
 
     if (MQTT_STATUS) {
@@ -223,11 +240,11 @@ function mqttListen() {
 
             // console.log(new Date + ' | MQTT Message Received :', message);
 
-            var parsedData = JSON.parse(message.payloadString);
-            var topicName = message.destinationName;
+            let parsedData = JSON.parse(message.payloadString);
+            let topicName = message.destinationName;
 
-            var nodeClass = new Date().getTime();
-            var color = 'default';
+            let nodeClass = new Date().getTime();
+            let color = 'default';
 
             // console.log('Log Enabled :',$(".allLogs").is(":checked"))
             // console.log('parsedData :',parsedData)
@@ -299,7 +316,7 @@ function mqttListen() {
 
             /*if(topicName.includes("/log/incoming")){
 
-                var mId = parsedData.mid;
+                let mId = parsedData.mid;
 
                 // console.log("Parsed Data =>",parsedData)
 
@@ -321,8 +338,8 @@ function mqttListen() {
 }
 
 function mqttDomainRule(topicName, parsedData) {
-    var nodeClass = new Date().getTime();
-    var color = 'default';
+    let nodeClass = new Date().getTime();
+    let color = 'default';
 
     // console.log("DOMAIN =>", topicName)
 
@@ -330,13 +347,13 @@ function mqttDomainRule(topicName, parsedData) {
 
         if (parsedData.data !== '__ALL_DONE__') {
 
-            var level = parsedData.level;
+            let level = parsedData.level;
 
 
 
             if($("."+level.toLowerCase()).is(":checked")) {
 
-                var fields = '';
+                let fields = '';
 
                 if($(".node").is(":checked")){
                     fields+= ' ['+parsedData.node+'] '
@@ -344,7 +361,7 @@ function mqttDomainRule(topicName, parsedData) {
                 if($(".session").is(":checked")){
                     fields+= ' ['+parsedData.session+'] '
                 }
-                var rName = topicName.split("/")[3];
+                let rName = topicName.split("/")[3];
                 $(".loggerHtml").append("<div title='Domain Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
                     "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
                     "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
@@ -364,8 +381,8 @@ function mqttDomainRule(topicName, parsedData) {
 }
 
 function mqttMesageRule(topicName, parsedData) {
-    var nodeClass = new Date().getTime();
-    var color = 'default';
+    let nodeClass = new Date().getTime();
+    let color = 'default';
 
     // console.log("MESSAGE =>", topicName)
 
@@ -373,11 +390,11 @@ function mqttMesageRule(topicName, parsedData) {
 
         if (parsedData.data !== '__ALL_DONE__') {
 
-            var level = parsedData.level;
+            let level = parsedData.level;
 
             if($("."+level.toLowerCase()).is(":checked")) {
 
-                var fields = '';
+                let fields = '';
 
                 if($(".node").is(":checked")){
                     fields+= ' ['+parsedData.node+'] '
@@ -386,7 +403,7 @@ function mqttMesageRule(topicName, parsedData) {
                     fields+= ' ['+parsedData.session+'] '
                 }
 
-                var rName = getLastItem(topicName);
+                let rName = getLastItem(topicName);
 
                 $(".loggerHtml").append("<div title='Message Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
                     "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
@@ -407,8 +424,8 @@ function mqttMesageRule(topicName, parsedData) {
 }
 
 function mqttNamedRule(topicName, parsedData) {
-    var nodeClass = new Date().getTime();
-    var color = 'default';
+    let nodeClass = new Date().getTime();
+    let color = 'default';
 
     // console.log("NAMED =>", topicName)
 
@@ -416,11 +433,11 @@ function mqttNamedRule(topicName, parsedData) {
 
         if (parsedData.data !== '__ALL_DONE__') {
 
-            var level = parsedData.level;
+            let level = parsedData.level;
 
             if($("."+level.toLowerCase()).is(":checked")) {
 
-                var fields = '';
+                let fields = '';
 
                 if($(".node").is(":checked")){
                     fields+= ' ['+parsedData.node+'] '
@@ -429,7 +446,7 @@ function mqttNamedRule(topicName, parsedData) {
                     fields+= ' ['+parsedData.session+'] '
                 }
 
-                var rName = getLastItem(topicName);
+                let rName = getLastItem(topicName);
 
                 $(".loggerHtml").append("<div title='Named Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
                     "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
@@ -449,8 +466,8 @@ function mqttNamedRule(topicName, parsedData) {
 }
 
 function mqttFileRule(topicName, parsedData) {
-    var nodeClass = new Date().getTime();
-    var color = 'default';
+    let nodeClass = new Date().getTime();
+    let color = 'default';
 
     // console.log("NAMED =>", topicName)
 
@@ -458,11 +475,11 @@ function mqttFileRule(topicName, parsedData) {
 
         if (parsedData.data !== '__ALL_DONE__') {
 
-            var level = parsedData.level;
+            let level = parsedData.level;
 
             if($("."+level.toLowerCase()).is(":checked")) {
 
-                var fields = '';
+                let fields = '';
 
                 if($(".node").is(":checked")){
                     fields+= ' ['+parsedData.node+'] '
@@ -471,7 +488,7 @@ function mqttFileRule(topicName, parsedData) {
                     fields+= ' ['+parsedData.session+'] '
                 }
 
-                var rName = getLastItem(topicName);
+                let rName = getLastItem(topicName);
 
                 $(".loggerHtml").append("<div title='File Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
                     "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
@@ -491,8 +508,8 @@ function mqttFileRule(topicName, parsedData) {
 }
 
 function mqttScheduleRule(topicName, parsedData) {
-    var nodeClass = new Date().getTime();
-    var color = 'default';
+    let nodeClass = new Date().getTime();
+    let color = 'default';
 
     // console.log("SCHEDULE =>", topicName)
 
@@ -500,11 +517,11 @@ function mqttScheduleRule(topicName, parsedData) {
 
         if (parsedData.data !== '__ALL_DONE__') {
 
-            var level = parsedData.level;
+            let level = parsedData.level;
 
             if($("."+level.toLowerCase()).is(":checked")) {
 
-                var fields = '';
+                let fields = '';
 
                 if($(".node").is(":checked")){
                     fields+= ' ['+parsedData.node+'] '
@@ -513,7 +530,7 @@ function mqttScheduleRule(topicName, parsedData) {
                     fields+= ' ['+parsedData.session+'] '
                 }
 
-                var rName = getLastItem(topicName);
+                let rName = getLastItem(topicName);
 
                 $(".loggerHtml").append("<div title='Schedule Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
                     "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
@@ -534,19 +551,19 @@ function mqttScheduleRule(topicName, parsedData) {
 
 
 function mqttBinaryRule(topicName, parsedData) {
-    var nodeClass = new Date().getTime();
-    var color = 'default';
+    let nodeClass = new Date().getTime();
+    let color = 'default';
 
     // console.log("BINARY =>", topicName)
 
     if (topicName.includes("/log/brule")) {
 
         if (parsedData.data !== '__ALL_DONE__') {
-            var level = parsedData.level;
+            let level = parsedData.level;
 
             if($("."+level.toLowerCase()).is(":checked")) {
 
-                var fields = '';
+                let fields = '';
 
                 if($(".node").is(":checked")){
                     fields+= ' ['+parsedData.node+'] '
@@ -555,7 +572,7 @@ function mqttBinaryRule(topicName, parsedData) {
                     fields+= ' ['+parsedData.session+'] '
                 }
 
-                var rName = getLastItem(topicName);
+                let rName = getLastItem(topicName);
 
                 $(".loggerHtml").append("<div title='Binary Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
                     "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
@@ -575,19 +592,19 @@ function mqttBinaryRule(topicName, parsedData) {
 }
 
 function mqttProcessRule(topicName, parsedData) {
-    var nodeClass = new Date().getTime();
-    var color = 'default';
+    let nodeClass = new Date().getTime();
+    let color = 'default';
 
     console.log("JOB =>", topicName)
 
     if (topicName.includes("/proc/")) {
 
         if (parsedData.data !== '__ALL_DONE__') {
-            var level = parsedData.level;
+            let level = parsedData.level;
 
             if($("."+level.toLowerCase()).is(":checked")) {
 
-                var fields = '';
+                let fields = '';
 
                 if($(".node").is(":checked")){
                     fields+= ' ['+parsedData.node+'] '
@@ -596,7 +613,7 @@ function mqttProcessRule(topicName, parsedData) {
                     fields+= ' ['+parsedData.session+'] '
                 }
 
-                var rName = getLastItem(topicName);
+                let rName = getLastItem(topicName);
                 $(".loggerHtml").append("<div title='Process Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
                     "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
                     "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
@@ -615,19 +632,19 @@ function mqttProcessRule(topicName, parsedData) {
 }
 
 function mqttJobRule(topicName, parsedData) {
-    var nodeClass = new Date().getTime();
-    var color = 'default';
+    let nodeClass = new Date().getTime();
+    let color = 'default';
 
     console.log("JOB =>", topicName)
 
     if (topicName.includes("/log/job")) {
 
         if (parsedData.data !== '__ALL_DONE__') {
-            var level = parsedData.level;
+            let level = parsedData.level;
 
             if($("."+level.toLowerCase()).is(":checked")) {
 
-                var fields = '';
+                let fields = '';
 
                 if($(".node").is(":checked")){
                     fields+= ' ['+parsedData.node+'] '
@@ -636,7 +653,7 @@ function mqttJobRule(topicName, parsedData) {
                     fields+= ' ['+parsedData.session+'] '
                 }
 
-                var rName = getLastItem(topicName);
+                let rName = getLastItem(topicName);
 
                 $(".loggerHtml").append("<div title='Job Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
                     "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
@@ -656,8 +673,8 @@ function mqttJobRule(topicName, parsedData) {
 }
 
 function mqttSftpRule(topicName, parsedData) {
-    var nodeClass = new Date().getTime();
-    var color = 'default';
+    let nodeClass = new Date().getTime();
+    let color = 'default';
 
     console.log("SFTP =>", topicName)
     topicName = topicName.toLowerCase();
@@ -665,11 +682,11 @@ function mqttSftpRule(topicName, parsedData) {
     if (topicName.includes("/log/input/sftp")) {
 
         if (parsedData.data !== '__ALL_DONE__') {
-            var level = parsedData.level;
+            let level = parsedData.level;
 
             if($("."+level.toLowerCase()).is(":checked")) {
 
-                var fields = '';
+                let fields = '';
 
                 if($(".node").is(":checked")){
                     fields+= ' ['+parsedData.node+'] '
@@ -678,7 +695,7 @@ function mqttSftpRule(topicName, parsedData) {
                     fields+= ' ['+parsedData.session+'] '
                 }
 
-                var rName = getLastItem(topicName);
+                let rName = getLastItem(topicName);
 
                 $(".loggerHtml").append("<div title='SFTP Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
                     "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
@@ -697,8 +714,8 @@ function mqttSftpRule(topicName, parsedData) {
     }
 }
 function mqttMqttRule(topicName, parsedData) {
-    var nodeClass = new Date().getTime();
-    var color = 'default';
+    let nodeClass = new Date().getTime();
+    let color = 'default';
 
     console.log("MQTT =>", topicName)
     topicName = topicName.toLowerCase();
@@ -706,11 +723,11 @@ function mqttMqttRule(topicName, parsedData) {
     if (topicName.includes("/log/input/mqtt")) {
 
         if (parsedData.data !== '__ALL_DONE__') {
-            var level = parsedData.level;
+            let level = parsedData.level;
 
             if($("."+level.toLowerCase()).is(":checked")) {
 
-                var fields = '';
+                let fields = '';
 
                 if($(".node").is(":checked")){
                     fields+= ' ['+parsedData.node+'] '
@@ -719,7 +736,7 @@ function mqttMqttRule(topicName, parsedData) {
                     fields+= ' ['+parsedData.session+'] '
                 }
 
-                var rName = getLastItem(topicName);
+                let rName = getLastItem(topicName);
 
                 $(".loggerHtml").append("<div title='MQTT Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
                     "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
@@ -738,19 +755,19 @@ function mqttMqttRule(topicName, parsedData) {
     }
 }
 function mqttUdpRule(topicName, parsedData) {
-    var nodeClass = new Date().getTime();
-    var color = 'default';
+    let nodeClass = new Date().getTime();
+    let color = 'default';
 
     console.log("UDP =>", topicName)
     topicName = topicName.toLowerCase();
     if (topicName.includes("/log/input/udp")) {
 
         if (parsedData.data !== '__ALL_DONE__') {
-            var level = parsedData.level;
+            let level = parsedData.level;
 
             if($("."+level.toLowerCase()).is(":checked")) {
 
-                var fields = '';
+                let fields = '';
 
                 if($(".node").is(":checked")){
                     fields+= ' ['+parsedData.node+'] '
@@ -759,7 +776,7 @@ function mqttUdpRule(topicName, parsedData) {
                     fields+= ' ['+parsedData.session+'] '
                 }
 
-                var rName = getLastItem(topicName);
+                let rName = getLastItem(topicName);
 
                 $(".loggerHtml").append("<div title='UDP Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
                     "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
@@ -778,8 +795,8 @@ function mqttUdpRule(topicName, parsedData) {
     }
 }
 function mqttTcpRule(topicName, parsedData) {
-    var nodeClass = new Date().getTime();
-    var color = 'default';
+    let nodeClass = new Date().getTime();
+    let color = 'default';
 
     console.log("TCP =>", topicName)
     topicName = topicName.toLowerCase();
@@ -787,11 +804,11 @@ function mqttTcpRule(topicName, parsedData) {
     if (topicName.includes("/log/input/tcp")) {
 
         if (parsedData.data !== '__ALL_DONE__') {
-            var level = parsedData.level;
+            let level = parsedData.level;
 
             if($("."+level.toLowerCase()).is(":checked")) {
 
-                var fields = '';
+                let fields = '';
 
                 if($(".node").is(":checked")){
                     fields+= ' ['+parsedData.node+'] '
@@ -800,7 +817,7 @@ function mqttTcpRule(topicName, parsedData) {
                     fields+= ' ['+parsedData.session+'] '
                 }
 
-                var rName = getLastItem(topicName);
+                let rName = getLastItem(topicName);
 
                 $(".loggerHtml").append("<div title='TCP Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
                     "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
@@ -819,8 +836,8 @@ function mqttTcpRule(topicName, parsedData) {
     }
 }
 function mqttEmailRule(topicName, parsedData) {
-    var nodeClass = new Date().getTime();
-    var color = 'default';
+    let nodeClass = new Date().getTime();
+    let color = 'default';
 
     console.log("EMAIL =>", topicName)
     topicName = topicName.toLowerCase();
@@ -828,11 +845,11 @@ function mqttEmailRule(topicName, parsedData) {
     if (topicName.includes("/log/input/email")) {
 
         if (parsedData.data !== '__ALL_DONE__') {
-            var level = parsedData.level;
+            let level = parsedData.level;
 
             if($("."+level.toLowerCase()).is(":checked")) {
 
-                var fields = '';
+                let fields = '';
 
                 if($(".node").is(":checked")){
                     fields+= ' ['+parsedData.node+'] '
@@ -841,7 +858,7 @@ function mqttEmailRule(topicName, parsedData) {
                     fields+= ' ['+parsedData.session+'] '
                 }
 
-                var rName = getLastItem(topicName);
+                let rName = getLastItem(topicName);
 
                 $(".loggerHtml").append("<div title='Email Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
                     "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
@@ -860,8 +877,8 @@ function mqttEmailRule(topicName, parsedData) {
     }
 }
 function mqttMicroRule(topicName, parsedData) {
-    var nodeClass = new Date().getTime();
-    var color = 'default';
+    let nodeClass = new Date().getTime();
+    let color = 'default';
 
     console.log("MICRO =>", topicName)
     topicName = topicName.toLowerCase();
@@ -869,11 +886,11 @@ function mqttMicroRule(topicName, parsedData) {
     if (topicName.includes("/log/svc")) {
 
         if (parsedData.data !== '__ALL_DONE__') {
-            var level = parsedData.level;
+            let level = parsedData.level;
 
             if($("."+level.toLowerCase()).is(":checked")) {
 
-                var fields = '';
+                let fields = '';
 
                 if($(".node").is(":checked")){
                     fields+= ' ['+parsedData.node+'] '
@@ -882,7 +899,7 @@ function mqttMicroRule(topicName, parsedData) {
                     fields+= ' ['+parsedData.session+'] '
                 }
 
-                var rName = getLastItem(topicName);
+                let rName = getLastItem(topicName);
 
                 $(".loggerHtml").append("<div title='Micro Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
                     "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
@@ -928,7 +945,7 @@ function enableLogs() {
 
 function debugEnable(obj) {
 
-    // var status = $("input[name='debugStatus']:checked").val();
+    // let status = $("input[name='debugStatus']:checked").val();
     //
     //
     // if (status === 'false') {
@@ -1003,14 +1020,14 @@ function loadRules(id) {
 
 function searchFunction() {
     // Declare variables
-    var input, filter, ul, li, a, i;
+    let input, filter, ul, li, a, i;
     input = $.trim($('#searchInput').val());
     filter = input.toUpperCase();
     li = $(".rulesListli");
 
     // Loop through all list items, and hide those who don't match the search query
     for (i = 0; i < li.length; i++) {
-        var str = li[i].innerText;
+        let str = li[i].innerText;
         if (str.toUpperCase().indexOf(filter) > -1) {
             li[i].style.display = "block";
         } else {
@@ -1038,11 +1055,11 @@ function loadMessageSpecList() {
         if (status && data.length > 0) {
             message_spec_list = data;
 
-            for (var i = 0; i < data.length; i++) {
+            for (let i = 0; i < data.length; i++) {
 
-                var flag = true;
+                let flag = true;
 
-                for (var j = 0; j < message_rules_list.length; j++) {
+                for (let j = 0; j < message_rules_list.length; j++) {
 
                     if (data[i].id === message_rules_list[j].messageId) {
                         data[i].ruleObj = message_rules_list[j];
@@ -1051,11 +1068,11 @@ function loadMessageSpecList() {
                 }
 
                 if(flag){
-                    var obj = {domainKey: null, lang: "GROOVY", code: "", messageId: data[i].id, messageName: ''};
+                    let obj = {domainKey: null, lang: "GROOVY", code: "", messageId: data[i].id, messageName: ''};
                     message_rules_list.push(obj);
                 }
 
-                var str = '<li  class="rulesListli rule_' + data[i].id + '" data-id="' + data[i].id + '" onclick="loadTabbar(' + data[i].id + ',1)">' +
+                let str = '<li  class="rulesListli rule_' + data[i].id + '" data-id="' + data[i].id + '" onclick="loadTabbar(' + data[i].id + ',1)">' +
                     '<img src="images/file.png" /> <b>' + data[i].id + '</b>  <br> <small>' + data[i].name + '</small></li>';
                 $(".rulesList").append(str);
 
@@ -1101,9 +1118,9 @@ function loadNamedRulesList() {
         if (status && data.length > 0) {
             named_rules_list = data;
 
-            for (var i = 0; i < data.length; i++) {
+            for (let i = 0; i < data.length; i++) {
 
-                var str = '<li class="rulesListli rule_' + data[i].name + '" data-id="' + data[i].name + '" onclick="loadTabbar(\'' + data[i].name + '\',2)">' +
+                let str = '<li class="rulesListli rule_' + data[i].name + '" data-id="' + data[i].name + '" onclick="loadTabbar(\'' + data[i].name + '\',2)">' +
                     '<img src="images/file.png" /> <b>' + data[i].name + '</b></li>';
                 $(".rulesList").append(str);
 
@@ -1133,9 +1150,9 @@ function loadBinaryRulesList() {
         if (status && data.length > 0) {
             binary_rules_list = data;
 
-            for (var i = 0; i < data.length; i++) {
+            for (let i = 0; i < data.length; i++) {
 
-                var str = '<li class="rulesListli rule_' + data[i].type + '" data-id="' + data[i].type + '" onclick="loadTabbar(\'' + data[i].type + '\',6)">' +
+                let str = '<li class="rulesListli rule_' + data[i].type + '" data-id="' + data[i].type + '" onclick="loadTabbar(\'' + data[i].type + '\',6)">' +
                     '<img src="images/file.png" /> <b>' + data[i].type + '</b></li>';
                 $(".rulesList").append(str);
 
@@ -1165,9 +1182,9 @@ function loadFileRulesList() {
         if (status && data.length > 0) {
             file_rules_list = data;
 
-            for (var i = 0; i < data.length; i++) {
+            for (let i = 0; i < data.length; i++) {
 
-                var str = '<li class="rulesListli rule_' + data[i].type + '" data-id="' + data[i].type + '" onclick="loadTabbar(\'' + data[i].type + '\',8)">' +
+                let str = '<li class="rulesListli rule_' + data[i].type + '" data-id="' + data[i].type + '" onclick="loadTabbar(\'' + data[i].type + '\',8)">' +
                     '<img src="images/file.png" /> <b>' + data[i].type + '</b></li>';
                 $(".rulesList").append(str);
 
@@ -1180,7 +1197,7 @@ function loadFileRulesList() {
 
 function loadProcessRulesListAggs(){
 
-    var query = {
+    let query = {
         query:{
             bool : {
                 must:[{match:{domainKey:DOMAIN_KEY}}],
@@ -1198,7 +1215,7 @@ function loadProcessRulesListAggs(){
             }
         }
     }
-    var pType = 'PROCESS';
+    let pType = 'PROCESS';
 
     if($("#pType").val() === 'GLOBAL'){
         pType = 'GLOBAL_PROCESS';
@@ -1210,12 +1227,12 @@ function loadProcessRulesListAggs(){
     listProcessRules(query,pType, function (status, data) {
         if(status) {
 
-            var resultData = QueryFormatter(data);
+            let resultData = QueryFormatter(data);
 
             $("#pfGroup").html('<option value="">All Groups</option>')
-            var aggs = resultData.aggregations.group.buckets;
+            let aggs = resultData.aggregations.group.buckets;
 
-            for (var i = 0; i < aggs.length; i++) {
+            for (let i = 0; i < aggs.length; i++) {
                 if(aggs[i].key){
                     $("#pfGroup").append('<option value="' + aggs[i].key + '">' + aggs[i].key + ' (' + aggs[i].doc_count + ')</option>')
                 }
@@ -1230,7 +1247,7 @@ function loadProcessRulesListAggs(){
 }
 
 function loadProcessRulesList() {
-    var query = {
+    let query = {
         query:{
             bool : {
                 must:[{match:{domainKey:DOMAIN_KEY}}],
@@ -1248,7 +1265,7 @@ function loadProcessRulesList() {
             }
         }
     }
-    var pType = 'PROCESS';
+    let pType = 'PROCESS';
 
     if($("#pType").val() === 'GLOBAL'){
         pType = 'GLOBAL_PROCESS';
@@ -1303,15 +1320,15 @@ function loadProcessRulesList() {
 
         if(status){
 
-            var resultData = QueryFormatter(data);
+            let resultData = QueryFormatter(data);
 
             data = resultData.data.data;
 
             process_rules_list = data;
 
-            for (var i = 0; i < data.length; i++) {
+            for (let i = 0; i < data.length; i++) {
 
-                var str = '<li class="rulesListli rule_' + data[i].id + '" data-id="' + data[i].id + '" onclick="loadTabbar(\'' + data[i].id + '\',9)">' +
+                let str = '<li class="rulesListli rule_' + data[i].id + '" data-id="' + data[i].id + '" onclick="loadTabbar(\'' + data[i].id + '\',9)">' +
                     '<img src="images/file.png" /> <b>' + data[i].name + '</b></li>';
                 $(".rulesList").append(str);
 
@@ -1343,9 +1360,9 @@ function loadJobRulesList() {
         if (status && data.length > 0) {
             job_rules_list = data;
 
-            for (var i = 0; i < data.length; i++) {
+            for (let i = 0; i < data.length; i++) {
 
-                var str = '<li class="rulesListli rule_' + data[i].id + '" data-id="' + data[i].id + '" onclick="loadTabbar(\'' + data[i].id + '\',7)">' +
+                let str = '<li class="rulesListli rule_' + data[i].id + '" data-id="' + data[i].id + '" onclick="loadTabbar(\'' + data[i].id + '\',7)">' +
                     '<img src="images/file.png" /> <b>' + data[i].id + '</b></li>';
                 $(".rulesList").append(str);
 
@@ -1374,15 +1391,15 @@ function loadSftpRulesList() {
         if (status) {
 
 
-            var resultData = QueryFormatter(data);
+            let resultData = QueryFormatter(data);
 
             data = resultData.data.data;
 
             sftp_rules_list = data;
 
-            for (var i = 0; i < data.length; i++) {
+            for (let i = 0; i < data.length; i++) {
 
-                var str = '<li class="rulesListli rule_' + data[i].id + '" data-id="' + data[i].id + '" onclick="loadTabbar(\'' + data[i].id + '\',10)">' +
+                let str = '<li class="rulesListli rule_' + data[i].id + '" data-id="' + data[i].id + '" onclick="loadTabbar(\'' + data[i].id + '\',10)">' +
                     '<img src="images/file.png" /> <b>' + data[i].name + '</b></li>';
                 $(".rulesList").append(str);
 
@@ -1409,15 +1426,15 @@ function loadMqttRulesList() {
 
         if (status) {
 
-            var resultData = QueryFormatter(data);
+            let resultData = QueryFormatter(data);
 
             data = resultData.data.data;
 
             mqtt_rules_list = data;
 
-            for (var i = 0; i < data.length; i++) {
+            for (let i = 0; i < data.length; i++) {
 
-                var str = '<li class="rulesListli rule_' + data[i].id + '" data-id="' + data[i].id + '" onclick="loadTabbar(\'' + data[i].id + '\',11)">' +
+                let str = '<li class="rulesListli rule_' + data[i].id + '" data-id="' + data[i].id + '" onclick="loadTabbar(\'' + data[i].id + '\',11)">' +
                     '<img src="images/file.png" /> <b>' + data[i].name + '</b></li>';
                 $(".rulesList").append(str);
 
@@ -1444,14 +1461,14 @@ function loadUdpRulesList() {
 
         if (status) {
 
-            var resultData = QueryFormatter(data);
+            let resultData = QueryFormatter(data);
 
             data = resultData.data.data;
             udp_rules_list = data;
 
-            for (var i = 0; i < data.length; i++) {
+            for (let i = 0; i < data.length; i++) {
 
-                var str = '<li class="rulesListli rule_' + data[i].id + '" data-id="' + data[i].id + '" onclick="loadTabbar(\'' + data[i].id + '\',12)">' +
+                let str = '<li class="rulesListli rule_' + data[i].id + '" data-id="' + data[i].id + '" onclick="loadTabbar(\'' + data[i].id + '\',12)">' +
                     '<img src="images/file.png" /> <b>' + data[i].name + '</b></li>';
                 $(".rulesList").append(str);
 
@@ -1478,14 +1495,14 @@ function loadTcpRulesList() {
 
         if (status) {
 
-            var resultData = QueryFormatter(data);
+            let resultData = QueryFormatter(data);
 
             data = resultData.data.data;
             tcp_rules_list = data;
 
-            for (var i = 0; i < data.length; i++) {
+            for (let i = 0; i < data.length; i++) {
 
-                var str = '<li class="rulesListli rule_' + data[i].id + '" data-id="' + data[i].id + '" onclick="loadTabbar(\'' + data[i].id + '\',13)">' +
+                let str = '<li class="rulesListli rule_' + data[i].id + '" data-id="' + data[i].id + '" onclick="loadTabbar(\'' + data[i].id + '\',13)">' +
                     '<img src="images/file.png" /> <b>' + data[i].name + '</b></li>';
                 $(".rulesList").append(str);
 
@@ -1512,14 +1529,14 @@ function loadEmailRulesList() {
 
         if (status) {
 
-            var resultData = QueryFormatter(data);
+            let resultData = QueryFormatter(data);
 
             data = resultData.data.data;
             email_rules_list = data;
 
-            for (var i = 0; i < data.length; i++) {
+            for (let i = 0; i < data.length; i++) {
 
-                var str = '<li class="rulesListli rule_' + data[i].id + '" data-id="' + data[i].id + '" onclick="loadTabbar(\'' + data[i].id + '\',14)">' +
+                let str = '<li class="rulesListli rule_' + data[i].id + '" data-id="' + data[i].id + '" onclick="loadTabbar(\'' + data[i].id + '\',14)">' +
                     '<img src="images/file.png" /> <b>' + data[i].name + '</b></li>';
                 $(".rulesList").append(str);
 
@@ -1547,14 +1564,14 @@ function loadMicroRulesList() {
 
         if (status) {
 
-            var resultData = QueryFormatter(data);
+            let resultData = QueryFormatter(data);
 
             data = resultData.data.data;
             micro_rules_list = data;
 
-            for (var i = 0; i < data.length; i++) {
+            for (let i = 0; i < data.length; i++) {
 
-                var str = '<li class="rulesListli rule_' + data[i].name + '" data-id="' + data[i].name + '" onclick="loadTabbar(\'' + data[i].name + '\',15)">' +
+                let str = '<li class="rulesListli rule_' + data[i].name + '" data-id="' + data[i].name + '" onclick="loadTabbar(\'' + data[i].name + '\',15)">' +
                     '<img src="images/file.png" /> <b>' + data[i].name + '</b></li>';
                 $(".rulesList").append(str);
 
@@ -1584,9 +1601,9 @@ function loadScheduleRulesList() {
         if (status && data.length > 0) {
             schedule_rules_list = data;
 
-            for (var i = 0; i < data.length; i++) {
+            for (let i = 0; i < data.length; i++) {
 
-                var str = '<li class="rulesListli rule_' + data[i].id + '" data-id="' + data[i].id + '" onclick="loadTabbar(' + data[i].id + ',3)">' +
+                let str = '<li class="rulesListli rule_' + data[i].id + '" data-id="' + data[i].id + '" onclick="loadTabbar(' + data[i].id + ',3)">' +
                     '<img src="images/file.png" /> <b>' + data[i].id + '</b><br><small>' + data[i].pattern + '</small></li>';
                 $(".rulesList").append(str);
 
@@ -1612,9 +1629,9 @@ function loadGroovyClasses() {
     }, 1000);
 
 
-    var data = groovy_class_list;
-    for (var i = 0; i < groovy_class_list.length; i++) {
-        var str = '<li class="rulesListli rule_' + data[i]._id + '" data-id="' + data[i]._id + '" onclick="loadTabbar(\'' + data[i]._id + '\',4)">' +
+    let data = groovy_class_list;
+    for (let i = 0; i < groovy_class_list.length; i++) {
+        let str = '<li class="rulesListli rule_' + data[i]._id + '" data-id="' + data[i]._id + '" onclick="loadTabbar(\'' + data[i]._id + '\',4)">' +
             '<img src="images/code.png" /> <b>' + data[i].packageName + '</b></li>';
         $(".rulesList").append(str);
     }
@@ -1633,9 +1650,9 @@ function loadJarClasses() {
         $(".loaderSpin").html('');
     }, 1000);
 
-    var data = groovy_class_list;
-    for (var i = 0; i < jar_class_list.length; i++) {
-        var str = '<li class="rulesListli rule_' + data[i]._id + '" data-id="' + data[i]._id + '" onclick="loadTabbar(\'' + data[i]._id + '\',4)">' +
+    let data = groovy_class_list;
+    for (let i = 0; i < jar_class_list.length; i++) {
+        let str = '<li class="rulesListli rule_' + data[i]._id + '" data-id="' + data[i]._id + '" onclick="loadTabbar(\'' + data[i]._id + '\',4)">' +
             '<img src="images/code.png" /> <b>' + data[i].packageName + '</b></li>';
         $(".rulesList").append(str);
     }
@@ -1644,7 +1661,7 @@ function loadJarClasses() {
 
 function loadHelpTab(){
     $(".helpTab").remove();
-    var str = '<li role="presentation" class="helpTab tabbar helpTabBar active" >' +
+    let str = '<li role="presentation" class="helpTab tabbar helpTabBar active" >' +
         '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadHelpTab()><i class="fa fa-question-circle"></i> Help' +
         '<span style="display: inline-block;margin-left: 20px;cursor: pointer;z-index:1" onclick="deleteHelpTab()" title="close"><i class="fa fa-close"></i></span></a>' +
         '</li>'
@@ -1687,7 +1704,7 @@ function loadHelpDetails(){
 
     $('#codeEditor').height(($(".ui-layout-center").height() - 40) + 'px');
 
-    var str = `
+    let str = `
 <div class="row mt-2">
     <div class="col-md-3 ">
             <h5 class="ml-3">Platform Contexts</h5>
@@ -1725,7 +1742,7 @@ function loadHelpDetails(){
 
 function loadTabbar(id, type) {
 
-    var str = '';
+    let str = '';
     $(".deleteBtn").css('display', 'none');
     $(".detailsBlock").css('display', 'none')
     $(".messageFields").css('display', 'none');
@@ -1758,9 +1775,9 @@ function loadTabbar(id, type) {
         }
         else if (type === 4) {
 
-            var obj = {};
-            for (var i = 0; i < groovy_class_list.length; i++) {
-                for (var j = 0; j < groovy_class_list[i].classes.length; j++) {
+            let obj = {};
+            for (let i = 0; i < groovy_class_list.length; i++) {
+                for (let j = 0; j < groovy_class_list[i].classes.length; j++) {
                     if (id === groovy_class_list[i].classes[j]._id) {
                         obj = groovy_class_list[i].classes[j];
                     }
@@ -1774,8 +1791,8 @@ function loadTabbar(id, type) {
         }
         else if (type === 5) {
 
-            var obj = {};
-            for (var i = 0; i < jar_class_list.length; i++) {
+            let obj = {};
+            for (let i = 0; i < jar_class_list.length; i++) {
                 if (id === jar_class_list[i]._id) {
                     obj = jar_class_list[i];
                 }
@@ -1789,8 +1806,8 @@ function loadTabbar(id, type) {
 
         else if (type === 6) {
 
-            var obj = {};
-            for (var i = 0; i < binary_rules_list.length; i++) {
+            let obj = {};
+            for (let i = 0; i < binary_rules_list.length; i++) {
                 if (id === binary_rules_list[i].type) {
                     obj = binary_rules_list[i];
                 }
@@ -1804,8 +1821,8 @@ function loadTabbar(id, type) {
 
         else if (type === 7) {
 
-            var obj = {};
-            for (var i = 0; i < job_rules_list.length; i++) {
+            let obj = {};
+            for (let i = 0; i < job_rules_list.length; i++) {
                 if (id === job_rules_list[i].id) {
                     obj = job_rules_list[i];
                 }
@@ -1819,8 +1836,8 @@ function loadTabbar(id, type) {
 
         else if (type === 8) {
 
-            var obj = {};
-            for (var i = 0; i < file_rules_list.length; i++) {
+            let obj = {};
+            for (let i = 0; i < file_rules_list.length; i++) {
                 if (id === file_rules_list[i].type) {
                     obj = file_rules_list[i];
                 }
@@ -1834,8 +1851,8 @@ function loadTabbar(id, type) {
 
         else if (type === 9) {
 
-            var obj = {};
-            for (var i = 0; i < process_rules_list.length; i++) {
+            let obj = {};
+            for (let i = 0; i < process_rules_list.length; i++) {
                 if (id === process_rules_list[i].id) {
                     obj = process_rules_list[i];
                 }
@@ -1848,8 +1865,8 @@ function loadTabbar(id, type) {
         }
         else if (type === 10) {
 
-            var obj = {};
-            for (var i = 0; i < sftp_rules_list.length; i++) {
+            let obj = {};
+            for (let i = 0; i < sftp_rules_list.length; i++) {
                 if (id === sftp_rules_list[i].id) {
                     obj = sftp_rules_list[i];
                 }
@@ -1862,8 +1879,8 @@ function loadTabbar(id, type) {
         }
         else if (type === 11) {
 
-            var obj = {};
-            for (var i = 0; i < mqtt_rules_list.length; i++) {
+            let obj = {};
+            for (let i = 0; i < mqtt_rules_list.length; i++) {
                 if (id === mqtt_rules_list[i].id) {
                     obj = mqtt_rules_list[i];
                 }
@@ -1876,8 +1893,8 @@ function loadTabbar(id, type) {
         }
         else if (type === 12) {
 
-            var obj = {};
-            for (var i = 0; i < udp_rules_list.length; i++) {
+            let obj = {};
+            for (let i = 0; i < udp_rules_list.length; i++) {
                 if (id === udp_rules_list[i].id) {
                     obj = udp_rules_list[i];
                 }
@@ -1890,8 +1907,8 @@ function loadTabbar(id, type) {
         }
         else if (type === 13) {
 
-            var obj = {};
-            for (var i = 0; i < tcp_rules_list.length; i++) {
+            let obj = {};
+            for (let i = 0; i < tcp_rules_list.length; i++) {
                 if (id === tcp_rules_list[i].id) {
                     obj = tcp_rules_list[i];
                 }
@@ -1904,8 +1921,8 @@ function loadTabbar(id, type) {
         }
         else if (type === 14) {
 
-            var obj = {};
-            for (var i = 0; i < email_rules_list.length; i++) {
+            let obj = {};
+            for (let i = 0; i < email_rules_list.length; i++) {
                 if (id === email_rules_list[i].id) {
                     obj = email_rules_list[i];
                 }
@@ -1918,8 +1935,8 @@ function loadTabbar(id, type) {
         }
         else if (type === 15) {
 
-            var obj = {};
-            for (var i = 0; i < micro_rules_list.length; i++) {
+            let obj = {};
+            for (let i = 0; i < micro_rules_list.length; i++) {
                 if (id === micro_rules_list[i].name) {
                     obj = micro_rules_list[i];
                 }
@@ -1952,7 +1969,7 @@ function loadTabbar(id, type) {
     $(".emailTab").removeClass('active');
     $(".microTab").removeClass('active');
 
-    var obj = {};
+    let obj = {};
 
     if (type === 1) {
         loadMessageRule(id);
@@ -1960,7 +1977,7 @@ function loadTabbar(id, type) {
 
 
 
-        for (var i = 0; i < message_spec_list.length; i++) {
+        for (let i = 0; i < message_spec_list.length; i++) {
 
             if (id === message_spec_list[i].id) {
                 obj = message_spec_list[i];
@@ -1974,7 +1991,7 @@ function loadTabbar(id, type) {
 
         $(".exportBtn").attr('onclick','exportRule(2)')
         $(".messageFields tbody").html("");
-        for (var i = 0; i < obj.fields.length; i++) {
+        for (let i = 0; i < obj.fields.length; i++) {
             $(".messageFields tbody").append('<tr><td>' + obj.fields[i].name + '</td><td><label class="label label-default">' + obj.fields[i].dataType + '</label></td></tr>')
         }
 
@@ -1987,7 +2004,7 @@ function loadTabbar(id, type) {
         loadNamedRule(id);
         $(".namedTab_" + id).addClass('active');
 
-        for (var i = 0; i < named_rules_list.length; i++) {
+        for (let i = 0; i < named_rules_list.length; i++) {
             if (id === named_rules_list[i].name) {
                 obj = named_rules_list[i];
             }
@@ -2004,7 +2021,7 @@ function loadTabbar(id, type) {
         loadScheduleRule(id);
         $(".scheduleTab_" + id).addClass('active');
 
-        for (var i = 0; i < schedule_rules_list.length; i++) {
+        for (let i = 0; i < schedule_rules_list.length; i++) {
             if (id === schedule_rules_list[i].id) {
                 obj = schedule_rules_list[i];
             }
@@ -2029,7 +2046,7 @@ function loadTabbar(id, type) {
         loadBinaryRule(id);
         $(".binaryTab_" + id).addClass('active');
 
-        for (var i = 0; i < binary_rules_list.length; i++) {
+        for (let i = 0; i < binary_rules_list.length; i++) {
             if (id === binary_rules_list[i].type) {
                 obj = binary_rules_list[i];
             }
@@ -2045,7 +2062,7 @@ function loadTabbar(id, type) {
         loadFileRule(id);
         $(".fileTab_" + id).addClass('active');
 
-        for (var i = 0; i < file_rules_list.length; i++) {
+        for (let i = 0; i < file_rules_list.length; i++) {
             if (id === file_rules_list[i].type) {
                 obj = file_rules_list[i];
             }
@@ -2061,7 +2078,7 @@ function loadTabbar(id, type) {
         loadJobRule(id);
         $(".jobTab_" + id).addClass('active');
 
-        for (var i = 0; i < job_rules_list.length; i++) {
+        for (let i = 0; i < job_rules_list.length; i++) {
             if (id === job_rules_list[i].id) {
                 obj = job_rules_list[i];
             }
@@ -2080,7 +2097,7 @@ function loadTabbar(id, type) {
         loadProcessRule(id);
         $(".processTab_" + id).addClass('active');
 
-        for (var i = 0; i < process_rules_list.length; i++) {
+        for (let i = 0; i < process_rules_list.length; i++) {
             if (id === process_rules_list[i].id) {
                 obj = process_rules_list[i];
             }
@@ -2097,7 +2114,7 @@ function loadTabbar(id, type) {
         loadSftpRule(id);
         $(".sftpTab_" + id).addClass('active');
 
-        for (var i = 0; i < sftp_rules_list.length; i++) {
+        for (let i = 0; i < sftp_rules_list.length; i++) {
             if (id === sftp_rules_list[i].id) {
                 obj = sftp_rules_list[i];
             }
@@ -2116,7 +2133,7 @@ function loadTabbar(id, type) {
         loadMqttRule(id);
         $(".mqttTab_" + id).addClass('active');
 
-        for (var i = 0; i < mqtt_rules_list.length; i++) {
+        for (let i = 0; i < mqtt_rules_list.length; i++) {
             if (id === mqtt_rules_list[i].id) {
                 obj = mqtt_rules_list[i];
             }
@@ -2135,7 +2152,7 @@ function loadTabbar(id, type) {
         loadUdpRule(id);
         $(".udpTab_" + id).addClass('active');
 
-        for (var i = 0; i < udp_rules_list.length; i++) {
+        for (let i = 0; i < udp_rules_list.length; i++) {
             if (id === udp_rules_list[i].id) {
                 obj = udp_rules_list[i];
             }
@@ -2154,7 +2171,7 @@ function loadTabbar(id, type) {
         loadTcpRule(id);
         $(".tcpTab_" + id).addClass('active');
 
-        for (var i = 0; i < tcp_rules_list.length; i++) {
+        for (let i = 0; i < tcp_rules_list.length; i++) {
             if (id === tcp_rules_list[i].id) {
                 obj = tcp_rules_list[i];
             }
@@ -2173,7 +2190,7 @@ function loadTabbar(id, type) {
         loadEmailRule(id);
         $(".emailTab_" + id).addClass('active');
 
-        for (var i = 0; i < email_rules_list.length; i++) {
+        for (let i = 0; i < email_rules_list.length; i++) {
             if (id === email_rules_list[i].id) {
                 obj = email_rules_list[i];
             }
@@ -2192,7 +2209,7 @@ function loadTabbar(id, type) {
         loadMicroRule(id);
         $(".microTab_" + id).addClass('active');
 
-        for (var i = 0; i < micro_rules_list.length; i++) {
+        for (let i = 0; i < micro_rules_list.length; i++) {
             if (id === micro_rules_list[i].name) {
                 obj = micro_rules_list[i];
             }
@@ -2215,14 +2232,14 @@ function loadTabbar(id, type) {
 }
 
 function loadProcessDetails(id,obj) {
-    var output = '';
-    var input = '';
+    let output = '';
+    let input = '';
 
-    for(var k in obj.output){
+    for(let k in obj.output){
         output+= '<tr><td>'+k+'</td><td>'+obj.output[k]+'</td></tr>'
     }
     if(obj.input) {
-        for (var k in obj.input) {
+        for (let k in obj.input) {
             input += '<tr><td>' + k + '</td><td>' + obj.input[k] + '</td></tr>'
         }
     }
@@ -2285,9 +2302,9 @@ function loadSftpDetails(id,obj) {
         '<button style="display:none" class="btn btn-xs resBtn btn-warning" onclick="executeInputAction(\''+id+'\',\''+'RESTART'+'\',\''+'SFTP'+'\')"><i class="fa fa-redo"></i> Restart</button>'+
         '</td></tr>')
 
-    var configs = ''
+    let configs = ''
     if(obj.config) {
-        for (var i = 0; i < obj.config.length; i++) {
+        for (let i = 0; i < obj.config.length; i++) {
             configs+=obj.config[i].name+':'+obj.config[i].value+"<br>";
         }
     }
@@ -2321,9 +2338,9 @@ function loadMqttDetails(id,obj) {
         '<button style="display:none" class="btn btn-xs stpBtn mb-2 btn-danger" onclick="executeInputAction(\''+id+'\',\''+'STOP'+'\',\''+'MQTT'+'\')"><i class="fa fa-stop"></i> Stop</button>'+
         '<button style="display:none" class="btn btn-xs resBtn btn-warning" onclick="executeInputAction(\''+id+'\',\''+'RESTART'+'\',\''+'MQTT'+'\')"><i class="fa fa-redo"></i> Restart</button>'+
         '</td></tr>')
-    var configs = ''
+    let configs = ''
     if(obj.config) {
-        for (var i = 0; i < obj.config.length; i++) {
+        for (let i = 0; i < obj.config.length; i++) {
             configs+=obj.config[i].name+':'+obj.config[i].value+"<br>";
         }
     }
@@ -2345,9 +2362,9 @@ function loadMqttDetails(id,obj) {
     $(".inputBlock tbody").append('<tr><td>SSL Skip HostName Verification</td><td>'+(obj.sslSkipHostNameVerification ? 'True' : 'False')+'</td></tr>')
 
 
-    var subs = ''
+    let subs = ''
     if(obj.subscriptions) {
-        for (var i = 0; i < obj.subscriptions.length; i++) {
+        for (let i = 0; i < obj.subscriptions.length; i++) {
             subs+="Pattern:"+ obj.subscriptions[i].pattern+', Qos: '+obj.subscriptions[i].qos+"<br>";
         }
     }
@@ -2369,9 +2386,9 @@ function loadUdpDetails(id,obj) {
         '<button style="display:none" class="btn btn-xs stpBtn mb-2 btn-danger" onclick="executeInputAction(\''+id+'\',\''+'STOP'+'\',\''+'UDP'+'\')"><i class="fa fa-stop"></i> Stop</button>'+
         '<button style="display:none" class="btn btn-xs resBtn btn-warning" onclick="executeInputAction(\''+id+'\',\''+'RESTART'+'\',\''+'UDP'+'\')"><i class="fa fa-redo"></i> Restart</button>'+
         '</td></tr>')
-    var configs = ''
+    let configs = ''
     if(obj.config) {
-        for (var i = 0; i < obj.config.length; i++) {
+        for (let i = 0; i < obj.config.length; i++) {
             configs+=obj.config[i].name+':'+obj.config[i].value+"<br>";
         }
     }
@@ -2409,9 +2426,9 @@ function loadTcpDetails(id,obj) {
         '<button style="display:none" class="btn btn-xs stpBtn mb-2 btn-danger" onclick="executeInputAction(\''+id+'\',\''+'STOP'+'\',\''+'TCP'+'\')"><i class="fa fa-stop"></i> Stop</button>'+
         '<button style="display:none" class="btn btn-xs resBtn btn-warning" onclick="executeInputAction(\''+id+'\',\''+'RESTART'+'\',\''+'TCP'+'\')"><i class="fa fa-redo"></i> Restart</button>'+
         '</td></tr>')
-    var configs = ''
+    let configs = ''
     if(obj.config) {
-        for (var i = 0; i < obj.config.length; i++) {
+        for (let i = 0; i < obj.config.length; i++) {
             configs+=obj.config[i].name+':'+obj.config[i].value+"<br>";
         }
     }
@@ -2459,9 +2476,9 @@ function loadEmailDetails(id,obj) {
         '<button style="display:none" class="btn btn-xs stpBtn mb-2 btn-danger" onclick="executeInputAction(\''+id+'\',\''+'STOP'+'\',\''+'EMAIL'+'\')"><i class="fa fa-stop"></i> Stop</button>'+
         '<button style="display:none" class="btn btn-xs resBtn btn-warning" onclick="executeInputAction(\''+id+'\',\''+'RESTART'+'\',\''+'EMAIL'+'\')"><i class="fa fa-redo"></i> Restart</button>'+
         '</td></tr>')
-    var configs = ''
+    let configs = ''
     if(obj.config) {
-        for (var i = 0; i < obj.config.length; i++) {
+        for (let i = 0; i < obj.config.length; i++) {
             configs+=obj.config[i].name+' : '+obj.config[i].value+"<br>";
         }
     }
@@ -2490,9 +2507,9 @@ function loadEmailDetails(id,obj) {
     $(".inputBlock tbody").append('<tr><td>Allowed Attachment<br> File Extensions</td><td>'+(obj.allowedAttachmentFileExtensions ? obj.allowedContentTypes.join(",") : '-')+'</td></tr>')
     $(".inputBlock tbody").append('<tr><td>Process Only <br>Attachments</td><td>'+(obj.processOnlyAttachments ? 'True' : 'False')+'</td></tr>')
 
-    var folders = '<b>Folders</b><table class="table table-bordered">';
+    let folders = '<b>Folders</b><table class="table table-bordered">';
     if(obj.folders) {
-        for (var i = 0; i < obj.folders.length; i++) {
+        for (let i = 0; i < obj.folders.length; i++) {
             folders+='<tr>' +
                 '<td>' +
                 'Name:<br>' +
@@ -2526,11 +2543,11 @@ function loadMicroDetails(id,obj) {
 
     $(".inputBlock tbody").append('<tr><td>Method</td><td>'+(obj.allowedMethods ? obj.allowedMethods.split(",") : '-')+'</td></tr>')
     
-    var str = '<div class="row mt-2">'+
+    let str = '<div class="row mt-2">'+
         '<div class="col-md-8"><label>Method Name</label></div>'+
         '<div class="col-md-4"><label>Action</label></div>';
     
-    for(var i=0;i<obj.methods.length;i++){
+    for(let i=0;i<obj.methods.length;i++){
         str+= '<div class="col-md-8 mb-1"><span>'+obj.methods[i].name+'</span></div>'+
             '<div class="col-md-4 mb-1"><button class="btn btn-default btn-xs" onclick="openAPIModal(\''+obj.methods[i].name+'\')"><i class="fa fa-play"></i></button></div>'
     }
@@ -2665,7 +2682,7 @@ function loadRunningCount(id) {
 
 function executeAction(id, executeAction) {
 
-        var count = 0;
+        let count = 0;
 
         if($("#iCount").val()){
             count = Number($("#iCount").val())
@@ -2725,9 +2742,9 @@ function deleteTab(id, type) {
         $(".microTab_" + id).remove();
     }
 
-    var temp = [];
+    let temp = [];
 
-    for (var i = 0; i < tabbar_list.length; i++) {
+    for (let i = 0; i < tabbar_list.length; i++) {
         if (id !== tabbar_list[i]) {
             temp.push(tabbar_list[i])
         }
@@ -2778,99 +2795,99 @@ function loadDomainCode() {
     });
 
     $(".defaultFields tbody").html("");
-    for (var i = 0; i < DEFAULT_FIELDS.length; i++) {
+    for (let i = 0; i < DEFAULT_FIELDS.length; i++) {
         $(".defaultFields tbody").append('<tr><td>' + DEFAULT_FIELDS[i].name + '</td><td><label class="label label-default">' + DEFAULT_FIELDS[i].dataType + '</label></td></tr>')
     }
 }
 
 function returnObj(id, type) {
-    var data = null;
+    let data = null;
     if (type === 1) {
-        for (var i = 0; i < message_rules_list.length; i++) {
+        for (let i = 0; i < message_rules_list.length; i++) {
             if (id === message_rules_list[i].messageId) {
                 return message_rules_list[i];
             }
         }
     }
     else if (type === 2) {
-        for (var i = 0; i < named_rules_list.length; i++) {
+        for (let i = 0; i < named_rules_list.length; i++) {
             if (id === named_rules_list[i].name) {
                 return named_rules_list[i];
             }
         }
     }
     else if (type === 3) {
-        for (var i = 0; i < schedule_rules_list.length; i++) {
+        for (let i = 0; i < schedule_rules_list.length; i++) {
             if (id === schedule_rules_list[i].id) {
                 return schedule_rules_list[i];
             }
         }
     }
     else if (type === 6) {
-        for (var i = 0; i < binary_rules_list.length; i++) {
+        for (let i = 0; i < binary_rules_list.length; i++) {
             if (id === binary_rules_list[i].type) {
                 return binary_rules_list[i];
             }
         }
     }
     else if (type === 7) {
-        for (var i = 0; i < job_rules_list.length; i++) {
+        for (let i = 0; i < job_rules_list.length; i++) {
             if (id === job_rules_list[i].id) {
                 return job_rules_list[i];
             }
         }
     }
     else if (type === 8) {
-        for (var i = 0; i < file_rules_list.length; i++) {
+        for (let i = 0; i < file_rules_list.length; i++) {
             if (id === file_rules_list[i].type) {
                 return file_rules_list[i];
             }
         }
     }
     else if (type === 9) {
-        for (var i = 0; i < process_rules_list.length; i++) {
+        for (let i = 0; i < process_rules_list.length; i++) {
             if (id === process_rules_list[i].id) {
                 return process_rules_list[i];
             }
         }
     }
     else if (type === 10) {
-        for (var i = 0; i < sftp_rules_list.length; i++) {
+        for (let i = 0; i < sftp_rules_list.length; i++) {
             if (id === sftp_rules_list[i].id) {
                 return sftp_rules_list[i];
             }
         }
     }
     else if (type === 11) {
-        for (var i = 0; i < mqtt_rules_list.length; i++) {
+        for (let i = 0; i < mqtt_rules_list.length; i++) {
             if (id === mqtt_rules_list[i].id) {
                 return mqtt_rules_list[i];
             }
         }
     }
     else if (type === 12) {
-        for (var i = 0; i < udp_rules_list.length; i++) {
+        for (let i = 0; i < udp_rules_list.length; i++) {
             if (id === udp_rules_list[i].id) {
                 return udp_rules_list[i];
             }
         }
     }
     else if (type === 13) {
-        for (var i = 0; i < tcp_rules_list.length; i++) {
+        for (let i = 0; i < tcp_rules_list.length; i++) {
             if (id === tcp_rules_list[i].id) {
                 return tcp_rules_list[i];
             }
         }
     }
     else if (type === 14) {
-        for (var i = 0; i < email_rules_list.length; i++) {
+        for (let i = 0; i < email_rules_list.length; i++) {
             if (id === email_rules_list[i].id) {
                 return email_rules_list[i];
             }
         }
     }
     else if (type === 15) {
-        for (var i = 0; i < micro_rules_list.length; i++) {
+        for (let i = 0; i < micro_rules_list.length; i++) {
             if (id === micro_rules_list[i].name) {
                 return micro_rules_list[i];
             }
@@ -2925,8 +2942,8 @@ function loadGroovyClass(id) {
     $("#editorContent").html('<div id="codeEditor"></div>');
     $("#codeEditor").html('');
 
-    var obj = {};
-    for (var i = 0; i < groovy_class_list.length; i++) {
+    let obj = {};
+    for (let i = 0; i < groovy_class_list.length; i++) {
         if (id === groovy_class_list[i]._id) {
             obj = groovy_class_list[i];
         }
@@ -2953,8 +2970,8 @@ function loadJarClass(id) {
     $("#editorContent").html('<div id="codeEditor"></div>');
     $("#codeEditor").html('');
 
-    var obj = {};
-    for (var i = 0; i < jar_class_list.length; i++) {
+    let obj = {};
+    for (let i = 0; i < jar_class_list.length; i++) {
         if (id === jar_class_list[i]._id) {
             obj = jar_class_list[i];
         }
@@ -2980,7 +2997,7 @@ function loadMessageRule(id) {
 
     // mqttCancelSubscribe(CURRENT_ID);
     $("#editorContent").html('<div id="codeEditor"></div>');
-    var data = returnObj(id, 1);
+    let data = returnObj(id, 1);
     $("#codeEditor").html('');
     loadEditor(data ? data.code : '', 'messageTab_'+id);
     CURRENT_ID = id;
@@ -2988,8 +3005,8 @@ function loadMessageRule(id) {
 
     exportRule(2)
 
-    var obj = {};
-    for (var i = 0; i < message_spec_list.length; i++) {
+    let obj = {};
+    for (let i = 0; i < message_spec_list.length; i++) {
         if (id === message_spec_list[i].id) {
             obj = message_spec_list[i];
         }
@@ -3005,7 +3022,7 @@ function loadMessageRule(id) {
 
 
     $(".messageFields tbody").html("");
-    for (var i = 0; i < obj.fields.length; i++) {
+    for (let i = 0; i < obj.fields.length; i++) {
         $(".messageFields tbody").append('<tr><td>' + obj.fields[i].name + '</td><td><label class="label label-default">' + obj.fields[i].dataType + '</label></td></tr>')
     }
 
@@ -3020,7 +3037,7 @@ function loadMessageRule(id) {
 function loadNamedRule(id) {
     //  mqttCancelSubscribe(CURRENT_ID);
     $("#editorContent").html('<div id="codeEditor"></div>');
-    var data = returnObj(id, 2);
+    let data = returnObj(id, 2);
     $("#codeEditor").html('');
     loadEditor(data ? data.code : '', 'namedTab_'+id);
     CURRENT_ID = id;
@@ -3028,8 +3045,8 @@ function loadNamedRule(id) {
 
     exportRule(3)
 
-    var obj = {};
-    for (var i = 0; i < named_rules_list.length; i++) {
+    let obj = {};
+    for (let i = 0; i < named_rules_list.length; i++) {
         if (id === named_rules_list[i].name) {
             obj = named_rules_list[i];
         }
@@ -3055,7 +3072,7 @@ function loadNamedRule(id) {
 function loadBinaryRule(id) {
     //  mqttCancelSubscribe(CURRENT_ID);
     $("#editorContent").html('<div id="codeEditor"></div>');
-    var data = returnObj(id, 6);
+    let data = returnObj(id, 6);
     $("#codeEditor").html('');
     loadEditor(data ? data.code : '', 'binaryTab_'+id);
     CURRENT_ID = id;
@@ -3063,8 +3080,8 @@ function loadBinaryRule(id) {
 
     exportRule(6)
 
-    var obj = {};
-    for (var i = 0; i < binary_rules_list.length; i++) {
+    let obj = {};
+    for (let i = 0; i < binary_rules_list.length; i++) {
         if (id === binary_rules_list[i].type) {
             obj = binary_rules_list[i];
         }
@@ -3090,7 +3107,7 @@ function loadBinaryRule(id) {
 function loadFileRule(id) {
     //  mqttCancelSubscribe(CURRENT_ID);
     $("#editorContent").html('<div id="codeEditor"></div>');
-    var data = returnObj(id, 8);
+    let data = returnObj(id, 8);
     $("#codeEditor").html('');
     loadEditor(data ? data.code : '', 'fileTab_'+id);
     CURRENT_ID = id;
@@ -3098,8 +3115,8 @@ function loadFileRule(id) {
 
     exportRule(8)
 
-    var obj = {};
-    for (var i = 0; i < file_rules_list.length; i++) {
+    let obj = {};
+    for (let i = 0; i < file_rules_list.length; i++) {
         if (id === file_rules_list[i].type) {
             obj = file_rules_list[i];
         }
@@ -3125,7 +3142,7 @@ function loadJobRule(id) {
     $(".simulateBtn").css('display', 'none');
     //  mqttCancelSubscribe(CURRENT_ID);
     $("#editorContent").html('<div id="codeEditor"></div>');
-    var data = returnObj(id, 7);
+    let data = returnObj(id, 7);
     $("#codeEditor").html('');
 
     loadEditor(data.code ? data.code : '', 'jobTab_'+id);
@@ -3156,7 +3173,7 @@ function loadSftpRule(id) {
     $(".simulateBtn").css('display', 'none');
     //  mqttCancelSubscribe(CURRENT_ID);
     $("#editorContent").html('<div id="codeEditor"></div>');
-    var data = returnObj(id, 10);
+    let data = returnObj(id, 10);
     $("#codeEditor").html('');
 
     loadEditor(data.code ? data.code : '', 'sftpTab_'+id);
@@ -3188,7 +3205,7 @@ function loadMqttRule(id) {
     $(".simulateBtn").css('display', 'none');
     //  mqttCancelSubscribe(CURRENT_ID);
     $("#editorContent").html('<div id="codeEditor"></div>');
-    var data = returnObj(id, 11);
+    let data = returnObj(id, 11);
     $("#codeEditor").html('');
 
     loadEditor(data.code ? data.code : '', 'mqttTab_'+id);
@@ -3215,7 +3232,7 @@ function loadUdpRule(id) {
     $(".simulateBtn").css('display', 'none');
     //  mqttCancelSubscribe(CURRENT_ID);
     $("#editorContent").html('<div id="codeEditor"></div>');
-    var data = returnObj(id, 12);
+    let data = returnObj(id, 12);
     $("#codeEditor").html('');
 
     loadEditor(data.code ? data.code : '', 'udpTab_'+id);
@@ -3242,7 +3259,7 @@ function loadTcpRule(id) {
     $(".simulateBtn").css('display', 'none');
     //  mqttCancelSubscribe(CURRENT_ID);
     $("#editorContent").html('<div id="codeEditor"></div>');
-    var data = returnObj(id, 13);
+    let data = returnObj(id, 13);
     $("#codeEditor").html('');
 
     loadEditor(data.code ? data.code : '', 'tcpTab_'+id);
@@ -3269,7 +3286,7 @@ function loadEmailRule(id) {
     $(".simulateBtn").css('display', 'none');
     //  mqttCancelSubscribe(CURRENT_ID);
     $("#editorContent").html('<div id="codeEditor"></div>');
-    var data = returnObj(id, 14);
+    let data = returnObj(id, 14);
     $("#codeEditor").html('');
 
     loadEditor(data.code ? data.code : '', 'emailTab_'+id);
@@ -3296,7 +3313,7 @@ function loadMicroRule(id) {
     $(".simulateBtn").css('display', 'none');
     //  mqttCancelSubscribe(CURRENT_ID);
     $("#editorContent").html('<div id="codeEditor"></div>');
-    var data = returnObj(id, 15);
+    let data = returnObj(id, 15);
     $("#codeEditor").html('');
 
     loadEditor(data.code ? data.code : '', 'microTab_'+id);
@@ -3323,7 +3340,7 @@ function loadProcessRule(id) {
     $(".simulateBtn").css('display', 'none');
     //  mqttCancelSubscribe(CURRENT_ID);
     $("#editorContent").html('<div id="codeEditor"></div>');
-    var data = returnObj(id, 9);
+    let data = returnObj(id, 9);
     $("#codeEditor").html('');
 
     loadEditor(data.code ? data.code : '', 'processTab_'+id);
@@ -3355,14 +3372,14 @@ function loadScheduleRule(id) {
     $(".simulateBtn").css('display', 'none');
     // mqttCancelSubscribe(CURRENT_ID);
     $("#editorContent").html('<div id="codeEditor"></div>');
-    var data = returnObj(id, 3);
+    let data = returnObj(id, 3);
     $("#codeEditor").html('');
     loadEditor(data ? data.code : '', 'scheduleTab_'+id);
     CURRENT_ID = id;
     CURRENT_TYPE = 3;
 
-    var obj = {};
-    for (var i = 0; i < schedule_rules_list.length; i++) {
+    let obj = {};
+    for (let i = 0; i < schedule_rules_list.length; i++) {
         if (id === schedule_rules_list[i].id) {
             obj = schedule_rules_list[i];
         }
@@ -3383,9 +3400,9 @@ function loadScheduleRule(id) {
     // }, 1000);
 }
 
-var editorLine = {};
+let editorLine = {};
 
-function loadEditor(code, tabid) {
+async function loadEditor(code, tabid) {
 
     editorChange = false;
 
@@ -3406,7 +3423,7 @@ function loadEditor(code, tabid) {
     codeEditor.getSession().setUseWrapMode(true);
     codeEditor.setShowPrintMargin(false);
 
-    var platfromSnippet = loadPlatformSnippet();
+    let platfromSnippet = loadPlatformSnippet();
 
 
     ace.config.loadModule("ace/ext/language_tools", function() {
@@ -3418,8 +3435,8 @@ function loadEditor(code, tabid) {
             enableLiveAutocompletion: false
         });
 
-        var snippetManager = ace.require("ace/snippets").snippetManager;
-        var config = ace.require("ace/config");
+        let snippetManager = ace.require("ace/snippets").snippetManager;
+        let config = ace.require("ace/config");
 
         ace.config.loadModule("ace/snippets/groovy", function(m) {
             if (m) {
@@ -3430,7 +3447,7 @@ function loadEditor(code, tabid) {
 
     });
 
-    // var langTools = ace.require("ace/ext/language_tools");
+    // let langTools = ace.require("ace/ext/language_tools");
     //
     // // codeEditor.setOptions({
     // //     enableBasicAutocompletion: true,
@@ -3439,15 +3456,14 @@ function loadEditor(code, tabid) {
     // // });
     // langTools.setCompleters([langTools.snippetCompleter])
 
-
-    code ? codeEditor.setValue(code) : '';
+    code ? codeEditor.setValue(code) : codeEditor.setValue('');
 
     codeEditor.clearSelection();
 
     codeEditor.focus();
-    var session = codeEditor.getSession();
+    let session = codeEditor.getSession();
     //Get the number of lines
-    var count = session.getLength();
+    let count = session.getLength();
     //Go to end of the last line
 
     if(editorLine[tabid]){
@@ -3489,7 +3505,7 @@ function loadEditor(code, tabid) {
 
             if (CURRENT_TYPE === 1) {
 
-                for (var i = 0; i < message_rules_list.length; i++) {
+                for (let i = 0; i < message_rules_list.length; i++) {
                     if (CHANGED_ID === message_rules_list[i].messageId) {
                         message_rules_list[i].code = CHANGED_TEXT;
                     }
@@ -3497,7 +3513,7 @@ function loadEditor(code, tabid) {
 
             }
             if (CURRENT_TYPE === 2) {
-                for (var i = 0; i < named_rules_list.length; i++) {
+                for (let i = 0; i < named_rules_list.length; i++) {
                     if (CHANGED_ID === named_rules_list[i].name) {
                         named_rules_list[i].code = CHANGED_TEXT;
                     }
@@ -3505,7 +3521,7 @@ function loadEditor(code, tabid) {
 
             }
             if (CURRENT_TYPE === 3) {
-                for (var i = 0; i < schedule_rules_list.length; i++) {
+                for (let i = 0; i < schedule_rules_list.length; i++) {
                     if (CHANGED_ID === schedule_rules_list[i].id) {
                         schedule_rules_list[i].code = CHANGED_TEXT;
                     }
@@ -3514,7 +3530,7 @@ function loadEditor(code, tabid) {
             }
 
             if (CURRENT_TYPE === 6) {
-                for (var i = 0; i < binary_rules_list.length; i++) {
+                for (let i = 0; i < binary_rules_list.length; i++) {
                     if (CHANGED_ID === binary_rules_list[i].type) {
                         binary_rules_list[i].code = CHANGED_TEXT;
                     }
@@ -3524,7 +3540,7 @@ function loadEditor(code, tabid) {
 
             if (CURRENT_TYPE === 7) {
 
-                for (var i = 0; i < job_rules_list.length; i++) {
+                for (let i = 0; i < job_rules_list.length; i++) {
                     if (CHANGED_ID === job_rules_list[i].id) {
                         job_rules_list[i].code = CHANGED_TEXT;
                     }
@@ -3534,7 +3550,7 @@ function loadEditor(code, tabid) {
 
             if (CURRENT_TYPE === 8) {
 
-                for (var i = 0; i < file_rules_list.length; i++) {
+                for (let i = 0; i < file_rules_list.length; i++) {
                     if (CHANGED_ID === file_rules_list[i].type) {
                         file_rules_list[i].code = CHANGED_TEXT;
                     }
@@ -3544,7 +3560,7 @@ function loadEditor(code, tabid) {
 
             if (CURRENT_TYPE === 9) {
 
-                for (var i = 0; i < process_rules_list.length; i++) {
+                for (let i = 0; i < process_rules_list.length; i++) {
                     if (CHANGED_ID === process_rules_list[i].id) {
                         process_rules_list[i].code = CHANGED_TEXT;
                     }
@@ -3554,7 +3570,7 @@ function loadEditor(code, tabid) {
 
             if (CURRENT_TYPE === 10) {
 
-                for (var i = 0; i < sftp_rules_list.length; i++) {
+                for (let i = 0; i < sftp_rules_list.length; i++) {
                     if (CHANGED_ID === sftp_rules_list[i].id) {
                         sftp_rules_list[i].code = CHANGED_TEXT;
                     }
@@ -3564,7 +3580,7 @@ function loadEditor(code, tabid) {
 
             if (CURRENT_TYPE === 11) {
 
-                for (var i = 0; i < mqtt_rules_list.length; i++) {
+                for (let i = 0; i < mqtt_rules_list.length; i++) {
                     if (CHANGED_ID === mqtt_rules_list[i].id) {
                         mqtt_rules_list[i].code = CHANGED_TEXT;
                     }
@@ -3574,7 +3590,7 @@ function loadEditor(code, tabid) {
 
             if (CURRENT_TYPE === 12) {
 
-                for (var i = 0; i < udp_rules_list.length; i++) {
+                for (let i = 0; i < udp_rules_list.length; i++) {
                     if (CHANGED_ID === udp_rules_list[i].id) {
                         udp_rules_list[i].code = CHANGED_TEXT;
                     }
@@ -3584,7 +3600,7 @@ function loadEditor(code, tabid) {
 
             if (CURRENT_TYPE === 13) {
 
-                for (var i = 0; i < tcp_rules_list.length; i++) {
+                for (let i = 0; i < tcp_rules_list.length; i++) {
                     if (CHANGED_ID === tcp_rules_list[i].id) {
                         tcp_rules_list[i].code = CHANGED_TEXT;
                     }
@@ -3594,7 +3610,7 @@ function loadEditor(code, tabid) {
 
             if (CURRENT_TYPE === 14) {
 
-                for (var i = 0; i < email_rules_list.length; i++) {
+                for (let i = 0; i < email_rules_list.length; i++) {
                     if (CHANGED_ID === email_rules_list[i].id) {
                         email_rules_list[i].code = CHANGED_TEXT;
                     }
@@ -3604,7 +3620,7 @@ function loadEditor(code, tabid) {
 
             if (CURRENT_TYPE === 15) {
 
-                for (var i = 0; i < micro_rules_list.length; i++) {
+                for (let i = 0; i < micro_rules_list.length; i++) {
                     if (CHANGED_ID === micro_rules_list[i].name) {
                         micro_rules_list[i].code = CHANGED_TEXT;
                     }
@@ -3639,12 +3655,12 @@ function loadEditor(code, tabid) {
 
             // console.log(codeEditor.getSession().getValue())
 
-            var consoleText = codeEditor.getSession().getValue();
+            let consoleText = codeEditor.getSession().getValue();
 
 
             if (CURRENT_TYPE === 0) {
 
-                var data = {
+                let data = {
                     lang: 'GROOVY',
                     code: consoleText
                 }
@@ -3661,7 +3677,7 @@ function loadEditor(code, tabid) {
             } else if (CURRENT_TYPE === 1) {
 
 
-                var data = {
+                let data = {
                     lang: 'GROOVY',
                     code: consoleText,
                     messageId: CURRENT_ID
@@ -3677,7 +3693,7 @@ function loadEditor(code, tabid) {
 
             } else if (CURRENT_TYPE === 2) {
 
-                var data = {
+                let data = {
                     lang: 'GROOVY',
                     code: consoleText,
                     name: CURRENT_ID
@@ -3693,9 +3709,9 @@ function loadEditor(code, tabid) {
 
             } else if (CURRENT_TYPE === 3) {
 
-                var obj = returnObj(CURRENT_ID, 3);
+                let obj = returnObj(CURRENT_ID, 3);
 
-                var data = {
+                let data = {
                     lang: 'GROOVY',
                     code: consoleText,
                     id: CURRENT_ID,
@@ -3712,9 +3728,9 @@ function loadEditor(code, tabid) {
             }
             else if (CURRENT_TYPE === 6) {
 
-                var obj = returnObj(CURRENT_ID, 6);
+                let obj = returnObj(CURRENT_ID, 6);
 
-                var data = {
+                let data = {
                     lang: 'GROOVY',
                     code: consoleText,
                     type: CURRENT_ID,
@@ -3730,9 +3746,9 @@ function loadEditor(code, tabid) {
             }
             else if (CURRENT_TYPE === 8) {
 
-                var obj = returnObj(CURRENT_ID, 8);
+                let obj = returnObj(CURRENT_ID, 8);
 
-                var data = {
+                let data = {
                     lang: 'GROOVY',
                     code: consoleText,
                     type: CURRENT_ID,
@@ -3748,9 +3764,9 @@ function loadEditor(code, tabid) {
             }
             else if (CURRENT_TYPE === 7) {
 
-                var obj = returnObj(CURRENT_ID, 7);
+                let obj = returnObj(CURRENT_ID, 7);
 
-                var data = {
+                let data = {
                     "domainKey": DOMAIN_KEY,
                     "id": CURRENT_ID,
                     "name": "",
@@ -3777,7 +3793,7 @@ function loadEditor(code, tabid) {
             }
             else if (CURRENT_TYPE === 9) {
 
-                var obj = returnObj(CURRENT_ID, 9);
+                let obj = returnObj(CURRENT_ID, 9);
 
                 obj['code'] = consoleText;
 
@@ -3797,7 +3813,7 @@ function loadEditor(code, tabid) {
             }
             else if (CURRENT_TYPE === 10) {
 
-                var obj = returnObj(CURRENT_ID, 10);
+                let obj = returnObj(CURRENT_ID, 10);
 
                 obj['code'] = consoleText;
                 delete obj._id;
@@ -3821,7 +3837,7 @@ function loadEditor(code, tabid) {
 
             else if (CURRENT_TYPE === 11) {
 
-                var obj = returnObj(CURRENT_ID, 11);
+                let obj = returnObj(CURRENT_ID, 11);
 
                 obj['code'] = consoleText;
                 delete obj._id;
@@ -3844,7 +3860,7 @@ function loadEditor(code, tabid) {
             }
             else if (CURRENT_TYPE === 12) {
 
-                var obj = returnObj(CURRENT_ID, 12);
+                let obj = returnObj(CURRENT_ID, 12);
 
                 obj['code'] = consoleText;
                 delete obj._id;
@@ -3867,7 +3883,7 @@ function loadEditor(code, tabid) {
             }
             else if (CURRENT_TYPE === 13) {
 
-                var obj = returnObj(CURRENT_ID, 13);
+                let obj = returnObj(CURRENT_ID, 13);
 
                 obj['code'] = consoleText;
                 delete obj._id;
@@ -3890,7 +3906,7 @@ function loadEditor(code, tabid) {
             }
             else if (CURRENT_TYPE === 14) {
 
-                var obj = returnObj(CURRENT_ID, 14);
+                let obj = returnObj(CURRENT_ID, 14);
 
                 obj['code'] = consoleText;
                 delete obj._id;
@@ -3915,10 +3931,10 @@ function loadEditor(code, tabid) {
             }
             else if (CURRENT_TYPE === 15) {
 
-                var obj = returnObj(CURRENT_ID, 15);
+                let obj = returnObj(CURRENT_ID, 15);
 
 
-                var dataObj = {
+                let dataObj = {
                     name : obj.name,
                     code : consoleText,
                     authType : obj.authType,
@@ -3961,11 +3977,11 @@ function resizeEditor() {
 
 }
 
-var MSG_FIELD_COUNT = 0;
-var CRON_JOB = null;
+let MSG_FIELD_COUNT = 0;
+let CRON_JOB = null;
 
 function openModal(e) {
-    var id = e ? e : $("#rulesType").val() * 1
+    let id = e ? e : $("#rulesType").val() * 1
 
     if (id === 1) {
 
@@ -4146,8 +4162,8 @@ function openModal(e) {
 function editJobModal() {
     $("#job_rule").attr('disabled','disabled')
 
-    var obj = {};
-    for (var i = 0; i < job_rules_list.length; i++) {
+    let obj = {};
+    for (let i = 0; i < job_rules_list.length; i++) {
         if (CURRENT_ID === job_rules_list[i].id) {
             obj = job_rules_list[i];
         }
@@ -4210,8 +4226,8 @@ function editInputModal(){
 function editSftpModal() {
     $("#sftp_name").attr('disabled','disabled')
 
-    var obj = {};
-    for (var i = 0; i < sftp_rules_list.length; i++) {
+    let obj = {};
+    for (let i = 0; i < sftp_rules_list.length; i++) {
         if (CURRENT_ID === sftp_rules_list[i].id) {
             obj = sftp_rules_list[i];
         }
@@ -4244,8 +4260,8 @@ function editSftpModal() {
     checkKeyFile($("#sftp_keyFilesBuiltIn").val())
 
     $(".configBody").html('')
-    for(var i=0;i<obj.config.length;i++){
-        var t = new Date().getTime()
+    for(let i=0;i<obj.config.length;i++){
+        let t = new Date().getTime()
         $(".configBody").append('<tr class="'+t+'">' +
             '<td><input type="text" value="'+obj.config[i].name+'" required class="conf_name form-control input-sm"></td>' +
             '<td><input type="text" value="'+obj.config[i].value+'" class="conf_value form-control input-sm"></td>' +
@@ -4267,8 +4283,8 @@ function editMqttModal() {
 
     $("#mqtt_name").attr('disabled','disabled')
 
-    var obj = {};
-    for (var i = 0; i < mqtt_rules_list.length; i++) {
+    let obj = {};
+    for (let i = 0; i < mqtt_rules_list.length; i++) {
         if (CURRENT_ID === mqtt_rules_list[i].id) {
             obj = mqtt_rules_list[i];
         }
@@ -4312,8 +4328,8 @@ function editMqttModal() {
 
 
     $(".mqttBody").html('')
-    for(var i=0;i<obj.subscriptions.length;i++){
-        var t = new Date().getTime()
+    for(let i=0;i<obj.subscriptions.length;i++){
+        let t = new Date().getTime()
         $(".mqttBody").append('<tr class="'+t+'">' +
             '<td><input type="text" value="'+obj.subscriptions[i].pattern+'" required class="mqtt_pattern form-control input-sm"></td>' +
             '<td><input type="number" min="0" value="'+obj.subscriptions[i].qos+'" required class="mqtt_qos form-control input-sm"></td>' +
@@ -4325,8 +4341,8 @@ function editMqttModal() {
 
 
     $(".configBody").html('')
-    for(var i=0;i<obj.config.length;i++){
-        var t = new Date().getTime()
+    for(let i=0;i<obj.config.length;i++){
+        let t = new Date().getTime()
         $(".configBody").append('<tr class="'+t+'">' +
             '<td><input type="text" value="'+obj.config[i].name+'" required class="conf_name form-control input-sm"></td>' +
             '<td><input type="text" value="'+obj.config[i].value+'" class="conf_value form-control input-sm"></td>' +
@@ -4345,8 +4361,8 @@ function editUdpModal() {
 
     $("#udp_name").attr('disabled','disabled')
 
-    var obj = {};
-    for (var i = 0; i < udp_rules_list.length; i++) {
+    let obj = {};
+    for (let i = 0; i < udp_rules_list.length; i++) {
         if (CURRENT_ID === udp_rules_list[i].id) {
             obj = udp_rules_list[i];
         }
@@ -4378,8 +4394,8 @@ function editUdpModal() {
 
 
     $(".configBody").html('')
-    for(var i=0;i<obj.config.length;i++){
-        var t = new Date().getTime()
+    for(let i=0;i<obj.config.length;i++){
+        let t = new Date().getTime()
         $(".configBody").append('<tr class="'+t+'">' +
             '<td><input type="text" value="'+obj.config[i].name+'" required class="conf_name form-control input-sm"></td>' +
             '<td><input type="text" value="'+obj.config[i].value+'" class="conf_value form-control input-sm"></td>' +
@@ -4398,8 +4414,8 @@ function editTcpModal() {
 
     $("#tcp_name").attr('disabled','disabled')
 
-    var obj = {};
-    for (var i = 0; i < tcp_rules_list.length; i++) {
+    let obj = {};
+    for (let i = 0; i < tcp_rules_list.length; i++) {
         if (CURRENT_ID === tcp_rules_list[i].id) {
             obj = tcp_rules_list[i];
         }
@@ -4456,8 +4472,8 @@ function editTcpModal() {
     checkTcpKeyFile($("#tcp_ssslStoresBuiltIn").val())
 
     $(".configBody").html('')
-    for(var i=0;i<obj.config.length;i++){
-        var t = new Date().getTime()
+    for(let i=0;i<obj.config.length;i++){
+        let t = new Date().getTime()
         $(".configBody").append('<tr class="'+t+'">' +
             '<td><input type="text" value="'+obj.config[i].name+'" required class="conf_name form-control input-sm"></td>' +
             '<td><input type="text" value="'+obj.config[i].value+'" class="conf_value form-control input-sm"></td>' +
@@ -4476,8 +4492,8 @@ function editEmailModal() {
 
     $("#email_name").attr('disabled','disabled')
 
-    var obj = {};
-    for (var i = 0; i < email_rules_list.length; i++) {
+    let obj = {};
+    for (let i = 0; i < email_rules_list.length; i++) {
         if (CURRENT_ID === email_rules_list[i].id) {
             obj = email_rules_list[i];
         }
@@ -4519,8 +4535,8 @@ function editEmailModal() {
     $("#email_password").val(obj.password ? obj.password : '')
 
     $(".configBody").html('')
-    for(var i=0;i<obj.config.length;i++){
-        var t = new Date().getTime()
+    for(let i=0;i<obj.config.length;i++){
+        let t = new Date().getTime()
         $(".configBody").append('<tr class="'+t+'">' +
             '<td><input type="text" value="'+obj.config[i].name+'" required class="conf_name form-control input-sm"></td>' +
             '<td><input type="text" value="'+obj.config[i].value+'" class="conf_value form-control input-sm"></td>' +
@@ -4535,8 +4551,8 @@ function editEmailModal() {
 
 
     $(".folderBody").html('')
-    for(var i=0;i<obj.folders.length;i++){
-        var t = new Date().getTime()
+    for(let i=0;i<obj.folders.length;i++){
+        let t = new Date().getTime()
         $(".folderBody").append('<tr class="'+t+'">' +
             '<td><input type="text" value="'+obj.folders[i].name+'" required class="folder_name form-control input-sm"></td>' +
 
@@ -4573,8 +4589,8 @@ function editMicroModal() {
 
     $("#micro_id").attr('disabled', 'disabled');
 
-    var obj = {};
-    for (var i = 0; i < micro_rules_list.length; i++) {
+    let obj = {};
+    for (let i = 0; i < micro_rules_list.length; i++) {
         if (CURRENT_ID === micro_rules_list[i].name) {
             obj = micro_rules_list[i];
         }
@@ -4593,7 +4609,7 @@ function editMicroModal() {
         $("#methodPut").prop('checked',false)
         $("#methodUpload").prop('checked',false)
 
-        for (var i = 0; i < obj.allowedMethods.length; i++) {
+        for (let i = 0; i < obj.allowedMethods.length; i++) {
             if (obj.allowedMethods[i].toLowercase() == 'get') {
                 $("#methodGet").prop('checked', true)
             }
@@ -4909,9 +4925,9 @@ function deleteMessageField(id) {
 
 function addMessageField() {
 
-    var id = MSG_FIELD_COUNT;
+    let id = MSG_FIELD_COUNT;
 
-    var str = `<tr id="msg_field_row_` + id + `">
+    let str = `<tr id="msg_field_row_` + id + `">
     <td>
         <input class="form-control input-sm" placeholder="Field Name" onkeyup="onlyAlphaNumericUs(this)" onkeydown="onlyAlphaNumericUs(this)" type="text"  id="msg_field_` + id + `" required>
     </td>
@@ -4949,12 +4965,12 @@ function addMessageField() {
 
 function addMessageRule() {
 
-    var flag = false;
+    let flag = false;
 
-    var fields = [];
+    let fields = [];
 
-    for (var i = 0; i < MSG_FIELD_COUNT; i++) {
-        var json = {
+    for (let i = 0; i < MSG_FIELD_COUNT; i++) {
+        let json = {
             "dataType": $("#msg_datatype_" + i).val(),
             "format": "AS_IS",
             "label": "",
@@ -4964,7 +4980,7 @@ function addMessageRule() {
         fields.push(json);
     }
 
-    for (var i = 0; i < fields.length; i++) {
+    for (let i = 0; i < fields.length; i++) {
 
         if (RESERVED_FIELDS.indexOf(fields[i].name) !== -1) {
             errorMsgBorder('Reserved Fields cannot be used as a field name', 'msg_field_' + i);
@@ -4983,7 +4999,7 @@ function addMessageRule() {
     }
 
 
-    var msgObj = {
+    let msgObj = {
         "id": Number($("#msg_id").val()),
         "name": $("#msg_name").val(),
         "label": $("#msg_name").val(),
@@ -5020,7 +5036,7 @@ function addMessageRule() {
 }
 
 function addNamedRule() {
-    var dataObj = {
+    let dataObj = {
         lang: $("#rule_language").val(),
         code: "",
         name: $("#rule_id").val()
@@ -5053,7 +5069,7 @@ function addNamedRule() {
 }
 
 function addBinaryRule() {
-    var dataObj = {
+    let dataObj = {
         lang: $("#binary_lang").val(),
         code: "",
         type: $("#binary_rule").val()
@@ -5075,7 +5091,7 @@ function addBinaryRule() {
 
 }
 function addFileRule() {
-    var dataObj = {
+    let dataObj = {
         lang: $("#file_lang").val(),
         code: "",
         type: $("#file_rule").val()
@@ -5099,9 +5115,9 @@ function addFileRule() {
 
 function addProcessRule() {
 
-    var defaultCode = '//Return function should be always Map\n\nreturn [_chain:false,_next:-1,_invoke:""];'
+    let defaultCode = '//Return function should be always Map\n\nreturn [_chain:false,_next:-1,_invoke:""];'
 
-    var data = {
+    let data = {
         "output": {
         },
         "input": {
@@ -5120,16 +5136,16 @@ function addProcessRule() {
         "tags": $("#pGroup").val()
     }
 
-    var input = {};
+    let input = {};
 
-    var inputKey= $(".sftp_key").map(function() {
+    let inputKey= $(".sftp_key").map(function() {
         return $(this).val();
     }).get();
-    var inputValue= $(".sftp_value").map(function() {
+    let inputValue= $(".sftp_value").map(function() {
         return $(this).val();
     }).get();
 
-    for(var i=0;i<inputKey.length;i++){
+    for(let i=0;i<inputKey.length;i++){
 
         if(inputKey[i]){
             input[inputKey[i]] =  inputValue[i];
@@ -5139,9 +5155,9 @@ function addProcessRule() {
 
     data['input'] = input;
 
-    var output = {};
+    let output = {};
 
-    var outputKey= $(".output_key").map(function() {
+    let outputKey= $(".output_key").map(function() {
         return $(this).val();
     }).get();
 
@@ -5153,11 +5169,11 @@ function addProcessRule() {
     $(".pBtn").attr('disabled','disabled')
     $(".pBtn").html('<i class="fa fa-spinner fa-spin"></i> Processing...')
 
-    var outputValue= $(".output_value").map(function() {
+    let outputValue= $(".output_value").map(function() {
         return $(this).val();
     }).get();
 
-    for(var i=0;i<outputKey.length;i++){
+    for(let i=0;i<outputKey.length;i++){
 
         if(outputKey[i]){
             output[outputKey[i]] =  outputValue[i];
@@ -5192,17 +5208,17 @@ function addProcessRule() {
 function updateProcessRule(id) {
 
 
-    var obj = {};
+    let obj = {};
 
-    for (var i = 0; i < process_rules_list.length; i++) {
+    for (let i = 0; i < process_rules_list.length; i++) {
         if (id === process_rules_list[i].id) {
             obj = process_rules_list[i];
         }
     }
 
-    var defaultCode = '//Return function should be always Map\n\nreturn [_chain:false,_next:-1,_invoke:""];'
+    let defaultCode = '//Return function should be always Map\n\nreturn [_chain:false,_next:-1,_invoke:""];'
 
-    var data = {
+    let data = {
         "output": {
         },
         "input": {
@@ -5223,16 +5239,16 @@ function updateProcessRule(id) {
         createdTime: obj.createdTime
     }
 
-    var input = {};
+    let input = {};
 
-    var inputKey= $(".sftp_key").map(function() {
+    let inputKey= $(".sftp_key").map(function() {
         return $(this).val();
     }).get();
-    var inputValue= $(".sftp_value").map(function() {
+    let inputValue= $(".sftp_value").map(function() {
         return $(this).val();
     }).get();
 
-    for(var i=0;i<inputKey.length;i++){
+    for(let i=0;i<inputKey.length;i++){
 
         if(inputKey[i]){
             input[inputKey[i]] =  inputValue[i];
@@ -5242,9 +5258,9 @@ function updateProcessRule(id) {
 
     data['input'] = input;
 
-    var output = {};
+    let output = {};
 
-    var outputKey= $(".output_key").map(function() {
+    let outputKey= $(".output_key").map(function() {
         return $(this).val();
     }).get();
 
@@ -5256,11 +5272,11 @@ function updateProcessRule(id) {
     $(".pBtn").attr('disabled','disabled')
     $(".pBtn").html('<i class="fa fa-spinner fa-spin"></i> Processing...')
 
-    var outputValue= $(".output_value").map(function() {
+    let outputValue= $(".output_value").map(function() {
         return $(this).val();
     }).get();
 
-    for(var i=0;i<outputKey.length;i++){
+    for(let i=0;i<outputKey.length;i++){
 
         if(outputKey[i]){
             output[outputKey[i]] =  outputValue[i];
@@ -5290,7 +5306,7 @@ function updateProcessRule(id) {
 }
 
 function addJobRule(code) {
-    var dataObj = {
+    let dataObj = {
         "domainKey": DOMAIN_KEY,
         "id": $("#job_rule").val(),
         "name": "",
@@ -5322,16 +5338,16 @@ function addJobRule(code) {
 
 function addSftpRule(code) {
 
-    var configObj = [];
+    let configObj = [];
 
-    var cKey= $(".conf_name").map(function() {
+    let cKey= $(".conf_name").map(function() {
         return $(this).val();
     }).get();
-    var cValue= $(".conf_value").map(function() {
+    let cValue= $(".conf_value").map(function() {
         return $(this).val();
     }).get();
 
-    for(var i=0;i<cKey.length;i++){
+    for(let i=0;i<cKey.length;i++){
         if(cKey[i]){
             configObj.push({
                 name: cKey[i],
@@ -5340,7 +5356,7 @@ function addSftpRule(code) {
         }
     };
 
-    var dataObj = {
+    let dataObj = {
         "domainKey": DOMAIN_KEY,
         "id": $("#sftp_id").val(),
         "name": $("#sftp_name").val(),
@@ -5396,16 +5412,16 @@ function addSftpRule(code) {
 
 function addMqttRule(code) {
 
-    var configObj = []
+    let configObj = []
 
-    var cKey= $(".conf_name").map(function() {
+    let cKey= $(".conf_name").map(function() {
         return $(this).val();
     }).get();
-    var cValue= $(".conf_value").map(function() {
+    let cValue= $(".conf_value").map(function() {
         return $(this).val();
     }).get();
 
-    for(var i=0;i<cKey.length;i++){
+    for(let i=0;i<cKey.length;i++){
         if(cKey[i]){
             configObj.push({
                 name: cKey[i],
@@ -5415,16 +5431,16 @@ function addMqttRule(code) {
     };
 
 
-    var subsObj = []
+    let subsObj = []
 
-    var sKey= $(".mqtt_pattern").map(function() {
+    let sKey= $(".mqtt_pattern").map(function() {
         return $(this).val();
     }).get();
-    var sValue= $(".mqtt_qos").map(function() {
+    let sValue= $(".mqtt_qos").map(function() {
         return $(this).val();
     }).get();
 
-    for(var i=0;i<sKey.length;i++){
+    for(let i=0;i<sKey.length;i++){
         if(sKey[i]){
             subsObj.push({
                 pattern: sKey[i],
@@ -5435,7 +5451,7 @@ function addMqttRule(code) {
 
 
 
-    var dataObj = {
+    let dataObj = {
         "domainKey": DOMAIN_KEY,
         "id": $("#mqtt_id").val(),
         "name": $("#mqtt_name").val(),
@@ -5495,16 +5511,16 @@ function addMqttRule(code) {
 
 function addUdpRule(code) {
 
-    var configObj = []
+    let configObj = []
 
-    var cKey= $(".conf_name").map(function() {
+    let cKey= $(".conf_name").map(function() {
         return $(this).val();
     }).get();
-    var cValue= $(".conf_value").map(function() {
+    let cValue= $(".conf_value").map(function() {
         return $(this).val();
     }).get();
 
-    for(var i=0;i<cKey.length;i++){
+    for(let i=0;i<cKey.length;i++){
         if(cKey[i]){
             configObj.push({
                 name: cKey[i],
@@ -5515,7 +5531,7 @@ function addUdpRule(code) {
     };
 
 
-    var dataObj = {
+    let dataObj = {
         "domainKey": DOMAIN_KEY,
         "id": $("#udp_id").val(),
         "name": $("#udp_name").val(),
@@ -5568,16 +5584,16 @@ function addUdpRule(code) {
 
 function addTcpRule(code) {
 
-    var configObj = []
+    let configObj = []
 
-    var cKey= $(".conf_name").map(function() {
+    let cKey= $(".conf_name").map(function() {
         return $(this).val();
     }).get();
-    var cValue= $(".conf_value").map(function() {
+    let cValue= $(".conf_value").map(function() {
         return $(this).val();
     }).get();
 
-    for(var i=0;i<cKey.length;i++){
+    for(let i=0;i<cKey.length;i++){
         if(cKey[i]){
             configObj.push({
                 name: cKey[i],
@@ -5587,7 +5603,7 @@ function addTcpRule(code) {
     };
 
 
-    var dataObj = {
+    let dataObj = {
         "domainKey": DOMAIN_KEY,
         "id": $("#tcp_id").val(),
         "name": $("#tcp_name").val(),
@@ -5652,16 +5668,16 @@ function addTcpRule(code) {
 
 function addEmailRule(code) {
 
-    var configObj = []
+    let configObj = []
 
-    var cKey= $(".conf_name").map(function() {
+    let cKey= $(".conf_name").map(function() {
         return $(this).val();
     }).get();
-    var cValue= $(".conf_value").map(function() {
+    let cValue= $(".conf_value").map(function() {
         return $(this).val();
     }).get();
 
-    for(var i=0;i<cKey.length;i++){
+    for(let i=0;i<cKey.length;i++){
         if(cKey[i]){
             configObj.push({
                 name: cKey[i],
@@ -5670,22 +5686,22 @@ function addEmailRule(code) {
         }
     };
 
-    var folderObj = []
+    let folderObj = []
 
-    var fKey= $(".folder_name").map(function() {
+    let fKey= $(".folder_name").map(function() {
         return $(this).val();
     }).get();
-    var fVal1= $(".folder_markMessageAfterProcessing").map(function() {
+    let fVal1= $(".folder_markMessageAfterProcessing").map(function() {
         return $(this).val();
     }).get();
-  var fVal2= $(".folder_proccessOnlyFlags").map(function() {
+  let fVal2= $(".folder_proccessOnlyFlags").map(function() {
         return $(this).val() ? [$(this).val()] : [];
     }).get();
-  var fVal3= $(".folder_toMovedFolder").map(function() {
+  let fVal3= $(".folder_toMovedFolder").map(function() {
         return $(this).val();
     }).get();
 
-    for(var i=0;i<fKey.length;i++){
+    for(let i=0;i<fKey.length;i++){
         if(fKey[i]){
             folderObj.push({
                 name: fKey[i],
@@ -5698,7 +5714,7 @@ function addEmailRule(code) {
     };
 
 
-    var dataObj = {
+    let dataObj = {
         "domainKey": DOMAIN_KEY,
         "id": $("#email_id").val(),
         "name": $("#email_name").val(),
@@ -5758,7 +5774,7 @@ function addEmailRule(code) {
 }
 
 function addMicroRule(code) {
-    var sampleCode  =`
+    let sampleCode  =`
 import io.boodskap.iot.MicroApi;
         
 @MicroApi(
@@ -5778,7 +5794,7 @@ def myApiMethod(def args) {
 
 `;
 
-    var methods = [];
+    let methods = [];
 
     if($("#methodGet").prop('checked')){
         methods.push('GET')
@@ -5796,7 +5812,7 @@ def myApiMethod(def args) {
         methods.push('UPLOAD')
     }
 
-    var dataObj = {
+    let dataObj = {
         // lang: $("#micro_language").val(),
         "code": code ? codeEditor.getSession().getValue() : sampleCode,
         name: $("#micro_id").val(),
@@ -5833,7 +5849,7 @@ def myApiMethod(def args) {
 }
 
 function addScheduleRule() {
-    var dataObj = {
+    let dataObj = {
         lang: $("#sch_language").val(),
         code: "",
         "pattern": $("#sch_pattern").val(),
@@ -5872,7 +5888,7 @@ function addScheduleRule() {
 }
 
 function loadClassTemplate(id) {
-    var template = "";
+    let template = "";
     $(".logResult").html("");
     if (id === 'GROOVY') {
         template = `
@@ -5920,10 +5936,10 @@ function loadClassTemplate(id) {
 function uploadClassFile() {
     $(".logResult").html("");
 
-    var type = $("#class_type").val();
+    let type = $("#class_type").val();
     if (type === 'GROOVY') {
-        var isPublic = false; // $("#class_public").is(":checked");
-        var isOpen = false; // $("#class_opensource").is(":checked");
+        let isPublic = false; // $("#class_public").is(":checked");
+        let isOpen = false; // $("#class_opensource").is(":checked");
 
         if(ADMIN_ACCESS){
             isPublic = $("input[name='fileType']:checked").val() === 'PUBLIC_GROOVY' ? true : false;
@@ -5932,8 +5948,8 @@ function uploadClassFile() {
 
         uploadClass(1, isPublic, isOpen, null);
     } else {
-        var isPublic = false; //$("#class_public").is(":checked");
-        var jarName = $("#class_name").val();
+        let isPublic = false; //$("#class_public").is(":checked");
+        let jarName = $("#class_name").val();
 
         uploadClass(2, isPublic, null, jarName);
     }
@@ -5941,22 +5957,22 @@ function uploadClassFile() {
 
 function uploadClass(type, ispublic, isopen, jarname) {
 
-    var url = "";
+    let url = "";
     if (type === 1) {
         url = API_BASE_PATH + "/groovy/upload/script/file/" + API_TOKEN + "/" + ispublic + "/" + isopen;
     } else {
         url = API_BASE_PATH + "/groovy/upload/jar/" + API_TOKEN + "/" + ispublic + "/" + jarname;
     }
 
-    var file = document.getElementById('class_file').files[0]; //$("#class_file")
-    var xhr = new XMLHttpRequest();
+    let file = document.getElementById('class_file').files[0]; //$("#class_file")
+    let xhr = new XMLHttpRequest();
     xhr.addEventListener('progress', function (e) {
-        var done = e.position || e.loaded, total = e.totalSize || e.total;
+        let done = e.position || e.loaded, total = e.totalSize || e.total;
         console.log('xhr progress: ' + (Math.floor(done / total * 1000) / 10) + '%');
     }, false);
     if (xhr.upload) {
         xhr.upload.onprogress = function (e) {
-            var done = e.position || e.loaded, total = e.totalSize || e.total;
+            let done = e.position || e.loaded, total = e.totalSize || e.total;
             console.log('xhr.upload progress: ' + done + ' / ' + total + ' = ' + (Math.floor(done / total * 1000) / 10) + '%');
         };
     }
@@ -5971,7 +5987,7 @@ function uploadClass(type, ispublic, isopen, jarname) {
             }
             else {
                 errorMsg('Error in Uploading')
-                var jsonResponse = JSON.parse(this.response);
+                let jsonResponse = JSON.parse(this.response);
                 if (jsonResponse) {
                     if (jsonResponse.code === 'SERVER_ERROR') {
                         $(".logResult").html('<label class="label label-danger">ERROR</label>' +
@@ -5988,7 +6004,7 @@ function uploadClass(type, ispublic, isopen, jarname) {
 
     // xhr.setRequestHeader("Content-Type","multipart/form-data");
 
-    var formData = new FormData();
+    let formData = new FormData();
     if (type === 1) {
         formData.append("scriptFile", file, file.name);
     } else {
@@ -6001,14 +6017,14 @@ function uploadClass(type, ispublic, isopen, jarname) {
 
 function loadCodeType() {
 
-    var codeType = $("#codeType").val()
+    let codeType = $("#codeType").val()
 
-    var searchText = $.trim($("#searchText").val());
+    let searchText = $.trim($("#searchText").val());
 
 
-    var domainKeyJson = {"match": {"domainKey": DOMAIN_KEY}};
+    let domainKeyJson = {"match": {"domainKey": DOMAIN_KEY}};
 
-    var queryParams = {
+    let queryParams = {
         "query": {
             "bool": {
                 "must": []
@@ -6018,7 +6034,7 @@ function loadCodeType() {
     };
 
     if (searchText !== '') {
-        var searchJson = {
+        let searchJson = {
             "multi_match": {
                 "query": '*' + searchText + '*',
                 "type": "phrase_prefix",
@@ -6031,7 +6047,7 @@ function loadCodeType() {
         queryParams.query['bool']['must'] = [];
     }
 
-    var searchType = $("input[name='fileType']:checked").val();
+    let searchType = $("input[name='fileType']:checked").val();
 
     if(searchType === 'GROOVY'){
         queryParams.query['bool']['must'].push({match:{isPublic: false}})
@@ -6041,7 +6057,7 @@ function loadCodeType() {
     }
 
 
-    var searchQuery = {
+    let searchQuery = {
         "method": 'GET',
         "extraPath": "",
         "query": JSON.stringify(queryParams),
@@ -6060,18 +6076,18 @@ function loadCodeType() {
 
     searchByQuery('', searchType, searchQuery, function (status, res) {
 
-        var dataList = [];
+        let dataList = [];
         if (status) {
 
-            var resultData = QueryFormatter(res).data;
+            let resultData = QueryFormatter(res).data;
             dataList = resultData['data'];
         }
 
         if (dataList.length > 0) {
             if (codeType === 'CLASS') {
 
-                for(var i=0;i<dataList.length;i++){
-                    for(var j=0;j<dataList[i].classes.length;j++){
+                for(let i=0;i<dataList.length;i++){
+                    for(let j=0;j<dataList[i].classes.length;j++){
                         dataList[i].classes[j]['code'] = dataList[i].code;
                         dataList[i].classes[j]['_id'] = dataList[i]._id;
                         dataList[i].classes[j]['packageName'] = dataList[i].packageName;
@@ -6080,23 +6096,23 @@ function loadCodeType() {
                     }
                 }
 
-                var pList = _.groupBy(dataList, 'packageName');
+                let pList = _.groupBy(dataList, 'packageName');
 
-                var dpList = _.pluck(dataList, 'packageName');
+                let dpList = _.pluck(dataList, 'packageName');
 
                 dpList = _.uniq(dpList);
 
 
-                var resList = [];
+                let resList = [];
 
-                for(var i=0;i<dpList.length;i++){
+                for(let i=0;i<dpList.length;i++){
 
-                    var obj = pList[dpList[i]];
+                    let obj = pList[dpList[i]];
 
-                    var classes = [];
+                    let classes = [];
 
-                    for(var j=0;j<obj.length;j++){
-                        for(var k=0;k<obj[j].classes.length;k++){
+                    for(let j=0;j<obj.length;j++){
+                        for(let k=0;k<obj[j].classes.length;k++){
                             classes.push(obj[j].classes[k])
                         }
                     }
@@ -6129,7 +6145,7 @@ function openSimulateModal(id,type) {
 
     if(type === 1){
 
-        var str = '<div id="simulatorModal_'+id+'">' +
+        let str = '<div id="simulatorModal_'+id+'">' +
             '<div data-role="body">\n' +
             '<div class="row msgFieldBlock_'+id+'"></div>' +
             '<div class="row">' +
@@ -6144,7 +6160,7 @@ function openSimulateModal(id,type) {
             '</div>'
 
 
-        for(var i=0;i<message_spec_list.length;i++){
+        for(let i=0;i<message_spec_list.length;i++){
             if(Number(id) === message_spec_list[i]['id']){
                 current_msg_obj = message_spec_list[i]
             }
@@ -6159,13 +6175,13 @@ function openSimulateModal(id,type) {
 
             $(".msgFieldBlock_"+id).html('');
 
-            for(var i=0;i<current_msg_obj.fields.length;i++){
+            for(let i=0;i<current_msg_obj.fields.length;i++){
                 $(".msgFieldBlock_"+id).append(renderHtml(id,i,current_msg_obj.fields[i]))
             }
             simulatorModal[id] = $("#simulatorModal_"+id).dialog({
                 resizable: true,
                 open: function(){
-                    var closeBtn = $('.ui-dialog-titlebar-close');
+                    let closeBtn = $('.ui-dialog-titlebar-close');
                     closeBtn.html('X');
                 },
                 // minWidth: 200,
@@ -6198,9 +6214,9 @@ function openSimulateModal(id,type) {
     }
     else if(type === 2){
 
-        var placeholder='{\n"key":"value",\n"key":"value",\n"key":"value",\n"key":"value"\n}';
+        let placeholder='{\n"key":"value",\n"key":"value",\n"key":"value",\n"key":"value"\n}';
 
-        var str = '<div id="simulatorModal_'+id+'">' +
+        let str = '<div id="simulatorModal_'+id+'">' +
             '<div data-role="body">\n' +
             '<div class="row>' +
             '<div class="col-md-12">' +
@@ -6218,7 +6234,7 @@ function openSimulateModal(id,type) {
             '</div></div>' +
             '</div>'
 
-        for(var i=0;i<named_rules_list.length;i++){
+        for(let i=0;i<named_rules_list.length;i++){
             if(id === named_rules_list[i]['name']){
                 current_namedrule_obj = named_rules_list[i]
             }
@@ -6234,7 +6250,7 @@ function openSimulateModal(id,type) {
             simulatorModal[id] = $("#simulatorModal_"+id).dialog({
                 resizable: true,
                 open: function(){
-                    var closeBtn = $('.ui-dialog-titlebar-close');
+                    let closeBtn = $('.ui-dialog-titlebar-close');
                     closeBtn.html('X');
                 },
                 // minWidth: 200,
@@ -6267,7 +6283,7 @@ function openSimulateModal(id,type) {
     }
     else if(type === 3){
 
-        var str = '<div id="simulatorModal_'+id+'">' +
+        let str = '<div id="simulatorModal_'+id+'">' +
             '<div data-role="body">\n' +
             '<div class="row>' +
             '<div class="col-md-12">' +
@@ -6285,7 +6301,7 @@ function openSimulateModal(id,type) {
             '</div></div>' +
             '</div>'
 
-        for(var i=0;i<binary_rules_list.length;i++){
+        for(let i=0;i<binary_rules_list.length;i++){
             if(id === binary_rules_list[i]['type']){
                 current_binaryrule_obj = binary_rules_list[i]
             }
@@ -6301,7 +6317,7 @@ function openSimulateModal(id,type) {
             simulatorModal[id] = $("#simulatorModal_"+id).dialog({
                 resizable: true,
                 open: function(){
-                    var closeBtn = $('.ui-dialog-titlebar-close');
+                    let closeBtn = $('.ui-dialog-titlebar-close');
                     closeBtn.html('X');
                 },
                 // minWidth: 200,
@@ -6333,7 +6349,7 @@ function openSimulateModal(id,type) {
     }
     else if(type === 4){
 
-        var str = '<div id="simulatorModal_'+id+'">' +
+        let str = '<div id="simulatorModal_'+id+'">' +
             '<div data-role="body">\n' +
             '<div class="row>' +
             '<div class="col-md-12">' +
@@ -6351,7 +6367,7 @@ function openSimulateModal(id,type) {
             '</div></div>' +
             '</div>'
 
-        for(var i=0;i<file_rules_list.length;i++){
+        for(let i=0;i<file_rules_list.length;i++){
             if(id === file_rules_list[i]['type']){
                 current_filerule_obj = file_rules_list[i]
             }
@@ -6367,7 +6383,7 @@ function openSimulateModal(id,type) {
             simulatorModal[id] = $("#simulatorModal_"+id).dialog({
                 resizable: true,
                 open: function(){
-                    var closeBtn = $('.ui-dialog-titlebar-close');
+                    let closeBtn = $('.ui-dialog-titlebar-close');
                     closeBtn.html('X');
                 },
                 // minWidth: 200,
@@ -6407,12 +6423,12 @@ function openSimulateModal(id,type) {
 function simulateMessage(id,type) {
 
     if(type === 1){
-        var obj = simulator[id];
+        let obj = simulator[id];
 
-        var jsonObj = {};
+        let jsonObj = {};
 
-        for(var i=0;i<obj.fields.length;i++){
-            var dataType = obj.fields[i].dataType.toUpperCase();
+        for(let i=0;i<obj.fields.length;i++){
+            let dataType = obj.fields[i].dataType.toUpperCase();
             if(dataType === 'BOOLEAN'){
                 jsonObj[obj.fields[i].name] = $("#"+id+"_"+i).val() === 'true' ? true : false;
             }
@@ -6445,7 +6461,7 @@ function simulateMessage(id,type) {
     }
     else if(type === 2){
 
-        var inputObj= $("#simulatorInput_"+id).val();
+        let inputObj= $("#simulatorInput_"+id).val();
         if(inputObj && isValidJson(inputObj)){
             $(".btn_"+id).attr('disabled', 'disabled');
             $(".code_"+id).append('<p>'+new Date() +' | '+inputObj+'</p>');
@@ -6470,9 +6486,9 @@ function simulateMessage(id,type) {
     else if(type === 3){
 
 
-        var fileInput = document.getElementById("simulatorInput_"+id);
+        let fileInput = document.getElementById("simulatorInput_"+id);
 
-        var files = fileInput.files;
+        let files = fileInput.files;
 
         if (files.length === 0) {
             errorMsgBorder('File not found. select a file to start upload',"simulatorInput_"+id);
@@ -6485,9 +6501,9 @@ function simulateMessage(id,type) {
     else if(type === 4){
 
 
-        var fileInput = document.getElementById("simulatorInput_"+id);
+        let fileInput = document.getElementById("simulatorInput_"+id);
 
-        var files = fileInput.files;
+        let files = fileInput.files;
 
         if (files.length === 0) {
             errorMsgBorder('File not found. select a file to start upload',"simulatorInput_"+id);
@@ -6501,12 +6517,12 @@ function simulateMessage(id,type) {
 }
 function uploadBinaryFile(file,id) {
 
-    var xhr = new XMLHttpRequest();
+    let xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
             $(".btn_"+id).removeAttr('disabled');
             if (xhr.status === 200) {
-                var result = JSON.parse(xhr.response);
+                let result = JSON.parse(xhr.response);
 
                 $(".code_"+id).append('<p>'+new Date() +' | File upload successfully!</p>');
                 $(".code_"+id).append('<p>'+new Date() +' | Result => '+xhr.response+'</p>');
@@ -6517,19 +6533,19 @@ function uploadBinaryFile(file,id) {
         }
     };
     xhr.open('POST', API_BASE_PATH + '/push/bin/file/' + DOMAIN_KEY+'/'+API_KEY+"/SIMULATOR/WEB/1.0/"+id, true);
-    var formData = new FormData();
+    let formData = new FormData();
     formData.append("binfile", file, file.name);
     xhr.send(formData);
 }
 
 function uploadFileRule(file,id) {
 
-    var xhr = new XMLHttpRequest();
+    let xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
             $(".btn_"+id).removeAttr('disabled');
             if (xhr.status === 200) {
-                var result = JSON.parse(xhr.response);
+                let result = JSON.parse(xhr.response);
 
                 $(".code_"+id).append('<p>'+new Date() +' | File upload successfully!</p>');
                 $(".code_"+id).append('<p>'+new Date() +' | Result => '+xhr.response+'</p>');
@@ -6540,7 +6556,7 @@ function uploadFileRule(file,id) {
         }
     };
     xhr.open('POST', API_BASE_PATH + '/push/file/' + DOMAIN_KEY+'/'+API_KEY+"/SIMULATOR/WEB/1.0/"+id, true);
-    var formData = new FormData();
+    let formData = new FormData();
     formData.append("binfile", file, file.name);
     xhr.send(formData);
 }
@@ -6555,8 +6571,8 @@ function closeSimulator(id) {
 
 function renderHtml(id, index, obj) {
 
-    var str = '';
-    var dataType = obj.dataType.toUpperCase();
+    let str = '';
+    let dataType = obj.dataType.toUpperCase();
 
     if(dataType === 'BOOLEAN') {
         str = `
@@ -6601,10 +6617,10 @@ function sendTestMsg() {
 
 function exportRule(type) {
 
-    var consoleText = codeEditor.getSession().getValue();
+    let consoleText = codeEditor.getSession().getValue();
 
-    var data = {};
-    var rule_name = '';
+    let data = {};
+    let rule_name = '';
 
     if(type === 1){
         console.log('Domain Rule...!');
@@ -6638,7 +6654,7 @@ function exportRule(type) {
     }else if(type === 4){
         console.log('Schedule Rule...!');
         rule_name = 'schedule-rule-'+CURRENT_ID;
-        var obj = returnObj(CURRENT_ID, 3);
+        let obj = returnObj(CURRENT_ID, 3);
 
         data = {
             lang: 'GROOVY',
@@ -6652,7 +6668,7 @@ function exportRule(type) {
     else if(type === 6){
         console.log('Binary Rule...!');
         rule_name = 'binary-rule-'+CURRENT_ID;
-        var obj = returnObj(CURRENT_ID, 6);
+        let obj = returnObj(CURRENT_ID, 6);
 
         data = {
             lang: 'GROOVY',
@@ -6665,7 +6681,7 @@ function exportRule(type) {
     else if(type === 8){
         console.log('File Rule...!');
         rule_name = 'file-rule-'+CURRENT_ID;
-        var obj = returnObj(CURRENT_ID, 8);
+        let obj = returnObj(CURRENT_ID, 8);
 
         data = {
             lang: 'GROOVY',
@@ -6678,7 +6694,7 @@ function exportRule(type) {
     else if(type === 9){
         console.log('Process Rule...!');
         rule_name = 'process-rule-'+CURRENT_ID;
-        var obj = returnObj(CURRENT_ID, 9);
+        let obj = returnObj(CURRENT_ID, 9);
 
         delete obj._id;
         obj['code'] = consoleText;
@@ -6690,7 +6706,7 @@ function exportRule(type) {
     else if(type === 7){
         console.log('Job Rule...!');
         rule_name = 'job-rule-'+CURRENT_ID;
-        var obj = returnObj(CURRENT_ID, 7);
+        let obj = returnObj(CURRENT_ID, 7);
 
          data = {
             "domainKey": DOMAIN_KEY,
@@ -6710,7 +6726,7 @@ function exportRule(type) {
     else if(type === 10){
         console.log('SFTP Rule...!');
         rule_name = 'sftp-rule-'+CURRENT_ID;
-        var obj = returnObj(CURRENT_ID, 10);
+        let obj = returnObj(CURRENT_ID, 10);
         delete obj._id;
 
         data = obj;
@@ -6718,28 +6734,28 @@ function exportRule(type) {
     else if(type === 11){
         console.log('MQTT Rule...!');
         rule_name = 'mqtt-rule-'+CURRENT_ID;
-        var obj = returnObj(CURRENT_ID, 11);
+        let obj = returnObj(CURRENT_ID, 11);
         delete obj._id;
 
         data = obj;
     }else if(type === 12){
         console.log('UDP Rule...!');
         rule_name = 'udp-rule-'+CURRENT_ID;
-        var obj = returnObj(CURRENT_ID, 12);
+        let obj = returnObj(CURRENT_ID, 12);
         delete obj._id;
 
         data = obj;
     }else if(type === 13){
         console.log('TCP Rule...!');
         rule_name = 'tcp-rule-'+CURRENT_ID;
-        var obj = returnObj(CURRENT_ID, 13);
+        let obj = returnObj(CURRENT_ID, 13);
         delete obj._id;
         data = obj;
 
     }else if(type === 14){
         console.log('EMAIL Rule...!');
         rule_name = 'email-rule-'+CURRENT_ID;
-        var obj = returnObj(CURRENT_ID, 14);
+        let obj = returnObj(CURRENT_ID, 14);
         delete obj._id;
 
         data = obj;
@@ -6748,7 +6764,7 @@ function exportRule(type) {
     }else if(type === 15){
         console.log('Micro API Rule...!');
         rule_name = 'micro-rule-'+CURRENT_ID;
-        var obj = returnObj(CURRENT_ID, 15);
+        let obj = returnObj(CURRENT_ID, 15);
         delete obj._id;
 
         data = obj;
@@ -6756,7 +6772,7 @@ function exportRule(type) {
 
     }
 
-    var dObj = {
+    let dObj = {
         type : type,
         data : data
     }
@@ -7054,7 +7070,7 @@ function getImportFile(event) {
 function placeFileContent(target, file) {
     readFileContent(file).then(content => {
 
-        var resultObj = JSON.parse(content);
+        let resultObj = JSON.parse(content);
         uploadRuleType(resultObj.type, resultObj.data)
 
 
@@ -7072,7 +7088,7 @@ function readFileContent(file) {
 
 
 function checkJobInstance() {
-  var jType = $("#job_type").val();
+  let jType = $("#job_type").val();
 
   if(jType === 'SCALABLE' || jType === 'DISTRIBUTED'){
       $("#job_instance").removeAttr('disabled')
@@ -7097,7 +7113,7 @@ function checkJobInstance() {
         $("#job_boot").removeAttr('disabled')
     }
 }
-var context_list = []
+let context_list = []
 
 function loadContextList() {
     $.ajax({
@@ -7106,19 +7122,19 @@ function loadContextList() {
         success: function (data) {
            if(data){
                $(".contextList").html('');
-               var result = data.classes;
+               let result = data.classes;
 
                context_list = result.length > 0 ? result : [];
 
                renderContext();
 
-               for(var i=0;i<result.length;i++){
+               for(let i=0;i<result.length;i++){
 
-                   var methods = result[i].methods;
+                   let methods = result[i].methods;
 
                    $(".contextList").append('<p style="text-transform: uppercase"><b>'+result[i].name+'</b></p>');
 
-                   for(var j=0;j<methods.length;j++) {
+                   for(let j=0;j<methods.length;j++) {
 
                        $(".contextList").append('<p class="codeText" onclick="addContextMethod(\''+result[i].name+'\',\''+methods[j].signature+'\',\''+methods[j].help+'\')"><code>' + methods[j].signature + '</code><br>' +
                            '<small>'+methods[j].help+'</small></p>');
@@ -7135,7 +7151,7 @@ function loadContextList() {
 
 function addContextMethod(nam, method,help) {
 
-    var text = '\n//Context Name: '+nam+'\n//Method: '+method+'\n//Description: '+help
+    let text = '\n//Context Name: '+nam+'\n//Method: '+method+'\n//Description: '+help
     codeEditor.session.insert(codeEditor.getCursorPosition(), text)
 
 
@@ -7143,13 +7159,13 @@ function addContextMethod(nam, method,help) {
 
 function filterContext() {
     // Declare variables
-    var input = $('#contextSearch').val().toLowerCase();
-    var p = $(".contextList").children();
+    let input = $('#contextSearch').val().toLowerCase();
+    let p = $(".contextList").children();
 
     // Loop through all list items, and hide those who don't match the search query
-    for (var i = 0; i < p.length; i++) {
+    for (let i = 0; i < p.length; i++) {
 
-        var txtValue = $(p[i]).html().toLowerCase();;
+        let txtValue = $(p[i]).html().toLowerCase();;
         if (txtValue.includes(input)) {
             $(p[i]).css('display','block')
         } else {
@@ -7179,22 +7195,22 @@ function renderContext(search,id) {
     }
     $(".cBody").html('')
 
-    for (var i = 0; i < context_list.length; i++) {
+    for (let i = 0; i < context_list.length; i++) {
 
-        var val = context_list[i];
+        let val = context_list[i];
 
         $(".cBody").append('<li class="ml-1 mr-1 '+(id== val.name ? 'helpHighlight' :'')+'" style="border: 1px solid #eee;padding: 10px 15px">' +
             '<a class="text-dark" style="" href="javascript:void(0)" onclick="renderContext(\''+''+'\',\''+val.name+'\')">'+val.name+'</a></li>')
 
-        var str = '';
+        let str = '';
 
-        var flg = false;
+        let flg = false;
 
-        for (var j = 0; j < val.methods.length; j++) {
+        for (let j = 0; j < val.methods.length; j++) {
 
-            var cn = j%2 == 0 ? 'alternateRow2' : 'alternateRow1'
+            let cn = j%2 == 0 ? 'alternateRow2' : 'alternateRow1'
 
-            var methods = val.methods[j];
+            let methods = val.methods[j];
             if(search){
 
                 if(val.name.toLowerCase().includes(search.toLowerCase())
@@ -7210,7 +7226,7 @@ function renderContext(search,id) {
 
                 str += '<div style="padding-left: 25px"><h6>Examples:</h6>'
 
-                for (var k = 0; k < methods.examples.length; k++) {
+                for (let k = 0; k < methods.examples.length; k++) {
 
                     str += '<pre class="mb-2"><xmp style="font-size: 12px">'+methods.examples[k]+'</xmp></pre>'
 
@@ -7264,9 +7280,9 @@ function renderContext(search,id) {
 
 function loadElasticHelp() {
     $(".elasticBody").html();
-    for (var j = 0; j < ELASTIC_QUERY.length; j++) {
-        var val = ELASTIC_QUERY[j];
-        var str = '<p class="mt-2">' + val.description + '</p><pre class="bg-violet-light-5 mb-2">' +
+    for (let j = 0; j < ELASTIC_QUERY.length; j++) {
+        let val = ELASTIC_QUERY[j];
+        let str = '<p class="mt-2">' + val.description + '</p><pre class="bg-violet-light-5 mb-2">' +
             '<xmp style="font-size: 14px">' + val.code + '' +
             '</xmp>' +
             '</pre>'
@@ -7361,17 +7377,17 @@ function checkTcpSSL(val){
     }
 }
 
-var uploadImage = 'images/generate_claim.svg';
+let uploadImage = 'images/generate_claim.svg';
 
 
 function uploadProcessFile(file) {
 
-    var xhr = new XMLHttpRequest();
+    let xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
 
             if (xhr.status === 200) {
-                var result = JSON.parse(xhr.response);
+                let result = JSON.parse(xhr.response);
                 uploadImage = API_BASE_PATH + '/files/public/download/' + result.id;
                 $(".process_img").attr('src', API_BASE_PATH + '/files/public/download/' + result.id+ '?' + new Date().getTime());
             } else {
@@ -7380,7 +7396,7 @@ function uploadProcessFile(file) {
         }
     };
     xhr.open('POST', API_BASE_PATH + '/files/upload/' + API_TOKEN+'?ispublic=true', true);
-    var formData = new FormData();
+    let formData = new FormData();
     formData.append("binfile", file, file.name);
     formData.append("mediaType", file.type);
     formData.append("tags", 'process Picture');
@@ -7390,9 +7406,9 @@ function uploadProcessFile(file) {
 
 function uploadProcessImage() {
 
-    var fileInput = document.getElementById("processIcon");
+    let fileInput = document.getElementById("processIcon");
 
-    var files = fileInput.files;
+    let files = fileInput.files;
 
     if (files.length === 0) {
         errorMsg('File not found. select a file to start upload');
@@ -7402,7 +7418,7 @@ function uploadProcessImage() {
     uploadProcessFile(files[0]);
 
 }
-var pemFileId = null;
+let pemFileId = null;
 function checkPemFile(id){
     pemFileId=id;
     $("#pemFile").click()
@@ -7412,9 +7428,9 @@ function checkPemFile(id){
 
 function uploadPemFile() {
 
-    var fileInput = document.getElementById("pemFile");
+    let fileInput = document.getElementById("pemFile");
 
-    var files = fileInput.files;
+    let files = fileInput.files;
 
     if (files.length === 0) {
         errorMsg('File not found. select a file to start upload');
@@ -7428,12 +7444,12 @@ function uploadPemFile() {
 
 function uploadPem(file) {
 
-    var xhr = new XMLHttpRequest();
+    let xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
 
             if (xhr.status === 200) {
-                var result = JSON.parse(xhr.response);
+                let result = JSON.parse(xhr.response);
                 $("#"+pemFileId).val(result.id)
             } else {
                 errorMsg('Error in key file upload!');
@@ -7444,7 +7460,7 @@ function uploadPem(file) {
     $("."+pemFileId+"_name").html(file.name)
 
     xhr.open('POST', API_BASE_PATH + '/files/upload/' + API_TOKEN, true);
-    var formData = new FormData();
+    let formData = new FormData();
     formData.append("binfile", file, file.name);
     formData.append("mediaType", file.type);
     formData.append("tags", 'pem file');
@@ -7455,7 +7471,7 @@ function uploadPem(file) {
 
 
 function addConfigBody(){
-    var t = new Date().getTime();
+    let t = new Date().getTime();
     $(".configBody").append('<tr class="'+t+'">' +
         '<td><input type="text" required class="conf_name form-control input-sm"></td>' +
         '<td><input type="text" class="conf_value form-control input-sm"></td>' +
@@ -7469,7 +7485,7 @@ function removeConfigBody(id){
 }
 
 function addMqttBody(){
-    var t = new Date().getTime();
+    let t = new Date().getTime();
     $(".mqttBody").append('<tr class="'+t+'">' +
         '<td><input type="text" required class="mqtt_pattern form-control input-sm"></td>' +
         '<td><input type="number" min="0" required class="mqtt_qos form-control input-sm"></td>' +
@@ -7485,7 +7501,7 @@ function removeMqttBody(id){
 
 
 function addFolderBody(){
-    var t = new Date().getTime();
+    let t = new Date().getTime();
     $(".folderBody").append('<tr class="'+t+'">' +
         '<td><input type="text" required class="folder_name form-control input-sm"></td>' +
         '<td><select class="folder_markMessageAfterProcessing form-control input-sm">' +
@@ -7519,8 +7535,8 @@ function checkAPI(val){
     }
 }
 
-var slugId = null;
-var methodName = null;
+let slugId = null;
+let methodName = null;
 function openAPIModal(mn){
 
     methodName = mn ? mn : null;
@@ -7530,7 +7546,7 @@ function openAPIModal(mn){
 
     $(".apiBody").html('');
 
-    var microBaseUrl = API_BASE_PATH+"/micro/service/";
+    let microBaseUrl = API_BASE_PATH+"/micro/service/";
 
     getMicroAPISlug(function (status,data){
         if(status){
@@ -7552,23 +7568,23 @@ function openAPIModal(mn){
 
 function renderAPIBody(microBaseUrl){
     $(".apiBody").html('');
-    var obj = {};
+    let obj = {};
 
-    for (var i = 0; i < micro_rules_list.length; i++) {
+    for (let i = 0; i < micro_rules_list.length; i++) {
         if (CURRENT_ID === micro_rules_list[i].name) {
             obj = micro_rules_list[i];
         }
     }
 
-    var methods = obj.methods;
+    let methods = obj.methods;
 
-    var methodStr = ''
+    let methodStr = ''
 
     if(obj.allowedMethods){
 
 
 
-        for(var i=0;i<obj.allowedMethods.length;i++){
+        for(let i=0;i<obj.allowedMethods.length;i++){
 
             if (obj.allowedMethods[i].toLowercase() == 'get') {
                 methodStr += '<option value="get">GET</option>';
@@ -7594,15 +7610,15 @@ function renderAPIBody(microBaseUrl){
             '<option value="upload">UPLOAD</option>';
     }
 
-    for(var i=0;i<methods.length;i++){
+    for(let i=0;i<methods.length;i++){
 
-        var bodyParams = {};
+        let bodyParams = {};
 
-        for(var j=0;j<methods[i].params.length;j++){
+        for(let j=0;j<methods[i].params.length;j++){
             bodyParams[methods[i].params[j].name] = methods[i].params[j].type;
         }
 
-        var str = '<form action="javascript:void(0)" onSubmit="simulateAPI(\''+methods[i].name+'\')"><div class="row mb-2" style="border: 1px solid #eee;padding-bottom: 10px;background-color: #eee"><div class="col-md-12 pt-2 alert alert-warning">' +
+        let str = '<form action="javascript:void(0)" onSubmit="simulateAPI(\''+methods[i].name+'\')"><div class="row mb-2" style="border: 1px solid #eee;padding-bottom: 10px;background-color: #eee"><div class="col-md-12 pt-2 alert alert-warning">' +
             '<select class="'+methods[i].slug+'" onchange="methodChange(\''+methods[i].slug+'\')">'+methodStr+'</select> <label class="ml-2">' +
             '/'+CURRENT_ID+"/"+methods[i].slug + '</label>' +
             '<input type="file" id="f_'+methods[i].slug+'" style="float:right;display:none" /> ' +
@@ -7643,7 +7659,7 @@ function renderAPIBody(microBaseUrl){
 
 function methodChange(nam){
 
-    var meth = $("."+nam).val();
+    let meth = $("."+nam).val();
 $(".m_"+nam+"_result").html('')
     if(meth === 'upload'){
         $("#f_"+nam).css('display','block')
@@ -7659,24 +7675,24 @@ $(".m_"+nam+"_result").html('')
 
 function simulateAPI(nam){
 
-    var obj = {};
+    let obj = {};
 
-    for (var i = 0; i < micro_rules_list.length; i++) {
+    for (let i = 0; i < micro_rules_list.length; i++) {
         if (CURRENT_ID === micro_rules_list[i].name) {
             obj = micro_rules_list[i];
         }
     }
 
-    var methods = {};
+    let methods = {};
 
 
-    for(var j=0;j<obj.methods.length;j++){
+    for(let j=0;j<obj.methods.length;j++){
         if (nam === obj.methods[j].name) {
             methods = obj.methods[j];
         }
     }
 
-    var dataObj = JSON.parse($("#m_"+nam+"_params").val())
+    let dataObj = JSON.parse($("#m_"+nam+"_params").val())
 
     executeMicroAPI(slugId,obj.name,methods.slug,dataObj,$("#m_"+nam+"_key").val(),$("#m_"+nam+"_token").val(),obj,function (status,result){
 
@@ -7686,7 +7702,7 @@ function simulateAPI(nam){
 }
 
 function updateAPISlug(){
-    var microBaseUrl = API_BASE_PATH+"/micro/service/call/[METHOD]/";
+    let microBaseUrl = API_BASE_PATH+"/micro/service/call/[METHOD]/";
     setMicroAPISlug($("#micro_apiSlug").val(),function (status,data){
         if(status){
             successMsg('Successfully updated')
@@ -7701,7 +7717,7 @@ function updateAPISlug(){
 
 
 function resetAPISlug(){
-    var microBaseUrl = API_BASE_PATH+"/micro/service/call/[METHOD]/";
+    let microBaseUrl = API_BASE_PATH+"/micro/service/call/[METHOD]/";
     deleteMicroAPISlug(slugId, function (status, data) {
         if (status) {
             successMsg('Successfully updated')

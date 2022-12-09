@@ -121,7 +121,7 @@ function snackBar(id) {
 }
 
 function errorMsgBorder(msg, id,authvalue) {
-    
+    console.log(msg, id);
  if(id){
     $("#log"+id).html(msg).css({"color":"red","font-weight":"600"});
   }
@@ -564,7 +564,6 @@ function saveAndDownload(text, name, type, id) {
     var file = new Blob([text], {type: type});
     a.href = URL.createObjectURL(file);
     a.download = name;
-    console.log(name);
 }
 
 function isJSON(str) {

@@ -471,11 +471,15 @@ opacity: .6;
 }
 .bskp-getmodal .minus {
     background: #90a1b7;
-    padding: 6.5px 8px;
+    padding: 7px 8px;
     color: white;
     border-radius: 50%;
     vertical-align: text-bottom ;
 }
+.minus-none{
+    display: none;
+}
+
 @media (max-width: 1300px) {
     #getstartedmodal .modal-dialog {
         max-width: 96%;
