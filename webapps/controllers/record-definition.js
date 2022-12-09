@@ -10,9 +10,9 @@ var jsEditor = null;
 $(document).ready(function () {
 
     loadRecordDef();
+    $('.dataTables_filter input').attr('maxlength', 50)
     $('body').removeClass('bg-white')
-
-    document.getElementById('importFile')
+   document.getElementById('importFile')
         .addEventListener('change', getImportFile)
 });
 
@@ -74,6 +74,7 @@ function loadRecordDef() {
         iDisplayLength: 10,
         dom: '<"bskp-search-left" f> lrtip',
         language: {
+            "emptyTable": "No data available",
             "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
             "searchPlaceholder": "Search here...",
             loadingRecords: '',
@@ -162,7 +163,7 @@ function openModal() {
     $("#addMessageRule form")[0].reset();
 
     $("#msg_id").removeAttr('disabled');
-
+    $("#msg_desc").css('height','90px');
     // $("#msg_id").attr('min',USER_OBJ.domain.startId)
     // $("#msg_id").attr('max',USER_OBJ.domain.startId+ID_RANGE_COUNT)
 
@@ -209,6 +210,7 @@ function openEditModal(id) {
 function deleteMessageField(id) {
     $("#msg_field_row_" + id).remove();
     MSG_FIELD_COUNT--;
+    MSG_FIELD_COUNT === 1 ? $(".minus").addClass('minus-none'):''
 }
 
 
@@ -235,7 +237,8 @@ function addMessageField() {
 
     var str = `<tr id="msg_field_row_` + id + `">
     <td>
-        <input class="form-control input-sm" placeholder="Field Name" autocomplete="off" type="text" onkeyup="onlyAlphaNumericUs(this)" onkeydown="onlyAlphaNumericUs(this)"  id="msg_field_` + id + `" required>
+        <input class="form-control input-sm" placeholder="Field Name" autocomplete="off" type="text" onkeyup="onlyAlphaNumericUs(this)" maxlength="50" onkeydown="onlyAlphaNumericUs(this)"  id="msg_field_` + id + `" required>
+        <span id="logmsg_field_`+id+`"></span>
     </td>
     <td>
     <select class="form-control input-sm" required id="msg_datatype_` + id + `">
@@ -259,12 +262,13 @@ function addMessageField() {
       <option value="DATE" >DATE</option>
       <option value="TIMESTAMP" >TIMESTAMP</option>
     </select>
+    <span id="logmsg_datatype_`+id+`"></span>
     </td>
     <td style="text-align: center;vertical-align: middle"> <i class="fa fa-plus add" onclick="addMessageField()" style="cursor: pointer" aria-hidden="true"></i>` +
-        (id > 0 ? '<i class="fa fa-minus minus" style="margin-left:5px;cursor: pointer" onclick="deleteMessageField(' + id + ')" aria-hidden="true"></i>' : '')
+        (id > 0 ? '<i class="fa fa-minus minus" style="margin-left:5px;cursor: pointer" onclick="deleteMessageField(' + id + ')" aria-hidden="true"></i>' : '<i class="fa fa-minus minus minus-none" style="margin-left:5px;cursor: pointer" onclick="deleteMessageField(' + id + ')" aria-hidden="true"></i>')
         + ` </td>
   </tr>`;
-
+  id > 0 ? $(".minus").removeClass('minus-none'):'';
     $(".msgFieldBody").append(str);
     MSG_FIELD_COUNT++;
 }
@@ -275,6 +279,31 @@ function addMessageRule() {
 
     var fields = [];
 
+    var msg_id = $.trim($("#msg_id").val())
+    var msg_name=$.trim($("#msg_name").val())
+    var msg_desc= $.trim($("#msg_desc").val()
+    )
+    if(msg_id == ""){
+        errorMsgBorder('Record ID cannot be empty','msg_id');
+        return false;
+    }
+    if(msg_name == ""){
+        errorMsgBorder('Record Name cannot be empty','msg_name');
+        return false;
+    }
+    if(msg_desc == ""){
+        errorMsgBorder('Description cannot be empty','msg_desc');
+        return false;
+    }
+    for (var i = 0; i < MSG_FIELD_COUNT; i++) {
+        if($("#msg_field_" + i).val() == ""){
+            errorMsgBorder('Field Name cannot be empty','msg_field_'+i);
+            return false;
+        }else if($("#msg_datatype_" + i).val() == ""){
+            errorMsgBorder('Data Type cannot be empty','msg_datatype_'+i);
+            return false;
+        }
+    }
     for (var i = 0; i < MSG_FIELD_COUNT; i++) {
         var json = {
             "dataType": $("#msg_datatype_" + i).val(),
@@ -317,7 +346,6 @@ function addMessageRule() {
     if(message_obj && message_obj.fields && message_obj.fields.length > 0){
         fields = _.union(message_obj.fields,fields);
     }
-
 
 
     var msgObj = {

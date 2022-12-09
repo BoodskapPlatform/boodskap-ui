@@ -1,5 +1,6 @@
 $(document).ready(function () {
     recentUpdate();
+   
 });
 
 function recentUpdate() {
@@ -109,9 +110,7 @@ function recentcard(rdata) {
     if (rdata) {
         console.log(rdata);
         for (let i = 0; i < (rdata.length >= 10 ? 10 : rdata.length ); i++) {
-            console.log(rdata[i]);
-           
-            if (i >= 0 && i <= 5) {
+              if (i >= 0 && i <= 5) {
                 $("#recentMenuList").append(
                     ` <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 homecard" onclick="loadMenu(` +
                     rdata[i].loadmenu +
@@ -154,9 +153,6 @@ function recentcard(rdata) {
         </div>`
                 );
             }
-           
-        
-          
        
         }
         $("#recentMenuList")
@@ -230,6 +226,7 @@ function openmegamenu() {
     $("#megaMenu").modal({
         keyboard: false,
     });
+   
 }
 // MEGA SEARCH FUNCTION
 var megasearch = {

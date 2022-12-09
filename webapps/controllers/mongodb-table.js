@@ -7,20 +7,20 @@ $(document).ready(function () {
 
 
     loadDBPool();
-
+    $("input[type='search']").attr("maxlength", 5);
     $("body").removeClass('bg-white');
 
 });
 
 
 function loadDBPool() {
-
+   
 
     if (poolTable) {
         poolTable.destroy();
         $("#poolTable").html("");
     }
-
+    $('.dataTables_filter input').attr('maxlength', 50)
     var fields = [
         {
             mData: 'name',
@@ -100,8 +100,9 @@ function loadDBPool() {
         searching: true,
         dom: '<"bskp-search-left" f> lrtip',
         language: {
+            "emptyTable": "No data available",
             "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
-            "searchPlaceholder": "Search here...",
+            "searchPlaceholder": "Search by pool name",
             loadingRecords: '',
             paginate: {
                 previous: '< Prev',
@@ -135,8 +136,8 @@ function loadDBPool() {
             if (searchText) {
 
                 queryParams.query['bool']['should'].push({"wildcard" : { "name" : "*"+searchText.toLowerCase()+"*" }})
-                queryParams.query['bool']['should'].push({"wildcard" : { "url" : "*"+searchText.toLowerCase()+"*" }})
-                queryParams.query['bool']['should'].push({"wildcard" : { "database" : "*"+searchText.toLowerCase()+"*" }})
+                // queryParams.query['bool']['should'].push({"wildcard" : { "url" : "*"+searchText.toLowerCase()+"*" }})
+                // queryParams.query['bool']['should'].push({"wildcard" : { "database" : "*"+searchText.toLowerCase()+"*" }})
                 queryParams.query['bool']["minimum_should_match"]=1;
 
             }
@@ -255,6 +256,26 @@ function openModal(type, id) {
 
 
 function addPool() {
+    var conn_name = $("#conn_name").val()
+    var db_url = $("#db_url").val()
+    var db_name = $("#db_name").val()
+    var useSession = $("#useSession").val()
+    if(conn_name ===''){
+        errorMsgBorder('Name cannot be empty','conn_name');
+        return false;
+    }
+    if(db_url === ""){
+        errorMsgBorder('Connection URL cannot be empty','db_url');
+        return false;
+    }
+    if(db_name === ""){
+        errorMsgBorder('Database Name cannot be empty','db_name');
+        return false;
+    }
+    if(useSession === ""){
+        errorMsgBorder('Use Sessions cannot be empty','useSession');
+        return false;
+    }
     var tempObj = {
         name : $("#conn_name").val(),
         url : $("#db_url").val(),
