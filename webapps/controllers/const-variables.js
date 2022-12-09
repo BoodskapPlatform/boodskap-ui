@@ -45,6 +45,7 @@ var MARKETPLACE_API_URL = "https://platform.boodskap.io/api"
 
 var DOMAIN_UUID = '637e0554-7092-11e8-adc0-fa7ae01bbebc';
 var API_TOKEN = "";
+let DEVICE_API_TOKEN = "";
 var DOMAIN_KEY = "";
 var API_KEY = "";
 var USER_ROLE = "";

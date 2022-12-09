@@ -254,29 +254,17 @@ function loadTerminal() {
                             }
                         })
                     } else {
-
-                        console.log("cmdObj--------------------2");    
-                        console.log(cmdObj);   
-
                         this.echo('<div class="log_' + id + '">' + moment().format("MM/DD/YYYY hh:mm a") +
                             " | Command executed successfully </div><div class='console_" + id + "'></div><div class='console_loader_" + id + " text-info'>" +
                             '<i class="fa fa-spinner fa-spin"></i> waiting for command response</div>', {raw: true});
                         executeConsoleScript(cmdObj, function (status, data) {
-
-                            console.log("executeConsoleScript----------------res----3");    
-                            console.log(status); 
-                            console.log(data); 
-
                             if (status) {
                                 // console.log(data)
                             } else {
                                 self.echo("<span class='red'>" + moment().format("MM/DD/YYYY hh:mm a") + " | Error in command execution 1</span>");
                             }
-
                         });
                     }
-
-
                 } else {
                     this.echo('no commands to execute');
                 }
@@ -336,7 +324,7 @@ function resizePanel() {
         $(".rightSide").css('width', '0px');
         $("#btnMax").html('<i class="icon-eye4"></i> Show Class')
 
-        $(".btnExec").css('width', '100%')
+        $(".btnExec").css('width', '100%',)
 
         $("#codeEditor").css('width', '100%');
         codeEditor.resize();
@@ -350,7 +338,7 @@ function resizePanel() {
         $("#codeEditor").css('width', '75%')
         codeEditor.resize();
 
-        $(".btnExec").css('width', '75%')
+        $(".btnExec").css('width', '100%')
 
         $("#consoleBox").css('width', '75%')
     }
@@ -571,17 +559,11 @@ function executeScriptCommand() {
             '<i class="fa fa-spinner fa-spin"></i> waiting for command response</div>', {raw: true});
 
         executeConsoleScript(cmdObj, function (status, data) {
-
-            console.log("executeConsoleScript-----------------1");
-            console.log(status);
-            console.log(data);
-
             if (status) {
                 console.log(data)
             } else {
                 $("#consoleBox").html("<span class='red'>" + moment().format("MM/DD/YYYY hh:mm a") + " | Error in command execution 3</span>");
             }
-
         });
     }
 
