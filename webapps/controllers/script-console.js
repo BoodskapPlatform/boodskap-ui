@@ -324,7 +324,7 @@ function resizePanel() {
         $(".rightSide").css('width', '0px');
         $("#btnMax").html('<i class="icon-eye4"></i> Show Class')
 
-        $(".btnExec").css('width', '100%')
+        $(".btnExec").css('width', '100%',)
 
         $("#codeEditor").css('width', '100%');
         codeEditor.resize();
@@ -338,7 +338,7 @@ function resizePanel() {
         $("#codeEditor").css('width', '75%')
         codeEditor.resize();
 
-        $(".btnExec").css('width', '75%')
+        $(".btnExec").css('width', '100%')
 
         $("#consoleBox").css('width', '75%')
     }
