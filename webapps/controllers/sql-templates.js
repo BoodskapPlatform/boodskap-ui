@@ -47,13 +47,13 @@ function loadTemplates() {
         {
             mData: 'type',
             sTitle: 'Query Type',
-            sWidth: '10%',
+            sWidth: '13%',
         },
         {
             mData: 'query',
             sTitle: 'Template Query',
             orderable: false,
-            sWidth: '65%',
+            sWidth: '62%',
             mRender: function (data, type, row) {
 
                 return '<code>' + (data) + '</code>';
@@ -92,13 +92,14 @@ function loadTemplates() {
             headerOffset: -5
         },
         responsive: true,
-        paging: true,
+      
         aoColumns: fields,
         searching: true,
         dom: '<"bskp-search-left" f> lrtip',
+        paging: true,
         language: {
             "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
-            "searchPlaceholder": "Search here...",
+            "searchPlaceholder": "Search by Name",
             loadingRecords: '',
             paginate: {
                 previous: '< Prev',
@@ -132,7 +133,7 @@ function loadTemplates() {
             if (searchText) {
 
                 queryParams.query['bool']['should'].push({"wildcard" : { "id" : "*"+searchText.toLowerCase()+"*" }})
-                queryParams.query['bool']['should'].push({"wildcard" : { "query" : "*"+searchText.toLowerCase()+"*" }})
+                // queryParams.query['bool']['should'].push({"wildcard" : { "query" : "*"+searchText.toLowerCase()+"*" }})
                 queryParams.query['bool']["minimum_should_match"]=1;
 
             }
@@ -256,11 +257,30 @@ function openModal(type, id) {
 
 
 function addTemplate() {
+    var template_name = $.trim($("#template_name").val());
+   var template_lang = $.trim($("#template_lang").val());
+    var template_code = $("#password").val();
+    
+    if(template_lang == ""){
+        errorMsgBorder('Template Name cannot be empty','template_lang');
+        return false;
+    }
+
+    if(template_lang == ""){
+        errorMsgBorder('Template Language cannot be empty','template_lang');
+        return false;
+    }
+    
+    if(template_code == ""){
+        errorMsgBorder('Template Code cannot be empty','template_code');
+        return false;
+    }    
+    
 
     var tempObj = {
-        "id": $("#template_name").val(),
-        "type": $("#template_lang").val(),
-        "query": $("#template_code").val(),
+        "id": template_name,
+        "type": template_lang,
+        "query":template_code,
         domainKey: DOMAIN_KEY
     }
 
