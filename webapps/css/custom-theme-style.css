@@ -1078,11 +1078,11 @@ margin-bottom: 10px  !important;
 color: white;
 background: #2D2F79;
 }
-button:hover {
+/* button:hover {
     opacity: .9;
     cursor: pointer;
     border: none;
-}
+} */
 input[type=file]{
     font-size: 12px !important;
 }
