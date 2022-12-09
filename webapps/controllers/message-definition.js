@@ -7,10 +7,11 @@ var jsEditor = null;
 
 
 $(document).ready(function () {
-
-    loadMessageDef();
+  
+   loadMessageDef();
     $('body').removeClass('bg-white');
-
+    $('.dataTables_filter input').attr('maxlength', 50)
+  
     document.getElementById('importFile')
         .addEventListener('change', getImportFile)
 });
@@ -76,6 +77,7 @@ function loadMessageDef() {
         searching: true,
         dom: '<"bskp-search-left" f> lrtip',
         language: {
+            "emptyTable": "No data available",
             "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
             "searchPlaceholder": "Search here...",
             loadingRecords: '',
@@ -95,7 +97,6 @@ function loadMessageDef() {
         if (status && data.length > 0) {
             tableOption['data'] = data;
             message_list = data;
-            console.log(message_list)
             createDownload();
             $(".messageCount").html(data.length)
         } else {
@@ -104,7 +105,9 @@ function loadMessageDef() {
         }
 
         messageTable = $("#messageTable").DataTable(tableOption);
+      
     })
+   
 
 
 }
@@ -179,7 +182,7 @@ function openModal() {
     $("#addMessageRule form")[0].reset();
 
     $("#msg_id").removeAttr('disabled');
-
+    $("#msg_desc").css('height','90px');
     // $("#msg_id").attr('min', USER_OBJ.domain.startId)
     // $("#msg_id").attr('max', USER_OBJ.domain.startId + ID_RANGE_COUNT)
 
@@ -258,7 +261,7 @@ function addMessageField() {
 
     var str = `<tr id="msg_field_row_` + id + `">
     <td>
-        <input class="form-control input-sm" onkeyup="onlyAlphaNumericUs(this)" onkeydown="onlyAlphaNumericUs(this)" placeholder="Field Name" autocomplete="off" type="text"  id="msg_field_` + id + `" required>
+        <input class="form-control input-sm"  maxlength="50" onkeyup="onlyAlphaNumericUs(this)" onkeydown="onlyAlphaNumericUs(this)" placeholder="Field Name" autocomplete="off" type="text"  id="msg_field_` + id + `" required>
     </td>
     <td>
     <select class="form-control input-sm" required id="msg_datatype_` + id + `">

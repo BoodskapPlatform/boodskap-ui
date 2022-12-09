@@ -1,5 +1,5 @@
 
-$(".consoleBody").height($(window).height() - 120 + 'px')
+$(".consoleBody").height($(window).height() - 70 + 'px')
 
 var logLevels = {
     trace: 'default',
@@ -20,7 +20,7 @@ var codeEditor = null;
 $(document).ready(function () {
 
     $(".rightSide").height($(window).height() + 'px')
-    $(".classFolder").css('height', $(".rightSide").height() - 250)
+    $(".classFolder").css('height', $(".rightSide").height() - 350)
 
     // $(".editorBlock").height($(window).height() + 'px')
     // initiateEditor();
@@ -254,17 +254,29 @@ function loadTerminal() {
                             }
                         })
                     } else {
+
+                        console.log("cmdObj--------------------2");    
+                        console.log(cmdObj);   
+
                         this.echo('<div class="log_' + id + '">' + moment().format("MM/DD/YYYY hh:mm a") +
                             " | Command executed successfully </div><div class='console_" + id + "'></div><div class='console_loader_" + id + " text-info'>" +
                             '<i class="fa fa-spinner fa-spin"></i> waiting for command response</div>', {raw: true});
                         executeConsoleScript(cmdObj, function (status, data) {
+
+                            console.log("executeConsoleScript----------------res----3");    
+                            console.log(status); 
+                            console.log(data); 
+
                             if (status) {
                                 // console.log(data)
                             } else {
                                 self.echo("<span class='red'>" + moment().format("MM/DD/YYYY hh:mm a") + " | Error in command execution 1</span>");
                             }
+
                         });
                     }
+
+
                 } else {
                     this.echo('no commands to execute');
                 }
@@ -324,8 +336,8 @@ function resizePanel() {
         $(".rightSide").css('width', '0px');
         $("#btnMax").html('<i class="icon-eye4"></i> Show Class')
 
-        $(".btnExec").css('width', '100%',)
-
+        // $(".btnExec").css('width', '100%')
+        $("#section").css('width', '96%')
         $("#codeEditor").css('width', '100%');
         codeEditor.resize();
 
@@ -334,13 +346,16 @@ function resizePanel() {
         $(".rightSide").addClass('rshow')
         $(".rightSide").css('width', '25%')
         $("#btnMax").html('<i class="icon-eye-slash"></i> Hide Class')
+       
+        $("#codeEditor").css('width', '100%')
+        $("#section").css('width', '75%')
 
-        $("#codeEditor").css('width', '75%')
+        $("#consoleBox").css('width', '100%')
         codeEditor.resize();
+        
+        //  $(".btnExec").css('width', '10%')
 
-        $(".btnExec").css('width', '100%')
-
-        $("#consoleBox").css('width', '75%')
+       
     }
 }
 
@@ -351,6 +366,8 @@ function showEditor() {
         $(".editorBlock").css('width', '0px');
         $("#btnEditor").html('<i class="icon-eye4"></i> Show Editor');
         $("#btnExec").show();
+        
+        
 
     } else {
         $(".editorBlock").addClass('rshow')
@@ -534,7 +551,7 @@ function initiateEditor(code) {
     codeEditor.clearSelection();
 
 
-    $('#codeEditor').height(Math.round($(window).height() - ($(window).height() / 2)) + 'px');
+    $('#codeEditor').height(Math.round($(window).height() - ($(window).height() /1.8)) + 'px');
 
     $("#consoleBox").css('height', Math.round($("#codeEditor").height() - ($("#codeEditor").height() / 2)) + 'px')
 
@@ -559,11 +576,17 @@ function executeScriptCommand() {
             '<i class="fa fa-spinner fa-spin"></i> waiting for command response</div>', {raw: true});
 
         executeConsoleScript(cmdObj, function (status, data) {
+
+            console.log("executeConsoleScript-----------------1");
+            console.log(status);
+            console.log(data);
+
             if (status) {
                 console.log(data)
             } else {
                 $("#consoleBox").html("<span class='red'>" + moment().format("MM/DD/YYYY hh:mm a") + " | Error in command execution 3</span>");
             }
+
         });
     }
 

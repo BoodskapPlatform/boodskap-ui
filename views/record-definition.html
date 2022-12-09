@@ -12,12 +12,12 @@
     border: 0px !important;
 }
 .bskp-modal .add {
-    background: #478ecc;
-    padding: 5px 7px;
+    background: #2D2F79;
+    padding: 6.5px 8px;
     color: white;
     border-radius: 50%;
     vertical-align: top;
-    font-size: 15px;
+    font-size: 16px;
 }
 .bskp-modal .minus {
     background: #90a1b7;
@@ -25,6 +25,7 @@
     color: white;
     border-radius: 50%;
     vertical-align: top;
+    font-size: 16px;    
 }
 </style>
 <!--<div class="row-fluid">
@@ -53,8 +54,8 @@
    </div>
     <!-- end breadcrumb -->
     <!-- begin page-header -->
-    <div class="page-header bskp-page-topic"><img src="images/menu/message-definition_1-bskp.png" class="bskp-topic-icon mr-1" > Record Definition
-        <span class="panel-title ml-3" style="color: #478ecc;">Total Defined Records: <b><span class="recordCount"></span></b></span> </div>
+    <div class="page-header bskp-page-topic"><img src="images/menu/record-definition-bskp.svg" class="bskp-topic-icon mr-1" > Record Definition
+        <span class="panel-title ml-3" style="color: #2d2f79;">Total Defined Records: <b><span class="recordCount"></span></b></span> </div>
     
     <!-- end page-header -->
         <!-- <div class="panel-heading">
@@ -70,10 +71,10 @@
             <div class="row m-0">
                 <div class="col-12">
                     <div class="btn-group btn-group-justified pull-right bskp-btn-group-align" >
-                        <a class="btn bskp-btn-shadow bskp-blue-bg" onclick="openModal()"><i class="fa fa-plus-square"></i> <span class="hidden-xs">&nbsp;Define Record</span></a>
+                        <a class="btn bskp-btn-shadow bskp-blue-bg" onclick="openModal()"> <img src="images/plus.svg" class="bskp-plusvg"> <span class="hidden-xs">&nbsp;Define Record</span></a>
                         <a class="btn bskp-radius-btn" id="exportMsg"> <img src="images/download.svg" alt=""> </a>
                         <a class="btn bskp-radius-btn" id="importMsg" onclick="importMsg()"> <img src="images/upload.svg" alt=""></a>
-                        <a class="btn bskp-refresh-bg" data-click="panel-reload" onclick="loadRecordDef()"><i class="fa fa-refresh"></i></a>
+                        <a class="btn bskp-refresh-bg" data-click="panel-reload" title="refresh" onclick="loadRecordDef()"><i class="fa fa-refresh"></i></a>
                     </div>
                     <div class="bskp-table-layout">
                         <table class="table table-bordered bskp-table table-hover responsive no-wrap" id="recordTable"  cellspacing="0" width="100%">
@@ -114,28 +115,31 @@
                 <h4 class="modal-title">Define Record</h4>
                 <button type="button" class="close" data-dismiss="modal"   aria-label="Close"> <i class="fa fa-times" aria-hidden="true"></i> </button>
             </div>
-            <form action="javascript:void(0)" onsubmit="addMessageRule();">
+            <form action="javascript:void(0)"  novalidate onsubmit="addMessageRule();">
                 <div class="modal-body">
                     <div  class="row">
                         <div  class="col-md-6">
                             <div  class="form-group">
-                                <label  class="inputLabel">Record ID</label>
-                                <input  class="form-control input-sm"placeholder="Enter Record ld" autocomplete="off" type="number" id="msg_id" min="100" required>
+                                <label  class="inputLabel">Record ID *</label>
+                                <input  class="form-control input-sm"placeholder="Enter Record ld" autocomplete="off" type="number" id="msg_id" min=0 maxlength="50" required>
+                                <span id="logmsg_id"></span>
                                 <!--<small>ID Range from <b><span class="idRange"></span></b></small>-->
                             </div>
                         </div>
                         <div  class="col-md-6">
                             <div  class="form-group">
-                                <label  class="inputLabel">Record Name</label>
-                                <input  class="form-control input-sm" placeholder="Enter Record Name" autocomplete="off" type="text" id="msg_name" required>
+                                <label  class="inputLabel">Record Name *</label>
+                                <input  class="form-control input-sm" maxlength="50" placeholder="Enter Record Name" autocomplete="off" type="text" id="msg_name" required>
+                                <span id="logmsg_name"></span>
                             </div>
                         </div>
                     </div>
                     <div  class="row">
                         <div  class="col-md-12">
                             <div  class="form-group">
-                                <label  class="inputLabel">Description</label>
-                                <textarea  class="form-control input-sm" placeholder="Enter Description" autocomplete="off" type="text"  id="msg_desc" required></textarea>
+                                <label  class="inputLabel">Description *</label>
+                                <textarea  class="form-control input-sm" maxlength="500" placeholder="Enter Description" autocomplete="off" type="text"  id="msg_desc" required></textarea>
+                                <span id="logmsg_desc"></span>    
                             </div>
                         </div>
                     </div>

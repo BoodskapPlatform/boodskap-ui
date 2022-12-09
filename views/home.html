@@ -405,10 +405,10 @@
                             <div class="panel-heading">
 
                                 <h4 class="panel-title"><img src="images/globe.svg" class="pl-1" height="16" alt=""> <span> Domain Details</span>
-                                     <a href="javascript:;" onclick="startTour()" class="pull-right btn btn-sm btn-icon btn-circle bskp-icon-bg bskp-bord-icon" style="color: #3b3ea0 !important" title="Help"><i class="icon-help"></i></a>
-                                     <a href="<%= basepath %>/domain"  class="pull-right btn btn-sm btn-icon btn-circle bskp-icon-bg bskp-bord-icon mr-1"  style="color: #3b3ea0 !important" title="Domain Settings"><i class="fa fa-cog"></i></a>
+                                     <a href="javascript:;" onclick="startTour()" class="pull-right btn btn-sm btn-icon btn-circle bskp-icon-bg bskp-bord-icon bskp-headbtn"  title="Help"><i class="icon-help"></i></a>
+                                     <a href="<%= basepath %>/domain"  class="pull-right btn btn-sm btn-icon btn-circle bskp-headbtn bskp-icon-bg bskp-bord-icon mr-1"  title="Domain Settings"><i class="fa fa-cog"></i></a>
                                     <a href="javascript:void(0)" onclick="openLinkModal()"
-                                       class="pull-right mr-1 btn btn-sm btn-icon btn-circle bskp-icon-bg bskp-bord-icon" style="color: #3b3ea0 !important" title="Link Domain"><i class="fa fa-link"></i></a>
+                                       class="pull-right mr-1 btn btn-sm btn-icon btn-circle bskp-icon-bg bskp-bord-icon bskp-headbtn"  title="Link Domain"><i class="fa fa-link"></i></a>
                                 </h4>
                             </div>
                             <div class="panel-body" style="background-color: white; border-radius: 0px 0px 10px 10px;">
@@ -503,7 +503,7 @@
                                 </div>-->
                                 <h4 class="panel-title"><i class="fa fa-code pl-1" style="font-size: 16px; color: black; vertical-align: middle;"></i> 
                                     <span>Developers</span>
-                                    <a href="http://developer.boodskap.io/" target="_blank"  style="color: #3b3ea0 !important" class="pull-right btn btn-icon btn-sm btn-circle bskp-icon-bg bskp-bord-icon" title="Help Docs">
+                                    <a href="http://developer.boodskap.io/" target="_blank"   class="pull-right btn btn-icon btn-sm btn-circle bskp-icon-bg bskp-bord-icon bskp-headbtn" title="Help Docs">
                                         <i class="icon-help"></i> 
                                     </a>
                                 </h4>
@@ -824,7 +824,7 @@
                         </div>
                         <div class="col col-xs-12 mr-xs-none mb-2 mr-33px" id="mesgDefine">
                             <section class="right-content sec1 pt-3">
-                                <form action="javascript:(0)">
+                                <form action="javascript:(0)" novalidate>
                                 <div class="row m-0">
                                     <div class="col-12">
                                         <p class="fs-25 content-head fw-900 fs-18 pt-2">Define your first message</p>
@@ -832,16 +832,19 @@
                                             <div class="form-row justify-content-between">
                                                 <div class="form-group col-md-6 pr-md-4">
                                                     <label for="msg_id">Message ld</label>
-                                                    <input type="number" class="form-control" id="msg_id" placeholder="Enter Message ld" autocomplete="off" required>
+                                                    <input type="number" class="form-control" id="msg_id" min='0'placeholder="Enter Message ld" autocomplete="off" required>
+                                                    <span id="logmsg_id"></span>
                                                 </div>
                                                 <div class="form-group col-md-6 pl-md-4">
                                                     <label for="msg_name">Message Name</label>
                                                     <input type="text" class="form-control" id="msg_name" placeholder="Enter Message Name" autocomplete="off" required>
+                                                    <span id="logmsg_name"></span>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="msg_desc">Description</label>
                                                 <textarea class="form-control" id="msg_desc" placeholder="Enter Message Description" autocomplete="off" required></textarea>
+                                                <span id="logmsg_desc"></span>
                                             </div>
                                         
                                     </div>
@@ -876,20 +879,24 @@
                                         <p class="fs-25 content-head fw-900 fs-18 pt-2">Add your device(s) here</p>
                                             <div class="form-row justify-content-between">
                                                 <div class="form-group col-md-6 pr-lg-4">
-                                                    <label for="inputLabel">Device ld</label>
+                                                    <label for="inputLabel">Device ld *</label>
                                                     <input type="text" class="form-control" id="device_id" placeholder="Enter Device ld" autocomplete="off" required>
+                                                    <span id="logdevice_id"></span>
                                                 </div>
                                                 <div class="form-group col-md-6 pl-lg-4">
-                                                    <label for="inputLabel">Device Name</label>
+                                                    <label for="inputLabel">Device Name *</label>
                                                     <input type="text" class="form-control" id="device_name" placeholder="Enter Device Name" autocomplete="off" required>
+                                                    <span id="logdevice_name"></span>
                                                 </div>
                                                 <div class="form-group col-md-6 pr-lg-4">
-                                                    <label for="inputLabel">Device Model</label>
+                                                    <label for="inputLabel">Device Model *</label>
                                                     <input type="text" class="form-control" id="device_model" placeholder="Enter Device Model" autocomplete="off" required>
+                                                    <span id="logdevice_model"></span>
                                                 </div>
                                                 <div class="form-group col-md-6 pl-lg-4">
-                                                    <label for="inputLabel">Device Version</label>
+                                                    <label for="inputLabel">Device Version *</label>
                                                     <input type="text" class="form-control" id="device_version" placeholder="Enter Device Version" autocomplete="off" required>
+                                                    <span id="logdevice_version"></span>
                                                 </div>
                                             </div>
                                     </div>
