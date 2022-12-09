@@ -2549,15 +2549,7 @@ function getInputRunning(type,id) {
     id = id ? id : CURRENT_ID;
 
     $(".iCount").html(0);
-
-    console.log("getInputRunning----------------COUNT");
-    console.log(type,id);
-
     inputActions(type,id,'COUNT', function (status,data) {
-
-        console.log("getInputRunning----------------result");
-        console.log(status,data);
-
         if(status){
             $(".iCount").html(data.total);
             if(data.total > 0){
