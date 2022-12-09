@@ -3460,7 +3460,7 @@ async function loadEditor(code, tabid) {
     let codeFormat = '';
     let currentRuleType = $("."+tabid).data("ruletype");
 
-   await $.get('../webapps/controllers/rules_code_templates/'+rule_types[currentRuleType], function(data) {
+   await $.get('controllers/rules_code_templates/'+rule_types[currentRuleType], function(data) {
         codeFormat = data;
     });
     code ? codeEditor.setValue(code) : codeEditor.setValue(codeFormat);
