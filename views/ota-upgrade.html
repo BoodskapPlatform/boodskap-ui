@@ -13,7 +13,12 @@
         
         color:white;
     }
-
+    .tooltip-inner{
+    background-color:rgb(237 241 247);
+        color: black;
+        margin-top: 3px;
+        margin-bottom: 3px;
+}
     .bskp-submenu2 li.active>a {
         color:white;
     } 
@@ -79,9 +84,7 @@
     .bskp-modal textarea {
         min-height: 50px;
     }
-    .refreshbutton:hover{
-        background-color: #2d2f79;
-    }
+    
     .firmwareicon{
         
         
@@ -91,9 +94,7 @@
     .select2-container--default .select2-selection--single{
         border-radius: 20px !important;
     }
-    .refresh:hover{
-        background-color:#2d2f79;
-    }
+    
     
     .bskp-modal label{
         font-size:13px ;
@@ -109,71 +110,12 @@
      .nav>li.manage>:hover{
         background: #2d2f79 !important;
     }
-    /* .bskp-submenu li.active {
-        background-color: #90a1b7;
-        font-weight: 600;
-        border-radius: 4px;
-    } */
-    /* .bskp-submenu li.active>a {
-        color: white;
-    }
-
-    .bskp-submenu {
-        background-color: #ffffff !important;
-        height: 35px;
-        border-radius: 10px;
-        margin: 30px 38px 25px 38px !important;
-    }
-
-    .bskp-submenu li a {
-        color: rgb(0, 0, 0);
-    }
-
-    .bskp-submenu li {
-        line-height: 30px;
-        padding: 3px 15px;
-        border-right: 1px solid #e8e8e8;
-    }
-
-    .bskp-submenu li:first-child {
-        border-left: 1px solid #e8e8e8;
-    }
-
-    .bskp-submenu li a:hover {
-        text-decoration: none;
-        color: rgb(126, 126, 126) !important;
-    }
-
-    .bskp-submenu li.active a:hover {
-        text-decoration: none;
-        color: rgb(255, 255, 255) !important;
-    }
-
-    .bskp-submenu li:first-child>a>i {
-        font-size: 16px;
-        color: darkslategrey;
-    }
-
-    .bskp-submenu li:first-child>a:hover>i {
-        font-size: 16px;
-        color: rgb(132, 132, 132);
-    }
-
-
-
-    .bskp-page-topic {
-        font-size: 10px;
-        font-weight: 600;
-        color: #3e3e3e;
-        padding: 12px 30px;
-        box-shadow: 0px 2px 15px 0px #e6eaf8e3;
-    }
-
-    .ota-upgrade {
-        border: 1px solid #d3d8de;
-    } */
+    
    .plat{
     margin-top: 0px !important;
+   }
+   ol li{
+    font-size: 14px !important;
    }
 </style>
 <div class="row-fluid">
@@ -193,23 +135,16 @@
                 <li class="breadcrumb-item active">OTA Upgrade</li>
                 <div class="ml-3">
                     <a href="javascript:;" class="btn btn-sm btn-icon btn-circle  bskp-icon-bg"
-                        data-click="panel-expand"><image src="/images/menu/max.SVG" height="14px"></a>
+                        data-click="panel-expand"><image src="/images/menu/max.svg" height="14px" title="Expand"></a>
                     <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg " title="Help">
-                        <img src="images/menu/Question_icon (2).PNG"></a>
+                        <img src="images/menu/Question_icon (2).png"></a>
 
                 </div>
             </ol>
         </div>
-        <!-- <h1 class="page-header">OTA <small>(On The Air)</small> Upgrade</h1> -->
-        <!-- <div class="page-header bskp-page-topic"><img src="images/menu/message-definition_1-bskp.png"
-                class="bskp-topic-icon mr-1"> OTA (On The Air) Upgrade
-            <span class="panel-title ml-3" style="color: #478ecc;">Total Devices: <b><span
-                        class="">0</span></b></span>
-
-        </div> -->
-        <div class="page-header bskp-page-topic"><img src="images/menu/firmware.SVG"
+        <div class="page-header bskp-page-topic"><img src="images/menu/firmware.svg"
             class="bskp-topic-icon mr-1 firmwareicon" > 
-    <span class="page-header" style="margin-left:0px;font-size:20px ;font-weight: 600;">OTA (On The Air) Upgrade</span>
+    <span class="page-header" style="margin-left:0px;font-size:20px ;font-weight: 600;">OTA <small>(On The Air)</small> Upgrade</span>
 
         <span class="panel-title ml-3 " style="color: #2d2f79;">Total Devices:<span
                     class="firmwareCount">0</span></span>
@@ -236,9 +171,9 @@
                     <div class="col-lg-12">
                         <div class="btn-group btn-group-justified pull-right bskp-btn-group-align">
                             <a class="btn btn bskp-btn-shadow bskp-blue-bg" style="font-size: 14px;font-weight: 500;" onclick="openModal(1)"> 
-                                <image src="images/menu/plusic.SVG" style="position: relative;bottom:1px"> <span class="hidden-xs">Create OTA Batch</span></a>
+                                <image src="images/menu/plusicon.svg" style="position: relative;bottom:1px"> <span class="hidden-xs">Create OTA Batch</span></a>
                             
-                                    <a class="btn bskp-refresh-bg refreshbutton" data-click="panel-reload" onclick="loadOTA()"><i
+                                    <a class="btn bskp-refresh-bg  refreshbutton" data-toggle="tooltip" data-placement="bottom" title="Refresh" data-click="panel-reload"  onclick="loadOTA()"><i
                                     class="fa fa-refresh"></i></a>
                         </div>
                         <div class="bskp-table-layout">

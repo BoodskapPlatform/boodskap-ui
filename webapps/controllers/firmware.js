@@ -31,6 +31,7 @@ function loadDeviceModels() {
 
         }else{
             $("#deviceModel").html('<option value="">No Device Linked</option>')
+            $("#f_device_model").html('<option value="">No Model Found</option>')
         }
 
         loadFirmwareList();
@@ -134,7 +135,7 @@ function loadFirmwareList() {
         dom: '<"bskp-search-left" f> lrtip',
             language: {
                 "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
-                "searchPlaceholder": "Search by File Name",
+                "searchPlaceholder": "Search By File Name",
                 "emptyTable":"No data available",
 
 
