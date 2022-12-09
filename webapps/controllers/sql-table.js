@@ -407,7 +407,7 @@ function addTableField() {
     </td>
     <td style="text-align: center;vertical-align: middle;" class="addMsg">`+
         (id > 0 ? '<img src="images/menu/plus (8).svg" class="add" onclick="addTableField()" style="cursor: pointer" />' : '') +
-        (id > 1 ? '<img src="images/menu/minus1.svg" class="minus" style="margin-left:5px;cursor: pointer; onclick="deleteMessageField(' + id + ')"/>' : '')
+        (id > 1 ? '<img src="images/menu/minus1.svg" class="minus" style="margin-left:5px;cursor: pointer;" onclick="deleteMessageField(' + id + ')"/>' : '')
         + ` </td>
   </tr>`;
 
