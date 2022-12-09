@@ -8,6 +8,16 @@
 <link href="css/multiple-select.css" rel=stylesheet>
 
 <style>
+    .ace_content{
+        border-right: 1px solid #cccccc;
+        border-top: 1px solid #cccccc;
+    }
+    .ace-eclipse .ace_gutter{
+        background: #ebebeb;
+        border-right: 1px solid rgb(159, 159, 159);
+        color: rgb(136, 136, 136);
+        border-left: 1px solid rgb(159, 159, 159);
+    }
 
     pre {
         background: #f4f4f4;
@@ -155,10 +165,9 @@
                     <i class="fa fa-question-circle"></i>
                 </button>
 
-
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs nav-tabs-long editorBar" role="tablist">
-                    <li role="presentation" class="active domainTab">
+                    <li role="presentation" class="active domainTab" data-ruleType="domain">
                         <a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab"
                            onclick="loadDomainRule()">Domain Rule</a>
                     </li>
@@ -532,21 +541,19 @@
 
             &lt;!&ndash; Tab panes &ndash;&gt;
             -->
-
-
         </div>
         <div class="ui-layout-west leftSide" style="">
 
             <div class="row-fluid">
                 <button class="btn btn-sm pull-right"
-                        style="margin: 5px 0px;background-color: #424242;color: #fff;padding: 0px 5px;"
+                        style="margin: 5px 0px;background-color: #424242;color: #fff;padding: 0px 5px;border: 1px solid transparent;"
                         onclick="openModal()"><i class="fa fa-plus"></i> Add Rule
                 </button>
                 <button class="btn btn-sm pull-right"
-                        style="margin: 5px 5px;background-color: #424242;color: #fff;padding: 0px 5px;"
+                        style="margin: 5px 5px;background-color: #424242;color: #fff;padding: 0px 5px;border: 1px solid transparent;"
                         onclick="reloadRules()"><span class="btnRefresh"><i class="fa fa-refresh"></i></span></button>
                 <button class="btn btn-sm pull-right"
-                        style="margin: 5px 5px;background-color: #424242;color: #fff;padding: 0px 5px;"
+                        style="margin: 5px 5px;background-color: #424242;color: #fff;padding: 0px 5px;border: 1px solid transparent;"
                         title="Upload Rule"
                         onclick="uploadRuleModal()"><span class=""><i class="fa fa-upload"></i></span></button>
             </div>

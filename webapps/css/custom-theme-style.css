@@ -1081,7 +1081,7 @@ background: #2D2F79;
 button:hover {
     opacity: .9;
     cursor: pointer;
-    border: none;
+    /* border: none; */
 }
 input[type=file]{
     font-size: 12px !important;

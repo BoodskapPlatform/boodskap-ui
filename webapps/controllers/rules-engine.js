@@ -58,6 +58,7 @@ let logLevels = {
 };
 
 let rule_types = {
+    "domain" : "domain_rule.groovy",
     "1" : "message_rule.groovy",
     "2" : "named_rule.groovy",
     "3" : "scheduled_rule.groovy",
@@ -1755,20 +1756,20 @@ function loadTabbar(id, type) {
     if (_.indexOf(tabbar_list, id) < 0) {
         if (type === 1) {
 
-            str = '<li role="presentation" class="messageTab tabbar messageTab_' + id + '" >' +
+            str = '<li role="presentation" data-ruleType="' + type + '" class="messageTab tabbar messageTab_' + id + '" >' +
                 '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadMessageRule(' + id + ')>' + id + ' ' +
                 '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(' + id + ',1)" title="close"><i class="fa fa-close"></i></span></a>' +
                 '</li>';
 
         }
         else if (type === 2) {
-            str = '<li role="presentation" class="namedTab tabbar namedTab_' + id + '"  >' +
+            str = '<li role="presentation" data-ruleType="' + type + '" class="namedTab tabbar namedTab_' + id + '"  >' +
                 '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadNamedRule(\'' + id + '\')>' + id + ' ' +
                 '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',2)" title="close"><i class="fa fa-close"></i></span></a>' +
                 '</li>';
         }
         else if (type === 3) {
-            str = '<li role="presentation" class="scheduleTab tabbar scheduleTab_' + id + '"  >' +
+            str = '<li role="presentation" data-ruleType="' + type + '" class="scheduleTab tabbar scheduleTab_' + id + '"  >' +
                 '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadScheduleRule(' + id + ')>' + id + ' ' +
                 '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(' + id + ',3)" title="close"><i class="fa fa-close"></i></span></a>' +
                 '</li>';
@@ -1784,7 +1785,7 @@ function loadTabbar(id, type) {
                 }
             }
 
-            str = '<li role="presentation" class="groovyTab tabbar groovyTab_' + id + '"  >' +
+            str = '<li role="presentation" data-ruleType="' + type + '" class="groovyTab tabbar groovyTab_' + id + '"  >' +
                 '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadGroovyClass(\'' + id + '\')>' + obj.name + ' ' +
                 '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',4)" title="close"><i class="fa fa-close"></i></span></a>' +
                 '</li>';
@@ -1798,7 +1799,7 @@ function loadTabbar(id, type) {
                 }
             }
 
-            str = '<li role="presentation" class="jarTab tabbar jarTab_' + id + '"  >' +
+            str = '<li role="presentation" data-ruleType="' + type + '" class="jarTab tabbar jarTab_' + id + '"  >' +
                 '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadJarClass(\'' + id + '\')>' + obj.packageName + ' ' +
                 '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',5)" title="close"><i class="fa fa-close"></i></span></a>' +
                 '</li>';
@@ -1813,7 +1814,7 @@ function loadTabbar(id, type) {
                 }
             }
 
-            str = '<li role="presentation" class="binaryTab tabbar binaryTab_' + id + '"  >' +
+            str = '<li role="presentation" data-ruleType="' + type + '" class="binaryTab tabbar binaryTab_' + id + '"  >' +
                 '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadBinaryRule(\'' + id + '\')>' + obj.type + ' ' +
                 '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',6)" title="close"><i class="fa fa-close"></i></span></a>' +
                 '</li>';
@@ -1828,7 +1829,7 @@ function loadTabbar(id, type) {
                 }
             }
 
-            str = '<li role="presentation" class="jobTab tabbar jobTab_' + id + '"  >' +
+            str = '<li role="presentation" data-ruleType="' + type + '" class="jobTab tabbar jobTab_' + id + '"  >' +
                 '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadJobRule(\'' + id + '\')>' + obj.id + ' ' +
                 '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',7)" title="close"><i class="fa fa-close"></i></span></a>' +
                 '</li>';
@@ -1843,7 +1844,7 @@ function loadTabbar(id, type) {
                 }
             }
 
-            str = '<li role="presentation" class="fileTab tabbar fileTab_' + id + '"  >' +
+            str = '<li role="presentation" data-ruleType="' + type + '" class="fileTab tabbar fileTab_' + id + '"  >' +
                 '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadFileRule(\'' + id + '\')>' + obj.type + ' ' +
                 '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',8)" title="close"><i class="fa fa-close"></i></span></a>' +
                 '</li>';
@@ -1858,7 +1859,7 @@ function loadTabbar(id, type) {
                 }
             }
 
-            str = '<li role="presentation" class="processTab tabbar processTab_' + id + '"  >' +
+            str = '<li role="presentation" data-ruleType="' + type + '" class="processTab tabbar processTab_' + id + '"  >' +
                 '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadProcessRule(\'' + id + '\')>' + obj.name + ' ' +
                 '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',9)" title="close"><i class="fa fa-close"></i></span></a>' +
                 '</li>';
@@ -1872,7 +1873,7 @@ function loadTabbar(id, type) {
                 }
             }
 
-            str = '<li role="presentation" class="sftpTab tabbar sftpTab_' + id + '"  >' +
+            str = '<li role="presentation" data-ruleType="' + type + '" class="sftpTab tabbar sftpTab_' + id + '"  >' +
                 '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadSftpRule(\'' + id + '\')>' + obj.name + ' ' +
                 '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',10)" title="close"><i class="fa fa-close"></i></span></a>' +
                 '</li>';
@@ -1886,7 +1887,7 @@ function loadTabbar(id, type) {
                 }
             }
 
-            str = '<li role="presentation" class="mqttTab tabbar mqttTab_' + id + '"  >' +
+            str = '<li role="presentation" data-ruleType="' + type + '" class="mqttTab tabbar mqttTab_' + id + '"  >' +
                 '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadMqttRule(\'' + id + '\')>' + obj.name + ' ' +
                 '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',11)" title="close"><i class="fa fa-close"></i></span></a>' +
                 '</li>';
@@ -1900,7 +1901,7 @@ function loadTabbar(id, type) {
                 }
             }
 
-            str = '<li role="presentation" class="udpTab tabbar udpTab_' + id + '"  >' +
+            str = '<li role="presentation" data-ruleType="' + type + '" class="udpTab tabbar udpTab_' + id + '"  >' +
                 '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadUdpRule(\'' + id + '\')>' + obj.name + ' ' +
                 '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',12)" title="close"><i class="fa fa-close"></i></span></a>' +
                 '</li>';
@@ -1914,7 +1915,7 @@ function loadTabbar(id, type) {
                 }
             }
 
-            str = '<li role="presentation" class="tcpTab tabbar tcpTab_' + id + '"  >' +
+            str = '<li role="presentation" data-ruleType="' + type + '" class="tcpTab tabbar tcpTab_' + id + '"  >' +
                 '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadTcpRule(\'' + id + '\')>' + obj.name + ' ' +
                 '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',13)" title="close"><i class="fa fa-close"></i></span></a>' +
                 '</li>';
@@ -1928,7 +1929,7 @@ function loadTabbar(id, type) {
                 }
             }
 
-            str = '<li role="presentation" class="emailTab tabbar emailTab_' + id + '"  >' +
+            str = '<li role="presentation" data-ruleType="' + type + '" class="emailTab tabbar emailTab_' + id + '"  >' +
                 '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadEmailRule(\'' + id + '\')>' + obj.name + ' ' +
                 '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',14)" title="close"><i class="fa fa-close"></i></span></a>' +
                 '</li>';
@@ -1942,7 +1943,7 @@ function loadTabbar(id, type) {
                 }
             }
 
-            str = '<li role="presentation" class="microTab tabbar microTab_' + id + '"  >' +
+            str = '<li role="presentation" data-ruleType="' + type + '" class="microTab tabbar microTab_' + id + '"  >' +
                 '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadMicroRule(\'' + obj.name + '\')>' + obj.name + ' ' +
                 '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',15)" title="close"><i class="fa fa-close"></i></span></a>' +
                 '</li>';
@@ -2203,7 +2204,7 @@ function loadTabbar(id, type) {
         $(".ruleType").html('Email Rule');
         $(".ruleName").html(obj.name);
 
-        $(".exportBtn").attr('onclick','exportRule(14)')
+        $(".exportBtn").attr('onclick','exportRule(14)');
     }
     else if (type === 15) {
         loadMicroRule(id);
@@ -3456,7 +3457,13 @@ async function loadEditor(code, tabid) {
     // // });
     // langTools.setCompleters([langTools.snippetCompleter])
 
-    code ? codeEditor.setValue(code) : codeEditor.setValue('');
+    let codeFormat = '';
+    let currentRuleType = $("."+tabid).data("ruletype");
+
+   await $.get('../webapps/controllers/rules_code_templates/'+rule_types[currentRuleType], function(data) {
+        codeFormat = data;
+    });
+    code ? codeEditor.setValue(code) : codeEditor.setValue(codeFormat);
 
     codeEditor.clearSelection();
 
