@@ -3458,13 +3458,18 @@ async function loadEditor(code, tabid) {
     // langTools.setCompleters([langTools.snippetCompleter])
 
     let codeFormat = '';
-    let currentRuleType = $("."+tabid).data("ruletype");
 
-   await $.get('controllers/rules_code_templates/'+rule_types[currentRuleType], function(data) {
-        codeFormat = data;
-    });
-    code ? codeEditor.setValue(code) : codeEditor.setValue(codeFormat);
+    if(code){
+        codeEditor.setValue(code);
+    }else{
+        let currentRuleType = $("."+tabid).data("ruletype");
+        await $.get('controllers/rules_code_templates/'+rule_types[currentRuleType], function(data) {
+            codeFormat = data;
+        });
+        codeEditor.setValue(codeFormat);
+    }
 
+    // code ? codeEditor.setValue(code) : codeEditor.setValue(codeFormat);
     codeEditor.clearSelection();
 
     codeEditor.focus();
