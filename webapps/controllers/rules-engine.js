@@ -2549,7 +2549,15 @@ function getInputRunning(type,id) {
     id = id ? id : CURRENT_ID;
 
     $(".iCount").html(0);
+
+    console.log("getInputRunning----------------COUNT");
+    console.log(type,id);
+
     inputActions(type,id,'COUNT', function (status,data) {
+
+        console.log("getInputRunning----------------result");
+        console.log(status,data);
+
         if(status){
             $(".iCount").html(data.total);
             if(data.total > 0){
@@ -3128,7 +3136,7 @@ function loadJobRule(id) {
     var data = returnObj(id, 7);
     $("#codeEditor").html('');
 
-    loadEditor(data.jobCode ? data.jobCode : '', 'jobTab_'+id);
+    loadEditor(data.code ? data.code : '', 'jobTab_'+id);
 
         CURRENT_ID = id;
         CURRENT_TYPE = 7;
@@ -3526,7 +3534,7 @@ function loadEditor(code, tabid) {
 
                 for (var i = 0; i < job_rules_list.length; i++) {
                     if (CHANGED_ID === job_rules_list[i].id) {
-                        job_rules_list[i].jobCode = CHANGED_TEXT;
+                        job_rules_list[i].code = CHANGED_TEXT;
                     }
                 }
 
@@ -3757,7 +3765,7 @@ function loadEditor(code, tabid) {
                     "jobType": obj.jobType,
                     "jobState": obj.jobState,
                     "jobLanguage": obj.jobLanguage,
-                    "jobCode": consoleText,
+                    "code": consoleText,
                     "instances": obj.instances,
                     "startOnBoot": obj.startOnBoot,
                     "systemJob": obj.systemJob,
@@ -5297,7 +5305,7 @@ function addJobRule(code) {
         "jobType": $("#job_type").val(),
         "jobState": $("#job_state").val(),
         "jobLanguage": $("#job_lang").val(),
-        "jobCode": code ? codeEditor.getSession().getValue() : "",
+        "code": code ? codeEditor.getSession().getValue() : "",
         "instances": Number($("#job_instance").val() ? $("#job_instance").val() : 0),
         "startOnBoot": $("#job_boot").val() === "1" ? true : false,
         "systemJob": ADMIN_ACCESS ?  ($("#job_system").val() === "1" ? true : false) : false,
@@ -6699,7 +6707,7 @@ function exportRule(type) {
             "jobType": obj.jobType,
             "jobState": obj.jobState,
             "jobLanguage": obj.jobLanguage,
-            "jobCode": consoleText,
+            "code": consoleText,
             "instances": obj.instances,
             "startOnBoot": obj.startOnBoot,
             "systemJob": obj.systemJob,
