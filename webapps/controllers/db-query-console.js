@@ -20,7 +20,7 @@ function loadqueryEditor() {
         queryEditor.destroy();
         // return false;
     }
-
+                        
 
     $("#queryEditor").html("");
 
