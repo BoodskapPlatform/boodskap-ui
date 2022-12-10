@@ -1,3 +1,25 @@
+<style>
+    .tooltip-inner {
+        background-color: rgb(237 241 247);
+        color: black;
+        margin-top: 3px;
+        margin-bottom: 3px;
+    }
+    .group{
+        border-radius: 10px;
+        border: 1px solid #cbd1d8;
+    }
+    .label{
+        font-size: 12px !important;
+        /* padding-left: 5px; */
+        margin-left: 8px;
+    }
+    .radio{
+        position: relative;
+        left: 14px;
+        top:1px;
+    }
+</style>
 <!--<div class="row-fluid">
     <ul class="nav submenu" style="">
         <li class=""><a href="<%= basepath %>/home"><i class="fa fa-home"></i> </a></li>
@@ -5,48 +27,70 @@
         <li class="active"><a href="<%= basepath %>/templates">Templates</a></li>
     </ul>
 </div>-->
-<div class="container mt-3 msgDef platformBody">
+<div class="container bskp-mt-30 msgDef platformBody">
     <!-- begin breadcrumb -->
-    <ol class="breadcrumb pull-right">
-        <li class="breadcrumb-item"><a href="<%= basepath %>/dashboard">Domain</a></li>
-        <li class="breadcrumb-item active">DB Tables</li>
-    </ol>
-    <!-- end breadcrumb -->
-    <!-- begin page-header -->
-    <h1 class="page-header">Manage DB Connection Pool</h1>
+    <div class="panel panel-inverse bskp-container-frame">
+        <div>
 
-    <!-- end page-header -->
+            <ol class="breadcrumb pull-right bskp-align-icon">
+                <li class="breadcrumb-item"><a href="<%= basepath %>/dashboard">Domain</a></li>
+                <li class="breadcrumb-item active">DB Tables</li>
+                <div class="ml-4">
+                    <a href="javascript:;" class="btn btn-sm btn-icon btn-circle  bskp-icon-bg"
+                        data-click="panel-expand" title="Expand">
+                        <image src="images/menu/max.svg" height="14px">
+                    </a>
 
-    <!-- begin panel -->
-    <div class="panel panel-inverse">
-        <div class="panel-heading">
-            <div class="panel-heading-btn">
-                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
-                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-success" data-click="panel-reload" onclick="loadDBPool()"><i class="fa fa-redo"></i></a>
-                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-warning" title="Help"><i class="icon-help"></i></a>
-            </div>
+                    <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg" title="Help">
+                        <image src="images/menu/Question_icon (2).png">
+                    </a>
 
-            <h4 class="panel-title">Total DB Connection Pool: <b><span class="poolCount"></span></b></h4>
+                </div>
+            </ol>
         </div>
-        <div class="panel-body" style="background-color: #eeeeee00;border: 1px solid #eee;padding-bottom: 30px;">
+        <!-- end breadcrumb -->
+        <!-- begin page-header -->
 
-            <div class="btn-group btn-group-justified pull-right">
-                <a class="btn btn-default" onclick="openModal(1)"><i class="fa fa-plus-square"></i> <span class="hidden-xs">Add DB Connection</span></a>
-                <a class="btn btn-default" data-click="panel-reload" onclick="loadDBPool()"><i class="fa fa-refresh"></i></a>
+        <div class="page-header bskp-page-topic"><img src="images/menu/dbtableicon.svg"
+                class="bskp-topic-icon sqlicon mr-1">Manage DB Connection Pool
+            <span class="panel-title ml-3" style="color: #2D2F79;">Total DB Connection Pool:<b><span
+                        class="tableCount"></span></b></span>
+        </div>
+
+        <!-- end page-header -->
+
+        <!-- begin panel -->
+        <div class="panel-body" style="background-color: #eeeeee00;padding-bottom: 30px;">
+            <div class="row m-0">
+                <div class="col-12">
+
+                    <div class="btn-group bskp-btn-group-align btn-group-justified pull-right">
+                        <a class="btn bskp-btn-shadow bskp-blue-bg" style="font-size: 14px;font-weight: 500;"
+                            onclick="openModal(1)">
+                            <image src="images/menu/plusicon.svg" style="position: relative;bottom:1px"> <span
+                                    class="hidden-xs">Add DB Connection</span>
+                        </a>
+                        <a class="btn bskp-refresh-bg  refreshbutton" onclick="loadDBPool()" data-toggle="tooltip"
+                            data-placement="bottom" title="Refresh" data-click="panel-reload"
+                            onclick="loadSQLTable()"><i class="fa fa-refresh "></i></a>
+
+                    </div>
+
+                    <div class="bskp-table-layout">
+
+                        <table class="table table-bordered bskp-table responsive no-wrap" id="poolTable" cellspacing="0"
+                            width="100%">
+
+                        </table>
+                    </div>
+
+                </div>
             </div>
-
-
-            <table class="table table-bordered responsive no-wrap" id="poolTable"  cellspacing="0" width="100%">
-
-            </table>
-
+            <!-- end panel -->
 
         </div>
     </div>
-    <!-- end panel -->
-
 </div>
-
 <script src="js/beautify.min.js" type="text/javascript"></script>
 
 
@@ -56,43 +100,77 @@
 
 
 
-<div id="addPool" class="modal fade" tabindex="-1" role="dialog">
+<div id="addPool" class="modal bskp-modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title"><span class="templateAction"></span> DB Connection Pool</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <image src="images/menu/xicon.svg" class="bg-secondary" onclick="onclosebutton()"
+                        style="border-radius: 13px;padding:3px">
+
+                </button>
             </div>
             <form action="javascript:void(0)">
                 <div class="modal-body">
-                    <div  class="row">
-                        <div  class="col-md-6">
-                            <div  class="form-group">
-                                <label  class="inputLabel">Name</label>
-                                <input  class="form-control input-sm" placeholder="" type="text" id="pool_name" required>
+
+
+
+                    <div class="form-group">
+                        <label class="inputLabel"> Select the type of Connection Pool</label>
+                        <!-- <button  class="form-control input-sm"  value="HIKARI" id="pool_type1" onclick="renderType1()">HIKARI<img src=images/menu/checks.png></button>
+                                        <button class="form-control input-sm"  value="C3P0" id="pool_type2" onclick="renderType2()">C3P0</button>
+                                        <button class="form-control input-sm"  value="DBCP" id="pool_type3" onclick="renderType3()">DBCP</button>
+                                        <button class="form-control input-sm"  value="TOMCAT" id="pool_type4" onclick="renderType4()">TOMCAT</button> -->
+                        <div class="row">
+
+                            <div class="form-check form-control input-sm col-md-2 mx-2 mt-3 group" onclick="renderType1()">
+                                <input class="form-check-input radio" type="radio" name="exampleRadios" id="pool_type1"
+                                    value="HIKARI" checked>
+                                <label class="form-check-label label" for="exampleRadios1">
+                                    Hikari CP
+                                </label>
+                            </div>
+                            <div class="form-check form-control input-sm col-md-2 mx-2 mt-3 group" onclick="renderType2()">
+                                <input class="form-check-input radio" type="radio" name="exampleRadios" id="pool_type2"
+                                    value="DBCP" checked>
+                                <label class="form-check-label label" for="exampleRadios1">
+                                    DBCP
+                                </label>
+                            </div>
+                        </div><br>
+                        <div class="row">
+                            <div class="form-check form-control input-sm col-md-2 mb-3 mx-2 group" width="200px" onclick="renderType3()">
+                                <input class="form-check-input radio" type="radio" name="exampleRadios" id="pool_type3"
+                                    value="C3P0" checked>
+                                <label class="form-check-label label" for="exampleRadios1">
+                                    C3P0
+                                </label>
+                            </div>
+
+                            <div class="form-check form-control input-sm col-md-2 mb-3 mx-2 group" onclick="renderType4()">
+                                <input class="form-check-input radio" type="radio" name="exampleRadios" id="pool_type4"
+                                    value="TOMCAT" checked>
+                                <label class="form-check-label label" for="exampleRadios1">
+                                    TOMCAT
+                                </label>
                             </div>
                         </div>
-                        <div  class="col-md-6">
-                            <div  class="form-group">
-                                <label  class="inputLabel">Type</label>
 
-                                <select class="form-control input-sm" id="pool_type" onchange="renderType()">
-                                    <option value="HIKARI">HIKARI</option>
-                                    <option value="C3P0">C3P0</option>
-                                    <option value="DBCP">DBCP</option>
-                                    <option value="TOMCAT">TOMCAT</option>
-                                </select>
-                            </div>
-                        </div>
+                       
                     </div>
-                    <div  class="row typeBody" style="background-color: #eeeeee4a">
+                    <div class="row typeBody">
+
 
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btnModal btnSubmit">Proceed</button>
-                </div>
+                    <div class="modal-footer">
+                        <!-- <button type="button" class="btn  btn-secondary btn-close" 
+                            data-dismiss="modal" style="width:110px;font-size: 14px;font-weight: 500;">Next</button>
+                        <button type="submit" class="btn btnModal  btn-proceed btnSubmit" style="font-weight:500;background-color: #2d2f79;font-size: 14px;">Save & Exit</button> -->
+
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btnModal btnSubmit">Proceed</button>
+                    </div>
             </form>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -105,7 +183,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Delete DB Table</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
                 <p>Are you sure want to delete <b><span class="templateName"></span></b> DB Table?</p>
@@ -124,12 +203,13 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Sync DB Connection Pool</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
                 <p>Are you sure want to sync <b><span class="poolName"></span></b> connection pool?</p>
 
-                <div  class="form-group">
+                <div class="form-group">
                     <div class="checkbox checkbox-css checkbox-inline">
                         <input type="checkbox" id="async" />
                         <label for="async"> Sync in background</label>
@@ -152,17 +232,25 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title poolName"></h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
                 <div class="row m-t-20">
                     <div class="col-md-12">
                         <table class="table table-bordered" style="width:100%">
                             <thead>
-                            <tr><th style="width: 30%">Table Name</th><th>Fields</th></tr>
+                                <tr>
+                                    <th style="width: 30%">Table Name</th>
+                                    <th>Fields</th>
+                                </tr>
                             </thead>
                             <tbody class="dbMetadata">
-                            <tr><td colspan="2"><p style="text-align: center">No data found!</p></td></tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <p style="text-align: center">No data found!</p>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -171,5 +259,3 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
-

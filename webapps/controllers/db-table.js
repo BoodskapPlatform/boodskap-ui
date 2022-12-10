@@ -105,7 +105,22 @@ function loadDBPool() {
         "ordering": false,
         iDisplayLength: 10,
         lengthMenu: [[10, 50, 100], [10, 50, 100]],
-        "bProcessing": true,
+        dom: '<"bskp-search-left" f> lrtip',
+        
+        language: {
+            "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
+            "searchPlaceholder": "Search by Pool Name",
+            "emptyTable":"No data available",
+
+
+            loadingRecords: '',
+            paginate: {
+                previous: '< Previous',
+                next: 'Next >'
+            }
+        },
+    aoColumns: fields,
+        // "bProcessing": true,
         "bServerSide": true,
         "sAjaxSource": API_BASE_PATH + '/elastic/search/query/' + API_TOKEN,
         "fnServerData": function (sSource, aoData, fnCallback, oSettings) {
@@ -176,7 +191,10 @@ function openModal(type, id) {
         $(".templateAction").html('Create');
 
 
-        renderType();
+        renderType1();
+        // renderType2();
+        // renderType3();
+        // renderType4();
 
 
 
@@ -204,8 +222,14 @@ function openModal(type, id) {
         $("#pool_name").attr('readonly', 'readonly');
 
         $("#pool_name").val(obj.id);
-        $("#pool_type").val(obj.type);
-        renderType();
+        $("#pool_type1").val(obj.type);
+        $("#pool_type2").val(obj.type);
+        $("#pool_type3").val(obj.type);
+        $("#pool_type4").val(obj.type);
+        // renderType1();
+        // renderType2();
+        // renderType3();
+        // renderType4();
         renderData();
         $("#addPool").modal('show');
         $("#addPool form").attr('onsubmit', 'updatePool()')
@@ -402,9 +426,195 @@ function loadDBTable() {
 }
 
 
-function renderType() {
-    var id = $("#pool_type").val();
+function renderType1() {
+    var id = $("#pool_type1").val();
+    
+    $(".typeBody").html('')
 
+    for(var i=0;i<POOL_TYPE[id].length;i++){
+        var pool = POOL_TYPE[id][i];
+        var str = '';
+
+        if(pool.type === 'string'){
+            if(pool.text) {
+                str = `
+            <div  class="col-md-4">
+                <div  class="form-group">
+                    <label  class="inputLabel">` + pool.name + ` ` + (pool.mandatory ? '<span style="color:red" class="'+pool.name+'">*</span>' : '') + `</label>
+                    <input  class="form-control input-sm" placeholder="" type="text" id="` + pool.name + `" ` + (pool.mandatory ? 'required' : '') + ` 
+                    onkeyup="checkField(this)">
+                    ` + (pool.text ? '<small>' + pool.text + '</small>' : '') + `
+                </div>
+            </div>
+            `
+            }else {
+
+                str = `
+            <div  class="col-md-4">
+                <div  class="form-group">
+                    <label  class="inputLabel">` + pool.name + ` ` + (pool.mandatory ? '<span style="color:red">*</span>' : '') + `</label>
+                    <input  class="form-control input-sm" placeholder="" type="text" id="` + pool.name + `" ` + (pool.mandatory ? 'required' : '') + `>
+                </div>
+            </div>
+            `
+            }
+        }
+        if(pool.type === 'integer'){
+            str = `
+            <div  class="col-md-4">
+                <div  class="form-group">
+                    <label  class="inputLabel">`+pool.name+`</label>
+                    <input  class="form-control input-sm" placeholder="" type="number" id="`+pool.name+`" `+(pool.mandatory ? 'required' : '')+`>
+                </div>
+            </div>
+            `
+        }
+        if(pool.type === 'boolean'){
+            str = `
+            <div  class="col-md-4">
+                <div  class="form-group">
+                    <label  class="inputLabel">`+pool.name+`</label>
+                    <select class="form-control input-sm" id="`+pool.name+`">
+                        <option value=""></option>
+                        <option value="true">true</option>
+                        <option value="false">false</option>
+                    </select>
+                </div>
+            </div>
+            `
+        }
+
+        $(".typeBody").append(str)
+
+    }
+}
+function renderType2() {
+    var id = $("#pool_type2").val();
+    
+    $(".typeBody").html('')
+
+    for(var i=0;i<POOL_TYPE[id].length;i++){
+        var pool = POOL_TYPE[id][i];
+        var str = '';
+
+        if(pool.type === 'string'){
+            if(pool.text) {
+                str = `
+            <div  class="col-md-4">
+                <div  class="form-group">
+                    <label  class="inputLabel">` + pool.name + ` ` + (pool.mandatory ? '<span style="color:red" class="'+pool.name+'">*</span>' : '') + `</label>
+                    <input  class="form-control input-sm" placeholder="" type="text" id="` + pool.name + `" ` + (pool.mandatory ? 'required' : '') + ` 
+                    onkeyup="checkField(this)">
+                    ` + (pool.text ? '<small>' + pool.text + '</small>' : '') + `
+                </div>
+            </div>
+            `
+            }else {
+
+                str = `
+            <div  class="col-md-4">
+                <div  class="form-group">
+                    <label  class="inputLabel">` + pool.name + ` ` + (pool.mandatory ? '<span style="color:red">*</span>' : '') + `</label>
+                    <input  class="form-control input-sm" placeholder="" type="text" id="` + pool.name + `" ` + (pool.mandatory ? 'required' : '') + `>
+                </div>
+            </div>
+            `
+            }
+        }
+        if(pool.type === 'integer'){
+            str = `
+            <div  class="col-md-4">
+                <div  class="form-group">
+                    <label  class="inputLabel">`+pool.name+`</label>
+                    <input  class="form-control input-sm" placeholder="" type="number" id="`+pool.name+`" `+(pool.mandatory ? 'required' : '')+`>
+                </div>
+            </div>
+            `
+        }
+        if(pool.type === 'boolean'){
+            str = `
+            <div  class="col-md-4">
+                <div  class="form-group">
+                    <label  class="inputLabel">`+pool.name+`</label>
+                    <select class="form-control input-sm" id="`+pool.name+`">
+                        <option value=""></option>
+                        <option value="true">true</option>
+                        <option value="false">false</option>
+                    </select>
+                </div>
+            </div>
+            `
+        }
+
+        $(".typeBody").append(str)
+
+    }
+}
+function renderType3() {
+    var id = $("#pool_type3").val();
+    
+    $(".typeBody").html('')
+
+    for(var i=0;i<POOL_TYPE[id].length;i++){
+        var pool = POOL_TYPE[id][i];
+        var str = '';
+
+        if(pool.type === 'string'){
+            if(pool.text) {
+                str = `
+            <div  class="col-md-4">
+                <div  class="form-group">
+                    <label  class="inputLabel">` + pool.name + ` ` + (pool.mandatory ? '<span style="color:red" class="'+pool.name+'">*</span>' : '') + `</label>
+                    <input  class="form-control input-sm" placeholder="" type="text" id="` + pool.name + `" ` + (pool.mandatory ? 'required' : '') + ` 
+                    onkeyup="checkField(this)">
+                    ` + (pool.text ? '<small>' + pool.text + '</small>' : '') + `
+                </div>
+            </div>
+            `
+            }else {
+
+                str = `
+            <div  class="col-md-4">
+                <div  class="form-group">
+                    <label  class="inputLabel">` + pool.name + ` ` + (pool.mandatory ? '<span style="color:red">*</span>' : '') + `</label>
+                    <input  class="form-control input-sm" placeholder="" type="text" id="` + pool.name + `" ` + (pool.mandatory ? 'required' : '') + `>
+                </div>
+            </div>
+            `
+            }
+        }
+        if(pool.type === 'integer'){
+            str = `
+            <div  class="col-md-4">
+                <div  class="form-group">
+                    <label  class="inputLabel">`+pool.name+`</label>
+                    <input  class="form-control input-sm" placeholder="" type="number" id="`+pool.name+`" `+(pool.mandatory ? 'required' : '')+`>
+                </div>
+            </div>
+            `
+        }
+        if(pool.type === 'boolean'){
+            str = `
+            <div  class="col-md-4">
+                <div  class="form-group">
+                    <label  class="inputLabel">`+pool.name+`</label>
+                    <select class="form-control input-sm" id="`+pool.name+`">
+                        <option value=""></option>
+                        <option value="true">true</option>
+                        <option value="false">false</option>
+                    </select>
+                </div>
+            </div>
+            `
+        }
+
+        $(".typeBody").append(str)
+
+    }
+}
+function renderType4() {
+    var id = $("#pool_type4").val();
+    
     $(".typeBody").html('')
 
     for(var i=0;i<POOL_TYPE[id].length;i++){
@@ -466,7 +676,10 @@ function renderType() {
 }
 
 function renderData() {
-    var id = $("#pool_type").val();
+    var id = $("#pool_type1").val();
+    var id = $("#pool_type2").val();
+    var id = $("#pool_type3").val();
+    var id = $("#pool_type4").val();
     var arg = id.toLowerCase()+'Args';
 
     var val = current_pool_obj[arg];
@@ -490,7 +703,10 @@ function renderData() {
 }
 
 function buildData() {
-    var id = $("#pool_type").val();
+    var id = $("#pool_type1").val();
+    var id = $("#pool_type2").val();
+    var id = $("#pool_type3").val();
+    var id = $("#pool_type4").val();
     var arg = id.toLowerCase()+'Args';
 
     var val = {};
@@ -515,7 +731,7 @@ function buildData() {
     var resultObj = {
         domainKey : DOMAIN_KEY,
         id : $("#pool_name").val(),
-        type :  $("#pool_type").val(),
+        type :  $("#pool_type1").val(),
         "c3p0Args": null,
         "dbcpArgs": null,
         "hikariArgs":null,
