@@ -95,7 +95,7 @@ function loadTemplates() {
                 },
 
             },
-        "bProcessing": true,
+        // "bProcessing": true,
         "bServerSide": true,
         "sAjaxSource": API_BASE_PATH + '/elastic/search/query/' + API_TOKEN,
         "fnServerData": function (sSource, aoData, fnCallback, oSettings) {
