@@ -6,7 +6,8 @@ $(document).ready(function () {
 
 
     loadTemplates();
-
+    $(".dataTables_filter input").attr('maxlength','100')
+   
     loadSqlQuery();
     $("body").removeClass('bg-white');
 
@@ -26,12 +27,12 @@ function loadSqlQuery() {
 
 function loadTemplates() {
 
-
+    
     if (templateTable) {
         templateTable.destroy();
         $("#templateTable").html("");
     }
-
+   
     var fields = [
         {
             mData: 'id',
@@ -98,6 +99,7 @@ function loadTemplates() {
         dom: '<"bskp-search-left" f> lrtip',
         paging: true,
         language: {
+            "emptyTable": "No data available",
             "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
             "searchPlaceholder": "Search by Name",
             loadingRecords: '',
@@ -170,7 +172,6 @@ function loadTemplates() {
         }
 
     };
-
     templateTable = $("#templateTable").DataTable(tableOption);
 
 
@@ -208,10 +209,11 @@ function openModal(type, id) {
     loadSqlQuery();
     if (type === 1) {
         $("#template_name").removeAttr('readonly');
-        $(".templateAction").html('Create');
+        $(".templateAction").html('Add');
         $("#addTemplate form")[0].reset();
         $("#addTemplate").modal('show');
         $("#addTemplate form").attr('onsubmit', 'addTemplate()')
+        $("#template_code").css('height','100px');
     }
     else if (type === 4) {
         current_template_name = id;
@@ -220,6 +222,7 @@ function openModal(type, id) {
     } else if (type === 5) {
         $("#addTemplate form")[0].reset();
         $(".templateAction").html('Update');
+        $("#template_code").css('height','100px');
         var obj = {};
         current_template_name = id;
 
@@ -259,63 +262,58 @@ function openModal(type, id) {
 function addTemplate() {
     var template_name = $.trim($("#template_name").val());
    var template_lang = $.trim($("#template_lang").val());
-    var template_code = $("#password").val();
-    
-    if(template_lang == ""){
-        errorMsgBorder('Template Name cannot be empty','template_lang');
+    var template_code = $.trim($("#template_code").val());
+    console.log(template_name  == "" + "----");
+    if(template_name === ""){
+        errorMsgBorder('Template Name cannot be empty','template_name');
         return false;
-    }
-
-    if(template_lang == ""){
-        errorMsgBorder('Template Language cannot be empty','template_lang');
-        return false;
-    }
-    
-    if(template_code == ""){
+    }else if(template_code === ""){
         errorMsgBorder('Template Code cannot be empty','template_code');
         return false;
-    }    
+    }else{
+        var tempObj = {
+            "id": template_name,
+            "type": template_lang,
+            "query":template_code,
+            domainKey: DOMAIN_KEY
+        }
+    
+    
+        var q = $("#template_code").val().toLowerCase();
+    
+        var queryType = $("#template_lang").val().toLowerCase()
+    
+        if (q.startsWith(queryType)) {
+    
+            $(".btnSubmit").attr('disabled', 'disabled');
+    
+    
+            retreiveSQLTemplate(tempObj.id, function (status, data) {
+    
+                if (status) {
+                    $(".btnSubmit").removeAttr('disabled');
+                    errorMsgBorder('Template name already exist', 'template_name');
+                } else {
+                    upsertSQLTemplate(tempObj, function (status, data) {
+                        if (status) {
+                            successMsg('Template Created Successfully');
+                            loadTemplates();
+                            $("#addTemplate").modal('hide');
+                        } else {
+                            errorMsg('Error in Creating Template')
+                        }
+                        $(".btnSubmit").removeAttr('disabled');
+                    })
+                }
+            })
+        } else {
+            errorMsg('Invalid SQL ' + $("#template_lang").val() + ' Query.')
+    
+        }
+    }  
     
 
-    var tempObj = {
-        "id": template_name,
-        "type": template_lang,
-        "query":template_code,
-        domainKey: DOMAIN_KEY
-    }
 
-
-    var q = $("#template_code").val().toLowerCase();
-
-    var queryType = $("#template_lang").val().toLowerCase()
-
-    if (q.startsWith(queryType)) {
-
-        $(".btnSubmit").attr('disabled', 'disabled');
-
-
-        retreiveSQLTemplate(tempObj.id, function (status, data) {
-
-            if (status) {
-                $(".btnSubmit").removeAttr('disabled');
-                errorMsgBorder('Template name already exist', 'template_name');
-            } else {
-                upsertSQLTemplate(tempObj, function (status, data) {
-                    if (status) {
-                        successMsg('Template Created Successfully');
-                        loadTemplates();
-                        $("#addTemplate").modal('hide');
-                    } else {
-                        errorMsg('Error in Creating Template')
-                    }
-                    $(".btnSubmit").removeAttr('disabled');
-                })
-            }
-        })
-    } else {
-        errorMsg('Invalid SQL ' + $("#template_lang").val() + ' Query.')
-
-    }
 }
 
 

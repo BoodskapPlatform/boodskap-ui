@@ -48,7 +48,7 @@
                               <form class="bskp-dash-search position-relative">
                                 <label><i class="fa fa-search" aria-hidden="true"></i> &nbsp;  
                                     <div class="d-inline-flex ">
-                                      <input type="search" class="form-control input-sm searchcard" onkeyup=""  autocomplete="off" maxlength="50" id="search_home" placeholder="Search here..." aria-controls="messageTable" required="required" title="Search">
+                                      <input type="search" class="form-control input-sm searchcard" onkeyup=""  autocomplete="off" maxlength="100" id="search_home" placeholder="Search here..." aria-controls="messageTable" required="required" title="Search">
                                       <span class="sclose d-none position-absolute" onclick="refresh()" aria-label="Close" style="right: 14px;cursor: pointer;">
                                         <img src="images/close.svg" height="15" alt=""> </span>
                                    </div>
@@ -831,19 +831,19 @@
                                        
                                             <div class="form-row justify-content-between">
                                                 <div class="form-group col-md-6 pr-md-4">
-                                                    <label for="msg_id">Message ld</label>
-                                                    <input type="number" class="form-control" id="msg_id" min='0'placeholder="Enter Message ld" autocomplete="off" required>
+                                                    <label for="msg_id">Message ld *</label>
+                                                    <input type="number" class="form-control" id="msg_id" min='1'placeholder="Enter Message ld" maxlength="50" autocomplete="off" required>
                                                     <span id="logmsg_id"></span>
                                                 </div>
                                                 <div class="form-group col-md-6 pl-md-4">
-                                                    <label for="msg_name">Message Name</label>
-                                                    <input type="text" class="form-control" id="msg_name" placeholder="Enter Message Name" autocomplete="off" required>
+                                                    <label for="msg_name">Message Name *</label>
+                                                    <input type="text" class="form-control" id="msg_name" placeholder="Enter Message Name" maxlength="100" autocomplete="off" required>
                                                     <span id="logmsg_name"></span>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="msg_desc">Description</label>
-                                                <textarea class="form-control" id="msg_desc" placeholder="Enter Message Description" autocomplete="off" required></textarea>
+                                                <label for="msg_desc">Description *</label>
+                                                <textarea class="form-control" id="msg_desc" placeholder="Enter Message Description" maxlength="1000"autocomplete="off" required></textarea>
                                                 <span id="logmsg_desc"></span>
                                             </div>
                                         
@@ -873,29 +873,29 @@
                                 </form>
                             </section>
                             <section class="right-content sec2 d-none pt-3">
-                                <form action="javascript:(0)">
+                                <form action="javascript:(0)" novalidate>
                                 <div class="row m-0">
                                     <div class="col-12">
                                         <p class="fs-25 content-head fw-900 fs-18 pt-2">Add your device(s) here</p>
                                             <div class="form-row justify-content-between">
                                                 <div class="form-group col-md-6 pr-lg-4">
                                                     <label for="inputLabel">Device ld *</label>
-                                                    <input type="text" class="form-control" id="device_id" placeholder="Enter Device ld" autocomplete="off" required>
+                                                    <input type="text" class="form-control" id="device_id" maxlength="50" placeholder="Enter Device ld" autocomplete="off" required>
                                                     <span id="logdevice_id"></span>
                                                 </div>
                                                 <div class="form-group col-md-6 pl-lg-4">
                                                     <label for="inputLabel">Device Name *</label>
-                                                    <input type="text" class="form-control" id="device_name" placeholder="Enter Device Name" autocomplete="off" required>
+                                                    <input type="text" class="form-control" id="device_name" maxlength="100" placeholder="Enter Device Name" autocomplete="off" required>
                                                     <span id="logdevice_name"></span>
                                                 </div>
                                                 <div class="form-group col-md-6 pr-lg-4">
                                                     <label for="inputLabel">Device Model *</label>
-                                                    <input type="text" class="form-control" id="device_model" placeholder="Enter Device Model" autocomplete="off" required>
+                                                    <input type="text" class="form-control" id="device_model" maxlength="50" placeholder="Enter Device Model" autocomplete="off" required>
                                                     <span id="logdevice_model"></span>
                                                 </div>
                                                 <div class="form-group col-md-6 pl-lg-4">
                                                     <label for="inputLabel">Device Version *</label>
-                                                    <input type="text" class="form-control" id="device_version" placeholder="Enter Device Version" autocomplete="off" required>
+                                                    <input type="text" class="form-control" id="device_version" maxlength="50" placeholder="Enter Device Version" autocomplete="off" required>
                                                     <span id="logdevice_version"></span>
                                                 </div>
                                             </div>

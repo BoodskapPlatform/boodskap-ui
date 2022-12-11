@@ -111,7 +111,7 @@ function executeQuery() {
 
             var startTime = new Date().getTime();
 
-            $(".loadingText").html('<i class="fa fa-spinner fa-spin"></i> processing...');
+            $(".loadingText").html('<i class="fa fa-spinner fa-spin"></i> rprocessing...');
 
             var searchQuery = {
                 "pool": $("#pool_name").val()+'.'+$("#dbName").val(),

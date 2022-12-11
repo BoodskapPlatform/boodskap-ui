@@ -91,11 +91,19 @@ font-weight:600;
     margin-bottom: 20px !important; 
 }
 @media(max-width:1355px){
-.full-md-width{
+.fullcount{
 flex: 100%;
 max-width: 100%;
+height: 20px;
+justify-content: left !important;
 }
-
+#statistics .total-count{
+    font-size: 3rem;
+}
+#statistics .logo i {
+    padding: 6px;
+    font-size: 18px;
+}
 }
 
 /* @media(min-width:725px max-width:280px){
@@ -274,7 +282,8 @@ color:rgb(225, 54, 54);
 background:#e6f0f4 !important;
 }
 #statistics .pull-left select{
-    height: 28px !important;
+    height: 30px !important;
+    width: 90px !important  ;
 }
 
 #statistics .pagination>.active>a{
