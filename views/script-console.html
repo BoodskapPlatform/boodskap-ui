@@ -4,6 +4,7 @@
 <link href="css/Aimara.css" rel=stylesheet>
 <style>
       @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+      
     .consoleBody{
         background-color:hsl(205deg 40% 94%) ;overflow: auto;overflow-x: hidden
     }
@@ -94,8 +95,12 @@
     }
     #btnEditor,#btnMax,#btnExec{
         background-color: hsl(0deg 0% 100%);
-        
+       
     }
+    #btnEditor:hover{
+      text-decoration: none;
+    }
+
     .label{
         position:relative;
         left: 28px;
@@ -107,11 +112,11 @@
         background-color: hsl(116deg 87% 39%);
     }
     .terminal-wrapper{
-        margin-top:30px;
+        margin-top:43px;
     }
-    .editorBlock{
-        background-color: hsl(208deg 50% 25%) ;
-    }
+    /*  .editorBlock{
+        /* background-color: hsl(208deg 50% 25%) ; */
+    /* }*/ 
     .ace_content{
        
        border: none;
@@ -139,10 +144,38 @@
         background-color: hsl(240deg 46% 32%) ;
         color: #ffffff;
         border-radius: 10px;
-        font-size: 14px;
-        height: 32px;
+        font-size: 13px;
+        height:26px;
         border-style: none;
-        width: 60px;
+        width: 90px;
+        position: relative;
+        bottom: 40px;
+    }
+    select {
+        border-radius: 10px;
+        border-color: rgb(211 216 222); 
+        font-weight: 400;
+        border: 1px solid rgb(211 216 222);
+        margin-top: 5px;
+        font-family:Montserrat;
+        font-size: 14px !important;
+        margin-bottom: 5px;
+    }
+    
+    .form-control{
+        border-radius: 10px;
+        border-top-right-radius:10px ;
+        font-family:Montserrat;
+        font-weight: 600;
+    }
+    small,label{
+        font-family:Montserrat;
+    }
+    .terminal-output div span {
+        font-family:Montserrat;
+    }
+    .serverStatus{
+        font-family:Montserrat;
     }
    
 
@@ -161,25 +194,25 @@
             <div class="row">
                 <div class="col-lg-12 leftSide " style="position: relative;">
 
-                    <button class="btn btn-sm btn-default hidden-xs hidden-sm" id="btnMax" style="position: absolute;right: 10px;top: 0px;z-index: 999999999;margin:10px;border-radius:10px;"
+                    <button class="btn btn-sm  hidden-xs hidden-sm" id="btnMax" style="position: absolute;right: 10px;top: 0px;z-index: 999999999;margin:10px;border-radius:10px;font-family: Montserrat;"
                          onclick="resizePanel()">
-                        <i class="icon-eye4 mt-3"></i> Show Class
+                        <i class="icon-eye4 mt-1"></i> Show Class
                     </button>
 
-                    <button class="btn btn-sm btn-default" id="btnEditor" style="position: absolute;right: 120px;top: 0px;z-index: 999999999;margin:10px;border-radius:10px;"
+                    <button class="btn btn-sm " id="btnEditor" style="position: absolute;right: 120px;top: 0px;z-index: 999999999;margin:10px;border-radius:10px;font-family: Montserrat;"
                             onclick="showEditor()">
-                        <i class="icon-eye4 mt-3"></i> Show Editor
+                        <i class="icon-eye4 mt-1"></i> Show Editor
                     </button>
 
-                    <button class="btn btn-sm btn-default hidden-lg hidden-md" id="btnExec" style="position: absolute;right: 10px;top: 0px;z-index: 999999999;margin:10px;border-radius:10px;"
+                    <button class="btn btn-sm  hidden-lg hidden-md" id="btnExec" style="position: absolute;right: 10px;top: 0px;z-index: 999999999;margin:10px;border-radius:10px;"
                          onclick="executeCommand()">
-                        <i class="icon-bolt mt-3"></i> Execute
+                        <i class="icon-bolt mt-1"></i> Execute
                     </button>
                     <div id="scriptTerminal" ></div>
                 </div>
-                <div class="editorBlock" style="background-color: hsl(208deg 50% 25%);padding-top:90px;border-radius: 10px;">
+                <div class="editorBlock" style="padding-top:90px;border-radius: 10px;margin-left:10px; margin-top: 10px;margin-right: 8px;">
 
-                    <div style="padding: 19px;position: relative;border: 2px solid  hsl(208deg 50% 25%);background-color:#ffffff;margin:25px;border-radius: 10px;">
+                    <div id="section" style="padding: 19px;position: relative;border: 2px solid  hsl(208deg 50% 25%);background-color:#ffffff;margin:25px;border-radius: 10px;">
 
                         <h5 style="color:black;border-bottom: 1px solid rgb(140, 152, 223);"><i class="icon-code2"></i> Editor </h5>
                         <div class="text-right">
@@ -201,39 +234,47 @@
 
 
                 </div>
-                <div class="rightSide" style="background-color: #f2f3f4">
+                <div class="rightSide">
 
-                    <div style="padding: 5px;">
+                    <div style="padding: 5px;background-color: hsl(0deg 0% 100%);border-radius: 10px;margin: 27px;">
 
-                    <h5>Groovy Class & JAR</h5>
+                    <h5 style="font-size: 14px;font-family:Montserrat;">Groovy Class & JAR</h5>
 
                         <button class="btn btn-block btn-sm"
-                                style="margin: 5px 0px;background-color: #404040;color:#fff"
-                                onclick="openModalClasses()">
-                            <i class="fa fa-cloud-upload"></i> Import Class/JAR
+                                style="margin: 5px 0px;background-color:hsl(238deg 46% 33%);border-radius:10px; padding:5px; color:#fff;font-family:Montserrat;font-weight: 400;"onclick="openModalClasses()">
+                            <img class="mb-1 mr-1" src="images/menu/upload.png" alt=""> Import Class/JAR
                         </button>
 
                     <form action="javascript:void(0)" onsubmit="loadCodeType()" style="width: 100%">
+                        <div class="text-right">
+                            <select id="codeType" style="margin-left: 70px;" onchange="loadCodeType()">
+                                <option value="CLASS">Groovy Class</option>
+                                <option value="JAR">JAR</option>
+                            </select> <br>
 
-                        <select id="codeType" style="margin-right: 10px;" onchange="loadCodeType()">
-                            <option value="CLASS">Groovy Class</option>
-                            <option value="JAR">JAR</option>
-                        </select>
+                        </div>
 
-                        <label style="margin-right: 10px;"><input type="radio" name="fileType" value="PUBLIC_GROOVY" onclick="loadCodeType()"> Public</label>
-                        <label><input type="radio" name="fileType" value="GROOVY" checked onclick="loadCodeType()"> Private</label>
+                        
+ 
+
+                       <div>
+                        <label style="margin-right: 10px;margin-top:px;"><input class="radio" type="radio" name="fileType" value="PUBLIC_GROOVY" onclick="loadCodeType()"> Public</label>
+                        <label><input type="radio" name="fileType" value="GROOVY" checked onclick="loadCodeType()"> Private</label> 
+                       </div>
+
+                       
 
                         <div class="input-group mb-3">
-                            <input type="text" id="searchText" autocomplete="off" class="form-control"
+                            <input style="border-radius: 10px;" type="text" id="searchText" autocomplete="off" class="form-control"
                                    placeholder="Search Package,Class,Method Name">
-                            <div class="input-group-prepend">
-                                <button class="btn btn-secondary" type="submit"><i class="icon-search"></i>
+                             <!-- <div class="input-group-prepend">
+                                <button style="border-radius:10px;" class="btn btn-secondary" type="submit"><i class="icon-search"></i>
                                 </button>
-                            </div>
+                            </div> -->
                         </div>
                     </form>
 
-                    <div class="classFolder" sty    le=""></div>
+                    <div class="classFolder" style=""></div>
                     </div>
 
                 </div>
@@ -259,21 +300,22 @@
 <script src="controllers/script-console.js" type="text/javascript"></script>
 
 
-<div id="addClass" class="modal fade" tabindex="-1" role="dialog">
+<div id="addClass" class=" bskp-modal  modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
+            <div class="modal-header">
+                <h4 style="font-size:18px ;font-weight:600;font-family:Montserrat;" class="modal-title">Import Class/JAR</h4>
+                <button type="button" class="close" data-dismiss="modal"   aria-label="Close"> <i class="fa fa-times" aria-hidden="true"></i> ><span
+                        >&times;</span></button>
+            </div>
             <form action="javascript:void(0)" onsubmit="uploadClassFile()">
-                <div class="modal-header">
-                    <h4 class="modal-title">Import Class/JAR</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">&times;</span></button>
-                </div>
+               
                 <div class="modal-body">
 
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="inputLabel">Select Type</label>
+                                <label style="font-size:16px;" class="inputLabel">Select Type</label>
                                 <select class="form-control input-sm" id="class_type" required
                                         onchange="loadClassTemplate(this.value)">
                                     <option value=""></option>
@@ -300,8 +342,8 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btnModal">Save changes</button>
+                    <button type="button" class="btn btn-secondary btn-close" data-dismiss="modal">Close</button>
+                    <button type="submit" class=" btn-secondary btn-proceed btnSubmit btnModal">Save changes</button>
                 </div>
             </form>
         </div><!-- /.modal-content -->

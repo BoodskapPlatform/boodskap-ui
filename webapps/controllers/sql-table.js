@@ -201,7 +201,22 @@ function loadSQLTable() {
         "ordering": false,
         iDisplayLength: 10,
         lengthMenu: [[10, 50, 100], [10, 50, 100]],
-        "bProcessing": true,
+        dom: '<"bskp-search-left" f> lrtip',
+        
+        language: {
+            "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
+            "searchPlaceholder": "Search by Table Name",
+            "emptyTable":"No data available",
+
+
+            loadingRecords: '',
+            paginate: {
+                previous: '< Previous',
+                next: 'Next >'
+            }
+        },
+    aoColumns: fields,
+        // "bProcessing": true,
         "bServerSide": true,
         "sAjaxSource": API_BASE_PATH + '/elastic/search/query/' + API_TOKEN,
         "fnServerData": function (sSource, aoData, fnCallback, oSettings) {
@@ -391,8 +406,8 @@ function addTableField() {
         </div>
     </td>
     <td style="text-align: center;vertical-align: middle;" class="addMsg">`+
-        (id > 0 ? '<img src="images/add1.png" onclick="addTableField()" style="cursor: pointer" />' : '') +
-        (id > 1 ? '<img src="images/delete.png" style="margin-left:5px;cursor: pointer" onclick="deleteMessageField(' + id + ')"/>' : '')
+        (id > 0 ? '<img src="images/menu/plus1.svg" class="add" onclick="addTableField()" style="cursor: pointer" />' : '') +
+        (id > 1 ? '<img src="images/menu/minus1.svg" class="minus" style="margin-left:5px;cursor: pointer;" onclick="deleteMessageField(' + id + ')"/>' : '')
         + ` </td>
   </tr>`;
 

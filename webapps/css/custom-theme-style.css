@@ -547,8 +547,8 @@ color: #1a1a1a !important;
 }
 
 .bskp-modal input,
-textarea,
-select {
+.bskp-modal textarea,
+.bskp-modal select {
     border-radius: 10px !important;
     font-size: 14px !important;
     color: #2a2a2a;
@@ -1078,13 +1078,14 @@ margin-bottom: 10px  !important;
 color: white;
 background: #2D2F79;
 }
-button:hover {
+/* button:hover {
     opacity: .9;
     cursor: pointer;
-    border: none;
-}
+    border: none; 
+}*/
 input[type=file]{
     font-size: 12px !important;
+   
 }
 
 .spinner-block{
