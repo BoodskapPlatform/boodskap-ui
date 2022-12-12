@@ -274,6 +274,7 @@
 
 #getstartedmodal td {
     padding: 10px 0px;
+    vertical-align: top;
 }
 
 #getstartedmodal th {

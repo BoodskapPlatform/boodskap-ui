@@ -35,7 +35,7 @@
               <div class="col-12">
                 <div class="btn-group btn-group-justified pull-right bskp-btn-group-align" >
                 <a class="btn bskp-btn-shadow bskp-blue-bg" onclick="openModal(1)"><img src="images/plus.svg" class="bskp-plusvg"> <span class="hidden-xs">Add New Asset</span></a>
-                <a class="btn bskp-refresh-bg" data-click="panel-reload" onclick="loadAssetList()"><i class="fa fa-refresh"></i></a>
+                <a class="btn bskp-refresh-bg" data-click="panel-reload" title="Refresh" onclick="loadAssetList()"><i class="fa fa-refresh"></i></a>
                 </div>
 
                 <div class="bskp-table-layout">
@@ -64,28 +64,31 @@
                 <h4 class="modal-title"><span class="templateAction"></span> Asset</h4>
                 <button type="button" class="close" data-dismiss="modal"   aria-label="Close"> <i class="fa fa-times" aria-hidden="true"></i> </button>
             </div>
-            <form action="javascript:void(0)">
+            <form action="javascript:void(0)" novalidate>
                 <div class="modal-body">
                     <div  class="row">
                         <div  class="col-md-6">
                             <div  class="form-group">
-                                <label  class="inputLabel">Asset Id</label>
-                                <input  class="form-control input-sm" maxlength="50" placeholder="Enter Asset ld" autocomplete="off"  maxlength="50" type="text" id="asset_id" required>
+                                <label  class="inputLabel">Asset Id *</label>
+                                <input  class="form-control input-sm" maxlength="50" placeholder="Enter Asset ld" autocomplete="off" min="1" maxlength="50" type="text" id="asset_id" required>
+                                 <span id="logasset_id"></span>
                             </div>
                         </div>
                         <div  class="col-md-6">
                             <div  class="form-group">
-                                <label  class="inputLabel">Asset Name</label>
-                                <input  class="form-control input-sm" maxlength="50" placeholder="Enter Asset Name" autocomplete="off"  maxlength="50" type="text" id="asset_name" required>
+                                <label  class="inputLabel">Asset Name *</label>
+                                <input  class="form-control input-sm" maxlength="100" placeholder="Enter Asset Name" autocomplete="off"  maxlength="50" type="text" id="asset_name" required>
+                                <span id="logasset_name"></span>
                             </div>
                         </div>
                     </div>
                     <div  class="row">
                         <div  class="col-md-12">
                             <div  class="form-group">
-                                <label  class="inputLabel">Description</label>
-                                <textarea class="form-control input-sm"maxlength="500"  placeholder="Enter Description" autocomplete="off" id="asset_desc" required ></textarea>
+                                <label  class="inputLabel">Description *</label>
+                                <textarea class="form-control input-sm"maxlength="1000"  placeholder="Enter Description" autocomplete="off" id="asset_desc" required ></textarea>
                                 </select>
+                                <span id="logasset_desc"></span>
                             </div>
                         </div>
                     </div>

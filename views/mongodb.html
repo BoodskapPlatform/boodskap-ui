@@ -42,7 +42,7 @@
             <div class="col-12">
                 <div class="btn-group btn-group-justified pull-right bskp-btn-group-align">
                     <a class="btn bskp-btn-shadow bskp-blue-bg" onclick="openModal(1)"><img src="images/plus.svg" class="bskp-plusvg pr-2"><span class="hidden-xs">Add DB Connection</span></a>
-                    <a class="btn bskp-refresh-bg" title="refresh" data-click="panel-reload" onclick="loadDBPool()"><i class="fa fa-refresh"></i></a>
+                    <a class="btn bskp-refresh-bg" title="Refresh" data-click="panel-reload" onclick="loadDBPool()"><i class="fa fa-refresh"></i></a>
                  </div>
     
                 <div class="bskp-table-layout">
@@ -83,7 +83,7 @@
                         <div  class="col-md-6">
                             <div  class="form-group">
                                 <label  class="inputLabel">Name *</label>
-                                <input  class="form-control input-sm" maxlength="50" placeholder="Enter Name" autocomplete="off" type="text" id="conn_name" required>
+                                <input  class="form-control input-sm" maxlength="100" placeholder="Enter Name" autocomplete="off" type="text" id="conn_name" required>
                                 <span id="logconn_name"></span>
                             </div>
                         </div>
@@ -97,14 +97,14 @@
                         <div  class="col-md-6">
                             <div  class="form-group">
                                 <label  class="inputLabel">Database Name *</label>
-                                <input  class="form-control input-sm"  maxlength="50" placeholder="Enter Database Name" autocomplete="off" type="text" id="db_name" required>
+                                <input  class="form-control input-sm"  maxlength="100" placeholder="Enter Database Name" autocomplete="off" type="text" id="db_name" required>
                                 <span id="logdb_name"></span>
                             </div>
                         </div>
                         <div  class="col-md-6">
                             <div  class="form-group">
                                 <label  class="inputLabel">Use Sessions</label>
-                                <select  class="form-control input-sm"  maxlength="50" placeholder="Enter Use Sessions" autocomplete="off" id="useSession">
+                                <select  class="form-control input-sm" autocomplete="off" id="useSession">
                                     <option value="0">False</option>
                                     <option value="1">True</option>
                                 </select>

@@ -329,7 +329,7 @@ color: #1a1a1a !important;
 .bskp-align-icon {
     align-items: center;
     margin: 15px 30px 0px 0px;
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .bskp-btn-group-align {
@@ -445,7 +445,7 @@ color: #1a1a1a !important;
     height: 26px !important;
     border-radius: 6px !important;
     padding: 3px;
-    width: 50px !important;
+    width: 65px !important;
 }
 
 .bskp-table-layout {
@@ -1085,6 +1085,7 @@ background: #2D2F79;
 }*/
 input[type=file]{
     font-size: 12px !important;
+   
 }
 
 .spinner-block{

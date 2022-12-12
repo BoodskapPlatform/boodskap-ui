@@ -96,6 +96,7 @@ function loadEvents() {
         searching: true,
         dom: '<"bskp-search-left" f> lrtip',
         language: {
+            "emptyTable": "No data available",
             "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
             "searchPlaceholder": "Search here...",
             loadingRecords: '',
@@ -262,7 +263,8 @@ function formatRow(d) {
 function openModal(type, id, channel) {
     if (type === 1) {
         $("#event_id").removeAttr('readonly');
-        $(".eventAction").html('Create');
+        $("#event_content").css('height','100px')
+        $(".eventAction").html('New');
         $("#addEvent form")[0].reset();
         $("#addEvent").modal({
             backdrop: 'static',
@@ -277,6 +279,7 @@ function openModal(type, id, channel) {
         $("#addEvent form").attr('onsubmit', 'addEvent()')
     } else if (type === 2) {
         $(".eventAction").html('Update');
+        $("#event_content").css('height','100px')
         var obj = {};
         current_event_id = id;
 
@@ -400,12 +403,29 @@ function removeChannel() {
 }
 
 function addEvent() {
-
+    var event_id = $.trim($("#event_id").val());
+    var event_name=$.trim($("#event_name").val());
+    var event_subject= $.trim($("#event_subject").val());
+    var event_content= $.trim($("#event_content").val());
+    
+    if(event_id == ""){
+        errorMsgBorder('Event ID cannot be empty','event_id');
+        return false;
+    }else if(event_name == ""){
+        errorMsgBorder('Event Name cannot be empty','event_name');
+        return false;
+    }else if(event_subject == ""){
+        errorMsgBorder('Event Subject cannot be empty','event_subject');
+        return false;
+    } else if(event_content == ""){
+        errorMsgBorder('Content cannot be empty','event_content');
+        return false;
+    }
     var eventObj = {
-        "id": $("#event_id").val(),
-        "name": $("#event_name").val(),
-        "subject": $("#event_subject").val(),
-        "content": $("#event_content").val(),
+        "id":event_id,
+        "name": event_name,
+        "subject": event_subject,
+        "content": event_content,
     }
 
     $(".btnSubmit").attr('disabled','disabled');

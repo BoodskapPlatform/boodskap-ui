@@ -1,3 +1,4 @@
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
 <style>
     #page-container {
@@ -123,6 +124,9 @@
         color: #ffffff;
         list-style: none;
     }
+    ol li{
+        font-size: 12px;
+    }
 </style>
 <div class="row-fluid">
     <ul class="nav bskp-submenu2">
@@ -159,7 +163,7 @@
                 class="bskp-topic-icon mr-1  firmwareicon">
             <span class="page-header" style="margin-left:0px;font-size:20px ;font-weight: 600;">Manage Firmware</span>
 
-            <span class="panel-title ml-3 " style="color: #2d2f79;">Total Devices:<span
+            <span class="panel-title ml-3 " style="color: #2d2f79;">Total Devices : <span
                     class="firmwareCount"></span></span>
 
         </div>
@@ -192,7 +196,7 @@
                                                 class="hidden-xs">Upload Firmware</span>
                                     </a>
                                 
-                                    <a class="btn bskp-refresh-bg  refreshbutton" data-toggle="tooltip" data-placement="bottom" title="Refresh" data-click="panel-reload" 
+                                    <a class="btn bskp-refresh-bg  refreshbutton"  title="Refresh" data-click="panel-reload" 
                                         onclick="loadFirmwareList()"><i class="fa fa-refresh"></i></a>
                                     
                             </div>
@@ -228,7 +232,7 @@
             <div class="modal-header">
                 <h4 class="modal-title"><span class="templateAction"></span> Firmware</h4>
                 <button type="button" class="close " data-dismiss="modal" aria-label="Close">
-                    <image src="images/menu/closeicon.svg" onclick="onclosebutton()" class="bg-secondary"
+                    <image src="images/menu/xicon.svg" onclick="onclosebutton()" class="bg-secondary"
                         style="border-radius: 13px;padding:3px"> <span aria-hidden="true">&times;</span>
                 </button>
             </div>

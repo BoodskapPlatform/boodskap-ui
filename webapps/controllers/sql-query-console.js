@@ -57,7 +57,7 @@ function loadqueryEditor() {
     queryEditor.focus();
 
 
-    $('#queryEditor').height(($(window).height() - 280) + 'px');
+    $('#queryEditor').height(($(window).height() - 250) + 'px');
     $('.sqlTable').height(($(window).height() - 250) + 'px');
 
     queryEditor.resize();
@@ -250,6 +250,17 @@ function loadSQLTable() {
         aoColumns: fields,
         "dom": '<"top"f>rt<"bottom"p><"clear">',
         searching: true,
+        dom: '<"bskp-search-left" f> rtip',
+        language: {
+            "emptyTable": "No data available",
+            "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
+            "searchPlaceholder": "Search here...",
+            loadingRecords: '',
+            paginate: {
+                previous: '< Prev',
+                next: 'Next >'
+            }
+        },
         // aaSorting: sortOrder,
         "ordering": false,
         iDisplayLength: 5,

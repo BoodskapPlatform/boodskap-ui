@@ -86,8 +86,8 @@ function loadTemplates() {
         dom: '<"bskp-search-left" f> lrtip',
             language: {
                 "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
-             "searchPlaceholder": "Search here...",
-            //  "emptyTable":"No data available",
+             "searchPlaceholder": "Search by Template Name",
+              "emptyTable":"No data available",
                 loadingRecords: '',
                 paginate: {
                     previous: '< Prev',
@@ -95,7 +95,7 @@ function loadTemplates() {
                 },
 
             },
-        "bProcessing": true,
+        // "bProcessing": true,
         "bServerSide": true,
         "sAjaxSource": API_BASE_PATH + '/elastic/search/query/' + API_TOKEN,
         "fnServerData": function (sSource, aoData, fnCallback, oSettings) {

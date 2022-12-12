@@ -50,7 +50,8 @@
             <li class="breadcrumb-item active">Manage message</li>
            <div class="ml-4">
             <a href="javascript:;" class="btn btn-sm btn-icon btn-circle  bskp-icon-bg" data-click="panel-expand"><i class="fa fa-expand"></i></a>
-           </div>
+            <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg" title="Help"><i class="icon-help"></i></a>  
+        </div>
         </ol>
     </div>
     <!-- end breadcrumb -->
@@ -61,14 +62,14 @@
     <!-- end page-header -->
 
        
-        <div class="panel-body" style="background-color: #eeeeee00;">
+        <div class="panel-body" style="background-color: #eeeeee00;top: 0px !important;">
             <div class="row m-0">
                 <div class="col-12">
                 <div class="btn-group btn-group-justified pull-right bskp-btn-group-align" >
                     <a class="btn bskp-btn-shadow bskp-blue-bg" onclick="openModal()"><img src="images/plus.svg" class="bskp-plusvg"> <span class="hidden-xs">&nbsp;Define Message</span></a>
                     <a class="btn bskp-radius-btn" id="exportMsg"><img src="images/download.svg" alt=""> </a>
                     <a class="btn bskp-radius-btn" id="importMsg" onclick="importMsg()"><img src="images/upload.svg" alt=""> </a>
-                    <a class="btn bskp-refresh-bg" data-click="panel-reload" onclick="loadMessageDef()" ><i class="fa fa-refresh"></i></a>
+                    <a class="btn bskp-refresh-bg" title="Refresh" data-click="panel-reload" onclick="loadMessageDef()" ><i class="fa fa-refresh"></i></a>
                 </div>
 
                 <div class="bskp-table-layout">
@@ -107,28 +108,30 @@
                 <h4 class="modal-title">Define Message</h4>
                 <button type="button" class="close" data-dismiss="modal"   aria-label="Close"> <i class="fa fa-times" aria-hidden="true"></i> </button>
             </div>
-            <form action="javascript:void(0)" onsubmit="addMessageRule();">
+            <form action="javascript:void(0)" novalidate onsubmit="addMessageRule();">
                 <div class="modal-body">
                     <div  class="row">
                         <div  class="col-md-6 msg_id">
                             <div  class="form-group">
-                                <label  class="inputLabel">Message Id</label>
-                                <input  class="form-control input-sm" maxlength="50" min="0" placeholder="Enter Message ld" autocomplete="off" type="number" id="msg_id"  required>
-                                <!--<small>ID Range from <b><span class="idRange"></span></b></small>-->
+                                <label  class="inputLabel">Message Id *</label>
+                                <input  class="form-control input-sm" maxlength="50" min="1" placeholder="Enter Message ld" autocomplete="off" type="number" id="msg_id"  required>
+                                <span id="logmsg_id"></span>
                             </div>
                         </div>
                         <div  class="col-md-6 msg_name">
                             <div  class="form-group">
-                                <label  class="inputLabel">Message Name</label>
-                                <input  class="form-control input-sm"  maxlength="50" placeholder="Enter Message Name" autocomplete="off" type="text" id="msg_name" required>
+                                <label  class="inputLabel">Message Name *</label>
+                                <input  class="form-control input-sm"  maxlength="100" placeholder="Enter Message Name" autocomplete="off" type="text" id="msg_name" required>
+                                <span id="logmsg_name"></span>
                             </div>
                         </div>
                     </div>
                     <div  class="row">
                         <div  class="col-md-12 msg_desc">
                             <div  class="form-group">
-                                <label  class="inputLabel">Description</label>
-                                <textarea  class="form-control input-sm" maxlength="500" placeholder="Enter Message Description" autocomplete="off" type="text"  id="msg_desc" required></textarea>
+                                <label  class="inputLabel">Description *</label>
+                                <textarea  class="form-control input-sm" maxlength="1000" placeholder="Enter Message Description" autocomplete="off" type="text"  id="msg_desc" required></textarea>
+                                <span id="logmsg_desc"></span>
                             </div>
                         </div>
                     </div>

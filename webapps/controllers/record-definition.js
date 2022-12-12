@@ -4,7 +4,7 @@ var MSG_FIELD_COUNT = 0;
 var message_list = [];
 var message_obj = {};
 var jsEditor = null;
-
+var TEMP_MSG_FIELD_COUNT = 0;
 
 
 $(document).ready(function () {
@@ -157,7 +157,7 @@ function searchQueryFormatter(data) {
 function openModal() {
     $(".modal-title").html("Define Record")
     MSG_FIELD_COUNT = 0;
-
+    TEMP_MSG_FIELD_COUNT=0;
     message_obj = {};
 
     $("#addMessageRule form")[0].reset();
@@ -179,7 +179,7 @@ function openModal() {
 function openEditModal(id) {
     $(".modal-title").html("Edit Record")
     MSG_FIELD_COUNT = 0;
-
+ TEMP_MSG_FIELD_COUNT=0;
     for(var i=0;i<message_list.length;i++){
         if(id === message_list[i].id){
             message_obj = message_list[i];
@@ -209,8 +209,10 @@ function openEditModal(id) {
 
 function deleteMessageField(id) {
     $("#msg_field_row_" + id).remove();
-    MSG_FIELD_COUNT--;
-    MSG_FIELD_COUNT === 1 ? $(".minus").addClass('minus-none'):''
+    // MSG_FIELD_COUNT--;
+    TEMP_MSG_FIELD_COUNT--;
+    console.log(TEMP_MSG_FIELD_COUNT);
+    TEMP_MSG_FIELD_COUNT === 1 ? $(".minus").addClass('minus-none'):''  ;
 }
 
 
@@ -235,13 +237,13 @@ function addMessageField() {
 
     var id = MSG_FIELD_COUNT;
 
-    var str = `<tr id="msg_field_row_` + id + `">
+    var str = `<tr class="fieldrow" id="msg_field_row_` + id + `">
     <td>
-        <input class="form-control input-sm" placeholder="Field Name" autocomplete="off" type="text" onkeyup="onlyAlphaNumericUs(this)" maxlength="50" onkeydown="onlyAlphaNumericUs(this)"  id="msg_field_` + id + `" required>
+        <input class="form-control input-sm mesg-field" placeholder="Field Name" autocomplete="off" type="text" onkeyup="onlyAlphaNumericUs(this)" maxlength="100" onkeydown="onlyAlphaNumericUs(this)"  id="msg_field_` + id + `" required>
         <span id="logmsg_field_`+id+`"></span>
     </td>
     <td>
-    <select class="form-control input-sm" required id="msg_datatype_` + id + `">
+    <select class="form-control  mesg-type input-sm" required id="msg_datatype_` + id + `">
       <option value="" >Choose Data Type</option>
       <option value="INTEGER" >INTEGER</option>
       <option value="FLOAT" >FLOAT</option>
@@ -264,20 +266,17 @@ function addMessageField() {
     </select>
     <span id="logmsg_datatype_`+id+`"></span>
     </td>
-    <td style="text-align: center;vertical-align: middle"> <i class="fa fa-plus add" onclick="addMessageField()" style="cursor: pointer" aria-hidden="true"></i>` +
+    <td style="text-align: center;"> <i class="fa fa-plus add" onclick="addMessageField()" style="cursor: pointer" aria-hidden="true"></i>` +
         (id > 0 ? '<i class="fa fa-minus minus" style="margin-left:5px;cursor: pointer" onclick="deleteMessageField(' + id + ')" aria-hidden="true"></i>' : '<i class="fa fa-minus minus minus-none" style="margin-left:5px;cursor: pointer" onclick="deleteMessageField(' + id + ')" aria-hidden="true"></i>')
         + ` </td>
   </tr>`;
   id > 0 ? $(".minus").removeClass('minus-none'):'';
     $(".msgFieldBody").append(str);
     MSG_FIELD_COUNT++;
+    TEMP_MSG_FIELD_COUNT ++;
 }
 
 function addMessageRule() {
-
-    var flag = false;
-
-    var fields = [];
 
     var msg_id = $.trim($("#msg_id").val())
     var msg_name=$.trim($("#msg_name").val())
@@ -286,75 +285,76 @@ function addMessageRule() {
     if(msg_id == ""){
         errorMsgBorder('Record ID cannot be empty','msg_id');
         return false;
-    }
-    if(msg_name == ""){
+    }else if(msg_name == ""){
         errorMsgBorder('Record Name cannot be empty','msg_name');
         return false;
-    }
-    if(msg_desc == ""){
+    }else if(msg_desc == ""){
         errorMsgBorder('Description cannot be empty','msg_desc');
         return false;
-    }
-    for (var i = 0; i < MSG_FIELD_COUNT; i++) {
-        if($("#msg_field_" + i).val() == ""){
-            errorMsgBorder('Field Name cannot be empty','msg_field_'+i);
-            return false;
-        }else if($("#msg_datatype_" + i).val() == ""){
-            errorMsgBorder('Data Type cannot be empty','msg_datatype_'+i);
-            return false;
-        }
-    }
-    for (var i = 0; i < MSG_FIELD_COUNT; i++) {
-        var json = {
-            "dataType": $("#msg_datatype_" + i).val(),
-            "format": "AS_IS",
-            "label": "",
-            "description": "",
-            "name": $("#msg_field_" + i).val()
-        }
-        // if($("#msg_datatype_" + i).val() === 'GEO_SHAPE'){
-        //     json['shape'] = {
-        //         "tree": $("#msg_datatype_" + i+"_tree").val(),
-        //         "precision": $("#msg_datatype_" + i+"_precision").val(),
-        //         "distance_error_pct": Number($("#msg_datatype_" + i+"_distance").val()),
-        //         "strategy": $("#msg_datatype_" + i+"_strategy").val(),
-        //         "orientation": $("#msg_datatype_" + i+"_orientation").val()
-        //     }
-        // }
-        fields.push(json);
-    }
-
-
-    for (var i = 0; i < fields.length; i++) {
-
-        if (RESERVED_FIELDS.indexOf(fields[i].name) !== -1) {
-            errorMsgBorder('Reserved Fields cannot be used as a field name', 'msg_field_' + i);
-            return false;
-        }
-
-        if (DATABASE_KEYWORDS.indexOf(fields[i].name) !== -1) {
-            errorMsgBorder('Database keywords cannot be used as a field name', 'msg_field_' + i);
-            return false;
-        }
-
-        if (fields[i].dataType.includes('BLOB')) {
-            fields[i].format = fields[i].dataType.split(":")[1];
-            fields[i].dataType = 'BLOB';
-        }
+    }else{
+        var fields = []; 
+            var check = false;
+           
+            $.each($('.fieldrow'),function () {
+                console.log($(this).find('.mesg-field').val());
+                if($(this).find('.mesg-field').val() === ""){ 
+                    errorMsgBorder('Field Name is required', $(this).find('.mesg-field').attr('id'));
+                    console.log("error"+" "+$(this).find('.mesg-field').attr('id'));
+                    check = false;
+                    return false;
+                }else if($(this).find('.mesg-type').val() === ""){ 
+                        errorMsgBorder('Field Name is required', $(this).find('.mesg-type').attr('id'));
+                        console.log("error"+" "+$(this).find('.mesg-type').attr('id'));
+                        check = false;
+                        return false;
+                    }
+                    else{
+                        var json = {
+                            "dataType":$(this).find('.mesg-type').val(),
+                            "format": "AS_IS",
+                            "label": "",
+                            "description": "",
+                            "name": $(this).find('.mesg-field').val()
+                        }
+                        fields.push(json);
+                        console.log("True else");
+                        check = true;
+                        return true;
+                    }
+                       })
     }
 
+    // for (var i = 0; i < fields.length; i++) {
+
+    //     if (RESERVED_FIELDS.indexOf(fields[i].name) !== -1) {
+    //         errorMsgBorder('Reserved Fields cannot be used as a field name', 'msg_field_' + i);
+    //         return false;
+    //     }
+
+    //     if (DATABASE_KEYWORDS.indexOf(fields[i].name) !== -1) {
+    //         errorMsgBorder('Database keywords cannot be used as a field name', 'msg_field_' + i);
+    //         return false;
+    //     }
+
+    //     if (fields[i].dataType.includes('BLOB')) {
+    //         fields[i].format = fields[i].dataType.split(":")[1];
+    //         fields[i].dataType = 'BLOB';
+    //     }
+    // }
+
+if(check){
     if(message_obj && message_obj.fields && message_obj.fields.length > 0){
         fields = _.union(message_obj.fields,fields);
     }
 
 
     var msgObj = {
-        "id": Number($("#msg_id").val()),
-        "name": $("#msg_name").val(),
-        "label":  $("#msg_name").val(),
-        "description":  $("#msg_desc").val(),
+        "id": Number(msg_id),
+        "name": msg_name,
+        "label": msg_name,
+        "description":msg_desc,
         "fields": fields
-    }
+    };
 
     $(".btnSubmit").attr('disabled','disabled');
 
@@ -390,6 +390,7 @@ function addMessageRule() {
             }
         })
     }
+}
 
 
 
