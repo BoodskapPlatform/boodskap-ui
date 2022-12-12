@@ -506,7 +506,7 @@ function loadCodeType() {
                 loadJarTreeMenu(dataList);
             }
         } else {
-            $(".classFolder").html('<p><small>No Data Found!</small></p>');
+            $(".classFolder").html('<p><small>No Data Available!</small></p>');
         }
 
 
