@@ -321,7 +321,8 @@ function openModal(type, id) {
         $(".templateAction").html('Upload')
         $("#addFirmware form")[0].reset();
         $("#f_device_model").val($("#deviceModel").val());
-        $("#addFirmware").modal('show');
+        // $("#addFirmware").modal('show');
+        $('#addFirmware').modal({backdrop: 'static', keyboard: false})  
     } else if (type === 2) {
         $(".templateAction").html('Upload to')
         loadDeviceList();
