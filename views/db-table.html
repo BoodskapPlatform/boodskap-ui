@@ -1,10 +1,5 @@
 <style>
-    .tooltip-inner {
-        background-color: rgb(237 241 247);
-        color: black;
-        margin-top: 3px;
-        margin-bottom: 3px;
-    }
+    
     .group{
         border-radius: 10px;
         border: 1px solid #cbd1d8;
@@ -19,6 +14,15 @@
         left: 14px;
         top:1px;
     }
+    .connectionbtn{
+        display: inline-flex;
+
+    }
+    .checkimg{
+       
+        display: none;
+    }
+    
 </style>
 <!--<div class="row-fluid">
     <ul class="nav submenu" style="">
@@ -70,8 +74,7 @@
                             <image src="images/menu/plusicon.svg" style="position: relative;bottom:1px"> <span
                                     class="hidden-xs">Add DB Connection</span>
                         </a>
-                        <a class="btn bskp-refresh-bg  refreshbutton" onclick="loadDBPool()" data-toggle="tooltip"
-                            data-placement="bottom" title="Refresh" data-click="panel-reload"
+                        <a class="btn bskp-refresh-bg  refreshbutton" onclick="loadDBPool()"  title="Refresh" data-click="panel-reload"
                             onclick="loadSQLTable()"><i class="fa fa-refresh "></i></a>
 
                     </div>
@@ -126,34 +129,48 @@
 
                             <div class="form-check form-control input-sm col-md-2 mx-2 mt-3 group" onclick="renderType1()">
                                 <input class="form-check-input radio" type="radio" name="exampleRadios" id="pool_type1"
-                                    value="HIKARI" checked>
+                                    value="HIKARI" >
+                                    <span class="connectionbtn">
                                 <label class="form-check-label label" for="exampleRadios1">
                                     Hikari CP
                                 </label>
+                                <img src="images/menu/checks.png"class="checkimg" id="checkimg1">
+                            </span>
                             </div>
                             <div class="form-check form-control input-sm col-md-2 mx-2 mt-3 group" onclick="renderType2()">
                                 <input class="form-check-input radio" type="radio" name="exampleRadios" id="pool_type2"
-                                    value="DBCP" checked>
+                                    value="DBCP" >
+                                    <span class="connectionbtn">
+
                                 <label class="form-check-label label" for="exampleRadios1">
                                     DBCP
                                 </label>
+                                <img src="images/menu/checks.png"class="checkimg" id="checkimg2">
+                            </span>
                             </div>
                         </div><br>
                         <div class="row">
                             <div class="form-check form-control input-sm col-md-2 mb-3 mx-2 group" width="200px" onclick="renderType3()">
                                 <input class="form-check-input radio" type="radio" name="exampleRadios" id="pool_type3"
-                                    value="C3P0" checked>
+                                    value="C3P0" >
+                                    <span class="connectionbtn">
                                 <label class="form-check-label label" for="exampleRadios1">
                                     C3P0
                                 </label>
+                                <img src="images/menu/checks.png"class="checkimg" id="checkimg3">
+                            </span>
                             </div>
 
                             <div class="form-check form-control input-sm col-md-2 mb-3 mx-2 group" onclick="renderType4()">
                                 <input class="form-check-input radio" type="radio" name="exampleRadios" id="pool_type4"
-                                    value="TOMCAT" checked>
+                                    value="TOMCAT" >
+                                    <span class="connectionbtn">
+
                                 <label class="form-check-label label" for="exampleRadios1">
                                     TOMCAT
                                 </label>
+                                <img src="images/menu/checks.png" class="checkimg" id="checkimg4">
+                                </span>
                             </div>
                         </div>
 
@@ -164,12 +181,12 @@
 
                     </div>
                     <div class="modal-footer">
-                        <!-- <button type="button" class="btn  btn-secondary btn-close" 
-                            data-dismiss="modal" style="width:110px;font-size: 14px;font-weight: 500;">Next</button>
-                        <button type="submit" class="btn btnModal  btn-proceed btnSubmit" style="font-weight:500;background-color: #2d2f79;font-size: 14px;">Save & Exit</button> -->
+                        <button type="button" class="btn  btn-secondary btn-close" 
+                            data-dismiss="modal" style="width:140px;font-size: 14px;font-weight: 500;">Next</button>
+                        <button type="submit" class="btn btnModal  btn-proceed btnSubmit" style="font-weight:500;background-color: #2d2f79; font-size: 14px;">Save & Exit</button>
 
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btnModal btnSubmit">Proceed</button>
+                        <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btnModal btnSubmit">Proceed</button> -->
                     </div>
             </form>
         </div><!-- /.modal-content -->

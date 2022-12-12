@@ -4,7 +4,7 @@ var MSG_FIELD_COUNT = 0;
 var message_list = [];
 var message_obj = {};
 var jsEditor = null;
-
+var TEMP_MSG_FIELD_COUNT = 0;
 
 $(document).ready(function () {
   
@@ -176,7 +176,7 @@ function searchQueryFormatter(data) {
 function openModal() {
     $(".modal-title").html("Define Message")
     MSG_FIELD_COUNT = 0;
-
+    TEMP_MSG_FIELD_COUNT=0;
     message_obj = {};
 
     $("#addMessageRule form")[0].reset();
@@ -202,7 +202,7 @@ function openModal() {
 function openEditModal(id) {
     $(".modal-title").html("Edit Message")
     MSG_FIELD_COUNT = 0;
-
+   TEMP_MSG_FIELD_COUNT=0;
     for (var i = 0; i < message_list.length; i++) {
         if (id === message_list[i].id) {
             message_obj = message_list[i];
@@ -252,19 +252,23 @@ function definedFields(obj) {
 
 function deleteMessageField(id) {
     $("#msg_field_row_" + id).remove();
-    MSG_FIELD_COUNT--;
+    // MSG_FIELD_COUNT--;
+    TEMP_MSG_FIELD_COUNT--;
+    console.log(TEMP_MSG_FIELD_COUNT);
+    TEMP_MSG_FIELD_COUNT === 1 ? $(".minus").addClass('minus-none'):''  ;
 }
 
 function addMessageField() {
 
     var id = MSG_FIELD_COUNT;
 
-    var str = `<tr id="msg_field_row_` + id + `">
+    var str = `<tr class="fieldrow" id="msg_field_row_` + id + `">
     <td>
-        <input class="form-control input-sm"  maxlength="50" onkeyup="onlyAlphaNumericUs(this)" onkeydown="onlyAlphaNumericUs(this)" placeholder="Field Name" autocomplete="off" type="text"  id="msg_field_` + id + `" required>
-    </td>
+        <input class="form-control input-sm mesg-field"  maxlength="100" onkeyup="onlyAlphaNumericUs(this)" onkeydown="onlyAlphaNumericUs(this)" placeholder="Field Name" autocomplete="off" type="text"  id="msg_field_` + id + `" required>
+        <span id="logmsg_field_` + id + `"></span>
+        </td>
     <td>
-    <select class="form-control input-sm" required id="msg_datatype_` + id + `">
+    <select class="form-control  mesg-type input-sm" required id="msg_datatype_` + id + `">
       <option value="" >Choose Data Type</option>
       <option value="INTEGER" >INTEGER</option>
       <option value="FLOAT" >FLOAT</option>
@@ -285,63 +289,105 @@ function addMessageField() {
       <option value="DATE" >DATE</option>
       <option value="TIMESTAMP" >TIMESTAMP</option>
     </select>
+    <span id="logmsg_datatype_`+ id +`"></span>
     </td>
-    <td style="text-align: center;vertical-align: middle;" class="addMsg"><i class="fa fa-plus add" onclick="addMessageField()" style="cursor: pointer" aria-hidden="true"></i>` +
-        (id > 0 ? '<i class="fa fa-minus minus" style="margin-left:5px;cursor: pointer" onclick="deleteMessageField(' + id + ')" aria-hidden="true"></i>' : '')
+    <td style="text-align: center;" class="addMsg"><i class="fa fa-plus add" onclick="addMessageField()" style="cursor: pointer" aria-hidden="true"></i>` +
+        (id > 0 ? '<i class="fa fa-minus minus" style="margin-left:5px;cursor: pointer" onclick="deleteMessageField(' + id + ')" aria-hidden="true"></i>' : '<i class="fa fa-minus minus minus-none" style="margin-left:5px;cursor: pointer" onclick="deleteMessageField(' + id + ')"aria-hidden="true"></i>')
         + ` </td>
   </tr>`;
-
+  id > 0 ? $(".minus").removeClass('minus-none'):'';
     $(".msgFieldBody").append(str);
     MSG_FIELD_COUNT++;
+    TEMP_MSG_FIELD_COUNT ++;
 }
 
 function addMessageRule() {
 
-    var flag = false;
-
-    var fields = [];
-
-
-    for (var i = 0; i < MSG_FIELD_COUNT; i++) {
-        var json = {
-            "dataType": $("#msg_datatype_" + i).val(),
-            "format": "AS_IS",
-            "label": "",
-            "description": "",
-            "name": $("#msg_field_" + i).val()
-        };
-        fields.push(json);
+    var msg_id =$.trim($("#msg_id").val() )
+    var msg_name =$.trim($("#msg_name").val() )
+    var msg_desc =$.trim($("#msg_desc").val() )
+        
+    if(msg_id === "" ){
+   
+        errorMsgBorder('Message ID is required', 'msg_id');
+        return false;
+       
     }
+    // else if( parseInt($("#msg_id").val()) <= 1 &&  $("#msg_id").val().length < 3){
+    //     errorMsgBorder('Message ID must have atleast 3 digit and greater than 999', 'msg_id');
+    //     return false;
+   // }
+    else if(msg_name === ""){
 
-    for (var i = 0; i < fields.length; i++) {
+        errorMsgBorder('Message name is required', 'msg_name');
+        return false;
 
-        if (RESERVED_FIELDS.indexOf(fields[i].name) !== -1) {
-            errorMsgBorder('Reserved Fields cannot be used as a field name', 'msg_field_' + i);
-            return false;
-        }
+    }else if(msg_desc === ""){
 
-        if (DATABASE_KEYWORDS.indexOf(fields[i].name) !== -1) {
-            errorMsgBorder('Database keywords cannot be used as a field name', 'msg_field_' + i);
-            return false;
-        }
+        errorMsgBorder('Message description is required', 'msg_desc');
+        return false;
 
-        if (fields[i].dataType.includes('BLOB')) {
-            fields[i].format = fields[i].dataType.split(":")[1];
-            fields[i].dataType = 'BLOB';
-        }
-    }
+    }else{
+            var fields = []; 
+            var check = false;
+           
+            $.each($('.fieldrow'),function () {
+                console.log($(this).find('.mesg-field').val());
+                if($(this).find('.mesg-field').val() === ""){ 
+                    errorMsgBorder('Field Name is required', $(this).find('.mesg-field').attr('id'));
+                    console.log("error"+" "+$(this).find('.mesg-field').attr('id'));
+                    check = false;
+                    return false;
+                }else if($(this).find('.mesg-type').val() === ""){ 
+                        errorMsgBorder('Field Name is required', $(this).find('.mesg-type').attr('id'));
+                        console.log("error"+" "+$(this).find('.mesg-type').attr('id'));
+                        check = false;
+                        return false;
+                    }
+                    else{
+                        var json = {
+                            "dataType":$(this).find('.mesg-type').val(),
+                            "format": "AS_IS",
+                            "label": "",
+                            "description": "",
+                            "name": $(this).find('.mesg-field').val()
+                        }
+                        fields.push(json);
+                        console.log("True else");
+                        check = true;
+                        return true;
+                    }
+                       })
 
+    // for (var i = 0; i < fields.length; i++) {
 
+    //     if (RESERVED_FIELDS.indexOf(fields[i].name) !== -1) {
+    //         errorMsgBorder('Reserved Fields cannot be used as a field name', 'msg_field_' + i);
+    //         return false;
+    //     }
+
+    //     if (DATABASE_KEYWORDS.indexOf(fields[i].name) !== -1) {
+    //         errorMsgBorder('Database keywords cannot be used as a field name', 'msg_field_' + i);
+    //         return false;
+    //     }
+
+    //     if (fields[i].dataType.includes('BLOB')) {
+    //         fields[i].format = fields[i].dataType.split(":")[1];
+    //         fields[i].dataType = 'BLOB';
+    //     }
+    // }
+
+    if(check){
     if (message_obj && message_obj.fields && message_obj.fields.length > 0) {
         fields = _.union(message_obj.fields, fields);
     }
 
 
     var msgObj = {
-        "id": Number($("#msg_id").val()),
-        "name": $("#msg_name").val(),
-        "label": $("#msg_name").val(),
-        "description": $("#msg_desc").val(),
+        "id": Number(msg_id),
+        "name": msg_name,
+        "label": msg_name,
+        "description":msg_desc,
         "fields": fields
     };
 
@@ -380,8 +426,9 @@ function addMessageRule() {
             }
         })
     }
+    }
 
-
+}
 }
 
 function openDeleteModal(id) {

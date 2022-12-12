@@ -16740,6 +16740,10 @@ z-index: 4;\
 -moz-user-select: none;\
 -webkit-user-select: none;\
 user-select: none;\
+background: #edf1f7;\
+color: rgb(136, 136, 136);\
+ border-radius: 8px;\
+ border: 1px solid #C1CCD7;\
 }\
 .ace_gutter-active-line {\
 position: absolute;\
@@ -16786,6 +16790,8 @@ top: 0;\
 overflow-x: hidden;\
 overflow-y: scroll;\
 top: 0;\
+right: 25px;\
+margin: 8px 0px ;\
 }\
 .ace_scrollbar-h {\
 overflow-x: scroll;\

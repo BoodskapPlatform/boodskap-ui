@@ -184,8 +184,8 @@ function openModal(type, id) {
     current_pool_obj = {}
     current_pool_name = ''
     if (type === 1) {
-        $("#pool_name").removeAttr('readonly');
-        $(".templateAction").html('Create');
+        $("#conn_name").removeAttr('readonly');
+        $(".templateAction").html('Add');
 
         $("#addPool form")[0].reset();
         $("#addPool").modal('show');

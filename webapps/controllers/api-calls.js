@@ -2324,14 +2324,14 @@ function retrieveDeviceModelProperty(id, name, cbk) {
 }
 
 
-function simulateDeviceMessage(id, data, cbk) {
-
+function simulateDeviceMessage(id, data, devToken, cbk) {
 
     var headers = {
-        'TOKEN' : DEVICE_API_TOKEN
+        'TOKEN' : devToken
     }
 
     $.ajax({
+        // url: API_BASE_PATH + "/push/raw/" + DOMAIN_KEY + "/" + API_KEY + "/SIMULATOR_" + id + "/BOODSKAP/1.0/" + id + '?type=JSON',
         url: API_BASE_PATH + "/push/message/" + id,
         data: JSON.stringify(data),
         contentType: "application/json",

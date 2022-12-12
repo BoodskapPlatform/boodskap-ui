@@ -74,6 +74,7 @@ function loadAssetList() {
         searching: true,
         dom: '<"bskp-search-left" f> lrtip',
         language: {
+            "emptyTable": "No data available",
             "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
             "searchPlaceholder": "Search here...",
             loadingRecords: '',
@@ -110,7 +111,7 @@ function loadAssetList() {
 function openModal(type, id) {
     if (type === 1) {
         $("#asset_id").removeAttr('readonly');
-        $(".templateAction").html('Create');
+        $(".templateAction").html('Add New');
         $("#addAsset form")[0].reset();
         $("#addAsset").modal('show');
         $("#addAsset form").attr('onsubmit', 'addAsset()')
@@ -192,11 +193,24 @@ function loadLinkedDevices(id) {
 
 
 function addAsset() {
-
+    var asset_id = $.trim($("#asset_id").val());
+    var asset_name = $.trim($("#asset_name").val());
+    var asset_desc = $.trim($("#asset_desc").val());
+    
+    if(asset_id == ""){
+        errorMsgBorder('Asset Id cannot be empty','asset_id');
+        return false;
+    }else if(asset_name == ""){
+        errorMsgBorder('Asset Name cannot be empty','asset_name');
+        return false;
+    } else if(asset_desc == ""){
+        errorMsgBorder('Description cannot be empty','asset_desc');
+        return false;
+    }
     var assetObj = {
-        "id": $("#asset_id").val(),
-        "name": $("#asset_name").val(),
-        "description": $("#asset_desc").val(),
+        "id": asset_id,
+        "name": asset_name,
+        "description": asset_desc,
     }
 
     $(".btnSubmit").attr('disabled', 'disabled');
