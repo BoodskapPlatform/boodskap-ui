@@ -28,8 +28,8 @@
     <!-- end breadcrumb -->
     <!-- begin page-header -->
    
-    <div class="page-header bskp-page-topic"><img src="images/menu/message-definition_1-bskp.png" class="bskp-topic-icon mr-1" > Manage Events
-        <span class="panel-title ml-3" style="color: #478ecc;">Total Events: <b><span class="eventsCount"></span></b></span> 
+    <div class="page-header bskp-page-topic"><img src="images/menu/events&notifications-bskp.svg" class="bskp-topic-icon mr-1" > Manage Events
+        <span class="panel-title ml-3" style="color: #2D2F79;">Total Events: <b><span class="eventsCount"></span></b></span> 
     </div>
     <!-- end page-header -->
       
@@ -37,9 +37,9 @@
             <div class="row m-0">
                 <div class="col-12">
                 <div class="btn-group btn-group-justified pull-right bskp-btn-group-align">
-                    <a class="btn bskp-btn-shadow bskp-blue-bg" onclick="openModal(1)"><i class="fa fa-plus-square"></i> <span class="hidden-xs">New Event</span></a>
-                    <a class="btn bskp-radius-btn bskp-refreshbtn" data-click="panel-reload" onclick="loadEvents()"><i class="fa fa-refresh"></i></a>
-                </div>
+                    <a class="btn bskp-btn-shadow bskp-blue-bg" onclick="openModal(1)"><img src="images/plus.svg" class="bskp-plusvg"> <span class="hidden-xs">New Event</span></a>
+                    <a class="btn bskp-refresh-bg" title="Refresh" data-click="panel-reload" onclick="loadEvents()"><i class="fa fa-refresh"></i></a>
+                 </div>
 
                 <div class="bskp-table-layout">
                     <table class="table table-bordered table-hover bskp-table responsive no-wrap" id="eventTable"  cellspacing="0" width="100%">
@@ -64,36 +64,39 @@
                 <h4 class="modal-title"><span class="eventAction"></span> Event</h4>
                 <button type="button" class="close" data-dismiss="modal"   aria-label="Close"> <i class="fa fa-times" aria-hidden="true"></i> </button>
             </div>
-            <form action="javascript:void(0)">
+            <form action="javascript:void(0)" novalidate>
                 <div class="modal-body">
                     <div  class="row">
                         <div  class="col-md-6">
                             <div  class="form-group">
-                                <label  class="inputLabel">Event Id</label>
-                                <input  class="form-control input-sm" placeholder="Enter Event Id" autocomplete="off" type="number" id="event_id" min="100" required>
-                                <!--<small>ID Range from <b><span class="idRange"></span></b></small>-->
+                                <label  class="inputLabel">Event Id *</label>
+                                <input  class="form-control input-sm" placeholder="Enter Event Id" autocomplete="off" type="number" id="event_id" min="1" required>
+                               <span id="logevent_id"></span>
                             </div>
                         </div>
                         <div  class="col-md-6">
                             <div  class="form-group">
-                                <label  class="inputLabel">Event Name</label>
-                                <input  class="form-control input-sm" placeholder="Enter Event Name" autocomplete="off" type="text" id="event_name" required>
+                                <label  class="inputLabel">Event Name *</label>
+                                <input  class="form-control input-sm" placeholder="Enter Event Name" maxlength="100" autocomplete="off" type="text" id="event_name" required>
+                                <span id="logevent_name"></span>
                             </div>
                         </div>
                     </div>
                     <div  class="row">
                         <div  class="col-md-12">
                             <div  class="form-group">
-                                <label  class="inputLabel">Subject</label>
-                                <input  class="form-control input-sm" placeholder="Enter Subject" autocomplete="off"  type="text" id="event_subject" required>
+                                <label  class="inputLabel">Subject *</label>
+                                <input  class="form-control input-sm" placeholder="Enter Subject" maxlength="150" autocomplete="off"  type="text" id="event_subject" required>
+                                <span id="logevent_subject"></span>
                             </div>
                         </div>
                     </div>
                     <div  class="row">
                         <div  class="col-md-12">
                             <div  class="form-group">
-                                <label  class="inputLabel">Content</label>
-                                <textarea  class="form-control input-sm" placeholder="Enter Event Content" autocomplete="off" type="text"  id="event_content" style="height: 200px;" required></textarea>
+                                <label  class="inputLabel">Content *</label>
+                                <textarea  class="form-control input-sm" placeholder="Enter Event Content" maxlength="1000" autocomplete="off" type="text"  id="event_content" style="height: 200px;" required></textarea>
+                                <span id="logevent_content"></span>
                             </div>
                         </div>
                     </div>

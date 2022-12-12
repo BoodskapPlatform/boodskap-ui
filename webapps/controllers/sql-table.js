@@ -207,6 +207,7 @@ function loadSQLTable() {
             "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
             "searchPlaceholder": "Search by Table Name",
             "emptyTable":"No data available",
+            
 
 
             loadingRecords: '',
@@ -406,8 +407,8 @@ function addTableField() {
         </div>
     </td>
     <td style="text-align: center;vertical-align: middle;" class="addMsg">`+
-        (id > 0 ? '<img src="images/menu/plus1.svg" class="add" onclick="addTableField()" style="cursor: pointer" />' : '') +
-        (id > 1 ? '<img src="images/menu/minus1.svg" class="minus" style="margin-left:5px;cursor: pointer;" onclick="deleteMessageField(' + id + ')"/>' : '')
+        (id > 0 ? '<img src="images/menu/plus1.svg" class="add" onclick="addTableField()" style="cursor: pointer; padding:3px" />' : '') +
+        (id > 1 ? '<img src="images/menu/minus1.svg" class="minus" style="margin-left:5px;cursor: pointer;padding:3px" onclick="deleteMessageField(' + id + ')"/>' : '')
         + ` </td>
   </tr>`;
 
@@ -476,6 +477,13 @@ function addSQLTable() {
     var flag = false;
 
     var fields = [];
+
+    var msg_id = $.trim($("#msg_id").val())
+
+    if(msg_id == ""){
+        errorMsgBorder('Record ID cannot be empty','msg_id');
+        return false;
+    }
 
     for (var i = 0; i < TAB_FIELD_COUNT; i++) {
         var json = {

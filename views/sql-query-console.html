@@ -15,55 +15,71 @@
         width: 100%;
         border:1px solid #eee
     }
+    #mong-con .page-header{
+    margin-left: 0px;
+    color: hsl(0deg 0% 25%);
+    font-weight: 600;
+    font-size: 20px;
+    background: #eaf1f6;
+    }
+    /* .ace_gutter-layer {
+        background: #edf1f7;
+    } */
+    .ace-eclipse .ace_gutter {
+    background: #edf1f7;
+   color: rgb(136, 136, 136);
+    border-radius: 8px;
+    border: 1px solid #C1CCD7;
+    }
+    .ace_gutter-cell{
+        padding:0px 14px;
+        text-align: center;
+    }
+    .ace_scroller{
+        border-radius: 8px;
+    margin-left: 10px;
+    border: 1px solid #ccd3da;
+    }
+    .bskp-search-left{
+    float: unset !important;
+    margin: 15px 0px !important;
+    }
+    .bskp-search-left input{
+        width: 100% !important;
+    }
+    
 </style>
-<div class="container mt-3 msgDef platformBody">
-    <!-- begin breadcrumb -->
+<div class="container px-3 msgDef panel panel-expand platformBody" style="background: #eaf1f6;padding-top: 12px !important;" id="mong-con">
+  
+    <!-- begin panel -->
+    <div class="panel panel-inverse" style="background-color: #eaf1f6;">
+          <!-- begin breadcrumb -->
     <ol class="breadcrumb pull-right">
         <li class="breadcrumb-item"><a href="<%= basepath %>/home">Domain</a></li>
         <li class="breadcrumb-item active">Query Console</li>
+        <div class="ml-3">
+            <a href="javascript:;" class="btn mt-1 btn-sm btn-icon btn-circle  bskp-icon-bg icon" style="background: white;" data-click="panel-expand"><img style="height:14px ;" src="images/menu/expand-icon.SVG" alt=""></a>
+            <a href="javascript:;" class="btn mt-1 btn-sm btn-icon btn-circle bskp-icon-bg icon" style="background: white;" title="Help">
+                <img src="images/menu/Question_icon (2).PNG" alt=""></a>
+                    
+
+        </div>
     </ol>
+    
     <!-- end breadcrumb -->
     <!-- begin page-header -->
-    <h1 class="page-header">Ignite SQL Query</h1>
+    <h1 class="page-header mb-0 pb-2">Ignite SQL Query</h1>
     <!-- end page-header -->
 
-    <!-- begin panel -->
-    <div class="panel panel-inverse">
-        <div class="panel-body" style="background-color: rgba(0, 0, 0, 0.01);border: 1px solid #eee;padding-bottom: 30px">
+       <div class="panel-outer" style=" background-color: #fff; border: 1px solid #d0d0d0; border-radius: 10px;">
+        <div class="panel-body" style="background-color: rgba(0, 0, 0, 0.01);padding-bottom: 30px">
 
             <div class="row">
-                <div class="col-md-5">
-                    <div class="row">
-
-
-                        <div class="col-md-12">
-                            <div class="form-group queryBox">
-                                <label>Ignite SQL Query <small style="text-decoration: underline">v 2.6</small> <strong style="color:red">*</strong></label>
-                                <small>(Press <b>CTRL + ENTER</b> to execute the query)</small>
-
-                                <!--<select id="sqlQuery" style="float:right">-->
-
-                                <!--</select>-->
-                                <div id="queryEditor" style="width: 100%"></div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-12">
-                            <button class="btn btn-warning btn-sm" onclick="executeQuery()">Execute</button>
-                        </div>
-
-                    </div>
-
-                </div>
-                <div class="col-md-4" style="border-left:1px solid #eee">
-                    <h5>Output Console <small style="float:right;font-size: 12px" class="loadingText"></small></h5>
-                    <div id="resultEditor" style="width: 100%"></div>
-                </div>
                 <div class="col-md-3" style="border-left:1px solid #eee">
                     <h5>SQL Table</h5>
 
-                    <div class="sqlTable" style="    background-color: #fff;overflow: auto">
-                        <table class="table table-bordered responsive no-wrap" id="sqlTable"  cellspacing="0" width="100%">
+                    <div class="sqlTable bskp-table-layout" style="overflow: auto">
+                        <table class="table table-bordered bskp-table responsive no-wrap" id="sqlTable"  cellspacing="0" width="100%">
 
                         </table>
                     </div>
@@ -71,10 +87,37 @@
 
 
                 </div>
+                <div class="col-md-5">
+                    <div class="row">
+                         <div class="col-md-12 "style=" border-right: 1px solid #D0D7E0; border-left: 1px solid #D0D7E0;">
+                            <div class="form-group queryBox mb-0">
+                                <label><span style="font-size:14px;">Ignite SQL Query</span></label>
+                                <small class="px-2"st>(Press <b>CTRL + ENTER</b> to execute the query)</small>
+                                <button class="btn float-right bskp-btn-shadow bskp-blue-bg" onclick="executeQuery()">Execute</button>
+                                <!--<select id="sqlQuery" style="float:right">-->
+
+                                <!--</select>-->
+                                <div id="queryEditor"  style="margin-top: 12px;width: 100%;border: 0px"></div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="col-md-4" style="border-left:1px solid #eee">
+                    <h5>Output Console <small style="float:right;font-size: 12px" class="loadingText"></small></h5>
+                    <div id="resultEditor" style="margin-top: 20px;width: 100%"></div>
+                </div>
+                
             </div>
 
 
         </div>
+       </div>
     </div>
     <!-- end panel -->
 
