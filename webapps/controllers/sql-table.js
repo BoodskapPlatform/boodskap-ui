@@ -857,3 +857,14 @@ function importContent() {
 
 
 }
+function tablename(){
+    let table = $("#table_name").val()
+  if (table.length === 0) {
+    $("#table_name").css({borderColor:"red"});
+    $("#logmsg_id").css({visibility:"visible"});
+  }
+  else {
+    $("#table_name").css({borderColor:"green"});
+    $("#logmsg_id").css({visibility:"hidden"}); 
+  }
+}
