@@ -76,7 +76,7 @@ function loadAssetList() {
         language: {
             "emptyTable": "No data available",
             "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
-            "searchPlaceholder": "Search here...",
+            "searchPlaceholder": "Search by Asset Id",
             loadingRecords: '',
             paginate: {
                 previous: '< Prev',
@@ -102,6 +102,7 @@ function loadAssetList() {
         }
 
         assetTable = $("#assetTable").DataTable(tableOption);
+        $('.dataTables_filter input').attr('maxlength', 100)
     })
 
 

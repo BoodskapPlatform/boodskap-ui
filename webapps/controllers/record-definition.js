@@ -19,7 +19,6 @@ $(document).ready(function () {
 
 function loadRecordDef() {
 
-
     if (recordTable) {
         recordTable.destroy();
         $("#recordTable").html("");
@@ -76,7 +75,7 @@ function loadRecordDef() {
         language: {
             "emptyTable": "No data available",
             "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
-            "searchPlaceholder": "Search here...",
+            "searchPlaceholder": "Search by Record Id",
             loadingRecords: '',
             paginate: {
                 previous: '< Prev',
@@ -87,7 +86,7 @@ function loadRecordDef() {
         aoColumns: fields,
         data: []
     };
-
+   
     listRecordSpec(1000, null, null, function (status, data) {
         if (status && data.length > 0) {
             tableOption['data'] = data;
@@ -100,8 +99,9 @@ function loadRecordDef() {
             message_list = [];
 
         }
-
+        
         recordTable = $("#recordTable").DataTable(tableOption);
+        $('.dataTables_filter input').attr('maxlength', 100)
     })
 
 
@@ -211,7 +211,6 @@ function deleteMessageField(id) {
     $("#msg_field_row_" + id).remove();
     // MSG_FIELD_COUNT--;
     TEMP_MSG_FIELD_COUNT--;
-    console.log(TEMP_MSG_FIELD_COUNT);
     TEMP_MSG_FIELD_COUNT === 1 ? $(".minus").addClass('minus-none'):''  ;
 }
 
@@ -296,15 +295,12 @@ function addMessageRule() {
             var check = false;
            
             $.each($('.fieldrow'),function () {
-                console.log($(this).find('.mesg-field').val());
                 if($(this).find('.mesg-field').val() === ""){ 
                     errorMsgBorder('Field Name is required', $(this).find('.mesg-field').attr('id'));
-                    console.log("error"+" "+$(this).find('.mesg-field').attr('id'));
                     check = false;
                     return false;
                 }else if($(this).find('.mesg-type').val() === ""){ 
                         errorMsgBorder('Field Name is required', $(this).find('.mesg-type').attr('id'));
-                        console.log("error"+" "+$(this).find('.mesg-type').attr('id'));
                         check = false;
                         return false;
                     }
@@ -317,8 +313,7 @@ function addMessageRule() {
                             "name": $(this).find('.mesg-field').val()
                         }
                         fields.push(json);
-                        console.log("True else");
-                        check = true;
+                         check = true;
                         return true;
                     }
                        })
