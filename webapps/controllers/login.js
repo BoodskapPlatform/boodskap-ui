@@ -193,9 +193,6 @@ function register(){
     // var confirmpassword = $("#confirmpassword").val();
     var captchaStatus = grecaptcha.getResponse();
 
-    console.log("captchaStatus-----------");
-    console.log(typeof captchaStatus);
-
     if(firstname == ""){
         errorMsgBorder('First Name cannot be empty','firstname',1);
         return false;
@@ -206,32 +203,20 @@ function register(){
         return false;
     }
 
-  
+    var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    var eFlag = regex.test(email);
+
     if (email === "") {
         errorMsgBorder('Email ID cannot be empty', 'email',1);
         return false;
-    }else{
-        var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-        var eFlag = regex.test(email);
-
-        if(!eFlag){
-            errorMsgBorder('Invalid Email ID', 'email',1);
-            return false;
-        }
-
+    }
+    
+    if(!eFlag){
+        errorMsgBorder('Invalid Email ID', 'email',1);
+        return false;
     }
    
-    /* if(password === ""){
-        errorMsgBorder('Password cannot be empty','password');
-        return false;
-    } /*
-    if(password !== confirmpassword){
-        errorMsgBorder('Password & Confirm Password should be same','password',1);
-        return false;
-    }*/
-
     if(captchaStatus === ""){
-        // $("#rc-anchor-container").css('border', '1px solid red!important');
         errorMsgBorder('Please verify the captcha!','captchaFeedback');
         return false;
     }
@@ -244,26 +229,38 @@ function register(){
         firstName: firstname,
         lastName: lastname
     };
-    console.log(data)
 
     registerCall(data,function (status, data) {
         closeLoading();
         $("#submitButton").removeAttr('disabled');
-        if(status){
-            $('#registerForm')[0].reset();
-            document.location=BASE_PATH+'/registerSuccess';
-            // successMsg('Account Successfully created. Please check your email to activate your account!','firstname');
-            // $(".register-content").hide();
-            // $("#regFeedback").show();
 
-            setTimeout(function(){
-                if(Cookies.get('domain')){
-                    var domainKey = Cookies.get('domain');
-                    document.location=BASE_PATH+'/'+domainKey;
-                }else{
-                    document.location=BASE_PATH+'/login';
+        if(status){
+            if(data["errorCode"]){
+                if(data["errorCode"] === 409){
+                    //Throw your error message here "User already exists"
+                    errorMsgBorder(data["error"], 'email',1);
+
+                }else if(data["errorCode"] != 0){
+                    //Throw your error message here "System Error Occurred""
+                    errorMsgBorder("System Error Occurred", 'email',1);
                 }
-            },3000);
+            }else{
+                $('#registerForm')[0].reset();
+                    document.location=BASE_PATH+'/registerSuccess';
+                    // successMsg('Account Successfully created. Please check your email to activate your account!','firstname');
+                    // $(".register-content").hide();
+                    // $("#regFeedback").show();
+
+                    setTimeout(function(){
+                        if(Cookies.get('domain')){
+                            var domainKey = Cookies.get('domain');
+                            document.location=BASE_PATH+'/'+domainKey;
+                        }else{
+                            document.location=BASE_PATH+'/login';
+                        }
+                    },3000);
+            }
+            
         }else{
             if(data.message === 'USER_EXISTS'){
                 errorMsg('User already exists!','firstname')
