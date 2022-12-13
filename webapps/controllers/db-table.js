@@ -19,154 +19,34 @@ var POOL_TYPE = {
         {name:"user",type:"string",mandatory:true},
         {name:"password",type:"string",mandatory:true},
         {name:"driverClass",type:"string",mandatory:true},
-        // {name:"acquireIncrement",type:"integer"},
-        // {name:"acquireRetryAttempts",type:"integer"},
-        // {name:"acquireRetryDelay",type:"integer"},
-        // {name:"autoCommitOnClose",type:"boolean"},
-        // {name:"automaticTestTable",type:"string"},
-        // {name:"breakAfterAcquireFailure",type:"boolean"},
-        // {name:"checkoutTimeout",type:"integer"},
-        // {name:"debugUnreturnedConnectionStackTraces",type:"boolean"},
-        // {name:"forceIgnoreUnresolvedTransactions",type:"boolean"},
-        // {name:"forceSynchronousCheckins",type:"boolean"},
-        // {name:"forceUseNamedDriverClass",type:"boolean"},
-        // {name:"identityToken",type:"string"},
-        // {name:"idleConnectionTestPeriod",type:"integer"},
-        // {name:"initialPoolSize",type:"integer"},{name:"loginTimeout",type:"integer"},
-        // {name:"maxAdministrativeTaskTime",type:"integer"},
-        // {name:"maxConnectionAge",type:"integer"},
-        // {name:"maxIdleTime",type:"integer"},
-        // {name:"maxIdleTimeExcessConnections",type:"integer"},
-        // {name:"maxPoolSize",type:"integer"},
-        // {name:"maxStatements",type:"integer"},
-        // {name:"maxStatementsPerConnection",type:"integer"},
-        // {name:"minPoolSize",type:"integer"},
-        // {name:"numHelperThreads",type:"integer"},
-        // {name:"overrideDefaultPassword",type:"string"},
-        // {name:"overrideDefaultUser",type:"string"},
-        // {name:"preferredTestQuery",type:"string"},
-        // {name:"privilegeSpawnedThreads",type:"boolean"},
-        // {name:"propertyCycle",type:"integer"},
-        // {name:"statementCacheNumDeferredCloseThreads",type:"integer"},
-        // {name:"testConnectionOnCheckin",type:"boolean"},
-        // {name:"testConnectionOnCheckout",type:"boolean"},
-        // {name:"unreturnedConnectionTimeout",type:"integer"},
-        // {name:"userOverridesAsString",type:"string"},
-        // {name:"usesTraditionalReflectiveProxies",type:"boolean"}
+       
     ],
     "DBCP":[
-        {name:"name",type:"string",mandatory:false},
+        {name:"Name",type:"string",mandatory:false},
 
         {name:"url",type:"string",mandatory:true},
         {name:"username",type:"string",mandatory:true},
         {name:"password",type:"string",mandatory:true},
         {name:"driverClassName",type:"string",mandatory:true},
-        // {name:"abandonedUsageTracking",type:"boolean"},
-        // {name:"accessToUnderlyingConnectionAllowed",type:"boolean"},
-        // {name:"cacheState",type:"boolean"},
-        // {name:"defaultAutoCommit",type:"boolean"},
-        // {name:"defaultCatalog",type:"string"},
-        // {name:"defaultQueryTimeout",type:"integer"},
-        // {name:"defaultReadOnly",type:"boolean"},
-        // {name:"defaultSchema",type:"string"},
-        // {name:"defaultTransactionIsolation",type:"integer"},
-        // {name:"enableAutoCommitOnReturn",type:"boolean"},
-        // {name:"fastFailValidation",type:"boolean"},
-        // {name:"initialSize",type:"integer"},
-        // {name:"lifo",type:"boolean"},
-        // {name:"logAbandoned",type:"boolean"},
-        // {name:"logExpiredConnections",type:"boolean"},
-        // {name:"loginTimeout",type:"integer"},
-        // {name:"maxConnLifetimeMillis",type:"integer($int64)"},
-        // {name:"maxIdle",type:"integer"},
-        // {name:"maxOpenPreparedStatements",type:"integer"},
-        // {name:"maxTotal",type:"integer"},
-        // {name:"maxWaitMillis",type:"integer($int64)"},
-        // {name:"minEvictableIdleTimeMillis",type:"integer($int64)"},
-        // {name:"minIdle",type:"integer"},
-        // {name:"numTestsPerEvictionRun",type:"integer"},
-        // {name:"poolPreparedStatements",type:"boolean"},
-        // {name:"removeAbandonedOnBorrow",type:"boolean"},
-        // {name:"removeAbandonedOnMaintenance",type:"boolean"},
-        // {name:"rollbackOnReturn",type:"boolean"},
-        // {name:"softMinEvictableIdleTimeMillis",type:"integer($int64)"},
-        // {name:"testOnBorrow",type:"boolean"},
-        // {name:"testOnCreate",type:"boolean"},
-        // {name:"testOnReturn",type:"boolean"},
-        // {name:"testWhileIdle",type:"boolean"},
-        // {name:"timeBetweenEvictionRunsMillis",type:"integer($int64)"},
-        // {name:"validationQuery",type:"string"},
-        // {name:"validationQueryTimeout",type:"integer"}
+        
     ],
     "HIKARI": [
-        {name:"name",type:"string",mandatory:false},
+        {name:"Name",type:"string",mandatory:false},
         {name:"jdbcUrl",type:"string",mandatory:true},
         {name:"username",type:"string",mandatory:true},
         {name:"password",type:"string",mandatory:true},
         {name:"dataSourceClassName",type:"string",text:'dataSourceClassName/driverClassName must be required',mandatory:true},
         {name:"driverClassName",type:"string",mandatory:true,text:'dataSourceClassName/driverClassName must be required'},
-        // {name:"allowPoolSuspension",type:"boolean"},
-        // {name:"autoCommit",type:"boolean"},
-        // {name:"catalog",type:"string"},
-        // {name:"connectionInitSql",type:"string"},
-        // {name:"connectionTestQuery",type:"string"},
-        // {name:"connectionTimeout",type:"integer"},
-        // {name:"idleTimeout",type:"integer"},
-        // {name:"initializationFailTimeout",type:"integer"},
-        // {name:"isolateInternalQueries",type:"boolean"},
-        // {name:"leakDetectionThreshold",type:"integer"},
-        // {name:"maximumPoolSize",type:"integer"},
-        // {name:"maxLifetime",type:"integer"},
-        // {name:"minimumIdle",type:"integer"},
-        // {name:"readOnly",type:"boolean"},
-        // {name:"schema",type:"string"},
-        // {name:"transactionIsolation",type:"string"},
-        // {name:"validationTimeout",type:"integer"}
+       
     ],
     "TOMCAT": [
-        {name:"name",type:"string",mandatory:false},
+        {name:"Name",type:"string",mandatory:false},
 
         {name:"url",type:"string",mandatory:true},
         {name:"username",type:"string",mandatory:true},
         {name:"password",type:"string",mandatory:true},
         {name:"driverClassName",type:"string",mandatory:true},
-        // {name:"abandonWhenPercentageFull",type:"integer"},
-        // {name:"accessToUnderlyingConnectionAllowed",type:"boolean"},
-        // {name:"alternateUsernameAllowed",type:"boolean"},
-        // {name:"commitOnReturn",type:"boolean"},
-        // {name:"defaultAutoCommit",type:"boolean"},
-        // {name:"defaultCatalog",type:"string"},
-        // {name:"defaultReadOnly",type:"boolean"},
-        // {name:"defaultTransactionIsolation",type:"integer"},
-        // {name:"fairQueue",type:"boolean"},
-        // {name:"ignoreExceptionOnPreLoad",type:"boolean"},
-        // {name:"initialSize",type:"integer"},
-        // {name:"initSQL",type:"string"},
-        // {name:"logAbandoned",type:"boolean"},
-        // {name:"logValidationErrors",type:"boolean"},
-        // {name:"maxActive",type:"integer"},
-        // {name:"maxAge",type:"integer"},
-        // {name:"maxIdle",type:"integer"},
-        // {name:"maxWait",type:"integer"},
-        // {name:"minEvictableIdleTimeMillis",type:"integer"},
-        // {name:"minIdle",type:"integer"},
-        // {name:"numTestsPerEvictionRun",type:"integer"},
-        // {name:"propagateInterruptState",type:"boolean"},
-        // {name:"removeAbandoned",type:"boolean"},
-        // {name:"removeAbandonedTimeout",type:"integer"},
-        // {name:"rollbackOnReturn",type:"boolean"},
-        // {name:"suspectTimeout",type:"integer"},
-        // {name:"testOnBorrow",type:"boolean"},
-        // {name:"testOnConnect",type:"boolean"},
-        // {name:"testOnReturn",type:"boolean"},
-        // {name:"testWhileIdle",type:"boolean"},
-        // {name:"timeBetweenEvictionRunsMillis",type:"integer"},
-        // {name:"useDisposableConnectionFacade",type:"boolean"},
-        // {name:"useEquals",type:"boolean"},{name:"useLock",type:"boolean"},
-        // {name:"useStatementFacade",type:"boolean"},
-        // {name:"validationInterval",type:"integer"},
-        // {name:"validationQuery",type:"string"},
-        // {name:"validationQueryTimeout",type:"integer"}
+        
     ]
 }
 
@@ -342,16 +222,14 @@ function onclosebutton(){
 }
 function openModal(type, id) {
     if (type === 1) {
-        $("#pool_name").removeAttr('readonly');
+        // $("#pool_name").removeAttr('readonly');
+        $("#Name").removeAttr('readonly');
+
         $(".templateAction").html('Create');
         $('#addPool').modal({backdrop: 'static', keyboard: false})  
 
 
-        // renderType1();
-        // renderType2();
-        // renderType3();
-        // renderType4();
-
+        
 
 
         $("#addPool form")[0].reset();
@@ -374,21 +252,25 @@ function openModal(type, id) {
             }
         }
 
-        current_pool_obj = obj;
-        $("#pool_name").attr('readonly', 'readonly');
+      current_pool_obj = obj;
 
-        $("#pool_name").val(obj.id);
+        // $("#pool_name").attr('readonly', 'readonly');
+        $("#Name").attr('readonly', 'readonly');
+
+
+        $("#Name").val(obj.id);
         $("#pool_type1").val(obj.type);
         $("#pool_type2").val(obj.type);
         $("#pool_type3").val(obj.type);
         $("#pool_type4").val(obj.type);
-        // renderType1();
-        // renderType2();
-        // renderType3();
-        // renderType4();
+        renderType1();
+        renderType2();
+        renderType3();
+        renderType4();
         renderData();
         $("#addPool").modal('show');
         $("#addPool form").attr('onsubmit', 'updatePool()')
+
     }
     else if (type === 4) {
 
@@ -440,7 +322,7 @@ function addPool() {
 
         if (status) {
             $(".btnSubmit").removeAttr('disabled');
-            errorMsgBorder('DB Connection Pool name already exist', 'pool_name');
+            errorMsgBorder('DB Connection Pool name already exist', 'Name');
         } else {
             upsertDBPool(tempObj, function (status, data) {
                 if (status) {
@@ -592,7 +474,7 @@ function renderType1() {
         $("#checkimg2").css('display','none')    
         $("#checkimg3").css('display','none')    
         $("#checkimg4").css('display','none')  
-    $(".typeBody").css('border-top','1px solid red')
+    $(".typeBody").css('border-top','1px solid #e2e7eb', 'padding-top','10px !important')
 
     }
 
@@ -659,7 +541,7 @@ function renderType2() {
     $(".typeBody").html('')
 
     if(id=="DBCP"){
-    $(".typeBody").css('border-top','1px solid red')
+    $(".typeBody").css('border-top','1px solid #e2e7eb')
 
         $("#pool_type2").prop("checked", true)
         $("#checkimg2").css('display','block')
@@ -732,7 +614,7 @@ function renderType3() {
     
     $(".typeBody").html('')
     if(id=="C3P0"){
-    $(".typeBody").css('border-top','1px solid red')
+    $(".typeBody").css('border-top','1px solid #e2e7eb')
 
         $("#pool_type3").prop("checked", true)
         $("#checkimg3").css('display','block')
@@ -805,7 +687,7 @@ function renderType4() {
     
     $(".typeBody").html('')
     if(id=="TOMCAT"){
-    $(".typeBody").css('border-top','1px solid red')
+    $(".typeBody").css('border-top','1px solid #e2e7eb')
 
         $("#pool_type4").prop("checked", true)
         $("#checkimg4").css('display','block')
@@ -874,10 +756,23 @@ function renderType4() {
 }
 
 function renderData() {
-    var id = $("#pool_type1").val();
-    var id = $("#pool_type2").val();
-    var id = $("#pool_type3").val();
-    var id = $("#pool_type4").val();
+    var id="";
+    if(  $("#pool_type1").prop("checked"))
+  {
+      id = $("#pool_type1").val();
+  }
+  else if($("#pool_type2").prop("checked")){
+      id = $("#pool_type2").val();
+      
+  }
+  else if($("#pool_type3").prop("checked")){
+      id = $("#pool_type3").val();
+  
+  }else if($("#pool_type4").prop("checked")){
+      id = $("#pool_type4").val();
+      
+  }
+  
     var arg = id.toLowerCase()+'Args';
 
     var val = current_pool_obj[arg];
@@ -901,12 +796,26 @@ function renderData() {
 }
 
 function buildData() {
-    var id = $("#pool_type1").val();
-    var id = $("#pool_type2").val();
-    var id = $("#pool_type3").val();
-    var id = $("#pool_type4").val();
-    var arg = id.toLowerCase()+'Args';
+    var id="";
+  if(  $("#pool_type1").prop("checked"))
+{
+    id = $("#pool_type1").val();
+}
+else if($("#pool_type2").prop("checked")){
+    id = $("#pool_type2").val();
+    
+}
+else if($("#pool_type3").prop("checked")){
+    id = $("#pool_type3").val();
 
+}else if($("#pool_type4").prop("checked")){
+    id = $("#pool_type4").val();
+    
+}
+
+var arg = id.toLowerCase()+'Args';
+console.log(arg);
+    
     var val = {};
 
     for(var i=0;i<POOL_TYPE[id].length;i++){
@@ -928,8 +837,8 @@ function buildData() {
 
     var resultObj = {
         domainKey : DOMAIN_KEY,
-        id : $("#pool_name").val(),
-        type :  $("#pool_type1").val(),
+        id : $("#Name").val(),
+        type :  id,
         "c3p0Args": null,
         "dbcpArgs": null,
         "hikariArgs":null,
@@ -937,6 +846,7 @@ function buildData() {
 
     };
 
+console.log(id);
     resultObj[arg] = val;
 
     return resultObj;

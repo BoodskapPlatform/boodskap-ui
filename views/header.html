@@ -35,6 +35,9 @@
         z-index: 400 !important;
     }
 }
+.goog-te-menu2 {
+    background-color:green !important;
+}
 </style>
 
 <div id="header" class="header header-style" >
@@ -263,9 +266,10 @@
                             <div data-parent="#accordionExample"> <!-- removed the class="collapse" -->
                             <div class="card-body p-3" >
                                 <ul class="nav bskp-mega-nav">
-                                    <li class="has-sub sideMain homeMenu">
-                                        <a href="http://localhost:4201/home" style="color: #2d2f79;">
-                                            <i class="fa fa-home" ></i>
+     
+                                    <li class="has-sub active sideMain homeMenu">
+                                        <a href="<%= basepath %>/home" style="color: #2d2f79;">
+                                            <i class="fa fa-home"></i>
                                             <span>Home</span>
                                         </a>
                                     </li>
@@ -541,6 +545,30 @@
                                 <p class="mt-2"><label class="cardtitle" >Widget Library</label></p>
                             </div>
                         </div>
+                        <div class="col-sm-6 col-xs-6 megacard" onclick="loadMenu(29)">
+                            <div class="card modules bskp-home-modules" onclick="clickRecent('DB Tables','db_tables',29,5)" style="padding: 8px 14px;">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg5" > </div>
+                                </div>
+                                <p class="mt-2"><label class="cardtitle" >DB Tables</label></p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xs-6 megacard" onclick="loadMenu(31)">
+                            <div class="card modules bskp-home-modules" onclick="clickRecent('DB Templates','db_templates',31,10)" style="padding: 8px 14px;">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg10" > </div>
+                                </div>
+                                <p class="mt-2"><label class="cardtitle" >DB Templates</label></p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xs-6 megacard" onclick="loadMenu(30)">
+                            <div class="card modules bskp-home-modules" onclick="clickRecent('DB Query Console','db_query_console',30,16)" style="padding: 8px 14px;">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg16" > </div>
+                                </div>
+                                <p class="mt-2"><label class="cardtitle" >DB Query Console</label></p>
+                            </div>
+                        </div>
                         <div class="col-sm-6 col-xs-6 megacard" onclick="loadMenu(20)">
                             <div class="card modules bskp-home-modules" onclick="clickRecent('Boodskap Marketplace','market_place',20,1)" style="padding: 8px 14px;">
                                 <div class="bskp-icon-frame">
@@ -775,6 +803,14 @@
                                 <p class="mt-2"><label class="cardtitle" >Query Console</label></p>
                             </div>
                         </div>
+                        <div class="col-sm-6 col-xs-6 megacard" onclick="loadMenu(26)">
+                            <div class="card modules bskp-home-modules" onclick="clickRecent('DSQL Query Console','dsql_query_console',26,15)" style="padding: 8px 14px;">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg15" > </div>
+                                </div>
+                                <p class="mt-2"><label class="cardtitle" >DSQL Query Console</label></p>
+                            </div>
+                        </div>
                         <div class="col-sm-6 col-xs-6 megacard" onclick="loadMenu(36)">
                             <div class="card modules bskp-home-modules" onclick="clickRecent('MongoDB','mongoDB',36,6)" style="padding: 8px 14px;">
                                 <div class="bskp-icon-frame">
@@ -789,6 +825,22 @@
                                     <div class="bskp-Dbg bskp-Dimg22" > </div>
                                 </div>
                                 <p class="mt-2"><label class="cardtitle" >Mongo Query Console</label></p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xs-6 megacard" onclick="loadMenu(28)">
+                            <div class="card modules bskp-home-modules" onclick="clickRecent('DSQL Tables','dSQL_tables',28,4)" style="padding: 8px 14px;">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg4" > </div>
+                                </div>
+                                <p class="mt-2"><label class="cardtitle" >DSQL Tables</label></p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xs-6 megacard" onclick="loadMenu(27)">
+                            <div class="card modules bskp-home-modules" onclick="clickRecent('DSQL Templates','dsql_templates',27,9)" style="padding: 8px 14px;">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg9" > </div>
+                                </div>
+                                <p class="mt-2"><label class="cardtitle" >DSQL Templates</label></p>
                             </div>
                         </div>
                         <div class="col-sm-6 col-xs-6 megacard" onclick="loadMenu(22)">

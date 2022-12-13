@@ -67,9 +67,9 @@ function loadTemplates() {
             sWidth: '15%',
             mRender: function (data, type, row) {
 
-                var str = '<button class="btn btn-sm btn-icon btn-default" onclick="openModal(4,\'' + row['id'] + '\')"><i class="icon-trash-o"></i></button>'
+                var str = '<button class="btn bskp-trash-btn mr-2" onclick="openModal(4,\'' + row['id'] + '\')"><img src="images/trash2.svg" alt=""></button>'
 
-                return '<button class="btn btn-sm btn-icon btn-default" onclick="openModal(5,\'' + row["id"] + '\')"><i class="icon-edit2"></i></button>' +
+                return '<button class="btn bskp-edit-btn mr-2" onclick="openModal(5,\'' + row["id"] + '\')"><img src="images/edit.svg" alt=""></button>' +
                     str;
             }
         }
@@ -101,7 +101,7 @@ function loadTemplates() {
         language: {
             "emptyTable": "No data available",
             "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
-            "searchPlaceholder": "Search by Name",
+            "searchPlaceholder": "Search by Template Name",
             loadingRecords: '',
             paginate: {
                 previous: '< Prev',
@@ -173,7 +173,7 @@ function loadTemplates() {
 
     };
     templateTable = $("#templateTable").DataTable(tableOption);
-
+    $('.dataTables_filter input').attr('maxlength', 100)
 
     /* var tableOption = {
          fixedHeader: {

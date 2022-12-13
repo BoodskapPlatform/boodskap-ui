@@ -251,40 +251,7 @@ function modalnavigate(currentStep){
     }
 }
 
-//    function mesgfields() {
-//     var fields = []; var check = false;
-//     var json={};
-   
-//     $.each($('.fieldrow'),function () {
-//         console.log($(this).find('.mesg-field').val());
-//         if($(this).find('.mesg-field').val() === ""){ 
-//             errorMsgBorder('Field Name is required', $(this).find('.mesg-field').attr('id'));
-//             console.log("error"+" "+$(this).find('.mesg-field').attr('id'));
-//             check = false;
-//             return false;
-//         }else if($(this).find('.mesg-type').val() === ""){ 
-//                 errorMsgBorder('Field Name is required', $(this).find('.mesg-type').attr('id'));
-//                 console.log("error"+" "+$(this).find('.mesg-type').attr('id'));
-//                 check = false;
-//                 return false;
-//             }
-//             else{
-//                 var json = {
-//                     "dataType":$(this).find('.mesg-type').val(),
-//                     "format": "AS_IS",
-//                     "label": "",
-//                     "description": "",
-//                     "name": $(this).find('.mesg-field').val()
-//                 }
-//                 fields.push(json);
-//                 console.log("True else");
-//                 console.log(json);
-//                 check = true;
-//                 return true;
-//             }
-//                })
-//               return json;
-//    }
+
 
 function createMsgDef() {
     var msg_id =$.trim($("#msg_id").val() )
@@ -316,16 +283,13 @@ function createMsgDef() {
             var check = false;
            
             $.each($('.fieldrow'),function () {
-                console.log($(this).find('.mesg-field').val());
-                if($(this).find('.mesg-field').val() === ""){ 
+                 if($(this).find('.mesg-field').val() === ""){ 
                     errorMsgBorder('Field Name is required', $(this).find('.mesg-field').attr('id'));
-                    console.log("error"+" "+$(this).find('.mesg-field').attr('id'));
                     check = false;
                     return false;
                 }else if($(this).find('.mesg-type').val() === ""){ 
                         errorMsgBorder('Field Name is required', $(this).find('.mesg-type').attr('id'));
-                        console.log("error"+" "+$(this).find('.mesg-type').attr('id'));
-                        check = false;
+                         check = false;
                         return false;
                     }
                     else{
@@ -337,14 +301,10 @@ function createMsgDef() {
                             "name": $(this).find('.mesg-field').val()
                         }
                         fields.push(json);
-                        console.log("True else");
                         check = true;
                         return true;
                     }
                        })
-                    
-        console.log("=== mesg filed ===" + check);
-        console.log(fields);
      
     // console.log(fields.length);
         // for (var i = 0; i < fields.length; i++) {
@@ -377,7 +337,6 @@ function createMsgDef() {
             "description":msg_desc,
             "fields": fields
         };
-       console.log(msgObj);
         $(".btn-proceed").attr('disabled', 'disabled');
         loading('Please wait');
 
@@ -394,7 +353,6 @@ function createMsgDef() {
                     if (status) {
                         current_msgdef_obj = msgObj;
                         successMsg('Message Defined Successfully');
-                            console.log("mesg option");
                             $('.right-content').addClass('d-none');
                             $('.active-step').addClass('d-none'); 
                             $('.roadmap-info').text('If you do not have any device? No worries ! Create or add one');  
@@ -572,7 +530,7 @@ function renderHtml(id, index, obj) {
             <div class="col-md-6">
             <div class="form-group">
                 <label class="inputLabel" style="text-transform: uppercase">` + obj.name + `</label>
-                <input type="number" class="form-control input-sm" id="` + id + `_` + index + `" required>
+                <input type="number" min='1' maxlength='50' class="form-control input-sm" id="` + id + `_` + index + `" required>
                 <small style="color: #363636; font-size: 11px;">Datatype: ` + obj.dataType + `</small>
             </div>
         </div>
@@ -582,8 +540,8 @@ function renderHtml(id, index, obj) {
             <div class="col-md-6">
             <div class="form-group">
                 <label class="inputLabel" style="text-transform: uppercase">` + obj.name + `</label>
-                <input type="text" class="form-control input-sm" id="` + id + `_` + index + `" required>
-                <small style="color: #363636; font-size: 11px;">Datatype: ` + obj.dataType + `</small>
+                <input type="text" maxlength='50' class="form-control input-sm" id="` + id + `_` + index + `" required>
+                 <small style="color: #363636; font-size: 11px;">Datatype: ` + obj.dataType + `</small>
             </div>
         </div>
         `;
@@ -623,9 +581,8 @@ function simulateMessage() {
 
     $(".msgDefCode").append('<p>'+new Date() +' | '+JSON.stringify(jsonObj)+'</p>');
     $(".btn-proceed").attr('disabled', 'disabled');
-
-    loading('Please wait');
-    simulateDeviceMessage(id, jsonObj, function (status, data) {
+   loading('Please wait');
+    simulateDeviceMessage(id, jsonObj,current_dev_token , function (status, data) {
         closeLoading();
         $(".btn-proceed").removeAttr('disabled');
         if(status){
