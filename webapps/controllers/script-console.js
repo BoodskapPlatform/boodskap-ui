@@ -553,7 +553,7 @@ function initiateEditor(code) {
 
     $('#codeEditor').height(Math.round($(window).height() - ($(window).height() /1.8)) + 'px');
 
-    $("#consoleBox").css('height', Math.round($("#codeEditor").height() - ($("#codeEditor").height() /1.5)) + 'px')
+    $("#consoleBox").css('height', Math.round($("#codeEditor").height() - ($("#codeEditor").height() /2)) + 'px')
 
     codeEditor.resize();
 }
@@ -751,51 +751,55 @@ function uploadClass(type, ispublic, isopen, jarname) {
 
 
 function validation(){
-    if($(".select").val()===""){
+    if($(".select").val()==""){
         $("#error").text("Please select an item in the list")
         $(".select").css('border-color','red')
        
         setTimeout(function(){
             $("#error").text("")
-        $(".select").css('border-color','')
-    
+            $(".select").css('border-color','')
+        
+          
         },2000);
+        
        
 
     } else{
+     
+       
  }
-
- if($(".text").val()===""){
-    $("#name_error").text("Please fill out this field")
-        $("#class_name").css('border-color','red')
-       
-        setTimeout(function(){
-            $("#name_error").text("")
-        $("#class_name").css('border-color','')
-    
-        },2000);
-       
-
-
-   }else{
-    
-
-   }
-
-   if($("#class_file").val()==""){
+ if($(".filetwo").val()===""){
     $("#file_error2").text("Please select a file")
-        $("#class_file").css('border-color','red')
+        $(".filetwo").css('border-color','red')
        
         setTimeout(function(){
             $("#file_error2").text("")
-        $("#class_file").css('border-color','')
+        $(".filetwo").css('border-color','')
     
         },2000);
        
 
 
    }else{
+    
+ 
 
+   }
+
+
+ if($(".text").val()===""){
+    $("#name_error").text("Please fill out this field")
+        $(".text").css('border-color','red')
+       
+        setTimeout(function(){
+            $("#name_error").text("")
+        $(".text").css('border-color','')
+    
+        },2000);
+       
+
+
+   }else{
    }
 
   
@@ -811,8 +815,12 @@ function validation(){
       
 
    }else{
+ 
 
    }
+
+  
+ 
 
 
 

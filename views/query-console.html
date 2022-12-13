@@ -130,6 +130,7 @@ text-align: end;
     
     .select2-container--default .select2-selection--single{
     border-radius: 10px;
+
    
     
    
@@ -141,14 +142,6 @@ text-align: end;
 justify-content: space-between;
  }
 
- #snackbar{
-    color: white;
-    background-color: hsl(238deg 46% 33%);
-    border: 1px solid #eaf1f6;
-    font-family:Montserrat;
-    border-radius:10px;
-    
-}
 
 
     
@@ -164,7 +157,7 @@ justify-content: space-between;
         
 
         <div class="ml-2 mr-4">
-            <a href="javascript:;" class="btn btn-sm btn-icon btn-circle  bskp-icon-bg" data-click="panel-expand"  " title="Expand"><img style="height:14px ;" src="images/menu/expand-icon.svg" alt=""></a>
+            <a href="javascript:;" class="btn btn-sm btn-icon btn-circle  bskp-icon-bg" data-click="panel-expand" title="Expand"><img style="height:14px ;" src="images/menu/expand-icon.svg" alt=""></a>
              <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg"  title="Help" > <img src="images/Question_icon.png" alt=""> </a>
            </div>
        
@@ -189,11 +182,13 @@ justify-content: space-between;
                             <div class="form-group">
                                 <label>Choose Index</label>
 
-                                <select id="options" style="border:2px solid #eaf1f6;" class="form-control input-sm " onchange="loadIdList(this.value)">
+                                <select id="options" style="border:2px solid #eaf1f6;" class="form-control input-sm border" onchange="loadIdList(this.value)">
+                                    <option value="">Choose Index</option>
                                     <option value="1">Message</option>
                                     <option value="2">Record</option>
                                     <option value="3">Model</option>
                                 </select>
+                                <span style="color:red;font-weight: 600;" class="index"></span>
 
                             </div>
                         </div>
@@ -202,7 +197,7 @@ justify-content: space-between;
 
                                 <label>Choose <span class="actionName"></span> <strong style="color:red">*</strong></label>
                                 <select style="border:2px solid #eaf1f6;" class="form-control input-sm" id="idList" style="" onchange="selectChange()"></select>
-                             
+                                <span style="color:red;font-weight: 600;" class="index"></span>
                             </div>
 
                         </div>
