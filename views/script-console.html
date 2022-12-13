@@ -121,6 +121,7 @@
        
        border: none;
         background-color: #fefefe;
+        height: 700px;
         
     }
     
@@ -180,6 +181,25 @@
     .close{
         margin-left: 200px;
     }
+    body{
+        overflow-y: hidden;
+    }
+    #error{
+color: red;
+    }
+    
+ #snackbar{
+    color: white;
+    background-color: hsl(238deg 46% 33%);
+   
+    font-family:Montserrat;
+    border-radius:10px;
+   
+    
+}
+#error,#error1,#name_error,#file_error2,#file1{
+    font-weight: 600;
+}
    
 
 </style>
@@ -230,7 +250,7 @@
 
                   
 
-                    <div id="consoleBox" style="overflow: auto;overflow-x: hidden;    background-color: rgb(0, 0, 0);padding: 10px;margin-top: 10px;border-radius:10px;"></div>
+                    <div id="consoleBox" style="overflow: auto;overflow-x: hidden;    background-color:hsl(208deg 50% 25%);padding: 10px;margin-top: 5px;border-radius:10px;"></div>
 
 
                     </div>
@@ -308,7 +328,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 style="font-size:18px ;font-weight:600;font-family:Montserrat;" class="modal-title">Import Class/JAR</h4>
-                <button style=""  type="button" class="close" data-dismiss="modal"   aria-label="Close"> <i class="fa fa-times" aria-hidden="true"></i></button>
+                <button style=""  type="button" class="close " data-dismiss="modal"   aria-label="Close"> <i class="fa fa-times" aria-hidden="true"></i></button>
             </div>
             <form action="javascript:void(0)" onsubmit="uploadClassFile()">
                
@@ -316,15 +336,17 @@
 
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group">
+                            <div  class="form-group">
                                 <label style="font-size:16px;" class="inputLabel">Select Type</label>
-                                <select class="form-control input-sm" id="class_type" required
+                                <select   class="form-control input-sm select" id="class_type"
                                         onchange="loadClassTemplate(this.value)">
                                     <option value=""></option>
                                     <option value="GROOVY">Groovy Class</option>
                                     <option value="JAR">JAR File</option>
-                                </select>
+                                 </select>
+                                 <span style="font-weight:400px;" id="error"></span>
                             </div>
+                            
                         </div>
                         <div class="col-md-6">
 
@@ -345,11 +367,10 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary btn-close" data-dismiss="modal">Close</button>
-                    <button type="submit" class=" btn-secondary btn-proceed btnSubmit btnModal">Upload</button>
+                    <button onclick="validation()" type="submit" class=" btn-secondary btn-proceed btnSubmit btnModal">Upload</button>
                 </div>
             </form>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
 

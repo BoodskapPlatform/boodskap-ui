@@ -5,9 +5,7 @@ var current_pool_obj = null;
 
 $(document).ready(function () {
 
-
     loadDBPool();
-    $("input[type='search']").attr("maxlength", 5);
     $("body").removeClass('bg-white');
 
 });
@@ -102,7 +100,7 @@ function loadDBPool() {
         language: {
             "emptyTable": "No data available",
             "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
-            "searchPlaceholder": "Search by pool name",
+            "searchPlaceholder": "Search by Pool Name",
             loadingRecords: '',
             paginate: {
                 previous: '< Prev',
@@ -136,8 +134,8 @@ function loadDBPool() {
             if (searchText) {
 
                 queryParams.query['bool']['should'].push({"wildcard" : { "name" : "*"+searchText.toLowerCase()+"*" }})
-                // queryParams.query['bool']['should'].push({"wildcard" : { "url" : "*"+searchText.toLowerCase()+"*" }})
-                // queryParams.query['bool']['should'].push({"wildcard" : { "database" : "*"+searchText.toLowerCase()+"*" }})
+                queryParams.query['bool']['should'].push({"wildcard" : { "url" : "*"+searchText.toLowerCase()+"*" }})
+                queryParams.query['bool']['should'].push({"wildcard" : { "database" : "*"+searchText.toLowerCase()+"*" }})
                 queryParams.query['bool']["minimum_should_match"]=1;
 
             }
@@ -170,7 +168,8 @@ function loadDBPool() {
 
                     fnCallback(resultData);
                 }
-            });
+            }); 
+              $('.dataTables_filter input').attr('maxlength', 100)
         }
 
     };

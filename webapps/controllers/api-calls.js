@@ -2325,8 +2325,7 @@ function retrieveDeviceModelProperty(id, name, cbk) {
 
 
 function simulateDeviceMessage(id, data, devToken, cbk) {
-
-    var headers = {
+ var headers = {
         'TOKEN' : devToken
     }
 
