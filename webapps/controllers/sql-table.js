@@ -2,13 +2,12 @@ var sqlTable = null;
 var table_list = [];
 var table_obj = {};
 var current_table_name = null;
-var templateArray = [ 'PARTITIONED', 'REPLICATED' ];
-var automicityArray = [ 'ATOMIC', 'TRANSACTIONAL'];
-var writeSyncArray = [ 'PRIMARY_SYNC','FULL_ASYNC',  'FULL_SYNC' ];
+var templateArray = ['PARTITIONED', 'REPLICATED'];
+var automicityArray = ['ATOMIC', 'TRANSACTIONAL'];
+var writeSyncArray = ['PRIMARY_SYNC', 'FULL_ASYNC', 'FULL_SYNC'];
 var TAB_FIELD_COUNT = 0;
 
 $(document).ready(function () {
-
 
     loadSQLTable();
     $("body").removeClass('bg-white');
@@ -23,11 +22,11 @@ $(document).ready(function () {
 
 function loadSqlQuery() {
 
-    $(".dkey").html(DOMAIN_KEY.toLowerCase()+"_")
+    $(".dkey").html(DOMAIN_KEY.toLowerCase() + "_")
 
     var bCount = 2;
 
-    if(ADMIN_ACCESS){
+    if (ADMIN_ACCESS) {
         bCount = 25;
     }
 
@@ -80,9 +79,9 @@ function loadSQLTable() {
             orderable: false,
             mRender: function (data, type, row) {
 
-                var str =`<div class="form-group">
+                var str = `<div class="form-group">
                             <div class="checkbox checkbox-inline">
-                                <input type="checkbox" class="tableCheck" id="`+row['_id']+`" onclick="pushData(this,'`+row['_id']+`')"> 
+                                <input type="checkbox" class="tableCheck" id="`+ row['_id'] + `" onclick="pushData(this,'` + row['_id'] + `')"> 
                             </div>
                             </div>
                 `
@@ -104,49 +103,49 @@ function loadSQLTable() {
             orderable: false,
             mRender: function (data, type, row) {
                 var str = '<ul style="margin: 0px;padding: 0px;list-style: none">'
-                for(var i=0;i<data.length;i++){
+                for (var i = 0; i < data.length; i++) {
 
                     var pstr = '';
                     var istr = '';
                     var astr = '';
-                    var actionStr ='<a href="javascript:void(0)" title="Drop Field" onclick="dropTableField(\''+row['name']+'\',\''+data[i].name+'\')" ' +
-                        'style="float:right;color:#666"><i class="icon-trash-o"></i> Field</a>'+
+                    var actionStr = '<a href="javascript:void(0)" title="Drop Field" onclick="dropTableField(\'' + row['name'] + '\',\'' + data[i].name + '\')" ' +
+                        'style="float:right;color:#666"><i class="icon-trash-o"></i> Field</a>' +
 
-                        '<a href="javascript:void(0)" title="Add Index" onclick="addTableFieldIndex(\''+row['name']+'\',\''+data[i].name+'\')" '+
+                        '<a href="javascript:void(0)" title="Add Index" onclick="addTableFieldIndex(\'' + row['name'] + '\',\'' + data[i].name + '\')" ' +
                         ' style="float:right;color:#666;margin-right: 5px;border-right: 1px solid #ccc;padding-right: 5px;">' +
                         '<i class="icon-plus3"></i> Index</a>';
                     var factionStr = '';
 
 
-                    for(var j=0;j<row['primaryKeyFields'].length;j++){
-                        if(data[i].name === row['primaryKeyFields'][j]){
+                    for (var j = 0; j < row['primaryKeyFields'].length; j++) {
+                        if (data[i].name === row['primaryKeyFields'][j]) {
                             pstr = '<i class="icon-square" style="color:red;opacity: 0.6" title="Primary Field"></i>';
-                            actionStr ='';
+                            actionStr = '';
                         }
                     }
 
-                    for(var j=0;j<row['indexFields'].length;j++){
-                        if(data[i].name === row['indexFields'][j]){
+                    for (var j = 0; j < row['indexFields'].length; j++) {
+                        if (data[i].name === row['indexFields'][j]) {
                             istr = '<i class="icon-square" style="color:forestgreen;opacity: 0.6" title="Indexed Field"></i>';
-                            actionStr =  '<a href="javascript:void(0)" title="Drop Index" onclick="dropTableFieldIndex(\''+row['name']+'\',\''+data[i].name+'\')" '+
+                            actionStr = '<a href="javascript:void(0)" title="Drop Index" onclick="dropTableFieldIndex(\'' + row['name'] + '\',\'' + data[i].name + '\')" ' +
                                 ' style="float:right;color:#666"><i class="icon-trash-o"></i> Index</a> ';
 
                         }
                     }
 
-                    if(data[i].name === row['affinityField']){
+                    if (data[i].name === row['affinityField']) {
                         astr = '<i class="icon-square" style="color:yellow;opacity: 0.6" title="Affinity Field"></i>'
                     }
 
-                    str= str+'<li style="border-bottom: 1px solid #eee">'+(i+1)+'] '+pstr+' '+istr+' '+astr+' <strong>'+data[i].name+'</strong> <small>'+data[i].type+'</small> ' +
-                        actionStr+'</li>'
+                    str = str + '<li style="border-bottom: 1px solid #eee">' + (i + 1) + '] ' + pstr + ' ' + istr + ' ' + astr + ' <strong>' + data[i].name + '</strong> <small>' + data[i].type + '</small> ' +
+                        actionStr + '</li>'
                 }
 
                 var addStr = '<p style="text-align: center">' +
-                    '<a href="javascript:void(0)" onclick="addSQLTableFieldModal(\''+row['name']+'\')"><i class="icon-plus3"></i> Add Field</a>' +
+                    '<a href="javascript:void(0)" onclick="addSQLTableFieldModal(\'' + row['name'] + '\')"><i class="icon-plus3"></i> Add Field</a>' +
                     '</p>'
 
-                return str+addStr;
+                return str + addStr;
             }
         },
         {
@@ -177,8 +176,8 @@ function loadSQLTable() {
 
     ];
 
-    var domainKeyJson = {"match": {"domainKey": DOMAIN_KEY}};
-    var defaultSorting = [{"createdStamp": {"order": "desc"}}];
+    var domainKeyJson = { "match": { "domainKey": DOMAIN_KEY } };
+    var defaultSorting = [{ "createdStamp": { "order": "desc" } }];
     var queryParams = {
         query: {
             "bool": {
@@ -202,12 +201,12 @@ function loadSQLTable() {
         iDisplayLength: 10,
         lengthMenu: [[10, 50, 100], [10, 50, 100]],
         dom: '<"bskp-search-left" f> lrtip',
-        
+
         language: {
             "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
             "searchPlaceholder": "Search by Table Name",
-            "emptyTable":"No data available",
-            
+            "emptyTable": "No data available",
+
 
 
             loadingRecords: '',
@@ -216,7 +215,7 @@ function loadSQLTable() {
                 next: 'Next >'
             }
         },
-    aoColumns: fields,
+        aoColumns: fields,
         // "bProcessing": true,
         "bServerSide": true,
         "sAjaxSource": API_BASE_PATH + '/elastic/search/query/' + API_TOKEN,
@@ -239,11 +238,11 @@ function loadSQLTable() {
 
             if (searchText) {
 
-                queryParams.query['bool']['should'].push({"wildcard" : { "name" : "*"+searchText.toLowerCase()+"*" }})
-                queryParams.query['bool']["minimum_should_match"]=1;
+                queryParams.query['bool']['should'].push({ "wildcard": { "name": "*" + searchText.toLowerCase() + "*" } })
+                queryParams.query['bool']["minimum_should_match"] = 1;
 
             }
-                queryParams.query['bool']['must'] = [domainKeyJson];
+            queryParams.query['bool']['must'] = [domainKeyJson];
 
 
             var ajaxObj = {
@@ -251,7 +250,7 @@ function loadSQLTable() {
                 "extraPath": "",
                 "query": JSON.stringify(queryParams),
                 "params": [],
-                type : 'SQL_TABLE'
+                type: 'SQL_TABLE'
             };
 
 
@@ -273,7 +272,7 @@ function loadSQLTable() {
                     setTimeout(function () {
                         checkSelectedData();
 
-                    },500)
+                    }, 500)
 
                     fnCallback(resultData);
                 }
@@ -306,7 +305,7 @@ function openModal() {
         backdrop: 'static',
         keyboard: false
     });
-    
+
     $(".tabFieldBody").html("");
 
     addTableField();
@@ -375,35 +374,35 @@ function addTableField() {
     var id = TAB_FIELD_COUNT;
 
 
-    var sql_data_type = [ 'BOOLEAN', 'INT', 'TINYINT', 'SMALLINT', 'BIGINT', 'DECIMAL', 'DOUBLE', 'REAL',
-        'TIME', 'DATE', 'TIMESTAMP', 'VARCHAR', 'CHAR', 'UUID', 'BINARY', 'GEOMETRY' ];
+    var sql_data_type = ['BOOLEAN', 'INT', 'TINYINT', 'SMALLINT', 'BIGINT', 'DECIMAL', 'DOUBLE', 'REAL',
+        'TIME', 'DATE', 'TIMESTAMP', 'VARCHAR', 'CHAR', 'UUID', 'BINARY', 'GEOMETRY'];
 
     var dstr = '';
-    for(var i=0;i<sql_data_type.length;i++){
-        dstr = dstr + '<option value="'+sql_data_type[i]+'" >'+sql_data_type[i]+'</option>'
+    for (var i = 0; i < sql_data_type.length; i++) {
+        dstr = dstr + '<option value="' + sql_data_type[i] + '" >' + sql_data_type[i] + '</option>'
     }
 
 
 
-    var str = `<tr id="tab_field_row_` + id + `">
+    var str = `<tr class="fieldrow" id="tab_field_row_` + id + `">
     <td>
-        <input class="form-control input-sm" placeholder="Field Name" type="text"  id="tab_field_` + id + `" required onkeyup="return forceLower(this);">
+        <input class="form-control input-sm tab-field" placeholder="Field Name" type="text"  id="tab_field_` + id + `"  onkeyup="tab_field()">
     </td>
     <td>
-    <select class="form-control input-sm" required id="tab_datatype_` + id + `">
+    <select class="form-control data-type input-sm"  id="tab_datatype_` + id + `">
       <option value="" >Choose Data Type</option>
-     `+dstr+`
+     `+ dstr + `
     </select>
     </td>
     <td>
         <div class="checkbox checkbox-css checkbox-inline">
-            <input type="checkbox" id="p_key_`+id+`" class="primaryKey" value="`+id+`"  name="primaryKey[]" onclick="checkPrimaryKey(`+id+`)" value=""> <label for="p_key_`+id+`"> Primary Key</label>
+            <input type="checkbox" id="p_key_`+ id + `" class="primaryKey" value="` + id + `"  name="primaryKey[]" onclick="checkPrimaryKey(` + id + `)" value=""> <label for="p_key_` + id + `"> Primary Key</label>
         </div>
         <div class="checkbox checkbox-css checkbox-inline">
-            <input type="checkbox" id="i_key_`+id+`" class="indexKey" value="`+id+`"  name="indexKey[]" onclick="checkIndexKey(`+id+`)"> <label for="i_key_`+id+`"> Index</label>
+            <input type="checkbox" id="i_key_`+ id + `" class="indexKey" value="` + id + `"  name="indexKey[]" onclick="checkIndexKey(` + id + `)"> <label for="i_key_` + id + `"> Index</label>
         </div>
         <div class="checkbox checkbox-css checkbox-inline disabled">
-            <input type="checkbox" id="a_key_`+id+`" class="affKey"  value="`+id+`" name="affKey[]" disabled onclick="checkAffinityKey(`+id+`)"><label for="a_key_`+id+`"> Affinity</label>
+            <input type="checkbox" id="a_key_`+ id + `" class="affKey"  value="` + id + `" name="affKey[]" disabled onclick="checkAffinityKey(` + id + `)"><label for="a_key_` + id + `"> Affinity</label>
         </div>
     </td>
     <td style="text-align: center;vertical-align: middle;" class="addMsg">`+
@@ -422,37 +421,37 @@ var affinityField = '';
 
 function checkPrimaryKey(id) {
 
-    if($("#p_key_"+id).prop("checked")){
-        $("#i_key_"+id).prop('checked', false);
-        $("#i_key_"+id).parent().addClass('disabled')
-        $("#i_key_"+id).attr('disabled','disabled');
+    if ($("#p_key_" + id).prop("checked")) {
+        $("#i_key_" + id).prop('checked', false);
+        $("#i_key_" + id).parent().addClass('disabled')
+        $("#i_key_" + id).attr('disabled', 'disabled');
 
-        $("#a_key_"+id).prop('checked', false);
-        $("#a_key_"+id).parent().removeClass('disabled')
-        $("#a_key_"+id).removeAttr('disabled');
-    }else{
-        $("#i_key_"+id).prop('checked', false);
-        $("#i_key_"+id).parent().removeClass('disabled')
-        $("#i_key_"+id).removeAttr('disabled');
+        $("#a_key_" + id).prop('checked', false);
+        $("#a_key_" + id).parent().removeClass('disabled')
+        $("#a_key_" + id).removeAttr('disabled');
+    } else {
+        $("#i_key_" + id).prop('checked', false);
+        $("#i_key_" + id).parent().removeClass('disabled')
+        $("#i_key_" + id).removeAttr('disabled');
 
-        $("#a_key_"+id).prop('checked', false);
-        $("#a_key_"+id).parent().addClass('disabled')
-        $("#a_key_"+id).attr('disabled','disabled');
+        $("#a_key_" + id).prop('checked', false);
+        $("#a_key_" + id).parent().addClass('disabled')
+        $("#a_key_" + id).attr('disabled', 'disabled');
     }
 
 }
 
 function checkIndexKey(id) {
 
-    if($("#i_key_"+id).prop("checked")){
-        $("#p_key_"+id).prop('checked', false);
-        $("#p_key_"+id).parent().addClass('disabled')
-        $("#p_key_"+id).attr('disabled','disabled');
+    if ($("#i_key_" + id).prop("checked")) {
+        $("#p_key_" + id).prop('checked', false);
+        $("#p_key_" + id).parent().addClass('disabled')
+        $("#p_key_" + id).attr('disabled', 'disabled');
 
-    }else{
-        $("#p_key_"+id).prop('checked', false);
-        $("#p_key_"+id).parent().removeClass('disabled')
-        $("#p_key_"+id).removeAttr('disabled');
+    } else {
+        $("#p_key_" + id).prop('checked', false);
+        $("#p_key_" + id).parent().removeClass('disabled')
+        $("#p_key_" + id).removeAttr('disabled');
 
     }
 
@@ -460,9 +459,9 @@ function checkIndexKey(id) {
 
 function checkAffinityKey(id) {
 
-    if($("#a_key_"+id).prop("checked")){
+    if ($("#a_key_" + id).prop("checked")) {
         $(".affKey").prop('checked', false);
-        $("#a_key_"+id).prop('checked', true);
+        $("#a_key_" + id).prop('checked', true);
 
     }
 
@@ -470,20 +469,60 @@ function checkAffinityKey(id) {
 
 
 function addSQLTable() {
-
     primaryKey = [];
     indexFields = [];
 
     var flag = false;
 
     var fields = [];
+    var check = false;
 
     var msg_id = $.trim($("#msg_id").val())
 
-    if(msg_id == ""){
-        errorMsgBorder('Record ID cannot be empty','msg_id');
-        return false;
+    let table = $("#table_name").val()
+    if (table.length === 0) {
+        $("#table_name").css({ borderColor: "red" });
+        $("#logmsg_id").css({ visibility: "visible" });
+       
     }
+
+    else{
+        $.each($('.fieldrow'), function () {
+            if ($(this).find('.tab-field').val() === "") {
+                errorMsgBorder('Field Name is required', $(this).find('.tab-field').attr('id'));
+                check = false;
+                return false;
+            } else if ($(this).find('.data-type').val() === "") {
+                errorMsgBorder('Field Name is required', $(this).find('.data-type').attr('id'));
+                check = false;
+                return false;
+            }
+            else {
+                var json = {
+                    "dataType": $(this).find('.data-type').val(),
+                    "format": "AS_IS",
+                    "label": "",
+                    "description": "",
+                    "name": $(this).find('.tab-field').val()
+                }
+                fields.push(json);
+                console.log("True else");
+                check = true;
+                return true;
+            }
+        })
+    }
+       
+    
+    
+    // if (msg_id == "") {
+    //     console.log("mid");
+    //     errorMsgBorder('Record ID cannot be empty', 'msg_id');
+    //     return false;
+    // }
+
+    // var fields = [];
+    // var check = false;
 
     for (var i = 0; i < TAB_FIELD_COUNT; i++) {
         var json = {
@@ -493,23 +532,21 @@ function addSQLTable() {
         fields.push(json);
     }
 
-    $("input[name='primaryKey[]']:checked").each(function ()
-    {
+    $("input[name='primaryKey[]']:checked").each(function () {
         primaryKey.push($(this).val());
     });
 
-    $("input[name='indexKey[]']:checked").each(function ()
-    {
+    $("input[name='indexKey[]']:checked").each(function () {
         indexFields.push($(this).val());
     });
 
-    if(primaryKey.length === 0){
+    if (primaryKey.length === 0) {
         errorMsg('Atleast one Primary Key in the table');
         return false;
     }
 
 
-    if(primaryKey.length === (TAB_FIELD_COUNT)){
+    if (primaryKey.length === (TAB_FIELD_COUNT)) {
 
         errorMsg('All fields cannot be Primary.')
         addTableField()
@@ -520,26 +557,26 @@ function addSQLTable() {
 
     var pKeyList = [];
 
-   for(var i=0;i<primaryKey.length;i++){
-       pKeyList.push($("#tab_field_"+primaryKey[i]).val());
+    for (var i = 0; i < primaryKey.length; i++) {
+        pKeyList.push($("#tab_field_" + primaryKey[i]).val());
 
-       if($("#a_key_"+primaryKey[i]).prop("checked")){
-           affinityField = $("#tab_field_"+primaryKey[i]).val();
-       }
-   }
+        if ($("#a_key_" + primaryKey[i]).prop("checked")) {
+            affinityField = $("#tab_field_" + primaryKey[i]).val();
+        }
+    }
 
 
 
 
     var iFieldList = [];
 
-    for(var i=0;i<indexFields.length;i++){
-        iFieldList.push($("#tab_field_"+indexFields[i]).val());
+    for (var i = 0; i < indexFields.length; i++) {
+        iFieldList.push($("#tab_field_" + indexFields[i]).val());
     }
 
 
     var msgObj = {
-        "name": DOMAIN_KEY.toLowerCase()+"_"+$("#table_name").val(),
+        "name": DOMAIN_KEY.toLowerCase() + "_" + $("#table_name").val(),
         "fields": fields,
         "primaryKeyFields": pKeyList,
         "indexFields": iFieldList,
@@ -582,7 +619,7 @@ function checkTableExists(tableName, cbk) {
         "query": {
             "bool": {
                 "must": [
-                    {match: {domainKey: DOMAIN_KEY}},
+                    { match: { domainKey: DOMAIN_KEY } },
                     {
                         "multi_match": {
                             "query": tableName,
@@ -610,9 +647,9 @@ function checkTableExists(tableName, cbk) {
             var resultData = QueryFormatter(data);
 
             if (resultData.total > 0) {
-                cbk(true,null)
-            }else{
-                cbk(false,null)
+                cbk(true, null)
+            } else {
+                cbk(false, null)
             }
 
 
@@ -632,7 +669,7 @@ function openDeleteModal(id) {
 function proceedDelete() {
     var ignore = $("#ignoreDrop").prop("checked");
 
-    dropSQLTable(current_table_name, ignore,function (status, data) {
+    dropSQLTable(current_table_name, ignore, function (status, data) {
         if (status) {
             successMsg('Table Dropped Successfully');
             loadSQLTable();
@@ -646,7 +683,7 @@ function proceedDelete() {
 
 
 function dropTableField(tname, fname) {
-    dropSQLTableField(tname, fname,function (status, data) {
+    dropSQLTableField(tname, fname, function (status, data) {
         if (status) {
             successMsg('Field Dropped Successfully');
             loadSQLTable();
@@ -658,7 +695,7 @@ function dropTableField(tname, fname) {
 
 
 function dropTableFieldIndex(tname, fname) {
-    dropSQLTableIndex(tname, fname,true,function (status, data) {
+    dropSQLTableIndex(tname, fname, true, function (status, data) {
         if (status) {
             successMsg('Field Index Dropped Successfully');
             loadSQLTable();
@@ -670,7 +707,7 @@ function dropTableFieldIndex(tname, fname) {
 
 
 function addTableFieldIndex(tname, fname) {
-    createSQLTableFieldIndex(tname, fname,true,true,function (status, data) {
+    createSQLTableFieldIndex(tname, fname, true, true, function (status, data) {
         if (status) {
             successMsg('Field Index Added Successfully');
             loadSQLTable();
@@ -687,13 +724,13 @@ function addSQLTableFieldModal(tname) {
     $("#field_name").val('')
     $("#field_type").val('')
 
-    var sql_data_type = [ 'BOOLEAN', 'INT', 'TINYINT', 'SMALLINT', 'BIGINT', 'DECIMAL', 'DOUBLE', 'REAL',
-        'TIME', 'DATE', 'TIMESTAMP', 'VARCHAR', 'CHAR', 'UUID', 'BINARY', 'GEOMETRY' ];
+    var sql_data_type = ['BOOLEAN', 'INT', 'TINYINT', 'SMALLINT', 'BIGINT', 'DECIMAL', 'DOUBLE', 'REAL',
+        'TIME', 'DATE', 'TIMESTAMP', 'VARCHAR', 'CHAR', 'UUID', 'BINARY', 'GEOMETRY'];
 
     $("#field_type").html('<option value="" >Choose Data Type</option>');
 
-    for(var i=0;i<sql_data_type.length;i++){
-        $("#field_type").append('<option value="'+sql_data_type[i]+'" >'+sql_data_type[i]+'</option>');
+    for (var i = 0; i < sql_data_type.length; i++) {
+        $("#field_type").append('<option value="' + sql_data_type[i] + '" >' + sql_data_type[i] + '</option>');
     }
 
     $("#addFieldModal").modal({
@@ -704,10 +741,10 @@ function addSQLTableFieldModal(tname) {
 
 function insertSQLTableField() {
     var data = {
-        name : $("#field_name").val(),
-        type : $("#field_type").val()
+        name: $("#field_name").val(),
+        type: $("#field_type").val()
     }
-    addSQLTableField(tempTableName, data,function (status, data) {
+    addSQLTableField(tempTableName, data, function (status, data) {
         if (status) {
             successMsg('Field Added Successfully');
             $("#addFieldModal").modal('hide');
@@ -718,23 +755,23 @@ function insertSQLTableField() {
     })
 }
 
-var selectedData=[];
-function pushData(obj,id) {
+var selectedData = [];
+function pushData(obj, id) {
 
     var data = {};
 
-    for(var i=0;i<table_list.length;i++){
-        if(id === table_list[i]._id){
+    for (var i = 0; i < table_list.length; i++) {
+        if (id === table_list[i]._id) {
             data = table_list[i];
         }
     }
 
-    if($(obj).is(":checked")){
+    if ($(obj).is(":checked")) {
         selectedData.push(data);
-    }else{
-        var tmp =[];
-        for(var i=0;i<selectedData.length;i++){
-            if(id !== selectedData[i]._id){
+    } else {
+        var tmp = [];
+        for (var i = 0; i < selectedData.length; i++) {
+            if (id !== selectedData[i]._id) {
                 tmp.push(selectedData[i]);
             }
         }
@@ -742,20 +779,20 @@ function pushData(obj,id) {
     }
 
 
-    if(selectedData.length > 0){
+    if (selectedData.length > 0) {
         exportTables()
-        $(".selectedData").html('<b>'+selectedData.length+'</b> Table\'s Selected. <a href="javascript:void(0)" onclick="clearData()">clear all</a>')
-    }else{
+        $(".selectedData").html('<b>' + selectedData.length + '</b> Table\'s Selected. <a href="javascript:void(0)" onclick="clearData()">clear all</a>')
+    } else {
         $(".selectedData").html('')
     }
 }
 
 function clearData() {
 
-    for(var i=0;i<selectedData.length;i++){
-        $("#"+selectedData[i]._id).prop('checked', false);
+    for (var i = 0; i < selectedData.length; i++) {
+        $("#" + selectedData[i]._id).prop('checked', false);
     }
-    selectedData=[];
+    selectedData = [];
 
     $(".selectedData").html('')
 
@@ -763,14 +800,14 @@ function clearData() {
 
 
 function checkSelectedData() {
-    for(var i=0;i<selectedData.length;i++){
-        $("#"+selectedData[i]._id).prop('checked', true);
+    for (var i = 0; i < selectedData.length; i++) {
+        $("#" + selectedData[i]._id).prop('checked', true);
     }
 
-    if(selectedData.length > 0){
+    if (selectedData.length > 0) {
         exportTables()
-        $(".selectedData").html('<b>'+selectedData.length+'</b> Table\'s Selected. <a href="javascript:void(0)" onclick="clearData()">clear all</a>')
-    }else{
+        $(".selectedData").html('<b>' + selectedData.length + '</b> Table\'s Selected. <a href="javascript:void(0)" onclick="clearData()">clear all</a>')
+    } else {
         $(".selectedData").html('')
     }
 }
@@ -780,12 +817,12 @@ function checkSelectedData() {
 function exportTables() {
 
 
-    var tmp =[];
-    for(var i=0;i<selectedData.length;i++){
+    var tmp = [];
+    for (var i = 0; i < selectedData.length; i++) {
         tmp.push(selectedData[i]);
     }
 
-    saveAndDownload(JSON.stringify(tmp), 'sql-tables-'+DOMAIN_KEY+'.json', 'application/json', 'exportMsg')
+    saveAndDownload(JSON.stringify(tmp), 'sql-tables-' + DOMAIN_KEY + '.json', 'application/json', 'exportMsg')
 
 }
 
@@ -795,13 +832,13 @@ function importTable() {
     $("#importModal form")[0].reset();
     $("#imported_content").val('')
     $("#importFile").val('')
-    importData='';
+    importData = '';
     $("#importModal").modal('show');
 }
 
 
 function getImportFile(event) {
-    importData=''
+    importData = ''
     const input = event.target;
     if (input && input.files.length > 0) {
         placeFileContent(
@@ -836,18 +873,18 @@ function importContent() {
     $(".btnSubmit").attr('disabled', 'disabled');
     $(".btnSubmit").html('<i class="icon-spinner icon-spin"></i> importing tables. please wait...')
 
-    async.filter(dat, function (obj,cbk) {
+    async.filter(dat, function (obj, cbk) {
 
         delete obj._id;
-        obj['name'] = obj['name'].replace(obj['domainKey'].toLowerCase(),DOMAIN_KEY.toLowerCase());
+        obj['name'] = obj['name'].replace(obj['domainKey'].toLowerCase(), DOMAIN_KEY.toLowerCase());
         obj['domainKey'] = DOMAIN_KEY;
 
         createSQLTable(obj, true, function (status, data) {
-            cbk(null,null)
+            cbk(null, null)
 
         });
 
-    },function (err, result) {
+    }, function (err, result) {
         successMsg('Table Imported Successfully');
         loadSQLTable();
         $("#importModal").modal('hide')
@@ -857,14 +894,17 @@ function importContent() {
 
 
 }
-function tablename(){
-    let table = $("#table_name").val()
-  if (table.length === 0) {
-    $("#table_name").css({borderColor:"red"});
-    $("#logmsg_id").css({visibility:"visible"});
-  }
-  else {
-    $("#table_name").css({borderColor:"green"});
-    $("#logmsg_id").css({visibility:"hidden"}); 
-  }
+function tablename() {
+    
 }
+// function tab_field() {
+//     let tab = $(".tab-field").val()
+//     if (tab.length === 0) {
+//         $(".tab-field").css({ borderColor: "red" });
+//     }
+//     else {
+//         $(".tab-field").css({ borderColor: "" });
+
+//     }
+
+// }
