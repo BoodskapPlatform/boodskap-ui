@@ -141,7 +141,7 @@ text-align: end;
  .btn-g{
 justify-content: space-between;
  }
-
+ 
 
 
     
@@ -157,7 +157,7 @@ justify-content: space-between;
         
 
         <div class="ml-2 mr-4">
-            <a href="javascript:;" class="btn btn-sm btn-icon btn-circle  bskp-icon-bg" data-click="panel-expand" title="Expand"><img style="height:14px ;" src="images/menu/expand-icon.svg" alt=""></a>
+            <a href="javascript:;" class="btn btn-sm btn-icon btn-circle  bskp-icon-bg" onclick="expand()" data-click="panel-expand" title="Expand"><img style="height:14px ;" src="images/menu/expand-icon.svg" alt=""></a>
              <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg"  title="Help" > <img src="images/Question_icon.png" alt=""> </a>
            </div>
        
@@ -188,7 +188,7 @@ justify-content: space-between;
                                     <option value="2">Record</option>
                                     <option value="3">Model</option>
                                 </select>
-                                <span style="color:red;font-weight: 600;" id="logindex"></span>
+                                <span style="color:red;font-weight: 600;" class= "index"></span>
 
                             </div>
                         </div>
@@ -264,3 +264,15 @@ justify-content: space-between;
 <script src="js/beautify.min.js" type="text/javascript"></script>
 
 <script src="controllers/query-console.js" type="text/javascript"></script>
+<script>
+    function expand(){
+    $('#resultEditor').height(($(window).height() - 210) + 'px');
+    resultEditor.resize();
+    $('#queryEditor').css('height',$(window).height()-300);
+
+    $('#messageData').css('height',$(window).height()-190).resize();
+    $('#sideBorder').css('height',$(window).height()-190).resize();
+
+    queryEditor.resize();
+}
+</script>

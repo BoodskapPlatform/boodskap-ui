@@ -305,6 +305,7 @@ function loadresultEditor(code) {
 }
 
 
+
 var ELASTIC_SNIPPET = [
     {
         name: 'query sort',
@@ -532,3 +533,4 @@ var ELASTIC_SNIPPET = [
         content: '{"script:"{"inline:"$1,"lang:"${2:painless}"}}'
     }
 ]
+
