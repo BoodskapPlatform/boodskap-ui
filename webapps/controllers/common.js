@@ -49,7 +49,7 @@ function recentUpdate() {
                 success: function (res) {
                     if (res) {
                         $(".recenthead").html(
-                            `<span onclick="recentUpdate()" style="padding-bottom: 4px; border-bottom: 3px solid #2d2f79bf;">Featured</span> `
+                            `<span style="padding-bottom: 4px; border-bottom: 3px solid #2d2f79bf;">Featured</span> `
                         );
                     }
                 },
@@ -63,8 +63,9 @@ function recentUpdate() {
 
 function clickRecent(tabname, tabid, loadmenu, cardno) {
     let newclick = true;
+    console.log(rdata);
     for (i = 0; i < rdata.length; i++) {
-        if (tabid === rdata[i].id) {
+         if (tabid === rdata[i].id) {
             rdata[i].update_ts = Date.now();
             newclick = false;
         }
@@ -108,6 +109,7 @@ function clickRecent(tabname, tabid, loadmenu, cardno) {
 
 function recentcard(rdata) {
     if (rdata) {
+        console.log(rdata);
         for (let i = 0; i < (rdata.length >= 10 ? 10 : rdata.length ); i++) {
               if (i >= 0 && i <= 5) {
                 $("#recentMenuList").append(

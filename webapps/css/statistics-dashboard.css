@@ -94,6 +94,7 @@ font-weight:600;
 .fullcount{
 flex: 100%;
 max-width: 100%;
+margin-top: 4px;
 height: 20px;
 justify-content: left !important;
 }

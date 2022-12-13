@@ -577,8 +577,8 @@ function loadMessages(id) {
         iDisplayLength: 10,
         language: {
             "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> &nbsp;',
-            "searchPlaceholder": "Search here...",
-            "emptyTable": "No data found!",
+            "searchPlaceholder": "Search by Id",
+            "emptyTable": "No data available",
             "processing": '<div class="p-2"><i class="fa fa-spinner fa-spin"></i> Processing</div>',
             loadingRecords: '',
             paginate: {
@@ -690,7 +690,7 @@ function loadMessages(id) {
     };
 
     messageTable = $("#messageTable").DataTable(tableOption);
-
+    $('.dataTables_filter input').attr('maxlength', 100)
 }
 
 function buildChartData() {
@@ -1655,8 +1655,8 @@ function loadLogs() {
         "ordering": true,
         iDisplayLength: 10,
         language: {
-            "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> &nbsp; <button class="search-btn"> <i class="fa fa-search" aria-hidden="true"></i></button> ',
-            "searchPlaceholder": "Search here...",
+            "sSearch": '<i class="fa fa-search" aria-hidden="true"></i>',
+            "searchPlaceholder": "Search by Rule Id",
             "emptyTable": "No data found!",
             "processing": '<div class="p-2"><i class="fa fa-spinner fa-spin"></i> Processing</div>',
             loadingRecords: '',
@@ -1704,14 +1704,7 @@ function loadLogs() {
 
             if (searchText) {
 
-                queryParams.query['bool']['should'].push({"wildcard" : { "message" : "*"+searchText.toLowerCase()+"*" }})
-                queryParams.query['bool']['should'].push({"wildcard" : { "ruleId" : "*"+searchText.toLowerCase()+"*" }})
-                queryParams.query['bool']['should'].push({"wildcard" : { "data" : "*"+searchText.toLowerCase()+"*" }})
-                queryParams.query['bool']['should'].push({"wildcard" : { "deviceId" : "*"+searchText.toLowerCase()+"*" }})
-                queryParams.query['bool']['should'].push({"wildcard" : { "receipents" : "*"+searchText.toLowerCase()+"*" }})
-                queryParams.query['bool']['should'].push({"wildcard" : { "receipent" : "*"+searchText.toLowerCase()+"*" }})
-                queryParams.query['bool']['should'].push({"wildcard" : { "content" : "*"+searchText.toLowerCase()+"*" }})
-                queryParams.query['bool']['should'].push({"wildcard" : { "toAddress" : "*"+searchText.toLowerCase()+"*" }})
+                 queryParams.query['bool']['should'].push({"wildcard" : { "ruleId" : "*"+searchText.toLowerCase()+"*" }})
                 queryParams.query['bool']["minimum_should_match"]=1;
             }
 
@@ -1748,6 +1741,7 @@ function loadLogs() {
     };
 
     logTable = $("#logTable").DataTable(tableOption);
+    $('.dataTables_filter input').attr('maxlength', 100)
 }
 // End event logs
 

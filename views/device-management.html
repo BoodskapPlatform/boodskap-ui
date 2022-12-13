@@ -22,7 +22,7 @@
         <li class="breadcrumb-item"><a href="<%= basepath %>/device-management">Device Management</a></li>
         <li class="breadcrumb-item active">Manage Devices</li>
         <div class="ml-4">
-            <a href="javascript:;" class="btn btn-sm btn-icon btn-circle  bskp-icon-bg" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+            <a href="javascript:;" class="btn btn-sm btn-icon btn-circle  bskp-icon-bg" title="Expand" data-click="panel-expand"><i class="fa fa-expand"></i></a>
             <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg" title="Help" ><i class="icon-help"></i></a>
         </div>
     </ol>
@@ -30,7 +30,7 @@
     <!-- end breadcrumb -->
     <!-- begin page-header -->
     <div class="page-header bskp-page-topic"><img src="images/menu/message-definition_1-bskp.png" class="bskp-topic-icon mr-1" > Manage Devices
-        <span class="panel-title ml-3" style="color: #478ecc;">Total Devices: <b><span class="deviceCount"></span></b></span> </div>
+        <span class="panel-title ml-3" style="color: #2D2F79;">Total Devices: <b><span class="deviceCount"></span></b></span> </div>
     
     <!-- end page-header -->
 
@@ -39,7 +39,7 @@
             <div class="row m-0">
                 <div class="col-12">
                   <div class="btn-group btn-group-justified pull-right bskp-btn-group-align" >
-                    <a class="btn bskp-btn-shadow bskp-blue-bg" onclick="openModal(1)"><i class="fa fa-plus-square"></i> <span class="hidden-xs">Add Device</span></a>
+                    <a class="btn bskp-btn-shadow bskp-blue-bg" onclick="openModal(1)"><img src="images/plus.svg" class="bskp-plusvg"> <span class="hidden-xs">Add Device</span></a>
                     <a class="btn bskp-refresh-bg" data-click="panel-reload" onclick="loadDeviceList()"><i class="fa fa-refresh"></i></a>
                   </div>
 

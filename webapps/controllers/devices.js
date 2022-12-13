@@ -130,7 +130,7 @@ function loadDeviceList() {
             dom: '<"bskp-search-left" f> lrtip',
             language: {
                 "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
-                "searchPlaceholder": "Search here...",
+                "searchPlaceholder": "Search by Device Id",
                 loadingRecords: '',
                 paginate: {
                     previous: '< Prev',
@@ -277,7 +277,7 @@ function openModal(type,id) {
     if (type === 1) {
         loadDeviceModels();
         $("#device_id").removeAttr('readonly');
-        $(".templateAction").html('Create');
+        $(".templateAction").html('Add');
         $("#addDevice form")[0].reset();
         $("#addDevice").modal('show');
         $("#addDevice form").attr('onsubmit','addDevice()')
