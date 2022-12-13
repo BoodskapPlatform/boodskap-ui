@@ -48,6 +48,10 @@ function loadqueryEditor() {
 
     $('#queryEditor').height(($(window).height() - 280) + 'px');
     $('.dbTable').height(($(window).height() - 250) + 'px');
+    // $('#queryEditor').height(($(window).height()) + 'px');
+    // $('.dbTable').height(($(window).height()) + 'px');
+    // $('#resultEditor').height(($(window).height()) + 'px');
+
 
     queryEditor.resize();
 
@@ -153,7 +157,7 @@ function loadresultEditor(code) {
     resultEditor.clearSelection();
 
 
-    $('#resultEditor').height(($(window).height() - 250) + 'px');
+    $('#resultEditor').height(($(window).height() - 225) + 'px');
 
     resultEditor.resize();
 
