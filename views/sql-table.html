@@ -120,7 +120,13 @@ input[type=file]::file-selector-button {
   background-color: #fdfcfd;
   color: #7b74a3;
 }
-
+#logmsg_id{
+    color: red;
+    visibility: hidden;
+    position: relative;
+    top:34px;
+    right:175px;
+}
 </style>
 <!--<div class="row-fluid">
     <ul class="nav submenu" style="">
@@ -223,8 +229,8 @@ input[type=file]::file-selector-button {
                                     <label  class="inputLabel">Table Name <sup style="color: red;">*</sup></label>
                                     <div class="input-group">
                                         <div class="head"><span class="input-group-text dkey"></span></div>
-                                        <input type="text" class="form-control" autocomplete="off" id="table_name" required onkeyup="return forceLower(this);">
-                                <span id="logmsg_id"></span>
+                                        <input type="text" class="form-control" autocomplete="off" id="table_name" required onkeyup="tablename()"><br>
+                                         <span id="logmsg_id">Please fill out this filed</span>
                                     
                                     </div>
                                 </div>
@@ -282,7 +288,7 @@ input[type=file]::file-selector-button {
                     <div class="modal-footer">
                         <button type="button" class="btn  btn-secondary btn-close" onclick='onclosebutton()'
                         data-dismiss="modal" style="width:110px;font-size: 14px;font-weight: 500;">Close</button>
-                    <button type="submit" class="btn btnModal  btn-proceed btnSubmit" style="font-weight:500;background-color: #2d2f79; width:110px;font-size: 14px;">Proceed</button>
+                    <button type="submit" class="btn btnModal  btn-proceed btnSubmit" onclick="tablename()" style="font-weight:500;background-color: #2d2f79; width:110px;font-size: 14px;">Proceed</button>
                 
                     </div>
                 </form>

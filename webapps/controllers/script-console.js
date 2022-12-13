@@ -20,7 +20,7 @@ var codeEditor = null;
 $(document).ready(function () {
 
     $(".rightSide").height($(window).height() + 'px')
-    $(".classFolder").css('height', $(".rightSide").height() - 350)
+    $(".classFolder").css('height', $(".rightSide").height() - 355)
 
     // $(".editorBlock").height($(window).height() + 'px')
     // initiateEditor();
@@ -553,7 +553,7 @@ function initiateEditor(code) {
 
     $('#codeEditor').height(Math.round($(window).height() - ($(window).height() /1.8)) + 'px');
 
-    $("#consoleBox").css('height', Math.round($("#codeEditor").height() - ($("#codeEditor").height() / 2)) + 'px')
+    $("#consoleBox").css('height', Math.round($("#codeEditor").height() - ($("#codeEditor").height() /1.5)) + 'px')
 
     codeEditor.resize();
 }
@@ -625,8 +625,12 @@ function loadClassTemplate(id) {
                     <div  class="col-md-6">
                         <div  class="form-group">
                             <label  class="inputLabel">Choose File</label>
-                            <input type="file" class="form-control input-sm" id="class_file" required />
+                            <input type="file" class="form-control input-sm choose" id="class_file />
+                            <span style="color:red" id="ones"></span>
+                            <span style="color:red;" id="file1"></span>
+                            
                         </div>
+                       
                     </div>`;
 
 
@@ -634,19 +638,24 @@ function loadClassTemplate(id) {
         template = `<div  class="col-md-6">
                         <div  class="form-group">
                             <label  class="inputLabel">Name</label>
-                            <input type="text" class="form-control input-sm" id="class_name" required />
+                            <input type="text" class="form-control input-sm text" id="class_name"  />
+                            <span style="color:red" id="name_error"></span>
                         </div>
+                       
                        <!-- <div  class="form-group">
                             <label  class="inputLabel">
                                 <input type="checkbox" id="class_public" /> Is Public
                             </label>
                         </div> -->
+
                     </div>
                     <div  class="col-md-6">
                         <div  class="form-group">
                             <label  class="inputLabel">Choose File</label>
-                            <input type="file" class="form-control input-sm" id="class_file" required />
+                            <input type="file" class="form-control input-sm filetwo" id="class_file" />
+                            <span style="color:red" id="file_error2"></span>
                         </div>
+                        
                     </div>`;
     }
 
@@ -737,6 +746,75 @@ function uploadClass(type, ispublic, isopen, jarname) {
         formData.append("jarFile", file, file.name);
     }
     xhr.send(formData);
+
+}
+
+
+function validation(){
+    if($(".select").val()===""){
+        $("#error").text("Please select an item in the list")
+        $(".select").css('border-color','red')
+       
+        setTimeout(function(){
+            $("#error").text("")
+        $(".select").css('border-color','')
+    
+        },2000);
+       
+
+    } else{
+ }
+
+ if($(".text").val()===""){
+    $("#name_error").text("Please fill out this field")
+        $("#class_name").css('border-color','red')
+       
+        setTimeout(function(){
+            $("#name_error").text("")
+        $("#class_name").css('border-color','')
+    
+        },2000);
+       
+
+
+   }else{
+    
+
+   }
+
+   if($("#class_file").val()==""){
+    $("#file_error2").text("Please select a file")
+        $("#class_file").css('border-color','red')
+       
+        setTimeout(function(){
+            $("#file_error2").text("")
+        $("#class_file").css('border-color','')
+    
+        },2000);
+       
+
+
+   }else{
+
+   }
+
+  
+   if($(".choose").val()===""){
+    $("#file1").text("Please select a file")
+        $(".choose").css('border-color','red')
+       
+        setTimeout(function(){
+            $("#file1").text("")
+        $(".choose").css('border-color','')
+    
+        },2000);
+      
+
+   }else{
+
+   }
+
+
 
 }
 
