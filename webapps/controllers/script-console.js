@@ -553,7 +553,7 @@ function initiateEditor(code) {
 
     $('#codeEditor').height(Math.round($(window).height() - ($(window).height() /1.8)) + 'px');
 
-    $("#consoleBox").css('height', Math.round($("#codeEditor").height() - ($("#codeEditor").height() /2)) + 'px')
+    $("#consoleBox").css('height', Math.round($("#codeEditor").height() - ($("#codeEditor").height() /1.5)) + 'px')
 
     codeEditor.resize();
 }

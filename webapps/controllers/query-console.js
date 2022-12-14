@@ -261,7 +261,7 @@ function executeQuery() {
             });
 
         } else {
-            errorMsg(style="background-color"+'Invalid JSON Query');
+            errorMsg('Invalid JSON Query');
         }
 
     } else {

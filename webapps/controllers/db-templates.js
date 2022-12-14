@@ -165,12 +165,18 @@ function loadTemplates() {
 
 function openModal(type, id) {
     if (type === 1) {
+        $("#addTemplate").modal({
+            backdrop: 'static',
+            keyboard: false
+        });
         $("#template_name").removeAttr('readonly');
         $(".templateAction").html('Create');
         $("#addTemplate form")[0].reset();
         $("#addTemplate").modal('show');
         $("#template_code").css('height','90px');
         $("#addTemplate form").attr('onsubmit', 'addTemplate()')
+        
+        
     }
     else if (type === 4) {
         current_template_name = id;
@@ -212,6 +218,7 @@ function openModal(type, id) {
             backdrop: 'static',
             keyboard: false
         });
+        
     }
 }
 
