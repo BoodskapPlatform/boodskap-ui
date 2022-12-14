@@ -10,7 +10,6 @@ var MENU_LINKS = [BASE_PATH+'/home', BASE_PATH+'/dashboard', BASE_PATH+'/message
 $(document).ready(function () {
    
     $("body").removeClass('bg-white');
-console.log("%%%%%%");
     // $(".homeMenuList").append($("#logConsole").html());
     if (ADMIN_ACCESS) {
         $(".siteNoop").append($("#loginAs").html());
@@ -973,7 +972,6 @@ function register(){
         firstName: firstname,
         lastName: lastname
     };
-    console.log(data)
 
     // registerCall(data,function (status, data) {
     //     closeLoading();
