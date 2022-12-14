@@ -267,8 +267,12 @@ function executeQuery() {
     } else  {
 
        
-         $(".index").text("Required Fields cannot be empty").show().delay(2500).fadeOut();
-        
+         $(".index").text("Required Field cannot be empty")
+         $(".select2-container--default, .select2-selection--single").css({'border':'1px solid red',"border-radius":"10px"})
+        setTimeout(function(){
+            $(".select2-container--default, .select2-selection--single").css('border','')
+            $(".index").text('')
+        },2500)
     }
 }
 
