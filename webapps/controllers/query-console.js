@@ -183,10 +183,10 @@ function loadqueryEditor() {
     queryEditor.focus();
 
 
-    $('#queryEditor').css('height',$(window).height()-335);
+    $('#queryEditor').css('height',$(window).height()-338);
 
-    $('#messageData').css('height',$(window).height()-230).resize();
-    $('#sideBorder').css('height',$(window).height()-230).resize();
+    $('#messageData').css('height',$(window).height()-225).resize();
+    $('#sideBorder').css('height',$(window).height()-225).resize();
 
     queryEditor.resize();
    
@@ -264,10 +264,14 @@ function executeQuery() {
             errorMsg('Invalid JSON Query');
         }
 
-    } else {
-        errorMsg('Required Fields cannot be empty')
+    } else  {
+
+       
+         $(".index").text("Required Fields cannot be empty").show().delay(2500).fadeOut();
+        
     }
 }
+
 
 
 function loadresultEditor(code) {

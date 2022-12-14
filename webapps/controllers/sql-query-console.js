@@ -249,7 +249,7 @@ function loadSQLTable() {
         pagingType: 'simple',
         aoColumns: fields,
         searching: true,
-        dom: '<"bskp-search-left" f> rtip',
+        dom: '<"bskp-search-left" f> rtp',
         language: {
             "emptyTable": "No data available",
             "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
@@ -328,7 +328,5 @@ function loadSQLTable() {
     };
 
     sqlTable = $("#sqlTable").DataTable(tableOption);
-
-
-
+    $('.dataTables_filter input').attr('maxlength', 100)
 }
