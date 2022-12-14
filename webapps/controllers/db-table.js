@@ -15,37 +15,37 @@ $(document).ready(function () {
 var POOL_TYPE = {
     "C3P0": [
         {name:"Name",type:"string",mandatory:false},
-        {name:"jdbcUrl",type:"string",mandatory:true},
-        {name:"user",type:"string",mandatory:true},
-        {name:"password",type:"string",mandatory:true},
-        {name:"driverClass",type:"string",mandatory:true},
+        {name:"JBDCURL",type:"string",mandatory:true},
+        {name:"User",type:"string",mandatory:true},
+        {name:"Password",type:"string",mandatory:true},
+        {name:"DriverClass",type:"string",mandatory:true},
        
     ],
     "DBCP":[
         {name:"Name",type:"string",mandatory:false},
 
-        {name:"url",type:"string",mandatory:true},
-        {name:"username",type:"string",mandatory:true},
-        {name:"password",type:"string",mandatory:true},
-        {name:"driverClassName",type:"string",mandatory:true},
+        {name:"URL",type:"string",mandatory:true},
+        {name:"Username",type:"string",mandatory:true},
+        {name:"Password",type:"string",mandatory:true},
+        {name:"Driver ClassName",type:"string",mandatory:true},
         
     ],
     "HIKARI": [
         {name:"Name",type:"string",mandatory:false},
-        {name:"jdbcUrl",type:"string",mandatory:true},
-        {name:"username",type:"string",mandatory:true},
-        {name:"password",type:"string",mandatory:true},
-        {name:"dataSourceClassName",type:"string",text:'dataSourceClassName/driverClassName must be required',mandatory:true},
-        {name:"driverClassName",type:"string",mandatory:true,text:'dataSourceClassName/driverClassName must be required'},
+        {name:"JDBCURL",type:"string",mandatory:true},
+        {name:"Username",type:"string",mandatory:true},
+        {name:"Password",type:"string",mandatory:true},
+        {name:"Data Source ClassName",type:"string",text:'dataSourceClassName/driverClassName must be required',mandatory:true},
+        {name:"Driver ClassName",type:"string",mandatory:true,text:'dataSourceClassName/driverClassName must be required'},
        
     ],
     "TOMCAT": [
         {name:"Name",type:"string",mandatory:false},
 
-        {name:"url",type:"string",mandatory:true},
-        {name:"username",type:"string",mandatory:true},
-        {name:"password",type:"string",mandatory:true},
-        {name:"driverClassName",type:"string",mandatory:true},
+        {name:"URL",type:"string",mandatory:true},
+        {name:"Username",type:"string",mandatory:true},
+        {name:"Password",type:"string",mandatory:true},
+        {name:"Driver ClassName",type:"string",mandatory:true},
         
     ]
 }

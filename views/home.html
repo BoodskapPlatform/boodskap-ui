@@ -65,7 +65,7 @@
                         </ol>
                     </div>
 
-                    <div class="row mb-4" id="recentMenuList"style="border-bottom: 1px solid #d4d4d4;">
+                    <div class="row mb-4 homeMenuList billingManagement siteNoop loginAs" id="recentMenuList"style="border-bottom: 1px solid #d4d4d4;">
                                                     
                     </div> 
 
@@ -334,7 +334,7 @@
                                 <p class="mt-2"><label class="cardtitle">Amazon Alexa</label></p>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 homecard hmessages" onclick="">
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 homecard hmessages" >
                             <div class="card modules bskp-home-modules" onclick="clickRecent('Google Voice','google_voice','',33)">
                                 <div class="bskp-icon-frame">
                                     <div class="bskp-Dbg bskp-Dimg33"> </div>
@@ -1047,22 +1047,25 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <label>Domain Key</label>
+                                <label>Domain Key *</label>
                                 <input class="form-control input-sm" id="domainKey" />
+                                <span id="logdomainKey"></span>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <label>API Input</label>
+                                <label>API Input *</label>
                                 <input class="form-control input-sm" id="apiKey" />
+                                <span id="logapiKey"></span>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <label>Label</label>
+                                <label>Label *</label>
                                 <input class="form-control input-sm" id="labelText" />
+                                <span id="loglabelText"></span>
                             </div>
                         </div>
                         <div class="col-lg-3">
@@ -1074,7 +1077,7 @@
                 </form>
 
                 <div class="row mt-2">
-                    <table class="table table-bordered">
+                    <table class="table table-bordered bskp-table responsive ">
                         <thead>
                         <tr><th>Label</th><th>Domain Key</th><th>API Key</th><th>Action</th></tr>
                         </thead>

@@ -618,7 +618,7 @@ function checkDomainCassandraAccess() {
         Cookies.set('cassandra_access', true);
     }else{
         $(".cassandraquery").remove();
-        $(".cassandraqueryhome").attr('onclick','errorMsg("Contact Administrator!")')
+        $(".cassandraqueryhome").attr('onclick','errorMsg("")')
 
     }
 }
