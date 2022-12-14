@@ -106,7 +106,7 @@ function resetPasswordCall(email, cbk) {
 
      $.ajax({
         url: API_BASE_PATH + "/license/password/forgot/" + email,
-        type: 'GET',
+        type: 'POST',
         success: function (data) {
             //called when successful
             cbk(true, data);
