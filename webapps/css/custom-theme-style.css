@@ -439,6 +439,9 @@ color: #1a1a1a !important;
     background: #90a1b7 !important;
     color: #fff;
 }
+.bskp-table tbody{
+    background: #ffffff !important;
+}
 
 .bskp-table-layout select {
     /* Table-id_wrapper for table outer element  */
