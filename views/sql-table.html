@@ -17,12 +17,14 @@
         text-align: center !important;
     }
 
-    .bskp-table tbody>tr{
+    .bskp-table tbody>tr {
         border-bottom: none !important;
     }
-    pl li{
+
+    pl li {
         font-size: 12px !important;
     }
+
     .bskp-modal .add {
         background: #2D2F79;
         padding: 1px;
@@ -30,108 +32,173 @@
         border-radius: 50%;
         vertical-align: top;
         position: relative;
-        bottom:2px;
+        bottom: 2px;
         font-size: 15px;
     }
-    
-    
+
+    .head {
+        background-color: #d3d8df;
+        border-radius: 10px;
+        display: flex;
+        position: relative;
+        align-items: center;
+    }
+
+
+
     .bskp-modal .minus {
         background: #90a1b7;
         /* padding: 6.5px 8px; */
         padding: 1px;
         position: relative;
-        bottom:2px;
-       
+        bottom: 2px;
+
         color: white;
         border-radius: 50%;
         vertical-align: top;
     }
-    ol li{
-    font-size: 12px !important;
-   }
-   .sqlicon{
-    height: 24px;
-} 
-   .bskp-modal .modal-dialog {
-    min-height: calc(100vh - 60px) !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: center !important;
-}
 
-.bskp-modal .modal-dialog {
-    max-width: 1000px;
- margin: 1.75rem auto;
-}
-@media(max-width:1024px){
+    ol li {
+        font-size: 12px !important;
+    }
+
+    .sqlicon {
+        height: 24px;
+    }
+
     .bskp-modal .modal-dialog {
-        max-width: 85%;
+        min-height: calc(100vh - 60px) !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+    }
+
+    .bskp-modal .modal-dialog {
+        max-width: 1000px;
         margin: 1.75rem auto;
     }
-}
-@media(max-width:425px){
-    .bskp-modal .modal-dialog {
-        max-width: 95%;
-        margin: 1.75rem auto;
+
+    @media(max-width:1024px) {
+        .bskp-modal .modal-dialog {
+            max-width: 85%;
+            margin: 1.75rem auto;
+        }
     }
-}
-.bskp-modal input, textarea, select{
-    font-size: 14px !important;
-    /* font-weight: 500; */
-}
-.head{
-    background-color: #d3d8df;
-    border-radius: 10px;
-    display: flex;
-    position: relative;
-    align-items: center;
-}
-#table_name{
-    margin-left: -12px;
-    position: static;
-}
-.dkey{
-    border-radius: 10px;
 
-}
-.check{
-    position: relative;
-    top:35px;
-}
-.ignore{
-    font-size: 14px !important;
+    @media(max-width:425px) {
+        .bskp-modal .modal-dialog {
+            max-width: 95%;
+            margin: 1.75rem auto;
+        }
+    }
 
-}
- .form-control{
+    .bskp-modal input,
+    textarea,
+    select {
+        font-size: 14px !important;
+        /* font-weight: 500; */
+    }
+
+    .head {
+        background-color: #d3d8df;
+        border-radius: 10px;
+        display: flex;
+        position: relative;
+        align-items: center;
+    }
+
     
-    font-size: 12px !important;
-}
-.label{
-    /* font-size: 14px; */
-}
-.checkbox.checkbox-css.checkbox-inline{
-    font-weight: 500;
-    font-size: 10px !important;
-}
 
-input[type=file]::file-selector-button {
-  border: 1px solid #7b74a3;
-  border-radius: 5px;
-  background-color: #fdfcfd;
-  color: #7b74a3;
-}
-#logmsg_id{
-    visibility: hidden;
-}
-#logmsg_id{
-    color: red;
-    visibility: hidden;
-    position: relative;
-    top:34px;
-    right:175px;
-    font-weight: 600;
-}
+    .dkey {
+        border-radius: 10px;
 
+    }
+
+    .check {
+        position: relative;
+        top: 35px;
+    }
+
+    .ignore {
+        font-size: 14px !important;
+
+    }
+
+    .form-control {
+
+        font-size: 12px !important;
+    }
+
+    .label {
+        /* font-size: 14px; */
+    }
+
+    .checkbox.checkbox-css.checkbox-inline {
+        font-weight: 500;
+        font-size: 10px !important;
+    }
+
+    input[type=file]::file-selector-button {
+        border: 1px solid #7b74a3;
+        border-radius: 5px;
+        background-color: #fdfcfd;
+        color: #7b74a3;
+    }
+
+    .spanmsg {
+        display: block;
+        margin-left: 170px;
+    }
+
+    .close-x-button {
+        border-radius: 13px;
+        padding: 3px;
+    }
+
+    #table_name {
+        margin-left: -12px;
+        position: static;
+    }
+
+    .dkey {
+        border-radius: 10px;
+
+    }
+
+
+    .total-table {
+        color: #2D2F79;
+    }
+
+    .bskp-blue-bg {
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    .plusicon {
+        position: relative;
+        bottom: 1px;
+    }
+
+    .star {
+        color: red;
+    }
+
+    .table-row {
+        height: 250px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    #defineMesg {
+        margin-top: 20px;
+    }
+
+    .btn-close {
+        width: 110px;
+        font-size: 14px;
+        font-weight: 500;
+    }
 </style>
 <!--<div class="row-fluid">
     <ul class="nav submenu" style="">
@@ -168,26 +235,26 @@ input[type=file]::file-selector-button {
                 </div>
             </ol>
         </div>
-        <div class="page-header bskp-page-topic"><img src="images/menu/dsql.svg"   class="bskp-topic-icon sqlicon mr-1"> SQL
+        <div class="page-header bskp-page-topic"><img src="images/menu/dsql.svg" class="bskp-topic-icon sqlicon mr-1">
+            SQL
             Table
-            <span class="panel-title ml-3" style="color: #2D2F79;">Total Table : <b><span
-                        class="tableCount"></span></b></span>
+            <span class="panel-title ml-3 total-table">Total Table : <b><span class="tableCount"></span></b></span>
         </div>
 
         <div class="panel-body" style="background-color: #eeeeee00;padding-bottom: 30px">
             <div class="row m-0">
                 <div class="col-12">
                     <div class="btn-group btn-group-justified pull-right bskp-btn-group-align">
-                        <a class="btn bskp-btn-shadow bskp-blue-bg" style="font-size: 14px;font-weight: 500;"
-                            onclick="openModal()">
-                            <image src="images/menu/plusicon.svg" style="position: relative;bottom:1px">
+                        <a class="btn bskp-btn-shadow bskp-blue-bg" onclick="openModal()">
+                            <image src="images/menu/plusicon.svg" class="plusicon">
                                 <span class="hidden-xs">Create Table</span>
                         </a>
-                        <a class="btn bskp-radius-btn" id="exportMsg"title="Export Table"><img src="images/menu/download.svg" alt=""> </a>
+                        <a class="btn bskp-radius-btn" id="exportMsg" title="Export Table"><img
+                                src="images/menu/download.svg" alt=""> </a>
                         <a class="btn bskp-radius-btn" id="importMsg" title="Import Table" onclick="importTable()"><img
                                 src="images/menu/upload.svg" alt=""> </a>
-                        <a class="btn bskp-refresh-bg  refreshbutton" title="Refresh" data-click="panel-reload" onclick="loadSQLTable()"><i
-                                class="fa fa-refresh "></i></a>
+                        <a class="btn bskp-refresh-bg  refreshbutton" title="Refresh" data-click="panel-reload"
+                            onclick="loadSQLTable()"><i class="fa fa-refresh "></i></a>
                     </div>
 
                     <div class="bskp-table-layout">
@@ -217,90 +284,95 @@ input[type=file]::file-selector-button {
 
 <script src="controllers/sql-table.js" type="text/javascript"></script>
 
-    <div id="addSQLTable" class="modal bskp-modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Create SQL Table</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<image src="images/menu/xicon.svg" class="bg-secondary"  onclick="onclosebutton()" style="border-radius: 13px;padding:3px">
-</button>
-               </div>
-                <form action="javascript:void(0)"  onsubmit="addSQLTable();" novalidate>
-                    <div class="modal-body">
-                        <div  class="row">
-                            <div  class="col-md-6">
+<div id="addSQLTable" class="modal bskp-modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Create SQL Table</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <image src="images/menu/xicon.svg" class="bg-secondary close-x-button" onclick="onclosebutton()">
+                </button>
+            </div>
+            <form action="javascript:void(0)" onsubmit="addSQLTable();" novalidate>
+                <div class="modal-body">
+                    <div class="row">
+
+
+                        <div  class="col-md-6 ">
                                 <div  class="form-group">
-                                    <label  class="inputLabel">Table Name <sup style="color: red;">*</sup></label>
+                                    <label  class="inputLabel">Table Name <strong class="star">*</strong></label>
                                     <div class="input-group">
                                         <div class="head"><span class="input-group-text dkey"></span></div>
-                                        <input type="text" class="form-control" autocomplete="off" id="table_name"onkeyup="return forceLower(this);">
-                                <span id="logmsg_id">Please fill out this field</span>
-                                    
+                                        <input type="text" class="form-control" autocomplete="off" id="table_name"  onkeyup="return forceLower(this);">
+                                        
                                     </div>
+                                    <span class="spanmsg" id="logtable_name"></span>
                                 </div>
                             </div>
-                            <div  class="col-md-6 ">
-                                <div  class="form-group">
+                        <div class="col-md-6 ">
+                            <div class="form-group">
                                 <div class="checkbox check checkbox-css checkbox-inline">
                                     <input type="checkbox" id="ignore" checked />
                                     <label for="ignore" class="ignore">Ignore if already exists</label>
                                 </div>
-                                </div>
                             </div>
                         </div>
-                        <div  class="row" style="margin-top: 10px;">
-                            <div  class="col-md-3">
-                                <div  class="form-group">
-                                    <label  class="inputLabel">Backup</label>
-                                    <select  class="form-control input-sm option" id="backup"></select>
-                                </div>
-                            </div>
-                            <div  class="col-md-3">
-                                <div  class="form-group">
-                                    <label  class="inputLabel">Template</label>
-                                    <select  class="form-control input-sm option" id="template"></select>
-                                </div>
-                            </div>
-                            <div  class="col-md-3">
-                                <div  class="form-group">
-                                    <label  class="inputLabel">Atomicity</label>
-                                    <select  class="form-control input-sm option" id="automicity"></select>
-                                </div>
-                            </div>
-                            <div  class="col-md-3">
-                                <div  class="form-group">
-                                    <label  class="inputLabel">Write Sync</label>
-                                    <select  class="form-control input-sm option" id="writeSync"></select>
-                                </div>
+                    </div>
+                    <div class="row" style="margin-top: 10px;">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="inputLabel">Backup</label>
+                                <select class="form-control input-sm option" id="backup"></select>
                             </div>
                         </div>
-                        <div  class="row" style="height: 250px;overflow:auto;overflow-x: hidden">
-                            <div class="col-md-12">
-                                <table class="table bskp-table table-border id=defineMesg" style="margin-top: 20px;">
-                                    <thead>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="inputLabel">Template</label>
+                                <select class="form-control input-sm option" id="template"></select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="inputLabel">Atomicity</label>
+                                <select class="form-control input-sm option" id="automicity"></select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="inputLabel">Write Sync</label>
+                                <select class="form-control input-sm option" id="writeSync"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row table-row">
+                        <div class="col-md-12">
+                            <table class="table bskp-table table-border" id="defineMesg">
+                                <thead>
                                     <tr>
-                                        <th>Field Name</th><th>DataType</th><th>Field Properties</th><th>Action</th>
+                                        <th>Field Name</th>
+                                        <th>DataType</th>
+                                        <th>Field Properties</th>
+                                        <th>Action</th>
                                     </tr>
-                                    </thead>
-                                    <tbody class="tabFieldBody">
-    
-                                    </tbody>
-                                </table>
-                            </div>
+                                </thead>
+                                <tbody class="tabFieldBody">
+
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn  btn-secondary btn-close" onclick='onclosebutton()'
-                        data-dismiss="modal" style="width:110px;font-size: 14px;font-weight: 500;">Close</button>
-                    <button type="submit" class="btn btnModal  btn-proceed btnSubmit" onclick="on()" style="font-weight:500;background-color: #2d2f79; width:110px;font-size: 14px;">Proceed</button>
-                
-                    </div>
-                </form>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn  btn-secondary btn-close" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btnModal  btn-proceed btnSubmit"
+                        style="font-weight:500;background-color: #2d2f79;font-size: 14px;">Proceed</button>
+
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 
 
 
@@ -383,7 +455,7 @@ input[type=file]::file-selector-button {
                 <h4 class="modal-title">Import Tables</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <image src="images/menu/xicon.svg" class="bg-secondary" style="border-radius: 13px;padding:3px">
-                    </button>
+                </button>
             </div>
             <form action="javascript:void(0)" onsubmit="importContent()">
                 <div class="modal-body">
@@ -392,19 +464,20 @@ input[type=file]::file-selector-button {
                             <div class="form-group">
                                 <label class="inputLabel" style="">Choose File</label>
                                 <input class="form-control input-sm" type="file" id="importFile"
-                                    style="font-size:10px !important; border:none;position: relative;right:11px;" required />
+                                    style="font-size:10px !important; border:none;position: relative;right:11px;"
+                                    required />
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer" style="margin-left:25px;margin-right:30px">
-                    <button type="button" class="btn btn-secondary btn-close" data-dismiss="modal"style="width:110px;font-size: 14px;font-weight: 500; border-radius:10px !important">Close</button>
-                    <button type="submit" class="btn btnModal btn-secondary btn-proceed btnSubmit"style="width:110px;font-size: 14px;font-weight: 500;">Proceed</button>
-           
+                    <button type="button" class="btn btn-secondary btn-close" data-dismiss="modal"
+                        style="width:110px;font-size: 14px;font-weight: 500; border-radius:10px !important">Close</button>
+                    <button type="submit" class="btn btnModal btn-secondary btn-proceed btnSubmit"
+                        style="width:110px;font-size: 14px;font-weight: 500;">Proceed</button>
+
                 </div>
             </form>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
-    

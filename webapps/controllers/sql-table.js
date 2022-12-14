@@ -205,6 +205,8 @@ function loadSQLTable() {
         language: {
             "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
             "searchPlaceholder": "Search by Table Name",
+            
+
             "emptyTable": "No data available",
 
 
@@ -383,16 +385,18 @@ function addTableField() {
     }
 
 
-
     var str = `<tr class="fieldrow" id="tab_field_row_` + id + `">
     <td>
-        <input class="form-control input-sm tab-field" placeholder="Field Name" type="text"  id="tab_field_` + id + `"  onkeyup="tab_field()">
-    </td>
+        <input class="form-control input-sm mesg-field" placeholder="Field Name" maxlength="100" type="text"  id="tab_field_` + id + `"  onkeyup="return forceLower(this);">
+        <span id="logtab_field_`+id+`"></span>
+        </td>
     <td>
-    <select class="form-control data-type input-sm"  id="tab_datatype_` + id + `">
+    <select class="form-control mesg-type input-sm"  id="tab_datatype_` + id + `">
       <option value="" >Choose Data Type</option>
      `+ dstr + `
     </select>
+    <span id="logtab_datatype_`+id+`"></span>
+
     </td>
     <td>
         <div class="checkbox checkbox-css checkbox-inline">
@@ -474,43 +478,51 @@ function addSQLTable() {
 
     var flag = false;
 
-    var fields = [];
-    var check = false;
+    
+    var table_name =$.trim($("#table_name").val() )
 
-    var msg_id = $.trim($("#msg_id").val())
-
-    let table = $("#table_name").val()
-    if (table.length === 0) {
-        $("#table_name").css({ borderColor: "red" });
-        $("#logmsg_id").css({ visibility: "visible" });
+    if(table_name === "" ){
+   
+        errorMsgBorder('Table name is required', 'table_name');
+        return false;
        
     }
 
     else{
-        $.each($('.fieldrow'), function () {
-            if ($(this).find('.tab-field').val() === "") {
-                errorMsgBorder('Field Name is required', $(this).find('.tab-field').attr('id'));
-                check = false;
-                return false;
-            } else if ($(this).find('.data-type').val() === "") {
-                errorMsgBorder('Field Name is required', $(this).find('.data-type').attr('id'));
+        var fields = [];
+    var check = false;
+    $.each($('.fieldrow'),function () {
+        console.log($(this).find('.mesg-field').val());
+        if($(this).find('.mesg-field').val() === ""){ 
+
+            errorMsgBorder('Field Name is required', $(this).find('.mesg-field').attr('id'));
+            console.log("error"+" "+$(this).find('.mesg-field').attr('id'));
+            check = false;
+            return false;
+        }
+        
+        else if($(this).find('.mesg-type').val() === ""){ 
+                errorMsgBorder('Data type is required', $(this).find('.mesg-type').attr('id'));
+                console.log("error"+" "+$(this).find('.mesg-type').attr('id'));
                 check = false;
                 return false;
             }
-            else {
+            else{
                 var json = {
-                    "dataType": $(this).find('.data-type').val(),
+                    "dataType":$(this).find('.mesg-type').val(),
                     "format": "AS_IS",
                     "label": "",
                     "description": "",
-                    "name": $(this).find('.tab-field').val()
+                    "name": $(this).find('.mesg-field').val()
                 }
                 fields.push(json);
                 console.log("True else");
                 check = true;
                 return true;
             }
-        })
+               })
+    
+    
     }
        
     
@@ -894,17 +906,3 @@ function importContent() {
 
 
 }
-function tablename() {
-    
-}
-// function tab_field() {
-//     let tab = $(".tab-field").val()
-//     if (tab.length === 0) {
-//         $(".tab-field").css({ borderColor: "red" });
-//     }
-//     else {
-//         $(".tab-field").css({ borderColor: "" });
-
-//     }
-
-// }
