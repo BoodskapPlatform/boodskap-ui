@@ -16790,7 +16790,7 @@ top: 0;\
 overflow-x: hidden;\
 overflow-y: scroll;\
 top: 0;\
-right: 25px;\
+right: 4px;\
 margin: 8px 0px ;\
 }\
 .ace_scrollbar-h {\
