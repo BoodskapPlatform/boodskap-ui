@@ -13,7 +13,11 @@
         bottom: 0;
         left: 0;
         width: 100%;
-        border:1px solid #eee
+        /* border:1px solid #eee 
+        border: 2px solid #eaf1f6;*/
+        border-top: none;
+        border-bottom: none;
+        border-radius: 10px;
     }
     #dbquery .bskp-icon-bg{
        margin-top: 5px;
@@ -71,12 +75,12 @@
         border: 2px solid #eee;
         border-radius: 10px;
     }
-    #dbquery #queryEditor, #resultEditor{
+    /* #dbquery #queryEditor, #resultEditor{
       border: 2px solid #eaf1f6;
       border-top: none;
       border-bottom: none;
       border-radius: 10px;
-    }
+    } */
     #dbQuery .page-header{
         color: hsl(0deg 0% 25%);
         padding-left: 6px;
@@ -103,6 +107,9 @@
         font-weight:600 ;
         font-size:12px;
     }
+    .btn{
+        line-height: 24px;
+    }
     select{
         border: 2px solid #e8ebf0;
         border-radius: 10px !important;
@@ -127,7 +134,7 @@
     <!-- begin page-header -->
     <img style="height:22px;" class=" ml-2 mb-2" src="images/menu/db-query.svg " alt="logo"><span class="page-header">DB Query Console</span> 
     <!-- end page-header -->
-
+btn
     <!-- begin panel -->
     <div class="panel panel-inverse">
         <div class="panel-body" style="background-color:#ffffff;box-shadow: 0px 0px 1px 1px #d9dbe5;padding-bottom: 30px; border-radius:10px">
@@ -151,7 +158,7 @@
                                 <tr><th style="width: 40%">Table Name</th><th>Fields</th></tr>
                             </thead>
                             <tbody class="dbMetadata">
-                            <tr><td colspan="2"><p style="text-align: center">No data found!</p></td></tr>
+                            <tr><td colspan="2"><p style="text-align: center">No data available</p></td></tr>
                             </tbody>
                         </table>
 

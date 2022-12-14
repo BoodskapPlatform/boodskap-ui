@@ -101,7 +101,7 @@
       text-decoration: none;
     }
 
-    .label{
+    .serverStatus .label-danger{
         position:relative;
         left: 28px;
         top: 20px;
@@ -110,6 +110,10 @@
     }
     .label.label-green{
         background-color: hsl(116deg 87% 39%);
+        position:relative;
+        left: 28px;
+        top: 20px;
+        border-radius: 6px;
     }
     .terminal-wrapper{
         margin-top:43px;
@@ -121,6 +125,7 @@
        
        border: none;
         background-color: #fefefe;
+        height: 700px;
         
     }
     
@@ -180,6 +185,16 @@
     .close{
         margin-left: 200px;
     }
+    body{
+        overflow-y: hidden;
+    }
+    #error{
+color: red;
+    }
+    
+#error,#error1,#name_error,#file_error2,#file1{
+    font-weight: 600;
+}
    
 
 </style>
@@ -197,17 +212,17 @@
             <div class="row">
                 <div class="col-lg-12 leftSide " style="position: relative;">
 
-                    <button class="btn btn-sm  hidden-xs hidden-sm" id="btnMax" style="position: absolute;right: 10px;top: 0px;z-index: 999999999;margin:10px;border-radius:10px;font-family: Montserrat;"
+                    <button class="btn btn-sm  hidden-xs hidden-sm" id="btnMax" style="position: absolute;right: 10px;top: 0px;z-index:1;margin:10px;border-radius:10px;font-family: Montserrat;"
                          onclick="resizePanel()">
                         <i class="icon-eye4 mt-1"></i> Show Class
                     </button>
 
-                    <button class="btn btn-sm " id="btnEditor" style="position: absolute;right: 120px;top: 0px;z-index: 999999999;margin:10px;border-radius:10px;font-family: Montserrat;"
+                    <button class="btn btn-sm " id="btnEditor" style="position: absolute;right: 120px;top: 0px;z-index:1;margin:10px;border-radius:10px;font-family: Montserrat;"
                             onclick="showEditor()">
                         <i class="icon-eye4 mt-1"></i> Show Editor
                     </button>
 
-                    <button class="btn btn-sm  hidden-lg hidden-md" id="btnExec" style="position: absolute;right: 10px;top: 0px;z-index: 999999999;margin:10px;border-radius:10px;"
+                    <button class="btn btn-sm  hidden-lg hidden-md" id="btnExec" style="position: absolute;right: 10px;top: 0px;z-index:1;margin:10px;border-radius:10px;"
                          onclick="executeCommand()">
                         <i class="icon-bolt mt-1"></i> Execute
                     </button>
@@ -230,7 +245,7 @@
 
                   
 
-                    <div id="consoleBox" style="overflow: auto;overflow-x: hidden;    background-color: rgb(0, 0, 0);padding: 10px;margin-top: 10px;border-radius:10px;"></div>
+                    <div id="consoleBox" style="overflow: auto;overflow-x: hidden;    background-color:hsl(208deg 50% 25%);padding: 10px;margin-top: 5px;border-radius:10px;"></div>
 
 
                     </div>
@@ -239,7 +254,7 @@
                 </div>
                 <div class="rightSide">
 
-                    <div style="padding: 5px;background-color: hsl(0deg 0% 100%);border-radius: 10px;margin: 27px;">
+                    <div style="padding-top:12px;padding-left:12px;padding-right:12px;background-color: hsl(0deg 0% 100%);border-radius: 13px;margin: 27px;">
 
                     <h5 style="font-size: 14px;font-family:Montserrat;">Groovy Class & JAR</h5>
 
@@ -308,7 +323,9 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 style="font-size:18px ;font-weight:600;font-family:Montserrat;" class="modal-title">Import Class/JAR</h4>
-                <button style=""  type="button" class="close" data-dismiss="modal"   aria-label="Close"> <i class="fa fa-times" aria-hidden="true"></i></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <image src="images/menu/xicon.svg" class="bg-secondary"   style="border-radius: 13px;padding:3px">
+                    </button>
             </div>
             <form action="javascript:void(0)" onsubmit="uploadClassFile()">
                
@@ -316,15 +333,17 @@
 
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group">
+                            <div  class="form-group">
                                 <label style="font-size:16px;" class="inputLabel">Select Type</label>
-                                <select class="form-control input-sm" id="class_type" required
+                                <select   class="form-control input-sm select" id="class_type"
                                         onchange="loadClassTemplate(this.value)">
                                     <option value=""></option>
                                     <option value="GROOVY">Groovy Class</option>
                                     <option value="JAR">JAR File</option>
-                                </select>
+                                 </select>
+                                 <span style="font-weight:400px;" id="error"></span>
                             </div>
+                            
                         </div>
                         <div class="col-md-6">
 
@@ -345,11 +364,10 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary btn-close" data-dismiss="modal">Close</button>
-                    <button type="submit" class=" btn-secondary btn-proceed btnSubmit btnModal">Upload</button>
+                    <button onclick="validation()" type="submit" class=" btn-secondary btn-proceed btnSubmit btnModal">Upload</button>
                 </div>
             </form>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
 

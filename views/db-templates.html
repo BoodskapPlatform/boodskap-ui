@@ -26,6 +26,9 @@
     border-radius: 50%;
     vertical-align: top;
 }
+.btn{
+    line-height: 25px;
+}
 </style>
 <!--<div class="row-fluid">
     <ul class="nav submenu" style="">
@@ -35,52 +38,33 @@
     </ul>
 </div>-->
 <div class="container mt-3 msgDef platformBody">
-    <!-- begin breadcrumb -->
-    <!-- <ol class="breadcrumb pull-right">
-        <li class="breadcrumb-item"><a href="<%= basepath %>/dashboard">Domain</a></li>
-        <li class="breadcrumb-item active">Templates</li>
-    </ol> -->
-    <!-- end breadcrumb -->
-    <!-- begin page-header -->
-    <!-- <h1 class="page-header">Manage DB Templates</h1> -->
-
-    <!-- end page-header -->
-
+   
     <!-- begin panel -->
-    <!-- <div class="panel panel-inverse"> -->
     <div class="panel panel-inverse bskp-container-frame">
         <div>
+            <!-- begin breadcrumb -->
             <ol class="breadcrumb pull-right" style="align-items: center;margin: 15px 30px 0px 0px;">
                 <li class="breadcrumb-item"><a href="<%= basepath %>/dashboard">Domain</a></li>
                 <li class="breadcrumb-item active">Templates</li>
                
                 <div class="ml-4">
-                    <!-- <a href="javascript:;" class="btn btn-sm btn-icon btn-circle  bskp-icon-bg" data-click="panel-expand"><img src="images/expand-icon.SVG" alt=""></a>
-                    <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg" title="Help" > <img src="images/Question_icon.PNG" alt=""> </a> -->
-                    <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg" data-click="panel-expand"><i class="fa fa-expand"></i></a>
-                    <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg" title="Help"><i class="icon-help"></i></a>
+                   
+                    <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg" data-click="panel-expand"><em class="fa fa-expand"></em></a>
+                    <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg" title="Help"><em class="icon-help"></em></a>
                    </div>
             </ol>
+            <!-- end breadcrumb -->
         </div>
-        <!-- <div class="panel-heading">
-            <div class="panel-heading-btn">
-                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
-                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-success" data-click="panel-reload" onclick="loadTemplates()"><i class="fa fa-redo"></i></a>
-                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-warning" title="Help"><i class="icon-help"></i></a>
-            </div>
-
-            <h4 class="panel-title">Total Templates: <b><span class="templateCount"></span></b></h4>
-        </div> -->
         <!-- begin page-header -->
    
-    <div class="page-header bskp-page-topic"><img style="width:30px ;" src="images/menu/db-templates.svg" class="bskp-topic-icon mr-1" > Manage DB Templates</span>
+    <div class="page-header bskp-page-topic"><img style="width:30px ;" src="images/menu/db-templates.svg" class="bskp-topic-icon mr-1" alt="Db Templates" > Manage DB Templates</span>
         <span class="panel-title ml-3 count" style="color: hsl(238deg 27% 45%);">Total Templates&nbsp:&nbsp<b><span  class="totalCount"></span></b></span> 
     </div>
     <!-- end page-header -->
         <div class="panel-body" style="background-color: #eeeeee00;">
             <div class="btn-group btn-group-justified pull-right bskp-btn-group-align">
             <!-- <div class="btn-group btn-group-justified pull-right"> -->
-                <a class="btn bskp-blue-bg" style="border-radius: 10px;font-size:14px;height:32px;" onclick="openModal(1)"><i class="fa fa-plus-square"></i> <span class="hidden-xs">Add Template</span></a>
+                <a class="btn bskp-blue-bg" style="border-radius: 10px;font-size:14px;height:32px;padding-top: 3px;" onclick="openModal(1)"><i class="fa fa-plus-square"></i> <span class="hidden-xs">Add Template</span></a>
                 <a class="btn bskp-radius-btn bskp-refreshbtn " data-click="panel-reload" onclick="loadTemplates()" title="Refresh"><i class="fa fa-refresh"></i></a>
             </div>
 
@@ -109,8 +93,11 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content" style="border-radius: 10px;">
             <div class="modal-header bskp-page-topic">
-                <h4 class="modal-title">Create Template</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times" aria-hidden="true"></i></button>
+                <h4 class="modal-title">Add Template</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <image src="images/menu/xicon.svg" class="bg-secondary"  onclick="onclosebutton()" style="border-radius: 13px;padding:3px">
+                    </button>
+                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times" aria-hidden="true"></i></button> -->
             </div>
             <form action="javascript:void(0)" novalidate onsubmit="addTemplate();">
                 <div class="modal-body">
@@ -119,7 +106,7 @@
                             <div  class="form-group">
                                 <label  class="inputLabel">Name</label>
                                 <input  class="form-control input-sm" placeholder="Enter Name" maxlength="100" type="text" id="template_name" required>
-                            <span id="logtemplate_lang"></span>
+                            <span id="logtemplate_name"></span>
                             </div>
                         </div>
                     </div>
@@ -127,8 +114,8 @@
                         <div  class="col-md-12">
                             <div  class="form-group">
                                 <label  class="inputLabel">Template</label>
-                                 <textarea  class="form-control input-sm" placeholder="" type="text" autocomplete="off"  maxlength="1000" id="template_code" required></textarea><!--style="height: 300px;" -->
-                                <span id="template_code"></span>
+                                 <textarea  class="form-control input-sm" placeholder="Enter Query" autocomplete="off"  type="text"  id="template_code" required></textarea><!--style="height: 300px;" -->
+                                <span id="logtemplate_code"></span>
                             </div>
                         </div>
                     </div>

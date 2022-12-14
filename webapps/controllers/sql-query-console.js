@@ -248,13 +248,12 @@ function loadSQLTable() {
         paging: true,
         pagingType: 'simple',
         aoColumns: fields,
-        "dom": '<"top"f>rt<"bottom"p><"clear">',
         searching: true,
         dom: '<"bskp-search-left" f> rtip',
         language: {
             "emptyTable": "No data available",
             "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
-            "searchPlaceholder": "Search here...",
+            "searchPlaceholder": "Search by Table Name",
             loadingRecords: '',
             paginate: {
                 previous: '< Prev',

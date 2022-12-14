@@ -98,7 +98,7 @@ function loadEvents() {
         language: {
             "emptyTable": "No data available",
             "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
-            "searchPlaceholder": "Search here...",
+            "searchPlaceholder": "Search by Event Id",
             loadingRecords: '',
             paginate: {
                 previous: '< Prev',
@@ -122,7 +122,7 @@ function loadEvents() {
         }
 
         eventTable = $("#eventTable").DataTable(tableOption);
-
+        $('.dataTables_filter input').attr('maxlength', 100)
 
         // Array to track the ids of the details displayed rows
         var detailRows = [];

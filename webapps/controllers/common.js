@@ -27,7 +27,7 @@ function recentUpdate() {
                     );
                 }
 
-                //  rdata.pop()
+                // rdata.pop()
                 rdata.sort(function (x, y) {
                     return y.update_ts - x.update_ts;
                 });
@@ -49,7 +49,7 @@ function recentUpdate() {
                 success: function (res) {
                     if (res) {
                         $(".recenthead").html(
-                            `<span onclick="recentUpdate()" style="padding-bottom: 4px; border-bottom: 3px solid #2d2f79bf;">Featured</span> `
+                            `<span style="padding-bottom: 4px; border-bottom: 3px solid #2d2f79bf;">Featured</span> `
                         );
                     }
                 },
@@ -64,12 +64,13 @@ function recentUpdate() {
 function clickRecent(tabname, tabid, loadmenu, cardno) {
     let newclick = true;
     for (i = 0; i < rdata.length; i++) {
-        if (tabid === rdata[i].id) {
+         if (tabid === rdata[i].id) {
             rdata[i].update_ts = Date.now();
             newclick = false;
         }
     }
-
+    
+ 
     if (newclick) {
         var inp = {
             name: tabname,
@@ -78,11 +79,11 @@ function clickRecent(tabname, tabid, loadmenu, cardno) {
             cardno: cardno,
             update_ts: Date.now(),
         };
-        rdata.push(inp);
-        //   rdata.pop()
+       rdata.push(inp);
+    //    rdata.pop()
     }
 
-    //   rdata.pop()
+//    rdata.pop()
 
     var obj = {
         dataType: "VARCHAR",
@@ -151,19 +152,21 @@ function recentcard(rdata) {
             </div>
         </div>`
                 );
+            }else if(rdata.length-1 > 5 ){
+                $("#recentMenuList")
+                .append(`  <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 Homemore"  style="display: flex; align-items: center;" onclick='Rtogmore($(".recentmore-title").text())'>
+         <div class="card modules bskp-home-modules"onclick="" style="padding: 8px; width: 100px; height: 37px;">
+             <div class="bskp-icon-frame" style=" height: 24px;padding:3px; text-align: center; width: 24px;">
+             <i class="fa fa-angle-down dropR " aria-hidden="true" style="font-size: 18px;"></i> 
+             </div>
+             <p class="mt-2"><label class="cardtitle recentmore-title ml-2" style="font-size:14px">More...</label></p>
+         </div>
+        </div>`);
             }
        
         }
-        $("#recentMenuList")
-        .append(`  <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 Homemore"  style="display: flex; align-items: center;" onclick='Rtogmore($(".recentmore-title").text())'>
- <div class="card modules bskp-home-modules"onclick="" style="padding: 8px; width: 100px; height: 37px;">
-     <div class="bskp-icon-frame" style=" height: 24px;padding:3px; text-align: center; width: 24px;">
-     <i class="fa fa-angle-down dropR " aria-hidden="true" style="font-size: 18px;"></i> 
-     </div>
-     <p class="mt-2"><label class="cardtitle recentmore-title ml-2" style="font-size:14px">More...</label></p>
- </div>
-</div>`);
-        for (let i = 0; i < 5; i++) {
+     
+        for (let i = 0; i < (rdata.length >= 6 ? 6 : rdata.length ); i++) {
             if (i >= 0 && i <= 2) {
                 $("#recentMegaMenuList").append(
                     ` <div class="col-sm-6 col-xs-6 megacard" onclick="loadMenu(` +
@@ -207,17 +210,21 @@ function recentcard(rdata) {
         </div>
     </div>`
                 );
+            } else if(rdata.length-1 > 2 ){
+
+                $("#recentMegaMenuList")
+                .append(` <div class="col-sm-6 col-xs-6 Megamore" style="display: flex; align-items: center;" onclick="Mtogmore($('.Megamore-title').text())">
+        <div class="card modules mb-2 bskp-home-modules"onclick="" style="padding: 6px 10px;width: 100px; height: 35px;">
+        <div class="bskp-icon-frame" style=" height: 24px;padding:3px; text-align: center; width: 24px;">
+        <i class="fa fa-angle-down dropR " aria-hidden="true" style="font-size: 18px;"></i> 
+        </div>
+            <p class="mt-2"><label class="Megamore-title ml-2" style="font-size:12px">More...</label></p>
+        </div>
+    </div>`);
+
             }
         }
-        $("#recentMegaMenuList")
-            .append(` <div class="col-sm-6 col-xs-6 Megamore" style="display: flex; align-items: center;" onclick="Mtogmore($('.Megamore-title').text())">
-    <div class="card modules mb-2 bskp-home-modules"onclick="" style="padding: 6px 10px;width: 100px; height: 35px;">
-    <div class="bskp-icon-frame" style=" height: 24px;padding:3px; text-align: center; width: 24px;">
-    <i class="fa fa-angle-down dropR " aria-hidden="true" style="font-size: 18px;"></i> 
-    </div>
-        <p class="mt-2"><label class="Megamore-title ml-2" style="font-size:12px">More...</label></p>
-    </div>
-</div>`);
+      
     }
 }
 

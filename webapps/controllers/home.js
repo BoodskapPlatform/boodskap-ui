@@ -10,7 +10,6 @@ var MENU_LINKS = [BASE_PATH+'/home', BASE_PATH+'/dashboard', BASE_PATH+'/message
 $(document).ready(function () {
    
     $("body").removeClass('bg-white');
-
     // $(".homeMenuList").append($("#logConsole").html());
     if (ADMIN_ACCESS) {
         $(".siteNoop").append($("#loginAs").html());
@@ -265,9 +264,9 @@ function loadDomains() {
             mData: 'action',
             sTitle: 'Action',
             mRender: function (data, type, row) {
-                var str = '<button class="btn btn-xs btn-default" onclick="loginAs(\'' + row['domainKey'] + '\',\'' + row['email'] + '\')">' +
-                    '<i class="icon-sign-in"></i> Login</button> <button class="btn btn-xs btn-danger" onclick="deleteDomain(\'' + row['domainKey'] + '\',\'' + row['email'] + '\')">' +
-                '<i class="icon-trash-o"></i></button>'
+                var str = '<button class="btn bskp-edit-btn mr-2 loginas-btn" title="Login" onclick="loginAs(\'' + row['domainKey'] + '\',\'' + row['email'] + '\')">' +
+                    '<em class="icon-sign-in"></em></button> <button class="btn bskp-trash-btn" title="Delete" onclick="deleteDomain(\'' + row['domainKey'] + '\',\'' + row['email'] + '\')">' +
+                '<img src="images/trash2.svg" alt=""></button>'
                 return row['domainKey'] ? str : '-';
             }
         }
@@ -286,6 +285,17 @@ function loadDomains() {
         searching: true,
         "ordering": false,
         iDisplayLength: 5,
+        dom: '<"bskp-search-left" f> rtip',
+        language: {
+            "emptyTable": "No data available",
+            "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
+            "searchPlaceholder": "Search by Domain Key",
+            loadingRecords: '',
+            paginate: {
+                previous: '< Prev',
+                next: 'Next >'
+            }
+        },
         lengthMenu: [[5,10, 50, 100], [5,10, 50, 100]],
         aoColumns: fields,
         "bProcessing": true,
@@ -341,12 +351,14 @@ function loadDomains() {
     };
 
     domainTable = $("#domainTable").DataTable(tableOption);
+    
+    $('.dataTables_filter input').attr('maxlength', 100)
 }
 
 function loginAs(key, email) {
 
     if ($.trim($("#adminPwd").val()) === '') {
-        errorMsg('Password cannot be empty');
+        errorMsgBorder('Password cannot be empty','adminPwd');
         return false;
     }
 
@@ -960,7 +972,6 @@ function register(){
         firstName: firstname,
         lastName: lastname
     };
-    console.log(data)
 
     // registerCall(data,function (status, data) {
     //     closeLoading();

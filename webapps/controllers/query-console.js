@@ -261,7 +261,7 @@ function executeQuery() {
             });
 
         } else {
-            errorMsg(style="background-color"+'Invalid JSON Query');
+            errorMsg('Invalid JSON Query');
         }
 
     } else {
@@ -303,6 +303,7 @@ function loadresultEditor(code) {
     resultEditor.resize();
 
 }
+
 
 
 var ELASTIC_SNIPPET = [
@@ -532,3 +533,4 @@ var ELASTIC_SNIPPET = [
         content: '{"script:"{"inline:"$1,"lang:"${2:painless}"}}'
     }
 ]
+

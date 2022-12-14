@@ -165,11 +165,18 @@ function loadTemplates() {
 
 function openModal(type, id) {
     if (type === 1) {
+        $("#addTemplate").modal({
+            backdrop: 'static',
+            keyboard: false
+        });
         $("#template_name").removeAttr('readonly');
         $(".templateAction").html('Create');
         $("#addTemplate form")[0].reset();
         $("#addTemplate").modal('show');
+        $("#template_code").css('height','90px');
         $("#addTemplate form").attr('onsubmit', 'addTemplate()')
+        
+        
     }
     else if (type === 4) {
         current_template_name = id;
@@ -211,11 +218,22 @@ function openModal(type, id) {
             backdrop: 'static',
             keyboard: false
         });
+        
     }
 }
 
 
 function addTemplate() {
+
+   
+    if($("#template_name").val() === ""){
+        errorMsgBorder('Template Name cannot be empty', 'template_name')
+        return false;
+    }
+    if($("#template_code").val() === ""){
+        errorMsgBorder('Template Query cannot be empty', 'template_code')
+        return false;
+    }
 
     var tempObj = {
         "id": $("#template_name").val(),
@@ -223,9 +241,9 @@ function addTemplate() {
         domainKey: DOMAIN_KEY
     }
 
-
+        console.log(temObj);
         $(".btnSubmit").attr('disabled', 'disabled');
-
+    
 
         retreiveDBTemplate(tempObj.id, function (status, data) {
 
@@ -275,6 +293,7 @@ function updateTemplate() {
 
 function proceedDelete() {
     deleteDBTemplate(current_template_name, function (status, data) {
+        console.log(status)
         if (status) {
             successMsg('Template Deleted Successfully');
             loadTemplates();
