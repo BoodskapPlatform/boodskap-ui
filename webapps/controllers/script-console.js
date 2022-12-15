@@ -754,76 +754,41 @@ function validation(){
     if($(".select").val()==""){
         $("#error").text("Please select an item in the list")
         $(".select").css('border-color','red')
-       
         setTimeout(function(){
             $("#error").text("")
-            $(".select").css('border-color','')
-        
-          
+            $(".select").css('border-color','') 
         },2000);
-        
-       
-
-    } else{
-     
-       
- }
+    } else{      
+ };
  if($(".filetwo").val()===""){
     $("#file_error2").text("Please select a file")
-        $(".filetwo").css('border-color','red')
-       
+        $(".filetwo").css('border-color','red') 
         setTimeout(function(){
             $("#file_error2").text("")
         $(".filetwo").css('border-color','')
-    
         },2000);
-       
-
-
    }else{
-    
- 
-
-   }
-
-
+   };
  if($(".text").val()===""){
     $("#name_error").text("Please fill out this field")
-        $(".text").css('border-color','red')
-       
+        $(".text").css('border-color','red') 
         setTimeout(function(){
             $("#name_error").text("")
         $(".text").css('border-color','')
-    
         },2000);
-       
-
-
-   }else{
    }
-
-  
+   else{
+   };
    if($(".choose").val()===""){
     $("#file1").text("Please select a file")
-        $(".choose").css('border-color','red')
-       
+        $(".choose").css('border-color','red') 
         setTimeout(function(){
             $("#file1").text("")
         $(".choose").css('border-color','')
-    
         },2000);
-      
-
-   }else{
- 
-
    }
-
-  
- 
-
-
-
+   else{
+   };
 }
 
 
