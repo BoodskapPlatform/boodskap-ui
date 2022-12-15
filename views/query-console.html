@@ -1,6 +1,6 @@
 
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-<link rel="stylesheet" href="css/query-console.css">
+<link rel="stylesheet" href="/webapps/css/Query-Console.css">
 <div id="searchQueryConsole" class="container panel  msgDef platformBody ">
     <!-- begin breadcrumb -->
     <ol  class=" panel-inverse breadcrumb pull-right ">
@@ -26,7 +26,7 @@
                             <div class="form-group">
                                 <label >Choose Index</label>
                                 <select id="options" class="form-control input-sm border" onchange="loadIdList(this.value)">  
-                                    <option value="1">Message</option> 
+                                    <option value="1">Message</option>
                                     <option value="2">Record</option>
                                     <option value="3">Model</option>
                                 </select>
@@ -46,7 +46,7 @@
                             <div class="form-group queryBox">
                                 <span class="version_title">Elastic Search Query <small class="ml-2 version">v 5.5.0</small> <strong class="star_required_icon">*</strong></span><br>
                                 <div class="btn-g"> <small>(Select & Press <b class="execute_rule">CTRL + ENTER</b> to execute the query)</small>       
-                                    <button type="submit"  class="execute_btn btn "  onclick="executeQuery()">Execute</button>
+                                   <button type="submit"  class="execute_btn btn "  onclick="executeQuery()">Execute</button>
                                    </div>
                                 <div id="queryEditor"></div>
                             </div>
