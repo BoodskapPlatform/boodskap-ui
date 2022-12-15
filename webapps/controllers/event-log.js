@@ -559,6 +559,7 @@ function loadLogs() {
             language: {
                 "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
              "searchPlaceholder": "Search by Rule ID",
+             "zeroRecords": "No data available",
              "emptyTable":"No data available",
                 loadingRecords: '',
                 paginate: {

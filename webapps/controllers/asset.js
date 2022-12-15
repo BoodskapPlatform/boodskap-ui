@@ -27,8 +27,8 @@ function loadAssetList() {
             orderable: true,
             mRender: function (data, type, row) {
 
-                return data + '<button class="btn btn-sm btn-icon btn-default pull-right" onclick="openModal(4,\'' + row["id"] + '\')" title="View Linked Device">' +
-                    '<i class="icon-eye2"></i></button>';
+                return data + '<button class="btn bskp-edit-btn mr-2 bskp-greyicon pull-right" onclick="openModal(4,\'' + row["id"] + '\')" title="View Linked Device">' +
+                    '<em class="icon-eye2"></em></button>';
             }
         },
         {
@@ -75,6 +75,7 @@ function loadAssetList() {
         dom: '<"bskp-search-left" f> lrtip',
         language: {
             "emptyTable": "No data available",
+            "zeroRecords": "No data available",
             "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
             "searchPlaceholder": "Search by Asset Id",
             loadingRecords: '',
@@ -183,7 +184,7 @@ function loadLinkedDevices(id) {
                     '<td>' + device_list[i].id + '</td>' +
                     '<td>' + device_list[i].modelId + '</td>' +
                     '<td>' + device_list[i].version + '</td>' +
-                    '<td><button class="btn btn-sm btn-default" onclick="unlinkDevice(\'' + device_list[i].id + '\')"><i class="icon-unlink"></i></button> </td>' +
+                    '<td><button class="btn bskp-edit-btn  bskp-greyicon mr-2" onclick="unlinkDevice(\'' + device_list[i].id + '\')"><em class="icon-unlink"></em></button> </td>' +
                     '</tr>');
             }
         } else {
