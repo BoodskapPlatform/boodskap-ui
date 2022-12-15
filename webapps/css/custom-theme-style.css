@@ -1105,7 +1105,6 @@ input[type=file]{
 }
 .bskp-plusvg{
     height: 14px;
-    width:14px;
     position: relative;
     top: -1px;
 }
@@ -1119,7 +1118,7 @@ input[type=file]{
 .minus-none{
     display: none;
 }
-.bskp-greyicon > em{
+.bskp-greyicon em{
     font-size: 16px;
     color: #6d7279 !important;
     vertical-align: middle;

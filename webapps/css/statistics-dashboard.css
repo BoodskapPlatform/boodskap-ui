@@ -90,7 +90,7 @@ font-weight:600;
 #statistics .mb-20px{
     margin-bottom: 20px !important; 
 }
-@media(max-width:1355px){
+@media(max-width:1399px){
 .fullcount{
 flex: 100%;
 max-width: 100%;

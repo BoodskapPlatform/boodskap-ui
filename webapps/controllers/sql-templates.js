@@ -212,7 +212,12 @@ function openModal(type, id) {
         $("#template_name").removeAttr('readonly');
         $(".templateAction").html('Add');
         $("#addTemplate form")[0].reset();
-        $("#addTemplate").modal('show');
+        $("#addTemplate").modal({
+            backdrop: 'static',
+            keyboard: false
+        }
+        ,'show'
+        );
         $("#addTemplate form").attr('onsubmit', 'addTemplate()')
         $("#template_code").css('height','100px');
     }

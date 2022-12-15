@@ -188,7 +188,12 @@ function openModal(type, id) {
         $(".templateAction").html('Add');
 
         $("#addPool form")[0].reset();
-        $("#addPool").modal('show');
+        $("#addPool").modal({
+            backdrop: 'static',
+            keyboard: false
+        }
+        ,'show'
+        );
         $("#addPool form").attr('onsubmit', 'addPool()')
     }
     else if (type === 2) {
