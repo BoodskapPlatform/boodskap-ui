@@ -47,11 +47,6 @@
 
 }
 
-/* .bskp-container-frame{
-    position: relative!important;
-    top: -5px;
-} */
-
 .bskp-page-topic {
     font-weight: 600;
     color: #3e3e3e;
@@ -99,9 +94,7 @@ ol li{
 .panel-title{
     color: #2D2F79;
 }
-/* .bskp-table-layout select{
-    width: 42px !important;
-} */
+
 .fa-asterisk{
     font-size: 10px;
 }
