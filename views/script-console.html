@@ -1,304 +1,67 @@
 <link href="https://fonts.googleapis.com/css?family=Share+Tech+Mono" rel="stylesheet">
 <link href="css/jquery.terminal-1.12.1.css" rel=stylesheet>
 
-<link href="css/Aimara.css" rel=stylesheet>
-<style>
-      @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
-      
-    .consoleBody{
-        background-color:hsl(205deg 40% 94%) ;overflow: auto;overflow-x: hidden
-    }
-    #scriptTerminal{
-        font-family: 'Share Tech Mono', monospace;
-    }
-    .titleText {
-        color: #f55700;
-        font-size: 13px!important;
-        font-weight: 700;
-        text-transform: uppercase;
-        margin-top: 5px!important;
-        margin-bottom: 5px!important;
-    }
-    .subTitleText {
-        font-size: 14px!important;
-        margin: 10px 0!important;
-        color: #fff;
-    }
+<link href="css/script-console.css" rel=stylesheet>
 
-    #codeEditor {
-        position: relative;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-    }
-
-    .codeText {
-        color: #000;
-        font-size: 13px;
-        background-color: #ffffffe0;
-        border-left: 2px solid #f55700;
-        padding: 5px;
-    }
-
-    .rightSide{
-        position: fixed;
-        right:0px;
-        top:0px;
-        padding-top: 100px;
-        width:0px;
-    }
-
-    .editorBlock{
-        position: fixed;
-        right:0px;
-        top:0px;
-        padding-top: 100px;
-        width:0px;
-    }
-
-    #tree{
-        list-style: none;
-        margin-left: 0px;
-        padding-left: 0px;
-    }
-    #tree ul{
-        list-style: none;
-    }
-
-    .classFolder{
-        overflow: auto;
-        overflow-x: hidden;
-        word-wrap: break-word;
-        background-color: #fff;
-        padding: 3px;
-    }
-
-    #tree li img:hover{
-        cursor: pointer;
-    }
-
-    #tree li a:hover{
-        cursor: pointer;
-        background-color: #eee;
-    }
-
-    img.exp_col{
-        position: relative;
-        margin-left: -15px;
-    }
-
-    .terminal, .cmd{
-        background-color: hsl(208deg 50% 25%);
-        border-radius: 6px;
-    }
-    #btnEditor,#btnMax,#btnExec{
-        background-color: hsl(0deg 0% 100%);
-       
-    }
-    #btnEditor:hover{
-      text-decoration: none;
-    }
-
-    .serverStatus .label-danger{
-        position:relative;
-        left: 28px;
-        top: 20px;
-        border-radius: 6px;
-        
-    }
-    .label.label-green{
-        background-color: hsl(116deg 87% 39%);
-        position:relative;
-        left: 28px;
-        top: 20px;
-        border-radius: 6px;
-    }
-    .terminal-wrapper{
-        margin-top:43px;
-    }
-    /*  .editorBlock{
-        /* background-color: hsl(208deg 50% 25%) ; */
-    /* }*/ 
-    .ace_content{
-       
-       border: none;
-        background-color: #fefefe;
-        height: 700px;
-        
-    }
-    
-    .ace-solarized-light .ace_gutter{
-        background-color: hsl(210deg 31% 95%);
-        border: 2px solid #eaf1f6;
-        border-radius: 10px;
-       
-       
-      
-    }
-    .ace-solarized-light{
-        background-color:#ffffff;
-       
-        border-radius: 10px;
-    }
-    .ace_folding-enabled > .ace_gutter-cell{
-        background-color: #a8a3a3;
-    }
-    .btnExec {
-        background-color: hsl(240deg 46% 32%) ;
-        color: #ffffff;
-        border-radius: 10px;
-        font-size: 13px;
-        height:26px;
-        border-style: none;
-        width: 90px;
-        position: relative;
-        bottom: 40px;
-    }
-    select {
-        border-radius: 10px;
-        border-color: rgb(211 216 222); 
-        font-weight: 400;
-        border: 1px solid rgb(211 216 222);
-        margin-top: 5px;
-        font-family:Montserrat;
-        font-size: 14px !important;
-        margin-bottom: 5px;
-    }
-    
-    .form-control{
-        border-radius: 10px;
-        border-top-right-radius:10px ;
-        font-family:Montserrat;
-        font-weight: 600;
-    }
-    small,label{
-        font-family:Montserrat;
-    }
-    .terminal-output div span {
-        font-family:Montserrat;
-    }
-    .serverStatus{
-        font-family:Montserrat;
-    }
-    .close{
-        margin-left: 200px;
-    }
-    body{
-        overflow-y: hidden;
-    }
-    #error{
-color: red;
-    }
-    
-#error,#error1,#name_error,#file_error2,#file1{
-    font-weight: 600;
-}
-   
-
-</style>
-<!--<div class="row-fluid">
-    <ul class="nav submenu" style="">
-        <li class=""><a href="<%= basepath %>/home"><i class="fa fa-home"></i> </a></li>
-        <li class=""><a href="<%= basepath %>/dashboard">Dashboard</a></li>
-        <li class="active"><a href="<%= basepath %>/script-console">Script Console</a></li>
-    </ul>
-</div>-->
 <div class="row-fluid">
     <div class="panel panel-inverse">
-        <div class="panel-body consoleBody" style="position: relative">
-            <span class="serverStatus" style="position: absolute;top: 0px;left: 0px;z-index:1;"></span>
+        <div class="panel-body consoleBody">
+            <span class="serverStatus"></span>
             <div class="row">
-                <div class="col-lg-12 leftSide " style="position: relative;">
-
-                    <button class="btn btn-sm  hidden-xs hidden-sm" id="btnMax" style="position: absolute;right: 10px;top: 0px;z-index:1;margin:10px;border-radius:10px;font-family: Montserrat;"
+                <div class="col-lg-12 leftSide">
+                    <button class="btn btn-sm  hidden-xs hidden-sm" id="btnMax"
                          onclick="resizePanel()">
-                        <i class="icon-eye4 mt-1"></i> Show Class
+                        <em class="icon-eye4 mt-1"></em> Show Class
                     </button>
-
-                    <button class="btn btn-sm " id="btnEditor" style="position: absolute;right: 120px;top: 0px;z-index:1;margin:10px;border-radius:10px;font-family: Montserrat;"
+                    <button class="btn btn-sm " id="btnEditor"
                             onclick="showEditor()">
-                        <i class="icon-eye4 mt-1"></i> Show Editor
+                        <em class="icon-eye4 mt-1"></em> Show Editor
                     </button>
-
-                    <button class="btn btn-sm  hidden-lg hidden-md" id="btnExec" style="position: absolute;right: 10px;top: 0px;z-index:1;margin:10px;border-radius:10px;"
+                    <button class="btn btn-sm  hidden-lg hidden-md" id="btnExec"
                          onclick="executeCommand()">
-                        <i class="icon-bolt mt-1"></i> Execute
+                        <em class="icon-bolt mt-1"></em> Execute
                     </button>
                     <div id="scriptTerminal" ></div>
                 </div>
-                <div class="editorBlock" style="padding-top:90px;border-radius: 10px;margin-left:10px; margin-top: 10px;margin-right: 8px;">
-
-                    <div id="section" style="padding: 19px;position: relative;border: 2px solid  hsl(208deg 50% 25%);background-color:#ffffff;margin:25px;border-radius: 10px;">
-
-                        <h5 style="color:black;border-bottom: 1px solid rgb(140, 152, 223);"><i class="icon-code2"></i> Editor </h5>
+                <div class="editorBlock">
+                    <div id="section">
+                        <h5><em class="icon-code2"></em> Editor </h5>
                         <div class="text-right">
                             <button class=" btnExec" onclick="executeScriptCommand()">Execute</button> 
                         </div>
-                    
-
-
                     <div class="col-md-12">
                         <div id="codeEditor"></div>
                     </div>
-
-                  
-
-                    <div id="consoleBox" style="overflow: auto;overflow-x: hidden;    background-color:hsl(208deg 50% 25%);padding: 10px;margin-top: 5px;border-radius:10px;"></div>
-
-
+                    <div id="consoleBox"></div>
                     </div>
-
-
                 </div>
                 <div class="rightSide">
-
-                    <div style="padding-top:12px;padding-left:12px;padding-right:12px;background-color: hsl(0deg 0% 100%);border-radius: 13px;margin: 27px;">
-
-                    <h5 style="font-size: 14px;font-family:Montserrat;">Groovy Class & JAR</h5>
-
-                        <button class="btn btn-block btn-sm"
-                                style="margin: 5px 0px;background-color:hsl(238deg 46% 33%);border-radius:10px; padding:5px; color:#fff;font-family:Montserrat;font-weight: 400;"onclick="openModalClasses()">
-                            <img class="mb-1 mr-1" src="images/menu/upload.png" alt=""> Import Class/JAR
+                    <div class="inside_style">
+                    <h5 >Groovy Class & JAR</h5>
+                        <button class="btn btn-block btn-sm btn_import"
+                                onclick="openModalClasses()">
+                            <img class="mb-1 mr-1" src="images/menu/upload.png" alt="close_icon"> Import Class/JAR
                         </button>
-
                     <form action="javascript:void(0)" onsubmit="loadCodeType()" style="width: 100%">
                         <div class="text-right">
-                            <select id="codeType" style="margin-left: 70px;" onchange="loadCodeType()">
+                            <select id="codeType" onchange="loadCodeType()">
                                 <option value="CLASS">Groovy Class</option>
                                 <option value="JAR">JAR</option>
                             </select> <br>
-
                         </div>
-
-                        
- 
-
                        <div>
-                        <label style="margin-right: 10px;margin-top:px;"><input class="radio" type="radio" name="fileType" value="PUBLIC_GROOVY" onclick="loadCodeType()"> Public</label>
+                        <label style="margin-right: 10px;"><input class="radio" type="radio" name="fileType" value="PUBLIC_GROOVY" onclick="loadCodeType()"> Public</label>
                         <label><input type="radio" name="fileType" value="GROOVY" checked onclick="loadCodeType()"> Private</label> 
                        </div>
-
-                       
-
                         <div class="input-group mb-3">
-                            <input style="border-radius: 10px;" type="text" id="searchText" autocomplete="off" class="form-control"
+                            <input type="text" id="searchText" autocomplete="off" class="form-control"
                                    placeholder="Search by Package,Class,Method Name">
-                             <!-- <div class="input-group-prepend">
-                                <button style="border-radius:10px;" class="btn btn-secondary" type="submit"><i class="icon-search"></i>
-                                </button>
-                            </div> -->
                         </div>
                     </form>
-
-                    <div class="classFolder" style=""></div>
+                    <div class="classFolder"></div>
                     </div>
-
                 </div>
             </div>
-
-
         </div>
     </div>
 
@@ -314,7 +77,6 @@ color: red;
 <script src="js/editor/src-noconflict/ext-language_tools.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/editor/src-noconflict/ext-searchbox.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/editor/src-noconflict/snippets/groovy.js" type="text/javascript" charset="utf-8"></script>
-
 <script src="controllers/script-console.js" type="text/javascript"></script>
 
 
@@ -322,52 +84,42 @@ color: red;
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 style="font-size:18px ;font-weight:600;font-family:Montserrat;" class="modal-title">Import Class/JAR</h4>
+                <h4 class="modal-title">Import Class/JAR</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <image src="images/menu/xicon.svg" class="bg-secondary"   style="border-radius: 13px;padding:3px">
+                    <image src="images/menu/xicon.svg" class="bg-secondary close_icon">
                     </button>
             </div>
-            <form action="javascript:void(0)" onsubmit="uploadClassFile()">
-               
+            <form action="javascript:void(0)" onsubmit="uploadClassFile()"> 
                 <div class="modal-body">
-
                     <div class="row">
                         <div class="col-md-6">
                             <div  class="form-group">
-                                <label style="font-size:16px;" class="inputLabel">Select Type</label>
+                                <label class="inputLabel">Select Type</label>
                                 <select   class="form-control input-sm select" id="class_type"
                                         onchange="loadClassTemplate(this.value)">
                                     <option value=""></option>
                                     <option value="GROOVY">Groovy Class</option>
                                     <option value="JAR">JAR File</option>
                                  </select>
-                                 <span style="font-weight:400px;" id="error"></span>
-                            </div>
-                            
+                                 <span id="error"></span>
+                            </div>     
                         </div>
                         <div class="col-md-6">
-
                         </div>
                     </div>
                     <di class="row classTemplate">
-
                     </di>
-
                     <div class="row">
-
                         <div class="col-md-12 logResult">
-
                         </div>
                     </div>
-
-
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary btn-close" data-dismiss="modal">Close</button>
                     <button onclick="validation()" type="submit" class=" btn-secondary btn-proceed btnSubmit btnModal">Upload</button>
                 </div>
             </form>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+        </div>
+    </div>
+</div>
 

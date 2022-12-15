@@ -1,267 +1,69 @@
-<!--<div class="row-fluid">
-    <ul class="nav submenu" style="">
-        <li class=""><a href="<%= basepath %>/home"><i class="fa fa-home"></i> </a></li>
-        <li class=""><a href="<%= basepath %>/dashboard">Dashboard</a></li>
-        <li class="active"><a href="<%= basepath %>/message-definition">Message Definition</a></li>
-    </ul>
-</div>-->
+
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-<style>
-    
-     @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');   
-     #searchQueryConsole .ace_error{
-        display: none !important;
-    }
-    #searchQueryConsole #queryEditor, #resultEditor {
-        position: relative;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        border:1px solid #eee
-    }
-    #searchQueryConsole .bskp-icon-bg{
-       margin-top: 5px;
-       
-      
-     
-       
-    }
-   .select2-selection .select2-selection--single{
-        background-color: red;
-
-    }
-    
-
-   
-
-    @media screen and (max-width:499px){
-       
-        /* .exe-btn{
-text-align: end;
-        } */
-        #searchQueryConsole .bskp-icon-bg{
-          position: relative;
-          left: 100px;
-          
-        }
-       
-    }
-    #searchQueryConsole .execute_btn{
-       
-        background-color:hsl(238deg 46% 33%);
-        border: none;
-        color: white;
-     
-      font-size:12px;
-      border-radius: 10px;
-    width: 80px;
-      border-style: none;
-      cursor: pointer;
-     height: 30px;
-     margin-left: 193px;
-     margin-bottom: 5px;
-   
-
-    }
-    #searchQueryConsole .breadcrumb{
-       margin: 5px;
-    }
-    #searchQueryConsole .ace-eclipse .ace_gutter{
-        background-color: hsl(210deg 31% 95%);
-        border: 2px solid #eaf1f6;
-        border-radius: 10px;
-       
-      
-    }
-    .panel{
-       background-color: #fafdff;
-       
-    }
-    #searchQueryConsole .table_border{
-        border: 1px solid hsl(214deg 23% 79%);border-radius: 15px;margin:5px;
-        background-color: #ffffff;
-    }
-    #searchQueryConsole .ace_content{  
-        position: relative;
-        left: 8px;
-        border: 2px solid  #eaf1f6;
-     
-       
-       border-left: 2px solid  #eaf1f6;
-      
-        border-radius: 10px;
-       
-    }
-    #searchQueryConsole #queryEditor, #resultEditor{
-      /* border-top: none;
-      border-bottom: none;
-      border-color: #eaf1f6;
-      border-radius: 10px; */
-      border: 2px solid #eaf1f6;
-      border-top: none;
-      border-bottom: none;
-      border-radius: 10px;
-    }
-   
-    #searchQueryConsole #resultEditor{
-       border-radius:10px;
-    
-    }
-  
-    #searchQueryConsole .panel-body{
-      padding-bottom: 3px;
-      margin: 5px;
-      background-color:#ffffff;
-      
-     
-    }
-    #searchQueryConsole .bskp-icon-bg{
-        background-color: #ffffff;
-    }
-   #searchQueryConsole .page-header{
-        color: hsl(0deg 0% 25%);
-        margin-left: 6px;
-        font-weight: 700;
-        font-size: 20px;
-    }
-   
-
-    .platformBody{
-      
-       background-color: hsl(205deg 40% 94%);
-       padding-top: 10px;
-      
-    } 
-    
-    .select2-container--default .select2-selection--single{
-    border-radius: 10px;
-    
-   
-
-   
-    
-   
- }
- .form-group{
-    margin-bottom: 5px;
- }
- .btn-g{
-justify-content: space-between;
- }
- 
-
-
-    
-
-</style>
+<link rel="stylesheet" href="css/query-console.css">
 <div id="searchQueryConsole" class="container panel  msgDef platformBody ">
     <!-- begin breadcrumb -->
     <ol  class=" panel-inverse breadcrumb pull-right ">
-    
             <li class="breadcrumb-item"><a href="<%= basepath %>/home">Domain</a></li>
             <li class="breadcrumb-item active">Query Console</li>
-       
-        
-
         <div class="ml-2 mr-4">
-            <a href="javascript:;" class="btn btn-sm btn-icon btn-circle  bskp-icon-bg expand_img" onclick="expand()" data-click="panel-expand" title="Expand"><img style="height:14px ;" src="images/menu/expand-icon.svg" alt=""></a>
+            <a href="javascript:;" class="btn btn-sm btn-icon btn-circle  bskp-icon-bg expand_img" onclick="expand()" data-click="panel-expand" title="Expand"><img height="14px" src="images/menu/expand-icon.svg" alt=""></a>
              <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg"  title="Help" > <img src="images/Question_icon.png" alt=""> </a>
-           </div>
-       
-            <!-- <a href="javascript:;" class="btn btn-sm btn-icon btn-circle  bskp-icon-bg" data-click="panel-expand"><i class="fa fa-expand"></i></a>
-            <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg" title="Help" onclick="startTour()"><i class="icon-help"></i></a> -->
-          
+           </div>      
     </ol>
     <!-- end breadcrumb --> 
     <!-- begin page-header -->
-    <img style="height:22px;" class=" ml-2 mb-2" src="images/menu/Search.png" alt=""><span class="page-header">Elastic Search Query</span>
+    <img  class=" ml-2 mb-2" src="images/menu/Search.png" alt="logo_img"><span class="page-header">Elastic Search Query</span>
     <!-- end page-header -->
 
     <!-- begin panel -->
     <div  class="table_border panel panel-inverse">
-        <div class="panel-body" style="">
-
+        <div class="panel-body" l>
             <div class="row">
                 <div class="col-md-5">
-
                     <div  class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label >Choose Index</label>
-
-                                <select id="options" class="form-control input-sm border" onchange="loadIdList(this.value)">
-                                   
-                                    <option value="1">Message</option>
+                                <select id="options" class="form-control input-sm border" onchange="loadIdList(this.value)">  
+                                    <option value="1">Message</option> 
                                     <option value="2">Record</option>
                                     <option value="3">Model</option>
                                 </select>
-                                <span style="color:red;font-weight: 600;"class="index" id="logindex"></span>
-
+                                <span class="index"></span>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-
-                                <label>Choose <span class="actionName"></span> <strong style="color:red">*</strong></label>
-                                <select style="border:2px solid #eaf1f6;" class="form-control input-sm" id="idList" style="" onchange="selectChange()"></select>
-                                <span style="color:red;font-weight: 600;" class="index"></span>
+                                <label>Choose <span class="actionName"></span> <strong class="star_required_icon">*</strong></label>
+                                <select class="form-control input-sm" id="idList"  onchange="selectChange()"></select>
+                                <span class="index"></span>
                             </div>
-
                         </div>
                     </div>
-
-                   
-
-
-
                     <div class="row">
-
                         <div class="col-md-12 ">
                             <div class="form-group queryBox">
-                                <span class="" style="font-weight:600 ;font-size:10px">Elastic Search Query <small class="ml-2" style="text-decoration: underline">v 5.5.0</small> <strong style="color:red">*</strong></span><br>
-                                <div class="btn-g"> <small>(Select & Press <b style="font-weight:600 ;font-size:9px">CTRL + ENTER</b> to execute the query)</small> 
-                                   
+                                <span class="version_title">Elastic Search Query <small class="ml-2 version">v 5.5.0</small> <strong class="star_required_icon">*</strong></span><br>
+                                <div class="btn-g"> <small>(Select & Press <b class="execute_rule">CTRL + ENTER</b> to execute the query)</small>       
                                     <button type="submit"  class="execute_btn btn "  onclick="executeQuery()">Execute</button>
-                              
                                    </div>
-                                  
-                                    
-
-                               
-                               
-                        
-
-                                <div id="queryEditor" style="width: 100%"></div>
+                                <div id="queryEditor"></div>
                             </div>
                         </div>
-                       
-
                     </div>
-
                 </div>
-                <div id="sideBorder" class="col-md-5" style="border-left:2px solid  #eaf1f6;">
-                    <h5>Output Console <small style="float:right;font-size: 12px" class="loadingText"></small></h5>
-                    <div id="resultEditor" style="width: 100%;"></div>
+                <div id="sideBorder" class="col-md-5">
+                    <h5>Output Console <small class="loadingText"></small></h5>
+                    <div id="resultEditor"></div>
                 </div>
-                <div id="messageData" class="col-md-2" style="border:2px solid  #eaf1f6;border-radius: 15px;background-color:#f3f5f7;">
-                    <div class="fields" style="width: 100%;overflow: auto;overflow-x: hidden"></div>
+                <div id="messageData" class="col-md-2">
+                    <div class="fields"></div>
                 </div>
             </div>
-
-
         </div>
     </div>
-    <!-- end panel -->
-
 </div>
-<script>
-   $(document).ready(function(){
-    $("#options").select2()
-    $("#idList").select2()
-   })
-</script>
 
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
@@ -274,6 +76,11 @@ justify-content: space-between;
 
 <script src="controllers/query-console.js" type="text/javascript"></script>
 <script>
+
+$(document).ready(function(){
+    $("#options").select2()
+    $("#idList").select2()
+   })
     function expand(){
     $('#resultEditor').height(($(window).height() - 210) + 'px');
     resultEditor.resize();
@@ -284,5 +91,4 @@ justify-content: space-between;
 
     queryEditor.resize();
 }
-
 </script>
