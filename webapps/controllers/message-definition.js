@@ -77,6 +77,7 @@ function loadMessageDef() {
         dom: '<"bskp-search-left" f> lrtip',
         language: {
             "emptyTable": "No data available",
+            "zeroRecords": "No data available",
             "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
             "searchPlaceholder": "Search by Message Id",
             loadingRecords: '',

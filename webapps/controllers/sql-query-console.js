@@ -252,6 +252,7 @@ function loadSQLTable() {
         dom: '<"bskp-search-left" f> rtp',
         language: {
             "emptyTable": "No data available",
+            "zeroRecords": "No data available",
             "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
             "searchPlaceholder": "Search by Table Name",
             loadingRecords: '',

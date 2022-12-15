@@ -18,7 +18,7 @@
     </div>
     <!-- end breadcrumb -->
     <!-- begin page-header -->
-    <div class="page-header bskp-page-topic"><img src="images/menu/assets-management-bskp.svg" alt="asset-img"class="bskp-topic-icon mr-1" > Manage Assets
+    <div class="page-header bskp-page-topic"><img src="images/menu/assets-management-bskp.svg" alt="img" class="bskp-topic-icon mr-1" > Manage Assets
         <span class="panel-title ml-3 bskp-text" >Total Assets: <strong><span class="assetCount"></span></strong></span> </div>
     
     <!-- end page-header -->
@@ -28,13 +28,24 @@
            <div class="row m-0">
               <div class="col-12">
                 <div class="btn-group btn-group-justified pull-right bskp-btn-group-align" >
-                <a class="btn bskp-btn-shadow bskp-blue-bg" onclick="openModal(1)"><img src="images/plus.svg" class="bskp-plusvg"> <span class="hidden-xs">Add New Asset</span></a>
-                <a class="btn bskp-refresh-bg" data-click="panel-reload" title="Refresh" onclick="loadAssetList()"><i class="fa fa-refresh"></i></a>
+                <a class="btn bskp-btn-shadow bskp-blue-bg" onclick="openModal(1)"><img src="images/plus.svg" alt="img" class="bskp-plusvg"> <span class="hidden-xs">Add New Asset</span></a>
+                <a class="btn bskp-refresh-bg" data-click="panel-reload" title="Refresh" onclick="loadAssetList()"><em class="fa fa-refresh"></em></a>
                 </div>
 
                 <div class="bskp-table-layout">
-                    <table class="table table-bordered bskp-table responsive no-wrap" id="assetTable"  cellspacing="0" width="100%">
+                    <table class="table table-bordered bskp-table responsive no-wrap" id="assetTable"   width="100%">
+                        <thead>
+                            <tr>
+                                <th>Asset ID</th>
+                                <th>Asset Name</th>
+                                <th>Description</th>
+                                <th>Created Time</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
 
+                        </tbody>
                     </table>
                 </div>
 
@@ -129,8 +140,8 @@
                         <div  class="form-group">
                             <label  class="inputLabel">Choose Device ID</label>
                             <div class="dropdown">
-                                <div class="btn btn-sm dropdown-toggle" style="width: 100%;border: 1px solid #3e373738;" type="" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                    <input type="text" style="" class="input-sm inputDevice"
+                                <div class="btn btn-sm dropdown-toggle bskp-dropborder"  type="" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    <input type="text" class="input-sm inputDevice border-0"
                                            placeholder="Search by device id, name, model, version"  maxlength="50" id="deviceID" onkeyup="loadDeviceList(this.value)">
                                 </div>
                                 <ul class="dropdown-menu deviceListUl" aria-labelledby="dropdownMenu1">
@@ -141,16 +152,16 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 mt-2">
                         <label  class="inputLabel">&nbsp;</label>
-                        <button class="btn btn-warning btn-block" onclick="linkDevice()">Link Device</button>
+                        <button class="btn bskp-btn-shadow mt-4 bskp-blue-bg" onclick="linkDevice()">Link Device</button>
                     </div>
                 </div>
 
                 <div class="row">
 
                     <div class="col-md-12">
-                        <table class="table table-bordered" id="linkedTable">
+                        <table class="table bskp-table responsive table-bordered" id="linkedTable">
                             <thead>
                                 <tr>
                                     <th>Device ID</th>
