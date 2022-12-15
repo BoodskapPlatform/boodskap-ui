@@ -1,0 +1,111 @@
+#page-container {
+    background-color: hsl(205deg 40% 94%);
+}
+.bskp-submenu2 li.active {
+    background-color: #2d2f79 !important;
+    border-radius: 10px 10px 0px 0px;
+
+    font-weight: 600;
+
+    color: white;
+}
+.bskp-submenu2 li.active>a  {
+    color: white;
+
+}
+.bskp-submenu2 li.active>a :hover {
+    background-color: #2D2F79;
+    color: white;
+
+}
+.tooltip-inner{
+    background-color:rgb(237 241 247);
+    color: black;
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+.bskp-submenu2 {
+    height: 35px;
+    border-radius: 10px;
+    margin: 40px 39px 0px 40px !important;
+    background-color: #eaf1f6 !important;
+
+}
+.bskp-submenu2 li {
+    line-height: 30px;
+    border-radius: 10px 10px 0px 0px;
+     padding: 3px 15px;
+    background-color: #fff;
+}
+.bskp-submenu2 li:first-child>a>i {
+    font-size: 16px;
+    color: darkslategrey;
+}
+
+.bskp-submenu2 li:first-child>a:hover>i {
+    font-size: 16px;
+
+}
+
+/* .bskp-container-frame{
+    position: relative!important;
+    top: -5px;
+} */
+
+.bskp-page-topic {
+    font-weight: 600;
+    color: #3e3e3e;
+    padding: 12px 30px;
+    box-shadow: 0px 2px 8px 0px #e6eaf8e3;
+}
+
+.bskp-modal textarea {
+    min-height: 50px;
+}
+
+
+.firmwareicon {
+
+
+    width: 30px;
+    height: 24px;
+}
+
+.select2-container--default .select2-selection--single {
+    border-radius: 20px !important;
+}
+
+.refresh:hover {
+    background-color: #2d2f79;
+}
+
+.bskp-modal label {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.bskp-submenu2 {
+    position: relative;
+    top: 4px;
+}
+
+.bskp-container-frame {
+    position: sticky;
+}
+
+ol li{
+    font-size: 12px;
+}
+.panel-title{
+    color: #2D2F79;
+}
+/* .bskp-table-layout select{
+    width: 42px !important;
+} */
+.fa-asterisk{
+    font-size: 10px;
+}
+.border-link{
+    border:1px solid #2D2F79 !important;
+    border-radius: 10px !important;
+}
