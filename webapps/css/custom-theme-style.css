@@ -10,7 +10,9 @@
     margin-top: 10px;
     margin-right: 1rem !important;
 }
-
+.bskp-text{
+    color: #2d2f79;
+}
 .bskp-select-pad {
     padding: 3px 8px !important;
     font-size: 14px;
@@ -74,7 +76,7 @@
 */
 .bskp-switch-wrapper {
     position: absolute;
-    top: 0;
+    top: -1px;
     bottom: 0;
     width: 50%;
     z-index: 3;
@@ -112,7 +114,7 @@
 
 /* slide the switch box from right to left */
 .bskp-lightmode-container input:nth-of-type(1):checked~.bskp-switch-wrapper {
-    transform: translateX(0%);
+    transform: translateX(-1%);
 }
 
 /* slide the switch box from left to right */
@@ -333,7 +335,7 @@ color: #1a1a1a !important;
 
 .bskp-btn-group-align {
     column-gap: 14px;
-    margin-right: 20px;
+    margin-right: 5px;
 }
 
 .bskp-refreshbtn {
@@ -447,11 +449,11 @@ color: #1a1a1a !important;
     height: 26px !important;
     border-radius: 6px !important;
     padding: 3px;
-    width: 65px !important;
+    width: 56px !important;
 }
 
 .bskp-table-layout {
-    padding: 0px 16px !important;
+    padding: 0px 5px !important;
 }
 
 .bskp-table-layout .paginate_button a {
@@ -1102,8 +1104,10 @@ input[type=file]{
     color: #525252;
 }
 .bskp-plusvg{
-    height: 18px;
-    vertical-align: middle;
+    height: 14px;
+    width:14px;
+    position: relative;
+    top: -1px;
 }
 .bskp-expand{
     height: 16px;
@@ -1114,4 +1118,14 @@ input[type=file]{
 }
 .minus-none{
     display: none;
+}
+.bskp-greyicon > em{
+    font-size: 16px;
+    color: #6d7279 !important;
+    vertical-align: middle;
+}
+.bskp-dropborder{
+    width: 100%;
+    border: 1px solid #3e373738;
+    border-radius:10px;
 }
