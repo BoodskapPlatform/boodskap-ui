@@ -9,7 +9,6 @@
         background-color: #2d2f79;
         border-top-left-radius: 8px;
         border-top-right-radius: 8px;
-
         font-weight: 600;
 
         color: white;
@@ -18,13 +17,9 @@
     .bskp-submenu2 li.active>a {
         color: white;
 
+
     }
-    .tooltip-inner{
-    background-color:rgb(237 241 247);
-        color: black;
-        margin-top: 3px;
-        margin-bottom: 3px;
-}
+ 
     .bskp-submenu2 {
         height: 35px;
         border-radius: 10px;
@@ -62,7 +57,9 @@
         font-size: 16px;
         color: darkslategrey;
     }
-
+.model-id-req{
+    color: red;
+}
     .bskp-submenu2 li:first-child>a:hover>i {
         font-size: 16px;
 
@@ -106,27 +103,41 @@
         font-weight: 600;
     }
 
-    .bskp-submenu2 {
+     .bskp-submenu2 {
         position: relative;
-        top: 4px;
-    }
-
-    .bskp-container-frame {
-        position: sticky;
-    }
+        top: 0px;
+        
+    } 
+ .bskp-container-frame {
+       
+        position:relative;
+    } 
 
     a {
         padding-bottom: 5px;
     }
-
+    .nav>li>a:focus{
+        background-color: none !important;
+    }
+    .nav>li>a:hover{
+        background-color: none !important;
+    }
     .nav>li.firmwareactive>:hover {
-        background: #2d2f79 !important;
+    
         color: #ffffff;
         list-style: none;
     }
     ol li{
         font-size: 12px;
     }
+    #model-span{
+        color:red;
+    }
+   .span{
+    color:red;
+    font-weight: 600;
+
+   }
 </style>
 <div class="row-fluid">
     <ul class="nav bskp-submenu2">
@@ -241,37 +252,40 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="inputLabel">Model ID</label>
-                                <select class="form-control input-sm modelId" id="f_device_model" required>
+                                <label class="inputLabel">Model ID<strong class="model-id-req">*</strong></label>
+                                <select class="form-control input-sm modelId" id="f_device_model">
                                 </select>
+                                <span id="model-span" class="span"></span>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="inputLabel">Firmware Version</label>
+                                <label class="inputLabel">Firmware Version<strong class="model-id-req">*</strong></label>
                                 <input class="form-control input-sm firmwareVersion" maxlength="10"
-                                    placeholder="Enter The Firmware Version" type="text" id="firmware_version" required>
-                            </div>
+                                    placeholder="Enter The Firmware Version" type="text" id="firmware_version">
+                            <span id="firmware-version-span" class="span"></span>
+                                </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="inputLabel">Description</label>
                                 <textarea class="form-control input-sm Description" id="firmware_desc" maxlength="1000"
-                                    required></textarea>
+                                    ></textarea>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="inputLabel" style="display: block; font-size:13px ;
-                                font-weight: 600;">Choose Firmware File</label>
-                                <input type="file" name="tfile" id="firmwareFile" class="btn" required>
+                                font-weight: 600;">Choose Firmware File<strong class="model-id-req">*</strong></label>
+                                <input type="file" name="tfile" id="firmwareFile" class="btn"><br>
+                                <span class="span" id="choose-file-span"></span>
                             </div>
                         </div>
 
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn  btn-secondary btn-close" onclick='onclosebutton()'
+                    <button type="button" class="btn  btn-secondary btn-close"
                         data-dismiss="modal" style="width:110px;font-size: 14px;font-weight: 500;">Close</button>
                     <button type="submit" class="btn btnModal  btn-proceed btnSubmit"
                         style="font-weight:500;background-color: #2d2f79; width:110px;font-size: 14px;">Proceed</button>

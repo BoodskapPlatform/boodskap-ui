@@ -29,7 +29,7 @@ function loadDeviceModels() {
             }
             // $("#deviceModel").val(data[0].id);
 
-        }else{
+        } else {
             $("#deviceModel").html('<option value="">No Device Linked</option>')
             $("#f_device_model").html('<option value="">No Model Found</option>')
         }
@@ -108,7 +108,7 @@ function loadFirmwareList() {
     };
 
 
-    var domainKeyJson = {"match": {"domainKey": DOMAIN_KEY}};
+    var domainKeyJson = { "match": { "domainKey": DOMAIN_KEY } };
 
     var queryParams = {
         query: {
@@ -133,21 +133,21 @@ function loadFirmwareList() {
         iDisplayLength: 10,
         lengthMenu: [[10, 50, 100], [10, 50, 100]],
         dom: '<"bskp-search-left" f> lrtip',
-            language: {
-                "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
-                "searchPlaceholder": "Search By File Name",
-                "emptyTable":"No data available",
+        language: {
+            "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
+            "searchPlaceholder": "Search By File Name",
+            "emptyTable": "No data available",
 
 
-                loadingRecords: '',
-                paginate: {
-                    previous: '< Previous',
-                    next: 'Next >'
-                }
-            },
+            loadingRecords: '',
+            paginate: {
+                previous: '< Previous',
+                next: 'Next >'
+            }
+        },
         aoColumns: fields,
         // "bProcessing": true,
-        
+
         "bServerSide": true,
         "sAjaxSource": API_BASE_PATH + '/elastic/search/query/' + API_TOKEN,
         "fnServerData": function (sSource, aoData, fnCallback, oSettings) {
@@ -157,7 +157,7 @@ function loadFirmwareList() {
             var keyName = fields[oSettings.aaSorting[0][0]]
 
             var sortingJson = {};
-            sortingJson[keyName['mData']] = {"order": oSettings.aaSorting[0][1]};
+            sortingJson[keyName['mData']] = { "order": oSettings.aaSorting[0][1] };
             queryParams.sort = [sortingJson];
 
             queryParams['size'] = oSettings._iDisplayLength;
@@ -173,7 +173,7 @@ function loadFirmwareList() {
                 //         "fields": ['_all']
                 //     }
                 // };
-                queryParams.query.bool['minimum_should_match']=1;
+                queryParams.query.bool['minimum_should_match'] = 1;
 
                 queryParams.query['bool']['should'].push({ "wildcard": { "fileName": "*" + searchText + "*" } });
                 queryParams.query['bool']['should'].push({ "wildcard": { "fileName": "*" + searchText.toLowerCase() + "*" } });
@@ -250,8 +250,8 @@ function loadFirmwareList() {
                 queryParams.query['bool']['must'] = [domainKeyJson];
             }
 
-            if($("#deviceModel").val() !== ''){
-                queryParams.query['bool']['must'].push({match:{deviceModel:$("#deviceModel").val()}})
+            if ($("#deviceModel").val() !== '') {
+                queryParams.query['bool']['must'].push({ match: { deviceModel: $("#deviceModel").val() } })
             }
 
 
@@ -260,7 +260,7 @@ function loadFirmwareList() {
                 "extraPath": "",
                 "query": JSON.stringify(queryParams),
                 "params": [],
-                type : 'FIRMWARE'
+                type: 'FIRMWARE'
             };
 
 
@@ -273,7 +273,7 @@ function loadFirmwareList() {
                 success: function (data) {
 
                     var resultData = QueryFormatter(data).data;
-                    firmware_list =resultData.data;
+                    firmware_list = resultData.data;
                     console.log(firmware_list)
                     $(".firmwareCount").html(resultData.recordsFiltered)
                     resultData['draw'] = oSettings.iDraw;
@@ -285,17 +285,17 @@ function loadFirmwareList() {
     };
 
     firmwareTable = $("#firmwareTable").DataTable(tableOption);
-   /* listFirmwareApi($("#deviceModel").val(), 1000, null, null, function (status, data) {
-        if (status && data.length > 0) {
-            tableOption['data'] = data;
-            $(".firmwareCount").html(data.length)
-            firmware_list = data;
-        } else {
-            $(".firmwareCount").html(0)
-        }
-
-        firmwareTable = $("#firmwareTable").DataTable(tableOption);
-    });*/
+    /* listFirmwareApi($("#deviceModel").val(), 1000, null, null, function (status, data) {
+         if (status && data.length > 0) {
+             tableOption['data'] = data;
+             $(".firmwareCount").html(data.length)
+             firmware_list = data;
+         } else {
+             $(".firmwareCount").html(0)
+         }
+ 
+         firmwareTable = $("#firmwareTable").DataTable(tableOption);
+     });*/
 
 
 }
@@ -303,7 +303,7 @@ function loadFirmwareList() {
 
 function openModal(type, id) {
 
-    current_firmware_obj ={};
+    current_firmware_obj = {};
 
     var obj = {};
 
@@ -322,7 +322,7 @@ function openModal(type, id) {
         $("#addFirmware form")[0].reset();
         $("#f_device_model").val($("#deviceModel").val());
         // $("#addFirmware").modal('show');
-        $('#addFirmware').modal({backdrop: 'static', keyboard: false})  
+        $('#addFirmware').modal({ backdrop: 'static', keyboard: false })
     } else if (type === 2) {
         $(".templateAction").html('Upload to')
         loadDeviceList();
@@ -339,7 +339,7 @@ function openModal(type, id) {
                 a.id = "downloadFile"
                 $("#downloadFile").css('display', 'none')
 
-                var blob = new Blob([data], {type: obj.contentType}),
+                var blob = new Blob([data], { type: obj.contentType }),
                     url = window.URL.createObjectURL(blob);
                 // var url = 'data:'+obj.contentType+';charset=utf-8,' + encodeURIComponent(data);
 
@@ -358,15 +358,123 @@ function openModal(type, id) {
         $("#deleteModal").modal('show');
     }
 }
+function validation() {
+    if ($(".select").val() == "") {
+        $("#error").text("Please select an item in the list")
+        $(".select").css('border-color', 'red')
+
+        setTimeout(function () {
+            $("#error").text("")
+            $(".select").css('border-color', '')
+
+
+        }, 2000);
+
+
+
+    } else {
+
+
+    }
+    if ($(".filetwo").val() === "") {
+        $("#file_error2").text("Please select a file")
+        $(".filetwo").css('border-color', 'red')
+
+        setTimeout(function () {
+            $("#file_error2").text("")
+            $(".filetwo").css('border-color', '')
+
+        }, 2000);
+
+
+
+    } else {
+
+
+
+    }
+
+
+    if ($(".text").val() === "") {
+        $("#name_error").text("Please fill out this field")
+        $(".text").css('border-color', 'red')
+
+        setTimeout(function () {
+            $("#name_error").text("")
+            $(".text").css('border-color', '')
+
+        }, 2000);
+
+
+
+    } else {
+    }
+
+
+    if ($(".choose").val() === "") {
+        $("#file1").text("Please select a file")
+        $(".choose").css('border-color', 'red')
+
+        setTimeout(function () {
+            $("#file1").text("")
+            $(".choose").css('border-color', '')
+
+        }, 2000);
+
+
+    } else {
+
+
+    }
+
+
+
+
+
+
+}
+
 
 
 function addFirmware() {
     var fileInput = document.getElementById("firmwareFile");
-
     var files = fileInput.files;
 
+    if ($("#f_device_model").val() === "") {
+        $("#model-span").text("Please fill out this field")
+        $("#f_device_model").css('border-color', 'red')
+
+        setTimeout(function () {
+            $("#model-span").text("")
+            $("#f_device_model").css('border-color', '')
+
+        }, 2000);
+    }
+    else{}
+    if ($("#firmware_version").val() === "") {
+        $("#firmware-version-span").text("Please enter the Firmare Version")
+        $("#firmware_version").css('border-color', 'red')
+
+        setTimeout(function () {
+            $("#firmware-version-span").text("")
+            $("#firmware_version").css('border-color', '')
+
+        }, 2000);
+    }
+    else{}
+    if ($("#firmwareFile").val() === "") {
+        $("#choose-file-span").text("Please select the file")
+        $("#firmwareFile").css('border-color', 'red')
+
+        setTimeout(function () {
+            $("#choose-file-span").text("")
+            $("#firmwareFile").css('border-color', '')
+
+        }, 2000);
+    }
+    else{}
     if (files.length === 0) {
-        errorMsg('File not found. select a file to start upload');
+        // errorMsg('File not found. select a file to start upload');
         return this.system;
     }
 
@@ -385,7 +493,7 @@ function uploadFile(file) {
 
             if (xhr.status === 200) {
                 $("#addFirmware").modal('hide');
-                
+
                 setTimeout(function () {
                     loadFirmwareList();
                 }, 500)
@@ -421,7 +529,7 @@ function proceedDelete() {
 
 function loadDeviceList(searchText) {
 
-    var domainKeyJson = {"match": {"domainKey": DOMAIN_KEY}};
+    var domainKeyJson = { "match": { "domainKey": DOMAIN_KEY } };
 
     var queryParams = {
         "query": {
@@ -430,7 +538,7 @@ function loadDeviceList(searchText) {
             }
         },
         "size": 25,
-        "sort": [{"reportedStamp": {"order": "desc"}}]
+        "sort": [{ "reportedStamp": { "order": "desc" } }]
     };
 
     if (searchText) {
@@ -465,7 +573,7 @@ function loadDeviceList(searchText) {
 
             for (var i = 0; i < device_list.length; i++) {
                 $(".deviceListUl").append('<li class="deviceListLi" onclick="setDeviceId(\'' + device_list[i].id + '\')">' +
-                    (device_list[i].name ? device_list[i].name : device_list[i].id) +' | ' + device_list[i].modelId + ' | <b>' +
+                    (device_list[i].name ? device_list[i].name : device_list[i].id) + ' | ' + device_list[i].modelId + ' | <b>' +
                     device_list[i].version +
                     '</b></li>');
             }
@@ -481,7 +589,7 @@ function loadDeviceList(searchText) {
 
 function setDeviceId(id) {
     current_device_id = id;
-   $("#deviceID").val(id)
+    $("#deviceID").val(id)
 }
 
 
@@ -528,16 +636,16 @@ function searchQueryFormatter(data) {
 
 function uploadDevice() {
 
-    var strObj = JSON.stringify({'_MODEL_': current_firmware_obj.deviceModel, '_VERSION_': current_firmware_version});
+    var strObj = JSON.stringify({ '_MODEL_': current_firmware_obj.deviceModel, '_VERSION_': current_firmware_version });
     var cid = 98;
-    sendCommandTemplate(current_device_id, cid, TEMPLATES['DEVICE_OTA_CMD'], true, strObj,function (status, data) {
+    sendCommandTemplate(current_device_id, cid, TEMPLATES['DEVICE_OTA_CMD'], true, strObj, function (status, data) {
         if (status) {
-            $(".timer_result").append('<p style="margin-bottom: 3px"><label>Command Status: </label> '+moment().format('MM/DD/YYYY hh:mm:ss a')+' <span class="label label-warning">Message Queued</span></p>');
+            $(".timer_result").append('<p style="margin-bottom: 3px"><label>Command Status: </label> ' + moment().format('MM/DD/YYYY hh:mm:ss a') + ' <span class="label label-warning">Message Queued</span></p>');
 
             cmdTimer = setInterval(function () {
-                checkCommandStatus(data['corrId'],2);
-            },3000);
-            checkCommandStatus(data['corrId'],2);
+                checkCommandStatus(data['corrId'], 2);
+            }, 3000);
+            checkCommandStatus(data['corrId'], 2);
         } else {
             errorMsg('Error in downloading config');
         }
@@ -548,7 +656,7 @@ function uploadDevice() {
 
 function checkCommandStatus(corid) {
 
-    $(".timer_result").css('height','100px');
+    $(".timer_result").css('height', '100px');
 
     var objStatus = {
         'SENT': 'info',
@@ -569,7 +677,7 @@ function checkCommandStatus(corid) {
     };
 
 
-    getCommandStatus(current_device_id,corid,function (status, res) {
+    getCommandStatus(current_device_id, corid, function (status, res) {
         if (status) {
 
             var status = res.status.toString();
@@ -590,7 +698,7 @@ function checkCommandStatus(corid) {
                 }
             }
 
-            if (channel === 'HTTP' || channel === 'FCM'){
+            if (channel === 'HTTP' || channel === 'FCM') {
                 var now = moment();
                 var then = moment(res['queuedStamp']);
                 var timeDiff = moment.duration(now.diff(then))._milliseconds;
@@ -599,7 +707,7 @@ function checkCommandStatus(corid) {
                 }
             }
 
-            $(".timer_result").append('<p style="margin-bottom: 3px"><label>Command Status:</label> '+moment().format('MM/DD/YYYY hh:mm:ss a')+' <span class="label label-' + objStatus[status] + '">' + objNames[status] + '</span></p>');
+            $(".timer_result").append('<p style="margin-bottom: 3px"><label>Command Status:</label> ' + moment().format('MM/DD/YYYY hh:mm:ss a') + ' <span class="label label-' + objStatus[status] + '">' + objNames[status] + '</span></p>');
 
             if (status === "FAILED" || status === "ACKED" || status === "NACKED" || status === "TIMEDOUT") {
 
@@ -609,7 +717,7 @@ function checkCommandStatus(corid) {
 
         } else {
 
-            $(".timer_result").append('<p style="margin-bottom: 3px"><label>Command Status:</label> '+moment().format('MM/DD/YYYY hh:mm:ss a')+' <span class="label label-default">TIMEDOUT</span></p>');
+            $(".timer_result").append('<p style="margin-bottom: 3px"><label>Command Status:</label> ' + moment().format('MM/DD/YYYY hh:mm:ss a') + ' <span class="label label-default">TIMEDOUT</span></p>');
 
             clearInterval(cmdTimer);
 
@@ -617,6 +725,6 @@ function checkCommandStatus(corid) {
     });
 }
 
-function onclosebutton () {
-    $("#firmware_desc").css('height','10px');
+function onclosebutton() {
+    $("#firmware_desc").css('height', '10px');
 }

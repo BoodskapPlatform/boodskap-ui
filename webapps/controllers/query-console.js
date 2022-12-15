@@ -183,7 +183,7 @@ function loadqueryEditor() {
     queryEditor.focus();
 
 
-    $('#queryEditor').css('height',$(window).height()-338);
+    $('#queryEditor').css('height',$(window).height()-342);
 
     $('#messageData').css('height',$(window).height()-225).resize();
     $('#sideBorder').css('height',$(window).height()-225).resize();
