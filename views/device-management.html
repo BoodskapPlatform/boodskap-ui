@@ -1,7 +1,13 @@
-
-<div class="row-fluid mt-4">
-<ul class="nav submenu bskp-submenu">
-    <li class=""><a href="<%= basepath %>/home"><i class="fa fa-home"></i> </a></li>
+<style>
+.bskp-submenu2.nav>li.active>a:hover{
+    background: #2D2F79 !important;
+    color: #fff !important;
+}
+</style>
+<link href="css/device-management.css" rel="stylesheet"/>
+<div class="row-fluid">
+<ul class="nav bskp-submenu2">
+    <!-- <li class=""><a href="<%= basepath %>/home"><i class="fa fa-home"></i> </a></li> -->
     <li class=""><a href="<%= basepath %>/dashboard">Dashboard</a></li>
     <li class="active"><a href="<%= basepath %>/device-management">Manage Devices</a></li>
     <li><a href="<%= basepath %>/device-models">Manage Device Models</a></li>
@@ -9,8 +15,7 @@
 
 </ul>
 </div>
-<div class="container platformBody bskp-mt-30">
-   
+<div class="container platformBody ">
 
     <!-- begin panel -->
     <div class="panel panel-inverse bskp-container-frame">
@@ -29,17 +34,17 @@
   </div>
     <!-- end breadcrumb -->
     <!-- begin page-header -->
-    <div class="page-header bskp-page-topic"><img src="images/menu/message-definition_1-bskp.png" class="bskp-topic-icon mr-1" > Manage Devices
-        <span class="panel-title ml-3" style="color: #2D2F79;">Total Devices: <b><span class="deviceCount"></span></b></span> </div>
+    <div class="page-header bskp-page-topic"><img src="images/menu/hardware-fanta_1-bskp.svg" class="bskp-topic-icon mr-1" > Manage Devices
+        <span class="panel-title ml-3" >Total Devices: <b><span class="deviceCount"></span></b></span> </div>
     
     <!-- end page-header -->
 
 
-        <div class="panel-body" style="background-color: #eeeeee00;">
+        <div class="panel-body" >
             <div class="row m-0">
                 <div class="col-12">
                   <div class="btn-group btn-group-justified pull-right bskp-btn-group-align" >
-                    <a class="btn bskp-btn-shadow bskp-blue-bg" onclick="openModal(1)"><img src="images/plus.svg" class="bskp-plusvg"> <span class="hidden-xs">Add Device</span></a>
+                    <a class="btn bskp-btn-shadow bskp-blue-bg" onclick="openModal(1)"><img src="images/menu/plusicon.svg" class="bskp-plusvg"> <span class="hidden-xs">Add Device</span></a>
                     <a class="btn bskp-refresh-bg" data-click="panel-reload" onclick="loadDeviceList()"><i class="fa fa-refresh"></i></a>
                   </div>
 
@@ -71,36 +76,42 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title"><span class="templateAction"></span> Device</h4>
-                <button type="button" class="close" data-dismiss="modal"   aria-label="Close"> <i class="fa fa-times" aria-hidden="true"></i> </button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <image src="images/menu/xicon.svg" class="bg-secondary"  onclick="onclosebutton()" style="border-radius: 13px;padding:3px">
+                    </button>
+                <!-- <button type="button" class="close" data-dismiss="modal"   aria-label="Close"> <i class="fa fa-times" aria-hidden="true"></i> </button> -->
             </div>
-            <form action="javascript:void(0)">
+            <form action="javascript:void(0)" novalidate onsubmit="addDevice();">
                 <div class="modal-body">
                     <div  class="row">
                         <div  class="col-md-6">
                             <div  class="form-group">
-                                <label  class="inputLabel">Device Id</label>
-                                <input  class="form-control input-sm" placeholder="Enter Device ld" autocomplete="off" type="text" id="device_id" required>
+                                 <label  class="inputLabel">Device Id *</label><!--<span style="font-size: 16px;">&#42;</span> -->
+                                <input  class="form-control input-sm" placeholder="Enter Device ld" maxlength="50" min="1" autocomplete="off" type="text" id="device_id" required>
+                                <span id="logdevice_id"></span>
                             </div>
                         </div>
                         <div  class="col-md-6">
                             <div  class="form-group">
-                                <label  class="inputLabel">Device Name</label>
-                                <input  class="form-control input-sm" placeholder="Enter Device Name" autocomplete="off" type="text" id="device_name" required>
+                                <label  class="inputLabel">Device Name *</label>
+                                <input  class="form-control input-sm" placeholder="Enter Device Name" maxlength="100" autocomplete="off" type="text" id="device_name" required>
+                                <span id="logdevice_name"></span>
                             </div>
                         </div>
                     </div>
                     <div  class="row">
                         <div  class="col-md-6">
                             <div  class="form-group">
-                                <label  class="inputLabel">Choose Device Model</label>
+                                <label  class="inputLabel">Choose Device Model </label>
                                 <select class="form-control input-sm" id="device_model" required onchange="assignVersion()">
                                 </select>
                             </div>
                         </div>
                         <div  class="col-md-6">
                             <div  class="form-group">
-                                <label  class="inputLabel">Device Version</label>
+                                <label  class="inputLabel">Device Version </label>
                                 <input  class="form-control input-sm" placeholder="" type="text" id="device_version" readonly required>
+                                <span id="logdevice_version"></span>
                             </div>
                         </div>
                     </div>
@@ -119,7 +130,10 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Delete Device</h4>
-                <button type="button" class="close" data-dismiss="modal"   aria-label="Close"> <i class="fa fa-times" aria-hidden="true"></i> </button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <image src="images/menu/xicon.svg" class="bg-secondary"  onclick="onclosebutton()" style="border-radius: 13px;padding:3px">
+                    </button>
+                <!-- <button type="button" class="close" data-dismiss="modal"   aria-label="Close"> <i class="fa fa-times" aria-hidden="true"></i> </button> -->
             </div>
             <div class="modal-body">
                 <h5>Are you sure want to delete <b><span class="deviceId"></span> device</b>?</h5>
@@ -140,25 +154,36 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title"> Device Board Configuration</h4>
-                <button type="button" class="close" data-dismiss="modal"   aria-label="Close"> <i class="fa fa-times" aria-hidden="true"></i> </button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <image src="images/menu/xicon.svg" class="bg-secondary"  onclick="onclosebutton()" style="border-radius: 13px;padding:3px">
+                </button>
+                <!-- <button type="button" class="close" data-dismiss="modal"   aria-label="Close"> <i class="fa fa-times" aria-hidden="true"></i> </button> -->
             </div>
             <form action="javascript:void(0)">
                 <div class="modal-body">
                     <div  class="row">
-                        <div  class="col-md-6">
+                        <div  class="col-md-12">
                             <div  class="form-group">
                                 <label  class="inputLabel">Type of configuration</label>
-                               <label style="font-weight: normal;display: block">
-                                   <input onclick="checkConfig()" class="" placeholder="" checked type="radio" name="configType" value="device" required> Device Level</label>
-                                <label style="font-weight: normal;display: block">
-                                    <input  onclick="checkConfig()" class="" placeholder="" type="radio" name="configType" value="model" required> Device Model Level</label>
+                                <div class="row mt-2">
+                                    <!-- <div class="col-md-12"> -->
+                                        <div class="col-md-6">
+                                            <label style="font-weight: normal;display: block">
+                                            <input onclick="checkConfig()" class="" placeholder="" checked type="radio" name="configType" value="device" required> Device Level</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label style="font-weight: normal;display: block">
+                                            <input  onclick="checkConfig()" class="" placeholder="" type="radio" name="configType" value="model" required> Device Model Level</label>
+                                        </div>
+                                    <!-- </div> -->
+                                </div>
                             </div>
                         </div>
                         <div  class="col-md-12">
                             <div  class="form-group">
-                                <div class="btn-group btn-group-justified pull-right">
-                                    <a class="btn btn-default" onclick="uploadConfig()"><i class="icon-upload"></i> Upload</a>
-                                    <a class="btn btn-default" onclick="downloadConfig()"><i class="icon-download"></i> Download</a>
+                                <div class="btn-group ">
+                                    <a style="border-radius: 10px; border: 1px solid #2d2f79;" class="btn  px-4 mr-3" onclick="uploadConfig()"><img src="images/menu/upload.svg" width="15"> Upload</a>
+                                    <a style="border-radius: 10px; border: 1px solid #2d2f79;" class="btn btn-outline-info px-4" onclick="downloadConfig()"><img src="images/menu/download.svg" width="15"> Download</a>
                                 </div>
                             </div>
                         </div>
@@ -178,7 +203,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-close" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary btn-close mr-4" data-dismiss="modal">Close</button>
                     <button type="button" class="btn btnModal btn-secondary btn-proceed btnSubmit" onclick="saveSettings()">Save Configuration</button>
                 </div>
             </form>

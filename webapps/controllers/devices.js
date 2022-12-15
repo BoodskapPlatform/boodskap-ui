@@ -329,6 +329,7 @@ function openModal(type,id) {
                 $("#board_config").val(data.value);
             }else{
                 $("#board_config").val("");
+                $("#board_config").css('height','90px');
             }
             $("#deviceSettings").modal('show');
         });
@@ -378,6 +379,23 @@ function checkConfig() {
 
 function addDevice() {
 
+    var device_id =$.trim($("#device_id").val() );
+    var device_name =$.trim($("#device_name").val() );
+    // var device_model =$.trim($("#device_model").val() );
+    // var device_version =$.trim($("#device_version").val() );
+
+    if(device_id === "" ){
+   
+        errorMsgBorder('Device ID is required', 'device_id');
+        return false;
+       
+    }else if(device_name === "" ){
+   
+        errorMsgBorder('Device Name is required', 'device_name');
+        return false;
+       
+    }else{
+
     var deviceObj = {
         "id": $("#device_id").val(),
         "name": $("#device_name").val(),
@@ -407,6 +425,7 @@ function addDevice() {
             })
         }
     })
+    }   
 }
 
 
@@ -422,6 +441,7 @@ function updateDevice() {
     $(".btnSubmit").attr('disabled','disabled');
 
     upsertDevice(deviceObj, function (status, data) {
+        console.log(deviceObj.id)
         if (status) {
             successMsg('Device Updated Successfully');
            
