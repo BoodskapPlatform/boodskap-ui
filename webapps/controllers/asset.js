@@ -115,7 +115,12 @@ function openModal(type, id) {
         $("#asset_id").removeAttr('readonly');
         $(".templateAction").html('Add New');
         $("#addAsset form")[0].reset();
-        $("#addAsset").modal('show');
+        $("#addAsset").modal({
+            backdrop: 'static',
+            keyboard: false
+        }
+        ,'show'
+        );
         $("#addAsset form").attr('onsubmit', 'addAsset()')
         $("#asset_desc").css('height','90px');
         
