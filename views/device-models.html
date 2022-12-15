@@ -1,13 +1,20 @@
+<link href="css/device-management.css" rel="stylesheet"/>
+<style>
+    .bskp-submenu2.nav>li.active>a:hover{
+    background: #2D2F79 !important;
+    color: #fff !important;
+}
+</style>
 <div class="row-fluid mt-4">
-<ul class="nav submenu bskp-submenu" >
-    <li class=""><a href="<%= basepath %>/home"><i class="fa fa-home"></i> </a></li>
+<ul class="nav bskp-submenu2" >
+    <!-- <li class=""><a href="<%= basepath %>/home"><i class="fa fa-home"></i> </a></li> -->
     <li class=""><a href="<%= basepath %>/dashboard">Dashboard</a></li>
     <li><a href="<%= basepath %>/device-management">Manage Devices</a></li>
     <li class="active"><a href="<%= basepath %>/device-models">Manage Device Models</a></li>
 <!--    <li class=""><a href="<%= basepath %>/sim-provisioning">Sim Provisioning</a></li>-->
 </ul>
 </div>
-<div class="container platformBody bskp-mt-30">
+<div class="container platformBody ">
    
     <!-- begin panel -->
  <div class="panel panel-inverse bskp-container-frame">
@@ -26,16 +33,16 @@
    </div>
     <!-- end breadcrumb -->
     <!-- begin page-header -->
-    <div class="page-header bskp-page-topic"><img src="images/menu/message-definition_1-bskp.png" class="bskp-topic-icon mr-1" > Manage Device Models
-        <span class="panel-title ml-3" style="color: #478ecc;">Total Device Models: <b><span class="deviceModelCount"></span></b></span> </div>
+    <div class="page-header bskp-page-topic"><img src="images/menu/hardware-fanta_1-bskp.svg" class="bskp-topic-icon mr-1" > Manage Device Models
+        <span class="panel-title ml-3" >Total Device Models: <b><span class="deviceModelCount"></span></b></span> </div>
     
     <!-- end page-header -->
 
-        <div class="panel-body" style="background-color: #eeeeee00;">
+        <div class="panel-body">
             <div class="row m-0">
                 <div class="col-12">
                   <div class="btn-group btn-group-justified pull-right bskp-btn-group-align" >
-                    <a class="btn bskp-btn-shadow bskp-blue-bg" onclick="openModal(1)"><i class="fa fa-plus-square" ></i> <span class="hidden-xs">Add Device Model</span></a>
+                    <a class="btn bskp-btn-shadow bskp-blue-bg" onclick="openModal(1)"><img src="images/menu/plusicon.svg" class="bskp-plusvg"> <span class="hidden-xs">Add Device Model</span></a>
                     <a class="btn bskp-refresh-bg" data-click="panel-reload" onclick="loadDeviceModelList()"><i class="fa fa-refresh"></i></a>
                   </div>
                   <div class="bskp-table-layout">
@@ -60,30 +67,35 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title"><span class="templateAction"></span> Device Model</h4>
-                <button type="button" class="close" data-dismiss="modal"   aria-label="Close"> <i class="fa fa-times" aria-hidden="true"></i> </button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <image src="images/menu/xicon.svg" class="bg-secondary"  onclick="onclosebutton()" style="border-radius: 13px;padding:3px">
+                </button>
+                <!-- <button type="button" class="close" data-dismiss="modal"   aria-label="Close"> <i class="fa fa-times" aria-hidden="true"></i> </button> -->
             </div>
-            <form action="javascript:void(0)">
+            <form action="javascript:void(0)" novalidate onsubmit="addDevice();">
                 <div class="modal-body">
                     <div  class="row">
                         <div  class="col-md-6">
                             <div  class="form-group">
-                                <label  class="inputLabel">Model Id</label>
-                                <input  class="form-control input-sm" placeholder="Enter Model ld" autocomplete="off" type="text" id="device_id" required>
+                                <label  class="inputLabel">Model Id *</label>
+                                <input  class="form-control input-sm" placeholder="Enter Model ld" maxlength="50" autocomplete="off" type="text" id="device_id" required>
+                                <span id="logdevice_id"></span>
                             </div>
                         </div>
                         <div  class="col-md-6">
                             <div  class="form-group">
-                                <label  class="inputLabel">Model Version</label>
-                                <input  class="form-control input-sm" placeholder="Enter Model Version" autocomplete="off" type="text" id="device_version" required>
+                                <label  class="inputLabel">Model Version *</label>
+                                <input  class="form-control input-sm" placeholder="Enter Model Version" maxlength="50" autocomplete="off" type="text" id="device_version" required>
+                                <span id="logdevice_version"></span>
                             </div>
                         </div>
                     </div>
                     <div  class="row">
                         <div  class="col-md-12">
                             <div  class="form-group">
-                                <label  class="inputLabel">Description</label>
-                                <textarea class="form-control input-sm" id="device_desc" placeholder="Enter Description" autocomplete="off" required ></textarea>
-                                </select>
+                                <label  class="inputLabel">Description *</label>
+                                <textarea class="form-control input-sm" id="device_desc" placeholder="Enter Description" maxlength="1000" autocomplete="off" required ></textarea>
+                                <span id="logdevice_desc"></span>
                             </div>
                         </div>
                     </div>
@@ -104,7 +116,10 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Delete Device Model</h4>
-                <button type="button" class="close" data-dismiss="modal"   aria-label="Close"> <i class="fa fa-times" aria-hidden="true"></i> </button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <image src="images/menu/xicon.svg" class="bg-secondary"  onclick="onclosebutton()" style="border-radius: 13px;padding:3px">
+                </button>
+                <!-- <button type="button" class="close" data-dismiss="modal"   aria-label="Close"> <i class="fa fa-times" aria-hidden="true"></i> </button> -->
             </div>
             <div class="modal-body">
                 <h5>Are you sure want to delete <b><span class="deviceId"></span> device model</b>?</h5>
@@ -126,7 +141,10 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title"> Device Model Board Configuration</h4>
-                <button type="button" class="close" data-dismiss="modal"   aria-label="Close"> <i class="fa fa-times" aria-hidden="true"></i> </button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <image src="images/menu/xicon.svg" class="bg-secondary"  onclick="onclosebutton()" style="border-radius: 13px;padding:3px">
+                </button>
+                <!-- <button type="button" class="close" data-dismiss="modal"   aria-label="Close"> <i class="fa fa-times" aria-hidden="true"></i> </button> -->
             </div>
             <form action="javascript:void(0)">
                 <div class="modal-body">
@@ -140,7 +158,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-close" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary btn-close mr-4" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btnModal btn-secondary btn-proceed btnSubmit" onclick="saveSettings()">Save Configuration</button>
                 </div>
             </form>

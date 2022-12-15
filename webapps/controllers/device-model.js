@@ -51,7 +51,7 @@ function loadDeviceModelList() {
             mData: 'action',
             sTitle: 'Action',
             orderable: false,
-            sWidth: '10%',
+            sWidth: '12%',
             mRender: function (data, type, row) {
 
                 return '<button class="btn bskp-edit-btn mr-2" onclick="openModal(4,\'' + row["id"] + '\')" title="Board Configuration">  <img src="images/settings.svg" alt=""> </button>' +
@@ -74,8 +74,9 @@ function loadDeviceModelList() {
         searching: true,
         dom: '<"bskp-search-left" f> lrtip',
         language: {
+            "emptyTable": "No data available",
             "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
-            "searchPlaceholder": "Search here...",
+            "searchPlaceholder": "Search by Model Id",
             loadingRecords: '',
             paginate: {
                 previous: '< Prev',
@@ -113,12 +114,22 @@ function loadDeviceModelList() {
 function openModal(type,id) {
     current_device_model_id = id;
     if (type === 1) {
+        $("#addDevice").modal({
+            backdrop: 'static',
+            keyboard: false
+        });
         $("#device_id").removeAttr('readonly');
-        $(".templateAction").html('Create');
+        $(".templateAction").html('Add');
         $("#addDevice form")[0].reset();
         $("#addDevice").modal('show');
+        $("#device_desc").css("height","90");
         $("#addDevice form").attr('onsubmit','addDevice()')
+        
     }else if (type === 2) {
+        $("#addDevice").modal({
+            backdrop: 'static',
+            keyboard: false
+        });
         $(".templateAction").html('Update');
         var obj ={};
         for(var i=0;i<device_model_list.length;i++){
@@ -132,9 +143,15 @@ function openModal(type,id) {
         $("#device_version").val(obj.version);
         $("#addDevice").modal('show');
         $("#addDevice form").attr('onsubmit','updateDevice()')
+        
     }else if (type === 3) {
+        $("#deleteModal").modal({
+            backdrop: 'static',
+            keyboard: false
+        });
         $(".deviceId").html(id)
         $("#deleteModal").modal('show');
+        
     }else if (type === 4) {
 
         retrieveDeviceModelProperty(id, DEVICE_PROPERTY_NAME['device'],function (status, data) {
@@ -142,14 +159,41 @@ function openModal(type,id) {
                 $("#board_config").val(data.value);
             }else{
                 $("#board_config").val("");
+                $("#board_config").css("height","90");
             }
             $("#deviceSettings").modal('show');
+        });
+        $("#deviceSettings").modal({
+            backdrop: 'static',
+            keyboard: false
         });
     }
 }
 
 
 function addDevice() {
+
+    var device_id =$.trim($("#device_id").val() );
+    var device_version =$.trim($("#device_version").val() );
+    var device_desc =$.trim($("#device_desc").val() );
+    // var device_version =$.trim($("#device_version").val() );
+
+    if(device_id === "" ){
+   
+        errorMsgBorder('Device ID is required', 'device_id');
+        return false;
+       
+    }else if(device_version === "" ){
+   
+        errorMsgBorder('Device Name is required', 'device_version');
+        return false;
+       
+    }else if(device_desc === "" ){
+   
+        errorMsgBorder('Device Name is required', 'device_desc');
+        return false;
+       
+    } else {
 
     var deviceObj = {
         "id": $("#device_id").val(),
@@ -174,6 +218,7 @@ function addDevice() {
             })
         }
     })
+    }
 }
 
 
