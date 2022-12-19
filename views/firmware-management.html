@@ -127,6 +127,15 @@
         color: #ffffff;
         list-style: none;
     }
+    .nav>li.active>a:hover{
+ background: #2D2F79 !important;
+ color: #ffffff !important;
+}
+.nav>li.deact>a:hover{
+ background: #ffffff !important;
+ color: black !important;
+}
+
     ol li{
         font-size: 12px;
     }
@@ -143,7 +152,7 @@
     <ul class="nav bskp-submenu2">
         <li class="active firmwareactive" style="font-size: 13px !important;font-weight:600; padding-bottom:10px"><a
                 href="<%= basepath %>/firmware-management">Manage Firmwares</a></li>
-        <li style="font-size: 13px !important;font-weight:600;padding-bottom:10px"><a
+        <li class="deact" style="font-size: 13px !important;font-weight:600;padding-bottom:10px"><a
                 href="<%= basepath %>/firmware/ota-upgrade">OTA Upgrade</a></li>
     </ul>
 
@@ -154,7 +163,7 @@
         <div>
             <ol class="breadcrumb pull-right bskp-align-icon">
                 <li class="breadcrumb-item"><a href="<%= basepath %>/dashboard">Domain</a></li>
-                <li class="breadcrumb-item"><a href="<%= basepath %>/firmware-management">Firmware Management</a></li>
+                <li class="breadcrumb-item "><a href="<%= basepath %>/firmware-management">Firmware Management</a></li>
                 <li class="breadcrumb-item active">Manage Firmwares</li>
                 <div class="ml-3">
                     <a href="javascript:;" class="btn btn-sm btn-icon btn-circle  bskp-icon-bg"

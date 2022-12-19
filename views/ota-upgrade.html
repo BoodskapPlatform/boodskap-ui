@@ -107,9 +107,14 @@
     .bskp-container-frame{
         position: relative;
     }
-     .nav>li.manage>:hover{
-        
-    }
+    .nav>li.active>a:hover{
+ background: #2D2F79 !important;
+ color: #ffffff !important;
+}
+.nav>li.deact>a:hover{
+ background: #ffffff !important;
+ color: black !important;
+}
     
    .plat{
     margin-top: 0px !important;
@@ -120,7 +125,7 @@
 </style>
 <div class="row-fluid">
     <ul class="nav  bskp-submenu2" style="">
-        <li style="font-size: 13px !important;font-weight:600;padding-bottom: 10px;"><a href="<%= basepath %>/firmware-management">Manage Firmwares</a></li>
+        <li class="deact" style="font-size: 13px !important;font-weight:600;padding-bottom: 10px;"><a href="<%= basepath %>/firmware-management">Manage Firmwares</a></li>
         <li class="active manage" style="font-size: 13px !important;font-weight:600;padding-bottom: 10px;"><a href="<%= basepath %>/firmware/ota-upgrade">OTA Upgrade</a></li>
     </ul>
 </div>

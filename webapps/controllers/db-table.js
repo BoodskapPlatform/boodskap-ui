@@ -14,38 +14,37 @@ $(document).ready(function () {
 
 var POOL_TYPE = {
     "C3P0": [
-        {name:"Name",type:"string",mandatory:false},
-        {name:"JBDCURL",type:"string",mandatory:true},
-        {name:"User",type:"string",mandatory:true},
-        {name:"Password",type:"string",mandatory:true},
-        {name:"DriverClass",type:"string",mandatory:true},
+        {name:"Name",type:"string",mandatory:false,id:"name"},
+        {name:"JdbcURL",type:"string",mandatory:true,text:"JdbcURL must be required",id:"jdbcurl"},
+        {name:"User",type:"string",mandatory:true,text:"User must be required",id:"username"},
+        {name:"Password",type:"password",mandatory:true,text:"Password must be required",id:"password"},
+        {name:"DriverClass",type:"string",mandatory:true,text:"ClassName must be required",id:"driverclass"},
        
     ],
     "DBCP":[
-        {name:"Name",type:"string",mandatory:false},
-
-        {name:"URL",type:"string",mandatory:true},
-        {name:"Username",type:"string",mandatory:true},
-        {name:"Password",type:"string",mandatory:true},
-        {name:"Driver ClassName",type:"string",mandatory:true},
+        {name:"Name",type:"string",mandatory:false,id:"name"},
+        {name:"URL",type:"string",mandatory:true,text:"URL must be required",id:"jdbcurl"},
+        {name:"Username",type:"string",mandatory:true,text:"Username must be required",id:"username"},
+        {name:"Password",type:"password",mandatory:true,text:"Password must be required",id:"password"},
+        {name:"Driver ClassName",type:"string",mandatory:true,text:"ClassName must be required",id:"driverclass"},
         
     ],
     "HIKARI": [
-        {name:"Name",type:"string",mandatory:false},
-        {name:"JDBCURL",type:"string",mandatory:true},
-        {name:"Username",type:"string",mandatory:true},
-        {name:"Password",type:"string",mandatory:true},
-        {name:"Data Source ClassName",type:"string",text:'dataSourceClassName/driverClassName must be required',mandatory:true},
-        {name:"Driver ClassName",type:"string",mandatory:true,text:'dataSourceClassName/driverClassName must be required'},
+        {name:"Name",type:"string",mandatory:false,id:"name"},
+        {name:"jdbcURL",type:"string",mandatory:true,text:"JdbcURL must be required",id:"jdbcurl"},
+        {name:"User",type:"string",mandatory:true, text:"user must be required",id:"username"},
+        {name:"Password",type:"password",mandatory:true, text:"password must be required",id:"password"},
+        {name:"Data Source ClassName",type:"string",text:'dataSourceClassName/driverClassName must be required',mandatory:true,id:"datasource"},
+        {name:"Driver ClassName",type:"string",mandatory:true,text:'dataSourceClassName/driverClassName must be required',id:"driverclass"},
        
     ],
     "TOMCAT": [
-        {name:"Name",type:"string",mandatory:false},
+        {name:"Name",type:"string",mandatory:false,id:"name"},
 
-        {name:"URL",type:"string",mandatory:true},
-        {name:"Username",type:"string",mandatory:true},
-        {name:"Password",type:"string",mandatory:true},
-        {name:"Driver ClassName",type:"string",mandatory:true},
+        {name:"URL",type:"string",mandatory:true,text:"URL must be required",id:"jdbcurl"},
+        {name:"Username",type:"string",mandatory:true,text:"Username must ne required",id:"username"},
+        {name:"Password",type:"password",mandatory:true,text:"password must be required",id:"password"},
+        {name:"Driver ClassName",type:"string",mandatory:true,text:'dataSourceClassName/driverClassName must be required',id:"driverclass"},
         
     ]
 }
@@ -223,7 +222,7 @@ function onclosebutton(){
 function openModal(type, id) {
     if (type === 1) {
         // $("#pool_name").removeAttr('readonly');
-        $("#Name").removeAttr('readonly');
+        $("#name").removeAttr('readonly');
 
         $(".templateAction").html('Create');
         $('#addPool').modal({backdrop: 'static', keyboard: false})  
@@ -255,10 +254,10 @@ function openModal(type, id) {
       current_pool_obj = obj;
 
         // $("#pool_name").attr('readonly', 'readonly');
-        $("#Name").attr('readonly', 'readonly');
+        $("#name").attr('readonly', 'readonly');
 
 
-        $("#Name").val(obj.id);
+        $("#name").val(obj.id);
         $("#pool_type1").val(obj.type);
         $("#pool_type2").val(obj.type);
         $("#pool_type3").val(obj.type);
@@ -314,8 +313,42 @@ function addPool() {
 
    console.log(tempObj);
 
+    var jdbcurl = $("#jdbcurl").val();
+    var username = $("#username").val();
+    var password = $("#password").val();
+    var datasource = $("#datasource").val();
+    var driverclass = $("#driverclass").val();
 
-    $(".btnSubmit").attr('disabled', 'disabled');
+
+    if(jdbcurl==""){
+        $("#jdbcurlerror").css("display","block")
+        $("#jdbcurl").css("border-color","red")
+
+    }else if(username==""){
+        $("#usernameerror").css("display","block")
+        $("#username").css("border-color","red")
+
+
+    }else if (password==""){
+        $("#passworderror").css("display","block")
+        $("#password").css("border-color","red")
+
+
+    }
+    else if (datasource==""){
+        $("#datasourceerror").css("display","block")
+        $("#datasource").css("border-color","red")
+
+    }
+    else if (driverclass==""){
+        $("#driverclasserror").css("display","block")
+        $("#driverclass").css("border-color","red")
+
+    }else{
+
+    }
+    
+    // $(".btnSubmit").attr('disabled', 'disabled');
 
 
     retreiveDBPool(tempObj.id, function (status, data) {
@@ -330,12 +363,13 @@ function addPool() {
                     loadDBPool();
                     $("#addPool").modal('hide');
                 } else {
-                    errorMsg('Error in Creating DB Connection Pool')
+                    // errorMsg('Error in Creating DB Connection Pool')
                 }
-                $(".btnSubmit").removeAttr('disabled');
+                // $(".btnSubmit").removeAttr('disabled');
             })
         }
     })
+    
 }
 
 
@@ -474,12 +508,13 @@ function renderType1() {
         $("#checkimg2").css('display','none')    
         $("#checkimg3").css('display','none')    
         $("#checkimg4").css('display','none')  
-    $(".typeBody").css('border-top','1px solid #e2e7eb', 'padding-top','10px !important')
+    $(".typeBody").css({"border-top":"1px solid #e2e7eb", "padding":"20px"})
 
     }
 
     for(var i=0;i<POOL_TYPE[id].length;i++){
         var pool = POOL_TYPE[id][i];
+        console.log(pool)
         var str = '';
 
         if(pool.type === 'string'){
@@ -488,48 +523,51 @@ function renderType1() {
             <div  class="col-md-4">
                 <div  class="form-group">
                     <label  class="inputLabel">` + pool.name + ` ` + (pool.mandatory ? '<span style="color:red" class="'+pool.name+'">*</span>' : '') + `</label>
-                    <input  class="form-control input-sm" placeholder="" type="text" id="` + pool.name + `" ` + (pool.mandatory ? 'required' : '') + ` 
+                    <input  class="form-control input-sm"  placeholder="" type="text" id="` + pool.id + `" ` + (pool.mandatory ? '' : '') + ` 
                     onkeyup="checkField(this)">
-                    ` + (pool.text ? '<small>' + pool.text + '</small>' : '') + `
+                    ` + (pool.text ? '<small id="' + pool.id+"error" + '"  style="display:none;color:red;font-weight:600">' + pool.text + '</small>' : '') + `
                 </div>
             </div>
             `
-            }else {
+            }
+            else {
 
                 str = `
             <div  class="col-md-4">
                 <div  class="form-group">
                     <label  class="inputLabel">` + pool.name + ` ` + (pool.mandatory ? '<span style="color:red">*</span>' : '') + `</label>
-                    <input  class="form-control input-sm" placeholder="" type="text" id="` + pool.name + `" ` + (pool.mandatory ? 'required' : '') + `>
+                    <input  class="form-control input-sm"  placeholder="" type="text" id="` + pool.id + `" ` + (pool.mandatory ? 'required' : '') + `>
                 </div>
             </div>
             `
             }
         }
-        if(pool.type === 'integer'){
+        if(pool.type === 'password'){
             str = `
             <div  class="col-md-4">
                 <div  class="form-group">
-                    <label  class="inputLabel">`+pool.name+`</label>
-                    <input  class="form-control input-sm" placeholder="" type="number" id="`+pool.name+`" `+(pool.mandatory ? 'required' : '')+`>
+                    <label  class="inputLabel">` + pool.name + ` ` + (pool.mandatory ? '<span style="color:red" class="'+pool.name+'">*</span>' : '') + `</label>
+                    <input  class="form-control input-sm"  placeholder="" type="password" id="` + pool.id + `" ` + (pool.mandatory ? '' : '') + ` 
+                    onkeyup="checkField(this)">
+                    ` + (pool.text ? '<small id="' + pool.id+"error" + '"  style="display:none;color:red;font-weight:600">' + pool.text + '</small>' : '') + `
                 </div>
             </div>
             `
         }
-        if(pool.type === 'boolean'){
-            str = `
-            <div  class="col-md-4">
-                <div  class="form-group">
-                    <label  class="inputLabel">`+pool.name+`</label>
-                    <select class="form-control input-sm" id="`+pool.name+`">
-                        <option value=""></option>
-                        <option value="true">true</option>
-                        <option value="false">false</option>
-                    </select>
-                </div>
-            </div>
-            `
-        }
+        // if(pool.type === 'boolean'){
+        //     str = `
+        //     <div  class="col-md-4">
+        //         <div  class="form-group">
+        //             <label  class="inputLabel">`+pool.name+`</label>
+        //             <select class="form-control input-sm" id="`+pool.name+`">
+        //                 <option value=""></option>
+        //                 <option value="true">true</option>
+        //                 <option value="false">false</option>
+        //             </select>
+        //         </div>
+        //     </div>
+        //     `
+        // }
 
         $(".typeBody").append(str)
 
@@ -541,7 +579,7 @@ function renderType2() {
     $(".typeBody").html('')
 
     if(id=="DBCP"){
-    $(".typeBody").css('border-top','1px solid #e2e7eb')
+    $(".typeBody").css({"border-top":"1px solid #e2e7eb", "padding":"20px"})
 
         $("#pool_type2").prop("checked", true)
         $("#checkimg2").css('display','block')
@@ -562,9 +600,10 @@ function renderType2() {
             <div  class="col-md-4">
                 <div  class="form-group">
                     <label  class="inputLabel">` + pool.name + ` ` + (pool.mandatory ? '<span style="color:red" class="'+pool.name+'">*</span>' : '') + `</label>
-                    <input  class="form-control input-sm" placeholder="" type="text" id="` + pool.name + `" ` + (pool.mandatory ? 'required' : '') + ` 
+                    <input  class="form-control input-sm" placeholder="" type="text" id="` + pool.id+ `" ` + (pool.mandatory ? '' : '') + ` 
                     onkeyup="checkField(this)">
-                    ` + (pool.text ? '<small>' + pool.text + '</small>' : '') + `
+                    ` + (pool.text ? '<small id="' + pool.id+"error" + '"  style="display:none;color:red;font-weight:600" >' + pool.text + '</small>' : '') + `
+
                 </div>
             </div>
             `
@@ -574,36 +613,48 @@ function renderType2() {
             <div  class="col-md-4">
                 <div  class="form-group">
                     <label  class="inputLabel">` + pool.name + ` ` + (pool.mandatory ? '<span style="color:red">*</span>' : '') + `</label>
-                    <input  class="form-control input-sm" placeholder="" type="text" id="` + pool.name + `" ` + (pool.mandatory ? 'required' : '') + `>
+                    <input  class="form-control input-sm" placeholder="" type="text" id="` + pool.id + `" ` + (pool.mandatory ? 'required' : '') + `>
                 </div>
             </div>
             `
             }
         }
-        if(pool.type === 'integer'){
+        if(pool.type === 'password'){
             str = `
             <div  class="col-md-4">
                 <div  class="form-group">
-                    <label  class="inputLabel">`+pool.name+`</label>
-                    <input  class="form-control input-sm" placeholder="" type="number" id="`+pool.name+`" `+(pool.mandatory ? 'required' : '')+`>
+                    <label  class="inputLabel">` + pool.name + ` ` + (pool.mandatory ? '<span style="color:red" class="'+pool.name+'">*</span>' : '') + `</label>
+                    <input  class="form-control input-sm"  placeholder="" type="password" id="` + pool.id + `" ` + (pool.mandatory ? '' : '') + ` 
+                    onkeyup="checkField(this)">
+                    ` + (pool.text ? '<small id="' + pool.id+"error" + '"  style="display:none;color:red;font-weight:600">' + pool.text + '</small>' : '') + `
                 </div>
             </div>
             `
         }
-        if(pool.type === 'boolean'){
-            str = `
-            <div  class="col-md-4">
-                <div  class="form-group">
-                    <label  class="inputLabel">`+pool.name+`</label>
-                    <select class="form-control input-sm" id="`+pool.name+`">
-                        <option value=""></option>
-                        <option value="true">true</option>
-                        <option value="false">false</option>
-                    </select>
-                </div>
-            </div>
-            `
-        }
+        // if(pool.type === 'password'){
+        //     str = `
+        //     <div  class="col-md-4">
+        //         <div  class="form-group">
+        //             <label  class="inputLabel">`+pool.name+`</label>
+        //             <input  class="form-control input-sm" placeholder="" type="password" id="`+pool.id+`" `+(pool.mandatory ? 'required' : '')+`>
+        //         </div>
+        //     </div>
+        //     `
+        // }
+        // if(pool.type === 'boolean'){
+        //     str = `
+        //     <div  class="col-md-4">
+        //         <div  class="form-group">
+        //             <label  class="inputLabel">`+pool.name+`</label>
+        //             <select class="form-control input-sm" id="`+pool.name+`">
+        //                 <option value=""></option>
+        //                 <option value="true">true</option>
+        //                 <option value="false">false</option>
+        //             </select>
+        //         </div>
+        //     </div>
+        //     `
+        // }
 
         $(".typeBody").append(str)
 
@@ -614,7 +665,7 @@ function renderType3() {
     
     $(".typeBody").html('')
     if(id=="C3P0"){
-    $(".typeBody").css('border-top','1px solid #e2e7eb')
+    $(".typeBody").css({"border-top":"1px solid #e2e7eb", "padding":"20px"})
 
         $("#pool_type3").prop("checked", true)
         $("#checkimg3").css('display','block')
@@ -635,9 +686,9 @@ function renderType3() {
             <div  class="col-md-4">
                 <div  class="form-group">
                     <label  class="inputLabel">` + pool.name + ` ` + (pool.mandatory ? '<span style="color:red" class="'+pool.name+'">*</span>' : '') + `</label>
-                    <input  class="form-control input-sm" placeholder="" type="text" id="` + pool.name + `" ` + (pool.mandatory ? 'required' : '') + ` 
+                    <input  class="form-control input-sm" placeholder="" type="text" id="` + pool.id + `" ` + (pool.mandatory ? '' : '') + ` 
                     onkeyup="checkField(this)">
-                    ` + (pool.text ? '<small>' + pool.text + '</small>' : '') + `
+                    ` + (pool.text ? '<small id="' + pool.id+"error" + '"  style="display:none;color:red;font-weight:600">' + pool.text + '</small>' : '') + `
                 </div>
             </div>
             `
@@ -647,36 +698,38 @@ function renderType3() {
             <div  class="col-md-4">
                 <div  class="form-group">
                     <label  class="inputLabel">` + pool.name + ` ` + (pool.mandatory ? '<span style="color:red">*</span>' : '') + `</label>
-                    <input  class="form-control input-sm" placeholder="" type="text" id="` + pool.name + `" ` + (pool.mandatory ? 'required' : '') + `>
+                    <input  class="form-control input-sm" placeholder="" type="text" id="` + pool.id + `" ` + (pool.mandatory ? 'required' : '') + `>
                 </div>
             </div>
             `
             }
         }
-        if(pool.type === 'integer'){
+        if(pool.type === 'password'){
             str = `
             <div  class="col-md-4">
                 <div  class="form-group">
-                    <label  class="inputLabel">`+pool.name+`</label>
-                    <input  class="form-control input-sm" placeholder="" type="number" id="`+pool.name+`" `+(pool.mandatory ? 'required' : '')+`>
+                    <label  class="inputLabel">` + pool.name + ` ` + (pool.mandatory ? '<span style="color:red" class="'+pool.name+'">*</span>' : '') + `</label>
+                    <input  class="form-control input-sm"  placeholder="" type="password" id="` + pool.id + `" ` + (pool.mandatory ? '' : '') + ` 
+                    onkeyup="checkField(this)">
+                    ` + (pool.text ? '<small id="' + pool.id+"error" + '"  style="display:none;color:red;font-weight:600">' + pool.text + '</small>' : '') + `
                 </div>
             </div>
             `
         }
-        if(pool.type === 'boolean'){
-            str = `
-            <div  class="col-md-4">
-                <div  class="form-group">
-                    <label  class="inputLabel">`+pool.name+`</label>
-                    <select class="form-control input-sm" id="`+pool.name+`">
-                        <option value=""></option>
-                        <option value="true">true</option>
-                        <option value="false">false</option>
-                    </select>
-                </div>
-            </div>
-            `
-        }
+        // if(pool.type === 'boolean'){
+        //     str = `
+        //     <div  class="col-md-4">
+        //         <div  class="form-group">
+        //             <label  class="inputLabel">`+pool.name+`</label>
+        //             <select class="form-control input-sm" id="`+pool.name+`">
+        //                 <option value=""></option>
+        //                 <option value="true">true</option>
+        //                 <option value="false">false</option>
+        //             </select>
+        //         </div>
+        //     </div>
+        //     `
+        // }
 
         $(".typeBody").append(str)
 
@@ -687,7 +740,7 @@ function renderType4() {
     
     $(".typeBody").html('')
     if(id=="TOMCAT"){
-    $(".typeBody").css('border-top','1px solid #e2e7eb')
+    $(".typeBody").css({"border-top":"1px solid #e2e7eb", "padding":"20px"})
 
         $("#pool_type4").prop("checked", true)
         $("#checkimg4").css('display','block')
@@ -707,9 +760,9 @@ function renderType4() {
             <div  class="col-md-4">
                 <div  class="form-group">
                     <label  class="inputLabel">` + pool.name + ` ` + (pool.mandatory ? '<span style="color:red" class="'+pool.name+'">*</span>' : '') + `</label>
-                    <input  class="form-control input-sm" placeholder="" type="text" id="` + pool.name + `" ` + (pool.mandatory ? 'required' : '') + ` 
+                    <input  class="form-control input-sm" placeholder="" type="text" id="` + pool.id + `" ` + (pool.mandatory ? '' : '') + ` 
                     onkeyup="checkField(this)">
-                    ` + (pool.text ? '<small>' + pool.text + '</small>' : '') + `
+                    ` + (pool.text ? '<small id="' + pool.id +"error" + '"  style="display:none;color:red;font-weight:600" >' + pool.text + '</small>' : '') + `
                 </div>
             </div>
             `
@@ -719,36 +772,38 @@ function renderType4() {
             <div  class="col-md-4">
                 <div  class="form-group">
                     <label  class="inputLabel">` + pool.name + ` ` + (pool.mandatory ? '<span style="color:red">*</span>' : '') + `</label>
-                    <input  class="form-control input-sm" placeholder="" type="text" id="` + pool.name + `" ` + (pool.mandatory ? 'required' : '') + `>
+                    <input  class="form-control input-sm" placeholder="" type="text" id="` + pool.id + `" ` + (pool.mandatory ? '' : '') + `>
                 </div>
             </div>
             `
             }
         }
-        if(pool.type === 'integer'){
+        if(pool.type === 'password'){
             str = `
             <div  class="col-md-4">
                 <div  class="form-group">
-                    <label  class="inputLabel">`+pool.name+`</label>
-                    <input  class="form-control input-sm" placeholder="" type="number" id="`+pool.name+`" `+(pool.mandatory ? 'required' : '')+`>
+                    <label  class="inputLabel">` + pool.name + ` ` + (pool.mandatory ? '<span style="color:red" class="'+pool.name+'">*</span>' : '') + `</label>
+                    <input  class="form-control input-sm"  placeholder="" type="password" id="` + pool.id + `" ` + (pool.mandatory ? '' : '') + ` 
+                    onkeyup="checkField(this)">
+                    ` + (pool.text ? '<small id="' + pool.id+"error" + '"  style="display:none;color:red;font-weight:600">' + pool.text + '</small>' : '') + `
                 </div>
             </div>
             `
         }
-        if(pool.type === 'boolean'){
-            str = `
-            <div  class="col-md-4">
-                <div  class="form-group">
-                    <label  class="inputLabel">`+pool.name+`</label>
-                    <select class="form-control input-sm" id="`+pool.name+`">
-                        <option value=""></option>
-                        <option value="true">true</option>
-                        <option value="false">false</option>
-                    </select>
-                </div>
-            </div>
-            `
-        }
+        // if(pool.type === 'boolean'){
+        //     str = `
+        //     <div  class="col-md-4">
+        //         <div  class="form-group">
+        //             <label  class="inputLabel">`+pool.name+`</label>
+        //             <select class="form-control input-sm" id="`+pool.name+`">
+        //                 <option value=""></option>
+        //                 <option value="true">true</option>
+        //                 <option value="false">false</option>
+        //             </select>
+        //         </div>
+        //     </div>
+        //     `
+        // }
 
         $(".typeBody").append(str)
 
@@ -837,7 +892,7 @@ console.log(arg);
 
     var resultObj = {
         domainKey : DOMAIN_KEY,
-        id : $("#Name").val(),
+        id : $("#name").val(),
         type :  id,
         "c3p0Args": null,
         "dbcpArgs": null,
@@ -853,42 +908,49 @@ console.log(id);
 }
 
 function checkField(obj) {
-
-    if(obj.id === 'dataSourceClassName'){
+    if(obj.id ==='jdbcurl'){
         if(obj.value !== '') {
-            $(".driverClassName").hide();
-            $("#driverClassName").removeAttr('required');
-            $("#driverClassName").attr('disabled','disabled');
-
-        }
-
-        if(obj.value === '') {
-            $(".driverClassName").show();
-            $("#driverClassName").attr('required','required');
-            $("#driverClassName").removeAttr('disabled');
-
-        }
-
-    }
-
-    if(obj.id === 'driverClassName'){
-        if(obj.value !== '') {
-            $(".dataSourceClassName").hide();
-            $("#dataSourceClassName").removeAttr('required')
-            $("#dataSourceClassName").attr('disabled','disabled');
-
-        }
-
-        if(obj.value === '') {
-            $(".dataSourceClassName").show();
-            $("#dataSourceClassName").attr('required','required');
-            $("#dataSourceClassName").removeAttr('disabled');
+            $("#jdbcurlerror").hide();
+            $("#jdbcurl").css("border-color","");
+            
 
         }
     }
+    if(obj.id === 'username'){
+        if(obj.value !== '') {
+            $("#usernameerror").hide();
+           $("#username").css("border-color","")
+        }
+    }
+    if(obj.id === 'password'){
+
+        if(obj.value !== '') {
+            $("#passworderror").hide();
+           $("#password").css("border-color","")
+
+        }
+    }
+    if(obj.id === 'datasource'){
+
+        if(obj.value !== 'datasource') {
+            $("#datasourceerror").hide();
+           $("#datasource").css("border-color","")
+
+        }
+    }
+    if(obj.id === 'driverclass'){
+
+        if(obj.value !== '') {
+            $("#driverclasserror").hide();
+           $("#driverclass").css("border-color","")
+
+        }
+    }
+
+    
 }
-// function check(){
-//     var check = $("#pool_type1").val();
+function check(){
+    var check = $("#pool_type1").val();
 
 
-// }
+}
