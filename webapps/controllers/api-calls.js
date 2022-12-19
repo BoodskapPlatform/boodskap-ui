@@ -4,7 +4,7 @@ $(document).ajaxError(function myErrorHandler(event, xhr, ajaxOptions, thrownErr
         $(".platformBody").append('<br><code style="">DEBUG MODE: <b>' + ajaxOptions.url + '</b><br>' + JSON.stringify(xhr.responseJSON) + '</code>');
     }
 
-    if (xhr.status === 417 && xhr.responseJSON.code === 'INVALID_AUTH_TOKEN') {
+    if (xhr.status === 401 && xhr.responseJSON.code === 'INVALID_AUTH_TOKEN') {
         Cookies.remove('user_details');
         document.location = BASE_PATH+'/login';
     }
