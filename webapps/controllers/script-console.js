@@ -758,8 +758,7 @@ function validation(){
             $("#error").text("")
             $(".select").css('border-color','') 
         },2000);
-    } else{      
- };
+    }
  if($(".filetwo").val()===""){
     $("#file_error2").text("Please select a file")
         $(".filetwo").css('border-color','red') 
@@ -767,8 +766,8 @@ function validation(){
             $("#file_error2").text("")
         $(".filetwo").css('border-color','')
         },2000);
-   }else{
-   };
+    }
+
  if($(".text").val()===""){
     $("#name_error").text("Please fill out this field")
         $(".text").css('border-color','red') 
@@ -777,8 +776,6 @@ function validation(){
         $(".text").css('border-color','')
         },2000);
    }
-   else{
-   };
    if($(".choose").val()===""){
     $("#file1").text("Please select a file")
         $(".choose").css('border-color','red') 
@@ -787,8 +784,6 @@ function validation(){
         $(".choose").css('border-color','')
         },2000);
    }
-   else{
-   };
 }
 
 
