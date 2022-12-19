@@ -30,6 +30,11 @@ body {
    border: 1px solid rgb(193 193 193 / 74%);
    border-radius: 10px;
 } */
+.icon-position{
+   position: absolute;
+   right: 60px;
+   top: 34px;
+}
 #tabsContent{
    box-shadow:3px 3px 7px 0px #d0cfcf9c !important;
    border: 1px solid rgb(193 193 193 / 74%);

@@ -107,12 +107,18 @@
                                         <div id="changePassword" class="tab-pane fade">
                                             <form action="javascript:void(0)" onsubmit="updatePassword()">
                                                 <div class="row">
-                                                    <div class="col-lg-6">
+                                                    <div class="col-lg-4">
                                                         <div class="form-group">
                                                             <label>New Passsword</label>
                                                             <input type="password" class="form-control form-control-sm input-text" id="password" placeholder="New Password" required/>
-                                                                <i onclick="toggleBox()" class="fa fa-eye form-control-feedback passwordIcon icon-position" style="position: absolute;right: 1px;top: 6px;"></i>
+                                                                <i onclick="toggleBox()" class="fa fa-eye form-control-feedback passwordIcon icon-position" ></i>
                                                                 <div id="logpassword"></div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Confirm Passsword</label>
+                                                            <input type="password" class="form-control form-control-sm input-text" id="conf-password" placeholder="Confirm Password" required/>
+                                                                <i onclick="toggleBox()" class="fa fa-eye form-control-feedback passwordIcon icon-position" ></i>
+                                                                <div id="logconf-password"></div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-12">
