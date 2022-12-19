@@ -29,7 +29,6 @@ function recentUpdate() {
                     );
                 }
 
-                // rdata.pop()
                 rdata.sort(function (x, y) {
                     return y.update_ts - x.update_ts;
                 });
@@ -83,12 +82,12 @@ function clickRecent(tabname, tabid, loadmenu, cardno) {
             "cardno": cardno,
             'update_ts': Date.now(),
         };
-//   rdata.push(inp);
+ rdata.push(inp);
   console.log(rdata);
-     rdata.pop()
+    //  rdata.pop()
     }
 
- rdata.pop()
+//  rdata.pop()
     var obj = {
         dataType: "VARCHAR",
         format: "AS_IS",
