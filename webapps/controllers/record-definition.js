@@ -398,7 +398,11 @@ function openDeleteModal(id) {
     current_msg_id = id;
     $(".delete_rule_name").html('Record');
     $(".delete_rule_id").html(id);
-    $("#deleteModal").modal('show');
+    $("#deleteModal").modal({
+        backdrop: 'static',
+        keyboard: false
+    }
+    ,'show');
 
 }
 
@@ -425,12 +429,16 @@ function createDownload() {
 
 function importMsg() {
     $("#importModal form")[0].reset();
-
+    $(".modal-title").html("Import Definition")
     // $(".btnSubmit").attr('disabled','disabled')
     $("#imported_content").val('')
     $("#importFile").val('')
     loadJsEditor('');
-    $("#importModal").modal('show');
+    $("#importModal").modal({
+        backdrop: 'static',
+        keyboard: false
+    }
+    ,'show');
 }
 
 

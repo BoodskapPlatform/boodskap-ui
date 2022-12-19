@@ -133,7 +133,7 @@ function executeQuery() {
         // }
 
     } else {
-        errorMsgborder('SQL Query cannot be empty',)
+        errorMsg('Required Fields cannot be empty')
     }
 }
 

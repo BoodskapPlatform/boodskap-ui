@@ -304,7 +304,11 @@ function openModal(type, id, channel) {
     } else if (type === 3) {
         current_event_id = id;
         $(".delete_event_id").html(id)
-        $("#deleteModal").modal('show');
+        $("#deleteModal").modal({
+            backdrop: 'static',
+            keyboard: false
+        }
+        ,'show');
     } else if (type === 4) {
 
         $("#addChannel form")[0].reset();

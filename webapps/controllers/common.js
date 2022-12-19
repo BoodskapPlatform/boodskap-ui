@@ -1,7 +1,9 @@
+
 $(document).ready(function () {
     recentUpdate();
    
 });
+
 
 function recentUpdate() {
     $.ajax({
@@ -14,12 +16,12 @@ function recentUpdate() {
         contentType: "application/json",
         type: "get",
         success: function (res) {
+            console.log(res);
             rdata = JSON.parse(res.value);
-
             if (res) {
-                if (rdata[0].id) {
+                if (rdata[0]) {
                     $(".recenthead").html(
-                        `<span onclick="recentUpdate()" style="padding-bottom: 4px; border-bottom: 3px solid #2d2f79bf;">Recently</span>&nbsp;Visited `
+                        `<span onclick="recentUpdate()" style="padding-bottom: 4px; border-bottom: 3px solid #2d2f79bf;">Recently</span>&nbsp;Visited  &nbsp;&nbsp;<button class="btn bskp-trash-btn" title="Clear Recently visited" onclick="clickRecent('ClearRecent','','','')"> <i class="fa fa-trash-o" aria-hidden="true"></i> </button>`
                     );
                 } else {
                     $(".recenthead").html(
@@ -62,6 +64,8 @@ function recentUpdate() {
 }
 
 function clickRecent(tabname, tabid, loadmenu, cardno) {
+    console.log(tabname === 'ClearRecent');
+    console.log(tabname, tabid, loadmenu, cardno);
     let newclick = true;
     for (i = 0; i < rdata.length; i++) {
          if (tabid === rdata[i].id) {
@@ -73,24 +77,25 @@ function clickRecent(tabname, tabid, loadmenu, cardno) {
  
     if (newclick) {
         var inp = {
-            name: tabname,
-            id: tabid,
-            loadmenu: loadmenu,
-            cardno: cardno,
-            update_ts: Date.now(),
+            "name": tabname,
+            "id": tabid,
+            "loadmenu": loadmenu,
+            "cardno": cardno,
+            'update_ts': Date.now(),
         };
-       rdata.push(inp);
-    //    rdata.pop()
+//   rdata.push(inp);
+  console.log(rdata);
+     rdata.pop()
     }
 
-//    rdata.pop()
-
+ rdata.pop()
     var obj = {
         dataType: "VARCHAR",
         format: "AS_IS",
         name: USER_OBJ.user.email,
         value: JSON.stringify(rdata),
     };
+    console.log(obj);
 
     $.ajax({
         url: API_BASE_PATH + "/domain/property/upsert/" + API_TOKEN,
@@ -177,9 +182,10 @@ function recentcard(rdata) {
         }
        
         for (let i = 0; i < (rdata.length >= 5 ? 5 : rdata.length ); i++) {
+            console.log(rdata);
             if (i >= 0 && i <= 2) {
                 $("#recentMegaMenuList").append(
-                    ` <div class="col-sm-6 col-xs-6 megacard" onclick="loadMenu(` +
+                    ` <div class="col-sm-6 col-xs-6 megacard" onclick="loadNewpage(` +
                     rdata[i].loadmenu +
                     `)">
      <div class="card modules bskp-home-modules"onclick="clickRecent('` +
@@ -201,7 +207,7 @@ function recentcard(rdata) {
             }
             if (i > 2 && rdata[i] !== undefined) {
                 $("#recentMegaMenuList").append(
-                    ` <div class="col-sm-6 col-xs-6 more-Mrecent megacard" onclick="loadMenu(` +
+                    ` <div class="col-sm-6 col-xs-6 more-Mrecent megacard" onclick="loadNewpage(` +
                     rdata[i].loadmenu +
                     `)">
         <div class="card modules bskp-home-modules"onclick="clickRecent('` +

@@ -200,6 +200,9 @@
     background: #2d2f79;
     border: 1px solid #c0c3e8;
 }
+.bskp-home-modules:hover i{
+    color: rgb(198, 198, 198);
+}
 .bskp-home-modules img {
     width: auto;
     height: 42px;
@@ -399,7 +402,7 @@ color: #1a1a1a !important;
 }
 
 .bskp-trash-btn {
-    padding: 0px 4px 3px 4px !important;
+    padding: 0px 4px !important;
     background: white;
     border: 1px solid #f4a6c3;
     border-radius: 6px !important;
@@ -562,16 +565,16 @@ color: #1a1a1a !important;
 .bskp-modal label {
     color: #171717;
     font-weight: 600;
-    font-size: 16px;
+    font-size: 14px;
 }
 
 .bskp-modal textarea {
     min-height: 90px;
 }
 
-.bskp-modal tbody>tr:first-child>td {
+/* .bskp-modal tbody>tr:first-child>td {
     padding: 20px !important;
-}
+} */
 
 .bskp-modal .modal-footer {
     justify-content: center;
@@ -674,6 +677,9 @@ color: #1a1a1a !important;
 .bskp-fs-12{
 font-size: 12px !important;
 }
+.bskp-fs-14{
+    font-size: 14px !important;
+    }
 .bskp-mm-fullwin{
     font-size: 12px;
     vertical-align: text-top;
@@ -1127,4 +1133,8 @@ input[type=file]{
     width: 100%;
     border: 1px solid #3e373738;
     border-radius:10px;
+}
+.bskp-close{
+    border-radius: 13px; 
+     padding:3px; 
 }

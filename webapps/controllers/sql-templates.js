@@ -224,10 +224,15 @@ function openModal(type, id) {
     else if (type === 4) {
         current_template_name = id;
         $(".templateName").html(id)
-        $("#deleteModal").modal('show');
+        $("#deleteModal").modal({
+            backdrop: 'static',
+            keyboard: false
+        }
+        ,'show'
+        );
     } else if (type === 5) {
         $("#addTemplate form")[0].reset();
-        $(".templateAction").html('Update');
+        $(".templateAction").html('Edit');
         $("#template_code").css('height','100px');
         var obj = {};
         current_template_name = id;
@@ -242,7 +247,12 @@ function openModal(type, id) {
         $("#template_name").val(obj.id);
         $("#template_lang").val(obj.type);
         $("#template_code").val(obj.query);
-        $("#addTemplate").modal('show');
+        $("#addTemplate").modal({
+            backdrop: 'static',
+            keyboard: false
+        }
+        ,'show'
+        );
         $("#addTemplate form").attr('onsubmit', 'updateTemplate()')
     }else if (type === 6) {
 
