@@ -1,4 +1,6 @@
 
+    <link href="css/marketplace.css" rel="stylesheet" />
+
 <style>
 
     .sort-list, .sort-list h4 {
@@ -34,9 +36,7 @@
         background-color: #4caf5029;
     }
 
-    .widgetDiv:hover h5{
-        color: #4caf50;
-    }
+    
 
     .description{
         width: 100%;
@@ -53,17 +53,40 @@
 
 <div class="container-fluid mt-3">
 
-    <h1 class="page-header"><img src="images/menu/market-place.png" width="32" /> Marketplace</h1>
+     <div class="page-header bskp-mart-topic"><img src="images/menu/market-place.svg" class="bskp-topic-icon mr-1"> Marketplace
+        <span class="panel-title ml-3" style="color: #2D2F79;">Total Widgets: <strong><span class="widgetsCount">4</span></strong></span> </div>
+    <div class="bskp-mart-panel px-4">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="mart-card p-3">
+                        <div class="sec1  ">
+                            <div class="mart-img">
+                                <img src="images/menu/market-place.svg" width="35" height="35" alt="">
+                            </div>
+                            <div class="mart-info">
+                                <div>Line Chart</div>
+                                <div> <small> <em>v.1.0.0</em> </small> </div>
+                                <div><em></em> Chart & Graphics</div>
+                            </div>
+                        </div>
+                        <div class="sec2">
+                            charts
+                        </div>
+                        <div class="sec3">
+                            <button class="btn  btnSubmit" type="submit">Marketplace</button>
+                            <button class="btn btn-secondary btn-proceed btnSubmit" type="submit">Install</button>
+                        </div>
 
-    <div class="panel">
-        <div class="panel-body bodyContainer" style="padding:0px;padding-bottom: 30px;">
-
-            <div class="row" style="background-color: #4caf5029;border-top: 2px solid green;padding-top: 5px;margin-left: 0px;margin-right: 0px">
-                <div class="col-lg-1">
-                    <h6 class="text-center mt-2">Total Widgets <br>
-                        <span class="widgetsCount" style="    font-size: 1.75rem;"></span>
-                    </h6>
                 </div>
+            </div>
+        </div>
+    </div>
+    
+        <div class="panel">
+        <div class="panel-body bodyContainer" style="padding:0px;padding-bottom: 30px;">
+           
+            <div class="row" >
+               
                 <div class="col-lg-4">
                     <form class="mt-2">
                         <label  style="display: block;margin-bottom: 0px"><i class="fa fa-search"></i> Search</label>

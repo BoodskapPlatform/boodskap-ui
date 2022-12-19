@@ -71,7 +71,9 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title"><span class="templateAction"></span> Template</h4>
-                <button type="button" class="close" data-dismiss="modal"   aria-label="Close"> <i class="fa fa-times" aria-hidden="true"></i> </button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <img src="images/menu/xicon.svg" class="bg-secondary bskp-close" >
+                    </button>
             </div>
             <form action="javascript:void(0)" novalidate>
                 <div class="modal-body">
@@ -119,10 +121,12 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Delete Template</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <img src="images/menu/xicon.svg" class="bg-secondary bskp-close" >
+                    </button>
             </div>
             <div class="modal-body">
-                <p>Are you sure want to delete <b><span class="templateName"></span></b> template?</p>
+                <p class="bskp-fs-14">Are you sure want to delete <b><span class="templateName"></span></b> template?</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary btn-close" data-dismiss="modal">Close</button>
@@ -140,7 +144,9 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Execute Query</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <i class="fa fa-times" aria-hidden="true"></i> </button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <img src="images/menu/xicon.svg" class="bg-secondary bskp-close" >
+                    </button>
             </div>
             <div class="modal-body">
                 <code style="width:100%" class="template_code"></code>
@@ -150,6 +156,7 @@
                         <div class="form-group">
                             <label>Parameters <small>JSON value</small></label>
                             <textarea class="form-control" id="temp_param" style="height: 250px;resize: none;"></textarea>
+                            <span id="logtemp_param"></span>
                         </div>
                     </div>
                     <div class="col-md-6">

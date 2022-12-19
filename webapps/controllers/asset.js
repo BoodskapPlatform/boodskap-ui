@@ -125,7 +125,7 @@ function openModal(type, id) {
         $("#asset_desc").css('height','90px');
         
     } else if (type === 2) {
-        $(".templateAction").html('Update');
+        $(".templateAction").html('Edit');
         var obj = {};
         current_asset_id = id;
 
@@ -138,34 +138,53 @@ function openModal(type, id) {
         $("#asset_id").val(obj.id);
         $("#asset_name").val(obj.name);
         $("#asset_desc").val(obj.description);
-        $("#addAsset").modal('show');
+        $("#addAsset").modal({
+            backdrop: 'static',
+            keyboard: false
+        }
+        ,'show'
+        );
         $("#addAsset form").attr('onsubmit', 'updateAsset()')
         $("#asset_desc").css('height','90px');
 
     } else if (type === 3) {
         current_asset_id = id;
         $(".assetId").html(id)
-        $("#deleteModal").modal('show');
+        $("#deleteModal").modal({
+            backdrop: 'static',
+            keyboard: false
+        }
+        ,'show'
+        );
     } else if (type === 4) {
         current_asset_id = id;
         $(".assetId").html(id);
         loadDeviceList();
         loadLinkedDevices(id);
-        $("#linkModal").modal('show');
+        $("#linkModal").modal({
+            backdrop: 'static',
+            keyboard: false
+        }
+        ,'show'
+        );
 
 
     }
 }
 
 function linkDevice() {
-    assetLink(current_asset_id, $("#deviceID").val(), function (status, data) {
+    if($("#deviceID").val() ||$("#deviceID").val()==='' ){
+        errorMsgBorder('Device Id cannot be empty','dropdownMenu1')
+    }else{
+        assetLink(current_asset_id, $("#deviceID").val(), function (status, data) {
         if (status) {
             successMsg('Device Linked Successfully');
             loadLinkedDevices(current_asset_id);
         } else {
             errorMsg('Error in Linking Device')
         }
-    });
+        });
+      }
 }
 
 function unlinkDevice() {
