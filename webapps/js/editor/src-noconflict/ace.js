@@ -17662,7 +17662,7 @@ var VirtualRenderer = function(container, theme) {
         }
         if (changes & this.CHANGE_H_SCROLL) {
             this.content.style.marginLeft = -this.scrollLeft + "px";
-            this.scroller.className = this.scrollLeft <= 0 ? "" : "ace_scroller ace_scroll-left";
+            this.scroller.className = this.scrollLeft <= 0 ? "ace_scroller" : "ace_scroller ace_scroll-left";
         }
         if (changes & this.CHANGE_FULL) {
             this.$textLayer.update(config);

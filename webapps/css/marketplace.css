@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+*{
+    font-family: 'Montserrat', sans-serif !important;
+}
+
+.bskp-mart-topic {
+    font-size: 20px;
+    font-weight: 600;
+    color: #3e3e3e;
+    padding: 5px 20px;
+    margin-bottom: 10px;
+}
+.mart-img{
+    border: 1px solid #d2dfec;
+    border-radius:10px;
+    padding: 8px;
+}
+.mart-card > .sec1{
+    display: flex;
+    border: 1px solid #f1eded;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 16px;
+    box-shadow: 0px 0px 3px 1px #ededed;
+}
