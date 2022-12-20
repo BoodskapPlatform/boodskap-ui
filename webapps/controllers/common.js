@@ -25,7 +25,8 @@ function recentUpdate() {
                     );
                 } else {
                     $(".recenthead").html(
-                        `<span onclick="recentUpdate()" style="padding-bottom: 4px; border-bottom: 3px solid #2d2f79bf;">Features</span> `
+                        `<span onclick="recentUpdate()" style="padding-bottom: 4px;">Features
+                        <div style="border-bottom:3px solid #393b81;width:40px;"></div></span> `
                     );
                 }
 

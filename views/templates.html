@@ -1,25 +1,76 @@
+<style>
+     @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+    code{
+        background: none !important;
+        color:black;
+        font-family: Montserrat;
+    }
+     .table>tbody>tr>td {
+        margin:10px;
+        padding: 15px;
+    } 
+    .close_icon{
+    border-radius: 13px;padding:3px
+
+}
+.ace_text-input{
+    color: red;
+}
+.ace-monokai .ace_gutter-active-line{
+    background-color: #dadada;
+}
+.ace-monokai .ace_marker-layer .ace_active-line {
+    background-color:#e8f2fe;
+}
+
+  /* .ace-eclipse .ace_gutter{
+        background-color: hsl(210deg 31% 95%);
+        border: 2px solid #eaf1f6;
+        border-radius: 10px;  
+    } * */
+    /* .ace_content{  
+        position: relative;
+        left: 8px;
+        /* border: 2px solid  #eaf1f6;   */
+       
+        /* border-radius: 10px;   
+    } * */ 
+
+    .ace-monokai .ace_gutter{
+        background-color: hsl(210deg 31% 95%);
+    }
+    .ace-monokai{
+        background-color: #ffffff;
+        color: rgb(41, 36, 36);
+        border: 2px solid  #eaf1f6;
+        border-radius: 10px;
+        
+    }
+</style>
+<link rel="stylesheet" href="/webapps/css/Event-Logs.css">
 <!--<div class="row-fluid">
+
     <ul class="nav submenu" style="">
         <li class=""><a href="<%= basepath %>/home"><i class="fa fa-home"></i> </a></li>
         <li class=""><a href="<%= basepath %>/dashboard">Dashboard</a></li>
         <li class="active"><a href="<%= basepath %>/templates">Templates</a></li>
     </ul>
 </div>-->
-<div class="container mt-3 msgDef platformBody">
+<!-- <div class="container mt-3 msgDef platformBody">
     <!-- begin breadcrumb -->
-    <ol class="breadcrumb pull-right">
+    <!-- <ol class="breadcrumb pull-right">
         <li class="breadcrumb-item"><a href="<%= basepath %>/dashboard">Domain</a></li>
         <li class="breadcrumb-item active">Templates</li>
-    </ol>
+    </ol> -->
     <!-- end breadcrumb -->
     <!-- begin page-header -->
-    <h1 class="page-header">Manage Templates</h1>
+    <!-- <h1 class="page-header">Manage Templates</h1> -->
 
     <!-- end page-header -->
 
     <!-- begin panel -->
-    <div class="panel panel-inverse">
-        <div class="panel-heading">
+    <!-- <div class="panel panel-inverse"> -->
+        <!-- <div class="panel-heading">
             <div class="panel-heading-btn">
                 <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
                 <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-success" data-click="panel-reload" onclick="loadTemplates()"><i class="fa fa-redo"></i></a>
@@ -51,9 +102,60 @@
 
 
         </div>
-    </div>
+    </div> -->
     <!-- end panel -->
 
+<!-- </div> --> 
+<div class="panel container msgDef  platformBody">  
+    <!-- begin panel -->
+    <div class=" panel-inverse bskp-container-frame">
+        <div>
+            <ol class="breadcrumb pull-right">
+                <li class="breadcrumb-item"><a href="<%= basepath %>/dashboard">Domain</a></li>
+                <li class="breadcrumb-item active">Templates</li>
+                <div class="ml-4 mr-1">
+                    <a href="javascript:;" class="btn btn-sm btn-icon btn-circle  bskp-icon-bg" title="Expand" data-click="panel-expand" ><img height="14px" src="images/menu/expand-icon.svg" alt="expand-icon"></a>
+                     <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg" title="Help"  > <img src="images/menu/Question_icon.png" alt="help_icon"> </a>
+                   </div>
+            </ol>
+        </div>
+               <!-- begin breadcrumb -->
+    <!-- end breadcrumb -->
+    <!-- begin page-header --> 
+    <div class="page-header bskp-page-topic"><img src="images/menu/templates-bskp.svg" class="bskp-topic-icon mr-1 ml-2" alt="logo" > Manage Templates <span class="panel-title"></span>
+        <span class="panel-title ml-3 count" style="color:#2d2f79;">Total  Templates&nbsp:&nbsp<strong><span  class="templateCount"></span></strong></span>
+      
+    </div>
+    <!-- end page-header -->    
+        <div class="panel-body">
+            <div class="row m-0">
+                <div class="col-12">
+                    <div class="systemTemplate" style="display: none">
+                        <label class="text-warning">System Template</label>
+                        <small class="text-grey">Only visible to admin</small>
+                        <label><input type="radio" name="systemFlag" value="true" onchange="loadTemplates()"/> True </label>
+                        <label><input type="radio" name="systemFlag" value="false" onchange="loadTemplates()" checked/> False </label>
+                    </div>
+                    <div class=" btn-group-justified pull-right">
+                        <a style="background-color:#2d2f79;border-radius:14px;color: white;font-weight:400;" class="btn mr-3" onclick="openModal(1)"><img class="pb-1" src="images/plus.svg" width="18px" height="18px" alt=""> <span class="hidden-xs">Add Template</span></a>
+                        <a class="btn mr-2" style="background-color:#ffffff;border:1px solid rgb(234 241 246);border-radius:10px;width:40px;" onclick="openModal(2)"><img src="images/menu/upload.svg" width="15px"height="15px" alt=""> <span class="hidden-xs"></span></a>
+                        <a class="btn mr-2"style="background-color:#ffffff;border:1px solid rgb(234 241 246);border-radius:10px;width:40px" onclick="openModal(3)"><img src="images/menu/download.svg" width="15px"height="15px" alt=""><span class="hidden-xs"></span></a>
+                        <a  class="btn  mr-2 bskp-refresh-bg" style="width:40px;" data-click="panel-reload" onclick="loadTemplates()"><i class="fa fa-refresh"></i></a>
+                    </div>
+                <div class="col-12">
+                    <!-- <div class="btn-group btn-group-justified pull-right bskp-btn-group-align " >
+                        <a   class="btn  bskp-refreshbtn" data-click="panel-reload" title="Refresh" onclick="loadLogs()"><em class="fa fa-refresh"></em></a>
+                    </div> -->
+                </div>
+                <div class="bskp-table-layout">
+                    <table class="table table-bordered table-hover bskp-table responsive no-wrap" id="templateTable"  cellspacing="0" width="100%">
+                    </table>
+                </div>
+                </div>
+             </div>
+        </div>
+     </div>
+    <!-- end panel -->
 </div>
 
 <script src="js/editor/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
@@ -66,12 +168,14 @@
 
 
 
-<div id="addTemplate" class="modal fade" tabindex="-1" role="dialog">
+<div id="addTemplate" class="bskp-modal  modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title"><span class="templateAction"></span> Template</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <image src="images/menu/xicon.svg" class="bg-secondary close_icon">
+                    </button>
             </div>
             <form action="javascript:void(0)">
                 <div class="modal-body">
@@ -79,15 +183,17 @@
                         <div  class="col-md-6">
                             <div  class="form-group">
                                 <label  class="inputLabel">Name</label>
-                                <input  class="form-control input-sm" placeholder="" type="text" id="template_name" required>
+                                <input  class="form-control input-sm" placeholder="" type="text" id="template_name">
+                                <span style="color: red;font-weight: 600;" id="template_error"></span>
                             </div>
                         </div>
                         <div  class="col-md-6">
                             <div  class="form-group">
                                 <label  class="inputLabel">Language</label>
-                                <select class="form-control input-sm" id="template_lang" required>
+                                <select class="form-control input-sm" id="template_lang">
                                     <option value="JTWIG">JTWIG</option>
                                 </select>
+                               
                             </div>
                         </div>
                     </div>
@@ -102,8 +208,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btnModal btnSubmit">Proceed</button>
+                    <button type="button" class="btn btn-secondary btn-close" data-dismiss="modal">Close</button>
+                    <button type="submit"  class="btn btn-secondary btn-proceed btnSubmit btnModal">Proceed</button>
                 </div>
             </form>
         </div><!-- /.modal-content -->
@@ -112,32 +218,35 @@
 
 
 
-<div id="deleteModal" class="modal fade" tabindex="-1" role="dialog">
+<div id="deleteModal" class=" bskp-modal modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Delete Template</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <image src="images/menu/xicon.svg" class="bg-secondary close_icon">
+                    </button>
             </div>
             <div class="modal-body">
                 <h5>Are you sure want to delete <b><span class="templateName"></span> template</b>?</h5>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btnModal" onclick="proceedDelete()">Proceed</button>
+                <button type="button" class="btn btn-secondary btn-close" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btnModal btn-secondary btn-proceed btnModal" onclick="proceedDelete()">Proceed</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
 
-<div id="uploadTemplate" class="modal fade" tabindex="-1" role="dialog" style="">
+<div id="uploadTemplate" class="bskp-modal modal fade" tabindex="-1" role="dialog" style="">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title"><i class="icon-cubes"></i> Upload Template</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"> Upload Template</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <image src="images/menu/xicon.svg" class="bg-secondary close_icon">
+                    </button>
             </div>
 
             <form action="javascript:void(0)" name="templateForm" enctype="multipart/form-data" onsubmit="uploadTemplate()"
@@ -146,10 +255,11 @@
                 <div class="modal-body" style="padding-top:0px">
 
                     <div class="row mt-3">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label class="inputLabel">Choose Template file</label>
-                                <input type="file" name="tfile" id="templateFile" required>
+                                <input class="form-control" type="file" name="tfile" id="templateFile">
+                                <span style="color:red;font-weight:600;" id="file_error"></span>
                             </div>
                         </div>
                     </div>
@@ -158,8 +268,8 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default btn-border" data-dismiss="modal">Close</button>
-                    <button type="submit" id="uploadBtn" class="btn btnModal">
+                    <button type="button" class="btn btn-secondary btn-close btn-border" data-dismiss="modal">Close</button>
+                    <button type="submit" id="uploadBtn" class=" btnModal btn-secondary btn-proceed btn btnModal">
                         Upload Template
                     </button>
                 </div>
@@ -167,3 +277,4 @@
         </div>
     </div>
 </div>
+

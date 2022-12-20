@@ -27,6 +27,25 @@
 .bskp-modal tbody>tr:first-child>td {
     padding: 10px 15px !important;
 }
+.heading_small{
+    font-size: 55%;color: #868686de;font-weight: 600;
+    color:#3f3f3f;
+
+}
+.heading_small u{
+    color:#3f3f3f;cursor: pointer;
+
+}
+.panel{
+    background-color:#fdfdfd;
+
+}
+body{
+    background-color: #fdfdfd !important;
+}
+.page-header{
+    margin:0 0 3px
+}
 </style>
 
 <div class="container mt-3 platformBody">
@@ -35,13 +54,13 @@
     <!-- end breadcrumb -->
     <!-- begin page-header -->
     <div class="d-flex bskp-dash-head" >
-        <h1 class="page-header fw-900" style="margin:0 0 3px">Welcome to Boodskap IoT Platform!
-            <small class="hidden-xs" style=" font-size: 55%;color: #868686de;font-weight: 600;"> <u onclick="openGetStartedModal()" style="color:#565656;cursor: pointer;">Let's start</u> building your IoT Solutions on the fly. </small>
+        <h1 class="page-header fw-900">Welcome to Boodskap IoT Platform!
+            <small class="hidden-xs heading_small"> <u onclick="openGetStartedModal()">Let's start</u> building your IoT Solutions on the fly. </small>
     
         </h1>
     </div>
 
-    <div class="panel panel-inverse" style="background-color: #eaf1f6;">
+    <div class="panel panel-inverse">
         <div class="panel-body bskp-px-4" style="background-color: #eeeeee00;padding-bottom: 30px;">
            
 
@@ -49,7 +68,8 @@
 
                 <div class="col-lg-9  mb-3 bskp-main-sec">
                     <div class="d-flex bskp-dash-head pt-2" style="margin:0px !important;" >
-                        <h1 class="page-header fw-900 recenthead" style="font-size:16px;"> <span onclick="recentUpdate()" style="padding-bottom: 4px; border-bottom: 3px solid #2d2f79bf;">Features</span> </h1>
+                        <h1 class="page-header fw-900 recenthead" style="font-size:16px;"> <span onclick="recentUpdate()" style="padding-bottom: 4px;">Features
+                        <div style="border-bottom:3px solid #393b81;width:40px;"></div></span> </h1>
                         <ol class="breadcrumb pull-right mb-2 hidden-xs">
                             <li class="breadcrumb-item">
                               <form class="bskp-dash-search position-relative">
@@ -60,7 +80,7 @@
                                         <img src="images/close.svg" height="15" alt=""> </span>
                                    </div>
                                   </label>
-                              </form>
+                               </form>
                             </li>
                         </ol>
                     </div>
@@ -476,12 +496,12 @@
                                 </ul> -->
                               
                                 
-                                <!-- <% if(userRole.toLowerCase() === 'admin'){ %>
+                                <% if(userRole.toLowerCase() === 'admin'){ %>
                                 <div style="text-align: center" class="adminAccess">
                                     <button class="btn btn-bskp w-xs-100 btn-proceed mt-3" onclick="createDomain()"><i class="fa fa-globe"></i> Create New Domain</button>
                                     <br><small>Only visible to platform ADMIN</small>
                                 </div>
-                                <% }  %> -->
+                                <% }  %>
                                 <!-- <ul class="nav">
                                      <li class="col-lg-6"><label>Linked Domains </label>
                                      </li>
