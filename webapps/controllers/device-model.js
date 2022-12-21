@@ -224,7 +224,6 @@ function addDevice() {
 
 
 function updateDevice() {
-alert('update')
     var deviceObj = {
         "id": $("#device_id").val(),
         "description": $("#device_desc").val(),

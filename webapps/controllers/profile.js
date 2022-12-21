@@ -80,24 +80,74 @@ function loadProfile() {
 
 function proceedUpdate() {
     var obj = USER_OBJ.user;
-    obj['firstName'] =  $("#firstName").val();
+    alert("verify data")
+    var firstName =$.trim($("#firstName").val() );
+    var lastName =$.trim($("#lastName").val() );
+    var mobileNo =$.trim($("#mobileNo").val() );
+    if(firstName===""){
+        errorMsgBorder('First Name should not be empty', 'firstName');
+        return false;
+    } else if(lastName===""){
+        errorMsgBorder('Last Name should not be empty', 'lastName');
+        return false;
+    } else if(mobileNo===""){
+        errorMsgBorder('Mobile No should not be empty', 'mobileNo');
+        return false;
+    }else{
+    //     var phno = $("#mobileNo").val();
+    //     var filter = /^[7-9][0-9]{9}$/;
+
+    //     if (!filter.test(phno)){
+    //         errorMsgBorder('Invalid Phone Number', 'phno',1);
+    //             return false;
+    //     }
+    //  }   
+        obj['firstName'] =  $("#firstName").val();
     obj['lastName'] =  $("#lastName").val();
     obj['primaryPhone'] =  $("#mobileNo").val();
-    obj['password'] =  ' ';
+    // obj['password'] =  ' ';
     updateProfile(obj);
+    
+    }
 }
 
 
 function updatePassword() {
-   var obj = USER_OBJ.user;
-   obj['password'] = $("#password").val();
+    var password = $.trim($("#password").val());
+    var conf_password = $.trim($("#conf_password").val());
+    var captchaStatus = grecaptcha.getResponse();
+
+    var obj = USER_OBJ.user;
+
+    if(password == ""){
+        errorMsgBorder('Password cannot be empty','password');
+        return false;
+    }
+    if(conf_password == ""){
+        errorMsgBorder('Confirm Password cannot be empty','conf_password');
+        return false;
+    }
+
+    if(captchaStatus === ""){
+        errorMsgBorder('Please verify the captcha!','captchaFeedback');
+        return false;
+    }
+    if(password!=conf_password){
+        errorMsgBorder('Password and Confirm Password do not match','conf_password');
+        return false;
+    }else{
+
+    obj['password'] = $("#password").val();
     updateProfile(obj);
+    }
 }
 
 function updateProfile(obj) {
+    console.log(obj)
 
     upsertUser(obj,function (status, data) {
         if(status){
+            console.log(obj['password']);
             delete obj.password;
             USER_OBJ.user = obj;
             Cookies.set('user_details', USER_OBJ);
@@ -136,8 +186,7 @@ function updateProfilePicture() {
 
 
 function getPrimaryDomain() {
-
-
+    
     getUserProperty(primaryDomainID, function (status, data) {
         if (status) {
 
@@ -151,6 +200,12 @@ function getPrimaryDomain() {
 
 
 function updatePrimaryDomain() {
+    
+    var primaryDomain = $.trim($("#primaryDomain").val());
+    if(primaryDomain == ""){
+        errorMsgBorder('Password cannot be empty','primaryDomain');
+        return false;
+    }
 
     var data = {
         name: primaryDomainID,
@@ -244,4 +299,28 @@ function getFitbitBand() {
         }
 
     })
+}
+function toggleBox(){
+
+    if($("#password").attr('type') === 'password'){
+        $(".passwordIcon").removeClass('fa-eye')
+        $(".passwordIcon").addClass('fa-eye-slash')
+        $("#password").attr('type','text')
+    }else {
+        $(".passwordIcon").removeClass('fa-eye-slash')
+        $(".passwordIcon").addClass('fa-eye')
+        $("#password").attr('type','password')
+    }
+}
+function toggles(){
+    if($("#conf_password").attr('type') === 'password'){
+        $(".conf_passwordIcon").removeClass('fa-eye')
+        $(".conf_passwordIcon").addClass('fa-eye-slash')
+        $("#conf_password").attr('type','text')
+    }else{
+        
+        $(".conf_passwordIcon").removeClass('fa-eye-slash')
+        $(".conf_passwordIcon").addClass('fa-eye')
+        $("#conf_password").attr('type','password')
+    }
 }

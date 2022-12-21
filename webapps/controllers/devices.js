@@ -308,13 +308,16 @@ function openModal(type,id) {
                 obj = device_list[i];
             }
         }
-        $("#device_id").attr('readonly','readonly');
-        $("#device_id").val(obj.id);
-        $("#device_name").val(obj.name);
-        $("#device_model").val(obj.modelId);
-        $("#device_version").val(obj.version);
-        $("#addDevice").modal('show');
-        $("#addDevice form").attr('onsubmit','updateDevice()')
+        setTimeout(() => {
+            $("#device_id").attr('readonly','readonly');
+            $("#device_id").val(obj.id);
+            $("#device_name").val(obj.name);
+            $("#device_model").val(obj.modelId);
+            $("#device_version").val(obj.version);
+            $("#addDevice").modal('show');
+            $("#addDevice form").attr('onsubmit','updateDevice()') 
+        }, 300);
+        
         
     }else if (type === 3) {
         current_device_id = id;
@@ -434,6 +437,22 @@ function addDevice() {
 
 
 function updateDevice() {
+    var device_id =$.trim($("#device_id").val() );
+    var device_name =$.trim($("#device_name").val() );
+    // var device_model =$.trim($("#device_model").val() );
+    // var device_version =$.trim($("#device_version").val() );
+
+    if(device_id === "" ){
+   
+        errorMsgBorder('Device ID is required', 'device_id');
+        return false;
+       
+    }else if(device_name === "" ){
+   
+        errorMsgBorder('Device Name is required', 'device_name');
+        return false;
+       
+    }else{
 
     var deviceObj = {
         "id": $("#device_id").val(),
@@ -459,6 +478,7 @@ function updateDevice() {
         }
         $(".btnSubmit").removeAttr('disabled');
     })
+    }
 }
 
 
