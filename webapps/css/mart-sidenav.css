@@ -5,8 +5,11 @@
     height: 100%;
     padding: 1.2rem;
     background-color: #ffffff;
-    float: left;
     transition: all 0.5s ease;
+  }
+  .panel-row{
+    display: flex;
+    padding: 15px;
   }
   .logo-name-wrapper {
     position: relative;
