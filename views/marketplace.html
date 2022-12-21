@@ -1,4 +1,7 @@
 
+    <link href="css/marketplace.css" rel="stylesheet" />
+    <link href="css/mart-sidenav.css" rel="stylesheet" />
+
 <style>
 
     .sort-list, .sort-list h4 {
@@ -34,9 +37,7 @@
         background-color: #4caf5029;
     }
 
-    .widgetDiv:hover h5{
-        color: #4caf50;
-    }
+    
 
     .description{
         width: 100%;
@@ -53,17 +54,244 @@
 
 <div class="container-fluid mt-3">
 
-    <h1 class="page-header"><img src="images/menu/market-place.png" width="32" /> Marketplace</h1>
+     <div class="page-header bskp-mart-topic"><img src="images/menu/market-place.svg" class="bskp-topic-icon mr-1"> Marketplace
+        <span class="panel-title ml-3" style="color: #2D2F79;">Total Widgets: <strong><span class="widgetsCount">4</span></strong></span> </div>
+       <div class="panel-row">
+        <div class="side-bar  bskp-mart-panel">
+          <div class="logo-name-wrapper">
+            <div class="logo-name">
+              <img
+                src="./assets/images/logo.png"
+                class="logo"
+                alt="logo app"
+                srcset=""
+              />
+              <span class="logo-name__name">Lincoln Botosh</span>
+            </div>
+            <button class="logo-name__button">
+              <i
+                class="bx bx-arrow-from-right logo-name__icon"
+                id="logo-name__icon"
+              ></i>
+            </button>
+          </div>
+          
+          <ul class="category-list">
+            <div class="category-header">Message categories</div>
+            <li class="category-item">
+              <span
+                class="category-item-status"
+                style="background-color: #79d861"
+              ></span
+              ><span class="category-item-text">My works</span
+              ><span class="category-item-number">9</span>
+              <span class="tooltip">My works</span>
+            </li>
+            <li class="category-item">
+              <span
+                class="category-item-status"
+                style="background-color: #c43c5d"
+              ></span
+              ><span class="category-item-text">Accountant</span
+              ><span class="category-item-number">43</span>
+              <span class="tooltip">Accountant</span>
+            </li>
+            <li class="category-item">
+              <span
+                class="category-item-status"
+                style="background-color: #ff5050"
+              ></span
+              ><span class="category-item-text">Works</span
+              ><span class="category-item-number">78</span>
+              <span class="tooltip">Works</span>
+            </li>
+            <li class="category-item">
+              <span
+                class="category-item-status"
+                style="background-color: #42ffdd"
+              ></span
+              ><span class="category-item-text">Marketing</span
+              ><span class="category-item-number">253</span>
+              <span class="tooltip">Marketing</span>
+            </li>
+          </ul>
+          <ul class="chat-list">
+            <div class="chat-header">recent chats</div>
+            <button class="chat-new-btn">
+              <i class="bx bxs-plus-circle chat-icon"></i>
+              <span class="chat-new-btn-text">Start New Chat</span>
+              <span class="tooltip">New Chat</span>
+            </button>
+            <li class="chat-item">
+              <span class="chat-item-avatar-wrapper has-message">
+                <img
+                  src="./assets/images/chris-evans.jpg"
+                  alt="avatar"
+                  class="chat-item-avatar"
+                />
+              </span>
+              <span class="chat-item-name">Steve Rogers</span>
+              <span class="chat-item-number">53</span>
+            </li>
+            <li class="chat-item">
+              <span class="chat-item-avatar-wrapper">
+                <img
+                  src="./assets/images/tony-stark.jpg"
+                  alt="avatar"
+                  class="chat-item-avatar"
+                />
+              </span>
+              <span class="chat-item-name">Tony Stark</span
+              ><span
+                class="chat-item-status"
+                style="background-color: #79d861"
+              ></span>
+            </li>
+          </ul>
+      </div>
 
-    <div class="panel">
+      <div class="mart-div">
+              <div class="row bskp-mart-panel">
+                  <div class="mart-cardsize">
+                      <div class="mart-card p-3">
+                              <div class="mart-sec1 mb-2">
+                                  <div class="mart-img">
+                                      <img src="images/menu/message-definition_1-bskp.svg" alt="">
+                                  </div>
+                                  <div class="mart-info">
+                                      <div class="mart-head pb-2">Line Chart</div>
+                                      <div class="mart-ver pb-2"> v.1.0.0 </div>
+                                      <div class="mart-fold"><em class="fa fa-folder-o" aria-hidden="true"></em> Chart & Graphics</div>
+                                  </div>
+                              </div>
+                              <div class="mart-sec2  mb-3">
+                                  <em class="fa fa-tags" aria-hidden="true"></em> <span class="tags">charts</span> <span class="tags">Waterflow</span>
+                              </div>
+                              <div class="mart-sec3 text-center">
+                                  <button class="btn mart-btn btnSubmit mr-3" type="submit"><img src="images/menu/market.svg" alt=""> Marketplace</button>
+                                  <button class="btn btn-secondary btn-proceed btnSubmit" type="submit"><img src="images/menu/install.svg" alt=""> Install</button>
+                              </div>
+      
+                      </div>
+                  </div>
+                  <div class="mart-cardsize">
+                      <div class="mart-card p-3">
+                              <div class="mart-sec1 mb-2">
+                                  <div class="mart-img">
+                                      <img src="images/menu/message-definition_1-bskp.svg" alt="">
+                                  </div>
+                                  <div class="mart-info">
+                                      <div class="mart-head pb-2">Line Chart</div>
+                                      <div class="mart-ver pb-2"> v.1.0.0 </div>
+                                      <div class="mart-fold"><em class="fa fa-folder-o" aria-hidden="true"></em> Chart & Graphics</div>
+                                  </div>
+                              </div>
+                              <div class="mart-sec2  mb-3">
+                                  <em class="fa fa-tags" aria-hidden="true"></em> <span class="tags">charts</span> <span class="tags">Waterflow</span>
+                              </div>
+                              <div class="mart-sec3 text-center">
+                                  <button class="btn mart-btn btnSubmit mr-3" type="submit"><img src="images/menu/market.svg" alt=""> Marketplace</button>
+                                  <button class="btn btn-secondary btn-proceed btnSubmit" type="submit"><img src="images/menu/install.svg" alt=""> Install</button>
+                              </div>
+      
+                      </div>
+                  </div>
+                  <div class="mart-cardsize">
+                      <div class="mart-card p-3">
+                              <div class="mart-sec1 mb-2">
+                                  <div class="mart-img">
+                                      <img src="images/menu/message-definition_1-bskp.svg" alt="">
+                                  </div>
+                                  <div class="mart-info">
+                                      <div class="mart-head pb-2">Line Chart</div>
+                                      <div class="mart-ver pb-2"> v.1.0.0 </div>
+                                      <div class="mart-fold"><em class="fa fa-folder-o" aria-hidden="true"></em> Chart & Graphics</div>
+                                  </div>
+                              </div>
+                              <div class="mart-sec2  mb-3">
+                                  <em class="fa fa-tags" aria-hidden="true"></em> <span class="tags">charts</span> <span class="tags">Waterflow</span>
+                              </div>
+                              <div class="mart-sec3 text-center">
+                                  <button class="btn mart-btn btnSubmit mr-3" type="submit"><img src="images/menu/market.svg" alt=""> Marketplace</button>
+                                  <button class="btn btn-secondary btn-proceed btnSubmit" type="submit"><img src="images/menu/install.svg" alt=""> Install</button>
+                              </div>
+      
+                      </div>
+                  </div>
+                  <div class="mart-cardsize">
+                      <div class="mart-card p-3">
+                              <div class="mart-sec1 mb-2">
+                                  <div class="mart-img">
+                                      <img src="images/menu/message-definition_1-bskp.svg" alt="">
+                                  </div>
+                                  <div class="mart-info">
+                                      <div class="mart-head pb-2">Line Chart</div>
+                                      <div class="mart-ver pb-2"> v.1.0.0 </div>
+                                      <div class="mart-fold"><em class="fa fa-folder-o" aria-hidden="true"></em> Chart & Graphics</div>
+                                  </div>
+                              </div>
+                              <div class="mart-sec2  mb-3">
+                                  <em class="fa fa-tags" aria-hidden="true"></em> <span class="tags">charts</span> <span class="tags">Waterflow</span>
+                              </div>
+                              <div class="mart-sec3 text-center">
+                                  <button class="btn mart-btn btnSubmit mr-3" type="submit"><img src="images/menu/market.svg" alt=""> Marketplace</button>
+                                  <button class="btn btn-secondary btn-proceed btnSubmit" type="submit"><img src="images/menu/install.svg" alt=""> Install</button>
+                              </div>
+      
+                      </div>
+                  </div>
+                  <div class="mart-cardsize">
+                      <div class="mart-card p-3">
+                              <div class="mart-sec1 mb-2">
+                                  <div class="mart-img">
+                                      <img src="images/menu/message-definition_1-bskp.svg" alt="">
+                                  </div>
+                                  <div class="mart-info">
+                                      <div class="mart-head pb-2">Line Chart</div>
+                                      <div class="mart-ver pb-2"> v.1.0.0 </div>
+                                      <div class="mart-fold"><em class="fa fa-folder-o" aria-hidden="true"></em> Chart & Graphics</div>
+                                  </div>
+                              </div>
+                              <div class="mart-sec2  mb-3">
+                                  <em class="fa fa-tags" aria-hidden="true"></em> <span class="tags">charts</span> <span class="tags">Waterflow</span>
+                              </div>
+                              <div class="mart-sec3 text-center">
+                                  <button class="btn mart-btn btnSubmit mr-3" type="submit"><img src="images/menu/market.svg" alt=""> Marketplace</button>
+                                  <button class="btn btn-secondary btn-proceed btnSubmit" type="submit"><img src="images/menu/install.svg" alt=""> Install</button>
+                              </div>
+      
+                      </div>
+                  </div>
+                  <div class="mart-cardsize">
+                      <div class="mart-card p-3">
+                              <div class="mart-sec1 mb-2">
+                                  <div class="mart-img">
+                                      <img src="images/menu/message-definition_1-bskp.svg" alt="">
+                                  </div>
+                                  <div class="mart-info">
+                                      <div class="mart-head pb-2">Line Chart</div>
+                                      <div class="mart-ver pb-2"> v.1.0.0 </div>
+                                      <div class="mart-fold"><em class="fa fa-folder-o" aria-hidden="true"></em> Chart & Graphics</div>
+                                  </div>
+                              </div>
+                              <div class="mart-sec2  mb-3">
+                                  <em class="fa fa-tags" aria-hidden="true"></em> <span class="tags">charts</span> <span class="tags">Waterflow</span>
+                              </div>
+                              <div class="mart-sec3 text-center">
+                                  <button class="btn mart-btn btnSubmit mr-3" type="submit"><img src="images/menu/market.svg" alt=""> Marketplace</button>
+                                  <button class="btn btn-secondary btn-proceed btnSubmit" type="submit"><img src="images/menu/install.svg" alt=""> Install</button>
+                              </div>
+      
+                      </div>
+                  </div>
+              </div>      
+    </div>
+    </div>
+        <div class="panel">
         <div class="panel-body bodyContainer" style="padding:0px;padding-bottom: 30px;">
-
-            <div class="row" style="background-color: #4caf5029;border-top: 2px solid green;padding-top: 5px;margin-left: 0px;margin-right: 0px">
-                <div class="col-lg-1">
-                    <h6 class="text-center mt-2">Total Widgets <br>
-                        <span class="widgetsCount" style="    font-size: 1.75rem;"></span>
-                    </h6>
-                </div>
+           
+            <div class="row bskp-mart-panel" >
+               
                 <div class="col-lg-4">
                     <form class="mt-2">
                         <label  style="display: block;margin-bottom: 0px"><i class="fa fa-search"></i> Search</label>
@@ -111,6 +339,21 @@
     </div>
 
 </div>
-
+<script>
+    {
+  let sideBar = document.querySelector('.side-bar');
+  let arrowCollapse = document.querySelector('#logo-name__icon');
+  sideBar.onclick = () => {
+    sideBar.classList.toggle('slim');
+    arrowCollapse.classList.toggle('slim');
+    if (arrowCollapse.classList.contains('slim')) {
+      arrowCollapse.classList =
+        'bx bx-arrow-from-left logo-name__icon collapse';
+    } else {
+      arrowCollapse.classList = 'bx bx-arrow-from-right logo-name__icon';
+    }
+  };
+}
+</script>
 
 <script src="controllers/marketplace.js" type="text/javascript"></script>

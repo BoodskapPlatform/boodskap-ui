@@ -43,17 +43,7 @@
     <div class="panel panel-inverse bskp-container-frame" >
 
          <!-- begin breadcrumb -->
-    <div>
-        <ol class="breadcrumb pull-right bskp-align-icon" >
-            <li class="breadcrumb-item"><a href="<%= basepath %>/dashboard">Domain</a></li>
-            <li class="breadcrumb-item"><a href="<%= basepath %>/message-definition">Message Definition</a> </li>
-            <li class="breadcrumb-item active">Manage message</li>
-           <div class="ml-4">
-            <a href="javascript:;" class="btn btn-sm btn-icon btn-circle  bskp-icon-bg" title="Expand" data-click="panel-expand"><i class="fa fa-expand"></i></a>
-            <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg" title="Help"><i class="icon-help"></i></a>  
-        </div>
-        </ol>
-    </div>
+
     <!-- end breadcrumb -->
     <!-- begin page-header -->
     <div class="page-header bskp-page-topic"><img src="images/menu/message-definition_1-bskp.svg" class="bskp-topic-icon mr-1" > Message Definition 
@@ -106,7 +96,9 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Define Message</h4>
-                <button type="button" class="close" data-dismiss="modal"   aria-label="Close"> <i class="fa fa-times" aria-hidden="true"></i> </button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <img src="images/menu/xicon.svg" class="bg-secondary bskp-close" >
+                    </button>
             </div>
             <form action="javascript:void(0)" novalidate onsubmit="addMessageRule();">
                 <div class="modal-body">
@@ -166,7 +158,9 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Delete <span class="delete_rule_name"></span> Rule</h4>
-                <button type="button" class="close" data-dismiss="modal"   aria-label="Close"> <i class="fa fa-times" aria-hidden="true"></i> </button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <img src="images/menu/xicon.svg" class="bg-secondary bskp-close" >
+                    </button>
             </div>
             <div class="modal-body">
                 <h5>Are you sure want to delete <b><span class="delete_rule_id"></span> <span class="delete_rule_name"></span></b> Rule?</h5>
@@ -187,7 +181,9 @@
         <div class="modal-content" style="">
             <div class="modal-header">
                 <h4 class="modal-title">Import Definition</h4>
-                <button type="button" class="close" data-dismiss="modal"  aria-label="Close"> <i class="fa fa-times" aria-hidden="true"></i> </button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <img src="images/menu/xicon.svg" class="bg-secondary bskp-close" >
+                    </button>
             </div>
             <form action="javascript:void(0)" onsubmit="importContent()">
                 <div class="modal-body">

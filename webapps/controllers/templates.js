@@ -60,16 +60,16 @@ function loadTemplates() {
             mData: 'action',
             sTitle: 'Action',
             orderable: false,
-            sWidth: '10%',
+            sWidth: '20%',
             mRender: function (data, type, row) {
 
-                var str = '<button class="btn btn-sm btn-icon btn-default" onclick="openModal(4,\'' + row['name'] + '\')"><i class="icon-trash-o"></i></button>'
+                var str = '<button class="btn  bskp-trash-btn " onclick="openModal(4,\'' + row['name'] + '\')"> <img class="mb-1 mt-1" src="images/trash2.svg" alt=""> </button>'
 
                     if($("input[name='systemFlag']:checked").val() === true || $("input[name='systemFlag']:checked").val() === "true"){
                         str = "";
                     }
 
-                return '<button class="btn btn-sm btn-icon btn-default" onclick="openModal(5,\'' + row["name"] + '\')"><i class="icon-edit2"></i></button>' +
+                return '<button class="btn  bskp-edit-btn mr-2" onclick="openModal(5,\'' + row["name"] + '\')"><img src="images/edit.svg"  alt=""></button>' +
                     str;
             }
         }
@@ -83,11 +83,26 @@ function loadTemplates() {
             headerOffset: -5
         },
         responsive: false,
+        scrollY: '350px',
+            scrollCollapse: true,
         paging: true,
         searching: true,
         "ordering": true,
         iDisplayLength: 10,
         lengthMenu: [[10, 50, 100], [10, 50, 100]],
+        dom: '<"bskp-search-left" f> lrtip',
+        language: {
+            "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
+         "searchPlaceholder": "Search by Template Name",
+         "zeroRecords": "No data available",
+       
+            loadingRecords: '',
+            paginate: {
+                previous: 'Previous',
+                next: 'Next'
+            },
+
+        },
         aoColumns: fields,
         data: []
     };
@@ -205,12 +220,26 @@ function addTemplate() {
         if (status) {
             $(".btnSubmit").removeAttr('disabled');
             errorMsgBorder('Template name already exist', 'template_name');
-        } else {
+
+        }
+        else if($("#template_name").val()==""){
+            $("#template_error").text("Please fill out this field !")
+            $("#template_name").css({"border-color":"red"})
+    
+            setTimeout(function(){
+                $("#template_name").css({"border":""})
+                $("#template_error").text("")
+    
+            },2000)
+            $(".btnSubmit").removeAttr('disabled');}
+            
+            
+        else {
             upsertTemplate(tempObj, $("input[name='systemFlag']:checked").val(), function (status, data) {
                 if (status) {
                     successMsg('Template Created Successfully');
                     loadTemplates();
-                    $("#addTemplate").modal('hide');
+                 $("#addTemplate").modal('hide');
                 } else {
                     errorMsg('Error in Creating Template')
                 }
@@ -286,7 +315,14 @@ function uploadTemplate(){
     var files = fileInput.files;
 
     if(files.length === 0){
-        errorMsg('File not found. select a file to start upload');
+        // errorMsg('File not found. select a file to start upload');
+
+        $("#file_error").text("File not found. select a file to start upload");
+        $("#templateFile").css({"border-color":"red"})
+        setTimeout(function(){
+            $("#file_error").text("");
+            $("#templateFile").css({"border-color":""})
+        },2000)
         return false;
     }
 

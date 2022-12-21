@@ -92,8 +92,8 @@ function loadDeviceList() {
             mRender: function (data, type, row) {
 
                 return  '<button class="btn bskp-edit-btn mr-2" onclick="openModal(4,\'' + row["id"] + '\')" title="Board Configuration"> <img src="images/settings.svg" alt="">  </button>' +
-                '<button class="btn bskp-edit-btn mr-2" onclick="openModal(2,\'' + row["id"] + '\')"><img src="images/edit.svg" alt="">  </button>' +
-                    '<button class="btn bskp-trash-btn" onclick="openModal(3,\'' + row['id'] + '\')"> <img src="images/trash2.svg" alt="">  </button>';
+                '<button class="btn bskp-edit-btn mr-2" onclick="openModal(2,\'' + row["id"] + '\')" title="Edit"><img src="images/edit.svg" alt="">  </button>' +
+                    '<button class="btn bskp-trash-btn" onclick="openModal(3,\'' + row['id'] + '\')"  title="Delete"> <img src="images/trash2.svg" alt="">  </button>';
             }
         }
 
@@ -141,7 +141,7 @@ function loadDeviceList() {
                 }
             },
             aoColumns: fields,
-            "bProcessing": true,
+            // "bProcessing": true,
             "bServerSide": true,
             "sAjaxSource": API_BASE_PATH + '/elastic/search/query/' + API_TOKEN,
             "fnServerData": function (sSource, aoData, fnCallback, oSettings) {
@@ -194,6 +194,7 @@ function loadDeviceList() {
 
                         var resultData = resData.data;
                         device_list =resultData.data;
+                        console.log(device_list);
                         resultData['draw'] = oSettings.iDraw;
 
                         $(".deviceCount").html(resData.aggregations.total_count.value);
@@ -207,6 +208,8 @@ function loadDeviceList() {
         };
 
     deviceTable = $("#deviceTable").DataTable(tableOption);
+    $('.dataTables_filter input').attr('maxlength', 100)
+
 }
 
 
@@ -407,6 +410,7 @@ function addDevice() {
 
     retreiveDevice(deviceObj.id, function (status, data) {
         if (status) {
+            console.log(status)
             $(".btnSubmit").removeAttr('disabled');
             errorMsgBorder('Device ID already exist', 'device_id');
         } else {

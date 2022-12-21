@@ -111,9 +111,10 @@ function loadMenu(id) {
     } else {
         document.location = MENU_LINKS[id];
     }
-
 }
-
+function loadNewpage(id) {
+    window.open(MENU_LINKS[id], "_blank");
+}
 function openLinkModal() {
     $("#linkModal form")[0].reset();
     $("#linkModal").modal('show');

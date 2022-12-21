@@ -1,7 +1,10 @@
+var rdata = [];
+
 $(document).ready(function () {
     recentUpdate();
    
 });
+
 
 function recentUpdate() {
     $.ajax({
@@ -15,19 +18,17 @@ function recentUpdate() {
         type: "get",
         success: function (res) {
             rdata = JSON.parse(res.value);
-
             if (res) {
-                if (rdata[0].id) {
+                if (rdata[0]) {
                     $(".recenthead").html(
-                        `<span onclick="recentUpdate()" style="padding-bottom: 4px; border-bottom: 3px solid #2d2f79bf;">Recently</span>&nbsp;Visited `
+                        `<span onclick="recentUpdate()" class="underdash" >Recently</span>&nbsp;Visited  &nbsp;&nbsp;<button class="btn bskp-clearvisit" title="Clear Recently visited" onclick="clickRecent('ClearRecent','','','')"> <i class="fa fa-trash-o" aria-hidden="true"></i> </button>`
                     );
                 } else {
                     $(".recenthead").html(
-                        `<span onclick="recentUpdate()" style="padding-bottom: 4px; border-bottom: 3px solid #2d2f79bf;">Features</span> `
+                        `<span onclick="recentUpdate()" class="underdash">Features</span> `
                     );
                 }
 
-                // rdata.pop()
                 rdata.sort(function (x, y) {
                     return y.update_ts - x.update_ts;
                 });
@@ -49,7 +50,7 @@ function recentUpdate() {
                 success: function (res) {
                     if (res) {
                         $(".recenthead").html(
-                            `<span style="padding-bottom: 4px; border-bottom: 3px solid #2d2f79bf;">Featured</span> `
+                            `<span class="underdash">Featured</span> `
                         );
                     }
                 },
@@ -70,22 +71,24 @@ function clickRecent(tabname, tabid, loadmenu, cardno) {
         }
     }
     
- 
+    
+ if(tabname === 'ClearRecent'){
+    rdata=[];
+ }
+else{
     if (newclick) {
         var inp = {
-            name: tabname,
-            id: tabid,
-            loadmenu: loadmenu,
-            cardno: cardno,
-            update_ts: Date.now(),
+            "name": tabname,
+            "id": tabid,
+            "loadmenu": loadmenu,
+            "cardno": cardno,
+            'update_ts': Date.now(),
         };
-       rdata.push(inp);
-    //    rdata.pop()
+ rdata.push(inp);
     }
 
-//    rdata.pop()
-
-    var obj = {
+}
+  var obj = {
         dataType: "VARCHAR",
         format: "AS_IS",
         name: USER_OBJ.user.email,
@@ -98,8 +101,7 @@ function clickRecent(tabname, tabid, loadmenu, cardno) {
         contentType: "application/json",
         type: "post",
         success: function (res) {
-            if (res) {
-            }
+           
         },
         error: function (err) {
             console.log("Error in execution");
@@ -179,7 +181,7 @@ function recentcard(rdata) {
         for (let i = 0; i < (rdata.length >= 5 ? 5 : rdata.length ); i++) {
             if (i >= 0 && i <= 2) {
                 $("#recentMegaMenuList").append(
-                    ` <div class="col-sm-6 col-xs-6 megacard" onclick="loadMenu(` +
+                    ` <div class="col-sm-6 col-xs-6 megacard" onclick="loadNewpage(` +
                     rdata[i].loadmenu +
                     `)">
      <div class="card modules bskp-home-modules"onclick="clickRecent('` +
@@ -201,7 +203,7 @@ function recentcard(rdata) {
             }
             if (i > 2 && rdata[i] !== undefined) {
                 $("#recentMegaMenuList").append(
-                    ` <div class="col-sm-6 col-xs-6 more-Mrecent megacard" onclick="loadMenu(` +
+                    ` <div class="col-sm-6 col-xs-6 more-Mrecent megacard" onclick="loadNewpage(` +
                     rdata[i].loadmenu +
                     `)">
         <div class="card modules bskp-home-modules"onclick="clickRecent('` +

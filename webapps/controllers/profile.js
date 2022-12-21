@@ -70,6 +70,9 @@ function loadProfile() {
    var user = USER_OBJ.user;
     $("#firstName").val(user.firstName)
     $("#lastName").val(user.lastName ? user.lastName : '')
+    $("#emailId").val(user.email)
+    $(".fullName").html(user.firstName+" "+ user.lastName)
+    $(".fullName").css({"font-weight":"bolder","font-size":"16px"})
     $(".emailId").html(user.email)
     $("#mobileNo").val(user.primaryPhone ? user.primaryPhone : '')
 }
