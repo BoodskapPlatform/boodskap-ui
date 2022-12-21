@@ -1,5 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
+.bskp-small{
+    font-size: 55%;
+    color: #000000de;
+    font-weight: 500;
+}
+.underdash {
+    text-decoration: none; 
+    position: relative; 
+  } 
+.underdash:after {
+ position: absolute;
+ content: '';
+ height: 2.5px;
+ bottom: -7px; 
+ left: 0;
+ width: 65%;
+ background: #2d2f79;
+}
 #getstartedmodal {
     font-family: 'Montserrat', sans-serif !important;
 }
