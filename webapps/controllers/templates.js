@@ -35,7 +35,6 @@ function loadTemplates() {
         {
             mData: 'code',
             sTitle: 'Template Code',
-            
             orderable: false,
             sWidth:'65%',
             mRender: function (data, type, row) {
