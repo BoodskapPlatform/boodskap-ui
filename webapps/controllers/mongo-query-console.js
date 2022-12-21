@@ -287,13 +287,12 @@ function loadConnectionpool() {
             var result = QueryFormatter(data).data;
             var resultData = result.data;
             connectionList = resultData;
-            $("#pool_name").html('<option value="">Choose Connection Pool</option>')
             for(var i=0;i<resultData.length;i++){
                 $("#pool_name").append('<option value="'+resultData[i].name+'">'+resultData[i].name+'</option>')
-
+                
             }
-
         }else{
+            $("#pool_name").html('<option value="">Choose Connection Pool</option>')
             connectionList = []
         }
     });
