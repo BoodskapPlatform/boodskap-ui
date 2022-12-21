@@ -17,7 +17,7 @@
       border-top: none;
       border-bottom: none;
       border-radius: 10px;
-      width: 100%
+   
     }
     #searchQueryConsole .bskp-icon-bg{
         background-color: #ffffff;
@@ -120,11 +120,6 @@ text-align: end;
  .form-group{
     margin-bottom: 5px;
  }
- .btn-g{
-
-
- }
-
  .index{
     color:red;
     font-weight: 600;

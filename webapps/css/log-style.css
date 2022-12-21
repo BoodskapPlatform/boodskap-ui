@@ -107,8 +107,8 @@ input{
 }
 .icon-position{
     position: absolute;
-    top: -23px;
-    right: 0px;
+    right: 1px;
+    top: 6px;
 }
 .leftside-head{
     font-size:35 !important ;
