@@ -35,6 +35,7 @@ function loadTemplates() {
         {
             mData: 'code',
             sTitle: 'Template Code',
+            
             orderable: false,
             sWidth:'65%',
             mRender: function (data, type, row) {
@@ -83,6 +84,8 @@ function loadTemplates() {
             headerOffset: -5
         },
         responsive: false,
+        scrollY: '350px',
+            scrollCollapse: true,
         paging: true,
         searching: true,
         "ordering": true,
@@ -92,6 +95,8 @@ function loadTemplates() {
         language: {
             "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
          "searchPlaceholder": "Search by Template Name",
+         "zeroRecords": "No data available",
+       
             loadingRecords: '',
             paginate: {
                 previous: 'Previous',
