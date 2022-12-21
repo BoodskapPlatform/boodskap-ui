@@ -1,3 +1,4 @@
+var rdata = [];
 
 $(document).ready(function () {
     recentUpdate();
@@ -16,17 +17,15 @@ function recentUpdate() {
         contentType: "application/json",
         type: "get",
         success: function (res) {
-            console.log(res);
             rdata = JSON.parse(res.value);
             if (res) {
                 if (rdata[0]) {
                     $(".recenthead").html(
-                        `<span onclick="recentUpdate()" style="padding-bottom: 4px; border-bottom: 3px solid #2d2f79bf;">Recently</span>&nbsp;Visited  &nbsp;&nbsp;<button class="btn bskp-trash-btn" title="Clear Recently visited" onclick="clickRecent('ClearRecent','','','')"> <i class="fa fa-trash-o" aria-hidden="true"></i> </button>`
+                        `<span onclick="recentUpdate()" class="underdash" >Recently</span>&nbsp;Visited  &nbsp;&nbsp;<button class="btn bskp-clearvisit" title="Clear Recently visited" onclick="clickRecent('ClearRecent','','','')"> <i class="fa fa-trash-o" aria-hidden="true"></i> </button>`
                     );
                 } else {
                     $(".recenthead").html(
-                        `<span onclick="recentUpdate()" style="padding-bottom: 4px;">Features
-                        <div style="border-bottom:3px solid #393b81;width:40px;"></div></span> `
+                        `<span onclick="recentUpdate()" class="underdash">Features</span> `
                     );
                 }
 
@@ -51,7 +50,7 @@ function recentUpdate() {
                 success: function (res) {
                     if (res) {
                         $(".recenthead").html(
-                            `<span style="padding-bottom: 4px; border-bottom: 3px solid #2d2f79bf;">Featured</span> `
+                            `<span class="underdash">Featured</span> `
                         );
                     }
                 },
@@ -64,8 +63,6 @@ function recentUpdate() {
 }
 
 function clickRecent(tabname, tabid, loadmenu, cardno) {
-    console.log(tabname === 'ClearRecent');
-    console.log(tabname, tabid, loadmenu, cardno);
     let newclick = true;
     for (i = 0; i < rdata.length; i++) {
          if (tabid === rdata[i].id) {
@@ -74,7 +71,11 @@ function clickRecent(tabname, tabid, loadmenu, cardno) {
         }
     }
     
- 
+    
+ if(tabname === 'ClearRecent'){
+    rdata=[];
+ }
+else{
     if (newclick) {
         var inp = {
             "name": tabname,
@@ -84,18 +85,15 @@ function clickRecent(tabname, tabid, loadmenu, cardno) {
             'update_ts': Date.now(),
         };
  rdata.push(inp);
-  console.log(rdata);
-    //  rdata.pop()
     }
 
-//  rdata.pop()
-    var obj = {
+}
+  var obj = {
         dataType: "VARCHAR",
         format: "AS_IS",
         name: USER_OBJ.user.email,
         value: JSON.stringify(rdata),
     };
-    console.log(obj);
 
     $.ajax({
         url: API_BASE_PATH + "/domain/property/upsert/" + API_TOKEN,
@@ -103,8 +101,7 @@ function clickRecent(tabname, tabid, loadmenu, cardno) {
         contentType: "application/json",
         type: "post",
         success: function (res) {
-            if (res) {
-            }
+           
         },
         error: function (err) {
             console.log("Error in execution");
@@ -182,7 +179,6 @@ function recentcard(rdata) {
         }
        
         for (let i = 0; i < (rdata.length >= 5 ? 5 : rdata.length ); i++) {
-            console.log(rdata);
             if (i >= 0 && i <= 2) {
                 $("#recentMegaMenuList").append(
                     ` <div class="col-sm-6 col-xs-6 megacard" onclick="loadNewpage(` +

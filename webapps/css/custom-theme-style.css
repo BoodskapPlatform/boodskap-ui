@@ -135,7 +135,7 @@
 /* ------- Header ends-------*/
 .bskp-dash-head h1 {
     font-weight: 600;
-    color: darkslategrey;
+    color: black;
 
 }
 
@@ -236,6 +236,9 @@
 }
 .bskp-bord-icon{
     border: 1px solid #cbd5e4 !important;
+}
+.bskp-bord-icon i{
+vertical-align: middle;
 }
 .bskp-rightpanel .panel-heading >h4 > span{
     font-size: 14px;
@@ -1121,6 +1124,9 @@ input[type=file]{
     color: #3b3ea0 !important;
     background: white !important;
 }
+.bskp-headbtn em{
+
+}
 .minus-none{
     display: none;
 }
@@ -1137,4 +1143,13 @@ input[type=file]{
 .bskp-close{
     border-radius: 13px; 
      padding:3px; 
+}
+
+
+.bskp-clearvisit{
+    color: #a0a0a0;
+    padding: 0px 4px !important;
+    background: #eaf1f6;
+    border: 1px solid #c6c6c6;
+    border-radius: 6px !important;
 }
