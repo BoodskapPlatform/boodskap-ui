@@ -27,6 +27,7 @@
 .bskp-modal tbody>tr:first-child>td {
     padding: 10px 15px !important;
 }
+
 </style>
 
 <div class="container mt-3 platformBody">
@@ -36,7 +37,7 @@
     <!-- begin page-header -->
     <div class="d-flex bskp-dash-head" >
         <h1 class="page-header fw-900" style="margin:0 0 3px">Welcome to Boodskap IoT Platform!
-            <small class="hidden-xs" style=" font-size: 55%;color: #868686de;font-weight: 600;"> <u onclick="openGetStartedModal()" style="color:#565656;cursor: pointer;">Let's start</u> building your IoT Solutions on the fly. </small>
+            <small class="hidden-xs bskp-small"> <u  class=" cursor-pointer"onclick="openGetStartedModal()" >Let's start</u> building your IoT Solutions on the fly. </small>
     
         </h1>
     </div>
@@ -49,7 +50,7 @@
 
                 <div class="col-lg-9  mb-3 bskp-main-sec">
                     <div class="d-flex bskp-dash-head pt-2" style="margin:0px !important;" >
-                        <h1 class="page-header fw-900 recenthead" style="font-size:16px;"> <span onclick="recentUpdate()" style="padding-bottom: 4px; border-bottom: 3px solid #2d2f79bf;">Features</span> </h1>
+                        <h1 class="page-header fw-900 recenthead" style="font-size:16px;"> <span class="underdash" >Features</span> </h1>
                         <ol class="breadcrumb pull-right mb-2 hidden-xs">
                             <li class="breadcrumb-item">
                               <form class="bskp-dash-search position-relative">
@@ -515,8 +516,8 @@
                                     </a>
                                 </h4>
 
-                            </div>
-                            <div class="panel-body" style="border: 1px solid #eee;background-color: white;border-radius: 0px 0px 10px 10px;">
+                            </div> 
+                            <div class="panel-body" style="border:1px solid #eee;background-color: white;border-radius: 0px 0px 10px 10px;">
 
                                 <!-- <ul class="nav">
                                     <li class="col-lg-12"><a href="https://hub.docker.com/r/boodskapiot/platform" class="" target="_blank">
