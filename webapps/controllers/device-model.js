@@ -1,5 +1,5 @@
 var deviceModelTable = null;
-var current_device_model_id = null;
+var current_device_model_id = {};
 var device_model_list = [];
 
 
@@ -14,7 +14,6 @@ $(document).ready(function () {
 
 
 function loadDeviceModelList() {
-
 
     if (deviceModelTable) {
         deviceModelTable.destroy();
@@ -55,8 +54,8 @@ function loadDeviceModelList() {
             mRender: function (data, type, row) {
 
                 return '<button class="btn bskp-edit-btn mr-2" onclick="openModal(4,\'' + row["id"] + '\')" title="Board Configuration">  <img src="images/settings.svg" alt=""> </button>' +
-                    '<button class="btn bskp-edit-btn mr-2" onclick="openModal(2,\'' + row["id"] + '\')"> <img src="images/edit.svg" alt=""> </button>' +
-                    '<button class="btn bskp-trash-btn" onclick="openModal(3,\'' + row['id'] + '\')">  <img src="images/trash2.svg" alt=""> </button>';
+                    '<button class="btn bskp-edit-btn mr-2" onclick="openModal(2,\'' + row["id"] + '\')" title="Edit"> <img src="images/edit.svg" alt=""> </button>' +
+                    '<button class="btn bskp-trash-btn" onclick="openModal(3,\'' + row['id'] + '\')" title="Delete">  <img src="images/trash2.svg" alt=""> </button>';
             }
         }
 
@@ -101,6 +100,7 @@ function loadDeviceModelList() {
         }
 
         deviceModelTable = $("#deviceModelTable").DataTable(tableOption);
+        $('.dataTables_filter input').attr('maxlength', 100)
     })
 
 
@@ -206,6 +206,7 @@ function addDevice() {
             $(".btnSubmit").removeAttr('disabled');
             errorMsgBorder('Device Model ID already exist', 'device_id');
         } else {
+            
             upsertDeviceModel(deviceObj,function (status, data) {
                 if (status) {
                     successMsg('Device Model Created Successfully');
@@ -223,7 +224,7 @@ function addDevice() {
 
 
 function updateDevice() {
-
+alert('update')
     var deviceObj = {
         "id": $("#device_id").val(),
         "description": $("#device_desc").val(),
@@ -232,6 +233,7 @@ function updateDevice() {
 
     upsertDeviceModel(deviceObj, function (status, data) {
         if (status) {
+            console.log(deviceObj.id)
             successMsg('Device Model Updated Successfully');
             loadDeviceModelList();
             $("#addDevice").modal('hide');

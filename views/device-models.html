@@ -5,6 +5,7 @@
     color: #fff !important;
 }
 </style>
+<link href="webapps/css/device-management.css" rel="stylesheet"/>
 <div class="row-fluid mt-4">
 <ul class="nav bskp-submenu2" >
     <!-- <li class=""><a href="<%= basepath %>/home"><i class="fa fa-home"></i> </a></li> -->
@@ -43,7 +44,7 @@
                 <div class="col-12">
                   <div class="btn-group btn-group-justified pull-right bskp-btn-group-align" >
                     <a class="btn bskp-btn-shadow bskp-blue-bg" onclick="openModal(1)"><img src="images/menu/plusicon.svg" class="bskp-plusvg"> <span class="hidden-xs">Add Device Model</span></a>
-                    <a class="btn bskp-refresh-bg" data-click="panel-reload" onclick="loadDeviceModelList()"><i class="fa fa-refresh"></i></a>
+                    <a class="btn bskp-refresh-bg" data-click="panel-reload" onclick="loadDeviceModelList()" title="Refresh"><i class="fa fa-refresh"></i></a>
                   </div>
                   <div class="bskp-table-layout">
                     <table class="table table-bordered bskp-table responsive no-wrap" id="deviceModelTable"  cellspacing="0" width="100%">
@@ -146,13 +147,14 @@
                 </button>
                 <!-- <button type="button" class="close" data-dismiss="modal"   aria-label="Close"> <i class="fa fa-times" aria-hidden="true"></i> </button> -->
             </div>
-            <form action="javascript:void(0)">
+            <form action="javascript:void(0)" novalidate>
                 <div class="modal-body">
                     <div  class="row">
                         <div  class="col-md-12">
                             <div  class="form-group">
                                 <label  class="inputLabel">Board Configuration</label>
                                 <textarea  class="form-control input-sm" id="board_config" placeholder="{name: 'value'}" required style="height: 200px;"></textarea>
+                                <span id="logboard_config"></span>
                             </div>
                         </div>
                     </div>
