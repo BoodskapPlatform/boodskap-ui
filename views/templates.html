@@ -4,11 +4,14 @@
         background: none !important;
         color:black;
         font-family: Montserrat;
+        
     }
+    
      .table>tbody>tr>td {
         margin:10px;
         padding: 15px;
     } 
+ 
     .close_icon{
     border-radius: 13px;padding:3px
 
@@ -18,10 +21,18 @@
 }
 .ace-monokai .ace_gutter-active-line{
     background-color: #dadada;
+
 }
 .ace-monokai .ace_marker-layer .ace_active-line {
     background-color:#e8f2fe;
+    color: black;
 }
+/* .ace_scrollbar .ace_scrollbar-h{
+    margin-right: 15px !important;
+} */
+/* .ace_scrollbar .ace_scrollbar-v
+.ace_scrollbar-inner
+.ace_scrollbar .ace_scrollbar-h */
 
   /* .ace-eclipse .ace_gutter{
         background-color: hsl(210deg 31% 95%);
@@ -38,6 +49,7 @@
 
     .ace-monokai .ace_gutter{
         background-color: hsl(210deg 31% 95%);
+        
     }
     .ace-monokai{
         background-color: #ffffff;
@@ -46,6 +58,7 @@
         border-radius: 10px;
         
     }
+  
 </style>
 <link rel="stylesheet" href="/webapps/css/Event-Logs.css">
 <!--<div class="row-fluid">
@@ -137,7 +150,7 @@
                         <label><input type="radio" name="systemFlag" value="false" onchange="loadTemplates()" checked/> False </label>
                     </div>
                     <div class=" btn-group-justified pull-right">
-                        <a style="background-color:#2d2f79;border-radius:14px;color: white;font-weight:400;" class="btn mr-3" onclick="openModal(1)"><img class="pb-1" src="images/plus.svg" width="18px" height="18px" alt=""> <span class="hidden-xs">Add Template</span></a>
+                        <a style="background-color:#2d2f79;border-radius:10px;color: white;font-weight:400;font-size:14px;height:32px;" class="btn mr-3" onclick="openModal(1)"><img class="pb-1" src="images/plus.svg" width="18px" height="18px" alt=""> <span class="hidden-xs">Add Template</span></a>
                         <a class="btn mr-2" style="background-color:#ffffff;border:1px solid rgb(234 241 246);border-radius:10px;width:40px;" onclick="openModal(2)"><img src="images/menu/upload.svg" width="15px"height="15px" alt=""> <span class="hidden-xs"></span></a>
                         <a class="btn mr-2"style="background-color:#ffffff;border:1px solid rgb(234 241 246);border-radius:10px;width:40px" onclick="openModal(3)"><img src="images/menu/download.svg" width="15px"height="15px" alt=""><span class="hidden-xs"></span></a>
                         <a  class="btn  mr-2 bskp-refresh-bg" style="width:40px;" data-click="panel-reload" onclick="loadTemplates()"><i class="fa fa-refresh"></i></a>
@@ -157,6 +170,7 @@
      </div>
     <!-- end panel -->
 </div>
+
 
 <script src="js/editor/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/editor/src-noconflict/ext-language_tools.js" type="text/javascript" charset="utf-8"></script>
@@ -202,6 +216,7 @@
                             <div  class="form-group">
                                 <label  class="inputLabel">Template</label>
                                 <div id="codeEditor" style="height: 300px"></div>
+                                <div class=".ace_scrollbar ace_scrollbar-v"></div>
 <!--                                <textarea  class="form-control input-sm" placeholder="" type="text"  id="template_code" style="height: 300px;" required></textarea>-->
                             </div>
                         </div>
