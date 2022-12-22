@@ -1,6 +1,7 @@
 
     <link href="css/marketplace.css" rel="stylesheet" />
     <link href="css/mart-sidenav.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 <style>
 
@@ -57,104 +58,149 @@
      <div class="page-header bskp-mart-topic"><img src="images/menu/market-place.svg" class="bskp-topic-icon mr-1"> Marketplace
         <span class="panel-title ml-3" style="color: #2D2F79;">Total Widgets: <strong><span class="widgetsCount">4</span></strong></span> </div>
        <div class="frame">
-        <div class="side-bar  bskp-mart-panel">
+        <div class="side-bar ml-3 bskp-mart-panel">
           <form class="bskp-mart-search position-relative">
           <i class="fa fa-search" aria-hidden="true"></i> &nbsp;  
                 <div class="bskp-w-100 d-inline-flex">
-                  <input type="search" class="form-control bskp-w-100 input-sm searchcard" onkeyup="" autocomplete="off" maxlength="100" id="search_home" placeholder="Search here..." aria-controls="messageTable" required="required" title="Search">
+                  <input type="search" class="form-control bskp-w-100 input-sm searchcard" autocomplete="off" maxlength="100" onkeyup="loadWidgets()" id="searchBox" placeholder="Search by widget name, tags" aria-controls="messageTable" required="required" title="Search">
                   <span class="sclose d-none position-absolute" onclick="refresh()" aria-label="Close" style="right: 14px;cursor: pointer;">
                     <img src="images/close.svg" height="15" alt=""> </span>
                </div>
           </form>
-          <div class="logo-name-wrapper">
+          <div class="mt-1 logo-name-wrapper">
             <div class="logo-name">
-              <img
-                src="./assets/images/logo.png"
-                class="logo"
-                alt="logo app"
-                srcset=""
-              />
-              <span class="logo-name__name">Lincoln Botosh</span>
+                <em class="fa fa-sliders equl-icon" aria-hidden="true"></em>
+            &nbsp; <strong class="category-item-text"> Filters</strong>
             </div>
-            <button class="logo-name__button">
-              <i
-                class="bx bx-arrow-from-right logo-name__icon"
-                id="logo-name__icon"
-              ></i>
+            <button class="btn logo-name__button">
+                <i class="fa fa-sign-out exit-icon" aria-hidden="true"></i>
             </button>
           </div>
-          
-          <ul class="category-list">
-            <div class="category-header">Message categories</div>
-            <li class="category-item">
-              <span
-                class="category-item-status"
-                style="background-color: #79d861"
-              ></span
-              ><span class="category-item-text">My works</span
-              ><span class="category-item-number">9</span>
-              <span class="tooltip">My works</span>
-            </li>
-            <li class="category-item">
-              <span
-                class="category-item-status"
-                style="background-color: #c43c5d"
-              ></span
-              ><span class="category-item-text">Accountant</span
-              ><span class="category-item-number">43</span>
-              <span class="tooltip">Accountant</span>
-            </li>
-            <li class="category-item">
-              <span
-                class="category-item-status"
-                style="background-color: #ff5050"
-              ></span
-              ><span class="category-item-text">Works</span
-              ><span class="category-item-number">78</span>
-              <span class="tooltip">Works</span>
-            </li>
-            <li class="category-item">
-              <span
-                class="category-item-status"
-                style="background-color: #42ffdd"
-              ></span
-              ><span class="category-item-text">Marketing</span
-              ><span class="category-item-number">253</span>
-              <span class="tooltip">Marketing</span>
-            </li>
-          </ul>
-          <ul class="chat-list">
-            <div class="chat-header">recent chats</div>
-            <button class="chat-new-btn">
-              <i class="bx bxs-plus-circle chat-icon"></i>
-              <span class="chat-new-btn-text">Start New Chat</span>
-              <span class="tooltip">New Chat</span>
-            </button>
-            <li class="chat-item">
-              <span class="chat-item-avatar-wrapper has-message">
-                <img
-                  src="./assets/images/chris-evans.jpg"
-                  alt="avatar"
-                  class="chat-item-avatar"
-                />
-              </span>
-              <span class="chat-item-name">Steve Rogers</span>
-              <span class="chat-item-number">53</span>
-            </li>
-            <li class="chat-item">
-              <span class="chat-item-avatar-wrapper">
-                <img
-                  src="./assets/images/tony-stark.jpg"
-                  alt="avatar"
-                  class="chat-item-avatar"
-                />
-              </span>
-              <span class="chat-item-name">Tony Stark</span
-              ><span
-                class="chat-item-status"
-                style="background-color: #79d861"
-              ></span>
-            </li>
+          <hr>
+          <ul class="category-list pl-0">
+            <div class="mt-3 logo-name-wrapper" class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                <div class="logo-name">
+                    <em class="fa fa-list-ul list-icon pr-1" aria-hidden="true"></em>
+                &nbsp; <strong class="category-item-text"> Select Category</strong>
+                </div>
+                <button class="btn logo-name__button">
+                    <i class="fa fa-angle-down dropicon" aria-hidden="true"></i>
+                </button>
+              </div>
+                       
+            <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                <div class="category-item">
+                   <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input category-item-text" type="checkbox" id="inlineCheckbox1" value="option1">
+                            <label class="form-check-label category-item-text" for="inlineCheckbox1">Charts & Graphs</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input category-item-text" type="checkbox" id="inlineCheckbox1" value="option1">
+                            <label class="form-check-label category-item-text" for="inlineCheckbox1">Agriculture</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input category-item-text" type="checkbox" id="inlineCheckbox1" value="option1">
+                            <label class="form-check-label category-item-text" for="inlineCheckbox1">Grid & Tables</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input category-item-text" type="checkbox" id="inlineCheckbox1" value="option1">
+                            <label class="form-check-label category-item-text" for="inlineCheckbox1">Healthcare</label>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <hr>
+            <div class="mt-3 logo-name-wrapper" class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseThree">
+                <div class="logo-name">
+                    <em class="fa fa-list-ul list-icon pr-1" aria-hidden="true"></em>
+                &nbsp; <strong class="category-item-text"> Select Category</strong>
+                </div>
+                <button class="btn logo-name__button">
+                    <i class="fa fa-angle-down dropicon" aria-hidden="true"></i>
+                </button>
+              </div>
+                       
+            <div id="collapseThree" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                <div class="category-item">
+                   <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input category-item-text" type="checkbox" id="inlineCheckbox1" value="option1">
+                            <label class="form-check-label category-item-text" for="inlineCheckbox1">Charts & Graphs</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input category-item-text" type="checkbox" id="inlineCheckbox1" value="option1">
+                            <label class="form-check-label category-item-text" for="inlineCheckbox1">Agriculture</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input category-item-text" type="checkbox" id="inlineCheckbox1" value="option1">
+                            <label class="form-check-label category-item-text" for="inlineCheckbox1">Grid & Tables</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input category-item-text" type="checkbox" id="inlineCheckbox1" value="option1">
+                            <label class="form-check-label category-item-text" for="inlineCheckbox1">Healthcare</label>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <hr>
+            <div class="mt-3 logo-name-wrapper" class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseTwo">
+                <div class="logo-name">
+                    <em class="fa fa-list-ul list-icon pr-1" aria-hidden="true"></em>
+                &nbsp; <strong class="category-item-text"> Select Category</strong>
+                </div>
+                <button class="btn logo-name__button">
+                    <i class="fa fa-angle-down dropicon" aria-hidden="true"></i>
+                </button>
+              </div>
+                       
+            <div id="collapseFour" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                <div class="category-item">
+                   <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input category-item-text" type="checkbox" id="inlineCheckbox1" value="option1">
+                            <label class="form-check-label category-item-text" for="inlineCheckbox1">Charts & Graphs</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input category-item-text" type="checkbox" id="inlineCheckbox1" value="option1">
+                            <label class="form-check-label category-item-text" for="inlineCheckbox1">Agriculture</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input category-item-text" type="checkbox" id="inlineCheckbox1" value="option1">
+                            <label class="form-check-label category-item-text" for="inlineCheckbox1">Grid & Tables</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input category-item-text" type="checkbox" id="inlineCheckbox1" value="option1">
+                            <label class="form-check-label category-item-text" for="inlineCheckbox1">Healthcare</label>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+           
           </ul>
       </div>
 
@@ -349,9 +395,10 @@
 </div>
 <script>
     {
-  let sideBar = document.querySelector('.side-bar');
+  let sideBar = document.querySelector('.side-bar'); 
+  let exit = document.querySelector('.exit-icon'); 
   let arrowCollapse = document.querySelector('#logo-name__icon');
-  sideBar.onclick = () => {
+  exit.onclick = () => {
     sideBar.classList.toggle('slim');
     arrowCollapse.classList.toggle('slim');
     if (arrowCollapse.classList.contains('slim')) {
