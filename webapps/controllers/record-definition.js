@@ -179,6 +179,7 @@ function openModal() {
 
 function openEditModal(id) {
     $(".modal-title").html("Edit Record")
+    $("#msg_desc").css('height','90px');
     MSG_FIELD_COUNT = 0;
  TEMP_MSG_FIELD_COUNT=0;
     for(var i=0;i<message_list.length;i++){

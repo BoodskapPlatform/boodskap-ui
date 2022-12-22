@@ -181,7 +181,7 @@ function recentcard(rdata) {
         for (let i = 0; i < (rdata.length >= 5 ? 5 : rdata.length ); i++) {
             if (i >= 0 && i <= 2) {
                 $("#recentMegaMenuList").append(
-                    ` <div class="col-sm-6 col-xs-6 megacard" onclick="loadNewpage(` +
+                    ` <div class="col-sm-6 col-xs-6 megacard" onclick="loadMenu(` +
                     rdata[i].loadmenu +
                     `)">
      <div class="card modules bskp-home-modules"onclick="clickRecent('` +
@@ -203,7 +203,7 @@ function recentcard(rdata) {
             }
             if (i > 2 && rdata[i] !== undefined) {
                 $("#recentMegaMenuList").append(
-                    ` <div class="col-sm-6 col-xs-6 more-Mrecent megacard" onclick="loadNewpage(` +
+                    ` <div class="col-sm-6 col-xs-6 more-Mrecent megacard" onclick="loadMenu(` +
                     rdata[i].loadmenu +
                     `)">
         <div class="card modules bskp-home-modules"onclick="clickRecent('` +
