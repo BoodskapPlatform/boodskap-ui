@@ -1,88 +1,4 @@
-<style>
-     @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
-    code{
-        background: none !important;
-        color:black;
-        font-family: Montserrat;
-        
-    }
-    .dataTables_scrollHeadInner{
-         background-color:  #e8f2fe!important; 
-        /* padding: 0px !important; */
-        border-radius: 10px;
-    }
-    
-     .table>tbody>tr>td {
-        margin:10px;
-        padding: 15px;
-    } 
- 
-    .close_icon{
-    border-radius: 13px;padding:3px
-
-}
-.ace_text-input{
-    color: red;
-}
-
-.ace-monokai .ace_gutter-active-line{
-    background-color: #dadada;
-
-}
-.ace-monokai .ace_marker-layer .ace_active-line {
-    background-color:#e8f2fe;
-    color: black;
-}
-
-    .ace-monokai .ace_gutter{
-        background-color: hsl(210deg 31% 95%);
-        
-    }
-    .ace-monokai{
-        background-color: #ffffff;
-        color: rgb(41, 36, 36);
-        border: 2px solid  #eaf1f6;
-        border-radius: 10px;
-        
-    }
-    .count{
-        color:#2d2f79;
-
-    }
-    .systemTemplate{
-        display: none
-
-    }
-    .btn_add_Templates{
-        background-color:#2d2f79;border-radius:10px;color:white !important;font-weight:400;font-size:14px;height:32px;
-        
-    }
-    .platformBody{
-       padding-bottom: 145px;
-       background-color: hsl(205deg 40% 94%);
-       padding-top: 30px;
-    }
-    .paginate_button{
-    border: 2px;
- }
- 
- .bskp-table-layout select{
-    border-radius: 10px !important;
-    padding: 6px;
- }
- .bskp-search-left input{
-    border-radius: 10px;
-    
- }
- ol li{
-    font-size: 12px;
- }
- .breadcrumb{
-    align-items: center;margin: 15px 30px 0px 0px;
-
- }
-  
-</style>
+<link rel="stylesheet" href="css/Platform-Templates.css">
 
 
 <div class="panel container msgDef  platformBody">  
@@ -116,10 +32,10 @@
                         <label><input type="radio" name="systemFlag" value="false" onchange="loadTemplates()" checked/> False </label>
                     </div>
                     <div class=" btn-group-justified pull-right">
-                        <a class="btn mr-3 btn_add_Templates" onclick="openModal(1)"><img class="pb-1" src="images/menu/plusicon.svg" width="20px" height="20px" alt=""> <span class="hidden-xs">Add Template</span></a>
-                        <a class="btn mr-2" style="background-color:#ffffff;border:1px solid rgb(234 241 246);border-radius:10px;width:40px;" onclick="openModal(2)"><img src="images/menu/upload.svg" width="15px"height="15px" alt=""> <span class="hidden-xs"></span></a>
-                        <a class="btn mr-2"style="background-color:#ffffff;border:1px solid rgb(234 241 246);border-radius:10px;width:40px" onclick="openModal(3)"><img src="images/menu/download.svg" width="15px"height="15px" alt=""><span class="hidden-xs"></span></a>
-                        <a  class="btn  mr-2 bskp-refresh-bg" style="width:40px;" data-click="panel-reload" onclick="loadTemplates()"><i class="fa fa-refresh"></i></a>
+                        <a class="btn mr-3 btn_add_Templates"  onclick="openModal(1)"><img class="pb-1" src="images/menu/plusicon.svg" width="18px" height="18px" alt="add"> <span class="hidden-xs">Add Template</span></a>
+                        <a class="btn mr-2 btn_upload_templates" title="Upload" onclick="openModal(2)"><img src="images/menu/upload.svg" width="15px"height="15px" alt="upload"> <span class="hidden-xs"></span></a>
+                        <a class="btn mr-2 btn_download_Templates" title="Download" onclick="openModal(3)"><img src="images/menu/download.svg" width="15px"height="15px" alt="download"><span class="hidden-xs"></span></a>
+                        <a  class="btn  mr-2 bskp-refresh-bg" style="width:40px;" title="Refresh" data-click="panel-reload" onclick="loadTemplates()"><i class="fa fa-refresh"></i></a>
                     </div>
                 <div class="col-12">
                     <!-- <div class="btn-group btn-group-justified pull-right bskp-btn-group-align " >
@@ -164,7 +80,7 @@
                             <div  class="form-group">
                                 <label  class="inputLabel">Name</label>
                                 <input  class="form-control input-sm" placeholder="" type="text" id="template_name">
-                                <span style="color: red;font-weight: 600;" id="template_error"></span>
+                                <span class="name_error_templates" id="template_error"></span>
                             </div>
                         </div>
                         <div  class="col-md-6">
@@ -220,7 +136,7 @@
 </div><!-- /.modal -->
 
 
-<div id="uploadTemplate" class="bskp-modal modal fade" tabindex="-1" role="dialog" style="">
+<div id="uploadTemplate" class="bskp-modal modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -240,7 +156,7 @@
                             <div class="form-group">
                                 <label class="inputLabel">Choose Template file</label>
                                 <input class="form-control" type="file" name="tfile" id="templateFile">
-                                <span style="color:red;font-weight:600;" id="file_error"></span>
+                                <span class="file_error_templates" id="file_error"></span>
                             </div>
                         </div>
                     </div>

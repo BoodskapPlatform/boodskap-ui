@@ -150,6 +150,8 @@ function openModal(type,id) {
         $("#addTemplate form").attr('onsubmit','addTemplate()')
     }else if (type === 2) {
         $("#uploadTemplate form")[0].reset();
+      $('#uploadTemplate').modal({ backdrop: 'static', keyboard: false })
+
         $("#uploadTemplate").modal('show');
     }else if (type === 3) {
         downloadTemplates( $("input[name='systemFlag']:checked").val(), function (status, data) {
@@ -172,10 +174,17 @@ function openModal(type,id) {
                 errorMsg('Error in download')
             }
         })
+        
     }else if (type === 4) {
+     $('#deleteModal').modal({ backdrop: 'static', keyboard: false })
+
         current_template_name = id;
         $(".templateName").html(id)
         $("#deleteModal").modal('show');
+        
+
+        
+
     }else if (type === 5) {
         $(".templateAction").html('Update');
         var obj ={};
@@ -201,6 +210,8 @@ function openModal(type,id) {
         });
         $("#addTemplate form").attr('onsubmit','updateTemplate()')
     }
+
+    
 }
 
 
