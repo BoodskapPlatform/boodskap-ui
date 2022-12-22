@@ -3,6 +3,7 @@
     margin-right: 20px;
     width: 20rem;
     height: 100%;
+    float: left;
     padding: 1.2rem;
     background-color: #ffffff;
     transition: all 0.5s ease;
@@ -328,3 +329,20 @@
   .side-bar.slim .chat-item-avatar-wrapper::before {
     opacity: 1;
   }
+
+
+  .bskp-mart-search input{
+    width:100%;
+    height: 34px;
+    padding: 6px 32px 6px 30px;
+    background: white;
+    margin: 0 !important;
+    border-radius: 12px;
+  }
+  .bskp-mart-search i {
+    font-size: 14px;
+    position: absolute;
+    color: darkgray;
+    left: 14px;
+    top: 26px;
+}

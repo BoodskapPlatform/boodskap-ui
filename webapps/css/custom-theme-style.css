@@ -405,7 +405,7 @@ color: #1a1a1a !important;
 }
 
 .bskp-trash-btn {
-    padding: 0px 4px !important;
+    padding: 0px 4px 3px 4px !important;
     background: white;
     border: 1px solid #f4a6c3;
     border-radius: 6px !important;
