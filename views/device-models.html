@@ -1,26 +1,25 @@
-<link href="css/device-management.css" rel="stylesheet"/>
 <style>
     .bskp-submenu2.nav>li.active>a:hover{
     background: #2D2F79 !important;
     color: #fff !important;
 }
 </style>
-<link href="webapps/css/device-management.css" rel="stylesheet"/>
+<link href="css/device-management.css" rel="stylesheet"/>
 <div class="row-fluid mt-4">
 <ul class="nav bskp-submenu2" >
-    <!-- <li class=""><a href="<%= basepath %>/home"><i class="fa fa-home"></i> </a></li> -->
+    
     <li class=""><a href="<%= basepath %>/dashboard">Dashboard</a></li>
     <li><a href="<%= basepath %>/device-management">Manage Devices</a></li>
     <li class="active"><a href="<%= basepath %>/device-models">Manage Device Models</a></li>
-<!--    <li class=""><a href="<%= basepath %>/sim-provisioning">Sim Provisioning</a></li>-->
+
 </ul>
 </div>
 <div class="container platformBody ">
    
-    <!-- begin panel -->
+    
  <div class="panel panel-inverse bskp-container-frame">
 
-         <!-- begin breadcrumb -->
+         
    <div>
     <ol class="breadcrumb pull-right bskp-align-icon">
         <li class="breadcrumb-item"><a href="<%= basepath %>/dashboard">Domain</a></li>
@@ -32,12 +31,11 @@
         </div>
     </ol>
    </div>
-    <!-- end breadcrumb -->
-    <!-- begin page-header -->
+    
     <div class="page-header bskp-page-topic"><img src="images/menu/hardware-fanta_1-bskp.svg" class="bskp-topic-icon mr-1" > Manage Device Models
         <span class="panel-title ml-3" >Total Device Models: <b><span class="deviceModelCount"></span></b></span> </div>
     
-    <!-- end page-header -->
+    
 
         <div class="panel-body">
             <div class="row m-0">
@@ -55,7 +53,7 @@
         </div>
         </div>
  </div>
-    <!-- end panel -->
+    
 
 </div>
 
@@ -71,7 +69,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <image src="images/menu/xicon.svg" class="bg-secondary"  onclick="onclosebutton()" style="border-radius: 13px;padding:3px">
                 </button>
-                <!-- <button type="button" class="close" data-dismiss="modal"   aria-label="Close"> <i class="fa fa-times" aria-hidden="true"></i> </button> -->
+                
             </div>
             <form action="javascript:void(0)" novalidate onsubmit="addDevice();">
                 <div class="modal-body">
@@ -103,7 +101,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary btn-close" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btnModal btn-secondary  btnSubmit">Proceed</button>
+                    <button type="submit" class="btn btnModal btn-secondary btn-proceed  btnSubmit ">Proceed</button>
                 </div>
             </form>
         </div><!-- /.modal-content -->
@@ -120,7 +118,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <image src="images/menu/xicon.svg" class="bg-secondary"  onclick="onclosebutton()" style="border-radius: 13px;padding:3px">
                 </button>
-                <!-- <button type="button" class="close" data-dismiss="modal"   aria-label="Close"> <i class="fa fa-times" aria-hidden="true"></i> </button> -->
+                
             </div>
             <div class="modal-body">
                 <h5>Are you sure want to delete <b><span class="deviceId"></span> device model</b>?</h5>
@@ -145,7 +143,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <image src="images/menu/xicon.svg" class="bg-secondary"  onclick="onclosebutton()" style="border-radius: 13px;padding:3px">
                 </button>
-                <!-- <button type="button" class="close" data-dismiss="modal"   aria-label="Close"> <i class="fa fa-times" aria-hidden="true"></i> </button> -->
+                
             </div>
             <form action="javascript:void(0)" novalidate>
                 <div class="modal-body">

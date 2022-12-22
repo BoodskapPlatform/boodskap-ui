@@ -15,8 +15,8 @@ $(document).ready(function () {
 
 var POOL_TYPE = {
     "C3P0": [
-        { name: "Name", type: "string", mandatory: false, id: "name" },
-        { name: "URL", type: "string", mandatory: true, text: "JdbcURL must be required", id: "url" },
+        { name: "Name", type: "string", mandatory: false, id: "name"},
+        { name: "JdbcURL", type: "string", mandatory: true, text: "JdbcURL must be required", id: "jdbcurl" },
         { name: "User", type: "string", mandatory: true, text: "User must be required", id: "username" },
         { name: "Password", type: "password", mandatory: true, text: "Password must be required",  id: "password" },
         { name: "DriverClass", type: "string", mandatory: true, text: "ClassName must be required", id: "driverclass" },
@@ -24,7 +24,7 @@ var POOL_TYPE = {
     ],
     "DBCP": [
         { name: "Name", type: "string", mandatory: false, id: "name" },
-        { name: "URL", type: "string", mandatory: true, text: "URL must be required", id: "url" },
+        { name: "URL", type: "string", mandatory: true, text: "URL must be required", id: "jdbcurl" },
         { name: "Username", type: "string", mandatory: true, text: "Username must be required", id: "username" },
         { name: "Password", type: "password", mandatory: true, text: "Password must be required", id: "password" },
         { name: "Driver ClassName", type: "string", mandatory: true, text: "ClassName must be required", id: "driverclass" },
@@ -32,7 +32,7 @@ var POOL_TYPE = {
     ],
     "HIKARI": [
         { name: "Name", type: "string", mandatory: false, id: "name" },
-        { name: "URL", type: "string", mandatory: true, text: "JdbcURL must be required", id: "url" },
+        { name: "jdbcURL", type: "string", mandatory: true, text: "JdbcURL must be required", id: "jdbcurl" },
         { name: "User", type: "string", mandatory: true, text: "user must be required", id: "username" },
         { name: "Password", type: "password", mandatory: true, text: "password must be required",class:"inputpassword", id: "password" },
         { name: "Data Source ClassName", type: "string", text: 'dataSourceClassName/driverClassName must be required', mandatory: true, id: "datasource" },
@@ -42,7 +42,7 @@ var POOL_TYPE = {
     "TOMCAT": [
         { name: "Name", type: "string", mandatory: false, id: "name" },
 
-        { name: "URL", type: "string", mandatory: true, text: "URL must be required", id: "url" },
+        { name: "URL", type: "string", mandatory: true, text: "URL must be required", id: "jdbcurl" },
         { name: "Username", type: "string", mandatory: true, text: "Username must ne required", id: "username" },
         { name: "Password", type: "password", mandatory: true, text: "password must be required", id: "password" },
         { name: "Driver ClassName", type: "string", mandatory: true, text: 'dataSourceClassName/driverClassName must be required', id: "driverclass" },
@@ -88,10 +88,12 @@ function loadDBPool() {
             orderable: false,
             sWidth: '40%',
             mRender: function (data, type, row) {
+                console.log(row,"---------------")
                 var code = js_beautify(JSON.stringify(row[row['type'].toLowerCase() + 'Args']), { indent_size: 4 })
-                
+                console.log(code)
 
                 return '<textarea class="form-control" style="width: 100%;height: 250px;resize: none;background-color: #fff;color: #333;opacity: 0.8;" readonly>' + code + '</textarea>';
+            
             }
         },
         {
@@ -101,9 +103,9 @@ function loadDBPool() {
             sWidth: '15%',
             mRender: function (data, type, row) {
 
-                var str = '<button class="btn bskp-trash-btn  " onclick="openModal(2,\'' + row['id'] + '\')"><img src="images/menu/trash.svg" alt=""></button>'
+                var str = '<button class="btn bskp-trash-btn  " onclick="openModal(2,\'' + row['id'] + '\')"><img src="images/trash2.svg" alt=""></button>'
 
-                return '<button class="btn bskp-edit-btn mr-3" onclick="openModal(3,\'' + row["id"] + '\')"><img src="images/menu/edit.svg" alt=""></button>' +
+                return '<button class="btn bskp-edit-btn mr-3" onclick="openModal(3,\'' + row["id"] + '\')"><img src="images/edit.svg" alt=""></button>' +
                     str;
             }
         }
@@ -213,6 +215,8 @@ function loadDBPool() {
     };
 
     poolTable = $("#poolTable").DataTable(tableOption);
+    $('form-control input-sm').attr('maxlength', 100)
+
 
 
 }
@@ -230,6 +234,10 @@ function openModal(type, id) {
         $("#addPool form")[0].reset();
         $("#addPool").modal('show');
         $("#addPool form").attr('onsubmit', 'addPool()')
+        $("#pool_type1").val("HIKARI")
+        $("#pool_type2").val("DBCP") 
+        $("#pool_type3").val("C3P0")
+        $("#pool_type4").val("TOMCAT")
         renderType1();
 
     }
@@ -253,23 +261,23 @@ function openModal(type, id) {
 
         current_pool_obj = obj;
 
-        // $("#pool_name").attr('readonly', 'readonly');
         $("#name").attr('readonly', 'readonly');
 
 
         $("#name").val(obj.id);
-        $.each($('.check'),function () {
+    //    $('.check'). $.each($('.check'),function () {
     
-            if($(this).prop("checked", true)){
+    //         if($(this).prop("checked", true)){
     
 
-            }
-        });
-        // $("#pool_type1").val(obj.type)
-        // $("#pool_type2").val(obj.type) 
-        // $("#pool_type3").val(obj.type)
-        // $("#pool_type4").val(obj.type)
-        // console.log(obj.type);
+    //         }
+    //     });
+        console.log(obj.type);
+        $("#pool_type1").val(obj.type)
+        $("#pool_type2").val(obj.type) 
+        $("#pool_type3").val(obj.type)
+        $("#pool_type4").val(obj.type)
+        console.log(obj.type);
 
         renderType1();
         renderType2();
@@ -327,7 +335,7 @@ function addPool() {
     var tempObj = buildData();
 
 
-    var jdbcurl = $("#url").val();
+    var jdbcurl = $("#jdbcurl").val();
     var username = $("#username").val();
     var password = $("#password").val();
     var datasource = $("#datasource").val();
@@ -335,8 +343,8 @@ function addPool() {
 
 
     if (jdbcurl == "") {
-        $("#urlerror").css("display", "block")
-        $("#url").css("border-color", "red")
+        $("#jdbcurlerror").css("display", "block")
+        $("#jdbcurl").css("border-color", "red")
 
     } else if (username == "") {
         $("#usernameerror").css("display", "block")
@@ -369,7 +377,7 @@ function addPool() {
             errorMsgBorder('DB Connection Pool name already exist', 'Name');
         } else {
             console.log(tempObj);
-            return
+            
     
             upsertDBPool(tempObj, function (status, data) {
                 if (status) {
@@ -484,19 +492,20 @@ function loadDBTable() {
         if (status) {
             var result = QueryFormatter(data).data;
             var resultData = result.data;
-
+            
             if (resultData.length > 0) {
                 var resultData = result.data[0];
-
+                
                 $(".dbMetadata").html('')
-
-
+                
+                
                 for (var i = 0; i < resultData.tables.length; i++) {
                     var table = resultData.tables[i];
+                    console.log(table,"jjjj")
                     var str = '<tr><td>' + table.name + '<br><small>scheme: ' + table.schema + '</small></td>' +
                         '<td><textarea class="form-control"  style="width: 100%;height: 150px;resize: none;background-color: #fff;color: #333;opacity: 0.8;" readonly>' +
                         js_beautify(JSON.stringify(table.fields), { indent_size: 4 }) + '</textarea></td></tr>';
-
+                    console.log(table.fields)
                     $(".dbMetadata").append(str);
 
                 }
@@ -529,8 +538,7 @@ function renderType1() {
         var pool = POOL_TYPE[id][i];
         console.log(pool)
         var str = '';
-
-        if (pool.type === 'string') {
+      if (pool.type === 'string') {
             if (pool.text) {
                 str = `
             <div  class="col-md-4">
@@ -976,10 +984,10 @@ function buildData() {
 }
 
 function checkField(obj) {
-    if (obj.id === 'url') {
+    if (obj.id === 'jdbcurl') {
         if (obj.value !== '') {
-            $("#urlerror").hide();
-            $("#url").css("border-color", "");
+            $("#jdbcurlerror").hide();
+            $("#jdbcurl").css("border-color", "");
 
 
         }
