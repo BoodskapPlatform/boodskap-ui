@@ -1,0 +1,93 @@
+
+     @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+    code{
+        background: none !important;
+        color:black;
+        font-family: Montserrat;
+        
+    }
+    .dataTables_scrollHeadInner{
+         background-color:  #e8f2fe!important; 
+        /* padding: 0px !important; */
+        border-radius: 10px;
+    }
+    
+     .table>tbody>tr>td {
+        margin:10px;
+        padding: 15px;
+    } 
+ 
+    .close_icon{
+    border-radius: 13px;padding:3px
+
+}
+.ace_text-input{
+    color: red;
+}
+
+.ace-monokai .ace_gutter-active-line{
+    background-color: #dadada;
+
+}
+.ace-monokai .ace_marker-layer .ace_active-line {
+    background-color:#e8f2fe;
+    color: black;
+}
+
+    .ace-monokai .ace_gutter{
+        background-color: hsl(210deg 31% 95%);
+        
+    }
+    .ace-monokai{
+        background-color: #ffffff;
+        color: rgb(41, 36, 36);
+        border: 2px solid  #eaf1f6;
+        border-radius: 10px;
+        
+    }
+    .count{
+        color:#2d2f79;
+
+    }
+    .systemTemplate{
+        display: none
+
+    }
+    .btn_add_Templates{
+        background-color:#2d2f79;border-radius:10px;color:white !important;font-weight:400;font-size:14px;height:32px;
+        
+    }
+    .platformBody{
+       padding-bottom: 145px;
+       background-color: hsl(205deg 40% 94%);
+       padding-top: 30px;
+    }
+    .paginate_button{
+    border: 2px;
+ }
+ 
+ .bskp-table-layout select{
+    border-radius: 10px !important;
+ }
+ .bskp-search-left input{
+    border-radius: 10px;
+    
+ }
+ ol li{
+    font-size: 12px;
+ }
+ .breadcrumb{
+    align-items: center;margin: 15px 30px 0px 0px;
+
+ }
+ .btn_upload_templates{
+    background-color:#ffffff;border:1px solid rgb(234 241 246);border-radius:10px;width:40px;
+
+ }
+ .btn_download_Templates{
+    background-color:#ffffff;border:1px solid rgb(234 241 246);border-radius:10px;width:40px
+
+ }
+  .name_error_templates, #file_error{
+    color: red;font-weight: 600;
+  }
