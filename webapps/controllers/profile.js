@@ -32,7 +32,9 @@ $(document).ready(function () {
         }
         $("#primaryDomain").append('<option value="'+val.domainKey+'">'+(val.label ? val.label : val.domainKey)+'</option>')
     }
-
+    $(".upload-image").on('click', function() {
+        $(".file-upload").click();
+     });
 
 });
 

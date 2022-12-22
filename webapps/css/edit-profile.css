@@ -22,7 +22,7 @@ body {
    border-radius: 50%;
 }
 .profile_pic{
-   max-width: 50%;
+   max-width:100%;
 }
 /* .tab-content{
    box-shadow: 0px 1px 3px 1px #d0cfcf9c !important;
@@ -33,11 +33,11 @@ body {
    position: relative;
    float: right;
    margin-right: 53px;
-   margin-top: -18px;
+   margin-top: -20px;
 }
 #tabsContent{
    box-shadow:3px 3px 7px 0px #d0cfcf9c !important;
-   border: 1px solid rgb(193 193 193 / 74%);
+   border: 1px solid #c1c1c147;
    border-radius: 0px 10px 10px 10px;
 }
 .tab-content{
@@ -48,7 +48,7 @@ body {
    background: #ffffff;
    position: absolute;
     top: -32px;
-    left: 9px;
+    left: 10px;
 }
 /* .nav-tabs:first-child {
    background-color: #4f92ff;
@@ -103,21 +103,60 @@ a.nav-link.small.active{
    opacity: 0.5;
 }
 .page-header-bg{
-   background-color: #dee1e6;
+   background-color: #eef3fb;
    border: 1px solid #c6d0de;
    border-radius: 10px 10px 0px 0px;
 }
-.fileupload{
+.circle {
+   border-radius: 100% !important;
+   overflow: hidden;
+   width: 140px;
+   height: 140px;
+   border: 2px solid rgba(255, 255, 255, 0.2);
+}
+.file-upload{
    display: none;
 }
 .upload-file{
-   position: relative;
+    position: relative;
+    top: -20px;
+    left: 55px;
 }
+
 .upload-image{
-   width: 20px;
-   position: absolute;
-   left: 20px;
+    width: 16px;
+    position: absolute;
+    left: 7px;
+    top: 7px;
+    cursor: pointer;
 }
 .upload_profile_pic{
    margin-bottom: 50px;
+   padding: 0 !important;
+}
+.read-email{
+   
+}
+.tick-right{
+   position: absolute;
+   top: 32px;
+   width: 15px;
+   right: 60px;
+}
+.outer-border{
+   width: 146px;
+   height: 146px;
+   border: 4px solid #4671be;
+   border-radius: 100px;
+   border-bottom:3px solid #c2d7ff;
+   /* border-bottom-color: #4671be; */
+   
+   /* border-right: white; */
+}
+.img-bg{
+   width: 30px;
+   height: 30px;
+   border-radius: 100px;
+   background-color: #ffffff;
+   border: 1px solid #2c2c78;
 }

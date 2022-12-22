@@ -316,7 +316,7 @@ function openModal(type,id) {
             $("#device_version").val(obj.version);
             $("#addDevice").modal('show');
             $("#addDevice form").attr('onsubmit','updateDevice()') 
-        }, 300);
+        }, 500);
         
         
     }else if (type === 3) {

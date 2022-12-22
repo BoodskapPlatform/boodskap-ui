@@ -73,6 +73,9 @@
 .refresh:hover {
     background-color: #2d2f79;
 }
+.bskp-modal{
+    z-index:9999;
+}
 
 .bskp-modal label {
     font-size: 13px;
