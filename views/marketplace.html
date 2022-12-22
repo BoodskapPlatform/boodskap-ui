@@ -56,8 +56,16 @@
 
      <div class="page-header bskp-mart-topic"><img src="images/menu/market-place.svg" class="bskp-topic-icon mr-1"> Marketplace
         <span class="panel-title ml-3" style="color: #2D2F79;">Total Widgets: <strong><span class="widgetsCount">4</span></strong></span> </div>
-       <div class="panel-row">
+       <div class="frame">
         <div class="side-bar  bskp-mart-panel">
+          <form class="bskp-mart-search position-relative">
+          <i class="fa fa-search" aria-hidden="true"></i> &nbsp;  
+                <div class="bskp-w-100 d-inline-flex">
+                  <input type="search" class="form-control bskp-w-100 input-sm searchcard" onkeyup="" autocomplete="off" maxlength="100" id="search_home" placeholder="Search here..." aria-controls="messageTable" required="required" title="Search">
+                  <span class="sclose d-none position-absolute" onclick="refresh()" aria-label="Close" style="right: 14px;cursor: pointer;">
+                    <img src="images/close.svg" height="15" alt=""> </span>
+               </div>
+          </form>
           <div class="logo-name-wrapper">
             <div class="logo-name">
               <img
@@ -151,7 +159,7 @@
       </div>
 
       <div class="mart-div">
-              <div class="row bskp-mart-panel">
+              <div class="row m-0 bskp-mart-panel">
                   <div class="mart-cardsize">
                       <div class="mart-card p-3">
                               <div class="mart-sec1 mb-2">
