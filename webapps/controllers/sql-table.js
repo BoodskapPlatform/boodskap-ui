@@ -492,18 +492,15 @@ function addSQLTable() {
         var fields = [];
     var check = false;
     $.each($('.fieldrow'),function () {
-        console.log($(this).find('.mesg-field').val());
         if($(this).find('.mesg-field').val() === ""){ 
 
             errorMsgBorder('Field Name is required', $(this).find('.mesg-field').attr('id'));
-            console.log("error"+" "+$(this).find('.mesg-field').attr('id'));
             check = false;
             return false;
         }
         
         else if($(this).find('.mesg-type').val() === ""){ 
                 errorMsgBorder('Data type is required', $(this).find('.mesg-type').attr('id'));
-                console.log("error"+" "+$(this).find('.mesg-type').attr('id'));
                 check = false;
                 return false;
             }

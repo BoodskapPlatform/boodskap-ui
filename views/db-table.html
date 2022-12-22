@@ -33,7 +33,7 @@
         <div class="page-header bskp-page-topic"><img src="images/menu/dbtableicon.svg"
                 class="bskp-topic-icon sqlicon mr-1">Manage DB Connection Pool
             <span class="panel-title ml-3" style="color: #2D2F79;">Total DB Connection Pool:<b><span
-                        class="tableCount"></span></b></span>
+                        class="poolCount"></span></b></span>
         </div>
 
         <!-- end page-header -->
@@ -95,12 +95,13 @@
 
 
                     <div class="form-group">
-                        <p class="inputselect" style="font-size:16px;color:black"> Select the type of Connection Pool</p>
+                        <p class="inputselect" style="font-size:16px;color:black"> Select the type of Connection Pool
+                        </p>
                         <div class="row">
 
                             <div class="form-check form-control input-sm col-md-2 mx-2 mb-3 group"
                                 onclick="renderType1()">
-                                <input class="form-check-input radio" type="radio" name="exampleRadios" id="pool_type1"
+                                <input class="form-check-input radio check" type="radio" name="exampleRadios" id="pool_type1"
                                     value="HIKARI">
                                 <span class="connectionbtn">
                                     <label class="form-check-label label" for="exampleRadios1">
@@ -111,7 +112,7 @@
                             </div>
                             <div class="form-check form-control input-sm col-md-2 mx-2  mb-3 group"
                                 onclick="renderType2()">
-                                <input class="form-check-input radio" type="radio" name="exampleRadios" id="pool_type2"
+                                <input class="form-check-input radio check" type="radio" name="exampleRadios" id="pool_type2"
                                     value="DBCP">
                                 <span class="connectionbtn">
 
@@ -121,49 +122,50 @@
                                     <img src="images/menu/checks.png" class="checkimg" id="checkimg2">
                                 </span>
                             </div>
-                        
 
-                        <div class="form-check form-control input-sm col-md-2 mb-3 mx-2 group" width="200px"
-                            onclick="renderType3()">
-                            <input class="form-check-input radio" type="radio" name="exampleRadios" id="pool_type3"
-                                value="C3P0">
-                            <span class="connectionbtn">
-                                <label class="form-check-label label" for="exampleRadios1">
-                                    C3P0
-                                </label>
-                                <img src="images/menu/checks.png" class="checkimg" id="checkimg3">
-                            </span>
+
+                            <div class="form-check form-control input-sm col-md-2 mb-3 mx-2 group" width="200px"
+                                onclick="renderType3()">
+                                <input class="form-check-input radio check" type="radio" name="exampleRadios" id="pool_type3"
+                                    value="C3P0">
+                                <span class="connectionbtn">
+                                    <label class="form-check-label label" for="exampleRadios1">
+                                        C3P0
+                                    </label>
+                                    <img src="images/menu/checks.png" class="checkimg" id="checkimg3">
+                                </span>
+                            </div>
+
+                            <div class="form-check form-control input-sm col-md-2 mb-3 mx-2 group"
+                                onclick="renderType4()">
+                                <input class="form-check-input radio check" type="radio" name="exampleRadios" id="pool_type4"
+                                    value="TOMCAT">
+                                <span class="connectionbtn">
+
+                                    <label class="form-check-label label" for="exampleRadios1">
+                                        TOMCAT
+                                    </label>
+                                    <img src="images/menu/checks.png" class="checkimg" id="checkimg4">
+
+                                </span>
+                            </div>
+
+
+
                         </div>
+                        <div class="row typeBody">
 
-                        <div class="form-check form-control input-sm col-md-2 mb-3 mx-2 group" onclick="renderType4()">
-                            <input class="form-check-input radio" type="radio" name="exampleRadios" id="pool_type4"
-                                value="TOMCAT">
-                            <span class="connectionbtn">
 
-                                <label class="form-check-label label" for="exampleRadios1">
-                                    TOMCAT
-                                </label>
-                                <img src="images/menu/checks.png" class="checkimg" id="checkimg4">
-                            </span>
                         </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn  btn-secondary btn-close" data-dismiss="modal"
+                                style="width:140px;font-size: 14px;font-weight: 500;">Next</button>
+                            <button type="submit" class="btn btnModal  btn-proceed btnSubmit"
+                                style="font-weight:500;background-color: #2d2f79; font-size: 14px;">Save & Exit</button>
 
-
-
+                        </div>
                     </div>
-                    <div class="row typeBody">
-
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn  btn-secondary btn-close" data-dismiss="modal"
-                            style="width:140px;font-size: 14px;font-weight: 500;">Next</button>
-                        <button type="submit" class="btn btnModal  btn-proceed btnSubmit"
-                            style="font-weight:500;background-color: #2d2f79; font-size: 14px;">Save & Exit</button>
-
-                        <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btnModal btnSubmit">Proceed</button> -->
-                    </div>
-                    </div>
+                </div>
             </form>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -171,33 +173,39 @@
 
 
 
-<div id="deleteModal" class="modal fade" tabindex="-1" role="dialog">
+<div id="deleteModal" class="modal bskp-modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Delete DB Table</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <image src="images/menu/xicon.svg" class="bg-secondary" style="border-radius: 13px;padding:3px">
+                    </button>
             </div>
             <div class="modal-body">
                 <p>Are you sure want to delete <b><span class="templateName"></span></b> DB Table?</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btnModal" onclick="proceedDelete()">Proceed</button>
-            </div>
+                <button type="button" class="btn btn-secondary btn-close" data-dismiss="modal"
+                        style="width:110px;font-size: 14px;font-weight: 500; border-radius:10px !important">Close</button>
+                    <button type="submit" class="btn btnModal btn-secondary btn-proceed btnSubmit"
+                        style="width:110px;font-size: 14px;font-weight: 500;"onclick="proceedDelete()">Proceed</button>
+
+                 </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
 
-<div id="syncModal" class="modal fade" tabindex="-1" role="dialog">
+<div id="syncModal" class="modal bskp-modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Sync DB Connection Pool</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <image src="images/menu/xicon.svg" class="bg-secondary" style="border-radius: 13px;padding:3px">
+
+                        </button>
             </div>
             <div class="modal-body">
                 <p>Are you sure want to sync <b><span class="poolName"></span></b> connection pool?</p>
@@ -210,9 +218,12 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btnModal" onclick="syncPool()">Proceed</button>
-            </div>
+                <button type="button" class="btn btn-secondary btn-close" data-dismiss="modal"
+                        style="width:110px;font-size: 14px;font-weight: 500; border-radius:10px !important">Close</button>
+                    <button type="submit" class="btn btnModal btn-secondary btn-proceed btnSubmit"
+                        style="width:110px;font-size: 14px;font-weight: 500;">Proceed</button>
+
+                   </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
@@ -220,18 +231,20 @@
 
 
 
-<div id="viewTable" class="modal fade" tabindex="-1" role="dialog">
+<div id="viewTable" class="modal bskp-modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title poolName"></h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <image src="images/menu/xicon.svg" class="bg-secondary" style="border-radius: 13px;padding:3px">
+
+                    </button>
             </div>
             <div class="modal-body">
                 <div class="row m-t-20">
                     <div class="col-md-12">
-                        <table class="table table-bordered" style="width:100%">
+                        <table class="table table-bordered bskp-table" style="width:100%">
                             <thead>
                                 <tr>
                                     <th style="width: 30%">Table Name</th>

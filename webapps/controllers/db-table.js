@@ -1,3 +1,4 @@
+
 var poolTable = null;
 var pool_list = [];
 var current_pool_name = null;
@@ -14,38 +15,38 @@ $(document).ready(function () {
 
 var POOL_TYPE = {
     "C3P0": [
-        {name:"Name",type:"string",mandatory:false,id:"name"},
-        {name:"JdbcURL",type:"string",mandatory:true,text:"JdbcURL must be required",id:"jdbcurl"},
-        {name:"User",type:"string",mandatory:true,text:"User must be required",id:"username"},
-        {name:"Password",type:"password",mandatory:true,text:"Password must be required",id:"password"},
-        {name:"DriverClass",type:"string",mandatory:true,text:"ClassName must be required",id:"driverclass"},
-       
+        { name: "Name", type: "string", mandatory: false, id: "name" },
+        { name: "URL", type: "string", mandatory: true, text: "JdbcURL must be required", id: "url" },
+        { name: "User", type: "string", mandatory: true, text: "User must be required", id: "username" },
+        { name: "Password", type: "password", mandatory: true, text: "Password must be required",  id: "password" },
+        { name: "DriverClass", type: "string", mandatory: true, text: "ClassName must be required", id: "driverclass" },
+
     ],
-    "DBCP":[
-        {name:"Name",type:"string",mandatory:false,id:"name"},
-        {name:"URL",type:"string",mandatory:true,text:"URL must be required",id:"jdbcurl"},
-        {name:"Username",type:"string",mandatory:true,text:"Username must be required",id:"username"},
-        {name:"Password",type:"password",mandatory:true,text:"Password must be required",id:"password"},
-        {name:"Driver ClassName",type:"string",mandatory:true,text:"ClassName must be required",id:"driverclass"},
-        
+    "DBCP": [
+        { name: "Name", type: "string", mandatory: false, id: "name" },
+        { name: "URL", type: "string", mandatory: true, text: "URL must be required", id: "url" },
+        { name: "Username", type: "string", mandatory: true, text: "Username must be required", id: "username" },
+        { name: "Password", type: "password", mandatory: true, text: "Password must be required", id: "password" },
+        { name: "Driver ClassName", type: "string", mandatory: true, text: "ClassName must be required", id: "driverclass" },
+
     ],
     "HIKARI": [
-        {name:"Name",type:"string",mandatory:false,id:"name"},
-        {name:"jdbcURL",type:"string",mandatory:true,text:"JdbcURL must be required",id:"jdbcurl"},
-        {name:"User",type:"string",mandatory:true, text:"user must be required",id:"username"},
-        {name:"Password",type:"password",mandatory:true, text:"password must be required",id:"password"},
-        {name:"Data Source ClassName",type:"string",text:'dataSourceClassName/driverClassName must be required',mandatory:true,id:"datasource"},
-        {name:"Driver ClassName",type:"string",mandatory:true,text:'dataSourceClassName/driverClassName must be required',id:"driverclass"},
-       
+        { name: "Name", type: "string", mandatory: false, id: "name" },
+        { name: "URL", type: "string", mandatory: true, text: "JdbcURL must be required", id: "url" },
+        { name: "User", type: "string", mandatory: true, text: "user must be required", id: "username" },
+        { name: "Password", type: "password", mandatory: true, text: "password must be required",class:"inputpassword", id: "password" },
+        { name: "Data Source ClassName", type: "string", text: 'dataSourceClassName/driverClassName must be required', mandatory: true, id: "datasource" },
+        { name: "Driver ClassName", type: "string", mandatory: true, text: 'dataSourceClassName/driverClassName must be required', id: "driverclass" },
+
     ],
     "TOMCAT": [
-        {name:"Name",type:"string",mandatory:false,id:"name"},
+        { name: "Name", type: "string", mandatory: false, id: "name" },
 
-        {name:"URL",type:"string",mandatory:true,text:"URL must be required",id:"jdbcurl"},
-        {name:"Username",type:"string",mandatory:true,text:"Username must ne required",id:"username"},
-        {name:"Password",type:"password",mandatory:true,text:"password must be required",id:"password"},
-        {name:"Driver ClassName",type:"string",mandatory:true,text:'dataSourceClassName/driverClassName must be required',id:"driverclass"},
-        
+        { name: "URL", type: "string", mandatory: true, text: "URL must be required", id: "url" },
+        { name: "Username", type: "string", mandatory: true, text: "Username must ne required", id: "username" },
+        { name: "Password", type: "password", mandatory: true, text: "password must be required", id: "password" },
+        { name: "Driver ClassName", type: "string", mandatory: true, text: 'dataSourceClassName/driverClassName must be required', id: "driverclass" },
+
     ]
 }
 
@@ -87,9 +88,8 @@ function loadDBPool() {
             orderable: false,
             sWidth: '40%',
             mRender: function (data, type, row) {
-
-                var code = js_beautify(JSON.stringify(row[row['type'].toLowerCase() + 'Args']), {indent_size: 4})
-
+                var code = js_beautify(JSON.stringify(row[row['type'].toLowerCase() + 'Args']), { indent_size: 4 })
+                
 
                 return '<textarea class="form-control" style="width: 100%;height: 250px;resize: none;background-color: #fff;color: #333;opacity: 0.8;" readonly>' + code + '</textarea>';
             }
@@ -101,17 +101,17 @@ function loadDBPool() {
             sWidth: '15%',
             mRender: function (data, type, row) {
 
-                var str = '<button class="btn btn-sm btn-icon btn-default" onclick="openModal(2,\'' + row['id'] + '\')"><i class="icon-trash-o"></i></button>'
+                var str = '<button class="btn bskp-trash-btn  " onclick="openModal(2,\'' + row['id'] + '\')"><img src="images/menu/trash.svg" alt=""></button>'
 
-                return '<button class="btn btn-sm btn-icon btn-default" onclick="openModal(3,\'' + row["id"] + '\')"><i class="icon-edit2"></i></button>' +
+                return '<button class="btn bskp-edit-btn mr-3" onclick="openModal(3,\'' + row["id"] + '\')"><img src="images/menu/edit.svg" alt=""></button>' +
                     str;
             }
         }
 
     ];
 
-    var domainKeyJson = {"match": {"domainKey": DOMAIN_KEY}};
-    var defaultSorting = [{"createdStamp": {"order": "desc"}}];
+    var domainKeyJson = { "match": { "domainKey": DOMAIN_KEY } };
+    var defaultSorting = [{ "createdStamp": { "order": "desc" } }];
     var queryParams = {
         query: {
             "bool": {
@@ -136,11 +136,11 @@ function loadDBPool() {
         iDisplayLength: 10,
         lengthMenu: [[10, 50, 100], [10, 50, 100]],
         dom: '<"bskp-search-left" f> lrtip',
-        
+
         language: {
             "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
             "searchPlaceholder": "Search by Pool Name",
-            "emptyTable":"No data available",
+            "emptyTable": "No data available",
 
 
             loadingRecords: '',
@@ -149,7 +149,7 @@ function loadDBPool() {
                 next: 'Next >'
             }
         },
-    aoColumns: fields,
+        aoColumns: fields,
         // "bProcessing": true,
         "bServerSide": true,
         "sAjaxSource": API_BASE_PATH + '/elastic/search/query/' + API_TOKEN,
@@ -172,8 +172,8 @@ function loadDBPool() {
 
             if (searchText) {
 
-                queryParams.query['bool']['should'].push({"wildcard" : { "id" : "*"+searchText.toLowerCase()+"*" }})
-                queryParams.query['bool']["minimum_should_match"]=1;
+                queryParams.query['bool']['should'].push({ "wildcard": { "id": "*" + searchText.toLowerCase() + "*" } })
+                queryParams.query['bool']["minimum_should_match"] = 1;
 
             }
             queryParams.query['bool']['must'] = [domainKeyJson];
@@ -199,11 +199,13 @@ function loadDBPool() {
                     var resultData = QueryFormatter(data).data;
 
                     pool_list = resultData['data'];
+                    
                     $(".poolCount").html(resultData.recordsFiltered)
 
                     resultData['draw'] = oSettings.iDraw;
 
                     fnCallback(resultData);
+                    
                 }
             });
         }
@@ -214,28 +216,26 @@ function loadDBPool() {
 
 
 }
-function onclosebutton(){
-    $(".checkimg").css('display','none');
+function onclosebutton() {
+    $(".checkimg").css('display', 'none');
     $(".typeBody").html('')
 
 }
 function openModal(type, id) {
     if (type === 1) {
-        // $("#pool_name").removeAttr('readonly');
         $("#name").removeAttr('readonly');
 
         $(".templateAction").html('Create');
-        $('#addPool').modal({backdrop: 'static', keyboard: false})  
-
-
-        
-
-
+        $('#addPool').modal({ backdrop: 'static', keyboard: false })
         $("#addPool form")[0].reset();
         $("#addPool").modal('show');
         $("#addPool form").attr('onsubmit', 'addPool()')
+        renderType1();
+
     }
     else if (type === 2) {
+        $('#deleteModal').modal({ backdrop: 'static', keyboard: false })
+
         current_pool_name = id;
         $(".templateName").html(id)
         $("#deleteModal").modal('show');
@@ -251,17 +251,26 @@ function openModal(type, id) {
             }
         }
 
-      current_pool_obj = obj;
+        current_pool_obj = obj;
 
         // $("#pool_name").attr('readonly', 'readonly');
         $("#name").attr('readonly', 'readonly');
 
 
         $("#name").val(obj.id);
-        $("#pool_type1").val(obj.type);
-        $("#pool_type2").val(obj.type);
-        $("#pool_type3").val(obj.type);
-        $("#pool_type4").val(obj.type);
+        $.each($('.check'),function () {
+    
+            if($(this).prop("checked", true)){
+    
+
+            }
+        });
+        // $("#pool_type1").val(obj.type)
+        // $("#pool_type2").val(obj.type) 
+        // $("#pool_type3").val(obj.type)
+        // $("#pool_type4").val(obj.type)
+        // console.log(obj.type);
+
         renderType1();
         renderType2();
         renderType3();
@@ -272,9 +281,11 @@ function openModal(type, id) {
 
     }
     else if (type === 4) {
+        $('#syncModal').modal({ backdrop: 'static', keyboard: false })
 
         var obj = {};
         current_pool_name = id;
+
 
         for (var i = 0; i < pool_list.length; i++) {
             if (id === pool_list[i].id) {
@@ -287,6 +298,7 @@ function openModal(type, id) {
 
     }
     else if (type === 5) {
+        $('#viewTable').modal({ backdrop: 'static', keyboard: false })
 
         var obj = {};
         current_pool_name = id;
@@ -306,48 +318,47 @@ function openModal(type, id) {
 
     }
 }
+// console.log(type, id)
 
 
 function addPool() {
+    console.log(tempObj);
+
     var tempObj = buildData();
 
-   console.log(tempObj);
 
-    var jdbcurl = $("#jdbcurl").val();
+    var jdbcurl = $("#url").val();
     var username = $("#username").val();
     var password = $("#password").val();
     var datasource = $("#datasource").val();
     var driverclass = $("#driverclass").val();
 
 
-    if(jdbcurl==""){
-        $("#jdbcurlerror").css("display","block")
-        $("#jdbcurl").css("border-color","red")
+    if (jdbcurl == "") {
+        $("#urlerror").css("display", "block")
+        $("#url").css("border-color", "red")
 
-    }else if(username==""){
-        $("#usernameerror").css("display","block")
-        $("#username").css("border-color","red")
+    } else if (username == "") {
+        $("#usernameerror").css("display", "block")
+        $("#username").css("border-color", "red")
 
-
-    }else if (password==""){
-        $("#passworderror").css("display","block")
-        $("#password").css("border-color","red")
-
+    } else if (password == "") {
+        $("#passworderror").css("display", "block")
+        $("#password").css("border-color", "red")
 
     }
-    else if (datasource==""){
-        $("#datasourceerror").css("display","block")
-        $("#datasource").css("border-color","red")
+    else if (datasource == "") {
+        $("#datasourceerror").css("display", "block")
+        $("#datasource").css("border-color", "red")
 
     }
-    else if (driverclass==""){
-        $("#driverclasserror").css("display","block")
-        $("#driverclass").css("border-color","red")
-
-    }else{
+    else if (driverclass == "") {
+        $("#driverclasserror").css("display", "block")
+        $("#driverclass").css("border-color", "red")
 
     }
-    
+    else {
+    }
     // $(".btnSubmit").attr('disabled', 'disabled');
 
 
@@ -357,27 +368,29 @@ function addPool() {
             $(".btnSubmit").removeAttr('disabled');
             errorMsgBorder('DB Connection Pool name already exist', 'Name');
         } else {
+            console.log(tempObj);
+            return
+    
             upsertDBPool(tempObj, function (status, data) {
                 if (status) {
                     successMsg('DB Connection Pool Created Successfully');
                     loadDBPool();
                     $("#addPool").modal('hide');
                 } else {
-                    // errorMsg('Error in Creating DB Connection Pool')
+                    errorMsg('Error in Creating DB Connection Pool')
                 }
-                // $(".btnSubmit").removeAttr('disabled');
+                $(".btnSubmit").removeAttr('disabled');
             })
         }
     })
-    
+
 }
 
-
 function updatePool() {
+    console.log(tempObj);
 
     var tempObj = buildData();
 
-    console.log(tempObj);
 
 
     $(".btnSubmit").attr('disabled', 'disabled');
@@ -442,7 +455,7 @@ function loadDBTable() {
             "bool": {
                 "must": [
                     {
-                        match: {domainKey: DOMAIN_KEY}
+                        match: { domainKey: DOMAIN_KEY }
                     },
                     {
                         "multi_match": {
@@ -482,7 +495,7 @@ function loadDBTable() {
                     var table = resultData.tables[i];
                     var str = '<tr><td>' + table.name + '<br><small>scheme: ' + table.schema + '</small></td>' +
                         '<td><textarea class="form-control"  style="width: 100%;height: 150px;resize: none;background-color: #fff;color: #333;opacity: 0.8;" readonly>' +
-                        js_beautify(JSON.stringify(table.fields), {indent_size: 4}) + '</textarea></td></tr>';
+                        js_beautify(JSON.stringify(table.fields), { indent_size: 4 }) + '</textarea></td></tr>';
 
                     $(".dbMetadata").append(str);
 
@@ -500,32 +513,32 @@ function loadDBTable() {
 
 function renderType1() {
     var id = $("#pool_type1").val();
-   
+    console.log(id)
     $(".typeBody").html('')
-    if(id=="HIKARI"){
+    if (id == "HIKARI") {
         $("#pool_type1").prop("checked", true)
-        $("#checkimg1").css('display','block')    
-        $("#checkimg2").css('display','none')    
-        $("#checkimg3").css('display','none')    
-        $("#checkimg4").css('display','none')  
-    $(".typeBody").css({"border-top":"1px solid #e2e7eb", "padding":"20px"})
+        $("#checkimg1").css('display', 'block')
+        $("#checkimg2").css('display', 'none')
+        $("#checkimg3").css('display', 'none')
+        $("#checkimg4").css('display', 'none')
+        $(".typeBody").css({ "border-top": "1px solid #e2e7eb", "padding": "20px" })
 
     }
 
-    for(var i=0;i<POOL_TYPE[id].length;i++){
+    for (var i = 0; i < POOL_TYPE[id].length; i++) {
         var pool = POOL_TYPE[id][i];
         console.log(pool)
         var str = '';
 
-        if(pool.type === 'string'){
-            if(pool.text) {
+        if (pool.type === 'string') {
+            if (pool.text) {
                 str = `
             <div  class="col-md-4">
                 <div  class="form-group">
-                    <label  class="inputLabel">` + pool.name + ` ` + (pool.mandatory ? '<span style="color:red" class="'+pool.name+'">*</span>' : '') + `</label>
+                    <label  class="inputLabel">` + pool.name + ` ` + (pool.mandatory ? '<span style="color:red" class="' + pool.name + '">*</span>' : '') + `</label>
                     <input  class="form-control input-sm"  placeholder="" type="text" id="` + pool.id + `" ` + (pool.mandatory ? '' : '') + ` 
                     onkeyup="checkField(this)">
-                    ` + (pool.text ? '<small id="' + pool.id+"error" + '"  style="display:none;color:red;font-weight:600">' + pool.text + '</small>' : '') + `
+                    ` + (pool.text ? '<small id="' + pool.id + "error" + '"  style="display:none;color:red;font-weight:600">' + pool.text + '</small>' : '') + `
                 </div>
             </div>
             `
@@ -542,15 +555,20 @@ function renderType1() {
             `
             }
         }
-        if(pool.type === 'password'){
+        if (pool.type === 'password') {
             str = `
             <div  class="col-md-4">
                 <div  class="form-group">
-                    <label  class="inputLabel">` + pool.name + ` ` + (pool.mandatory ? '<span style="color:red" class="'+pool.name+'">*</span>' : '') + `</label>
-                    <input  class="form-control input-sm"  placeholder="" type="password" id="` + pool.id + `" ` + (pool.mandatory ? '' : '') + ` 
-                    onkeyup="checkField(this)">
-                    ` + (pool.text ? '<small id="' + pool.id+"error" + '"  style="display:none;color:red;font-weight:600">' + pool.text + '</small>' : '') + `
-                </div>
+                    <label  class="inputLabel">` + pool.name + ` ` + (pool.mandatory ? '<span style="color:red" class="' + pool.name + '">*</span>' : '') + `</label>
+                    <input  class="form-control input-sm inputpassword"  placeholder="" type="password" id="` + pool.id + `" ` + (pool.mandatory ? '' : '') + ` ">
+                    <i class="fas fa-eye-slash" id="eye" value="icon" style="cursor:pointer;"></i>
+
+                    ` + (pool.text ? '<small id="' + pool.id + "error" + '"  style="display:none;color:red;font-weight:600">' + pool.text + '</small>' : '') + `
+                    
+                    </div>
+                    
+                    
+
             </div>
             `
         }
@@ -572,42 +590,62 @@ function renderType1() {
         $(".typeBody").append(str)
 
     }
+    $('#eye').click(function(){
+        
+          if($(this).hasClass('fa-eye-slash')){
+             
+            $(this).removeClass('fa-eye-slash');
+            
+            $(this).addClass('fa-eye');
+            
+            $('#password').attr('type','text');
+              
+          }else{
+           
+            $(this).removeClass('fa-eye');
+            
+            $(this).addClass('fa-eye-slash');  
+            
+            $('#password').attr('type','password');
+          }
+      });
 }
+// console.log(id);
 function renderType2() {
     var id = $("#pool_type2").val();
-    
+console.log(id)
     $(".typeBody").html('')
 
-    if(id=="DBCP"){
-    $(".typeBody").css({"border-top":"1px solid #e2e7eb", "padding":"20px"})
+    if (id == "DBCP") {
+        $(".typeBody").css({ "border-top": "1px solid #e2e7eb", "padding": "20px" })
 
         $("#pool_type2").prop("checked", true)
-        $("#checkimg2").css('display','block')
-        $("#checkimg1").css('display','none')
-        $("#checkimg3").css('display','none')
-        $("#checkimg4").css('display','none')
+        $("#checkimg2").css('display', 'block')
+        $("#checkimg1").css('display', 'none')
+        $("#checkimg3").css('display', 'none')
+        $("#checkimg4").css('display', 'none')
 
     }
 
 
-    for(var i=0;i<POOL_TYPE[id].length;i++){
+    for (var i = 0; i < POOL_TYPE[id].length; i++) {
         var pool = POOL_TYPE[id][i];
         var str = '';
 
-        if(pool.type === 'string'){
-            if(pool.text) {
+        if (pool.type === 'string') {
+            if (pool.text) {
                 str = `
             <div  class="col-md-4">
                 <div  class="form-group">
-                    <label  class="inputLabel">` + pool.name + ` ` + (pool.mandatory ? '<span style="color:red" class="'+pool.name+'">*</span>' : '') + `</label>
-                    <input  class="form-control input-sm" placeholder="" type="text" id="` + pool.id+ `" ` + (pool.mandatory ? '' : '') + ` 
+                    <label  class="inputLabel">` + pool.name + ` ` + (pool.mandatory ? '<span style="color:red" class="' + pool.name + '">*</span>' : '') + `</label>
+                    <input  class="form-control input-sm" placeholder="" type="text" id="` + pool.id + `" ` + (pool.mandatory ? '' : '') + ` 
                     onkeyup="checkField(this)">
-                    ` + (pool.text ? '<small id="' + pool.id+"error" + '"  style="display:none;color:red;font-weight:600" >' + pool.text + '</small>' : '') + `
+                    ` + (pool.text ? '<small id="' + pool.id + "error" + '"  style="display:none;color:red;font-weight:600" >' + pool.text + '</small>' : '') + `
 
                 </div>
             </div>
             `
-            }else {
+            } else {
 
                 str = `
             <div  class="col-md-4">
@@ -619,28 +657,21 @@ function renderType2() {
             `
             }
         }
-        if(pool.type === 'password'){
+        if (pool.type === 'password') {
             str = `
             <div  class="col-md-4">
                 <div  class="form-group">
-                    <label  class="inputLabel">` + pool.name + ` ` + (pool.mandatory ? '<span style="color:red" class="'+pool.name+'">*</span>' : '') + `</label>
+                    <label  class="inputLabel">` + pool.name + ` ` + (pool.mandatory ? '<span style="color:red" class="' + pool.name + '">*</span>' : '') + `</label>
                     <input  class="form-control input-sm"  placeholder="" type="password" id="` + pool.id + `" ` + (pool.mandatory ? '' : '') + ` 
                     onkeyup="checkField(this)">
-                    ` + (pool.text ? '<small id="' + pool.id+"error" + '"  style="display:none;color:red;font-weight:600">' + pool.text + '</small>' : '') + `
+                    <i class="fas fa-eye-slash" id="eye2" value="icon" style="cursor:pointer;"></i>
+
+                    ` + (pool.text ? '<small id="' + pool.id + "error" + '"  style="display:none;color:red;font-weight:600">' + pool.text + '</small>' : '') + `
                 </div>
             </div>
             `
         }
-        // if(pool.type === 'password'){
-        //     str = `
-        //     <div  class="col-md-4">
-        //         <div  class="form-group">
-        //             <label  class="inputLabel">`+pool.name+`</label>
-        //             <input  class="form-control input-sm" placeholder="" type="password" id="`+pool.id+`" `+(pool.mandatory ? 'required' : '')+`>
-        //         </div>
-        //     </div>
-        //     `
-        // }
+        // 
         // if(pool.type === 'boolean'){
         //     str = `
         //     <div  class="col-md-4">
@@ -659,40 +690,61 @@ function renderType2() {
         $(".typeBody").append(str)
 
     }
+    $('#eye2').click(function(){
+    
+         
+          if($(this).hasClass('fa-eye-slash')){
+             
+            $(this).removeClass('fa-eye-slash');
+            
+            $(this).addClass('fa-eye');
+            
+            $('#password').attr('type','text');
+              
+          }else{
+           
+            $(this).removeClass('fa-eye');
+            
+            $(this).addClass('fa-eye-slash');  
+            
+            $('#password').attr('type','password');
+          }
+      }); 
 }
 function renderType3() {
     var id = $("#pool_type3").val();
-    
+    console.log(id)
+
     $(".typeBody").html('')
-    if(id=="C3P0"){
-    $(".typeBody").css({"border-top":"1px solid #e2e7eb", "padding":"20px"})
+    if (id == "C3P0") {
+        $(".typeBody").css({ "border-top": "1px solid #e2e7eb", "padding": "20px" })
 
         $("#pool_type3").prop("checked", true)
-        $("#checkimg3").css('display','block')
-        $("#checkimg1").css('display','none')
-        $("#checkimg2").css('display','none')
-        $("#checkimg4").css('display','none')
+        $("#checkimg3").css('display', 'block')
+        $("#checkimg1").css('display', 'none')
+        $("#checkimg2").css('display', 'none')
+        $("#checkimg4").css('display', 'none')
 
     }
 
 
-    for(var i=0;i<POOL_TYPE[id].length;i++){
+    for (var i = 0; i < POOL_TYPE[id].length; i++) {
         var pool = POOL_TYPE[id][i];
         var str = '';
 
-        if(pool.type === 'string'){
-            if(pool.text) {
+        if (pool.type === 'string') {
+            if (pool.text) {
                 str = `
             <div  class="col-md-4">
                 <div  class="form-group">
-                    <label  class="inputLabel">` + pool.name + ` ` + (pool.mandatory ? '<span style="color:red" class="'+pool.name+'">*</span>' : '') + `</label>
+                    <label  class="inputLabel">` + pool.name + ` ` + (pool.mandatory ? '<span style="color:red" class="' + pool.name + '">*</span>' : '') + `</label>
                     <input  class="form-control input-sm" placeholder="" type="text" id="` + pool.id + `" ` + (pool.mandatory ? '' : '') + ` 
                     onkeyup="checkField(this)">
-                    ` + (pool.text ? '<small id="' + pool.id+"error" + '"  style="display:none;color:red;font-weight:600">' + pool.text + '</small>' : '') + `
+                    ` + (pool.text ? '<small id="' + pool.id + "error" + '"  style="display:none;color:red;font-weight:600">' + pool.text + '</small>' : '') + `
                 </div>
             </div>
             `
-            }else {
+            } else {
 
                 str = `
             <div  class="col-md-4">
@@ -704,14 +756,16 @@ function renderType3() {
             `
             }
         }
-        if(pool.type === 'password'){
+        if (pool.type === 'password') {
             str = `
             <div  class="col-md-4">
                 <div  class="form-group">
-                    <label  class="inputLabel">` + pool.name + ` ` + (pool.mandatory ? '<span style="color:red" class="'+pool.name+'">*</span>' : '') + `</label>
+                    <label  class="inputLabel">` + pool.name + ` ` + (pool.mandatory ? '<span style="color:red" class="' + pool.name + '">*</span>' : '') + `</label>
                     <input  class="form-control input-sm"  placeholder="" type="password" id="` + pool.id + `" ` + (pool.mandatory ? '' : '') + ` 
                     onkeyup="checkField(this)">
-                    ` + (pool.text ? '<small id="' + pool.id+"error" + '"  style="display:none;color:red;font-weight:600">' + pool.text + '</small>' : '') + `
+                    <i class="fas fa-eye-slash" id="eye3" value="icon" style="cursor:pointer;"></i>
+
+                    ` + (pool.text ? '<small id="' + pool.id + "error" + '"  style="display:none;color:red;font-weight:600">' + pool.text + '</small>' : '') + `
                 </div>
             </div>
             `
@@ -734,39 +788,59 @@ function renderType3() {
         $(".typeBody").append(str)
 
     }
+    $('#eye3').click(function(){
+
+         
+          if($(this).hasClass('fa-eye-slash')){
+             
+            $(this).removeClass('fa-eye-slash');
+            
+            $(this).addClass('fa-eye');
+            
+            $('#password').attr('type','text');
+              
+          }else{
+           
+            $(this).removeClass('fa-eye');
+            
+            $(this).addClass('fa-eye-slash');  
+            
+            $('#password').attr('type','password');
+          }
+      });
 }
 function renderType4() {
     var id = $("#pool_type4").val();
-    
+
     $(".typeBody").html('')
-    if(id=="TOMCAT"){
-    $(".typeBody").css({"border-top":"1px solid #e2e7eb", "padding":"20px"})
+    if (id == "TOMCAT") {
+        $(".typeBody").css({ "border-top": "1px solid #e2e7eb", "padding": "20px" })
 
         $("#pool_type4").prop("checked", true)
-        $("#checkimg4").css('display','block')
-        $("#checkimg1").css('display','none')
-        $("#checkimg2").css('display','none')
-        $("#checkimg3").css('display','none')
+        $("#checkimg4").css('display', 'block')
+        $("#checkimg1").css('display', 'none')
+        $("#checkimg2").css('display', 'none')
+        $("#checkimg3").css('display', 'none')
 
     }
-    
-    for(var i=0;i<POOL_TYPE[id].length;i++){
+
+    for (var i = 0; i < POOL_TYPE[id].length; i++) {
         var pool = POOL_TYPE[id][i];
         var str = '';
 
-        if(pool.type === 'string'){
-            if(pool.text) {
+        if (pool.type === 'string') {
+            if (pool.text) {
                 str = `
             <div  class="col-md-4">
                 <div  class="form-group">
-                    <label  class="inputLabel">` + pool.name + ` ` + (pool.mandatory ? '<span style="color:red" class="'+pool.name+'">*</span>' : '') + `</label>
+                    <label  class="inputLabel">` + pool.name + ` ` + (pool.mandatory ? '<span style="color:red" class="' + pool.name + '">*</span>' : '') + `</label>
                     <input  class="form-control input-sm" placeholder="" type="text" id="` + pool.id + `" ` + (pool.mandatory ? '' : '') + ` 
                     onkeyup="checkField(this)">
-                    ` + (pool.text ? '<small id="' + pool.id +"error" + '"  style="display:none;color:red;font-weight:600" >' + pool.text + '</small>' : '') + `
+                    ` + (pool.text ? '<small id="' + pool.id + "error" + '"  style="display:none;color:red;font-weight:600" >' + pool.text + '</small>' : '') + `
                 </div>
             </div>
             `
-            }else {
+            } else {
 
                 str = `
             <div  class="col-md-4">
@@ -778,14 +852,16 @@ function renderType4() {
             `
             }
         }
-        if(pool.type === 'password'){
+        if (pool.type === 'password') {
             str = `
             <div  class="col-md-4">
                 <div  class="form-group">
-                    <label  class="inputLabel">` + pool.name + ` ` + (pool.mandatory ? '<span style="color:red" class="'+pool.name+'">*</span>' : '') + `</label>
+                    <label  class="inputLabel">` + pool.name + ` ` + (pool.mandatory ? '<span style="color:red" class="' + pool.name + '">*</span>' : '') + `</label>
                     <input  class="form-control input-sm"  placeholder="" type="password" id="` + pool.id + `" ` + (pool.mandatory ? '' : '') + ` 
                     onkeyup="checkField(this)">
-                    ` + (pool.text ? '<small id="' + pool.id+"error" + '"  style="display:none;color:red;font-weight:600">' + pool.text + '</small>' : '') + `
+                    <i class="fas fa-eye-slash" id="eye4" value="icon" style="cursor:pointer;"></i>
+
+                    ` + (pool.text ? '<small id="' + pool.id + "error" + '"  style="display:none;color:red;font-weight:600">' + pool.text + '</small>' : '') + `
                 </div>
             </div>
             `
@@ -808,26 +884,33 @@ function renderType4() {
         $(".typeBody").append(str)
 
     }
+    $('#eye4').click(function(){
+
+         
+          if($(this).hasClass('fa-eye-slash')){
+             
+            $(this).removeClass('fa-eye-slash');
+            
+            $(this).addClass('fa-eye');
+            
+            $('#password').attr('type','text');
+              
+          }else{
+           
+            $(this).removeClass('fa-eye');
+            
+            $(this).addClass('fa-eye-slash');  
+            
+            $('#password').attr('type','password');
+          }
+      });
 }
 
 function renderData() {
-    var id="";
-    if(  $("#pool_type1").prop("checked"))
-  {
-      id = $("#pool_type1").val();
-  }
-  else if($("#pool_type2").prop("checked")){
-      id = $("#pool_type2").val();
-      
-  }
-  else if($("#pool_type3").prop("checked")){
-      id = $("#pool_type3").val();
-  
-  }else if($("#pool_type4").prop("checked")){
-      id = $("#pool_type4").val();
-      
-  }
-  
+    var id = $("#pool_type1").val();
+    var id = $("#pool_type2").val();
+    var id = $("#pool_type3").val();
+    var id = $("#pool_type4").val();
     var arg = id.toLowerCase()+'Args';
 
     var val = current_pool_obj[arg];
@@ -851,43 +934,29 @@ function renderData() {
 }
 
 function buildData() {
-    var id="";
-  if(  $("#pool_type1").prop("checked"))
-{
-    id = $("#pool_type1").val();
-}
-else if($("#pool_type2").prop("checked")){
-    id = $("#pool_type2").val();
-    
-}
-else if($("#pool_type3").prop("checked")){
-    id = $("#pool_type3").val();
-
-}else if($("#pool_type4").prop("checked")){
-    id = $("#pool_type4").val();
-    
-}
-
-var arg = id.toLowerCase()+'Args';
-console.log(arg);
-    
+    // var id = $("#pool_type1").val();
+ var id= $('.check:checked').val()
+    // var id = $("#pool_type2").val();
+    // var id = $("#pool_type3").val();
+    // var id = $("#pool_type4").val();
+    var arg = id.toLowerCase()+'Args';
     var val = {};
 
     for(var i=0;i<POOL_TYPE[id].length;i++){
         var pool = POOL_TYPE[id][i];
 
         if(pool.type === 'string'){
-            $("#"+pool.name).val() ? val[pool.name] = $("#"+pool.name).val() : '';
+            $("#"+pool.id).val() ? val[pool.id] = $("#"+pool.id).val() : '';
         }
-        if(pool.type === 'integer'){
-            $("#"+pool.name).val() ? val[pool.name] = Number($("#"+pool.name).val()) : '';
+        if(pool.type === 'password'){
+            $("#"+pool.id).val() ? val[pool.id] = $("#"+pool.id).val() : '';
 
         }
-        if(pool.type === 'boolean'){
+        // if(pool.type === 'boolean'){
 
-            $("#"+pool.name).val() ? val[pool.name] = ($("#"+pool.name).val() === 'true' ? true : false) : '';
+        //     $("#"+pool.name).val() ? val[pool.name] = ($("#"+pool.name).val() === 'true' ? true : false) : '';
 
-        }
+        // }
     }
 
     var resultObj = {
@@ -900,56 +969,55 @@ console.log(arg);
         "tomcatArgs" : null
 
     };
-
-console.log(id);
     resultObj[arg] = val;
+    console.log(resultObj)
 
     return resultObj;
 }
 
 function checkField(obj) {
-    if(obj.id ==='jdbcurl'){
-        if(obj.value !== '') {
-            $("#jdbcurlerror").hide();
-            $("#jdbcurl").css("border-color","");
-            
+    if (obj.id === 'url') {
+        if (obj.value !== '') {
+            $("#urlerror").hide();
+            $("#url").css("border-color", "");
+
 
         }
     }
-    if(obj.id === 'username'){
-        if(obj.value !== '') {
+    if (obj.id === 'username') {
+        if (obj.value !== '') {
             $("#usernameerror").hide();
-           $("#username").css("border-color","")
+            $("#username").css("border-color", "")
         }
     }
-    if(obj.id === 'password'){
+    if (obj.id === 'password') {
 
-        if(obj.value !== '') {
+        if (obj.value !== '') {
             $("#passworderror").hide();
-           $("#password").css("border-color","")
+            $("#password").css("border-color", "")
 
         }
     }
-    if(obj.id === 'datasource'){
+    if (obj.id === 'datasource') {
 
-        if(obj.value !== 'datasource') {
+        if (obj.value !== 'datasource') {
             $("#datasourceerror").hide();
-           $("#datasource").css("border-color","")
+            $("#datasource").css("border-color", "")
 
         }
     }
-    if(obj.id === 'driverclass'){
+    if (obj.id === 'driverclass') {
 
-        if(obj.value !== '') {
+        if (obj.value !== '') {
             $("#driverclasserror").hide();
-           $("#driverclass").css("border-color","")
+            $("#driverclass").css("border-color", "")
 
         }
     }
 
-    
+
 }
-function check(){
+function check() {
     var check = $("#pool_type1").val();
 
 
