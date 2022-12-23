@@ -10,7 +10,7 @@ $(document).ready(function () {
     loadDBPool();
 
     $("body").removeClass('bg-white');
-
+   
 });
 
 var POOL_TYPE = {
@@ -213,9 +213,8 @@ function loadDBPool() {
         }
 
     };
-
     poolTable = $("#poolTable").DataTable(tableOption);
-    $('form-control input-sm').attr('maxlength', 100)
+    
 
 
 

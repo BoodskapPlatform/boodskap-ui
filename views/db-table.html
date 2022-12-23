@@ -32,21 +32,21 @@
 
         <div class="page-header bskp-page-topic"><img src="images/menu/dbtableicon.svg"
                 class="bskp-topic-icon sqlicon mr-1">Manage DB Connection Pool
-            <span class="panel-title ml-3" style="color: #2D2F79;">Total DB Connection Pool:<b><span
+            <span class="panel-title ml-3 total-db">Total DB Connection Pool : <b><span
                         class="poolCount"></span></b></span>
         </div>
 
         <!-- end page-header -->
 
         <!-- begin panel -->
-        <div class="panel-body" style="background-color: #eeeeee00;padding-bottom: 30px;">
+        <div class="panel-body panelbody">
             <div class="row m-0">
                 <div class="col-12">
 
                     <div class="btn-group bskp-btn-group-align btn-group-justified pull-right">
-                        <a class="btn bskp-btn-shadow bskp-blue-bg" style="font-size: 14px;font-weight: 500;"
+                        <a class="btn bskp-btn-shadow bskp-blue-bg add-anchor"
                             onclick="openModal(1)">
-                            <image src="images/menu/plusicon.svg" style="position: relative;bottom:1px"> <span
+                            <image src="images/menu/plusicon.svg" class="plus"> <span
                                     class="hidden-xs">Add DB Connection</span>
                         </a>
                         <a class="btn bskp-refresh-bg  refreshbutton" onclick="loadDBPool()" title="Refresh"
@@ -95,7 +95,7 @@
 
 
                     <div class="form-group">
-                        <p class="inputselect" style="font-size:16px;color:black"> Select the type of Connection Pool
+                        <p class="inputselect"> Select the type of Connection Pool
                         </p>
                         <div class="row">
 
@@ -158,10 +158,10 @@
 
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn  btn-secondary btn-close" data-dismiss="modal"
-                                style="width:140px;font-size: 14px;font-weight: 500;">Next</button>
-                            <button type="submit" class="btn btnModal  btn-proceed btnSubmit"
-                                style="font-weight:500;background-color: #2d2f79; font-size: 14px;">Save & Exit</button>
+                            <button type="button" class="btn  btn-secondary btn-close closebutton" data-dismiss="modal"
+                                >Next</button>
+                            <button type="submit" class="btn btnModal  btn-proceed btnSubmit save-and-proceed-button"
+                            >Save & Exit</button>
 
                         </div>
                     </div>
@@ -179,17 +179,17 @@
             <div class="modal-header">
                 <h4 class="modal-title">Delete DB Table</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <image src="images/menu/xicon.svg" class="bg-secondary" style="border-radius: 13px;padding:3px">
+                    <image src="images/menu/xicon.svg" class="bg-secondary xicon">
                     </button>
             </div>
             <div class="modal-body">
                 <p>Are you sure want to delete <b><span class="templateName"></span></b> DB Table?</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary btn-close" data-dismiss="modal"
-                        style="width:110px;font-size: 14px;font-weight: 500; border-radius:10px !important">Close</button>
-                    <button type="submit" class="btn btnModal btn-secondary btn-proceed btnSubmit"
-                        style="width:113px;font-size: 14px;font-weight: 500;"onclick="proceedDelete()">Proceed</button>
+                <button type="button" class="btn btn-secondary btn-close closebutton" data-dismiss="modal"
+                        >Close</button>
+                    <button type="submit" class="btn btnModal btn-secondary btn-proceed btnSubmit savebutton"
+                        onclick="proceedDelete()">Proceed</button>
 
                  </div>
         </div><!-- /.modal-content -->
@@ -203,7 +203,7 @@
             <div class="modal-header">
                 <h4 class="modal-title">Sync DB Connection Pool</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <image src="images/menu/xicon.svg" class="bg-secondary" style="border-radius: 13px;padding:3px">
+                    <image src="images/menu/xicon.svg" class="bg-secondary xicon">
 
                         </button>
             </div>
@@ -219,9 +219,9 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary btn-close" data-dismiss="modal"
-                        style="width:110px;font-size: 14px;font-weight: 500; border-radius:10px !important">Close</button>
+                        >Close</button>
                     <button type="submit" class="btn btnModal btn-secondary btn-proceed btnSubmit"
-                        style="width:113px;font-size: 14px;font-weight: 500;">Proceed</button>
+                        >Proceed</button>
 
                    </div>
         </div><!-- /.modal-content -->
@@ -237,7 +237,7 @@
             <div class="modal-header">
                 <h4 class="modal-title poolName"></h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <image src="images/menu/xicon.svg" class="bg-secondary" style="border-radius: 13px;padding:3px">
+                    <image src="images/menu/xicon.svg" class="bg-secondary xicon" >
 
                     </button>
             </div>
@@ -265,3 +265,9 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+<script>
+    $(document).ready(function () {
+    $('input[type=search]').addClass('searchbox');
+    $('.searchbox').attr('maxlength', 100);
+    });
+</script>
