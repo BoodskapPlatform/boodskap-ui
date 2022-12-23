@@ -1,8 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
-*{
+
+.container-fluid {
     font-family: 'Montserrat', sans-serif !important;
 }
-
 
 .bskp-mart-topic {
     font-size: 20px;
@@ -12,11 +12,10 @@
     margin-bottom: 10px;
 }
 .bskp-mart-panel{
-background: white;
-padding: 10px;
-border-radius: 15px;
-border:1px solid #b9c5d5;
-
+    background: white;
+    padding: 10px;
+    border-radius: 15px;
+    border:1px solid #b9c5d5;
 }
 .mart-cardsize{
     flex: 0 0 25%;
@@ -37,6 +36,7 @@ border:1px solid #b9c5d5;
 }
 .mart-card > .mart-sec1{
     display: flex;
+    margin-bottom: 14px!important;
     flex-direction: row;
     align-items: center;
 }

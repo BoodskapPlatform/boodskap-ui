@@ -1,7 +1,7 @@
 
   .side-bar {
     margin-right: 20px;
-    width: 20rem;
+    width: 23rem;
     height: 100%;
     float: left;
     padding: 1.2rem;
@@ -14,23 +14,45 @@
   }
   .logo-name-wrapper {
     position: relative;
-    margin-bottom: 2.1rem;
+    margin-bottom: 0.8rem;
     display: flex;
-    font-size: 1.2rem;
+    font-size: 16px;
+  }
+  .equl-icon{
+    color: #505199;
+    rotate: 90deg;
+    font-size: 16px !important;
+  }
+  .list-icon{
+    color: #505199;
+    font-size: 16px !important;
+  }
+  .exit-icon{
+    color: #656565;
+    rotate: 180deg;
+    font-size: 16px !important;
   }
   .logo-name {
     display: flex;
     align-items: center;
   }
+  hr {
+    border: none;
+    height: 1px;
+    margin: 5px 0px;
+    background: #c5c5c5;
+}
   .logo-name__name {
     margin-left: 0.9rem;
     white-space: nowrap;
   }
   .logo-name__button {
     position: absolute;
-    top: 50%;
+    padding: 0px;
+    top: 55%;
     right: 0;
-    font-size: 1.8rem;
+    font-size: 16px;
+    color: #6b6b6b;
     transform: translateY(-50%);
     background-color: transparent;
     border: none;
@@ -122,14 +144,18 @@
     opacity: 0;
     transition: 0.6s linear;
   }
+  .dropicon{
+    font-size: 18px !important;
+    font-weight: 600 !important;
+  }
   .category-list {
-    padding-top: 2.1rem;
+    padding-top: 0px;
     padding-bottom: 0.9rem;
     color: var(--grey-color);
     list-style: none;
     font-size: 1.2rem;
     font-weight: 500;
-    border-bottom: 1px solid #292932;
+    border-bottom: 1px solid #afafaf;
   }
   .category-header {
     font-size: 1.2rem;
@@ -141,7 +167,6 @@
   }
   .category-item {
     position: relative;
-    padding: 0.9rem 1.1rem;
     line-height: 1.8rem;
     cursor: pointer;
     white-space: nowrap;
@@ -155,7 +180,7 @@
     display: inline-block;
   }
   .category-item-text {
-    margin-left: 1rem;
+    margin-left: 0rem;
     transition: opacity 0.6s ease;
     opacity: 1;
   }
@@ -329,11 +354,17 @@
   .side-bar.slim .chat-item-avatar-wrapper::before {
     opacity: 1;
   }
-
-
+  .bskp-mart-search {
+    top:-16px;
+  }
+  .category-item label{
+   font-size:12px !important;
+   color: #767676;
+  }
   .bskp-mart-search input{
     width:100%;
     height: 34px;
+    font-size: 14px !important;
     padding: 6px 32px 6px 30px;
     background: white;
     margin: 0 !important;

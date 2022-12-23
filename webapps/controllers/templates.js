@@ -63,13 +63,13 @@ function loadTemplates() {
             sWidth: '20%',
             mRender: function (data, type, row) {
 
-                var str = '<button class="btn  bskp-trash-btn " onclick="openModal(4,\'' + row['name'] + '\')"> <img class="mb-1 mt-1" src="images/trash2.svg" alt=""> </button>'
+                var str = '<button class="btn  bskp-trash-btn" onclick="openModal(4,\'' + row['name'] + '\')"> <img class="mb-1 mt-1" src="images/trash2.svg" alt=""> </button>'
 
                     if($("input[name='systemFlag']:checked").val() === true || $("input[name='systemFlag']:checked").val() === "true"){
                         str = "";
                     }
 
-                return '<button class="btn  bskp-edit-btn mr-2" onclick="openModal(5,\'' + row["name"] + '\')"><img src="images/edit.svg"  alt=""></button>' +
+                return '<button class="btn bskp-edit-btn mr-2" onclick="openModal(5,\'' + row["name"] + '\')"><img class="mb-1 mt-1"   src="images/edit.svg"  alt=""></button>' +
                     str;
             }
         }

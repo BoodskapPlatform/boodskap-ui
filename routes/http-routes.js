@@ -464,6 +464,9 @@ Routes.prototype.init = function () {
         res.render('ota-upgrade.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
     });
 
+    self.router.get('/marketplacev4', roleCheck, function (req, res) {
+        res.render('marketplacev4.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+    });
     self.router.get('/marketplace', roleCheck, function (req, res) {
         res.render('marketplace.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
     });

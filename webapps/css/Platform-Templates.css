@@ -91,3 +91,12 @@
   .name_error_templates, #file_error{
     color: red;font-weight: 600;
   }
+  #addTemplate{
+    z-index:99999;
+  }
+  #deleteModal{
+    z-index:99999
+  }
+  #uploadTemplate{
+    z-index:99999
+  }
