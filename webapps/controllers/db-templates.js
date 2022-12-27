@@ -157,7 +157,7 @@ function loadTemplates() {
     };
 
     templateTable = $("#templateTable").DataTable(tableOption);
-
+    $('.dataTables_filter input').attr('maxlength', 100)
 
 
 
