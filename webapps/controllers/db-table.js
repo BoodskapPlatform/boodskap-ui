@@ -249,6 +249,8 @@ function openModal(type, id) {
     } else if (type === 3) {
         $("#addPool form")[0].reset();
         $(".templateAction").html('Update');
+        $('#addPool').modal({ backdrop: 'static', keyboard: false })
+
         var obj = {};
         current_pool_name = id;
 
