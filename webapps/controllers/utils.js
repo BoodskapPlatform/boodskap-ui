@@ -124,9 +124,11 @@ function errorMsgBorder(msg, id,authvalue) {
     console.log(msg, id);
  if(id){
     $("#log"+id).html(msg).css({"color":"red","font-weight":"600"});
+    console.log("if");
   }
   else{
     $("#snackbar").html("<i class='fa fa-exclamation-triangle'></i> " + msg);
+    console.log("else");
     snackBar();
   }
     // $(".errorFeedBack").html("<i class='fa fa-exclamation-triangle'></i> "+msg);
@@ -154,7 +156,7 @@ function errorMsgBorder(msg, id,authvalue) {
     setTimeout(function () {
         $("#" + id).css("border-bottom", "1px solid #ccc");
         $("#" + id).css("border", "1px solid #ccc");
-         $("#log"+id).css("display","none")
+        $("#log"+id).css("display","none")
     }, 3000);
   
 

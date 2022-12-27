@@ -284,7 +284,7 @@ function loadSQLTable() {
     };
 
     sqlTable = $("#sqlTable").DataTable(tableOption);
-    $('.form-control input-sm').attr('maxlength', 100)
+    $('').attr('maxlength', '100')
 
 
 
