@@ -128,7 +128,7 @@
 
   } 
   ::-webkit-scrollbar-track {
-    background-color:  rgb(172 172 171);  
+    background-color: #e8f2fe;  
   }
   .dataTables_scrollBody {
     border-radius: 10px !important;
