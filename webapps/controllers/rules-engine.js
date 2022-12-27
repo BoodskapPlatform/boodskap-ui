@@ -7708,7 +7708,7 @@ function simulateAPI(nam){
 
     executeMicroAPI(slugId,obj.name,methods.slug,dataObj,$("#m_"+nam+"_key").val(),$("#m_"+nam+"_token").val(),obj,function (status,result){
 
-        $(".m_"+nam+"_result").html("<label>Response: </label><p>"+JSON.stringify(result)+"</p>")
+        $(".m_"+nam+"_result").html("<label>Response: </label><p class='break-word'>"+JSON.stringify(result)+"</p>")
     })
 
 }
