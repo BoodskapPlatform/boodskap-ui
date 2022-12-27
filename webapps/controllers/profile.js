@@ -33,7 +33,7 @@ $(document).ready(function () {
     //     $("#primaryDomain").append('<option value="'+val.domainKey+'">'+(val.label ? val.label : val.domainKey)+'</option>')
     // }
 
-    $("#primaryDomain").val(Cookies.get('domain_name'))
+    
     $(".upload-image").on('click', function() {
         $(".file-upload").click();
      });
@@ -79,15 +79,17 @@ function loadProfile() {
     $(".fullName").css({"font-weight":"bolder","font-size":"16px"})
     $(".emailId").html(user.email)
     $("#mobileNo").val(user.primaryPhone ? user.primaryPhone : '')
+    $("#primaryDomain").val(Cookies.get('domain_name'))
 }
 
 function onlyNumeric(event) {
-    var regex = new RegExp("^[0-9]");
+    var regex = new RegExp("^[0-9-+]");
     var key = String.fromCharCode(event.charCode ? event.which : event.charCode);
     if (!regex.test(key)) {
         event.preventDefault();
         return false;
     }
+    
 } 
 
 function proceedUpdate() {
@@ -101,11 +103,15 @@ function proceedUpdate() {
     } else if(lastName===""){
         errorMsgBorder('Last Name should not be empty', 'lastName');
         return false;
-    } else if(mobileNo===""){
-        errorMsgBorder('Mobile No should not be empty', 'mobileNo');
+    }
+    if(mobileNo!=""){
+        if(mobileNo=="0" || mobileNo=="00" || mobileNo=="000" || mobileNo=="0000" || mobileNo=="00000" || mobileNo=="000000" || mobileNo=="0000000" || mobileNo=="00000000"
+    || mobileNo=="000000000" || mobileNo=="0000000000" || mobileNo=="000000000000" || mobileNo=="000000000000" || mobileNo=="0000000000000" || mobileNo=="000000000000000" || mobileNo=="000000000000000"){
+        errorMsgBorder('Invalid Mobile Number', 'mobileNo');
         return false;
     }
-    else{
+}
+
         var phno = $("#mobileNo").val();
         var filter = /^[7-9][0-9]{9}$/;
 
@@ -123,7 +129,6 @@ function proceedUpdate() {
         location.reload();  
     }
     }
-}
 
 
 function updatePassword() {
@@ -153,7 +158,7 @@ function updatePassword() {
 
     obj['password'] = $("#password").val();
     updateProfile(obj);
-    $('.changePassword')[0].reset();
+    // $('.changePassword')[0].reset();
     }
 }
 
@@ -169,7 +174,10 @@ function updateProfile(obj) {
             $(".user_profile_name").html((USER_OBJ.user.firstName ? USER_OBJ.user.firstName : 'Admin') + ' ' + (USER_OBJ.user.lastName ? USER_OBJ.user.lastName : ""));
             successMsg('Successfully updated');
             loadProfile();
-            location.reload();  
+            setTimeout(() => {
+                location.reload();
+            },500);
+              
         }else{
            errorMsg('Error in update')
         }
