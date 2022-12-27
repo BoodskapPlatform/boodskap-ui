@@ -1,205 +1,6 @@
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="css/sql-table.css">
 
-<style>
-    table td i {
-        font-size: 9px !important;
-    }
-
-    .bskp-modal tbody>tr:first-child>td {
-        padding: 20px 15px 8px 15px !important;
-    }
-
-    .bskp-modal tbody>tr>td:first-child {
-        padding-left: 0px !important;
-    }
-
-    .bskp-modal thead>tr>th:last-child {
-        text-align: center !important;
-    }
-
-    .bskp-table tbody>tr {
-        border-bottom: none !important;
-    }
-
-    pl li {
-        font-size: 12px !important;
-    }
-
-    .bskp-modal .add {
-        background: #2D2F79;
-        padding: 1px;
-        color: white;
-        border-radius: 50%;
-        vertical-align: top;
-        position: relative;
-        bottom: 2px;
-        font-size: 15px;
-    }
-
-    .head {
-        background-color: #d3d8df;
-        border-radius: 10px;
-        display: flex;
-        position: relative;
-        align-items: center;
-    }
-
-
-
-    .bskp-modal .minus {
-        background: #90a1b7;
-        /* padding: 6.5px 8px; */
-        padding: 1px;
-        position: relative;
-        bottom: 2px;
-
-        color: white;
-        border-radius: 50%;
-        vertical-align: top;
-    }
-
-    ol li {
-        font-size: 12px !important;
-    }
-
-    .sqlicon {
-        height: 24px;
-    }
-
-    .bskp-modal .modal-dialog {
-        min-height: calc(100vh - 60px) !important;
-        display: flex !important;
-        flex-direction: column !important;
-        justify-content: center !important;
-    }
-
-    .bskp-modal .modal-dialog {
-        max-width: 1000px;
-        margin: 1.75rem auto;
-    }
-
-    @media(max-width:1024px) {
-        .bskp-modal .modal-dialog {
-            max-width: 85%;
-            margin: 1.75rem auto;
-        }
-    }
-
-    @media(max-width:425px) {
-        .bskp-modal .modal-dialog {
-            max-width: 95%;
-            margin: 1.75rem auto;
-        }
-    }
-
-    .bskp-modal input,
-    textarea,
-    select {
-        font-size: 14px !important;
-        /* font-weight: 500; */
-    }
-
-    .head {
-        background-color: #d3d8df;
-        border-radius: 10px;
-        display: flex;
-        position: relative;
-        align-items: center;
-    }
-
-    
-
-    .dkey {
-        border-radius: 10px;
-
-    }
-
-    .check {
-        position: relative;
-        top: 35px;
-    }
-
-    .ignore {
-        font-size: 14px !important;
-
-    }
-
-    .form-control {
-
-        font-size: 12px !important;
-    }
-
-    .label {
-        /* font-size: 14px; */
-    }
-
-    .checkbox.checkbox-css.checkbox-inline {
-        font-weight: 500;
-        font-size: 10px !important;
-    }
-
-    input[type=file]::file-selector-button {
-        border: 1px solid #7b74a3;
-        border-radius: 5px;
-        background-color: #fdfcfd;
-        color: #7b74a3;
-    }
-
-    .spanmsg {
-        display: block;
-        margin-left: 170px;
-    }
-
-    .close-x-button {
-        border-radius: 13px;
-        padding: 3px;
-    }
-
-    #table_name {
-        margin-left: -12px;
-        position: static;
-    }
-
-    .dkey {
-        border-radius: 10px;
-
-    }
-
-
-    .total-table {
-        color: #2D2F79;
-    }
-
-    .bskp-blue-bg {
-        font-size: 14px;
-        font-weight: 500;
-    }
-
-    .plusicon {
-        position: relative;
-        bottom: 1px;
-    }
-
-    .star {
-        color: red;
-    }
-
-    .table-row {
-        height: 250px;
-        overflow: auto;
-        overflow-x: hidden;
-    }
-
-    #defineMesg {
-        margin-top: 20px;
-    }
-
-    .btn-close {
-        width: 110px;
-        font-size: 14px;
-        font-weight: 500;
-    }
-</style>
 <!--<div class="row-fluid">
     <ul class="nav submenu" style="">
         <li class=""><a href="<%= basepath %>/home"><i class="fa fa-home"></i> </a></li>
@@ -290,7 +91,7 @@
             <div class="modal-header">
                 <h4 class="modal-title">Create SQL Table</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <image src="images/menu/xicon.svg" class="bg-secondary close-x-button" >
+                    <image src="images/menu/xicon.svg" class="bg-secondary xicon" >
                 </button>
             </div>
             <form action="javascript:void(0)" onsubmit="addSQLTable();" novalidate>
@@ -363,9 +164,10 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn  btn-secondary btn-close" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btnModal  btn-proceed btnSubmit"
-                        style="font-weight:500;background-color: #2d2f79;font-size: 14px;">Proceed</button>
+                    <button type="button" class="btn  btn-secondary btn-close" data-dismiss="modal"
+    >Close</button>
+                    <button type="submit" class="btn btnModal  btn-proceed btnSubmit savebutton"
+                     >Proceed</button>
 
                 </div>
             </form>
@@ -397,8 +199,9 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btnModal" onclick="proceedDelete()">Proceed</button>
+                <button type="button" class="btn btn-default btn-close" data-dismiss="modal" 
+    >Close</button>
+                <button type="button" class="btn btnModal savebutton" onclick="proceedDelete()">Proceed</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -454,7 +257,7 @@
             <div class="modal-header">
                 <h4 class="modal-title">Import Tables</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <image src="images/menu/xicon.svg" class="bg-secondary" style="border-radius: 13px;padding:3px">
+                    <image src="images/menu/xicon.svg" class="bg-secondary xicon">
                 </button>
             </div>
             <form action="javascript:void(0)" onsubmit="importContent()">
@@ -464,20 +267,26 @@
                             <div class="form-group">
                                 <label class="inputLabel" style="">Choose File</label>
                                 <input class="form-control input-sm" type="file" id="importFile"
-                                    style="font-size:10px !important; border:none;position: relative;right:11px;"
+                                
                                     required />
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer" style="margin-left:25px;margin-right:30px">
+                <div class="modal-footer footer">
                     <button type="button" class="btn btn-secondary btn-close" data-dismiss="modal"
-                        style="width:110px;font-size: 14px;font-weight: 500; border-radius:10px !important">Close</button>
-                    <button type="submit" class="btn btnModal btn-secondary btn-proceed btnSubmit"
-                        style="width:110px;font-size: 14px;font-weight: 500;">Proceed</button>
+                        >Close</button>
+                    <button type="submit" class="btn btnModal btn-secondary btn-proceed btnSubmit savebutton"
+                        >Proceed</button>
 
                 </div>
             </form>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+<script>
+    $(document).ready(function () {
+    $('input[type=search]').addClass('searchbox');
+    $('.searchbox').attr('maxlength',100);
+    });
+</script>

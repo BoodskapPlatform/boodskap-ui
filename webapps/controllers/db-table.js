@@ -10,7 +10,7 @@ $(document).ready(function () {
     loadDBPool();
 
     $("body").removeClass('bg-white');
-
+   
 });
 
 var POOL_TYPE = {
@@ -103,9 +103,9 @@ function loadDBPool() {
             sWidth: '15%',
             mRender: function (data, type, row) {
 
-                var str = '<button class="btn bskp-trash-btn  " onclick="openModal(2,\'' + row['id'] + '\')"><img src="images/trash2.svg" alt=""></button>'
+                var str = '<button class="btn bskp-trash-btn  " onclick="openModal(2,\'' + row['id'] + '\')"><img src="images/trash2.SVG" alt=""></button>'
 
-                return '<button class="btn bskp-edit-btn mr-3" onclick="openModal(3,\'' + row["id"] + '\')"><img src="images/edit.svg" alt=""></button>' +
+                return '<button class="btn bskp-edit-btn mr-3" onclick="openModal(3,\'' + row["id"] + '\')"><img src="images/edit.SVG" alt=""></button>' +
                     str;
             }
         }
@@ -213,9 +213,8 @@ function loadDBPool() {
         }
 
     };
-
     poolTable = $("#poolTable").DataTable(tableOption);
-    $('form-control input-sm').attr('maxlength', 100)
+    
 
 
 
