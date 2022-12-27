@@ -1,12 +1,12 @@
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-<link rel="stylesheet" href="webapps/css/ota-upgrade.css">
+<link rel="stylesheet" href="css/ota-upgrade.css">
 <style>
        
 </style>
 <div class="row-fluid">
     <ul class="nav  bskp-submenu2" style="">
         <li class="deact" style=""><a href="<%= basepath %>/firmware-management">Manage Firmwares</a></li>
-        <li class="active manage activate"><a href="<%= basepath %>/firmware/ota-upgrade">OTA Upgrade</a></li>
+        <li class="active  manage activate"><a href="<%= basepath %>/firmware/ota-upgrade">OTA Upgrade</a></li>
     </ul>
 </div>
 
@@ -17,7 +17,7 @@
             <ol class="breadcrumb pull-right bskp-align-icon">
                 <li class="breadcrumb-item" ><a href="<%= basepath %>/dashboard">Domain</a></li>
                 <li class="breadcrumb-item"><a href="<%= basepath %>/firmware-management">Firmware Management</a></li>
-                <li class="breadcrumb-item active">OTA Upgrade</li>
+                <li class="breadcrumb-item active activate">OTA Upgrade</li>
                 <div class="ml-3">
                     <a href="javascript:;" class="btn btn-sm btn-icon btn-circle  bskp-icon-bg"
                         data-click="panel-expand"><image src="images/menu/max.svg" height="14px" title="Expand"></a>
@@ -56,7 +56,7 @@
                     <div class="col-lg-12">
                         <div class="btn-group btn-group-justified pull-right bskp-btn-group-align">
                             <a class="btn btn bskp-btn-shadow bskp-blue-bg Create-button"  onclick="openModal(1)"> 
-                                <image src="images/menu/plusicon.svg"> <span class="hidden-xs plusicon">Create OTA Batch</span></a>
+                                <image src="images/menu/plusicon.svg" class="plusicon"> <span class="hidden-xs ">Create OTA Batch</span></a>
                             
                                     <a class="btn bskp-refresh-bg  refreshbutton"  title="Refresh" data-click="panel-reload"  onclick="loadOTA()"><i
                                     class="fa fa-refresh"></i></a>

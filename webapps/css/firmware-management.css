@@ -47,7 +47,6 @@
 .bskp-submenu2 li.active a:hover {
     /* text-decoration: none; */
     color: rgb(58, 41, 41) !important;
-    /* background-color: none!important; */
 }
 
 .bskp-submenu2 li:first-child>a>i {
@@ -91,9 +90,7 @@ color: red;
     border-radius: 10px !important;
 }
 
-.refresh:hover {
-    background-color: #2d2f79;
-}
+
 
 .bskp-modal label {
     font-size: 13px;
@@ -124,8 +121,8 @@ a {
     color: #ffffff;
     list-style: none;
 }
-.nav>li.active>a:hover{
-background: #2D2F79 !important;
+.nav>li.activate>a:hover{
+background-color: #2D2F79 !important;
 color: #ffffff !important;
 }
 .nav>li.deact>a:hover{
@@ -160,8 +157,11 @@ margin-left: -13px;
     font-size: 14px;font-weight: 500;
 }
 .plusicon{
-    position: relative;bottom:2px
+    position: relative;bottom:2px;
 }
 .xicon{
     border-radius: 13px;padding:3px;
+}
+.dropdoggle{
+    width: 100%;border: 1px solid #3e373738;
 }

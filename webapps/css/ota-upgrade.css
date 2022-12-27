@@ -94,7 +94,7 @@ background-color:rgb(237 241 247);
 .bskp-container-frame{
     position: relative;
 }
-.nav>li.active>a:hover{
+.nav>li.activate>a:hover{
 background: #2D2F79 !important;
 color: #ffffff !important;
 }
