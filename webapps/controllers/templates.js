@@ -211,6 +211,8 @@ function openModal(type,id) {
         $("#addTemplate form").attr('onsubmit','updateTemplate()')
     }
 
+    $('#codeEditor').css('height',$(window).height()-320).resize();
+
     
 }
 
