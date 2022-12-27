@@ -103,9 +103,9 @@ function loadDBPool() {
             sWidth: '15%',
             mRender: function (data, type, row) {
 
-                var str = '<button class="btn bskp-trash-btn  " onclick="openModal(2,\'' + row['id'] + '\')"><img src="images/trash2.SVG" alt=""></button>'
+                var str = '<button class="btn bskp-trash-btn  " onclick="openModal(2,\'' + row['id'] + '\')"><img src="images/delete.svg" alt=""></button>'
 
-                return '<button class="btn bskp-edit-btn mr-3" onclick="openModal(3,\'' + row["id"] + '\')"><img src="images/edit.SVG" alt=""></button>' +
+                return '<button class="btn bskp-edit-btn mr-3" onclick="openModal(3,\'' + row["id"] + '\')"><img src="images/edit_icon.svg" alt=""></button>' +
                     str;
             }
         }
@@ -249,6 +249,8 @@ function openModal(type, id) {
     } else if (type === 3) {
         $("#addPool form")[0].reset();
         $(".templateAction").html('Update');
+        $('#addPool').modal({ backdrop: 'static', keyboard: false })
+
         var obj = {};
         current_pool_name = id;
 
