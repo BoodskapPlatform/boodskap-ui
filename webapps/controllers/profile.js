@@ -23,15 +23,17 @@ $(document).ready(function () {
     loadProfile();
     getPrimaryDomain();
 
-    for(var i=0;i<USER_OBJ.partDomains.length;i++){
-        var val = USER_OBJ.partDomains[i];
-        if(i===0){
-            if(DOMAIN_KEY !== val.domainKey){
-                // $(".primaryDomain").remove();
-            }
-        }
-        $("#primaryDomain").append('<option value="'+val.domainKey+'">'+(val.label ? val.label : val.domainKey)+'</option>')
-    }
+    // for(var i=0;i<USER_OBJ.partDomains.length;i++){
+    //     var val = USER_OBJ.partDomains[i];
+    //     if(i===0){
+    //         if(DOMAIN_KEY !== val.domainKey){
+    //             // $(".primaryDomain").remove();
+    //         }
+    //     }
+    //     $("#primaryDomain").append('<option value="'+val.domainKey+'">'+(val.label ? val.label : val.domainKey)+'</option>')
+    // }
+
+    
     $(".upload-image").on('click', function() {
         $(".file-upload").click();
      });
@@ -69,7 +71,7 @@ function updateResponse() {
 }
 
 function loadProfile() {
-   var user = USER_OBJ.user;
+       var user = USER_OBJ.user;
     $("#firstName").val(user.firstName)
     $("#lastName").val(user.lastName ? user.lastName : '')
     $("#emailId").val(user.email)
@@ -77,12 +79,21 @@ function loadProfile() {
     $(".fullName").css({"font-weight":"bolder","font-size":"16px"})
     $(".emailId").html(user.email)
     $("#mobileNo").val(user.primaryPhone ? user.primaryPhone : '')
+    $("#primaryDomain").val(Cookies.get('domain_name'))
 }
 
+function onlyNumeric(event) {
+    var regex = new RegExp("^[0-9-+]");
+    var key = String.fromCharCode(event.charCode ? event.which : event.charCode);
+    if (!regex.test(key)) {
+        event.preventDefault();
+        return false;
+    }
+    
+} 
 
 function proceedUpdate() {
     var obj = USER_OBJ.user;
-    alert("verify data")
     var firstName =$.trim($("#firstName").val() );
     var lastName =$.trim($("#lastName").val() );
     var mobileNo =$.trim($("#mobileNo").val() );
@@ -92,26 +103,32 @@ function proceedUpdate() {
     } else if(lastName===""){
         errorMsgBorder('Last Name should not be empty', 'lastName');
         return false;
-    } else if(mobileNo===""){
-        errorMsgBorder('Mobile No should not be empty', 'mobileNo');
+    }
+    if(mobileNo!=""){
+        if(mobileNo=="0" || mobileNo=="00" || mobileNo=="000" || mobileNo=="0000" || mobileNo=="00000" || mobileNo=="000000" || mobileNo=="0000000" || mobileNo=="00000000"
+    || mobileNo=="000000000" || mobileNo=="0000000000" || mobileNo=="000000000000" || mobileNo=="000000000000" || mobileNo=="0000000000000" || mobileNo=="000000000000000" || mobileNo=="000000000000000"){
+        errorMsgBorder('Invalid Mobile Number', 'mobileNo');
         return false;
-    }else{
-    //     var phno = $("#mobileNo").val();
-    //     var filter = /^[7-9][0-9]{9}$/;
+    }
+}
 
-    //     if (!filter.test(phno)){
-    //         errorMsgBorder('Invalid Phone Number', 'phno',1);
-    //             return false;
-    //     }
+        var phno = $("#mobileNo").val();
+        var filter = /^[7-9][0-9]{9}$/;
+
+        // if (!filter.test(phno)){
+        //     errorMsgBorder('Invalid Phone Number', 'phno',1);
+        //         return false;
+        // }
     //  }   
         obj['firstName'] =  $("#firstName").val();
     obj['lastName'] =  $("#lastName").val();
     obj['primaryPhone'] =  $("#mobileNo").val();
-    // obj['password'] =  ' ';
-    updateProfile(obj);
-    
+    if (confirm("Are you sure to update your profile information?") == true) {
+        updateProfile(obj);
+    } else {
+        location.reload();  
     }
-}
+    }
 
 
 function updatePassword() {
@@ -141,21 +158,26 @@ function updatePassword() {
 
     obj['password'] = $("#password").val();
     updateProfile(obj);
+    // $('.changePassword')[0].reset();
     }
 }
 
 function updateProfile(obj) {
-    console.log(obj)
+    // console.log(obj)
 
     upsertUser(obj,function (status, data) {
         if(status){
-            console.log(obj['password']);
+            console.log(obj);
             delete obj.password;
             USER_OBJ.user = obj;
             Cookies.set('user_details', USER_OBJ);
             $(".user_profile_name").html((USER_OBJ.user.firstName ? USER_OBJ.user.firstName : 'Admin') + ' ' + (USER_OBJ.user.lastName ? USER_OBJ.user.lastName : ""));
             successMsg('Successfully updated');
             loadProfile();
+            setTimeout(() => {
+                location.reload();
+            },500);
+              
         }else{
            errorMsg('Error in update')
         }
@@ -201,28 +223,45 @@ function getPrimaryDomain() {
 }
 
 
-function updatePrimaryDomain() {
+// function updatePrimaryDomain() {
     
-    var primaryDomain = $.trim($("#primaryDomain").val());
-    if(primaryDomain == ""){
-        errorMsgBorder('Password cannot be empty','primaryDomain');
-        return false;
-    }
+//     var primaryDomain = $.trim($("#primaryDomain").val());
+//     if(primaryDomain == ""){
+//         errorMsgBorder('Primary Domain cannot be empty','primaryDomain');
+//         return false;
+//     }
 
+//     var data = {
+//         name: primaryDomainID,
+//         userId : USER_OBJ.user.email,
+//         value: $("#primaryDomain").val()
+//     };
+
+//     upsertUserProperty(data, function (status, data) {
+//         if (status) {
+//             successMsg('Successfully updated')
+
+//         } else {
+//             errorMsg('Error in updating photo')
+//         }
+//     })
+// }
+function updatePrimaryDomain() {
     var data = {
-        name: primaryDomainID,
-        userId : USER_OBJ.user.email,
+        name: DOMAIN_UUID,
         value: $("#primaryDomain").val()
     };
 
-    upsertUserProperty(data, function (status, data) {
+    upsertDomainProperty(data, function (status, data) {
         if (status) {
-            successMsg('Successfully updated')
-
-        } else {
-            errorMsg('Error in updating photo')
+            Cookies.set('domain_name', $("#primaryDomain").val());
+            // $(".primary_domain").html($("#primaryDomain").val());
+            // $("#domainNameModal").modal('hide');
+        }else{
+            errorMsg('Error Occurred! Please try again!')
         }
     })
+
 }
 
 

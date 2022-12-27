@@ -47,7 +47,7 @@ body {
 .nav-tabs{
    background: #ffffff;
    position: absolute;
-    top: -32px;
+    top: -35px;
     left: 10px;
 }
 /* .nav-tabs:first-child {
