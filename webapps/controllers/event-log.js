@@ -631,6 +631,8 @@ function loadLogs() {
     };
 
     logTable = $("#logTable").DataTable(tableOption);
+    templateTable = $("#templateTable").DataTable(tableOption);
+    $('.dataTables_filter input').attr('maxlength', 100)
 
 
 }

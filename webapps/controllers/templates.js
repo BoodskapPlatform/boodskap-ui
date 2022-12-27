@@ -63,13 +63,13 @@ function loadTemplates() {
             sWidth: '20%',
             mRender: function (data, type, row) {
 
-                var str = '<button class="btn  bskp-trash-btn" onclick="openModal(4,\'' + row['name'] + '\')"> <img class="" src="images/trash2.SVG" alt=""> </button>'
+                var str = '<button class="btn  bskp-trash-btn" onclick="openModal(4,\'' + row['name'] + '\')"> <img class="" src="images/delete.svg" alt=""> </button>'
 
                     if($("input[name='systemFlag']:checked").val() === true || $("input[name='systemFlag']:checked").val() === "true"){
                         str = "";
                     }
 
-                return '<button class="btn bskp-edit-btn mr-2" onclick="openModal(5,\'' + row["name"] + '\')"><img class=""   src="images/edit.SVG"  alt=""></button>' +
+                return '<button class="btn bskp-edit-btn mr-2" onclick="openModal(5,\'' + row["name"] + '\')"><img class=""   src="images/edit_icon.svg"  alt=""></button>' +
                     str;
             }
         }
@@ -117,6 +117,10 @@ function loadTemplates() {
         }
 
         templateTable = $("#templateTable").DataTable(tableOption);
+        $('.dataTables_filter input').attr('maxlength', 100)
+
+
+
     })
 
 
@@ -141,7 +145,7 @@ function openModal(type,id) {
 
     if (type === 1) {
         $("#template_name").removeAttr('readonly');
-        $(".templateAction").html('Create');
+        $(".templateAction").html('Add');
         $("#addTemplate form")[0].reset();
         $("#addTemplate").modal({
             backdrop: 'static',
@@ -210,6 +214,8 @@ function openModal(type,id) {
         });
         $("#addTemplate form").attr('onsubmit','updateTemplate()')
     }
+
+    $('#codeEditor').css('height',$(window).height()-320).resize();
 
     
 }

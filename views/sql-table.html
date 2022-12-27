@@ -21,7 +21,7 @@
         <div>
             <ol class="breadcrumb pull-right bskp-align-icon">
                 <li class="breadcrumb-item"><a href="<%= basepath %>/dashboard">Domain</a></li>
-                <li class="breadcrumb-item"><a href="<%= basepath %>/sql-table"></a>SQL Table</a> </li>
+                <li class="breadcrumb-item"><a href="<%= basepath %>/sql-table"></a>DSQL Table</a> </li>
                 <li class="breadcrumb-item active">Create Table</li>
                 <div class="ml-4">
                     <a href="javascript:;" class="btn btn-sm btn-icon btn-circle  bskp-icon-bg"
@@ -37,7 +37,7 @@
             </ol>
         </div>
         <div class="page-header bskp-page-topic"><img src="images/menu/dsql.svg" class="bskp-topic-icon sqlicon mr-1">
-            SQL
+            DSQL
             Table
             <span class="panel-title ml-3 total-table">Total Table : <b><span class="tableCount"></span></b></span>
         </div>
@@ -50,10 +50,11 @@
                             <image src="images/menu/plusicon.svg" class="plusicon">
                                 <span class="hidden-xs">Create Table</span>
                         </a>
+                        <a class="btn bskp-radius-btn" id="importMsg" title="Import Table" onclick="importTable()"><img
+                            src="images/menu/upload.svg" alt=""> </a>
+                    
                         <a class="btn bskp-radius-btn" id="exportMsg" title="Export Table"><img
                                 src="images/menu/download.svg" alt=""> </a>
-                        <a class="btn bskp-radius-btn" id="importMsg" title="Import Table" onclick="importTable()"><img
-                                src="images/menu/upload.svg" alt=""> </a>
                         <a class="btn bskp-refresh-bg  refreshbutton" title="Refresh" data-click="panel-reload"
                             onclick="loadSQLTable()"><i class="fa fa-refresh "></i></a>
                     </div>
@@ -89,7 +90,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Create SQL Table</h4>
+                <h4 class="modal-title">Create DSQL Table</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <image src="images/menu/xicon.svg" class="bg-secondary xicon" >
                 </button>
@@ -273,7 +274,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer footer">
+                <div class="modal-footer foot">
                     <button type="button" class="btn btn-secondary btn-close" data-dismiss="modal"
                         >Close</button>
                     <button type="submit" class="btn btnModal btn-secondary btn-proceed btnSubmit savebutton"
@@ -287,6 +288,6 @@
 <script>
     $(document).ready(function () {
     $('input[type=search]').addClass('searchbox');
-    $('.searchbox').attr('maxlength',100);
+    $('.searchbox').attr('maxlength', 100);
     });
 </script>

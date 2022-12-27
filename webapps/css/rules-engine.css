@@ -140,7 +140,7 @@
     border-bottom: 5px solid #be202e;
 }
 .jobTab a{
-    color:#be202e; !important;
+    color:#be202e !important;
 }
 .jobTab.active a{
     font-weight: bold;
@@ -513,3 +513,7 @@
     color: #666 !important;
 }
 
+
+.break-word{
+    word-break: break-all;
+}
