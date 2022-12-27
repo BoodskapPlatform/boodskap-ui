@@ -2,8 +2,10 @@
      @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
     code{
         background: none !important;
-        color:black;
+        color:rgb(77, 71, 71);
         font-family: Montserrat;
+        font-size: 14px;
+        font-weight: 600;
         
     }
     .dataTables_scrollHeadInner{
@@ -54,11 +56,11 @@
 
     }
     .btn_add_Templates{
-        background-color:#2d2f79;border-radius:10px;color:white !important;font-weight:400;font-size:14px;height:32px;
+        background-color:#2d2f79;border-radius:10px;color:white !important;font-weight:400;font-size:14px;
         
     }
     .platformBody{
-       padding-bottom: 145px;
+       padding-bottom: 50px;
        background-color: hsl(205deg 40% 94%);
        padding-top: 30px;
     }
@@ -99,4 +101,39 @@
   }
   #uploadTemplate{
     z-index:99999
+  }
+  .Platform-Templates .sorting_1{
+    font-size: 14px !important;
+    font-weight: 600 !important;
+   color:  rgb(77, 71, 71);
+  }
+  .Platform-Templates td{
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    color: rgb(77, 71, 71);;
+  }
+  .ace-monokai .ace_cursor{
+    color: black !important;
+
+  }
+  .ace-monokai .ace_string{
+    color: rgb(127, 0, 85) !important;
+
+  }
+  .ace_numeric{
+    color: darkblue !important;
+  }
+   ::-webkit-scrollbar{
+    width:5px
+
+  } 
+  ::-webkit-scrollbar-track {
+    background-color:  rgb(172 172 171);  
+  }
+  .dataTables_scrollBody {
+    border-radius: 10px !important;
+  }
+
+  .ace-monokai .ace_marker-layer .ace_selection{
+    background-color: #b5d5ff;
   }

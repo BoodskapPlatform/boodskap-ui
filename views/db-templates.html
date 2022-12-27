@@ -1,42 +1,4 @@
-<style>
-    .bskp-modal tbody > tr:first-child > td{
-        padding: 20px 15px 8px 15px !important;
-}
-.bskp-modal tbody > tr > td:first-child{
-   padding-left: 0px !important;
-}
-.bskp-modal thead > tr >th:last-child{
-   text-align: center !important;
-}
-#addTemplate tbody > tr ,#addTemplate tbody > tr > td{
-    border: 0px !important;
-}
-.bskp-modal .add {
-    background: #478ecc;
-    padding: 5px 7px;
-    color: white;
-    border-radius: 50%;
-    vertical-align: top;
-    font-size: 15px;
-}
-.bskp-modal .minus {
-    background: #90a1b7;
-    padding: 6.5px 8px;
-    color: white;
-    border-radius: 50%;
-    vertical-align: top;
-}
-.btn{
-    line-height: 25px;
-}
-</style>
-<!--<div class="row-fluid">
-    <ul class="nav submenu" style="">
-        <li class=""><a href="<%= basepath %>/home"><i class="fa fa-home"></i> </a></li>
-        <li class=""><a href="<%= basepath %>/dashboard">Dashboard</a></li>
-        <li class="active"><a href="<%= basepath %>/templates">Templates</a></li>
-    </ul>
-</div>-->
+<link href="css/db-templates.css" rel="stylesheet"/>
 <div class="container mt-3 msgDef platformBody">
    
     <!-- begin panel -->
@@ -131,7 +93,7 @@
 
 
 
-<div id="deleteModal" class="modal fade" tabindex="-1" role="dialog">
+<div id="deleteModal" class="modal bskp-modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -143,7 +105,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btnModal" onclick="proceedDelete()">Proceed</button>
+                <button type="button" class="btn btnModal btn-secondary btn-proceed btnSubmit" onclick="proceedDelete()">Proceed</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
