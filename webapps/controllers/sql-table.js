@@ -759,6 +759,7 @@ function insertSQLTableField() {
         if (status) {
             successMsg('Field Added Successfully');
             $("#addFieldModal").modal('hide');
+
             loadSQLTable();
         } else {
             errorMsg('Error in adding table field')
@@ -844,7 +845,9 @@ function importTable() {
     $("#imported_content").val('')
     $("#importFile").val('')
     importData = '';
-    $("#importModal").modal('show');
+    // $("#importModal").modal('show');
+    $('#importModal').modal({ backdrop: 'static', keyboard: false })
+
 }
 
 

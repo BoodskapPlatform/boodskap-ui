@@ -190,13 +190,10 @@ input[type=file]::file-selector-button {
 #defineMesg {
     margin-top: 20px;
 }
-.footer{
+.foot{
     margin-left:25px;margin-right:30px
 }
 
 #importFile{
     font-size:10px !important; border:none;position: relative;right:11px;
-}
-.footer{
-    margin-left:25px;margin-right:30px
 }
