@@ -11,13 +11,13 @@
         <div class="panel-body" style="background-color:#ffffff;box-shadow: 0px 0px 1px 1px #d9dbe5;padding-bottom: 30px; border-radius:10px">
 
             <div class="row">
-                <div class="col-md-3" style="border-right: 2px solid rgb(234, 241, 246);;">
+                <div class="col-md-3" style="border-right: 2px solid rgb(234, 241, 246);">
                     <div class="row">
                         <div class="col-md-6 dbStyle p-4" >
                             DB Table
                         </div>
                         <div class="col-md-6" style="text-align:end;">
-                            <a class="btn bskp-radius-btn bskp-refreshbtn" data-click="panel-reload" onclick="loadDBTable()" title="Refresh"><i class="fa fa-refresh"></i></a>
+                            <a class="btn bskp-radius-btn bskp-refreshbtn" data-click="panel-reload" onclick="loadDBTable()" title="Refresh"><em class="fa fa-refresh"></em></a>
                             
                         </div>
                     </div>
@@ -47,7 +47,7 @@
                                 <div class="row">
                                     <div class="col-md-9 p-4">
                                         <span class="dbStyle">DB Query Console</span>
-                                        <small style="align-content: center;">(Press <b>CTRL + ENTER</b> to execute the query)</small>
+                                        <small style="align-content: center;">(Press <strong>CTRL + ENTER</strong> to execute the query)</small>
                                     </div>
                                     <div class="col-md-3" style="text-align:end;"> 
                                         <a class="btn bskp-blue-bg px-4" style="border-radius: 10px;font-size:14px;" onclick="executeQuery()"><span class="hidden-xs">Execute</span></a>  
@@ -55,11 +55,11 @@
                                     </div>
                                 </div>
                                 <div class="pb-3 pt-1" >
-                                    <select id="pool_name" style="" onchange="loadDBTable()">
+                                    <select id="pool_name"  onchange="loadDBTable()">
                                     
                                     </select>
                                     <a href="javascript:void(0)" style="padding: 5px; text-decoration: none;color:#666"
-                                    onclick="syncPool()" title="Sync DB Metadata"><i class="icon-reload"></i> sync</a>
+                                    onclick="syncPool()" title="Sync DB Metadata"><em class="icon-reload"></em> sync</a>
                                 </div>
                                 
 

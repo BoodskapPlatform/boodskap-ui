@@ -1,24 +1,17 @@
 <link href="css/edit-profile.css" rel="stylesheet"/>
 <div class="container mt-4 platformBody">
-    <!-- <ol class="breadcrumb pull-right">
-        <li class="breadcrumb-item"><a href="<%= basepath %>/dashboard">Dashboard</a></li>
-        <li class="breadcrumb-item active">My Profile</li>
-    </ol> -->
-
-    <!-- <h1 class="page-header"><i class="icon-user"></i> My Profile</h1> -->
+    
 
     <div class="panel panel-inverse bskp-container-frame">
         <div>
             <ol class="breadcrumb pull-right bskp-align-icon">
-                <!-- <li class="breadcrumb-item"><a href="<%= basepath %>/dashboard">Domain</a></li>
-                <li class="breadcrumb-item"><a href="<%= basepath %>/record-definition">Record Definition</a></li>
-                <li class="breadcrumb-item active">Define Record</li> -->
+                
                 <li class="breadcrumb-item"><a href="<%= basepath %>/dashboard">Home</a></li>
                 <li class="breadcrumb-item active">My Profile</li>
                 <div class="ml-4">
-                    <!-- <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg"title="Expand" data-click="panel-expand"><i class="fa fa-expand"></i></a>
-                    <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg" title="Help"><i class="icon-help"></i></a> -->
-                    <a class="btn bskp-refresh-bg" data-click="panel-reload" title="Refresh" onclick="loadProfile()"><i class="fa fa-refresh"></i></a>
+                    <!-- <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg"title="Expand" data-click="panel-expand"><em class="fa fa-expand"></em></a>
+                    <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg" title="Help"><em class="icon-help"></em></a> -->
+                    <a class="btn bskp-refresh-bg" data-click="panel-reload" title="Refresh" onclick="loadProfile()"><em class="fa fa-refresh"></em></a>
                 </div>
            </ol>
         </div>
@@ -44,7 +37,7 @@
                                                         <img src="" class="user_profile_picture profile_pic">
                                                     </div>
                                                 </div>
-                                                <!-- <i class="fa fa-camera upload-button"></i> -->
+                                                <!-- <i class="fa fa-camera upload-button"></em> -->
                                                 <div class="upload-file">
                                                     <div class="img-bg">
                                                         <img src="images/camera.svg" class="upload-image" >
@@ -61,12 +54,17 @@
                                         <!-- <input type="file" class="file-upload" id="profileFile" onchange="uploadImage()" required/> -->
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
-                                    <ul id="tabs" class="nav nav-tabs">
-                                        <li class="nav-item"><a href="" data-target="#profileInformation" data-toggle="tab" class="nav-link small text-capitalize pr-5 py-2 active">Profile Information</a></li>
-                                        <li class="nav-item"><a href="" data-target="#changePassword" data-toggle="tab" class="nav-link small text-capitalize pr-5 py-2">Change Password</a></li>
-                                        <li class="nav-item"><a href="" data-target="#domainInformaion" data-toggle="tab" class="nav-link small text-capitalize pr-5 py-2">Domain Information</a></li>
-                                    </ul>
+                                <div class="col-sm-12">
+                                    <div class="tabbable-responsive">
+                                        <div class="tabbable">
+                                            <ul id="tabs" class="nav nav-tabs">
+                                                <li class="nav-item"><a href="" data-target="#profileInformation" data-toggle="tab" class="nav-link small text-capitalize pr-5 py-2 active">Profile Information</a></li>
+                                                <li class="nav-item"><a href="" data-target="#changePassword" data-toggle="tab" class="nav-link small text-capitalize pr-5 py-2">Change Password</a></li>
+                                                <li class="nav-item"><a href="" data-target="#domainInformaion" data-toggle="tab" class="nav-link small text-capitalize pr-5 py-2">Domain Information</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                            
 
                                     <!-- <h4>Profile Information</h4>
                                     <hr> -->
@@ -129,14 +127,14 @@
                                                         <div class="form-group">
                                                             <label>New Passsword</label>
                                                             <input type="password" class="form-control form-control-sm input-text" id="password" placeholder="New Password" required/>
-                                                                <i onclick="toggleBox()" class="fa fa-eye form-control-feedback passwordIcon icon-position" ></i>
+                                                                <em onclick="toggleBox()" class="fa fa-eye form-control-feedback passwordIcon icon-position" ></em>
                                                                 <span id="logpassword"></span>
                                                                 <!-- <div id="logpassword"></div> -->
                                                         </div>
                                                         <div class="form-group">
                                                             <label>Confirm Passsword</label>
                                                             <input type="password" class="form-control form-control-sm input-text" id="conf_password" placeholder="Confirm Password" required/>
-                                                                <i onclick="toggles()" class="fa fa-eye form-control-feedback conf_passwordIcon icon-position" ></i>
+                                                                <em onclick="toggles()" class="fa fa-eye form-control-feedback conf_passwordIcon icon-position" ></em>
                                                                 <!-- <span id="logconf_password"></span> -->
                                                                 <div id="logconf_password"></div>
                                                         </div>
