@@ -123,13 +123,18 @@
   .ace_numeric{
     color: darkblue !important;
   }
-   ::-webkit-scrollbar{
-    width:5px
-
+    ::-webkit-scrollbar{
+  
+      width:5px !important
   } 
-  ::-webkit-scrollbar-track {
-    background-color: #e8f2fe;  
+  ::-webkit-scrollbar-thumb {
+    background: hsl(60deg 1% 67%); 
+    border-radius: 10px;
   }
+  ::-webkit-scrollbar-track {
+    background-color:hsl(0deg 0% 93%);  
+   
+  } 
   .dataTables_scrollBody {
     border-radius: 10px !important;
   }
