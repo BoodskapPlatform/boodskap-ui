@@ -93,7 +93,12 @@ font-size: 12px !important;
         
     }
 }
-
+@media only screen and 
+(max-width: 414px) {
+.select2-selection, .select2-selection--single{
+    width: 100% !important;
+}
+}
 @media only screen and(min-width:728px),
 (max-width: 1024px) {
     .executebutton {
@@ -117,16 +122,10 @@ border-radius: 10px !important;
 }
 .select2-container .select2-selection--single, .select2-container--default .select2-selection--multiple{
 border-radius: 10px !important;
+/* border-color: red !important;  */
 
 }
-#snackbar{
-color: white;
-background-color: hsl(238deg 46% 33%);
-border: 1px solid #eaf1f6;
-font-family:Montserrat;
-border-radius:10px;
 
-}
 #pool_url{
 word-break: break-word;
 }
