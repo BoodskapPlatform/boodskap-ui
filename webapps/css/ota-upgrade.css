@@ -7,7 +7,7 @@
     border-top-right-radius: 8px;
 
     font-weight: 600;
-    
+    font-size: 13px !important;
     color:white;
 }
 .tooltip-inner{
@@ -73,16 +73,18 @@ background-color:rgb(237 241 247);
 
 .firmwareicon{
     
-    margin-left: -14px;
+    
     width: 30px;
     height: 24px;
 }
 .select2-container--default .select2-selection--single{
     border-radius: 10px !important;
-    margin-left: -9px;
+
 }
 
-
+#otaTable_length{
+    margin-left: 10px;
+}
 .bskp-modal label{
     font-size:13px ;
     font-weight: 600;
@@ -109,9 +111,7 @@ margin-top: 0px !important;
 ol li{
 font-size: 12px !important;
 }
-.activate{
-    font-size: 13px !important;font-weight:600;padding-bottom: 10px;
-}
+
 .deact{
     font-size: 13px !important;font-weight:600;padding-bottom: 10px;
 }
