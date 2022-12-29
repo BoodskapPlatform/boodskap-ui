@@ -86,3 +86,12 @@ font-size: 11px;
 .install-button{
     font-size: 11px !important;
 }
+@media only screen and
+(max-width: 390px) {
+.side-bar{
+    position: relative;
+    right: 16px;
+    width:345px !important;
+    margin-bottom: 10px;
+}
+}

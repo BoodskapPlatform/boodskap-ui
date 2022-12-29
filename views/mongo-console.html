@@ -42,18 +42,22 @@
                 <div class="col-md-2">
                     <div class="form-group">
                         <label>Connection Pool</label>
-                        <select id="pool_name" class="form-control option" onchange="setConnection(this.value)">
+                        <select id="pool_name" class="form-control option val1" onchange="setConnection(this.value)">
                         </select>
                         <small id="pool_url"></small>
+                        <span id="pool-name" clas="index"></span>
                     </div>
                     <div class="form-group">
                         <label>Database Name</label>
-                        <input type="text" class="form-control option" />
+                        <input type="text" class="form-control option" id="dbName"/>
+                        <span id="database"clas="index"></span>
                     </div>
                     <div class="form-group">
                         <label>Collection Name</label>
                         <select id="col_name" class="form-control option" onchange="">
                         </select>
+                        <span id="collection"clas="index"></span>
+
                     </div>
                     <div class="form-group">
                         <label>Query Type</label>
@@ -62,6 +66,8 @@
                             <option value="AGG">Aggregate</option>
                             <option value="COUNT">Count</option>
                         </select>
+                        <span id="query"clas="index"></span>
+
                     </div>
 
                 </div>
@@ -96,7 +102,7 @@
 $(document).ready(function(){
     $("#query_type").select2();
    $("#pool_name").select2();
-   $("#col_name").select2();
+     $("#col_name").select2();
 
 })
 

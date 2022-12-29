@@ -266,14 +266,13 @@ function openModal(type, id) {
 
 
         $("#name").val(obj.id);
-    //    $('.check'). $.each($('.check'),function () {
+       $('.check').each($('.check'),function () {
     
-    //         if($(this).prop("checked", true)){
+            if($(this).prop("checked", true)){
     
 
-    //         }
-    //     });
-        console.log(obj.type);
+            }
+        });
         $("#pool_type1").val(obj.type)
         $("#pool_type2").val(obj.type) 
         $("#pool_type3").val(obj.type)
