@@ -1,159 +1,12 @@
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
+<link rel="stylesheet" href="css/firmware-management.css">
 <style>
-    #page-container {
-        background-color: hsl(205deg 40% 94%);
-    }
-
-    .bskp-submenu2 li.active {
-        background-color: #2d2f79;
-        border-top-left-radius: 8px;
-        border-top-right-radius: 8px;
-        font-weight: 600;
-
-        color: white;
-    }
-
-    .bskp-submenu2 li.active>a {
-        color: white;
-
-
-    }
- 
-    .bskp-submenu2 {
-        height: 35px;
-        border-radius: 10px;
-        margin: 40px 39px 0px 40px !important;
-
-    }
-
-    .bskp-submenu2 li a {
-        color: rgb(0, 0, 0);
-    }
-
-    .bskp-submenu2 li {
-        line-height: 30px;
-        padding: 3px 15px;
-        border-top-left-radius: 8px;
-        border-top-right-radius: 8px;
-
-        /* border-right: 1px solid #e8e8e8; */
-        background-color: #fff;
-    }
-
-
-    .bskp-submenu2 li a:hover {
-        text-decoration: none;
-        color: rgb(54, 48, 48) !important;
-    }
-
-    .bskp-submenu2 li.active a:hover {
-        /* text-decoration: none; */
-        color: rgb(58, 41, 41) !important;
-        /* background-color: none!important; */
-    }
-
-    .bskp-submenu2 li:first-child>a>i {
-        font-size: 16px;
-        color: darkslategrey;
-    }
-.model-id-req{
-    color: red;
-}
-    .bskp-submenu2 li:first-child>a:hover>i {
-        font-size: 16px;
-
-    }
-
-    /* .bskp-container-frame{
-        position: relative!important;
-        top: -5px;
-    } */
-
-    .bskp-page-topic {
-        font-size: 10px;
-        font-weight: 600;
-        color: #3e3e3e;
-        padding: 12px 30px;
-        box-shadow: 0px 2px 8px 0px #e6eaf8e3;
-    }
-
-    .bskp-modal textarea {
-        min-height: 50px;
-    }
-
-
-    .firmwareicon {
-
-
-        width: 30px;
-        height: 24px;
-    }
-
-    .select2-container--default .select2-selection--single {
-        border-radius: 10px !important;
-    }
-
-    .refresh:hover {
-        background-color: #2d2f79;
-    }
-
-    .bskp-modal label {
-        font-size: 13px;
-        font-weight: 600;
-    }
-
-     .bskp-submenu2 {
-        position: relative;
-        top: 0px;
-        
-    } 
- .bskp-container-frame {
-       
-        position:relative;
-    } 
-
-    a {
-        padding-bottom: 5px;
-    }
-    .nav>li>a:focus{
-        background-color: none !important;
-    }
-    .nav>li>a:hover{
-        background-color: none !important;
-    }
-    .nav>li.firmwareactive>:hover {
-    
-        color: #ffffff;
-        list-style: none;
-    }
-    .nav>li.active>a:hover{
- background: #2D2F79 !important;
- color: #ffffff !important;
-}
-.nav>li.deact>a:hover{
- background: #ffffff !important;
- color: black !important;
-}
-
-    ol li{
-        font-size: 12px;
-    }
-    #model-span{
-        color:red;
-    }
-   .span{
-    color:red;
-    font-weight: 600;
-
-   }
-   .choose-device{
-    margin-left: -13px;
-   }
+   
 </style>
 <div class="row-fluid">
     <ul class="nav bskp-submenu2">
-        <li class="active firmwareactive" style="font-size: 13px !important;font-weight:600; padding-bottom:10px"><a
+        <li class="active activate firmwareactive" style="font-size: 13px !important;font-weight:600; padding-bottom:10px"><a
                 href="<%= basepath %>/firmware-management">Manage Firmwares</a></li>
         <li class="deact" style="font-size: 13px !important;font-weight:600;padding-bottom:10px"><a
                 href="<%= basepath %>/firmware/ota-upgrade">OTA Upgrade</a></li>
@@ -184,16 +37,16 @@
         <!-- end breadcrumb -->
         <div class="page-header bskp-page-topic"><img src="images/menu/firmwareicon.svg"
                 class="bskp-topic-icon mr-1  firmwareicon">
-            <span class="page-header" style="margin-left:0px;font-size:20px ;font-weight: 600;">Manage Firmware</span>
+            <span class="page-header head">Manage Firmware</span>
 
-            <span class="panel-title ml-3 " style="color: #2d2f79;">Total Devices : <span
+            <span class="panel-title ml-3 total-device">Total Devices : <span
                     class="firmwareCount"></span></span>
 
         </div>
 
         <!-- end page-header -->
 
-        <div class="panel-body" style="background-color: #eeeeee00;padding-bottom: 30px;">
+        <div class="panel-body body">
 
             <div class="well well-sm">
                 <div class="row">
@@ -213,10 +66,10 @@
                         <div>
                             <div class="btn-group btn-group-justified pull-right bskp-btn-group-align">
                                 
-                                    <a class="btn btn bskp-btn-shadow bskp-blue-bg"
-                                        style="font-size: 14px;font-weight: 500;" onclick="openModal(1)">
-                                        <image src="images/menu/plusicon.svg" style="position: relative;bottom:2px"> <span
-                                                class="hidden-xs">Upload Firmware</span>
+                                    <a class="btn btn bskp-btn-shadow bskp-blue-bg uploadfirmware"
+                                         onclick="openModal(1)">
+                                        <image src="images/menu/plusicon.svg" class="plusicon"> <span
+                                                class="hidden-xs ">Upload Firmware</span>
                                     </a>
                                 
                                     <a class="btn bskp-refresh-bg  refreshbutton"  title="Refresh" data-click="panel-reload" 
@@ -255,8 +108,8 @@
             <div class="modal-header">
                 <h4 class="modal-title"><span class="templateAction"></span> Firmware</h4>
                 <button type="button" class="close " data-dismiss="modal" aria-label="Close">
-                    <image src="images/menu/xicon.svg" onclick="onclosebutton()" class="bg-secondary"
-                        style="border-radius: 13px;padding:3px"> <span aria-hidden="true">&times;</span>
+                    <image src="images/menu/xicon.svg " onclick="onclosebutton()" class="bg-secondary xicon"
+                        > <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <form action="javascript:void(0)" onsubmit="addFirmware()">
@@ -266,6 +119,7 @@
                             <div class="form-group">
                                 <label class="inputLabel">Model ID<strong class="model-id-req">*</strong></label>
                                 <select class="form-control input-sm modelId" id="f_device_model">
+                                    
                                 </select>
                                 <span id="model-span" class="span"></span>
                             </div>
@@ -298,9 +152,9 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn  btn-secondary btn-close"
-                        data-dismiss="modal" style="width:110px;font-size: 14px;font-weight: 500;">Close</button>
+                        data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btnModal  btn-proceed btnSubmit"
-                        style="font-weight:500;background-color: #2d2f79; width:110px;font-size: 14px;">Proceed</button>
+                    >Proceed</button>
                 </div>
             </form>
         </div><!-- /.modal-content -->
@@ -357,8 +211,8 @@
                             <div class="form-group">
                                 <label class="inputLabel">Choose Device ID</label>
                                 <div class="dropdown">
-                                    <div class="btn btn-sm dropdown-toggle"
-                                        style="width: 100%;border: 1px solid #3e373738;" type="" id="dropdownMenu1"
+                                    <div class="btn btn-sm dropdown-toggle dropdoggle"
+                                         type="" id="dropdownMenu1"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                         <input type="text" style="" class="input-sm inputDevice"
                                             placeholder="Search by device id, name, model, version" id="deviceID"
@@ -392,7 +246,6 @@
 <script>
     $(document).ready(function () {
         $("#deviceModel").select2();
-        // $("#f_device_model").select2();
         $('[data-toggle="tooltip"]').tooltip();
 
 

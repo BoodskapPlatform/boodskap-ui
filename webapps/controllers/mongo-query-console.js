@@ -91,21 +91,39 @@ function executeQuery() {
 
 
     if($("#pool_name").val() === ""){
-        errorMsgBorder('Connection Pool cannot be empty', 'pool_name')
+        $("#pool-name").text("Connection Pool cannot be empty")
+        $("#database").text("Database Name cannot be empty")
+        $("#collection").text("Collection Name cannot be empty")
+        $("#query").text("Query Type cannot be empty")
+
+
+        $("#pool-name").css({"color":"red","visibility":"visible"})
+        $("#database").css({"color":"red","visibility":"visible"})
+        $("#collection").css({"color":"red","visibility":"visible"})
+        $("#query").css({"color":"red","visibility":"visible"})
+
+        $(".select2-container--default, .select2-selection--single, #dbName").css({'border':'1px solid red',"border-radius":"10px"})
+ setTimeout(function(){
+$(".select2-container--default, .select2-selection--single, #dbName").css('border','')
+ $("#pool-name").text('')
+ $("#database").text('')
+ $("#collection").text('')
+ $("#query").text('')
+ $("#pool-name").css({"color":"","visibility":"hidden"})
+ $("#database").css({"color":"","visibility":"hidden"})
+ $("#collection").css({"color":"","visibility":"hidden"})
+ $("#query").css({"color":"","visibility":"hidden"})
+
+
+
+},2500)
+
+
+        // errorMsgBorder('Connection Pool cannot be empty', 'pool_name')
         return false
     }
-
-    if($("#dbName").val() === ""){
-        errorMsgBorder('Database name cannot be empty', 'dbName')
-        return false
-    }
-
-    if($("#col_name").val() === ""){
-        errorMsgBorder('Collection name cannot be empty', 'col_name')
-        return false
-    }
-
-    if ($.trim(query)) {
+    
+     if ($.trim(query)) {
 
         var q = query.toLowerCase();
 
@@ -135,6 +153,7 @@ function executeQuery() {
                         errorMsg('No Mongo DB Access for this Domain. Contact Boodskap Support')
                     }else{
                         errorMsg('Error in Execution')
+                       
                     }
 
                     resultEditor.setValue(js_beautify(data.responseText, {indent_size: 4})) // moves cursor to the start
@@ -148,7 +167,11 @@ function executeQuery() {
 
 
     } else {
-        errorMsg('Required Fields cannot be empty')
+        
+        // errorMsg('Required Fields cannot be empty')
+        
+
+
     }
 }
 
@@ -287,12 +310,13 @@ function loadConnectionpool() {
             var result = QueryFormatter(data).data;
             var resultData = result.data;
             connectionList = resultData;
+            $("#pool_name").html('<option value="">Choose Connection Pool</option>')
+
             for(var i=0;i<resultData.length;i++){
                 $("#pool_name").append('<option value="'+resultData[i].name+'">'+resultData[i].name+'</option>')
                 
             }
         }else{
-            $("#pool_name").html('<option value="">Choose Connection Pool</option>')
             connectionList = []
         }
     });

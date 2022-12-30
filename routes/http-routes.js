@@ -231,6 +231,7 @@ Routes.prototype.init = function () {
     self.router.get('/registerSuccess',function (req, res) {
         res.render('register-success.html', {layout:false,basepath: getBasePath(req),key:''});
     });
+    
 
     self.router.get('/license-activation',function (req, res) {
         let apiUrl = self.app.conf.development ? self.app.conf.api : self.app.conf.protocol+"://"+req.headers.host+self.app.conf.api;
@@ -288,6 +289,12 @@ Routes.prototype.init = function () {
     });
     self.router.get('/profile', roleCheck,function (req, res) {
         res.render('profile.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, response : ''});
+    });
+    self.router.get('/updateUserPassword', roleCheck,function (req, res) {
+        res.render('updateUserPassword.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, response : ''});
+    });
+    self.router.get('/userDomain', roleCheck,function (req, res) {
+        res.render('userDomain.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, response : ''});
     });
     self.router.get('/domain', roleCheck, function (req, res) {
         res.render('domain.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});

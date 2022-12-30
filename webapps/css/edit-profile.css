@@ -32,7 +32,7 @@ body {
 .icon-position{
    position: relative;
    float: right;
-   margin-right: 53px;
+   margin-right: 65px;
    margin-top: -20px;
 }
 #tabsContent{
@@ -47,7 +47,7 @@ body {
 .nav-tabs{
    background: #ffffff;
    position: absolute;
-    top: -32px;
+    top: -35px;
     left: 10px;
 }
 /* .nav-tabs:first-child {
@@ -141,7 +141,7 @@ a.nav-link.small.active{
    position: absolute;
    top: 32px;
    width: 15px;
-   right: 60px;
+   right: 75px;
 }
 .outer-border{
    width: 146px;

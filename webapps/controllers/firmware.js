@@ -20,9 +20,12 @@ $(document).ready(function () {
 function loadDeviceModels() {
     $("#deviceModel").html('');
     $("#deviceModel").html('<option value=""></option>');
+
     getDeviceModel(1000, function (status, data) {
         if (status && data.length > 0) {
             $("#f_device_model").html('');
+            $("#f_device_model").html('<option></option>');
+
             for (var i = 0; i < data.length; i++) {
                 $("#deviceModel").append('<option value="' + data[i].id + '">' + data[i].id + ' | ' + data[i].version + '</option>')
                 $("#f_device_model").append('<option value="' + data[i].id + '">' + data[i].id + ' | ' + data[i].version + '</option>')
@@ -441,7 +444,7 @@ function addFirmware() {
     var files = fileInput.files;
 
     if ($("#f_device_model").val() === "") {
-        $("#model-span").text("Please fill out this field")
+        $("#model-span").text("Please select Model Id")
         $("#f_device_model").css('border-color', 'red')
 
         setTimeout(function () {

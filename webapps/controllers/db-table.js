@@ -10,7 +10,7 @@ $(document).ready(function () {
     loadDBPool();
 
     $("body").removeClass('bg-white');
-
+   
 });
 
 var POOL_TYPE = {
@@ -103,9 +103,9 @@ function loadDBPool() {
             sWidth: '15%',
             mRender: function (data, type, row) {
 
-                var str = '<button class="btn bskp-trash-btn  " onclick="openModal(2,\'' + row['id'] + '\')"><img src="images/trash2.svg" alt=""></button>'
+                var str = '<button class="btn bskp-trash-btn" title="Delete" onclick="openModal(2,\'' + row['id'] + '\')"><img src="images/delete.svg" alt=""></button>'
 
-                return '<button class="btn bskp-edit-btn mr-3" onclick="openModal(3,\'' + row["id"] + '\')"><img src="images/edit.svg" alt=""></button>' +
+                return '<button class="btn bskp-edit-btn mr-3" title="Edit" onclick="openModal(3,\'' + row["id"] + '\')"><img src="images/edit_icon.svg" alt=""></button>' +
                     str;
             }
         }
@@ -213,9 +213,8 @@ function loadDBPool() {
         }
 
     };
-
     poolTable = $("#poolTable").DataTable(tableOption);
-    $('form-control input-sm').attr('maxlength', 100)
+    
 
 
 
@@ -229,7 +228,7 @@ function openModal(type, id) {
     if (type === 1) {
         $("#name").removeAttr('readonly');
 
-        $(".templateAction").html('Create');
+        $(".templateAction").html('Add');
         $('#addPool').modal({ backdrop: 'static', keyboard: false })
         $("#addPool form")[0].reset();
         $("#addPool").modal('show');
@@ -250,6 +249,8 @@ function openModal(type, id) {
     } else if (type === 3) {
         $("#addPool form")[0].reset();
         $(".templateAction").html('Update');
+        $('#addPool').modal({ backdrop: 'static', keyboard: false })
+
         var obj = {};
         current_pool_name = id;
 
@@ -263,16 +264,8 @@ function openModal(type, id) {
 
         $("#name").attr('readonly', 'readonly');
 
-
         $("#name").val(obj.id);
-    //    $('.check'). $.each($('.check'),function () {
-    
-    //         if($(this).prop("checked", true)){
-    
-
-    //         }
-    //     });
-        console.log(obj.type);
+       
         $("#pool_type1").val(obj.type)
         $("#pool_type2").val(obj.type) 
         $("#pool_type3").val(obj.type)
@@ -544,7 +537,7 @@ function renderType1() {
             <div  class="col-md-4">
                 <div  class="form-group">
                     <label  class="inputLabel">` + pool.name + ` ` + (pool.mandatory ? '<span style="color:red" class="' + pool.name + '">*</span>' : '') + `</label>
-                    <input  class="form-control input-sm"  placeholder="" type="text" id="` + pool.id + `" ` + (pool.mandatory ? '' : '') + ` 
+                    <input  class="form-control input-sm" maxlength="100"  placeholder="" type="text" id="` + pool.id + `" ` + (pool.mandatory ? '' : '') + ` 
                     onkeyup="checkField(this)">
                     ` + (pool.text ? '<small id="' + pool.id + "error" + '"  style="display:none;color:red;font-weight:600">' + pool.text + '</small>' : '') + `
                 </div>
@@ -557,7 +550,7 @@ function renderType1() {
             <div  class="col-md-4">
                 <div  class="form-group">
                     <label  class="inputLabel">` + pool.name + ` ` + (pool.mandatory ? '<span style="color:red">*</span>' : '') + `</label>
-                    <input  class="form-control input-sm"  placeholder="" type="text" id="` + pool.id + `" ` + (pool.mandatory ? 'required' : '') + `>
+                    <input  class="form-control input-sm" maxlength="100" placeholder="" type="text" id="` + pool.id + `" ` + (pool.mandatory ? 'required' : '') + `>
                 </div>
             </div>
             `
@@ -646,7 +639,7 @@ console.log(id)
             <div  class="col-md-4">
                 <div  class="form-group">
                     <label  class="inputLabel">` + pool.name + ` ` + (pool.mandatory ? '<span style="color:red" class="' + pool.name + '">*</span>' : '') + `</label>
-                    <input  class="form-control input-sm" placeholder="" type="text" id="` + pool.id + `" ` + (pool.mandatory ? '' : '') + ` 
+                    <input  class="form-control input-sm" maxlength="100" placeholder="" type="text" id="` + pool.id + `" ` + (pool.mandatory ? '' : '') + ` 
                     onkeyup="checkField(this)">
                     ` + (pool.text ? '<small id="' + pool.id + "error" + '"  style="display:none;color:red;font-weight:600" >' + pool.text + '</small>' : '') + `
 
@@ -659,7 +652,7 @@ console.log(id)
             <div  class="col-md-4">
                 <div  class="form-group">
                     <label  class="inputLabel">` + pool.name + ` ` + (pool.mandatory ? '<span style="color:red">*</span>' : '') + `</label>
-                    <input  class="form-control input-sm" placeholder="" type="text" id="` + pool.id + `" ` + (pool.mandatory ? 'required' : '') + `>
+                    <input  class="form-control input-sm" maxlength="100" placeholder="" type="text" id="` + pool.id + `" ` + (pool.mandatory ? 'required' : '') + `>
                 </div>
             </div>
             `
@@ -746,7 +739,7 @@ function renderType3() {
             <div  class="col-md-4">
                 <div  class="form-group">
                     <label  class="inputLabel">` + pool.name + ` ` + (pool.mandatory ? '<span style="color:red" class="' + pool.name + '">*</span>' : '') + `</label>
-                    <input  class="form-control input-sm" placeholder="" type="text" id="` + pool.id + `" ` + (pool.mandatory ? '' : '') + ` 
+                    <input  class="form-control input-sm" maxlength="100" placeholder="" type="text" id="` + pool.id + `" ` + (pool.mandatory ? '' : '') + ` 
                     onkeyup="checkField(this)">
                     ` + (pool.text ? '<small id="' + pool.id + "error" + '"  style="display:none;color:red;font-weight:600">' + pool.text + '</small>' : '') + `
                 </div>
@@ -758,7 +751,7 @@ function renderType3() {
             <div  class="col-md-4">
                 <div  class="form-group">
                     <label  class="inputLabel">` + pool.name + ` ` + (pool.mandatory ? '<span style="color:red">*</span>' : '') + `</label>
-                    <input  class="form-control input-sm" placeholder="" type="text" id="` + pool.id + `" ` + (pool.mandatory ? 'required' : '') + `>
+                    <input  class="form-control input-sm" maxlength="100" placeholder="" type="text" id="` + pool.id + `" ` + (pool.mandatory ? 'required' : '') + `>
                 </div>
             </div>
             `
@@ -842,7 +835,7 @@ function renderType4() {
             <div  class="col-md-4">
                 <div  class="form-group">
                     <label  class="inputLabel">` + pool.name + ` ` + (pool.mandatory ? '<span style="color:red" class="' + pool.name + '">*</span>' : '') + `</label>
-                    <input  class="form-control input-sm" placeholder="" type="text" id="` + pool.id + `" ` + (pool.mandatory ? '' : '') + ` 
+                    <input  class="form-control input-sm" maxlength="100" placeholder="" type="text" id="` + pool.id + `" ` + (pool.mandatory ? '' : '') + ` 
                     onkeyup="checkField(this)">
                     ` + (pool.text ? '<small id="' + pool.id + "error" + '"  style="display:none;color:red;font-weight:600" >' + pool.text + '</small>' : '') + `
                 </div>
@@ -854,7 +847,7 @@ function renderType4() {
             <div  class="col-md-4">
                 <div  class="form-group">
                     <label  class="inputLabel">` + pool.name + ` ` + (pool.mandatory ? '<span style="color:red">*</span>' : '') + `</label>
-                    <input  class="form-control input-sm" placeholder="" type="text" id="` + pool.id + `" ` + (pool.mandatory ? '' : '') + `>
+                    <input  class="form-control input-sm" maxlength="100" placeholder="" type="text" id="` + pool.id + `" ` + (pool.mandatory ? '' : '') + `>
                 </div>
             </div>
             `
@@ -942,12 +935,8 @@ function renderData() {
 }
 
 function buildData() {
-    // var id = $("#pool_type1").val();
  var id= $('.check:checked').val()
-    // var id = $("#pool_type2").val();
-    // var id = $("#pool_type3").val();
-    // var id = $("#pool_type4").val();
-    var arg = id.toLowerCase()+'Args';
+      var arg = id.toLowerCase()+'Args';
     var val = {};
 
     for(var i=0;i<POOL_TYPE[id].length;i++){

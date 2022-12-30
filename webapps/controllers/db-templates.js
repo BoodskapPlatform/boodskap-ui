@@ -50,9 +50,9 @@ function loadTemplates() {
             sWidth: '15%',
             mRender: function (data, type, row) {
 
-                var str = '<button class="btn btn-sm btn-icon btn-default" onclick="openModal(4,\'' + row['id'] + '\')"><i class="icon-trash-o"></i></button>'
+                var str = '<button class="btn bskp-trash-btn " onclick="openModal(4,\'' + row['id'] + '\')" title="Delete"><img src="images/delete.svg" alt=""></button>'
 
-                return '<button class="btn btn-sm btn-icon btn-default" onclick="openModal(5,\'' + row["id"] + '\')"><i class="icon-edit2"></i></button>' +
+                return '<button class="btn bskp-edit-btn mr-2 " onclick="openModal(5,\'' + row["id"] + '\')" title="Edit"><img src="images/edit_icon.svg" alt=""></button>' +
                     str;
             }
         }
@@ -145,7 +145,9 @@ function loadTemplates() {
                     var resultData = QueryFormatter(data).data;
 
                     template_list = resultData['data'];
-                    $(".templateCount").html(resultData.recordsFiltered)
+                    // $(".templateCount").html(resultData.recordsFiltered)
+                    $(".totalCount").html(resultData.recordsFiltered)
+
 
                     resultData['draw'] = oSettings.iDraw;
 
@@ -157,7 +159,7 @@ function loadTemplates() {
     };
 
     templateTable = $("#templateTable").DataTable(tableOption);
-
+    $('.dataTables_filter input').attr('maxlength', 100)
 
 
 
@@ -179,10 +181,18 @@ function openModal(type, id) {
         
     }
     else if (type === 4) {
+        $("#deleteModal").modal({
+            backdrop: 'static',
+            keyboard: false
+        });
         current_template_name = id;
         $(".templateName").html(id)
         $("#deleteModal").modal('show');
     } else if (type === 5) {
+        $("#addTemplate").modal({
+            backdrop: 'static',
+            keyboard: false
+        });
         $("#addTemplate form")[0].reset();
         $(".templateAction").html('Update');
         var obj = {};
@@ -199,6 +209,7 @@ function openModal(type, id) {
         $("#template_code").val(obj.query);
         $("#addTemplate").modal('show');
         $("#addTemplate form").attr('onsubmit', 'updateTemplate()')
+        
     }else if (type === 6) {
 
         var obj = {};
@@ -233,15 +244,14 @@ function addTemplate() {
     if($("#template_code").val() === ""){
         errorMsgBorder('Template Query cannot be empty', 'template_code')
         return false;
-    }
-
+    }else {
     var tempObj = {
         "id": $("#template_name").val(),
         "query": $("#template_code").val(),
         domainKey: DOMAIN_KEY
     }
 
-        console.log(temObj);
+        
         $(".btnSubmit").attr('disabled', 'disabled');
     
 
@@ -263,6 +273,7 @@ function addTemplate() {
                 })
             }
         })
+    }
 }
 
 
