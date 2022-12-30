@@ -142,8 +142,8 @@ function loadOTA() {
 
             loadingRecords: '',
             paginate: {
-                previous: '< Previous',
-                next: 'Next >'
+                previous: ' Previous',
+                next: 'Next '
             }
         },
      aoColumns: fields,

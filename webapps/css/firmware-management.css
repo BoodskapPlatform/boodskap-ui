@@ -13,19 +13,20 @@
 
 .bskp-submenu2 li.active>a {
     color: white;
-
+font-family:'Montserrat' ;
 
 }
 
 .bskp-submenu2 {
     height: 35px;
     border-radius: 10px;
-    margin: 40px 39px 0px 40px !important;
+    margin: 27px 39px 0px 40px !important;
 
 }
 
 .bskp-submenu2 li a {
     color: rgb(0, 0, 0);
+    font-family: 'Montserrat';
 }
 
 .bskp-submenu2 li {
@@ -131,7 +132,7 @@ color: black !important;
 }
 
 ol li{
-    font-size: 12px;
+    font-size: 13px;
 }
 #model-span{
     color:red;
@@ -143,6 +144,8 @@ font-weight: 600;
 }
 .choose-device{
 margin-left: -13px;
+position: relative;
+bottom:12px;
 }
 .head{
     margin-left:0px;font-size:20px ;font-weight: 600;
@@ -151,7 +154,8 @@ margin-left: -13px;
     color: #2d2f79;
 }
 .body{
-    background-color: #eeeeee00;padding-bottom: 30px;
+    background-color: #eeeeee00;
+    padding: 5px;
 }
 .uploadfirmware{
     font-size: 14px;font-weight: 500;
@@ -162,6 +166,13 @@ margin-left: -13px;
 .xicon{
     border-radius: 13px;padding:3px;
 }
+.add-xicon{
+    position: relative;
+    left:19px;
+}
 .dropdoggle{
     width: 100%;border: 1px solid #3e373738;
+}
+.odd{
+    font-size: 14px;
 }

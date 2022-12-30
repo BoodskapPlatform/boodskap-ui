@@ -20,7 +20,7 @@
                 <li class="breadcrumb-item active activate">OTA Upgrade</li>
                 <div class="ml-3">
                     <a href="javascript:;" class="btn btn-sm btn-icon btn-circle  bskp-icon-bg"
-                        data-click="panel-expand"><image src="images/menu/max.svg" height="14px" title="Expand"></a>
+                        data-click="panel-expand"><image src="images/menu/expand-icon.svg" height="14px" title="Expand"></a>
                     <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg " title="Help">
                         <img src="images/menu/Question_icon (2).png"></a>
 
@@ -38,7 +38,7 @@
 
 
         <div>
-            <div class="panel-heading bg-white">
+            <div class="panel-heading header bg-white">
 
                 <h4 class="panel-title">
                     <div class="form-group col-md-3">
@@ -58,12 +58,13 @@
                             <a class="btn btn bskp-btn-shadow bskp-blue-bg Create-button"  onclick="openModal(1)"> 
                                 <image src="images/menu/plusicon.svg" class="plusicon"> <span class="hidden-xs ">Create OTA Batch</span></a>
                             
-                                    <a class="btn bskp-refresh-bg  refreshbutton"  title="Refresh" data-click="panel-reload"  onclick="loadOTA()"><i
-                                    class="fa fa-refresh"></i></a>
+                                    <a class="btn bskp-refresh-bg  refreshbutton"  title="Refresh" data-click="panel-reload"  onclick="loadOTA()">
+                                        <img class="refresh-button"src="images/menu/refresh-button.png" alt="">
+                                    </a>
                         </div>
                         <div class="bskp-table-layout">
 
-                            <table class="table table-bordered table-hover bskp-table responsive no-wrap" id="otaTable"
+                            <table class="table table-bordered  bskp-table responsive no-wrap" id="otaTable"
                                 cellspacing="0" width="100%">
 
                             </table>
