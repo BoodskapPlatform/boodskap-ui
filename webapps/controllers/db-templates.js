@@ -145,7 +145,9 @@ function loadTemplates() {
                     var resultData = QueryFormatter(data).data;
 
                     template_list = resultData['data'];
-                    $(".templateCount").html(resultData.recordsFiltered)
+                    // $(".templateCount").html(resultData.recordsFiltered)
+                    $(".totalCount").html(resultData.recordsFiltered)
+
 
                     resultData['draw'] = oSettings.iDraw;
 
