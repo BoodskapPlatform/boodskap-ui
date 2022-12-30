@@ -153,9 +153,9 @@
        
         border-radius: 10px;
     }
-    .ace_folding-enabled > .ace_gutter-cell{
+    /* .ace_folding-enabled > .ace_gutter-cell{
         background-color: #a8a3a3;
-    }
+    } */
     .btnExec {
         background-color: hsl(240deg 46% 32%) ;
         color: #ffffff;
@@ -247,4 +247,14 @@ font-weight:400px;
 .inputLabel{
     font-size:16px;
 }
-   
+
+
+
+
+.ace-solarized-light .ace_marker-layer .ace_active-line{
+    background-color: rgb(232 242 254);
+}
+
+.ace-solarized-light .ace_gutter-active-line{
+    background-color:rgb(218 218 218) !important;
+}

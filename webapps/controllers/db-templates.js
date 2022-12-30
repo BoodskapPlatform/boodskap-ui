@@ -90,8 +90,8 @@ function loadTemplates() {
               "emptyTable":"No data available",
                 loadingRecords: '',
                 paginate: {
-                    previous: '< Prev',
-                    next: 'Next >'
+                    previous: 'Previous',
+                    next: 'Next '
                 },
 
             },
@@ -190,7 +190,7 @@ function openModal(type, id) {
         $("#deleteModal").modal('show');
     } else if (type === 5) {
         $("#addTemplate").modal({
-            backdrop: 'static',
+            backdrop: 'sopenModaltatic',
             keyboard: false
         });
         $("#addTemplate form")[0].reset();

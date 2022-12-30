@@ -60,12 +60,7 @@
     <link href="css/log-style.css" rel="stylesheet"/>
     <script src="libraries/pace.min.js"></script>
 
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap'); 
-        body{
-           font-family: Montserrat;
-        }
-   </style>
+    
 </head>
 <body class="pace-top bg-white">
 <div id="page-loader" class="fade show"><span class="spinner"></span></div>
@@ -82,9 +77,9 @@
                 
             </div>
             <div class="px-2">
-                <img src="images/3D_Sphere.png" class="sub-image">
-                <img src="images/Screen.png" class="sub-image2">
-                <img src="images/3D_Sphere_2.png" class="sub-image1">
+                <img src="images/3D_Sphere.png" class="sub-image" alt="3dsphere">
+                <img src="images/Screen.png" class="sub-image2" alt="screen">
+                <img src="images/3D_Sphere_2.png" class="sub-image1" alt="3dsphere">
                 
                 <div class="box py-4">
                     <div class="pb-2">
@@ -105,7 +100,7 @@
             <div class="container">
                 <div class="d-flex align-items-center px-4 py-4">
                     <div class="brand">
-                        <a href="<%= basepath %>/login"><img class="loginLogo" style="width: 120px"/></a>
+                        <a href="<%= basepath %>/login"><img class="loginLogo" style="width: 120px" alt="logo"/></a>
                     </div>
                     <div class="w-100 header-option">
                         <span class="d-flex justify-content-end">
@@ -133,14 +128,14 @@
                         <div class="wrap-input">
                             <input type="text" class="input-text " id="lastname" placeholder="Last name" required/>
                             <span class="loginput text-end" data-placeholder="">
-                                <img class="icon-position" src="images/person.png" style="width: 18px;position: absolute;right: 1px;top: -18px;">
+                                <img class="icon-position" src="images/person.png" style="width: 18px;position: absolute;right: 1px;top: -18px;" alt="personicon">
                             </span>
                             <div id="loglastname"></div> 
                         </div>
                         <div class="wrap-input">
                             <input type="email" class="input-text" id="email" placeholder="Email address" required/>
                             <span class="loginput text-end" data-placeholder="">
-                                <img class="icon-position" src="images/email.png" style="width: 18px;position: absolute;right: 1px;top: -18px;">
+                                <img class="icon-position" src="images/email.png" style="width: 18px;position: absolute;right: 1px;top: -18px;" alt="email">
                             </span>
                             <div id="logemail"></div>
                         </div>
@@ -173,8 +168,8 @@
                                 
                             </p>
                             <p class="text-center" style="color:#836e6e;font-size: 10px;" >
-                                Dashboard Version: <b><span  class="webVersion"style="font-weight: 400;"></span></b>
-                            <span style="color:#836e6e;font-size: 10px;" >|</span> Platform Version: <b><span class="platformVersion"style="font-weight: 400;"></span></b>
+                                Dashboard Version: <strong><span  class="webVersion"style="font-weight: 400;"></span></strong>
+                            <span style="color:#836e6e;font-size: 10px;" >|</span> Platform Version: <strong><span class="platformVersion"style="font-weight: 400;"></span></strong>
                                 
                             </p>
                         </div>
