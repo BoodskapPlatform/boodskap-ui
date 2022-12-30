@@ -1,10 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100" height="100" viewBox="0 0 100 100">
   <defs>
-    <clipPath id="clip-icon_35">
+    <clipPath id="clip-icon_46">
       <rect width="100" height="100"/>
     </clipPath>
   </defs>
-  <g id="icon_35" data-name="icon – 35" clip-path="url(#clip-icon_35)">
+  <g id="icon_46" data-name="icon – 46" clip-path="url(#clip-icon_46)">
     <g id="noun-location-5313162" transform="translate(0.582 1.093)">
       <path id="Path_6502" data-name="Path 6502" d="M183.042,385H90.795a3.294,3.294,0,0,0-3.295,3.295v23.062a3.294,3.294,0,0,0,3.295,3.295h92.247a3.294,3.294,0,0,0,3.295-3.295V388.295A3.294,3.294,0,0,0,183.042,385Zm-3.295,23.062H94.089V391.589h85.658Z" transform="translate(-87.5 -316.838)" fill="#2c2c78" stroke="#f2f7ff" stroke-width="1.5"/>
       <path id="Path_6503" data-name="Path 6503" d="M161.675,452.839h3.295a3.294,3.294,0,1,0,0-6.589h-3.295a3.294,3.294,0,1,0,0,6.589Z" transform="translate(-146.49 -366.557)" fill="#2c2c78" stroke="#f2f7ff" stroke-width="0.8"/>

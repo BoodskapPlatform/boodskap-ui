@@ -48,9 +48,7 @@ function loadqueryEditor() {
 
     $('#queryEditor').height(($(window).height() - 280) + 'px');
     $('.dbTable').height(($(window).height() - 250) + 'px');
-    // $('#queryEditor').height(($(window).height()) + 'px');
-    // $('.dbTable').height(($(window).height()) + 'px');
-    // $('#resultEditor').height(($(window).height()) + 'px');
+    
 
 
     queryEditor.resize();

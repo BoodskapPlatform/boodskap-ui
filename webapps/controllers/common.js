@@ -21,7 +21,8 @@ function recentUpdate() {
             if (res) {
                 if (rdata[0]) {
                     $(".recenthead").html(
-                        `<span onclick="recentUpdate()" class="underdash" >Recently</span>&nbsp;Visited  &nbsp;&nbsp;<button class="btn bskp-clearvisit" title="Clear Recently visited" onclick="clickRecent('ClearRecent','','','')"> <i class="fa fa-trash-o" aria-hidden="true"></i> </button>`
+                        `<span onclick="recentUpdate()" class="underdash" >Recently</span>&nbsp;Visited  &nbsp;&nbsp;`
+                      //  `<span onclick="recentUpdate()" class="underdash" >Recently</span>&nbsp;Visited  &nbsp;&nbsp;<button class="btn bskp-clearvisit" title="Clear Recently visited" onclick="clickRecent('ClearRecent','','','')"> <i class="fa fa-trash-o" aria-hidden="true"></i> </button>`
                     );
                 } else {
                     $(".recenthead").html(

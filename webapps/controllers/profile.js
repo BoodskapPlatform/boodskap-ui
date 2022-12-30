@@ -23,15 +23,6 @@ $(document).ready(function () {
     loadProfile();
     getPrimaryDomain();
 
-    // for(var i=0;i<USER_OBJ.partDomains.length;i++){
-    //     var val = USER_OBJ.partDomains[i];
-    //     if(i===0){
-    //         if(DOMAIN_KEY !== val.domainKey){
-    //             // $(".primaryDomain").remove();
-    //         }
-    //     }
-    //     $("#primaryDomain").append('<option value="'+val.domainKey+'">'+(val.label ? val.label : val.domainKey)+'</option>')
-    // }
 
     
     $(".upload-image").on('click', function() {
@@ -83,8 +74,9 @@ function loadProfile() {
 }
 
 function onlyNumeric(event) {
-    var regex = new RegExp("^[0-9-+]");
-    var key = String.fromCharCode(event.charCode ? event.which : event.charCode);
+    // let regex = new RegExp("^[0-9-+]");
+    let regex = /^[0-9-+]/;
+    let key = String.fromCharCode(event.charCode ? event.which : event.charCode);
     if (!regex.test(key)) {
         event.preventDefault();
         return false;
@@ -94,9 +86,9 @@ function onlyNumeric(event) {
 
 function proceedUpdate() {
     var obj = USER_OBJ.user;
-    var firstName =$.trim($("#firstName").val() );
-    var lastName =$.trim($("#lastName").val() );
-    var mobileNo =$.trim($("#mobileNo").val() );
+    let firstName =$.trim($("#firstName").val() );
+    let lastName =$.trim($("#lastName").val() );
+    let mobileNo =$.trim($("#mobileNo").val() );
     if(firstName===""){
         errorMsgBorder('First Name should not be empty', 'firstName');
         return false;
@@ -112,14 +104,6 @@ function proceedUpdate() {
     }
 }
 
-        var phno = $("#mobileNo").val();
-        var filter = /^[7-9][0-9]{9}$/;
-
-        // if (!filter.test(phno)){
-        //     errorMsgBorder('Invalid Phone Number', 'phno',1);
-        //         return false;
-        // }
-    //  }   
         obj['firstName'] =  $("#firstName").val();
     obj['lastName'] =  $("#lastName").val();
     obj['primaryPhone'] =  $("#mobileNo").val();

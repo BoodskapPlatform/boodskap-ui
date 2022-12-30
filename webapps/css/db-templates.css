@@ -1,3 +1,6 @@
+body{
+    font-size: 14px;
+}
 .platformBody{
     padding-bottom: 50px !important;
 }
@@ -30,4 +33,17 @@ vertical-align: top;
 }
 .btn{
 line-height: 25px;
+}
+.breadcrumb{
+    font-size: 13px !important;
+    align-items: center;
+    margin: 15px 30px 0px 0px;
+}
+code{
+    background: none !important;
+    color:rgb(77, 71, 71);
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: 600;
+    
 }

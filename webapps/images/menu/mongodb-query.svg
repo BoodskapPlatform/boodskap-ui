@@ -1,22 +1,22 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100" height="100" viewBox="0 0 100 100">
   <defs>
-    <clipPath id="clip-icon_26">
+    <clipPath id="clip-icon_52">
       <rect width="100" height="100"/>
     </clipPath>
   </defs>
-  <g id="icon_26" data-name="icon – 26" clip-path="url(#clip-icon_26)">
-    <g id="Group_2435" data-name="Group 2435" transform="translate(0.564 9.834)">
-      <g id="Group_2384" data-name="Group 2384" transform="translate(27.01 36.427)">
+  <g id="icon_52" data-name="icon – 52" clip-path="url(#clip-icon_52)">
+    <g id="Group_2464" data-name="Group 2464" transform="translate(2638.236 5645)">
+      <g id="Group_2384" data-name="Group 2384" transform="translate(-2610.425 -5598.739)">
         <path id="Path_6466" data-name="Path 6466" d="M1.834,0H21.292" transform="translate(18.082 29.688)" fill="none" stroke="#2d2f79" stroke-linecap="round" stroke-width="4"/>
         <g id="Group_2378" data-name="Group 2378">
           <line id="Line_712" data-name="Line 712" x2="16.293" y2="13.495" fill="none" stroke="#2d2f79" stroke-linecap="round" stroke-width="4"/>
           <line id="Line_713" data-name="Line 713" x1="16.293" y2="13.495" transform="translate(0 13.495)" fill="none" stroke="#2d2f79" stroke-linecap="round" stroke-width="4"/>
         </g>
       </g>
-      <path id="Path_6468" data-name="Path 6468" d="M77.17,171.562a3.578,3.578,0,0,0-3.586,3.564v60.6a3.578,3.578,0,0,0,3.586,3.564h77.106a3.578,3.578,0,0,0,3.586-3.564v-49.9a3.579,3.579,0,0,0-3.586-3.564H105a3.733,3.733,0,0,1-2.919-1.4l-6.948-8.633a1.781,1.781,0,0,0-1.394-.665Zm77.106,71.289H77.17A7.158,7.158,0,0,1,70,235.722v-60.6A7.157,7.157,0,0,1,77.17,168h16.57a5.361,5.361,0,0,1,4.194,2l6.948,8.633,49.392.057a7.157,7.157,0,0,1,7.172,7.129v49.9a7.158,7.158,0,0,1-7.172,7.129Z" transform="translate(-69.998 -162.519)" fill="#2d2f79" fill-rule="evenodd"/>
-      <g id="Group_2383" data-name="Group 2383" transform="translate(57.378)">
-        <path id="Path_6255" data-name="Path 6255" d="M180.579,276.624l-18.565-8.79a1.489,1.489,0,0,0-1.278,0l-18.551,8.79a1.482,1.482,0,0,0-.847,1.33V287.5a30.257,30.257,0,0,0,19.516,28.129,1.258,1.258,0,0,0,.52.1,1.39,1.39,0,0,0,.535-.1A30.277,30.277,0,0,0,181.425,287.5v-9.544a1.483,1.483,0,0,0-.849-1.33Z" transform="translate(-141.338 -267.69)" fill="#f2f7ff" stroke="#2d2f79" stroke-width="2.5"/>
-        <g id="Group_2228" data-name="Group 2228" transform="translate(11.956 6.07)">
+      <path id="Subtraction_7" data-name="Subtraction 7" d="M84.277,80.332H7.172A7.159,7.159,0,0,1,0,73.2v-60.6A7.159,7.159,0,0,1,7.172,5.477H23.743a5.362,5.362,0,0,1,4.194,2l6.948,8.633,22.493.026v3.6H35a3.732,3.732,0,0,1-2.919-1.4L25.138,9.708a1.782,1.782,0,0,0-1.394-.665H7.172a3.579,3.579,0,0,0-3.586,3.564V73.2a3.579,3.579,0,0,0,3.586,3.564H84.278A3.579,3.579,0,0,0,87.864,73.2V41.752a30.594,30.594,0,0,0,3.586-4.005V73.2A7.159,7.159,0,0,1,84.277,80.332Z" transform="translate(-2637.436 -5635.166)" fill="#2d2f79"/>
+      <g id="Group_2463" data-name="Group 2463">
+        <path id="Path_6255" data-name="Path 6255" d="M180.579,276.624l-18.565-8.79a1.489,1.489,0,0,0-1.278,0l-18.551,8.79a1.482,1.482,0,0,0-.847,1.33V287.5a30.257,30.257,0,0,0,19.516,28.129,1.258,1.258,0,0,0,.52.1,1.39,1.39,0,0,0,.535-.1A30.277,30.277,0,0,0,181.425,287.5v-9.544a1.483,1.483,0,0,0-.849-1.33Z" transform="translate(-2721.396 -5902.856)" fill="none" stroke="#2d2f79" stroke-width="2.5"/>
+        <g id="Group_2228" data-name="Group 2228" transform="translate(-2568.101 -5629.096)">
           <path id="Path_6241" data-name="Path 6241" d="M26.231,49.437l-.961-.327s.117-4.872-1.642-5.222c-1.172-1.352.188-57.347,4.41-.187a3.417,3.417,0,0,0-1.712,1.958A17.872,17.872,0,0,0,26.231,49.437Z" transform="translate(-17.321 -13.537)" fill="#2d2f79" fill-rule="evenodd"/>
           <path id="Path_6242" data-name="Path 6242" d="M26.231,49.437l-.961-.327s.117-4.872-1.642-5.222c-1.172-1.352.188-57.347,4.41-.187a3.417,3.417,0,0,0-1.712,1.958A17.872,17.872,0,0,0,26.231,49.437Z" transform="translate(-17.321 -13.537)" fill="#2d2f79" fill-rule="evenodd"/>
           <path id="Path_6243" data-name="Path 6243" d="M32.748,31.671A16.9,16.9,0,0,0,39.2,14.723C37.3,6.4,32.818,3.673,32.326,2.624A11.74,11.74,0,0,1,31.27.573l.352,23.148c0,.023-.727,7.087,1.126,7.95" transform="translate(-23.323 -0.479)" fill="#2d2f79" fill-rule="evenodd"/>

@@ -60,12 +60,7 @@
     <link href="css/log-style.css" rel="stylesheet"/>
     <script src="libraries/pace.min.js"></script>
 
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap'); 
-        body{
-           font-family: Montserrat;
-        }
-   </style>
+    
 </head>
 <body class="pace-top bg-white">
 <div id="page-loader" class="fade show"><span class="spinner"></span></div>
@@ -75,18 +70,17 @@
             <div class="ps-5 text-white text-capitalize">
                 <div class="pt-4 leftside-head fs-1 " style="font-weight: 500px;">Boodskap highly scalable ioT platform</div>
                 <div class="lh-base fw-lighter">Insanely powerful incredibly simple ioT platform</div>
-                <!-- <div class=""> -->
+                
                     <a href="https://calendly.com/boodskap/demo" target="_blank" class="btn text-white mt-4 rounded-3 fw-lighter px-4 py-2" style="background-color: #6098d9;">
-                         Schedule a demo&nbsp;<img src="images/arrow-right.png" width="22px"><!--<i class="ps-3 fa fa-arrow-right"></i> -->
+                         Schedule a demo&nbsp;<img src="images/arrow-right.png" width="22px" alt="&#8594;">
                     </a>
-                <!-- </div> -->
-                <!-- <button type="button" class="btn text-white mt-4 rounded-3 fw-lighter" style="background-color: #6098d9;">Schedule a demo<i class="ps-3 fa fa-arrow-right"></i></button> -->
+                
             </div>
             <div class="px-2">
-                <img src="images/3D_Sphere.png" class="sub-image">
-                <img src="images/Screen.png" class="sub-image2">
-                <img src="images/3D_Sphere_2.png" class="sub-image1">
-                <!-- <div class=""> -->
+                <img src="images/3D_Sphere.png" class="sub-image" alt="3dsphere">
+                <img src="images/Screen.png" class="sub-image2" alt="screen">
+                <img src="images/3D_Sphere_2.png" class="sub-image1" alt="3dsphere">
+                
                 <div class="box py-4">
                     <div class="pb-2">
                         <h1 class="text-uppercase ps-2" style="font-weight:700;">connect build & publish</h1>
@@ -97,7 +91,7 @@
                         <button onclick="location.href='https://boodskap.io/contact-us'" type="button" class="btn rounded-3 lh-1 mt-3 px-4 py-2 " style="background-color: #fff;border-radius: 10px;"><small class="btnsecondary">Contact Us</small></button>
                     </div>
                 </div>
-                <!-- </div> -->
+                
                 
             </div>   
         </div>
@@ -106,7 +100,7 @@
             <div class="container">
                 <div class="d-flex align-items-center px-4 py-4">
                     <div class="brand">
-                        <a href="<%= basepath %>/login"><img class="loginLogo" style="width: 120px"/></a>
+                        <a href="<%= basepath %>/login"><img class="loginLogo" style="width: 120px" alt="logo"/></a>
                     </div>
                     <div class="w-100 header-option">
                         <span class="d-flex justify-content-end">
@@ -116,7 +110,7 @@
                         </span>
                     </div>
                 </div>
-                <!-- <div class="login-content register-content" id="regBoxes"> -->
+                
                 <div class="px-4">
                     <div>
                         <span class="log-head">Register to Boodskap</span>
@@ -134,14 +128,14 @@
                         <div class="wrap-input">
                             <input type="text" class="input-text " id="lastname" placeholder="Last name" required/>
                             <span class="loginput text-end" data-placeholder="">
-                                <img class="icon-position" src="images/person.png" style="width: 18px;position: absolute;right: 1px;top: -18px;">
+                                <img class="icon-position" src="images/person.png" style="width: 18px;position: absolute;right: 1px;top: -18px;" alt="personicon">
                             </span>
                             <div id="loglastname"></div> 
                         </div>
                         <div class="wrap-input">
                             <input type="email" class="input-text" id="email" placeholder="Email address" required/>
                             <span class="loginput text-end" data-placeholder="">
-                                <img class="icon-position" src="images/email.png" style="width: 18px;position: absolute;right: 1px;top: -18px;">
+                                <img class="icon-position" src="images/email.png" style="width: 18px;position: absolute;right: 1px;top: -18px;" alt="email">
                             </span>
                             <div id="logemail"></div>
                         </div>
@@ -171,36 +165,18 @@
                             </p>
                             <p class="text-center text-grey-darker mb-0"style="font-size: 10px;color:#836e6e !important;">
                                 &copy; <span class="currentYear"></span> All rights reserved.
-                                <!-- <a href="https://boodskap.io" target="_blank" class="text-warning textColor poweredBy"></a> -->
+                                
                             </p>
                             <p class="text-center" style="color:#836e6e;font-size: 10px;" >
-                                Dashboard Version: <b><span  class="webVersion"style="font-weight: 400;"></span></b>
-                            <span style="color:#836e6e;font-size: 10px;" >|</span> Platform Version: <b><span class="platformVersion"style="font-weight: 400;"></span></b>
-                                <!-- <span style="color:#ccc">|</span> Platform Version: <b><span class="apiVersion"></span></b> -->
+                                Dashboard Version: <strong><span  class="webVersion"style="font-weight: 400;"></span></strong>
+                            <span style="color:#836e6e;font-size: 10px;" >|</span> Platform Version: <strong><span class="platformVersion"style="font-weight: 400;"></span></strong>
+                                
                             </p>
                         </div>
                     </form>
                 </div>
 
-                <!-- <div class="login-content register-content" id="regFeedback" style="display: none;">
-                    <form action="javascript:void(0)" class="margin-bottom-0" style="margin-top: 20px;">
-                        <div style="text-align: center;margin: 0 auto;">
-                            <img src="images/check.png" style="height: 60px;">
-                            <h3 style="margin-top: 20px;">Registration Successful!</h3>
-                            <p><b>Your account has been registered successfully, <br>Please check your email.</b></p>
-                            <p style="font-size: 11px;">Click on "Goto Login" otherwise wait a moment, it will redirect to login.</p>
-                        </div>
-                        <div class="login-buttons">
-                            <button type="button" class="btn btn-warning btn-block btn-lg" id="gotoLogin" onclick="redirectToLogin()">Goto Login</button>
-                        </div>
-                        <hr />
-                        <p class="text-center text-grey-darker" style="margin-bottom: 20px;">
-                            &copy; <span class="currentYear"></span> All rights reserved. <a href="https://boodskap.io" target="_blank" class="text-warning poweredBy"></a>
-                        </p>
-                        <p class="text-center" style="font-size: 11px;color:#ccc">Dashboard Version: <b><span class="webVersion"></span></b>
-                            <span style="color:#ccc">|</span> Platform Version: <b><span class="apiVersion"></span></b></p>
-                    </form>
-                </div> -->
+                
             </div>
         </div>
     </div>
