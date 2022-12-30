@@ -5,12 +5,13 @@
 }
 </style>
 <link href="css/device-management.css" rel="stylesheet"/>
+
 <div class="row-fluid">
 <ul class="nav bskp-submenu2">
-    <!-- <li class=""><a href="<%= basepath %>/home"><i class="fa fa-home"></i> </a></li> -->
-    <li class=""><a href="<%= basepath %>/dashboard">Dashboard</a></li>
+    <li ><a href="<%= basepath %>/dashboard">Dashboard</a></li>
     <li class="active"><a href="<%= basepath %>/device-management">Manage Devices</a></li>
     <li><a href="<%= basepath %>/device-models">Manage Device Models</a></li>
+    <li><a href="<%= basepath %>/device-tokens">Manage Device Tokens</a></li>
 <!--    <li class=""><a href="<%= basepath %>/sim-provisioning">Sim Provisioning</a></li>-->
 
 </ul>
@@ -20,24 +21,24 @@
     <!-- begin panel -->
     <div class="panel panel-inverse bskp-container-frame">
 
-    <!-- begin breadcrumb -->
-  <div>
-    <ol class="breadcrumb pull-right bskp-align-icon">
-        <li class="breadcrumb-item"><a href="<%= basepath %>/dashboard">Domain</a></li>
-        <li class="breadcrumb-item"><a href="<%= basepath %>/device-management">Device Management</a></li>
-        <li class="breadcrumb-item active">Manage Devices</li>
-        <div class="ml-4">
-            <a href="javascript:;" class="btn btn-sm btn-icon btn-circle  bskp-icon-bg" title="Expand" data-click="panel-expand"><i class="fa fa-expand"></i></a>
-            <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg" title="Help" ><i class="icon-help"></i></a>
-        </div>
-    </ol>
-  </div>
-    <!-- end breadcrumb -->
-    <!-- begin page-header -->
-    <div class="page-header bskp-page-topic"><img src="images/menu/hardware-fanta_1-bskp.svg" class="bskp-topic-icon mr-1" > Manage Devices
-        <span class="panel-title ml-3" >Total Devices: <b><span class="deviceCount"></span></b></span> </div>
-    
-    <!-- end page-header -->
+ <!-- begin page-header -->  
+ <div class="panel-header">
+        <!-- begin breadcrumb -->
+        <ol class="breadcrumb pull-right bskp-align-icon">
+            <li class="breadcrumb-item"><a href="<%= basepath %>/dashboard">Domain</a></li>
+            <li class="breadcrumb-item"><a href="<%= basepath %>/device-management">Device Management</a></li>
+            <li class="breadcrumb-item active">Manage Devices</li>
+            <div class="ml-4">
+                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle  bskp-icon-bg" title="Expand" data-click="panel-expand"><em class="fa fa-expand"></em></a>
+                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg" title="Help" ><em class="icon-help"></em></a>
+            </div>
+        </ol>
+       
+       
+        <div class="page-header bskp-page-topic"><img src="images/menu/hardware-fanta_1-bskp.svg" class="bskp-topic-icon mr-1" > Manage Devices
+            <span class="panel-title ml-3" >Total Devices: <b><span class="deviceCount"></span></b></span> </div>
+ </div>
+ <!-- end page-header -->
 
 
         <div class="panel-body" >
@@ -45,21 +46,17 @@
                 <div class="col-12">
                   <div class="btn-group btn-group-justified pull-right bskp-btn-group-align" >
                     <a class="btn bskp-btn-shadow bskp-blue-bg" onclick="openModal(1)"><img src="images/menu/plusicon.svg" class="bskp-plusvg"> <span class="hidden-xs">Add Device</span></a>
-                    <a class="btn bskp-refresh-bg" data-click="panel-reload" onclick="loadDeviceList()" title="Refresh"><i class="fa fa-refresh"></i></a>
+                    <a class="btn bskp-refresh-bg" data-click="panel-reload" onclick="loadDeviceList()" title="Refresh"><em class="fa fa-refresh"></em></a>
                   </div>
 
                   <div class="bskp-table-layout">
-                    <table class="table table-bordered bskp-table responsive no-wrap" id="deviceTable"  cellspacing="0" width="100%">
+                    <table class="table table-bordered bskp-table responsive no-wrap bskp-w-100" id="deviceTable">
 
                     </table>
                   </div>
 
                 </div>
-            </div>
-            <div class="btn-group btn-group-justified pull-right">
-                
-            </div>
-            
+            </div>            
         </div>
     </div>
     <!-- end panel -->
@@ -77,9 +74,8 @@
             <div class="modal-header">
                 <h4 class="modal-title"><span class="templateAction"></span> Device</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <image src="images/menu/xicon.svg" class="bg-secondary"  onclick="onclosebutton()" style="border-radius: 13px;padding:3px">
+                    <image src="images/menu/xicon.svg" class="bg-secondary"  style="border-radius: 13px;padding:3px">
                     </button>
-                <!-- <button type="button" class="close" data-dismiss="modal"   aria-label="Close"> <i class="fa fa-times" aria-hidden="true"></i> </button> -->
             </div>
             <form action="javascript:void(0)" novalidate onsubmit="addDevice();">
                 <div class="modal-body">
@@ -87,7 +83,7 @@
                         <div  class="col-md-6">
                             <div  class="form-group">
                                  <label  class="inputLabel">Device Id *</label><!--<span style="font-size: 16px;">&#42;</span> -->
-                                <input  class="form-control input-sm" placeholder="Enter Device ld" maxlength="50" min="1" autocomplete="off" type="text" id="device_id" required>
+                                <input  class="form-control input-sm" placeholder="Enter Device ld" maxlength="100" min="1" autocomplete="off" type="text" id="device_id" required>
                                 <span id="logdevice_id"></span>
                             </div>
                         </div>
@@ -99,21 +95,47 @@
                             </div>
                         </div>
                     </div>
+                    
                     <div  class="row">
                         <div  class="col-md-6">
-                            <div  class="form-group">
-                                <label  class="inputLabel">Choose Device Model </label>
-                                <select class="form-control input-sm" id="device_model" required onchange="assignVersion()">
+                            <div class="choosemodel">
+                             <div  class="form-group">
+                                <div class="modechoose">
+                                    <label  class="inputLabel"> Device Model </label>&nbsp; <span class="small-text" onclick="editchoosemodel('editmode')">Edit</span><em class="fa bskp-text fa-pencil" aria-hidden="true"></em>
+                                <select class="form-control input-sm" id="device_model" required onchange="assignVersion()">  
                                 </select>
+                                </div>
+                                <div class="modeedit">
+                                    <label  class="inputLabel"> Device Model </label>&nbsp; <span class="small-text" onclick="editchoosemodel()">Edit</span><em class="fa bskp-text fa-pencil" aria-hidden="true"></em>
+                                    <input class="form-control input-sm"  maxlength="100"  placeholder="Enter Model ld" autocomplete="off" type="text" id="edit_device_model" required>
+                                <span id="logdevice_model"></span>    
+                                </div>
+                              </div>  
+                                <a href="javascript:void(0)"  onclick="togglemodel()" class="togglemodel bskp-text font-weight-bold">(or) New Device Model</a> 
                             </div>
+                            <div class="newmodel">
+                            <div  class="form-group">
+                                <label  class="inputLabel">New Device Model</label>&nbsp;
+                                <input class="form-control input-sm" placeholder="Enter Model ld" maxlength="100" autocomplete="off" type="text" id="new_device_model" required>
+                                <span id="lognew_device_model"></span>                                 
+                            </div>
+                            <a href="javascript:void(0)"  onclick="togglemodel('choosemodel')" class="togglemodel bskp-text font-weight-bold">(or)  Choose Device Model</a>
+                           </div>
                         </div>
                         <div  class="col-md-6">
                             <div  class="form-group">
                                 <label  class="inputLabel">Device Version </label>
-                                <input  class="form-control input-sm" placeholder="" type="text" id="device_version" readonly required>
+                                <input  class="form-control input-sm" placeholder="Enter Device Version" maxlength="50" type="text" id="device_version" required>
                                 <span id="logdevice_version"></span>
                             </div>
                         </div>
+                        <!-- <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="inputLabel">Description </label>
+                                <textarea class="form-control input-sm" id="device_desc" placeholder="Enter Description" maxlength="1000" autocomplete="off" required="" style="height: 90px;"></textarea>
+                                <span id="logdevice_desc"></span>
+                            </div>
+                        </div> -->
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -131,9 +153,8 @@
             <div class="modal-header">
                 <h4 class="modal-title">Delete Device</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <image src="images/menu/xicon.svg" class="bg-secondary"  onclick="onclosebutton()" style="border-radius: 13px;padding:3px">
+                    <image src="images/menu/xicon.svg" class="bg-secondary" style="border-radius: 13px;padding:3px">
                     </button>
-                <!-- <button type="button" class="close" data-dismiss="modal"   aria-label="Close"> <i class="fa fa-times" aria-hidden="true"></i> </button> -->
             </div>
             <div class="modal-body">
                 <h5>Are you sure want to delete <b><span class="deviceId"></span> device</b>?</h5>
@@ -155,9 +176,8 @@
             <div class="modal-header">
                 <h4 class="modal-title"> Device Board Configuration</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <image src="images/menu/xicon.svg" class="bg-secondary"  onclick="onclosebutton()" style="border-radius: 13px;padding:3px">
+                    <image src="images/menu/xicon.svg" class="bg-secondary"  style="border-radius: 13px;padding:3px">
                 </button>
-                <!-- <button type="button" class="close" data-dismiss="modal"   aria-label="Close"> <i class="fa fa-times" aria-hidden="true"></i> </button> -->
             </div>
             <form action="javascript:void(0)">
                 <div class="modal-body">

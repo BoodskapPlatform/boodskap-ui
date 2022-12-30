@@ -1,7 +1,6 @@
 var userObj = Cookies.get('user_details');
 var counter = 1;
 var sliderCtrl = null;
-// var BASE_PATH=$("#BASE_PATH").val()
 $(document).ready(function () {
 
     if(userObj){
@@ -247,10 +246,7 @@ function register(){
             }else{
                 $('#registerForm')[0].reset();
                     document.location=BASE_PATH+'/registerSuccess';
-                    // successMsg('Account Successfully created. Please check your email to activate your account!','firstname');
-                    // $(".register-content").hide();
-                    // $("#regFeedback").show();
-
+                    
                     setTimeout(function(){
                         if(Cookies.get('domain')){
                             var domainKey = Cookies.get('domain');
@@ -293,12 +289,11 @@ function forgetPassword() {
 
 
     resetPasswordCall(emailId.toLowerCase(),function (status, data) {
-        // console.log(status)
+       
        if(status){
         $("#passwordButton").removeAttr('disabled');
         document.location=BASE_PATH+'/success';
-        // $("#forgotModal").modal('hide');
-        // successMsg('Password reset successfully. Please check your Registered Email!', 'emailId');
+        
        }else{
         errorMsgBorder('Something went wrong !', 'emailId',1);
         $("#passwordButton").removeAttr('disabled');
@@ -321,5 +316,5 @@ function toggleBox(){
 function resizeContent() {
     $height = $(window).height();
     $('.right-content').css("height",$height);
-    console.log($height)
+    // console.log($height)
 }

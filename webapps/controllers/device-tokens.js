@@ -13,7 +13,7 @@ $(document).ready(function () {
 
 function loadTokenList() {
 
-    TOKEN_TYPE = 'WEB';
+    TOKEN_TYPE = $("#authTokenTypes").val();
     if (tokenTable) {
         tokenTable.destroy();
         $("#tokenTable").html("");
@@ -82,9 +82,9 @@ function loadTokenList() {
         dom: '<"bskp-search-left" f> lrtip',
         language: {
             "emptyTable": "No data available",
-            "zeroRecords": "No data available",
             "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
-            "searchPlaceholder": "Search by Message Id",
+            "zeroRecords": "No data available",
+            "searchPlaceholder": "Search by Device Id",
             loadingRecords: '',
             paginate: {
                 previous: '< Prev',

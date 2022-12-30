@@ -1,5 +1,6 @@
 body {
    background-color: #eee !important;
+   font-size: 14px;
 }
 .modules {
    text-align: center;
@@ -134,9 +135,7 @@ a.nav-link.small.active{
    margin-bottom: 50px;
    padding: 0 !important;
 }
-.read-email{
-   
-}
+
 .tick-right{
    position: absolute;
    top: 32px;

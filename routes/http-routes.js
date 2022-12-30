@@ -474,6 +474,11 @@ Routes.prototype.init = function () {
     self.router.get('/marketplacev4', roleCheck, function (req, res) {
         res.render('marketplacev4.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
     });
+
+    self.router.get('/device-tokens', roleCheck, function (req, res) {
+        res.render('device-tokens.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+    });
+
     self.router.get('/marketplace', roleCheck, function (req, res) {
         res.render('marketplace.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
     });
