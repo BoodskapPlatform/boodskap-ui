@@ -1,17 +1,36 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+
+.platformBody,
+.modal,
+.montFont ,
+.bskp-submenu2 a
+{
+    font-family: 'Montserrat', sans-serif !important;
+}
+.platformBody{
+padding-bottom: 50px !important;
+}
+::selection {
+    color: #ffffff;
+    background: #1e229e;
+  }
 /* ------- Header -------*/
 .bskp-frame-shadow {
     /* padding: 4px 5px; */
     background: white;
     border-radius: 6px;
     font-size: 16px;
-    /* color: #5a95cbbd; */
-    box-shadow: 0px 0px 2px 2px #e5e9f1;
+    border: 1px solid #d8dce6;
+    box-shadow: 0px 0px 1px 2px #f2f6ff;
     margin-top: 10px;
     margin-right: 1rem !important;
 }
 .bskp-text{
     color: #2d2f79;
+}
+body{
+font-size: 14px;
 }
 /* .panel.panel-expand > .panel-header{
     position: fixed;
@@ -50,7 +69,7 @@
     - adjust "width" to fit the content accordingly 
 */
 .bskp-lightmode-container {
-    border: 1px solid rgb(213, 213, 213);
+    border: 1px solid #d3d8e2;
     position: relative;
     display: flex;
     padding: 0;
@@ -85,7 +104,7 @@
     position: absolute;
     top: -1px;
     bottom: 0;
-    width: 50%;
+    width: 51%;
     z-index: 3;
     transition: transform .5s cubic-bezier(.77, 0, .175, 1);
     /* transition: transform 1s; */
@@ -317,14 +336,6 @@ color: #1a1a1a !important;
 
 
 /* ------- Body-content -------*/
-.platformBody,
-.modal,
-.montFont {
-    font-family: 'Montserrat', sans-serif !important;
-}
-.platformBody{
-padding-bottom: 50px !important;
-}
 
 .bskp-page-topic {
     font-size: 20px;
@@ -502,7 +513,7 @@ padding-bottom: 50px !important;
     background: #f7fbfd;
     margin: 0 !important;
     border-radius: 12px;
-    font-weight: 600;
+    font-weight: 500;
 }
 
 .bskp-search-left i {
@@ -1124,6 +1135,7 @@ input[type=file]{
 }
 .breadcrumb>li a {
     color: #525252;
+    font-size: 13px;
 }
 .bskp-plusvg{
     height: 14px;
@@ -1193,6 +1205,7 @@ input[type=file]{
 .bskp-submenu2 li.active>a {
     color: white;
     background: inherit;
+    font-weight: 500;
 }
 .small-text{
     color: #2d2f79;
@@ -1238,4 +1251,16 @@ vertical-align: middle;
     position:relative;
      background: #eaf1f6;
        border-radius: 0rem 0rem 0rem 1rem;
+}
+.bskp-edit-inp{
+   
+    padding: 3px 3px 3px 4px !important;
+    background: white;
+    border-radius: 6px !important;
+    border: 1px solid #bbc4d1;
+    box-shadow: 0px 0px 2px 2px #f4f4f4 !important;
+}
+.bskp-edit-inp > img{
+    width: 18px;
+    height: 18px;
 }

@@ -93,8 +93,8 @@ function loadDeviceList() {
             mRender: function (data, type, row) {
 
                 return  '<button class="btn bskp-edit-btn mr-2" onclick="openModal(4,\'' + row["id"] + '\')" title="Board Configuration"> <img src="images/settings.svg" alt="">  </button>' +
-                '<button class="btn bskp-edit-btn mr-2" onclick="openModal(2,\'' + row["id"] + '\')" title="Edit"><img src="images/edit.svg" alt="">  </button>' +
-                    '<button class="btn bskp-trash-btn" onclick="openModal(3,\'' + row['id'] + '\')"  title="Delete"> <img src="images/trash2.svg" alt="">  </button>';
+                '<button class="btn bskp-edit-btn mr-2" onclick="openModal(2,\'' + row["id"] + '\')" title="Edit"><img src="images/edit_icon.svg" alt="">  </button>' +
+                    '<button class="btn bskp-trash-btn" onclick="openModal(3,\'' + row['id'] + '\')"  title="Delete"> <img src="images/delete.svg" alt="">  </button>';
             }
         }
 
@@ -290,7 +290,7 @@ function editchoosemodel(check) {
         $("#device_version").removeAttr('readonly');
     }else{
         $("#device_version").attr('readonly','readonly');
-    }
+    }   
 }
 function togglemodel(check) {
     $(".choosemodel").toggle()
@@ -438,7 +438,7 @@ function addDevice() {
     var device_version =$.trim($("#device_version").val() );
     
     if(device_id === "" ){
-   
+        console.log("2one");
         errorMsgBorder('Device ID is required', 'device_id');
         return false;
        
@@ -538,6 +538,7 @@ function updateDevice() {
     // var device_version =$.trim($("#device_version").val() );
 
     if(device_name === "" ){
+        console.log("one");
         errorMsgBorder('Device ID is required', 'device_id');
         return false;  
     }else if(device_version === "" ){

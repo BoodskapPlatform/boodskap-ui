@@ -71,9 +71,9 @@ function loadDBPool() {
             sWidth: '10%',
             mRender: function (data, type, row) {
 
-                var str = '<button class="btn bskp-trash-btn " onclick="openModal(2,\'' + row['name'] + '\')"> <img src="images/trash2.svg" alt=""> </button>'
+                var str = '<button class="btn bskp-trash-btn " onclick="openModal(2,\'' + row['name'] + '\')"> <img src="images/delete.svg" alt=""> </button>'
 
-                return '<button class="btn bskp-edit-btn mr-2" onclick="openModal(3,\'' + row["name"] + '\')"> <img src="images/edit.svg" alt=""> </button>' +
+                return '<button class="btn bskp-edit-btn mr-2" onclick="openModal(3,\'' + row["name"] + '\')"> <img src="images/edit_icon.svg" alt=""> </button>' +
                     str;
             }
         }

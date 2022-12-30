@@ -67,9 +67,9 @@ function loadTemplates() {
             sWidth: '15%',
             mRender: function (data, type, row) {
 
-                var str = '<button class="btn bskp-trash-btn mr-2" onclick="openModal(4,\'' + row['id'] + '\')"><img src="images/trash2.svg" alt=""></button>'
+                var str = '<button class="btn bskp-trash-btn mr-2" onclick="openModal(4,\'' + row['id'] + '\')"><img src="images/delete.svg" alt=""></button>'
 
-                return '<button class="btn bskp-edit-btn mr-2" onclick="openModal(5,\'' + row["id"] + '\')"><img src="images/edit.svg" alt=""></button>' +
+                return '<button class="btn bskp-edit-btn mr-2" onclick="openModal(5,\'' + row["id"] + '\')"><img src="images/edit_icon.svg" alt=""></button>' +
                     str;
             }
         }
