@@ -56,8 +56,8 @@ function loadFirmwareList() {
             sTitle: 'File Name',
             mRender: function (data, type, row) {
                 return data +
-                    '<button class="btn btn-sm btn-icon btn-default pull-right" onclick="openModal(2,\'' + row["_id"] + '\')" ' +
-                    'title="Upload to Device"><i class="icon-upload4"></i></button>';
+                    '<button class=" btn bskp-edit-btn mr-3 pull-right" onclick="openModal(2,\'' + row["_id"] + '\')" ' +
+                    'title="Upload to Device"><img src="images/menu/upload.svg" class="importimg" alt=""></button>';
             }
         },
         {
@@ -87,8 +87,8 @@ function loadFirmwareList() {
             sWidth: '10%',
             mRender: function (data, type, row) {
                 return '' +
-                    '<button class="btn btn-sm btn-icon btn-default" onclick="openModal(3,\'' + row["_id"] + '\')"><i class="icon-download4"></i></button>' +
-                    '<button class="btn btn-sm btn-icon btn-default" onclick="openModal(4,\'' + row['_id'] + '\')"><i class="icon-trash-o"></i></button>';
+                    '<button class="btn bskp-edit-btn mr-2" onclick="openModal(3,\'' + row["_id"] + '\')"><img src="images/menu/download.svg" class="downloadimg" alt=""></button>' +
+                    '<button class="btn bskp-trash-btn" onclick="openModal(4,\'' + row['_id'] + '\')"><img src="images/delete.svg" alt=""></button>';
             }
 
         }
@@ -144,8 +144,8 @@ function loadFirmwareList() {
 
             loadingRecords: '',
             paginate: {
-                previous: '< Previous',
-                next: 'Next >'
+                previous: 'Previous',
+                next: 'Next'
             }
         },
         aoColumns: fields,
@@ -331,7 +331,8 @@ function openModal(type, id) {
         loadDeviceList();
         $(".modelId").html(current_firmware_obj.deviceModel);
         $(".firmwareVersion").html(current_firmware_version);
-        $("#uploadDevice").modal('show');
+        $('#uploadDevice').modal({ backdrop: 'static', keyboard: false })
+
     } else if (type === 3) {
 
         downloadFirmware(current_firmware_obj.deviceModel, current_firmware_version, function (status, data) {
@@ -358,7 +359,8 @@ function openModal(type, id) {
 
     } else if (type === 4) {
         $(".firmwareVersion").html(current_firmware_version)
-        $("#deleteModal").modal('show');
+        $('#deleteModal').modal({ backdrop: 'static', keyboard: false })
+
     }
 }
 function validation() {

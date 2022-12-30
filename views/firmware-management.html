@@ -24,7 +24,7 @@
                 <div class="ml-3">
                     <a href="javascript:;" class="btn btn-sm btn-icon btn-circle  bskp-icon-bg"
                         data-click="panel-expand" title="Expand">
-                        <image src="images/menu/max.svg" height="14px">
+                        <image src="images/menu/expand-icon.svg" height="14px">
                     </a>
                     <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg" title="Help">
                         <image src="images/menu/Question_icon (2).png">
@@ -73,11 +73,13 @@
                                     </a>
                                 
                                     <a class="btn bskp-refresh-bg  refreshbutton"  title="Refresh" data-click="panel-reload" 
-                                        onclick="loadFirmwareList()"><i class="fa fa-refresh"></i></a>
+                                        onclick="loadFirmwareList()"><img class="refresh-button"src="images/menu/refresh-button.png" alt="">
+
+                                    </a>
                                     
                             </div>
                             <div class="bskp-table-layout">
-                                <table class="table table-bordered table-hover bskp-table responsive no-wrap"
+                                <table class="table table-bordered  bskp-table responsive no-wrap"
                                     id="firmwareTable" cellspacing="0" width="100%" style="clear: both">
 
                                 </table>
@@ -108,7 +110,7 @@
             <div class="modal-header">
                 <h4 class="modal-title"><span class="templateAction"></span> Firmware</h4>
                 <button type="button" class="close " data-dismiss="modal" aria-label="Close">
-                    <image src="images/menu/xicon.svg " onclick="onclosebutton()" class="bg-secondary xicon"
+                    <image src="images/menu/xicon.svg " onclick="onclosebutton()" class="bg-secondary xicon add-xicon"
                         > <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -118,7 +120,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="inputLabel">Model ID<strong class="model-id-req">*</strong></label>
-                                <select class="form-control input-sm modelId" id="f_device_model">
+                                <select class="form-control input-sm model" id="f_device_model">
                                     
                                 </select>
                                 <span id="model-span" class="span"></span>
@@ -127,7 +129,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="inputLabel">Firmware Version<strong class="model-id-req">*</strong></label>
-                                <input class="form-control input-sm firmwareVersion" maxlength="10"
+                                <input class="form-control input-sm firmwareVersion model" maxlength="10"
                                     placeholder="Enter The Firmware Version" type="text" id="firmware_version">
                             <span id="firmware-version-span" class="span"></span>
                                 </div>
@@ -135,7 +137,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="inputLabel">Description</label>
-                                <textarea class="form-control input-sm Description" id="firmware_desc" maxlength="1000"
+                                <textarea class="form-control input-sm Description model" id="firmware_desc" maxlength="1000"
                                     ></textarea>
                             </div>
                         </div>
@@ -162,21 +164,23 @@
 </div><!-- /.modal -->
 
 
-<div id="deleteModal" class="modal fade" tabindex="-1" role="dialog">
+<div id="deleteModal" class="modal bskp-modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Delete Firmware</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <image src="images/menu/xicon.svg " onclick="onclosebutton()" class="bg-secondary xicon"></image></button>
             </div>
             <div class="modal-body">
                 <h5>Are you sure want to delete <b><span class="firmwareVersion"></span></b> version firmware file?</h5>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btnModal" onclick="proceedDelete()">Proceed</button>
-            </div>
+                <button type="button" class="btn  btn-secondary btn-close"
+                        data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btnModal  btn-proceed btnSubmit"onclick="proceedDelete()"
+                    >Proceed</button>
+                </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
@@ -184,12 +188,13 @@
 
 
 
-<div id="uploadDevice" class="modal fade" tabindex="-1" role="dialog">
+<div id="uploadDevice" class="modal bskp-modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title"><span class="templateAction"></span> Device</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <image src="images/menu/xicon.svg " onclick="onclosebutton()" class="bg-secondary xicon"></image><span
                         aria-hidden="true">&times;</span></button>
             </div>
             <form action="javascript:void(0)" onsubmit="uploadDevice()">
@@ -236,8 +241,11 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btnModal btnSubmit">Proceed</button>
+                    <button type="button" class="btn  btn-secondary btn-close"
+                        data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btnModal  btn-proceed btnSubmit"
+                    >Proceed</button>
+                   
                 </div>
             </form>
         </div><!-- /.modal-content -->
