@@ -4,7 +4,7 @@ var MENU_LINKS = [BASE_PATH+'/home', BASE_PATH+'/dashboard', BASE_PATH+'/message
     BASE_PATH+"/device-management", BASE_PATH+"/firmware-management", BASE_PATH+"/asset-management", BASE_PATH+"/user-management", BASE_PATH+"/dashboard-editor", BASE_PATH+"/event-logs",
     BASE_PATH+"/messages", BASE_PATH+"/log-console", BASE_PATH+"/marketplacev4", BASE_PATH+"/domain-audit", BASE_PATH+"/files", BASE_PATH+"/code-editor", BASE_PATH+"/alexa", BASE_PATH+"/query-console", BASE_PATH+"/sql-query-console",
     BASE_PATH+"/sql-templates",BASE_PATH+"/sql-table",BASE_PATH+"/db-table",BASE_PATH+"/db-query-console",BASE_PATH+"/db-templates",BASE_PATH+"/plugin-management",BASE_PATH+"/manage-billing",BASE_PATH+"/site-noop",BASE_PATH+"/widgets",
-    BASE_PATH+"/mongodb",BASE_PATH+"/mongo-console",BASE_PATH+"/token-management"]
+    BASE_PATH+"/mongodb",BASE_PATH+"/mongo-console",BASE_PATH+"/token-management",BASE_PATH+"/device-tokens"]
 
 
 $(document).ready(function () {

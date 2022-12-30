@@ -181,9 +181,9 @@ function addMessageField() {
     </select>
     <span id="logmsg_datatype_`+ id +`"></span>
     </td>
-    <td style="text-align: center;" class="addMsg"><i class="fa fa-plus mt-1 add" onclick="addMessageField()" style="cursor: pointer" aria-hidden="true"></i>` +
-        (id > 0 ? '<i class="fa fa-minus minus" style="margin-left:5px;cursor: pointer" onclick="deleteMessageField(' + id + ')"aria-hidden="true"></i> ' : '<i class="fa fa-minus minus minus-none" style="margin-left:5px;cursor: pointer" onclick="deleteMessageField(' + id + ')"aria-hidden="true"></i>')
-        + ` </td>
+    <td style="text-align: center;" class="addMsg"><img class="bskp-add add" src="images/menu/plus1.svg"  onclick="addMessageField()" style="cursor: pointer" alt="add">` +
+    (id > 0 ? '<img class="bskp-minus minus" src="images/menu/minus1.svg"  style="margin-left:5px;cursor: pointer" onclick="deleteMessageField(' + id + ')" aria-hidden="true"> ' : '<img class="bskp-minus minus  minus-none" src="images/menu/minus1.svg"  style="margin-left:5px;cursor: pointer" onclick="deleteMessageField(' + id + ')" aria-hidden="true"> ')
+    + ` </td>
   </tr>`;
   id > 0 ? $(".minus").removeClass('minus-none'):'';
   $(".msgFieldBody").append(str);
