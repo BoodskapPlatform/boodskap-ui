@@ -126,6 +126,7 @@ function openModal(type,id) {
         $("#addDevice form").attr('onsubmit','addDevice()')
         
     }else if (type === 2) {
+        $("#device_desc").css('height','90px');
         $("#addDevice").modal({
             backdrop: 'static',
             keyboard: false
@@ -172,11 +173,10 @@ function openModal(type,id) {
 
 
 function addDevice() {
-
+    $("#device_desc").css('height','90px !important');
     var device_id =$.trim($("#device_id").val() );
     var device_version =$.trim($("#device_version").val() );
     var device_desc =$.trim($("#device_desc").val() );
-    // var device_version =$.trim($("#device_version").val() );
 
     if(device_id === "" ){
    
@@ -232,7 +232,7 @@ function updateDevice() {
 
     upsertDeviceModel(deviceObj, function (status, data) {
         if (status) {
-            console.log(deviceObj.id)
+          
             successMsg('Device Model Updated Successfully');
             loadDeviceModelList();
             $("#addDevice").modal('hide');
