@@ -393,7 +393,7 @@ color: #1a1a1a !important;
     color: rgb(241, 241, 241) !important;
     background: #90a1b7;
     font-size: 16px;
-    padding: 6px 8px !important;
+    padding: 6px 8px ;
     height: 32px !important;
     border-radius: 10px !important;
     font-weight: 600;
@@ -1267,4 +1267,12 @@ vertical-align: middle;
 .bskp-edit-inp > img{
     width: 18px;
     height: 18px;
+}
+.ref-btn {
+    padding: 6px 6px !important;
+}
+.ref-btn img{
+    width: 18px;
+    height: 18px;
+    vertical-align: initial;
 }
