@@ -560,7 +560,7 @@ color: #1a1a1a !important;
 .bskp-modal textarea,
 .bskp-modal select {
     border-radius: 10px !important;
-    font-size: 14px !important;
+    font-size: 12px !important;
     color: #2a2a2a;
     font-weight: 600;
 }   
@@ -700,6 +700,7 @@ font-size: 12px !important;
 }
 .bskp-mt-30 {
     margin-top: 30px;
+    
 }
 .bskp-mega-nav{
     padding: 7px 12px;
