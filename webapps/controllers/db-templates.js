@@ -251,7 +251,7 @@ function addTemplate() {
         domainKey: DOMAIN_KEY
     }
 
-        // console.log(tempObj);
+        
         $(".btnSubmit").attr('disabled', 'disabled');
     
 
