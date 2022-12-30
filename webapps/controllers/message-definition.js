@@ -58,8 +58,8 @@ function loadMessageDef() {
             sWidth: '10%',
             mRender: function (data, type, row) {
 
-                return '<button class="btn bskp-edit-btn mr-2" onclick="openEditModal(' + row['id'] + ')"> <img src="images/edit.svg" alt="">  </button>' +
-                    '<button class="btn bskp-trash-btn" onclick="openDeleteModal(' + row['id'] + ')"> <img src="images/trash2.svg" alt=""> </button>';
+                return '<button class="btn bskp-edit-btn mr-2" onclick="openEditModal(' + row['id'] + ')"> <img src="images/edit_icon.svg" alt="">  </button>' +
+                    '<button class="btn bskp-trash-btn" onclick="openDeleteModal(' + row['id'] + ')"> <img src="images/delete.svg" alt=""> </button>';
             }
         }
 
