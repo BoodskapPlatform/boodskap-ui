@@ -359,6 +359,10 @@ padding-bottom: 50px !important;
     background: #90a1b7;
     font-size: 16px !important;
 }
+.refresh-button{
+    padding-bottom: 3px;
+    height: 22px;
+}
 
 .bskp-topic-icon {
     height: 22px;
@@ -502,7 +506,7 @@ padding-bottom: 50px !important;
     background: #f7fbfd;
     margin: 0 !important;
     border-radius: 12px;
-    font-weight: 600;
+    font-weight: 500;
 }
 
 .bskp-search-left i {
