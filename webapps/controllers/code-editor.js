@@ -574,9 +574,9 @@ function uploadClass(type, ispublic, isopen, jarname) {
 
     var url = "";
     if (type === 1) {
-        url = API_BASE_PATH + "/groovy/upload/script/file/" + API_TOKEN + "/" + ispublic + "/" + isopen;
+        url = API_BASE_PATH + "/groovy/upload/script/file/" + API_TOKEN_ALT + "/" + ispublic + "/" + isopen;
     } else {
-        url = API_BASE_PATH + "/groovy/upload/jar/" + API_TOKEN + "/" + ispublic + "/" + jarname;
+        url = API_BASE_PATH + "/groovy/upload/jar/" + API_TOKEN_ALT + "/" + ispublic + "/" + jarname;
     }
 
     var file = document.getElementById('class_file').files[0]; //$("#class_file")

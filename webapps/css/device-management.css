@@ -27,7 +27,7 @@
 .bskp-submenu2 {
     height: 35px;
     border-radius: 10px;
-    margin: 40px 39px 0px 40px !important;
+    margin: 30px 39px 0px 40px !important;
     background-color: #eaf1f6 !important;
 
 }
@@ -92,7 +92,7 @@
 }
 
 ol li{
-    font-size: 12px;
+    font-size: 13px;
 }
 .panel-title{
     color: #2D2F79;

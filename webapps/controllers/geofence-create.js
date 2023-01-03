@@ -304,7 +304,7 @@ function upsertEntityGeofence(){
 
 
                 $.ajax({
-                    url: API_BASE_PATH + "/geofence/upsert/" + API_TOKEN+"?geotype="+geoInputObj.geoType,
+                    url: API_BASE_PATH + "/geofence/upsert/" + API_TOKEN_ALT+"?geotype="+geoInputObj.geoType,
                     data: JSON.stringify(geoInputObj),
                     contentType: "application/json",
                     type: 'POST',
@@ -477,7 +477,7 @@ function upsertAssetGeofence(){
 
 
                 $.ajax({
-                    url: API_BASE_PATH + "/geofence/upsert/" + API_TOKEN+"?geotype="+geoInputObj.geoType,
+                    url: API_BASE_PATH + "/geofence/upsert/" + API_TOKEN_ALT+"?geotype="+geoInputObj.geoType,
                     data: JSON.stringify(geoInputObj),
                     contentType: "application/json",
                     type: 'POST',
@@ -643,7 +643,7 @@ function upsertDeviceGeofence(){
 
 
                 $.ajax({
-                    url: API_BASE_PATH + "/geofence/device/upsert/" + API_TOKEN+"?geotype="+geoInputObj.geoType,
+                    url: API_BASE_PATH + "/geofence/device/upsert/" + API_TOKEN_ALT+"?geotype="+geoInputObj.geoType,
                     data: JSON.stringify(geoInputObj),
                     contentType: "application/json",
                     type: 'POST',
@@ -813,7 +813,7 @@ function loadGeofenceList() {
         aoColumns: fields,
         "bProcessing": true,
         "bServerSide": true,
-        "sAjaxSource": API_BASE_PATH + '/elastic/search/query/' + API_TOKEN,
+        "sAjaxSource": API_BASE_PATH + '/elastic/search/query/' + API_TOKEN_ALT,
         "fnServerData": function (sSource, aoData, fnCallback, oSettings) {
 
             var keyName = fields[oSettings.aaSorting[0][0]];
@@ -1083,8 +1083,8 @@ function searchQueryFormatter(data) {
         aoColumns: fields,
         "bProcessing": true,
         "bServerSide": true,
-        // "sAjaxSource": API_BASE_PATH + '/elastic/query/' + API_TOKEN + '/GLOBAL/?repositary=geofence&mapping=geofence',
-        "sAjaxSource": API_BASE_PATH + '/geofence/list/' + API_TOKEN + '/' + pageSize,
+        // "sAjaxSource": API_BASE_PATH + '/elastic/query/' + API_TOKEN_ALT + '/GLOBAL/?repositary=geofence&mapping=geofence',
+        "sAjaxSource": API_BASE_PATH + '/geofence/list/' + API_TOKEN_ALT + '/' + pageSize,
         "fnServerData": function (sSource, aoData, fnCallback, oSettings) {
 
             var keyName = fields[oSettings.aaSorting[0][0]]
@@ -1151,7 +1151,7 @@ function searchQueryFormatter(data) {
 
     // countAllGeofences API
     $.ajax({
-        url: API_BASE_PATH + "/geofence/count/" + API_TOKEN,
+        url: API_BASE_PATH + "/geofence/count/" + API_TOKEN_ALT,
         data: {},
         type: 'POST',
         success: function (res) {
@@ -1175,7 +1175,7 @@ function searchQueryFormatter(data) {
                 }
 
                 $.ajax({
-                    url: API_BASE_PATH + "/geofence/list/" + API_TOKEN + "/"+msgPageSize,
+                    url: API_BASE_PATH + "/geofence/list/" + API_TOKEN_ALT + "/"+msgPageSize,
                     data: data,
                     type: 'GET',
                     success: function (res) {
@@ -1242,7 +1242,7 @@ function getGeofenceList(){
     var pageSize = 100;
 
     $.ajax({
-        url: API_BASE_PATH + "/geofence/list/" + API_TOKEN + "/" + pageSize,
+        url: API_BASE_PATH + "/geofence/list/" + API_TOKEN_ALT + "/" + pageSize,
         data: data,
         type: 'GET',
         success: function (data) {

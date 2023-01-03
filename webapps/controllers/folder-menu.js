@@ -321,7 +321,7 @@ function deleteNodes(node,obj){
 
     if($("#codeType").val() == 'JAR'){
         $.ajax({
-            url: API_BASE_PATH + "/groovy/delete/jar/" + API_TOKEN + "/" + isPublic + "/" + obj.file,
+            url: API_BASE_PATH + "/groovy/delete/jar/" + API_TOKEN_ALT + "/" + isPublic + "/" + obj.file,
             contentType: 'application/json',
             type: 'DELETE',
             success: function (data) {
@@ -335,7 +335,7 @@ function deleteNodes(node,obj){
         });
     }else{
         $.ajax({
-            url: API_BASE_PATH + "/groovy/delete/script/" + API_TOKEN + "/" + isPublic + "/" + obj.packageName,
+            url: API_BASE_PATH + "/groovy/delete/script/" + API_TOKEN_ALT + "/" + isPublic + "/" + obj.packageName,
             contentType: 'application/json',
             type: 'DELETE',
             success: function (data) {

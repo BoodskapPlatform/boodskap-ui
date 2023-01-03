@@ -355,7 +355,7 @@ function listCollections(url){
 
     $("#col_name").val('')
     $.ajax({
-        url: API_BASE_PATH + "/mongo/list/collections/" + API_TOKEN+'/'+url+'.'+$("#dbName").val(),
+        url: API_BASE_PATH + "/mongo/list/collections/" + API_TOKEN_ALT+'/'+url+'.'+$("#dbName").val(),
         contentType: "application/json",
         type: 'GET',
         success: function (data) {
