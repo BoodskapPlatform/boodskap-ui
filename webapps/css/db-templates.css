@@ -31,9 +31,7 @@ color: white;
 border-radius: 50%;
 vertical-align: top;
 }
-.btn{
-line-height: 25px;
-}
+
 .breadcrumb{
     font-size: 13px !important;
     align-items: center;
