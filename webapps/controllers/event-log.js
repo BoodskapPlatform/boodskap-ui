@@ -569,7 +569,7 @@ function loadLogs() {
 
             },
         "bServerSide": true,
-        "sAjaxSource": API_BASE_PATH + '/elastic/search/query/' + API_TOKEN,
+        "sAjaxSource": API_BASE_PATH + '/elastic/search/query/' + API_TOKEN_ALT,
         "fnServerData": function (sSource, aoData, fnCallback, oSettings) {
             queryParams.query['bool']['should'] = [];
             delete queryParams.query['bool']["minimum_should_match"];

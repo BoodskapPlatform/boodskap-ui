@@ -101,21 +101,29 @@
                             <div class="choosemodel">
                              <div  class="form-group">
                                 <div class="modechoose">
-                                    <label  class="inputLabel"> Device Model </label>&nbsp; <span class="small-text" onclick="editchoosemodel('editmode')">Edit</span><em class="fa bskp-text fa-pencil" aria-hidden="true"></em>
-                                <select class="form-control input-sm" id="device_model" required onchange="assignVersion()">  
-                                </select>
+                                    <label  class="inputLabel"> Device Model </label>&nbsp; 
+                                    <div class="d-flex align-items-center">
+                                    <select class="form-control input-sm" id="device_model" required onchange="assignVersion()">  
+                                     </select>
+                                     <a href="javascript:void(0)" class="btn bskp-edit-inp ml-2" onclick="editchoosemodel('editmode')" title="Edit"><img src="images/edit_icon.svg" alt="">  </a>
+                                    </div> 
                                 </div>
+
                                 <div class="modeedit">
-                                    <label  class="inputLabel"> Device Model </label>&nbsp; <span class="small-text" onclick="editchoosemodel()">Edit</span><em class="fa bskp-text fa-pencil" aria-hidden="true"></em>
-                                    <input class="form-control input-sm"  maxlength="100"  placeholder="Enter Model ld" autocomplete="off" type="text" id="edit_device_model" required>
+                                <label  class="inputLabel"> Device Model </label>&nbsp; 
+                                <div class="d-flex align-items-center">
+                                <input class="form-control input-sm"  maxlength="100"  placeholder="Enter Model ld" autocomplete="off" type="text" id="edit_device_model" required>
+                                <a href="javascript:void(0)" class="btn bskp-edit-inp ml-2" onclick="editchoosemodel()" title="Edit"><img src="images/edit_icon.svg" alt="">  </a>
+                                </div>
                                 <span id="logdevice_model"></span>    
                                 </div>
+
                               </div>  
                                 <a href="javascript:void(0)"  onclick="togglemodel()" class="togglemodel bskp-text font-weight-bold">(or) New Device Model</a> 
                             </div>
                             <div class="newmodel">
                             <div  class="form-group">
-                                <label  class="inputLabel">New Device Model</label>&nbsp;
+                                <label  class="inputLabel">New Device Model &nbsp;*</label>&nbsp;
                                 <input class="form-control input-sm" placeholder="Enter Model ld" maxlength="100" autocomplete="off" type="text" id="new_device_model" required>
                                 <span id="lognew_device_model"></span>                                 
                             </div>
@@ -124,7 +132,7 @@
                         </div>
                         <div  class="col-md-6">
                             <div  class="form-group">
-                                <label  class="inputLabel">Device Version </label>
+                                <label  class="inputLabel">Device Version *</label>
                                 <input  class="form-control input-sm" placeholder="Enter Device Version" maxlength="50" type="text" id="device_version" required>
                                 <span id="logdevice_version"></span>
                             </div>

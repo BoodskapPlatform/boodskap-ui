@@ -116,7 +116,7 @@ function loadPage() {
         aoColumns: fields,
         "bProcessing": true,
         "bServerSide": true,
-        "sAjaxSource": API_BASE_PATH + '/elastic/search/query/' + API_TOKEN,
+        "sAjaxSource": API_BASE_PATH + '/elastic/search/query/' + API_TOKEN_ALT,
         "fnServerData": function (sSource, aoData, fnCallback, oSettings) {
 
             queryParams.query['bool']['must'] = []
@@ -305,7 +305,7 @@ function openModal(type, id) {
                 if (result.value) {
 
                     $.ajax({
-                        url: API_BASE_PATH + '/record/delete/' + API_TOKEN +'/'+SITE_NOOP +'/'+current_site_id,
+                        url: API_BASE_PATH + '/record/delete/' + API_TOKEN_ALT +'/'+SITE_NOOP +'/'+current_site_id,
                         type: 'DELETE',
                         success: function (result) {
 
@@ -539,7 +539,7 @@ function addWebsite() {
     $(".btnSubmit").attr('disabled', 'disabled');
 
     $.ajax({
-        url: API_BASE_PATH +'/record/insert/dynamic/' + API_TOKEN +'/'+SITE_NOOP ,
+        url: API_BASE_PATH +'/record/insert/dynamic/' + API_TOKEN_ALT +'/'+SITE_NOOP ,
         data:  JSON.stringify(insertObj),
         contentType: "text/plain",
         type: 'POST',
@@ -655,7 +655,7 @@ function updateWebsite() {
     $(".btnSubmit").attr('disabled', 'disabled');
 
     $.ajax({
-        url: API_BASE_PATH +'/record/insert/static/' + API_TOKEN +'/'+SITE_NOOP+'/'+current_site_id ,
+        url: API_BASE_PATH +'/record/insert/static/' + API_TOKEN_ALT +'/'+SITE_NOOP+'/'+current_site_id ,
         data:  JSON.stringify(insertObj),
         contentType: "text/plain",
         type: 'POST',

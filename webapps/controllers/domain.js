@@ -593,7 +593,7 @@ function proceedSave() {
         //         $("#domainModal").modal('hide');
         //     } else {
         $.ajax({
-            url: API_BASE_PATH + "/global/data/insert/" + API_TOKEN + '?id=' + DOMAIN_UUID,
+            url: API_BASE_PATH + "/global/data/insert/" + API_TOKEN_ALT + '?id=' + DOMAIN_UUID,
             data: JSON.stringify(data),
             contentType: "application/json",
             type: 'POST',

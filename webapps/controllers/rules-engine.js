@@ -5971,9 +5971,9 @@ function uploadClass(type, ispublic, isopen, jarname) {
 
     let url = "";
     if (type === 1) {
-        url = API_BASE_PATH + "/groovy/upload/script/file/" + API_TOKEN + "/" + ispublic + "/" + isopen;
+        url = API_BASE_PATH + "/groovy/upload/script/file/" + API_TOKEN_ALT + "/" + ispublic + "/" + isopen;
     } else {
-        url = API_BASE_PATH + "/groovy/upload/jar/" + API_TOKEN + "/" + ispublic + "/" + jarname;
+        url = API_BASE_PATH + "/groovy/upload/jar/" + API_TOKEN_ALT + "/" + ispublic + "/" + jarname;
     }
 
     let file = document.getElementById('class_file').files[0]; //$("#class_file")
@@ -7407,7 +7407,7 @@ function uploadProcessFile(file) {
             }
         }
     };
-    xhr.open('POST', API_BASE_PATH + '/files/upload/' + API_TOKEN+'?ispublic=true', true);
+    xhr.open('POST', API_BASE_PATH + '/files/upload/' + API_TOKEN_ALT+'?ispublic=true', true);
     let formData = new FormData();
     formData.append("binfile", file, file.name);
     formData.append("mediaType", file.type);
@@ -7471,7 +7471,7 @@ function uploadPem(file) {
 
     $("."+pemFileId+"_name").html(file.name)
 
-    xhr.open('POST', API_BASE_PATH + '/files/upload/' + API_TOKEN, true);
+    xhr.open('POST', API_BASE_PATH + '/files/upload/' + API_TOKEN_ALT, true);
     let formData = new FormData();
     formData.append("binfile", file, file.name);
     formData.append("mediaType", file.type);
