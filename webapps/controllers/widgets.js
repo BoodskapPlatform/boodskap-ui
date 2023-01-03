@@ -157,7 +157,7 @@ function loadWidgets(){
     $(".paginationBody").html('')
 
     ajaxCall = $.ajax({
-        url: API_BASE_PATH + "/elastic/search/query/" + API_TOKEN,
+        url: API_BASE_PATH + "/elastic/search/query/" + API_TOKEN_ALT,
         data: JSON.stringify(ajaxObj),
         contentType: "application/json",
         type: 'POST',
