@@ -34,7 +34,7 @@ body {
    position: relative;
    float: right;
    margin-right: 65px;
-   margin-top: -20px;
+   margin-top: -22px;
 }
 #tabsContent{
    box-shadow:3px 3px 7px 0px #d0cfcf9c !important;
@@ -138,7 +138,7 @@ a.nav-link.small.active{
 
 .tick-right{
    position: absolute;
-   top: 32px;
+   top: 36px;
    width: 15px;
    right: 75px;
 }
