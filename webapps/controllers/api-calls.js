@@ -4293,7 +4293,6 @@ function retreiveDBPool(id, cbk) {
 
 function upsertDBPool(data, cbk) {
 
-
     $.ajax({
         url: API_BASE_PATH + "/db/pool/upsert/" + API_TOKEN_ALT,
         data: JSON.stringify(data),
