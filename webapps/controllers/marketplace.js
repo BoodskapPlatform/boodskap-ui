@@ -141,13 +141,13 @@ function renderWidgetDiv(obj){
     for(var i=0;i<tagObj.length;i++){
         if(tagObj.length>3){
             if(i<=2){
-                tags+= '<i class="label label-default mr-2">'+tagObj[i]+'</i>'
+                tags+= '<i class="label label-default mr-2" >'+tagObj[i]+'</i>'
                 moreTag ='<span class="tagEllipseMargin">...</span>'
             }
         }
         else{
             moreTag ="";
-            tags+= '<i class="label label-default mr-2">'+tagObj[i]+'</i>'
+            tags+= '<i class="label label-default mr-2" >'+tagObj[i]+'</i>'
         }
 
 
@@ -168,23 +168,24 @@ function renderWidgetDiv(obj){
                     <div class="widgetDiv" title="`+(obj.description ? obj.description : '')+`">
                         <div class="row">
                             <div class="col-lg-4 col-md-4 col-sm-12" style="">
-                                <div class="text-center">
+                                <div class="">
                                 <img src="`+imgPath+`"  style="width:75px "/>
                                 </div>
                             </div>
                             <div class="col-lg-8 col-md-8 col-sm-12 pl-2">
-                                <h5 style="width:100%;white-space: nowrap;text-overflow: ellipsis;  overflow: hidden;" title="`+obj.widgetname+`">`+obj.widgetname+`<p class="float-right mb-0"><span class="d-inline-block"><a href="`+marketPlaceURL+`" target="_blank"><i class="fa fa-share-square-o shareIcon" aria-hidden="true" title=""></i></a></span></p></h5>
+                                <h5 style="font-size:14px;font-weight:600;color:blck; width:100%;white-space: nowrap;text-overflow: ellipsis;  overflow: hidden;" title="`+obj.widgetname+`">`+obj.widgetname+`<p class="float-right mb-0"><span class="d-inline-block"><a href="`+marketPlaceURL+`" target="_blank"><i class="fa fa-share-square-o shareIcon" aria-hidden="true" title=""></i></a></span></p></h5>
                          
-                                <small class="mr-2">v`+obj.version+`</small> <small><i class="fa fa-folder"></i> `+obj.category+`</small> <br>
-                                <p class="" style="margin-top: 3px;white-space: nowrap;text-overflow: ellipsis;  overflow: hidden;" title="`+obj.tags+`"><i class="fa fa-tags"></i>
+                                <small class="mr-2" style="font-size:12px;color:gray;font-style:italic;">v`+obj.version+`</small> <br><small style="font-size:12px;color:black;"><i class="fa fa-folder"></i> `+obj.category+`</small> <br>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-8 col-md-8 col-sm-12 pl-2">
+                                <p class="" style="margin-top: 3px;white-space: nowrap;text-overflow: ellipsis;  " title="`+obj.tags+`"><i class="fa fa-tags"></i>
                                     `+tags+moreTag+`
                                 </p>
-                                <small class="mr-2"><i class="fa fa-user"></i> `+obj.createdby+`</small>
-                                
-                                 <br><small><i class="fa fa-clock-o"></i> `+moment(obj.updatedtime).format('MM/DD/YYYY hh:mm a')+`</small><br>
                                 
                                 <div class="btn-`+obj.widgetid+`">
-                                    <button class="btn mt-2 btn-green btn-sm action" onclick="installWidget('`+obj.widgetid+`','`+obj.widgetname+`')"><i class="icon-download"></i> <span class="hidden-xs">Install Widget</span></button>
+                                    <button class="btn btn-secondary btn-proceed btnSubmit install-button action" onclick="installWidget('`+obj.widgetid+`','`+obj.widgetname+`')"><img src="images/menu/install.svg" alt="" style="height:18px;position:relative;bottom:1px;"> <span class="hidden-xs"> Install</span></button>
                                 </div>
 
                             </div>
