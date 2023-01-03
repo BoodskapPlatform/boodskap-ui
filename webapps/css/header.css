@@ -53,4 +53,8 @@
             z-index: 400 !important;
         }
     }
-    
+    .bskp-mega-nav img{
+        height: 16px;
+        width: 16px;
+        margin-right: 6px;
+    }
