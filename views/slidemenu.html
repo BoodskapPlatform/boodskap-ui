@@ -1,23 +1,11 @@
-<style>
-    .sidebar .nav li a:hover{
-        text-decoration: underline;
-    }
-    .sidebar .nav>li.active>a, .sidebar .nav>li.active>a:focus, .sidebar .nav>li.active>a:hover {
-        background: transparent;
-    }
-    li.nav-header  {
-        color: #2d2f79 !important;
-    }
-    .sidebar .nav>li.nav-header {
-        font-size: 12px;
-    }
-</style>
+<link href="css/sidemenu.css" rel="stylesheet" />
+
 <div id="mySidenav" class="sidenav bskp-sidenav" style="background-color:white">
     <div class="sidebar" style="width: 250px;padding-top: 60px;">
     <ul class="nav" style="margin-bottom: 50px">
         <li class="has-sub active sideMain homeMenu">
             <a href="<%= basepath %>/home">
-                <i class="fa fa-home"></i>
+                <img src="images/menu/home_icon.svg" alt="">
                 <span>Home</span>
             </a>
         </li>
@@ -30,13 +18,13 @@
         <li class="nav-header">Platform</li>
         <li class="has-sub sideMain marketMenu">
         <a href="<%= basepath %>/dashboard">
-            <i class="icon-dashboard"></i>
+           <img src="images/menu/widgets-bskp.svg" alt="">
             <span>Dashboard</span>
         </a>
         </li>
         <li class="has-sub sideMain marketMenu">
         <a href="<%= basepath %>/userevents">
-            <i class="icon-bell4"></i>
+            <img src="images/bell.svg"  alt="">
             <span>Event Subscriptions</span>
         </a>
         </li>
@@ -48,27 +36,27 @@
 
         <li class="has-sub sideMain dashboardEditor">
             <a href="<%= basepath %>/dashboard-editor">
-                <i class="icon-edit2"></i>
+                <img src="images/menu/dashboard-editor.svg" alt="">
                 <span>Dashboard Editor Studio</span>
             </a>
         </li>
         <li class="has-sub sideMain mobMenu">
             <a href="<%= basepath %>/mobile-platform">
-                <i class="icon-mobile"></i>
+                <img src="images/menu/mobile.svg" alt="">
                 <span>Mobile Editor Studio</span>
             </a>
         </li>
 
         <li class="has-sub sideMain widgets">
             <a href="<%= basepath %>/widgets">
-                <i class="icon-book"></i>
+                <img src="images/menu/library.svg" alt="">
                 <span>Widget Library</span>
             </a>
         </li>
 
         <li class="has-sub sideMain marketMenu">
             <a href="<%= basepath %>/marketplace">
-                <i class="icon-android-playstore"></i>
+                <img src="images/menu/market-place.svg" alt="">
                 <span>Boodskap Marketplace</span>
             </a>
         </li>
@@ -76,69 +64,69 @@
 
         <li class="has-sub sideMain msgDefMenu">
             <a href="<%= basepath %>/message-definition">
-                <i class="icon-stack-2"></i>
+                <img src="images/menu/message-definition_1-bskp.svg" alt="">
                 <span>Message Definition</span>
             </a>
         </li>
         <li class="has-sub sideMain recordDefMenu">
             <a href="<%= basepath %>/record-definition">
-                <i class="icon-th"></i>
+                <img src="images/menu/record-definition-bskp.svg" alt="">
                 <span>Record Definition</span>
             </a>
         </li>
         <li class="has-sub sideMain recordDefMenu dbquery">
             <a href="<%= basepath %>/db-table">
-                <i class="icon-database2"></i>
+                <img src="images/menu/db-table.svg" alt="">
                 <span>DB Table</span>
             </a>
         </li>
         <li class="has-sub sideMain recordDefMenu sqlquery">
             <a href="<%= basepath %>/sql-table">
-                <i class="icon-database2"></i>
+                <img src="images/menu/sql-table.svg" alt="">
                 <span>SQL Table</span>
             </a>
         </li>
         <li class="has-sub sideMain scriptMenu">
             <a href="<%= basepath %>/script-console">
-                <i class="icon-ios-monitor"></i>
+                <img src="images/menu/script-console-fanta-bskp.svg" alt="">
                 <span>Script Console</span>
             </a>
         </li>
         <li class="has-sub sideMain rulesMenu">
             <a href="<%= basepath %>/rules-engine">
-                <i class="icon-file-code-o"></i>
+                <img src="images/menu/rules-engine-fanta-bskp.svg" alt="">
                 <span>Rules Engine</span>
             </a>
         </li>
         <li class="has-sub sideMain codeEditor">
             <a href="<%= basepath %>/code-editor">
-                <i class="icon-code2"></i>
+                <img src="images/menu/code-editor.svg" alt="">
                 <span>Code Editor</span>
             </a>
         </li>
         <li class="has-sub sideMain eventMenu">
             <a href="<%= basepath %>/events">
-                <i class="icon-bell3"></i>
+                <img src="images/menu/events&notifications-bskp.svg" alt="">
                 <span>Events & Notification</span>
             </a>
         </li>
         <li class="has-sub sideMain eventMenu">
             <a href="<%= basepath %>/templates">
-                <i class="icon-list-alt"></i>
+                <img src="images/menu/templates-bskp.svg" alt="">
                 <span>Plaform Templates</span>
             </a>
         </li>
 
         <li class="has-sub sideMain sqlquery">
             <a href="<%= basepath %>/sql-templates">
-                <i class="icon-list-alt"></i>
-                <span>SQL Templates</span>
+                <img src="images/menu/dsql-temp.svg" alt="">
+                <span>DSQL Templates</span>
             </a>
         </li>
 
         <li class="has-sub sideMain dbquery">
             <a href="<%= basepath %>/db-templates">
-                <i class="icon-list-alt"></i>
+                <img src="images/menu/db-templates.svg" alt="">
                 <span>DB Templates</span>
             </a>
         </li>
@@ -148,7 +136,7 @@
         <li class="has-sub sideMain mlHeader">
             <a href="javascript:;">
                 <b class="caret"></b>
-                <i class="icon-android-bulb"></i>
+                <img src="images/menu/machine-learning-bskp.svg" alt="">
                 <span>AI & Machine Learning</span>
             </a>
             <ul class="sub-menu">
@@ -182,7 +170,7 @@
         <li class="has-sub sideMain userHeader">
             <a href="javascript:;">
                 <b class="caret"></b>
-                <i class="icon-users"></i>
+                <img src="images/menu/user-management-fanta-bskp.svg" alt="">
                 <span>User Management</span>
             </a>
             <ul class="sub-menu">
@@ -206,7 +194,7 @@
         <li class="has-sub sideMain deviceHeader" >
             <a href="javascript:;">
                 <b class="caret"></b>
-                <i class="icon-hdd-o"></i>
+                <img src="images/menu/hardware-fanta_1-bskp.svg" alt="">
                 <span>Device Management</span>
             </a>
             <ul class="sub-menu">
@@ -228,7 +216,7 @@
         <li class="has-sub sideMain assetHeader">
             <a href="javascript:;">
                 <b class="caret"></b>
-                <i class="icon-suitcase"></i>
+                <img src="images/menu/assets-management-bskp.svg" alt="">
                 <span>Asset Management</span>
             </a>
             <ul class="sub-menu">
@@ -238,7 +226,7 @@
         <li class="has-sub sideMain firmwareHeader">
             <a href="javascript:;">
                 <b class="caret"></b>
-                <i class="icon-file-o"></i>
+                <img src="images/menu/firmware-management-fanta-bskp.svg" alt="">
                 <span>Firmware Management</span>
             </a>
             <ul class="sub-menu">
@@ -250,7 +238,7 @@
 
         <li class="has-sub sideMain geofenceMenu">
             <a href="<%= basepath %>/geofence">
-                <i class="icon-map-marker"></i>
+                <img src="images/menu/geofence-fanta-bskp.svg" alt="">
                 <span>Geofence Management</span>
             </a>
         </li>
@@ -266,7 +254,7 @@
 
         <li class="has-sub sideMain alexaMenu">
             <a href="<%= basepath %>/alexa">
-                <i class="icon-microphone"></i>
+                <img src="images/menu/goggle-mic.svg" alt="">
                 <span>Amazon Alexa</span>
             </a>
         </li>
@@ -277,43 +265,43 @@
 
         <li class="has-sub sideMain marketMenu">
             <a href="<%= basepath %>/files">
-                <i class="icon-file-image-o"></i>
+                <img src="images/menu/folder.svg" alt="">
                 <span>File Storage</span>
             </a>
         </li>
         <li class="has-sub sideMain marketMenu">
             <a href="<%= basepath %>/query-console" >
-                <i class="icon-search5"></i>
+                <img src="images/menu/Search.png" alt="">
                 <span>Elastic Search Query</span>
             </a>
         </li>
         <li class="has-sub sideMain marketMenu dbquery">
             <a href="<%= basepath %>/db-query-console" >
-                <i class="icon-database2"></i>
+                <img src="images/menu/db-query.svg" alt="">
                 <span>DB Query</span>
             </a>
         </li>
         <li class="has-sub sideMain marketMenu sqlquery">
             <a href="<%= basepath %>/sql-query-console" >
-                <i class="icon-database2"></i>
+                <img src="images/menu/dsql-temp.svg" alt="">
                 <span>Ignite SQL Query</span>
             </a>
         </li>
         <li class="has-sub sideMain marketMenu">
             <a href="<%= basepath %>/messages">
-                <i class="icon-th-list"></i>
+                <img src="images/menu/messages.svg" alt="">
                 <span>Messages</span>
             </a>
         </li>
         <li class="has-sub sideMain marketMenu">
             <a href="<%= basepath %>/event-logs" >
-                <i class="icon-file-o"></i>
+                <img src="images/menu/event-log.svg" alt="">
                 <span>Event Logs</span>
             </a>
         </li>
         <li class="has-sub sideMain marketMenu">
             <a href="<%= basepath %>/log-console" target="_blank">
-                <i class="icon-file-o"></i>
+                <img src="images/menu/app-log.svg" alt="">
                 <span>Application Logs</span>
             </a>
         </li>

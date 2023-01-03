@@ -8,13 +8,33 @@
 {
     font-family: 'Montserrat', sans-serif !important;
 }
+
 .platformBody{
 padding-bottom: 50px !important;
 }
+
 ::selection {
     color: #ffffff;
-    background: #1e229e;
-  }
+    background: #007bff;
+}
+
+  
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 6px;
+}
+ 
+::-webkit-scrollbar-track {
+    background-color: #ebebeb;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: #8a8a8a; 
+}
 /* ------- Header -------*/
 .bskp-frame-shadow {
     /* padding: 4px 5px; */
@@ -1276,4 +1296,8 @@ vertical-align: middle;
     width: 18px;
     height: 18px;
     vertical-align: initial;
+}
+
+.bskp-noframe{
+    padding: 16px 15px!important;
 }
