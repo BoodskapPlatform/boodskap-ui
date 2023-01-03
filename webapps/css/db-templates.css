@@ -13,6 +13,9 @@ padding-left: 0px !important;
 .bskp-modal thead > tr >th:last-child{
 text-align: center !important;
 }
+.bskp-modal{
+    z-index: 9999;
+}
 #addTemplate tbody > tr ,#addTemplate tbody > tr > td{
 border: 0px !important;
 }

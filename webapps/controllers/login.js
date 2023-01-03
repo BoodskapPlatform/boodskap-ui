@@ -181,7 +181,6 @@ function logout() {
 
     });
 
-
 }
 
 function register(){
@@ -304,12 +303,16 @@ function forgetPassword() {
 function toggleBox(){
 
     if($("#password").attr('type') === 'password'){
-        $(".passwordIcon").removeClass('fa-eye')
-        $(".passwordIcon").addClass('fa-eye-slash')
+        // $(".passwordIcon").removeClass('fa-eye')
+        // $(".passwordIcon").addClass('fa-eye-slash')
+        $(".passwordIcon").html(' ')
+        $(".passwordIcon").html('visibility_off')
         $("#password").attr('type','text')
     }else{
-        $(".passwordIcon").removeClass('fa-eye-slash')
-        $(".passwordIcon").addClass('fa-eye')
+        // $(".passwordIcon").removeClass('fa-eye')
+        // $(".passwordIcon").addClass('fa-eye-slash')
+        $(".passwordIcon").html(' ')
+        $(".passwordIcon").html('visibility')
         $("#password").attr('type','password')
     }
 }
