@@ -48,7 +48,7 @@
  }
 pre{
    font-size: 14px ;
-   font-family:Montserrat;
+   /* font-family:Montserrat; */
    color:rgb(139 140 159);
 }
 .select2-container--default .select2-selection--single{

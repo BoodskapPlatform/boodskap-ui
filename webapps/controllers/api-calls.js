@@ -1,3 +1,5 @@
+const API_TOKEN_ALT = "-"
+
 $(document).ajaxError(function myErrorHandler(event, xhr, ajaxOptions, thrownError) {
 
     if (DEBUG) {
@@ -74,7 +76,7 @@ function switchDomainCall(domainKey, token, cbk) {
 
 function loginOutCall(cbk) {
     $.ajax({
-        url: API_BASE_PATH + "/domain/logout/" + API_TOKEN,
+        url: API_BASE_PATH + "/domain/logout/" + API_TOKEN_ALT,
         type: 'GET',
         success: function (data) {
             cbk(true);
@@ -144,7 +146,7 @@ function registerCall(data, cbk) {
 
 function getUserProperty(name, cbk) {
     $.ajax({
-        url: API_BASE_PATH + "/user/property/get/" + API_TOKEN + "/" + USER_OBJ.user.email + "/" + name,
+        url: API_BASE_PATH + "/user/property/get/" + API_TOKEN_ALT + "/" + USER_OBJ.user.email + "/" + name,
         type: 'GET',
         success: function (data) {
             //called when successful
@@ -161,7 +163,7 @@ function getUserProperty(name, cbk) {
 
 function getUserPropertyEmail(name,email, cbk) {
     $.ajax({
-        url: API_BASE_PATH + "/user/property/get/" + API_TOKEN + "/" + email + "/" + name,
+        url: API_BASE_PATH + "/user/property/get/" + API_TOKEN_ALT + "/" + email + "/" + name,
         type: 'GET',
         success: function (data) {
             //called when successful
@@ -181,7 +183,7 @@ function getDomainProperty(name, cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/domain/property/get/" + API_TOKEN + "/" + name,
+        url: API_BASE_PATH + "/domain/property/get/" + API_TOKEN_ALT + "/" + name,
         type: 'GET',
         success: function (data) {
             //called when successful
@@ -200,7 +202,7 @@ function getSystemProperty(name, cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/system/property/get/" + API_TOKEN + "/" + name,
+        url: API_BASE_PATH + "/system/property/get/" + API_TOKEN_ALT + "/" + name,
         type: 'GET',
         success: function (data) {
             //called when successful
@@ -219,7 +221,7 @@ function deleteDomainProperty(name, cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/domain/property/delete/" + API_TOKEN + "/" + name,
+        url: API_BASE_PATH + "/domain/property/delete/" + API_TOKEN_ALT + "/" + name,
         type: 'DELETE',
         success: function (data) {
             //called when successful
@@ -237,7 +239,7 @@ function deleteDomainProperty(name, cbk) {
 function upsertDomainProperty(data, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/domain/property/upsert/" + API_TOKEN,
+        url: API_BASE_PATH + "/domain/property/upsert/" + API_TOKEN_ALT,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -257,7 +259,7 @@ function upsertDomainProperty(data, cbk) {
 function upsertSystemProperty(data, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/system/property/upsert/" + API_TOKEN,
+        url: API_BASE_PATH + "/system/property/upsert/" + API_TOKEN_ALT,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -277,7 +279,7 @@ function upsertSystemProperty(data, cbk) {
 function linkDomain(data, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/domain/link/" + API_TOKEN,
+        url: API_BASE_PATH + "/domain/link/" + API_TOKEN_ALT,
         data: data,
         type: 'GET',
         success: function (data) {
@@ -296,7 +298,7 @@ function linkDomain(data, cbk) {
 function unlinkDomain(data, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/domain/unlink/" + API_TOKEN,
+        url: API_BASE_PATH + "/domain/unlink/" + API_TOKEN_ALT,
         data: data,
         type: 'GET',
         success: function (data) {
@@ -325,7 +327,7 @@ function listMessageRules(pageSize, direction, mid, cbk) {
     }
 
     $.ajax({
-        url: API_BASE_PATH + "/rules/list/" + API_TOKEN + "/" + pageSize,
+        url: API_BASE_PATH + "/rules/list/" + API_TOKEN_ALT + "/" + pageSize,
         data: data,
         type: 'GET',
         success: function (data) {
@@ -352,7 +354,7 @@ function listScheduleRules(pageSize, direction, mid, cbk) {
     }
 
     $.ajax({
-        url: API_BASE_PATH + "/srules/list/" + API_TOKEN + "/" + pageSize,
+        url: API_BASE_PATH + "/srules/list/" + API_TOKEN_ALT + "/" + pageSize,
         data: data,
         type: 'GET',
         success: function (data) {
@@ -379,7 +381,7 @@ function listNamedRules(pageSize, direction, mid, cbk) {
     }
 
     $.ajax({
-        url: API_BASE_PATH + "/nrules/list/" + API_TOKEN + "/" + pageSize,
+        url: API_BASE_PATH + "/nrules/list/" + API_TOKEN_ALT + "/" + pageSize,
         data: data,
         type: 'GET',
         success: function (data) {
@@ -407,7 +409,7 @@ function listFileRules(pageSize, direction, type, cbk) {
     }
 
     $.ajax({
-        url: API_BASE_PATH + "/frules/list/" + API_TOKEN + "/" + pageSize,
+        url: API_BASE_PATH + "/frules/list/" + API_TOKEN_ALT + "/" + pageSize,
         data: data,
         type: 'GET',
         success: function (data) {
@@ -431,7 +433,7 @@ function listProcessRules(query,type, cbk) {
         }
 
         $.ajax({
-            url: API_BASE_PATH + "/elastic/search/query/" + API_TOKEN,
+            url: API_BASE_PATH + "/elastic/search/query/" + API_TOKEN_ALT,
             data: JSON.stringify(data),
             contentType: "application/json",
             type: 'POST',
@@ -460,7 +462,7 @@ function listBinaryRules(pageSize, direction, type, cbk) {
     }
 
     $.ajax({
-        url: API_BASE_PATH + "/brules/list/" + API_TOKEN + "/" + pageSize,
+        url: API_BASE_PATH + "/brules/list/" + API_TOKEN_ALT + "/" + pageSize,
         data: data,
         type: 'GET',
         success: function (data) {
@@ -480,7 +482,7 @@ function listJobRules(cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/jobs/list/" + API_TOKEN,
+        url: API_BASE_PATH + "/jobs/list/" + API_TOKEN_ALT,
         type: 'GET',
         success: function (data) {
             //called when successful
@@ -512,7 +514,7 @@ function listInputRules(type,cbk) {
     }
 
     $.ajax({
-        url: API_BASE_PATH + "/elastic/search/query/" + API_TOKEN,
+        url: API_BASE_PATH + "/elastic/search/query/" + API_TOKEN_ALT,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -540,7 +542,7 @@ function listMessageSpec(pageSize, direction, mid, cbk) {
     }
 
     $.ajax({
-        url: API_BASE_PATH + "/mspec/list/" + API_TOKEN + "/" + pageSize,
+        url: API_BASE_PATH + "/mspec/list/" + API_TOKEN_ALT + "/" + pageSize,
         data: data,
         type: 'GET',
         success: function (data) {
@@ -567,7 +569,7 @@ function listRecordSpec(pageSize, direction, mid, cbk) {
     }
 
     $.ajax({
-        url: API_BASE_PATH + "/storage/spec/list/" + API_TOKEN + "/" + pageSize,
+        url: API_BASE_PATH + "/storage/spec/list/" + API_TOKEN_ALT + "/" + pageSize,
         data: data,
         type: 'GET',
         success: function (data) {
@@ -590,7 +592,7 @@ function getDomainrule(cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/drules/get/" + API_TOKEN,
+        url: API_BASE_PATH + "/drules/get/" + API_TOKEN_ALT,
         data: data,
         type: 'GET',
         success: function (data) {
@@ -612,7 +614,7 @@ function updateDomainRuleCode(data, cbk) {
     //{"lang":"GROOVY","code":""}
 
     $.ajax({
-        url: API_BASE_PATH + "/drules/upsert/" + API_TOKEN,
+        url: API_BASE_PATH + "/drules/upsert/" + API_TOKEN_ALT,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -635,7 +637,7 @@ function updateMessageRuleCode(data, cbk) {
     //{"lang":"GROOVY","code":"","name":"Flow Meter Message","messageId":700}
 
     $.ajax({
-        url: API_BASE_PATH + "/rules/upsert/" + API_TOKEN,
+        url: API_BASE_PATH + "/rules/upsert/" + API_TOKEN_ALT,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -657,7 +659,7 @@ function updateScheduleRuleCode(data, cbk) {
     //{"lang":"GROOVY","code":"","pattern":"0 30 6 ? * * *","id":700}
 
     $.ajax({
-        url: API_BASE_PATH + "/srules/upsert/" + API_TOKEN,
+        url: API_BASE_PATH + "/srules/upsert/" + API_TOKEN_ALT,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -680,7 +682,7 @@ function updateBinaryRuleCode(data, cbk) {
     //{"lang":"GROOVY","code":"","pattern":"0 30 6 ? * * *","id":700}
 
     $.ajax({
-        url: API_BASE_PATH + "/brules/upsert/" + API_TOKEN,
+        url: API_BASE_PATH + "/brules/upsert/" + API_TOKEN_ALT,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -702,7 +704,7 @@ function updateFileRuleCode(data, cbk) {
     //{"lang":"GROOVY","code":"","pattern":"0 30 6 ? * * *","id":700}
 
     $.ajax({
-        url: API_BASE_PATH + "/frules/upsert/" + API_TOKEN,
+        url: API_BASE_PATH + "/frules/upsert/" + API_TOKEN_ALT,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -723,7 +725,7 @@ function updateJobRuleCode(data, cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/jobs/upsert/" + API_TOKEN,
+        url: API_BASE_PATH + "/jobs/upsert/" + API_TOKEN_ALT,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -745,7 +747,7 @@ function updateProcessRuleCode(data, cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/process/upsert/" + API_TOKEN+($("#pType").val() ? '?rtype='+$("#pType").val() : ''),
+        url: API_BASE_PATH + "/process/upsert/" + API_TOKEN_ALT+($("#pType").val() ? '?rtype='+$("#pType").val() : ''),
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -767,7 +769,7 @@ function updateInputRuleCode(type,data, cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/input/"+type+"/upsert/" + API_TOKEN,
+        url: API_BASE_PATH + "/input/"+type+"/upsert/" + API_TOKEN_ALT,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -789,7 +791,7 @@ function getMicroAPISlug(cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/micro/service/slug/get/" + API_TOKEN,
+        url: API_BASE_PATH + "/micro/service/slug/get/" + API_TOKEN_ALT,
         type: 'GET',
         success: function (data) {
             //called when successful
@@ -809,7 +811,7 @@ function setMicroAPISlug(slug,cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/micro/service/slug/upsert/" + API_TOKEN +"/"+slug,
+        url: API_BASE_PATH + "/micro/service/slug/upsert/" + API_TOKEN_ALT +"/"+slug,
         contentType: "application/json",
         type: 'PUT',
         success: function (data) {
@@ -920,7 +922,7 @@ function deleteMicroAPISlug(slug,cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/micro/service/slug/delete/" + API_TOKEN +"/"+slug,
+        url: API_BASE_PATH + "/micro/service/slug/delete/" + API_TOKEN_ALT +"/"+slug,
         contentType: "application/json",
         type: 'DELETE',
         success: function (data) {
@@ -939,7 +941,7 @@ function updateMicroRuleCode(data, cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/micro/service/upsert/" + API_TOKEN,
+        url: API_BASE_PATH + "/micro/service/upsert/" + API_TOKEN_ALT,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -962,7 +964,7 @@ function updateNamedRuleCode(data, cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/nrules/upsert/" + API_TOKEN,
+        url: API_BASE_PATH + "/nrules/upsert/" + API_TOKEN_ALT,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -983,7 +985,7 @@ function deleteNamedRule(data, cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/nrules/delete/" + API_TOKEN + "/" + data,
+        url: API_BASE_PATH + "/nrules/delete/" + API_TOKEN_ALT + "/" + data,
         // data:  JSON.stringify(data),
         contentType: "application/json",
         type: 'DELETE',
@@ -1004,7 +1006,7 @@ function deleteInputRule(type,id, cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/input/"+type+"/delete/" + API_TOKEN + "/" + id,
+        url: API_BASE_PATH + "/input/"+type+"/delete/" + API_TOKEN_ALT + "/" + id,
         // data:  JSON.stringify(data),
         contentType: "application/json",
         type: 'DELETE',
@@ -1025,7 +1027,7 @@ function deleteMicroRule(id, cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/micro/service/delete/" + API_TOKEN + "/" + id,
+        url: API_BASE_PATH + "/micro/service/delete/" + API_TOKEN_ALT + "/" + id,
         // data:  JSON.stringify(data),
         contentType: "application/json",
         type: 'DELETE',
@@ -1048,7 +1050,7 @@ function deleteBinaryRule(data, cbk) {
     //{"lang":"GROOVY","code":"","name":"Flow Meter Message"}
 
     $.ajax({
-        url: API_BASE_PATH + "/brules/delete/" + API_TOKEN + "/" + data,
+        url: API_BASE_PATH + "/brules/delete/" + API_TOKEN_ALT + "/" + data,
         // data:  JSON.stringify(data),
         contentType: "application/json",
         type: 'DELETE',
@@ -1070,7 +1072,7 @@ function deleteFileRule(data, cbk) {
     //{"lang":"GROOVY","code":"","name":"Flow Meter Message"}
 
     $.ajax({
-        url: API_BASE_PATH + "/frules/delete/" + API_TOKEN + "/" + data,
+        url: API_BASE_PATH + "/frules/delete/" + API_TOKEN_ALT + "/" + data,
         // data:  JSON.stringify(data),
         contentType: "application/json",
         type: 'DELETE',
@@ -1092,7 +1094,7 @@ function deleteFileRule(data, cbk) {
 function deleteJobRule(data, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/jobs/delete/" + API_TOKEN + "/" + data,
+        url: API_BASE_PATH + "/jobs/delete/" + API_TOKEN_ALT + "/" + data,
         // data:  JSON.stringify(data),
         contentType: "text/plain",
         type: 'DELETE',
@@ -1113,7 +1115,7 @@ function deleteJobRule(data, cbk) {
 function deleteProcessRule(id, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH +"/process/delete/" + API_TOKEN + "/" + id,
+        url: API_BASE_PATH +"/process/delete/" + API_TOKEN_ALT + "/" + id,
         contentType: "application/json",
         type: 'DELETE',
         success: function (data) {
@@ -1132,7 +1134,7 @@ function deleteProcessRule(id, cbk) {
 function setJobRuleState(id,state, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/jobs/set/" + API_TOKEN + "/" + id+"/"+state,
+        url: API_BASE_PATH + "/jobs/set/" + API_TOKEN_ALT + "/" + id+"/"+state,
         // data:  JSON.stringify(data),
         contentType: "text/plain",
         type: 'PUT',
@@ -1160,7 +1162,7 @@ function performJobAction(id,action,count, cbk) {
     }
 
     $.ajax({
-        url: API_BASE_PATH + "/jobs/" + API_TOKEN + "/" + id+"/"+action,
+        url: API_BASE_PATH + "/jobs/" + API_TOKEN_ALT + "/" + id+"/"+action,
         data:  data,
         type: 'GET',
         success: function (data) {
@@ -1184,7 +1186,7 @@ function getJobRunningList(id, cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/jobs/running/list/" + API_TOKEN,
+        url: API_BASE_PATH + "/jobs/running/list/" + API_TOKEN_ALT,
         data:  data,
         type: 'GET',
         success: function (data) {
@@ -1206,7 +1208,7 @@ function inputActions(type,id,action, cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/input/"+type+"/action/"+ action+"/"+ API_TOKEN+"/"+id,
+        url: API_BASE_PATH + "/input/"+type+"/action/"+ action+"/"+ API_TOKEN_ALT+"/"+id,
         contentType: "application/json",
         type: 'POST',
         success: function (data) {
@@ -1229,7 +1231,7 @@ function deleteScheduleRule(data, cbk) {
     //{"lang":"GROOVY","code":"","name":"Flow Meter Message"}
 
     $.ajax({
-        url: API_BASE_PATH + "/srules/delete/" + API_TOKEN + "/" + data,
+        url: API_BASE_PATH + "/srules/delete/" + API_TOKEN_ALT + "/" + data,
         // data:  JSON.stringify(data),
         contentType: "application/json",
         type: 'DELETE',
@@ -1250,7 +1252,7 @@ function retreiveRecordDef(data, cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/storage/spec/get/" + API_TOKEN + '/' + data,
+        url: API_BASE_PATH + "/storage/spec/get/" + API_TOKEN_ALT + '/' + data,
         // data:  JSON.stringify(data),
         contentType: "application/json",
         type: 'GET',
@@ -1271,7 +1273,7 @@ function retreiveMessageDef(data, cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/mspec/get/" + API_TOKEN + '/' + data,
+        url: API_BASE_PATH + "/mspec/get/" + API_TOKEN_ALT + '/' + data,
         // data:  JSON.stringify(data),
         contentType: "application/json",
         type: 'GET',
@@ -1292,7 +1294,7 @@ function retreiveNamedRule(data, cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/nrules/get/" + API_TOKEN + '/' + data,
+        url: API_BASE_PATH + "/nrules/get/" + API_TOKEN_ALT + '/' + data,
         // data:  JSON.stringify(data),
         contentType: "application/json",
         type: 'GET',
@@ -1313,7 +1315,7 @@ function retreiveScheduleRule(data, cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/srules/get/" + API_TOKEN + '/' + data,
+        url: API_BASE_PATH + "/srules/get/" + API_TOKEN_ALT + '/' + data,
         // data:  JSON.stringify(data),
         contentType: "application/json",
         type: 'GET',
@@ -1334,7 +1336,7 @@ function getJobRule(id, cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/jobs/get/" + API_TOKEN + '/' + id,
+        url: API_BASE_PATH + "/jobs/get/" + API_TOKEN_ALT + '/' + id,
         type: 'GET',
         success: function (data) {
             //called when successful
@@ -1353,7 +1355,7 @@ function deleteMessageDef(data, cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/mspec/delete/" + API_TOKEN + '/' + data,
+        url: API_BASE_PATH + "/mspec/delete/" + API_TOKEN_ALT + '/' + data,
         // data:  JSON.stringify(data),
         contentType: "application/json",
         type: 'DELETE',
@@ -1374,7 +1376,7 @@ function deleteRecordDef(data, cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/storage/spec/delete/" + API_TOKEN + '/' + data,
+        url: API_BASE_PATH + "/storage/spec/delete/" + API_TOKEN_ALT + '/' + data,
         // data:  JSON.stringify(data),
         contentType: "application/json",
         type: 'DELETE',
@@ -1395,7 +1397,7 @@ function deleteMessagRule(data, cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/rules/delete/" + API_TOKEN + '/' + data,
+        url: API_BASE_PATH + "/rules/delete/" + API_TOKEN_ALT + '/' + data,
         // data:  JSON.stringify(data),
         contentType: "application/json",
         type: 'DELETE',
@@ -1416,7 +1418,7 @@ function createUpdateMessageDef(data, cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/mspec/upsert/" + API_TOKEN,
+        url: API_BASE_PATH + "/mspec/upsert/" + API_TOKEN_ALT,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -1438,7 +1440,7 @@ function createUpdateRecordDef(data, cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/storage/spec/upsert/" + API_TOKEN,
+        url: API_BASE_PATH + "/storage/spec/upsert/" + API_TOKEN_ALT,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -1462,7 +1464,7 @@ function executeConsoleScript(data, cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/script/execute/" + API_TOKEN,
+        url: API_BASE_PATH + "/script/execute/" + API_TOKEN_ALT,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -1502,7 +1504,7 @@ function upsertUserProperty(data, cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/user/property/upsert/" + API_TOKEN,
+        url: API_BASE_PATH + "/user/property/upsert/" + API_TOKEN_ALT,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -1523,7 +1525,7 @@ function upsertUser(data, cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/user/upsert/" + API_TOKEN,
+        url: API_BASE_PATH + "/user/upsert/" + API_TOKEN_ALT,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -1543,7 +1545,7 @@ function retreiveUser(id, cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/user/get/" + API_TOKEN + '/' + id,
+        url: API_BASE_PATH + "/user/get/" + API_TOKEN_ALT + '/' + id,
         // data:  JSON.stringify(data),
         contentType: "application/json",
         type: 'GET',
@@ -1562,7 +1564,7 @@ function retreiveUser(id, cbk) {
 
 function deleteUser(id, cbk) {
     $.ajax({
-        url: API_BASE_PATH + "/user/delete/" + API_TOKEN + "/" + id,
+        url: API_BASE_PATH + "/user/delete/" + API_TOKEN_ALT + "/" + id,
         type: 'DELETE',
         success: function (data) {
             //called when successful
@@ -1580,7 +1582,7 @@ function getUserList(data, cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/user/list/" + API_TOKEN + '/' + data,
+        url: API_BASE_PATH + "/user/list/" + API_TOKEN_ALT + '/' + data,
         type: 'GET',
         success: function (data) {
             //called when successful
@@ -1602,7 +1604,7 @@ function upsertAsset(data, cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/asset/upsert/" + API_TOKEN,
+        url: API_BASE_PATH + "/asset/upsert/" + API_TOKEN_ALT,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -1622,7 +1624,7 @@ function retreiveAsset(id, cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/asset/get/" + API_TOKEN + '/' + id,
+        url: API_BASE_PATH + "/asset/get/" + API_TOKEN_ALT + '/' + id,
         // data:  JSON.stringify(data),
         contentType: "application/json",
         type: 'GET',
@@ -1641,7 +1643,7 @@ function retreiveAsset(id, cbk) {
 
 function deleteAsset(id, cbk) {
     $.ajax({
-        url: API_BASE_PATH + "/asset/delete/" + API_TOKEN + "/" + id,
+        url: API_BASE_PATH + "/asset/delete/" + API_TOKEN_ALT + "/" + id,
         contentType: "application/json",
         type: 'DELETE',
         success: function (data) {
@@ -1662,7 +1664,7 @@ function getAssetList(data, cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/asset/list/" + API_TOKEN + '/' + data,
+        url: API_BASE_PATH + "/asset/list/" + API_TOKEN_ALT + '/' + data,
         type: 'GET',
         success: function (data) {
             //called when successful
@@ -1681,7 +1683,7 @@ function getAssetLinkedDevices(id, cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/asset/listdevices/" + API_TOKEN + '/' + id,
+        url: API_BASE_PATH + "/asset/listdevices/" + API_TOKEN_ALT + '/' + id,
         type: 'GET',
         success: function (data) {
             //called when successful
@@ -1700,7 +1702,7 @@ function assetLink(aid, did, cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/asset/link/" + API_TOKEN + '/' + aid + '/' + did,
+        url: API_BASE_PATH + "/asset/link/" + API_TOKEN_ALT + '/' + aid + '/' + did,
         type: 'GET',
         success: function (data) {
             //called when successful
@@ -1719,7 +1721,7 @@ function assetUnLink(aid, did, cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/asset/unlink/" + API_TOKEN + '/' + aid + '/' + did,
+        url: API_BASE_PATH + "/asset/unlink/" + API_TOKEN_ALT + '/' + aid + '/' + did,
         type: 'GET',
         success: function (data) {
             //called when successful
@@ -1743,7 +1745,7 @@ function listTemplates(pageSize, system, cbk) {
     };
 
     $.ajax({
-        url: API_BASE_PATH + "/templates/list/" + API_TOKEN + "/" + pageSize,
+        url: API_BASE_PATH + "/templates/list/" + API_TOKEN_ALT + "/" + pageSize,
         data: data,
         type: 'GET',
         success: function (data) {
@@ -1764,7 +1766,7 @@ function retreiveTemplate(data, cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/templates/get/" + API_TOKEN + '/' + data,
+        url: API_BASE_PATH + "/templates/get/" + API_TOKEN_ALT + '/' + data,
         // data:  JSON.stringify(data),
         contentType: "application/json",
         type: 'GET',
@@ -1788,7 +1790,7 @@ function downloadTemplates(system, cbk) {
     };
 
     $.ajax({
-        url: API_BASE_PATH + "/templates/download/" + API_TOKEN,
+        url: API_BASE_PATH + "/templates/download/" + API_TOKEN_ALT,
         data: data,
         type: 'GET',
         success: function (data) {
@@ -1808,7 +1810,7 @@ function upsertTemplate(data, system, cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/templates/upsert/" + API_TOKEN + '?system=' + system,
+        url: API_BASE_PATH + "/templates/upsert/" + API_TOKEN_ALT + '?system=' + system,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -1830,7 +1832,7 @@ function deleteTemplate(id, system, cbk) {
         system: system
     };
     $.ajax({
-        url: API_BASE_PATH + "/templates/delete/" + API_TOKEN + "/" + id + "?system=" + system,
+        url: API_BASE_PATH + "/templates/delete/" + API_TOKEN_ALT + "/" + id + "?system=" + system,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'DELETE',
@@ -1855,7 +1857,7 @@ function upsertEvent(data, cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/event/upsert/" + API_TOKEN,
+        url: API_BASE_PATH + "/event/upsert/" + API_TOKEN_ALT,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -1875,7 +1877,7 @@ function retreiveEvent(id, cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/event/get/" + API_TOKEN + '/' + id,
+        url: API_BASE_PATH + "/event/get/" + API_TOKEN_ALT + '/' + id,
         // data:  JSON.stringify(data),
         contentType: "application/json",
         type: 'GET',
@@ -1894,7 +1896,7 @@ function retreiveEvent(id, cbk) {
 
 function deleteEvent(id, cbk) {
     $.ajax({
-        url: API_BASE_PATH + "/event/delete/" + API_TOKEN + "/" + id,
+        url: API_BASE_PATH + "/event/delete/" + API_TOKEN_ALT + "/" + id,
         type: 'DELETE',
         success: function (data) {
             //called when successful
@@ -1921,7 +1923,7 @@ function listEventsApi(pageSize, direction, mid, cbk) {
     }
 
     $.ajax({
-        url: API_BASE_PATH + "/event/list/" + API_TOKEN + "/" + pageSize,
+        url: API_BASE_PATH + "/event/list/" + API_TOKEN_ALT + "/" + pageSize,
         data: data,
         type: 'GET',
         success: function (data) {
@@ -1941,7 +1943,7 @@ function registerEvent(eid, channel, address, cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/eventreg/register/" + API_TOKEN + "/" + eid + "/" + channel + "/" + address,
+        url: API_BASE_PATH + "/eventreg/register/" + API_TOKEN_ALT + "/" + eid + "/" + channel + "/" + address,
         contentType: "application/json",
         type: 'POST',
         success: function (data) {
@@ -1960,7 +1962,7 @@ function unregisterEvent(eid, channel, address, cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/eventreg/unregister/" + API_TOKEN + "/" + eid + "/" + channel + "/" + address,
+        url: API_BASE_PATH + "/eventreg/unregister/" + API_TOKEN_ALT + "/" + eid + "/" + channel + "/" + address,
         type: 'DELETE',
         success: function (data) {
             //called when successful
@@ -1986,7 +1988,7 @@ function listNotificationApi(id, type, pageSize, direction, mid, cbk) {
     }
 
     $.ajax({
-        url: API_BASE_PATH + "/eventreg/list/" + API_TOKEN + "/" + id + "/" + type + "/" + pageSize,
+        url: API_BASE_PATH + "/eventreg/list/" + API_TOKEN_ALT + "/" + id + "/" + type + "/" + pageSize,
         data: data,
         type: 'GET',
         success: function (data) {
@@ -2006,7 +2008,7 @@ function listNotificationApi(id, type, pageSize, direction, mid, cbk) {
 function listFCMDeviceApi(pageSize, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/device/fcm/list/" + API_TOKEN + "/" + pageSize,
+        url: API_BASE_PATH + "/device/fcm/list/" + API_TOKEN_ALT + "/" + pageSize,
         type: 'GET',
         success: function (data) {
             //called when successful
@@ -2034,7 +2036,7 @@ function listFirmwareApi(id, pageSize, direction, mid, cbk) {
     }
 
     $.ajax({
-        url: API_BASE_PATH + "/firmware/list/" + API_TOKEN + "/" + id + "/" + pageSize,
+        url: API_BASE_PATH + "/firmware/list/" + API_TOKEN_ALT + "/" + id + "/" + pageSize,
         data: data,
         type: 'GET',
         success: function (data) {
@@ -2053,7 +2055,7 @@ function listFirmwareApi(id, pageSize, direction, mid, cbk) {
 
 function deleteFirmware(dmid, version, cbk) {
     $.ajax({
-        url: API_BASE_PATH + "/firmware/delete/" + API_TOKEN + "/" + dmid + "/" + version,
+        url: API_BASE_PATH + "/firmware/delete/" + API_TOKEN_ALT + "/" + dmid + "/" + version,
         type: 'DELETE',
         success: function (data) {
             //called when successful
@@ -2173,7 +2175,7 @@ function expireToken(authToken, cbk) {
 function upsertDevice(data, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/device/upsert/" + API_TOKEN,
+        url: API_BASE_PATH + "/device/upsert/" + API_TOKEN_ALT,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -2193,7 +2195,7 @@ function retreiveDevice(pageSize, cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/device/get/" + API_TOKEN + '/' + pageSize,
+        url: API_BASE_PATH + "/device/get/" + API_TOKEN_ALT + '/' + pageSize,
         // data:  JSON.stringify(data),
         contentType: "application/json",
         type: 'GET',
@@ -2212,7 +2214,7 @@ function retreiveDevice(pageSize, cbk) {
 
 function deleteDevice(id, cbk) {
     $.ajax({
-        url: API_BASE_PATH + "/device/delete/" + API_TOKEN + "/" + id,
+        url: API_BASE_PATH + "/device/delete/" + API_TOKEN_ALT + "/" + id,
         type: 'DELETE',
         success: function (data) {
             //called when successful
@@ -2232,7 +2234,7 @@ function upsertDeviceProperty(data, cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/device/property/upsert/" + API_TOKEN,
+        url: API_BASE_PATH + "/device/property/upsert/" + API_TOKEN_ALT,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -2252,7 +2254,7 @@ function upsertDeviceProperty(data, cbk) {
 function getDeviceMessage(id, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/message/get/" + API_TOKEN + '/' + id,
+        url: API_BASE_PATH + "/message/get/" + API_TOKEN_ALT + '/' + id,
         type: 'GET',
         success: function (data) {
             //called when successful
@@ -2270,7 +2272,7 @@ function retrieveDeviceProperty(id, name, cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/device/property/get/" + API_TOKEN + "/" + id + "/" + name,
+        url: API_BASE_PATH + "/device/property/get/" + API_TOKEN_ALT + "/" + id + "/" + name,
         type: 'GET',
         success: function (data) {
             //called when successful
@@ -2289,7 +2291,7 @@ function upsertDeviceModelProperty(data, cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/dmodel/property/upsert/" + API_TOKEN,
+        url: API_BASE_PATH + "/dmodel/property/upsert/" + API_TOKEN_ALT,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -2309,7 +2311,7 @@ function retrieveDeviceModelProperty(id, name, cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/dmodel/property/get/" + API_TOKEN + "/" + id + "/" + name,
+        url: API_BASE_PATH + "/dmodel/property/get/" + API_TOKEN_ALT + "/" + id + "/" + name,
         type: 'GET',
         success: function (data) {
             //called when successful
@@ -2356,7 +2358,7 @@ function simulateNamedRule(id, args, cbk) {
     }
 
     $.ajax({
-        url: API_BASE_PATH + "/call/v2/execute/rule" + "/" + API_TOKEN,
+        url: API_BASE_PATH + "/call/v2/execute/rule" + "/" + API_TOKEN_ALT,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -2377,7 +2379,7 @@ function upsertDeviceModel(data, cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/dmodel/upsert/" + API_TOKEN,
+        url: API_BASE_PATH + "/dmodel/upsert/" + API_TOKEN_ALT,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -2397,7 +2399,7 @@ function retreiveDeviceModel(id, cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/dmodel/get/" + API_TOKEN + '/' + id,
+        url: API_BASE_PATH + "/dmodel/get/" + API_TOKEN_ALT + '/' + id,
         // data:  JSON.stringify(data),
         contentType: "application/json",
         type: 'GET',
@@ -2416,7 +2418,7 @@ function retreiveDeviceModel(id, cbk) {
 
 function deleteDeviceModel(id, cbk) {
     $.ajax({
-        url: API_BASE_PATH + "/dmodel/delete/" + API_TOKEN + "/" + id,
+        url: API_BASE_PATH + "/dmodel/delete/" + API_TOKEN_ALT + "/" + id,
         type: 'DELETE',
         success: function (data) {
             //called when successful
@@ -2436,7 +2438,7 @@ function getDeviceModel(data, cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/dmodel/list/" + API_TOKEN + '/' + data,
+        url: API_BASE_PATH + "/dmodel/list/" + API_TOKEN_ALT + '/' + data,
         type: 'GET',
         success: function (data) {
             //called when successful
@@ -2462,7 +2464,7 @@ function searchByAbortQuery(id, type, data, cbk) {
     data['type'] = type;
 
     abortQuery = $.ajax({
-        url: API_BASE_PATH + "/elastic/search/query/" + API_TOKEN,
+        url: API_BASE_PATH + "/elastic/search/query/" + API_TOKEN_ALT,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -2485,7 +2487,7 @@ function searchByQuery(id, type, data, cbk) {
     data['type'] = type;
 
     $.ajax({
-        url: API_BASE_PATH + "/elastic/search/query/" + API_TOKEN,
+        url: API_BASE_PATH + "/elastic/search/query/" + API_TOKEN_ALT,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -2510,7 +2512,7 @@ function scrollNextQuery(id, cbk) {
     data['scroll'] = "1m"
 
     $.ajax({
-        url: API_BASE_PATH + "/elastic/scroll/" + API_TOKEN,
+        url: API_BASE_PATH + "/elastic/scroll/" + API_TOKEN_ALT,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -2529,7 +2531,7 @@ function scrollNextQuery(id, cbk) {
 function findByID(id, type, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/elastic/find/" + API_TOKEN + '/' + type + '/' + id,
+        url: API_BASE_PATH + "/elastic/find/" + API_TOKEN_ALT + '/' + type + '/' + id,
         type: 'GET',
         success: function (data) {
             //called when successful
@@ -2548,7 +2550,7 @@ function searchByTemplate(id, type, data, cbk) {
 
     // https://api.boodskap.io/search/template/41f8993d-5a35-4f14-9512-862878dd27a3/MESSAGE/?id=500001000
     $.ajax({
-        url: API_BASE_PATH + "/elastic/search/template/" + API_TOKEN + '/' + type + '?specId=' + id,
+        url: API_BASE_PATH + "/elastic/search/template/" + API_TOKEN_ALT + '/' + type + '?specId=' + id,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -2569,7 +2571,7 @@ function searchDevice(data, cbk) {
     data['type'] = 'DEVICE';
 
     $.ajax({
-        url: API_BASE_PATH + "/elastic/search/query/" + API_TOKEN,
+        url: API_BASE_PATH + "/elastic/search/query/" + API_TOKEN_ALT,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -2590,7 +2592,7 @@ function searchDevice(data, cbk) {
 function getCommandStatus(did, corid, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/command/status/" + API_TOKEN + '/' + did + "/" + corid,
+        url: API_BASE_PATH + "/command/status/" + API_TOKEN_ALT + '/' + did + "/" + corid,
         type: 'GET',
         success: function (data) {
             //called when successful
@@ -2607,7 +2609,7 @@ function getCommandStatus(did, corid, cbk) {
 function sendCommandProperty(did, cmdid, pname, data, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/command/property/send/" + API_TOKEN + '/' + did + "/" + cmdid + "/" + pname,
+        url: API_BASE_PATH + "/command/property/send/" + API_TOKEN_ALT + '/' + did + "/" + cmdid + "/" + pname,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -2626,7 +2628,7 @@ function sendCommandProperty(did, cmdid, pname, data, cbk) {
 function sendCommandTemplate(did, cmdid, tid, system, data, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/command/template/send/" + API_TOKEN + '/' + did + "/" + cmdid + "/" + tid + "/" + system,
+        url: API_BASE_PATH + "/command/template/send/" + API_TOKEN_ALT + '/' + did + "/" + cmdid + "/" + tid + "/" + system,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -2645,7 +2647,7 @@ function sendCommandTemplate(did, cmdid, tid, system, data, cbk) {
 function sendRawCommand(did, cmdtype, command, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/command/raw/send/" + API_TOKEN + '/' + cmdtype,
+        url: API_BASE_PATH + "/command/raw/send/" + API_TOKEN_ALT + '/' + cmdtype,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -2666,7 +2668,7 @@ function sendRawCommand(did, cmdtype, command, cbk) {
 function insertGlobalProperty(data, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/global/data/insert/" + API_TOKEN,
+        url: API_BASE_PATH + "/global/data/insert/" + API_TOKEN_ALT,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -2686,7 +2688,7 @@ function insertGlobalProperty(data, cbk) {
 function insertGlobalPropertyWithId(data, id, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/global/data/insert/" + API_TOKEN+'?id='+id,
+        url: API_BASE_PATH + "/global/data/insert/" + API_TOKEN_ALT+'?id='+id,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -2706,7 +2708,7 @@ function insertGlobalPropertyWithId(data, id, cbk) {
 function updateGlobalProperty(data, id, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/global/data/update/" + API_TOKEN + '/' + id,
+        url: API_BASE_PATH + "/global/data/update/" + API_TOKEN_ALT + '/' + id,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -2776,7 +2778,7 @@ function getDomainGlobalProperty(id, domainKey, cbk) {
 function deleteGlobalProperty(id, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/global/data/delete/" + API_TOKEN + '/' + id,
+        url: API_BASE_PATH + "/global/data/delete/" + API_TOKEN_ALT + '/' + id,
         type: 'DELETE',
         success: function (data) {
             //called when successful
@@ -2796,7 +2798,7 @@ function deleteGlobalProperty(id, cbk) {
 function getDomainSettings(id, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/settings/get/" + id + "/" + API_TOKEN,
+        url: API_BASE_PATH + "/settings/get/" + id + "/" + API_TOKEN_ALT,
         type: 'GET',
         success: function (data) {
             //called when successful
@@ -2813,7 +2815,7 @@ function getDomainSettings(id, cbk) {
 function setDomainSettings(id, data, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/settings/set/" + id + "/" + API_TOKEN,
+        url: API_BASE_PATH + "/settings/set/" + id + "/" + API_TOKEN_ALT,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -2835,7 +2837,7 @@ function setDomainSettings(id, data, cbk) {
 function upsertDataModel(data, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/ml/upsert/" + API_TOKEN,
+        url: API_BASE_PATH + "/ml/upsert/" + API_TOKEN_ALT,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -2855,7 +2857,7 @@ function upsertDataModel(data, cbk) {
 function insertMLData(id, data, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/ml/insert/" + API_TOKEN + "/" + id,
+        url: API_BASE_PATH + "/ml/insert/" + API_TOKEN_ALT + "/" + id,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -2874,7 +2876,7 @@ function insertMLData(id, data, cbk) {
 function trainMLData(id, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/ml/train/" + API_TOKEN + "/" + id,
+        url: API_BASE_PATH + "/ml/train/" + API_TOKEN_ALT + "/" + id,
         type: 'GET',
         success: function (data) {
             //called when successful
@@ -2891,7 +2893,7 @@ function trainMLData(id, cbk) {
 function deleteMLDataModel(id, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/ml/delete/" + API_TOKEN + '/' + id,
+        url: API_BASE_PATH + "/ml/delete/" + API_TOKEN_ALT + '/' + id,
         type: 'DELETE',
         success: function (data) {
             //called when successful
@@ -2908,7 +2910,7 @@ function deleteMLDataModel(id, cbk) {
 function getMachineLearningDLList(pageCount, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/ml/list/" + API_TOKEN + '/' + pageCount,
+        url: API_BASE_PATH + "/ml/list/" + API_TOKEN_ALT + '/' + pageCount,
         type: 'GET',
         success: function (data) {
             //called when successful
@@ -2925,7 +2927,7 @@ function getMachineLearningDLList(pageCount, cbk) {
 function getMachineLearningDLModel(id, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/ml/get/" + API_TOKEN + '/' + id,
+        url: API_BASE_PATH + "/ml/get/" + API_TOKEN_ALT + '/' + id,
         type: 'GET',
         success: function (data) {
             //called when successful
@@ -2948,7 +2950,7 @@ function getMachineLearningDLDataList(id, data, pageCount, cbk) {
         data['lastId'] = lastId;
     }
     $.ajax({
-        url: API_BASE_PATH + "/ml/list/data/" + API_TOKEN + '/' + id + '/' + pageCount,
+        url: API_BASE_PATH + "/ml/list/data/" + API_TOKEN_ALT + '/' + id + '/' + pageCount,
         data: data,
         type: 'GET',
         success: function (data) {
@@ -2969,7 +2971,7 @@ function getMachineLearningDLDataList(id, data, pageCount, cbk) {
 function getMachineLearningFRList(pageCount, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/fr/list/" + API_TOKEN + '/' + pageCount,
+        url: API_BASE_PATH + "/fr/list/" + API_TOKEN_ALT + '/' + pageCount,
         type: 'GET',
         success: function (data) {
             //called when successful
@@ -2987,7 +2989,7 @@ function getMachineLearningFRList(pageCount, cbk) {
 function upsertFRModel(data, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/fr/upsert/" + API_TOKEN,
+        url: API_BASE_PATH + "/fr/upsert/" + API_TOKEN_ALT,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -3007,7 +3009,7 @@ function upsertFRModel(data, cbk) {
 function deleteFRModel(id, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/fr/delete/" + API_TOKEN + '/' + id,
+        url: API_BASE_PATH + "/fr/delete/" + API_TOKEN_ALT + '/' + id,
         type: 'DELETE',
         success: function (data) {
             //called when successful
@@ -3024,7 +3026,7 @@ function deleteFRModel(id, cbk) {
 function trainMLFRData(id, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/fr/train/" + API_TOKEN + "/" + id,
+        url: API_BASE_PATH + "/fr/train/" + API_TOKEN_ALT + "/" + id,
         type: 'GET',
         success: function (data) {
             //called when successful
@@ -3041,7 +3043,7 @@ function trainMLFRData(id, cbk) {
 function getMachineLearningFRModel(id, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/fr/get/" + API_TOKEN + '/' + id,
+        url: API_BASE_PATH + "/fr/get/" + API_TOKEN_ALT + '/' + id,
         type: 'GET',
         success: function (data) {
             //called when successful
@@ -3065,7 +3067,7 @@ function getMachineLearningFRLabelsList(id, pageCount, lastId, cbk) {
     }
 
     $.ajax({
-        url: API_BASE_PATH + "/fr/list/labels/" + API_TOKEN + '/' + id + '/' + pageCount,
+        url: API_BASE_PATH + "/fr/list/labels/" + API_TOKEN_ALT + '/' + id + '/' + pageCount,
         data: data,
         type: 'GET',
         success: function (data) {
@@ -3089,7 +3091,7 @@ function getMachineLearningFRLabelsImageList(id, label, pageCount, lastId, cbk) 
     }
 
     $.ajax({
-        url: API_BASE_PATH + "/fr/image/list/" + API_TOKEN + '/' + id + '/' + label + '/' + pageCount,
+        url: API_BASE_PATH + "/fr/image/list/" + API_TOKEN_ALT + '/' + id + '/' + label + '/' + pageCount,
         data: data,
         type: 'GET',
         success: function (data) {
@@ -3110,7 +3112,7 @@ function getMachineLearningFRLabelsImageList(id, label, pageCount, lastId, cbk) 
 function upsertWidget(data, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/widget/upsert/" + API_TOKEN,
+        url: API_BASE_PATH + "/widget/upsert/" + API_TOKEN_ALT,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -3129,7 +3131,7 @@ function upsertWidget(data, cbk) {
 function importWidget(id, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/widget/import/" + API_TOKEN + '/' + id,
+        url: API_BASE_PATH + "/widget/import/" + API_TOKEN_ALT + '/' + id,
         type: 'GET',
         success: function (data) {
             //called when successful
@@ -3146,7 +3148,7 @@ function importWidget(id, cbk) {
 function deleteImportWidget(id, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/widget/imported/delete/" + API_TOKEN + '/' + id,
+        url: API_BASE_PATH + "/widget/imported/delete/" + API_TOKEN_ALT + '/' + id,
         type: 'DELETE',
         success: function (data) {
             //called when successful
@@ -3163,7 +3165,7 @@ function deleteImportWidget(id, cbk) {
 function deleteWidget(id, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/widget/delete/" + API_TOKEN + '/' + id,
+        url: API_BASE_PATH + "/widget/delete/" + API_TOKEN_ALT + '/' + id,
         type: 'DELETE',
         success: function (data) {
             //called when successful
@@ -3180,7 +3182,7 @@ function deleteWidget(id, cbk) {
 function deleteImportedWidget(id, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/widget/imported/delete/" + API_TOKEN + '/' + id,
+        url: API_BASE_PATH + "/widget/imported/delete/" + API_TOKEN_ALT + '/' + id,
         type: 'DELETE',
         success: function (data) {
             //called when successful
@@ -3200,7 +3202,7 @@ function deleteImportedWidget(id, cbk) {
 function upsertVertical(data, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/vertical/upsert/" + API_TOKEN,
+        url: API_BASE_PATH + "/vertical/upsert/" + API_TOKEN_ALT,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -3219,7 +3221,7 @@ function upsertVertical(data, cbk) {
 function importVertical(id, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/vertical/import/" + API_TOKEN + '/' + id,
+        url: API_BASE_PATH + "/vertical/import/" + API_TOKEN_ALT + '/' + id,
         type: 'GET',
         success: function (data) {
             //called when successful
@@ -3236,7 +3238,7 @@ function importVertical(id, cbk) {
 function deleteImportVertical(id, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/vertical/imported/delete/" + API_TOKEN + '/' + id,
+        url: API_BASE_PATH + "/vertical/imported/delete/" + API_TOKEN_ALT + '/' + id,
         type: 'DELETE',
         success: function (data) {
             //called when successful
@@ -3253,7 +3255,7 @@ function deleteImportVertical(id, cbk) {
 function deleteVertical(id, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/vertical/delete/" + API_TOKEN + '/' + id,
+        url: API_BASE_PATH + "/vertical/delete/" + API_TOKEN_ALT + '/' + id,
         type: 'DELETE',
         success: function (data) {
             //called when successful
@@ -3294,7 +3296,7 @@ function searchVerticals(version, data, cbk) {
 function deleteEntityGeofence(id, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/elastic/remove/" + API_TOKEN + "/GEOFENCE/" + id,
+        url: API_BASE_PATH + "/elastic/remove/" + API_TOKEN_ALT + "/GEOFENCE/" + id,
         type: 'GET',
         success: function (data) {
             //called when successful
@@ -3313,7 +3315,7 @@ function deleteEntityGeofence(id, cbk) {
 function upsertDomainUserGroup(data, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/domain/user/group/upsert/" + API_TOKEN,
+        url: API_BASE_PATH + "/domain/user/group/upsert/" + API_TOKEN_ALT,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -3332,7 +3334,7 @@ function upsertDomainUserGroup(data, cbk) {
 function retrieveDomainUserGroup(gid, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/domain/user/group/get/" + API_TOKEN + "/" + gid,
+        url: API_BASE_PATH + "/domain/user/group/get/" + API_TOKEN_ALT + "/" + gid,
         type: 'GET',
         success: function (data) {
             //called when successful
@@ -3349,7 +3351,7 @@ function retrieveDomainUserGroup(gid, cbk) {
 function deleteDomainUserGroup(gid, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/domain/user/group/delete/" + API_TOKEN + "/" + gid,
+        url: API_BASE_PATH + "/domain/user/group/delete/" + API_TOKEN_ALT + "/" + gid,
         type: 'DELETE',
         success: function (data) {
             //called when successful
@@ -3367,7 +3369,7 @@ function deleteDomainUserGroup(gid, cbk) {
 function listDomainUserGroupUsers(gid, pageSize, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/domain/user/group/listmembers/" + API_TOKEN + "/" + gid + '/' + pageSize,
+        url: API_BASE_PATH + "/domain/user/group/listmembers/" + API_TOKEN_ALT + "/" + gid + '/' + pageSize,
         type: 'GET',
         success: function (data) {
             //called when successful
@@ -3384,7 +3386,7 @@ function listDomainUserGroupUsers(gid, pageSize, cbk) {
 function addUserToDomainGroup(data, gid, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/domain/user/group/add/" + API_TOKEN + '/' + gid,
+        url: API_BASE_PATH + "/domain/user/group/add/" + API_TOKEN_ALT + '/' + gid,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -3403,7 +3405,7 @@ function addUserToDomainGroup(data, gid, cbk) {
 function removeUserToDomainGroup(data, gid, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/domain/user/group/remove/" + API_TOKEN + '/' + gid,
+        url: API_BASE_PATH + "/domain/user/group/remove/" + API_TOKEN_ALT + '/' + gid,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -3424,7 +3426,7 @@ function removeUserToDomainGroup(data, gid, cbk) {
 function deleteFile(fid, ispublic, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/files/delete/" + API_TOKEN + "/" + fid + '?ispublic=' + ispublic,
+        url: API_BASE_PATH + "/files/delete/" + API_TOKEN_ALT + "/" + fid + '?ispublic=' + ispublic,
         type: 'DELETE',
         success: function (data) {
             //called when successful
@@ -3443,7 +3445,7 @@ function deleteFile(fid, ispublic, cbk) {
 function updateFileInfo(id, data, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/files/update/" + API_TOKEN + "/" + id,
+        url: API_BASE_PATH + "/files/update/" + API_TOKEN_ALT + "/" + id,
         data: data,
         type: 'POST',
         success: function (data) {
@@ -3464,7 +3466,7 @@ function updateFileInfo(id, data, cbk) {
 function upsertAlexa(data, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/alexa/upsert/" + API_TOKEN,
+        url: API_BASE_PATH + "/alexa/upsert/" + API_TOKEN_ALT,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -3483,7 +3485,7 @@ function upsertAlexa(data, cbk) {
 function deleteAlexa(aid, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/alexa/delete/" + API_TOKEN + "/" + aid,
+        url: API_BASE_PATH + "/alexa/delete/" + API_TOKEN_ALT + "/" + aid,
         type: 'DELETE',
         success: function (data) {
             //called when successful
@@ -3501,7 +3503,7 @@ function deleteAlexa(aid, cbk) {
 function groovyCompile(isPublic, isOpen, data, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/groovy/compile/script/" + API_TOKEN + "/" + isPublic + "/" + isOpen,
+        url: API_BASE_PATH + "/groovy/compile/script/" + API_TOKEN_ALT + "/" + isPublic + "/" + isOpen,
         data: JSON.stringify(data),
         contentType: 'application/json',
         type: 'POST',
@@ -3520,7 +3522,7 @@ function groovyCompile(isPublic, isOpen, data, cbk) {
 function uploadGroovyScript(isPublic, isOpen, data, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/groovy/upload/script/" + API_TOKEN + "/" + isPublic + "/" + isOpen,
+        url: API_BASE_PATH + "/groovy/upload/script/" + API_TOKEN_ALT + "/" + isPublic + "/" + isOpen,
         data: JSON.stringify(data),
         contentType: 'application/json',
         type: 'POST',
@@ -3543,7 +3545,7 @@ function uploadGroovyScript(isPublic, isOpen, data, cbk) {
 function executeSQLQuery(data, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/sql/exec/" + API_TOKEN,
+        url: API_BASE_PATH + "/sql/exec/" + API_TOKEN_ALT,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -3562,7 +3564,7 @@ function executeSQLQuery(data, cbk) {
 function executeSQLTemplateQuery(data, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/sql/template/exec/" + API_TOKEN ,
+        url: API_BASE_PATH + "/sql/template/exec/" + API_TOKEN_ALT ,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -3588,7 +3590,7 @@ function checkSQLAccess(dkey, cbk) {
     }
 
     $.ajax({
-        url: API_BASE_PATH + "/sql/access/check/" + API_TOKEN + domainKey,
+        url: API_BASE_PATH + "/sql/access/check/" + API_TOKEN_ALT + domainKey,
         type: 'GET',
         success: function (data) {
             //called when successful
@@ -3606,7 +3608,7 @@ function checkSQLAccess(dkey, cbk) {
 function setSQLAccess(dkey, state, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/sql/access/set/" + API_TOKEN + '/' + dkey + '/' + state,
+        url: API_BASE_PATH + "/sql/access/set/" + API_TOKEN_ALT + '/' + dkey + '/' + state,
         type: 'PUT',
         success: function (data) {
             //called when successful
@@ -3624,7 +3626,7 @@ function setSQLAccess(dkey, state, cbk) {
 function listSQLTemplates(pageSize, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/sql/template/list/" + API_TOKEN + "/" + pageSize,
+        url: API_BASE_PATH + "/sql/template/list/" + API_TOKEN_ALT + "/" + pageSize,
         type: 'GET',
         success: function (data) {
             //called when successful
@@ -3644,7 +3646,7 @@ function listSQLTemplates(pageSize, cbk) {
 function retreiveSQLTemplate(id, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/sql/template/get/" + API_TOKEN + '/' + id,
+        url: API_BASE_PATH + "/sql/template/get/" + API_TOKEN_ALT + '/' + id,
         // data:  JSON.stringify(data),
         contentType: "application/json",
         type: 'GET',
@@ -3666,7 +3668,7 @@ function upsertSQLTemplate(data, cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/sql/template/upsert/" + API_TOKEN,
+        url: API_BASE_PATH + "/sql/template/upsert/" + API_TOKEN_ALT,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -3685,7 +3687,7 @@ function upsertSQLTemplate(data, cbk) {
 function deleteSQLTemplate(id, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/sql/template/remove/" + API_TOKEN + "/" + id,
+        url: API_BASE_PATH + "/sql/template/remove/" + API_TOKEN_ALT + "/" + id,
         type: 'DELETE',
         success: function (data) {
             //called when successful
@@ -3712,7 +3714,7 @@ function createSQLTable(data, ignore, cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/sql/table/create/" + API_TOKEN+'?'+ignore,
+        url: API_BASE_PATH + "/sql/table/create/" + API_TOKEN_ALT+'?'+ignore,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -3733,7 +3735,7 @@ function addSQLTableField(table, data, cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/sql/table/field/add/" + API_TOKEN + "/"+table,
+        url: API_BASE_PATH + "/sql/table/field/add/" + API_TOKEN_ALT + "/"+table,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -3767,7 +3769,7 @@ function createSQLTableFieldIndex(table, field, sortDesc, ignore, cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/sql/table/index/create/" + API_TOKEN + "/"+table +"/"+field+'?'+ignore+'&'+sort,
+        url: API_BASE_PATH + "/sql/table/index/create/" + API_TOKEN_ALT + "/"+table +"/"+field+'?'+ignore+'&'+sort,
         contentType: "application/json",
         type: 'PUT',
         success: function (data) {
@@ -3793,7 +3795,7 @@ function dropSQLTable(table, ignore, cbk) {
     }
 
     $.ajax({
-        url: API_BASE_PATH + "/sql/table/drop/" + API_TOKEN + "/" + table+'?'+ignore,
+        url: API_BASE_PATH + "/sql/table/drop/" + API_TOKEN_ALT + "/" + table+'?'+ignore,
         type: 'DELETE',
         success: function (data) {
             //called when successful
@@ -3812,7 +3814,7 @@ function dropSQLTable(table, ignore, cbk) {
 function dropSQLTableField(table,field, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/sql/table/field/drop/" + API_TOKEN + "/" + table +"/"+field,
+        url: API_BASE_PATH + "/sql/table/field/drop/" + API_TOKEN_ALT + "/" + table +"/"+field,
         type: 'DELETE',
         success: function (data) {
             //called when successful
@@ -3840,7 +3842,7 @@ function dropSQLTableIndex(table, field, ignore, cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/sql/table/index/drop/" + API_TOKEN + "/" + table+"/"+field+'?'+ignore,
+        url: API_BASE_PATH + "/sql/table/index/drop/" + API_TOKEN_ALT + "/" + table+"/"+field+'?'+ignore,
         type: 'DELETE',
         success: function (data) {
             //called when successful
@@ -3860,7 +3862,7 @@ function dropSQLTableIndex(table, field, ignore, cbk) {
 function setAccess(dkey,access, state, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/domain/access/" + API_TOKEN + '/' + dkey +'/' + access + '/' + state,
+        url: API_BASE_PATH + "/domain/access/" + API_TOKEN_ALT + '/' + dkey +'/' + access + '/' + state,
         type: 'PUT',
         success: function (data) {
             //called when successful
@@ -3885,7 +3887,7 @@ function checkDBAccess(dkey, cbk) {
     }
 
     $.ajax({
-        url: API_BASE_PATH + "/db/access/check/" + API_TOKEN + domainKey,
+        url: API_BASE_PATH + "/db/access/check/" + API_TOKEN_ALT + domainKey,
         type: 'GET',
         success: function (data) {
             //called when successful
@@ -3903,7 +3905,7 @@ function checkDBAccess(dkey, cbk) {
 function setDBAccess(dkey, state, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/db/access/set/" + API_TOKEN + '/' + dkey + '/' + state,
+        url: API_BASE_PATH + "/db/access/set/" + API_TOKEN_ALT + '/' + dkey + '/' + state,
         type: 'PUT',
         success: function (data) {
             //called when successful
@@ -3929,7 +3931,7 @@ function checkMongoAccess(dkey, cbk) {
     }
 
     $.ajax({
-        url: API_BASE_PATH + "/mongo/access/check/" + API_TOKEN +domainKey,
+        url: API_BASE_PATH + "/mongo/access/check/" + API_TOKEN_ALT +domainKey,
         type: 'GET',
         success: function (data) {
             //called when successful
@@ -3945,7 +3947,7 @@ function checkMongoAccess(dkey, cbk) {
 function setMongoAccess(dkey, state, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/mongo/access/set/" + API_TOKEN + '/' + dkey + '/' + state,
+        url: API_BASE_PATH + "/mongo/access/set/" + API_TOKEN_ALT + '/' + dkey + '/' + state,
         type: 'PUT',
         success: function (data) {
             //called when successful
@@ -3971,7 +3973,7 @@ function checkCassandraAccess(dkey, cbk) {
     }
 
     $.ajax({
-        url: API_BASE_PATH + "/domain/access/" + API_TOKEN + "/"+dkey+"/CASSANDRA",
+        url: API_BASE_PATH + "/domain/access/" + API_TOKEN_ALT + "/"+dkey+"/CASSANDRA",
         type: 'GET',
         success: function (data) {
             //called when successful
@@ -3987,7 +3989,7 @@ function checkCassandraAccess(dkey, cbk) {
 function setCassandraAccess(dkey, state, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/domain/access/" + API_TOKEN + '/' + dkey + '/CASSANDRA/' + state,
+        url: API_BASE_PATH + "/domain/access/" + API_TOKEN_ALT + '/' + dkey + '/CASSANDRA/' + state,
         type: 'PUT',
         success: function (data) {
             //called when successful
@@ -4013,7 +4015,7 @@ function checkGlobalAccess(dkey, cbk) {
     }
 
     $.ajax({
-        url: API_BASE_PATH + "/domain/access/" + API_TOKEN + "/"+dkey+"/GLOBAL",
+        url: API_BASE_PATH + "/domain/access/" + API_TOKEN_ALT + "/"+dkey+"/GLOBAL",
         type: 'GET',
         success: function (data) {
             //called when successful
@@ -4029,7 +4031,7 @@ function checkGlobalAccess(dkey, cbk) {
 function setGlobalAccess(dkey, state, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/domain/access/" + API_TOKEN + '/' + dkey + '/GLOBAL/' + state,
+        url: API_BASE_PATH + "/domain/access/" + API_TOKEN_ALT + '/' + dkey + '/GLOBAL/' + state,
         type: 'PUT',
         success: function (data) {
             //called when successful
@@ -4055,7 +4057,7 @@ function checkSystemAccess(dkey, cbk) {
     }
 
     $.ajax({
-        url: API_BASE_PATH + "/domain/access/" + API_TOKEN + "/"+dkey+"/SYSTEM",
+        url: API_BASE_PATH + "/domain/access/" + API_TOKEN_ALT + "/"+dkey+"/SYSTEM",
         type: 'GET',
         success: function (data) {
             //called when successful
@@ -4071,7 +4073,7 @@ function checkSystemAccess(dkey, cbk) {
 function setSystemAccess(dkey, state, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/domain/access/" + API_TOKEN + '/' + dkey + '/SYSTEM/' + state,
+        url: API_BASE_PATH + "/domain/access/" + API_TOKEN_ALT + '/' + dkey + '/SYSTEM/' + state,
         type: 'PUT',
         success: function (data) {
             //called when successful
@@ -4089,7 +4091,7 @@ function setSystemAccess(dkey, state, cbk) {
 function retreiveDBTemplate(id, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/db/template/get/" + API_TOKEN + '/' + id,
+        url: API_BASE_PATH + "/db/template/get/" + API_TOKEN_ALT + '/' + id,
         // data:  JSON.stringify(data),
         contentType: "application/json",
         type: 'GET',
@@ -4111,7 +4113,7 @@ function upsertDBTemplate(data, cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/db/template/upsert/" + API_TOKEN,
+        url: API_BASE_PATH + "/db/template/upsert/" + API_TOKEN_ALT,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -4130,7 +4132,7 @@ function upsertDBTemplate(data, cbk) {
 function deleteDBTemplate(id, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/db/template/remove/" + API_TOKEN + "/" + id,
+        url: API_BASE_PATH + "/db/template/remove/" + API_TOKEN_ALT + "/" + id,
         type: 'DELETE',
         success: function (data) {
             //called when successful
@@ -4150,7 +4152,7 @@ function deleteDBTemplate(id, cbk) {
 function executeDBTemplateQuery(data, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/db/template/exec/" + API_TOKEN ,
+        url: API_BASE_PATH + "/db/template/exec/" + API_TOKEN_ALT ,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -4171,7 +4173,7 @@ function executeDBTemplateQuery(data, cbk) {
 function executeDBQuery(data, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/db/exec/" + API_TOKEN,
+        url: API_BASE_PATH + "/db/exec/" + API_TOKEN_ALT,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -4202,7 +4204,7 @@ function executeMongoQuery(data, cbk) {
     }
 
     $.ajax({
-        url: API_BASE_PATH + "/mongo/"+qType+"/" + API_TOKEN+'/'+ data.pool +'/'+data.collection,
+        url: API_BASE_PATH + "/mongo/"+qType+"/" + API_TOKEN_ALT+'/'+ data.pool +'/'+data.collection,
         data: JSON.stringify(data.query),
         headers: {
             Accept: "application/json",
@@ -4234,7 +4236,7 @@ function syncDBPool(pool,async, cbk) {
     }
 
     $.ajax({
-        url: API_BASE_PATH + "/db/pool/sync/" + API_TOKEN+'?pool='+pool+str,
+        url: API_BASE_PATH + "/db/pool/sync/" + API_TOKEN_ALT+'?pool='+pool+str,
         type: 'GET',
         success: function (data) {
             //called when successful
@@ -4253,7 +4255,7 @@ function syncDBPool(pool,async, cbk) {
 function deleteDBPool(id, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/db/pool/remove/" + API_TOKEN + "/" + id,
+        url: API_BASE_PATH + "/db/pool/remove/" + API_TOKEN_ALT + "/" + id,
         type: 'DELETE',
         success: function (data) {
             //called when successful
@@ -4272,7 +4274,7 @@ function deleteDBPool(id, cbk) {
 function retreiveDBPool(id, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/db/pool/get/" + API_TOKEN + '/' + id,
+        url: API_BASE_PATH + "/db/pool/get/" + API_TOKEN_ALT + '/' + id,
         // data:  JSON.stringify(data),
         contentType: "application/json",
         type: 'GET',
@@ -4291,9 +4293,8 @@ function retreiveDBPool(id, cbk) {
 
 function upsertDBPool(data, cbk) {
 
-
     $.ajax({
-        url: API_BASE_PATH + "/db/pool/upsert/" + API_TOKEN,
+        url: API_BASE_PATH + "/db/pool/upsert/" + API_TOKEN_ALT,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -4317,7 +4318,7 @@ function upsertDBPool(data, cbk) {
 function deleteMongoDBPool(id, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/mongo/config/delete/" + API_TOKEN + "/" + id,
+        url: API_BASE_PATH + "/mongo/config/delete/" + API_TOKEN_ALT + "/" + id,
         type: 'DELETE',
         success: function (data) {
             //called when successful
@@ -4336,7 +4337,7 @@ function deleteMongoDBPool(id, cbk) {
 function retreiveMongoDBPool(id, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/mongo/config/get/" + API_TOKEN + '/' + id,
+        url: API_BASE_PATH + "/mongo/config/get/" + API_TOKEN_ALT + '/' + id,
         // data:  JSON.stringify(data),
         contentType: "application/json",
         type: 'GET',
@@ -4357,7 +4358,7 @@ function upsertMongoDBPool(data, cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/mongo/config/upsert/" + API_TOKEN,
+        url: API_BASE_PATH + "/mongo/config/upsert/" + API_TOKEN_ALT,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -4381,7 +4382,7 @@ function retreivePlugin(id, cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/plugin/get/" + API_TOKEN + '/' + id,
+        url: API_BASE_PATH + "/plugin/get/" + API_TOKEN_ALT + '/' + id,
         // data:  JSON.stringify(data),
         contentType: "application/json",
         type: 'GET',
@@ -4403,7 +4404,7 @@ function retreivePluginConfiguration(id, cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/plugin/config/get/" + API_TOKEN + '/' + id,
+        url: API_BASE_PATH + "/plugin/config/get/" + API_TOKEN_ALT + '/' + id,
         // data:  JSON.stringify(data),
         contentType: "application/json",
         type: 'GET',
@@ -4424,7 +4425,7 @@ function retreivePluginConfiguration(id, cbk) {
 function updatePluginConfig(id, data, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/plugin/config/set/" + API_TOKEN + '/' + id,
+        url: API_BASE_PATH + "/plugin/config/set/" + API_TOKEN_ALT + '/' + id,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -4447,7 +4448,7 @@ function updatePluginConfig(id, data, cbk) {
 function putLookup(data, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/lookup/put/" + API_TOKEN,
+        url: API_BASE_PATH + "/lookup/put/" + API_TOKEN_ALT,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -4467,7 +4468,7 @@ function putLookup(data, cbk) {
 function getLookup(data, cbk) {
 
     $.ajax({
-        url: API_BASE_PATH + "/lookup/get/" + API_TOKEN ,
+        url: API_BASE_PATH + "/lookup/get/" + API_TOKEN_ALT ,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -4490,7 +4491,7 @@ function getLookup(data, cbk) {
 
 function insertRecord(id, data,cbk){
     $.ajax({
-        url: API_BASE_PATH + "/record/insert/dynamic/" + API_TOKEN + '/' + id,
+        url: API_BASE_PATH + "/record/insert/dynamic/" + API_TOKEN_ALT + '/' + id,
         data: JSON.stringify(data),
         contentType: "text/plain",
         type: 'POST',
@@ -4505,7 +4506,7 @@ function insertRecord(id, data,cbk){
 
 function updateRecord(rid, id, data,cbk){
     $.ajax({
-        url: API_BASE_PATH + "/record/insert/static/" + API_TOKEN + '/' + rid +'/'+id,
+        url: API_BASE_PATH + "/record/insert/static/" + API_TOKEN_ALT + '/' + rid +'/'+id,
         data: JSON.stringify(data),
         contentType: "text/plain",
         type: 'POST',
@@ -4520,7 +4521,7 @@ function updateRecord(rid, id, data,cbk){
 
 function deleteRecord(rid, id,cbk){
     $.ajax({
-        url: API_BASE_PATH + "/record/delete/" + API_TOKEN + '/' + rid + '/' + id,
+        url: API_BASE_PATH + "/record/delete/" + API_TOKEN_ALT + '/' + rid + '/' + id,
         type: 'DELETE',
         success: function (data) {
             cbk(true,data)
@@ -4536,7 +4537,7 @@ function deleteRecord(rid, id,cbk){
 
 function upsertBillingRecord(data,cbk){
     $.ajax({
-        url: API_BASE_PATH + "/billing/schedule/upsert/" + API_TOKEN,
+        url: API_BASE_PATH + "/billing/schedule/upsert/" + API_TOKEN_ALT,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -4551,7 +4552,7 @@ function upsertBillingRecord(data,cbk){
 
 function deleteBillingRecord(id,cbk){
     $.ajax({
-        url: API_BASE_PATH + "/billing/schedule/delete/" + API_TOKEN + '/' + id,
+        url: API_BASE_PATH + "/billing/schedule/delete/" + API_TOKEN_ALT + '/' + id,
         type: 'DELETE',
         success: function (data) {
             cbk(true,data)
@@ -4566,7 +4567,7 @@ function deleteBillingRecord(id,cbk){
 
 function upsertContactRecord(data,cbk){
     $.ajax({
-        url: API_BASE_PATH + "/billing/contact/upsert/" + API_TOKEN,
+        url: API_BASE_PATH + "/billing/contact/upsert/" + API_TOKEN_ALT,
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
@@ -4581,7 +4582,7 @@ function upsertContactRecord(data,cbk){
 
 function deleteContactRecord(id,cbk){
     $.ajax({
-        url: API_BASE_PATH + "/billing/contact/delete/" + API_TOKEN + '/' + id,
+        url: API_BASE_PATH + "/billing/contact/delete/" + API_TOKEN_ALT + '/' + id,
         type: 'DELETE',
         success: function (data) {
             cbk(true,data)
@@ -4596,7 +4597,7 @@ function deleteContactRecord(id,cbk){
 
 function deleteInvoiceRecord(id,cbk){
     $.ajax({
-        url: API_BASE_PATH + "/billing/invoice/delete/" + API_TOKEN + '/' + id,
+        url: API_BASE_PATH + "/billing/invoice/delete/" + API_TOKEN_ALT + '/' + id,
         type: 'DELETE',
         success: function (data) {
             cbk(true,data)

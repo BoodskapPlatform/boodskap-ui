@@ -186,7 +186,7 @@
         font-weight: 600;
     }
     small,label,select,.form-control, .serverStatus,  .terminal-output div span, #btnMax,#btnEditor,#btnExec, .modal-title{
-        font-family:Montserrat;
+        /* font-family:Montserrat; */
     }
   
     .serverStatus{

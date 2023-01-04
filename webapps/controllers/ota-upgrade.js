@@ -207,7 +207,7 @@ function loadOTAData(cbk) {
 
 
     $.ajax({
-        url: API_BASE_PATH + "/"+type+"/list/" + API_TOKEN + "/" + PAGE_SIZE,
+        url: API_BASE_PATH + "/"+type+"/list/" + API_TOKEN_ALT + "/" + PAGE_SIZE,
         type: 'GET',
         success: function (data) {
             //called when successful

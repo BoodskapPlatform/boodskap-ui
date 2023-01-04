@@ -167,8 +167,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn  btn-secondary btn-close" data-dismiss="modal"
-    >Close</button>
+                    <button type="button" class="btn  btn-secondary btn-close" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btnModal  btn-proceed btnSubmit savebutton"
                      >Proceed</button>
 
@@ -182,13 +181,14 @@
 
 
 
-<div id="deleteModal" class="modal fade" tabindex="-1" role="dialog">
+<div id="deleteModal" class="modal bskp-modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Delete Table</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <image src="images/menu/xicon.svg" class="bg-secondary xicon" >
+                    </button>
             </div>
             <div class="modal-body">
                 <p>Are you sure want to delete <b><span class="delete_table_name"></span> <span
@@ -202,10 +202,10 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default btn-close" data-dismiss="modal" 
-    >Close</button>
-                <button type="button" class="btn btnModal savebutton" onclick="proceedDelete()">Proceed</button>
-            </div>
+                <button type="button" class="btn  btn-secondary btn-close" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btnModal btn-proceed savebutton" onclick="proceedDelete()">Proceed</button>
+          
+                 </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
@@ -213,40 +213,42 @@
 
 
 
-<div id="addFieldModal" class="modal fade" tabindex="-1" role="dialog">
+<div id="addFieldModal" class="modal bskp-modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
 
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Add Table Field</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <image src="images/menu/xicon.svg" class="bg-secondary xicon" >
+                    </button>
             </div>
             <form action="javascript:void(0)" onsubmit="insertSQLTableField();">
-                <div class="modal-body">
+            <div class="modal-body">
 
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="inputLabel">Field Name *</label>
-                                <input type="text" class="form-control input-sm" id="field_name" required
-                                    onkeyup="return forceLower(this);">
-                            </div>
+                <div  class="row">
+                    <div  class="col-md-6">
+                        <div  class="form-group">
+                            <label  class="inputLabel">Field Name <strong class="required_field">*</strong></label>
+                            <input type="text" class="form-control input-sm field-name"  id="field_name"  onkeyup="return forceLower(this);">
+                        <span id="fieldname" class="field"></span>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="inputLabel">Field Type *</label>
-                                <select class="form-control input-sm" required id="field_type">
-                                    <option value="">Choose Data Type</option>
-                                </select>
-                            </div>
+                    </div>
+                    <div  class="col-md-6">
+                        <div  class="form-group">
+                            <label  class="inputLabel">Field Type <strong class="required_field">*</strong></label>
+                            <select class="form-control input-sm field-type"  id="field_type">
+                                <option value="" class="field">Choose Data Type</option>
+                            </select>
+                            <span id="fieldtype"class="field"></span>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btnModal">Proceed</button>
-                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn  btn-secondary btn-close" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btnModal btn-secondary btn-proceed">Proceed</button>
+            </div>
             </form>
 
         </div><!-- /.modal-content -->

@@ -13,7 +13,7 @@
 
 .bskp-submenu2 li.active>a {
     color: white;
-font-family:'Montserrat' ;
+/* font-family:'Montserrat' ; */
 
 }
 
@@ -26,7 +26,7 @@ font-family:'Montserrat' ;
 
 .bskp-submenu2 li a {
     color: rgb(0, 0, 0);
-    font-family: 'Montserrat';
+    /* font-family: 'Montserrat'; */
 }
 
 .bskp-submenu2 li {
@@ -143,7 +143,7 @@ font-weight: 600;
 
 }
 .choose-device{
-margin-left: -13px;
+
 position: relative;
 bottom:12px;
 }
@@ -171,8 +171,18 @@ bottom:12px;
     left:19px;
 }
 .dropdoggle{
-    width: 100%;border: 1px solid #3e373738;
+    width: 100%;
+    border: 1px solid #3e373738;
+    border-radius: 10px;
 }
 .odd{
     font-size: 14px;
+}
+.even{
+    font-size: 14px;
+
+}
+#firmwareTable_length{
+    position: relative;
+    left:8px;
 }

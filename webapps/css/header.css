@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 #header, .goog-te-menu-value > span ,.indicator > span{
-    font-family: 'Montserrat', sans-serif !important;
+    /* font-family: 'Montserrat', sans-serif !important; */
 }
 .priceLabel{
     display: block;

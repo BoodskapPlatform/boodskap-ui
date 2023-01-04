@@ -11,7 +11,7 @@ function recentUpdate() {
         url:
             API_BASE_PATH +
             "/domain/property/get/" +
-            API_TOKEN +
+            API_TOKEN_ALT +
             "/" +
             USER_OBJ.user.email,
         contentType: "application/json",
@@ -45,7 +45,7 @@ function recentUpdate() {
                 value: "",
             };
             $.ajax({
-                url: API_BASE_PATH + "/domain/property/upsert/" + API_TOKEN,
+                url: API_BASE_PATH + "/domain/property/upsert/" + API_TOKEN_ALT,
                 data: JSON.stringify(obj),
                 contentType: "application/json",
                 type: "post",
@@ -98,7 +98,7 @@ else{
     };
 
     $.ajax({
-        url: API_BASE_PATH + "/domain/property/upsert/" + API_TOKEN,
+        url: API_BASE_PATH + "/domain/property/upsert/" + API_TOKEN_ALT,
         data: JSON.stringify(obj),
         contentType: "application/json",
         type: "post",

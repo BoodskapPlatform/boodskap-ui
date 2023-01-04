@@ -65,10 +65,10 @@ function loadDBPool() {
             sTitle: 'Pool Name',
             mRender: function (data, type, row) {
 
-                var str = '<button style="float: right" class="btn btn-xs btn-default" onclick="openModal(4,\'' + row["id"] + '\')"><i class="icon-reload"></i> sync pool</button>';
+                var str = '<button style="float: right;font-size:12px" class="btn btn-xs btn-default" onclick="openModal(4,\'' + row["id"] + '\')"><i class="icon-reload"></i> sync pool</button>';
 
 
-                var astr = '<a style="color: #333;text-decoration: none;font-size: 10px;display: block;text-align: center" href="javascript:void(0)" onclick="openModal(5,\'' + row["id"] + '\')"><i class="icon-eye4"></i> View DB MetaData</a>';
+                var astr = '<a style="font-size:12px !important;color: #333;text-decoration: none;font-size: 10px;display: block;text-align: center" href="javascript:void(0)" onclick="openModal(5,\'' + row["id"] + '\')"><i class="fa fa-eye mx-1" style="color: #3b3ea0;"></i> View DB MetaData</a>';
                 return '<span style="font-weight: bold">' + data + '</span>' + str + '<hr>' + astr;
             }
 
@@ -92,7 +92,7 @@ function loadDBPool() {
                 var code = js_beautify(JSON.stringify(row[row['type'].toLowerCase() + 'Args']), { indent_size: 4 })
                 console.log(code)
 
-                return '<textarea class="form-control" style="width: 100%;height: 250px;resize: none;background-color: #fff;color: #333;opacity: 0.8;" readonly>' + code + '</textarea>';
+                return '<textarea class="form-control text-area" style="width: 100%;height: 250px;resize: none;background-color: #fff;color: #333;opacity: 0.8;" readonly>' + code + '</textarea>';
             
             }
         },
@@ -147,14 +147,14 @@ function loadDBPool() {
 
             loadingRecords: '',
             paginate: {
-                previous: '< Previous',
-                next: 'Next >'
+                previous: ' Previous',
+                next: 'Next '
             }
         },
         aoColumns: fields,
         // "bProcessing": true,
         "bServerSide": true,
-        "sAjaxSource": API_BASE_PATH + '/elastic/search/query/' + API_TOKEN,
+        "sAjaxSource": API_BASE_PATH + '/elastic/search/query/' + API_TOKEN_ALT,
         "fnServerData": function (sSource, aoData, fnCallback, oSettings) {
 
             queryParams.query['bool']['must'] = [];

@@ -109,11 +109,10 @@ function loadSQLTable() {
                     var istr = '';
                     var astr = '';
                     var actionStr = '<a href="javascript:void(0)" title="Drop Field" onclick="dropTableField(\'' + row['name'] + '\',\'' + data[i].name + '\')" ' +
-                        'style="float:right;color:#666"><i class="icon-trash-o"></i> Field</a>' +
-
+                        'style="float:right;color:#666"><img src="images/delete.svg" alt="" style="padding:1px 4px 3px 4px !important;background-color:white;border:1px solid #f4a6c3;border-radius:6px !important;box-shadow:0px 0px 2px 2px #f4f4f4 !important;height:17px !important;position:relative;bottom:1px;"> Field</a>' +
                         '<a href="javascript:void(0)" title="Add Index" onclick="addTableFieldIndex(\'' + row['name'] + '\',\'' + data[i].name + '\')" ' +
                         ' style="float:right;color:#666;margin-right: 5px;border-right: 1px solid #ccc;padding-right: 5px;">' +
-                        '<i class="icon-plus3"></i> Index</a>';
+                        '<img src="images/menu/plusadd.svg" style="padding:1px 4px 3px 4px !important;background-color:white;border:1px solid #bbc4d1;border-radius:6px !important;box-shadow:0px 0px 0px 0px #f4f4f4 !important;height:17px !important;position:relative;bottom:1px;"> Index</a>';
                     var factionStr = '';
 
 
@@ -128,7 +127,7 @@ function loadSQLTable() {
                         if (data[i].name === row['indexFields'][j]) {
                             istr = '<i class="icon-square" style="color:forestgreen;opacity: 0.6" title="Indexed Field"></i>';
                             actionStr = '<a href="javascript:void(0)" title="Drop Index" onclick="dropTableFieldIndex(\'' + row['name'] + '\',\'' + data[i].name + '\')" ' +
-                                ' style="float:right;color:#666"><i class="icon-trash-o"></i> Index</a> ';
+                                ' style="float:right;color:#666"><img src="images/delete.svg" alt="" style="padding:1px 4px 3px 4px !important;background-color:white;border:1px solid #f4a6c3;border-radius:6px !important;box-shadow:0px 0px 2px 2px #f4f4f4 !important;height:17px !important;position:relative;bottom:1px;"> Index</a> ';
 
                         }
                     }
@@ -137,7 +136,7 @@ function loadSQLTable() {
                         astr = '<i class="icon-square" style="color:yellow;opacity: 0.6" title="Affinity Field"></i>'
                     }
 
-                    str = str + '<li style="border-bottom: 1px solid #eee">' + (i + 1) + '] ' + pstr + ' ' + istr + ' ' + astr + ' <strong>' + data[i].name + '</strong> <small>' + data[i].type + '</small> ' +
+                    str = str + '<li style="border-bottom: 1px solid #eee;padding-top:4px;padding-bottom:4px;">' + (i + 1) + '] ' + pstr + ' ' + istr + ' ' + astr + ' <strong>' + data[i].name + '</strong> <small>' + data[i].type + '</small> ' +
                         actionStr + '</li>'
                 }
 
@@ -170,7 +169,7 @@ function loadSQLTable() {
             mRender: function (data, type, row) {
 
 
-                return '<button class="btn btn-sm btn-icon btn-default" title="Drop Table" onclick="openDeleteModal(\'' + row['name'] + '\')"><i class="icon-trash-o"></i></button>'
+                return '<button class="btn bskp-trash-btn" title="Delete" onclick="openDeleteModal(\'' + row['name'] + '\')"><img src="images/delete.svg" alt=""></button>'
             }
         }
 
@@ -213,14 +212,14 @@ function loadSQLTable() {
 
             loadingRecords: '',
             paginate: {
-                previous: '< Previous',
-                next: 'Next >'
+                previous: ' Previous',
+                next: 'Next '
             }
         },
         aoColumns: fields,
         // "bProcessing": true,
         "bServerSide": true,
-        "sAjaxSource": API_BASE_PATH + '/elastic/search/query/' + API_TOKEN,
+        "sAjaxSource": API_BASE_PATH + '/elastic/search/query/' + API_TOKEN_ALT,
         "fnServerData": function (sSource, aoData, fnCallback, oSettings) {
 
             queryParams.query['bool']['must'] = [];
@@ -506,34 +505,24 @@ function addSQLTable() {
                 check = false;
                 return false;
             }
-            else{
-                var json = {
-                    "dataType":$(this).find('.mesg-type').val(),
-                    "format": "AS_IS",
-                    "label": "",
-                    "description": "",
-                    "name": $(this).find('.mesg-field').val()
-                }
-                fields.push(json);
-                console.log("True else");
-                check = true;
-                return true;
-            }
+            // else{
+            //     var json = {
+            //         "dataType":$(this).find('.mesg-type').val(),
+            //         "format": "AS_IS",
+            //         "label": "",
+            //         "description": "",
+            //         "name": $(this).find('.mesg-field').val()
+            //     }
+            //     fields.push(json);
+            //     console.log("True else");
+            //     check = true;
+            //     return true;
+            // }
                })
     
     
     }
-       
-    
-    
-    // if (msg_id == "") {
-    //     console.log("mid");
-    //     errorMsgBorder('Record ID cannot be empty', 'msg_id');
-    //     return false;
-    // }
-
-    // var fields = [];
-    // var check = false;
+     var fields = [];
 
     for (var i = 0; i < TAB_FIELD_COUNT; i++) {
         var json = {
@@ -673,7 +662,7 @@ function openDeleteModal(id) {
 
     current_table_name = id;
     $(".delete_table_name").html(id);
-    $("#deleteModal").modal('show');
+    $('#deleteModal').modal({ backdrop: 'static', keyboard: false })
 
 }
 
@@ -751,6 +740,40 @@ function addSQLTableFieldModal(tname) {
 }
 
 function insertSQLTableField() {
+    if ($(".field-name").val() == "") {
+        $("#fieldname").text("Please enter the Field Name")
+        $(".field-name").css('border-color', 'red')
+
+        setTimeout(function () {
+            $("#fieldname").text("")
+            $(".field-name").css('border-color', '')
+
+
+        }, 2000);
+
+
+
+    } else {
+
+
+    }
+    if ($(".field-type").val() == "") {
+        $("#fieldtype").text("Please select the Field Type")
+        $(".field-type").css('border-color', 'red')
+
+        setTimeout(function () {
+            $("#fieldtype").text("")
+            $(".field-type").css('border-color', '')
+
+
+        }, 2000);
+
+
+
+    } else {
+
+
+    }
     var data = {
         name: $("#field_name").val(),
         type: $("#field_type").val()

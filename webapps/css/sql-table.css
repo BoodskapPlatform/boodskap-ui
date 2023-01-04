@@ -14,9 +14,9 @@ table td i {
     text-align: center !important;
 }
 
-.bskp-table tbody>tr {
+/* .bskp-table tbody>tr {
     border-bottom: none !important;
-}
+} */
 
 pl li {
     font-size: 12px !important;
@@ -55,8 +55,8 @@ pl li {
     vertical-align: top;
 }
 
-ol li {
-    font-size: 12px !important;
+ol li{
+    font-size: 13px;
 }
 
 .sqlicon {
@@ -196,4 +196,17 @@ input[type=file]::file-selector-button {
 
 #importFile{
     font-size:10px !important; border:none;position: relative;right:11px;
+}
+.odd{
+    font-size: 14px;
+}
+.even{
+    font-size: 14px;
+
+}
+.required_field{
+    color: red;
+}
+.field{
+    color:red;
 }

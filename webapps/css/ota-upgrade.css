@@ -18,7 +18,7 @@ background-color:rgb(237 241 247);
 }
 .bskp-submenu2 li.active>a {
     color:white;
-    font-family: 'Montserrat';
+    /* font-family: 'Montserrat'; */
 
 } 
 
@@ -31,7 +31,7 @@ background-color:rgb(237 241 247);
 
 .bskp-submenu2 li a {
     color: rgb(0, 0, 0);
-    font-family: 'Montserrat';
+    /* font-family: 'Montserrat'; */
 }
 
 .bskp-submenu2 li {
