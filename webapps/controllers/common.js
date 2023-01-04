@@ -18,6 +18,7 @@ function recentUpdate() {
         type: "get",
         success: function (res) {
             rdata = JSON.parse(res.value);
+            console.log(rdata);
             if (res) {
                 if (rdata[0]) {
                     $(".recenthead").html(

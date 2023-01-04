@@ -4,17 +4,13 @@ var device_model_list = [];
 var current_device_id = {};
 var cmdTimer = {};
 var choosemodel= true;
+var modelmode = 'choose';
 
 $(document).ready(function () {
-
     loadDeviceList();
-
     $("body").removeClass('bg-white');
 
 });
-
-
-
 
 function loadDeviceList() {
 
@@ -194,11 +190,11 @@ function loadDeviceList() {
                         var resData = searchQueryFormatterNew(data);
 
                         var resultData = resData.data;
-                        device_list =resultData.data;                      
+                        device_list =resultData.data;     
                         resultData['draw'] = oSettings.iDraw;
 
-                        $(".deviceCount").html(resData.aggregations.total_count.value);
-
+                        // $(".deviceCount").html(resData.aggregations.total_count.value);
+                        $(".deviceCount").html(resData.total);
 
                         fnCallback(resultData);
                     }
@@ -273,52 +269,55 @@ function loadDeviceModels() {
 }
 
 function assignVersion() {
-    $("#device_model").val() === '' ? $("#device_version").val('') : '' ;
+    $("#device_model").val() === '' ? $("#device_version").val('') && $("#device_desc").val('') : '' ;
     for(var i=0;i<device_model_list.length;i++){
         if($("#device_model").val() === device_model_list[i].id){
             $("#device_version").val(device_model_list[i].version);
+            $("#device_desc").val(device_model_list[i].description);
         }
     }
 }
-function editchoosemodel(check) {
-    var data =  $("#device_model").val();
-    $("#device_version").attr("placeholder", "Enter Device Version");  
-    $(".modeedit").toggle()
-    $(".modechoose").toggle()
-    if(check === 'editmode'){ 
-        $("#edit_device_model").val(data);
-        $("#device_version").removeAttr('readonly');
-    }else{
-        $("#device_version").attr('readonly','readonly');
-    }   
-}
+
+
 function togglemodel(check) {
-    $(".choosemodel").toggle()
-    if(check === 'choosemodel'){      
-        choosemodel=true;       
-        $("#device_version").attr("placeholder", "");  
-        $("#device_version").attr('readonly','readonly');
-        $(".modeedit").css('display','none');   
-        $(".modechoose").css('display','inline');   
+    $("#device_version").removeAttr('readonly');
+    $("#device_desc").removeAttr('readonly');
+    // $(".modechoose").toggle();
+    if(check === 'edit'){      
+        choosemodel=true;     
+        assignVersion()
+        $(".new-model").addClass('d-none');
+        $("#device_model").removeAttr('disabled');
+       
     }
+    // else if(check === 'choose'){
+    //     $("#Newmodeltag").removeClass('d-none');
+    //     $("#Choosemodeltag").addClass('d-none');
+    //     $("#device_version").attr('readonly','readonly');
+    //     $("#device_desc").attr('readonly','readonly');
+    //     $(".new-model").addClass('d-none');
+    // }
     else{
-        choosemodel=false;
+        choosemodel=false; 
+        // $("#Newmodeltag").addClass('d-none');
+        // $("#Choosemodeltag").removeClass('d-none');
+        $("#device_model").attr('disabled','disabled');
+        $(".new-model").removeClass('d-none');
         $("#device_version").val('');
+        $("#device_desc").val('');
         $("#device_version").attr("placeholder", "Enter Device Version");
-        $("#device_version").removeAttr('readonly');
-    }
-   
-    $(".newmodel").toggle();  
+     } 
   
 }
+
 function openModal(type,id) {
     if (type === 1) {
         loadDeviceModels();
-        $(".togglemodel").css('display','inline');
         $("#device_version").attr('readonly','readonly');
-        $(".modeedit").css('display','none');   
-        $(".modechoose").css('display','inline');        
-        $(".choosemodel").css('display','block');
+        $("#device_desc").attr('readonly','readonly');
+        $("#Choosemodeltag").addClass('d-none');
+        $("#Newmodeltag").removeAttr('d-none');
+        $(".new-model").addClass('d-none')
         $(".new_device_model").val('');
         $(".newmodel").css('display','none');
         $("#addDevice").modal({
@@ -333,10 +332,12 @@ function openModal(type,id) {
         $("#addDevice form").attr('onsubmit','addDevice()')
         
     }else if (type === 2) {
-        $(".choosemodel").css('display','block');
-        $(".newmodel").css('display','none')
-        $("#device_version").removeAttr('readonly');
-        $(".togglemodel").css('display','none')
+        $("#device_version").removeAttr('readonly');       
+        $(".new-model").addClass('d-none');
+        $("#Choosemodeltag").addClass('d-none');
+        $("#Newmodeltag").addClass('d-none');
+        $("#device_model").removeAttr('disabled');
+        $("#device_desc").removeAttr('readonly');
         $("#device_id").attr('readonly','readonly');
         loadDeviceModels();
         $(".templateAction").html('Update');
@@ -433,12 +434,14 @@ function addDevice() {
   }else{
     var device_model =$.trim($("#new_device_model").val() );
   }
-  var device_id =$.trim($("#device_id").val() );
+    var device_id =$.trim($("#device_id").val() );
     var device_name =$.trim($("#device_name").val() );
     var device_version =$.trim($("#device_version").val() );
-    
+    var device_desc =$.trim($("#device_desc").val() );
+
+    console.log(device_model);
+
     if(device_id === "" ){
-        console.log("2one");
         errorMsgBorder('Device ID is required', 'device_id');
         return false;
        
@@ -450,6 +453,7 @@ function addDevice() {
     }else if(device_model === "" ){
    
         errorMsgBorder('Device Model is required', 'new_device_model');
+        errorMsgBorder('Device Model is required', 'device_model');
         return false;
        
     }else if(device_version === "" ){
@@ -457,66 +461,85 @@ function addDevice() {
         errorMsgBorder('Device Version is required', 'device_version');
         return false;
        
-    }else{
-        async.series({
-            isModelCreated: function (mdcbk) {
-                var deviceObj = {
-                    "id": device_model,
-                    "version": $("#device_version").val(),
-                }
-                retreiveDeviceModel(deviceObj.id, function (status, data) {
+    
+    }else if(device_desc === "" ){
+   
+        errorMsgBorder('Device Description is required', 'device_desc');
+        return false;
+       
+    }else{    
+  
+        let modelstatus = true;
+        let modeltext;
+
+       var modelObj = {
+            "id": device_model,
+            "version": $("#device_version").val(),
+            "description": $("#device_desc").val(),
+        }
+    
+        if( modelmode === 'new'){
+         retreiveDeviceModel(modelObj.id, function (status, data) {
+            if (status) {
+                modelstatus =false;
+                $(".btnSubmit").removeAttr('disabled');
+                errorMsgBorder('Device Model ID already exist', 'device_model');
+                mdcbk(null, false);
+            }
+        }) 
+        }
+       console.log(modelstatus);
+       console.log(modelmode);
+       
+       if(modelstatus){
+        modelstatus =true;
+        console.log("cmod");
+        upsertDeviceModel(modelObj,function (status, data) {
+            if(modelmode === 'new'){
+                modeltext = 'Creat'
+             }
+             else{
+                modeltext = 'Updat'
+             }
+         
+            if (status) {
+                successMsg('Device Model '+modeltext+'ed Successfully');
+            } else {
+                errorMsg('Error in '+modeltext+'ing Device Model')
+             }
+            $(".btnSubmit").removeAttr('disabled');
+        })
+
+        var deviceObj = {
+            "id": $("#device_id").val(),
+            "name": $("#device_name").val(),
+            "modelId": device_model,
+            "version": $("#device_version").val(),
+            "modeldecrip": $("#device_desc").val(),
+         }
+            retreiveDevice(deviceObj.id, function (status, data) {
+            if (status) {
+                $(".btnSubmit").removeAttr('disabled');
+                errorMsgBorder('Device ID already exist', 'device_id');
+            } else {
+                upsertDevice(deviceObj,function (status, data) {
                     if (status) {
-                        $(".btnSubmit").removeAttr('disabled');
-                        errorMsgBorder('Device Model ID already exist', 'device_model');
-                        mdcbk(null, false);
+                        successMsg('Device Created Successfully');
+                        loadDeviceList();
+                        $("#addDevice").modal('hide');
                     } else {
-                         upsertDeviceModel(deviceObj,function (status, data) {
-                            if (status) {
-                                successMsg('Device Model Created Successfully');
-                                mdcbk(null, true);
-                            } else {
-                                errorMsg('Error in Creating Device Model')
-                                mdcbk(null, false);
-                            }
-                            $(".btnSubmit").removeAttr('disabled');
-                        })
+                        errorMsg('Error in Creating Device')
                     }
-                })               
-            },
-            isDeviceCreated: function (dcbk) {
-                 var deviceObj = {
-                    "id": $("#device_id").val(),
-                    "name": $("#device_name").val(),
-                    "modelId": device_model,
-                    "version": $("#device_version").val(),
-                }
-                retreiveDevice(deviceObj.id, function (status, data) {
-                if (status) {
                     $(".btnSubmit").removeAttr('disabled');
-                    errorMsgBorder('Device ID already exist', 'device_id');
-                    dcbk(null, false);
-                } else {
-                    upsertDevice(deviceObj,function (status, data) {
-                        if (status) {
-                            successMsg('Device Created Successfully');
-                            dcbk(null, true);
-                            setTimeout(function () {
-                                loadDeviceList();
-                            },500)
-                        } else {
-                            errorMsg('Error in Creating Device')
-                            dcbk(null, false);
-                        }
-                        $(".btnSubmit").removeAttr('disabled');
-                    })
-                }
                 })
             }
-
-        },function(err,results){
-            $("#addDevice").modal('hide');
-                       
-        })
+            })
+      }  
+  
+    
+      console.log(modelmode);
+   
+       
         }
    
 
@@ -534,23 +557,32 @@ function updateDevice() {
     var device_name =$.trim($("#device_name").val() );
     var device_version =$.trim($("#device_version").val() );    
     var device_desc =$.trim($("#device_desc").val() );
-    // var device_model =$.trim($("#device_model").val() );
+    var device_model =$.trim($("#device_model").val() );
     // var device_version =$.trim($("#device_version").val() );
 
     if(device_name === "" ){
         console.log("one");
         errorMsgBorder('Device ID is required', 'device_id');
         return false;  
-    }else if(device_version === "" ){
-         errorMsgBorder('Device Version is required', 'device_version');
+    }else if(device_model === "" ){
+         errorMsgBorder('Device Model is required', 'device_model');
         return false;
        
-    }else{
+    }else if(device_version === "" ){
+        errorMsgBorder('Device Version is required', 'device_version');
+       return false;
+      
+   }else if(device_desc === "" ){
+        errorMsgBorder('Description is required', 'device_desc');
+       return false;
+      
+   }else{
         async.series({
         isModelUpdated: function (mdcbk) {
         var deviceObj = {
             "id": $("#device_model").val(),
             "version": $("#device_version").val(),
+            "decription": $("#device_desc").val(),
         }
     
         upsertDeviceModel(deviceObj, function (status, data) {
@@ -571,6 +603,7 @@ function updateDevice() {
         "name": $("#device_name").val(),
         "modelId": $("#device_model").val(),
         "version": $("#device_version").val(),
+        "modeldecrip": $("#device_desc").val(),
         }               
 
         $(".btnSubmit").attr('disabled','disabled');
