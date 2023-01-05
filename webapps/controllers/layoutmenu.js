@@ -731,11 +731,7 @@ function clickRecent(tabname, tabid, loadmenu, cardno) {
 }
 
 function recentcard(rdata) {
-    console.log('recent');
-    console.log(rdata);
     if (rdata) {
-        console.log('inside rdata');
-        console.log(rdata.length );
         let test;     
         for (let i = 0; i < (rdata.length >= 12 ? 12 : rdata.length ); i++) {
         test = 'loadMenu('+rdata[i].loadmenu +')'
