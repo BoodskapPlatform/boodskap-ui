@@ -637,20 +637,21 @@ function recentUpdate() {
         type: "get",
         success: function (res) {
             rdata = JSON.parse(res.value);
-            console.log();
             if (res) {
                 if (rdata[0]) {
                     $(".recenthead").html(
                         // `<span onclick="recentUpdate()" class="underdash" >Recently</span>&nbsp;Visited  &nbsp;&nbsp;`
                        `<span onclick="recentUpdate()" class="underdash" >Recently</span>&nbsp;Visited  &nbsp;&nbsp;<button class="btn bskp-clearvisit" title="Clear Recently visited" onclick="clickRecent('ClearRecent','','','')"> <i class="fa fa-trash-o" aria-hidden="true"></i> </button>`
                     );
+                    $(".recent-fram").removeClass('d-none');
                 } else {
                     $(".recenthead").html(
-                        `<span onclick="recentUpdate()" class="underdash">Features</span> `
+                        `<span onclick="recentUpdate()" class="underdash">Features</span> `                        
                     );
+                    $(".recent-fram").addClass('d-none');
                 }
-
-                rdata.sort(function (x, y) {
+               
+               rdata.sort(function x(x, y) {
                     return y.update_ts - x.update_ts;
                 });
 
@@ -672,7 +673,7 @@ function recentUpdate() {
                     if (res) {
                         $(".recenthead").html(
                             `<span class="underdash">Featured</span> `
-                        );
+                        );                       
                     }
                 },
                 error: function (err) {
@@ -686,17 +687,16 @@ function recentUpdate() {
 function clickRecent(tabname, tabid, loadmenu, cardno) {
     let newclick = true;
     for (i = 0; i < rdata.length; i++) {
-         if (tabid === rdata[i].id) {
+            if (tabid === rdata[i].id) {
             rdata[i].update_ts = Date.now();
             newclick = false;
         }
     }
-    
-    
- if(tabname === 'ClearRecent'){
+
+    if(tabname === 'ClearRecent'){
     rdata=[];
- }
-else{
+    }
+ else{
     if (newclick) {
         var inp = {
             "name": tabname,
@@ -722,7 +722,7 @@ else{
         contentType: "application/json",
         type: "post",
         success: function (res) {
-           
+            recentUpdate() 
         },
         error: function (err) {
             console.log("Error in execution");
@@ -731,12 +731,13 @@ else{
 }
 
 function recentcard(rdata) {
+    console.log('recent');
+    console.log(rdata);
     if (rdata) {
+        console.log('inside rdata');
+        console.log(rdata.length );
         let test;     
-        // let test =  loadMenu(` + rdata[i].loadmenu +`) ;
-        console.log(USER_OBJ.sqlAccess);
-        for (let i = 0; i < (rdata.length >= 10 ? 10 : rdata.length ); i++) {
-
+        for (let i = 0; i < (rdata.length >= 12 ? 12 : rdata.length ); i++) {
         test = 'loadMenu('+rdata[i].loadmenu +')'
            
         if(rdata[i].id === 'dsql_templates' || rdata[i].id === 'dsql_query_console'  || rdata[i].id === 'dSQL_tables' ){
@@ -748,7 +749,7 @@ function recentcard(rdata) {
             test = 'loadMenu('+rdata[i].loadmenu +')'
         }
         
-            if (i >= 0 && i <= 5) {
+            if (i >= 0 && i <= 7) {
             $("#recentMenuList").append(
             `<div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 homecard " onclick="`+ test +`">
              <div class="card modules bskp-home-modules"onclick="clickRecent('` +
@@ -767,7 +768,8 @@ function recentcard(rdata) {
             </div>
         </div>`
                 );
-            } else if (i > 5 && rdata[i] !== undefined) {
+                $(".homediv.showmore").css('visibility','hidden'); 
+            } else if (i > 7 && rdata[i] !== undefined) {
                 $("#recentMenuList").append(
                     ` <div class="col-lg-3 more-Hrecent col-md-4 col-sm-6 col-xs-6 homecard" onclick="`+ test +`">
             <div class="card modules bskp-home-modules"onclick="clickRecent('` +
@@ -786,23 +788,16 @@ function recentcard(rdata) {
             </div>
         </div>`
                 );
+                $(".homediv.showmore").css('visibility','initial'); 
             }
                
         }
 
-        if(rdata.length-1 > 5 ){
-            $("#recentMenuList")
-            .append(`  <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 Homemore"  style="display: flex; align-items: center;" onclick='Rtogmore($(".recentmore-title").text())'>
-     <div class="card modules bskp-home-modules"onclick="" style="padding: 8px; width: 100px; height: 37px;">
-         <div class="bskp-icon-frame" style=" height: 24px;padding:3px; text-align: center; width: 24px;">
-         <i class="fa fa-angle-down dropR " aria-hidden="true" style="font-size: 18px;"></i> 
-         </div>
-         <p class="mt-2"><label class="cardtitle recentmore-title ml-2" style="font-size:14px">More...</label></p>
-     </div>
-    </div>`);
+        if(rdata.length === 0 ){
+            $("#recentMenuList").append('');
         }
        
-        for (let i = 0; i < (rdata.length >= 5 ? 5 : rdata.length ); i++) {
+        for (let i = 0; i < (rdata.length >= 6 ? 6 : rdata.length ); i++) {
             
             test = 'loadMenu('+rdata[i].loadmenu +')'
            
@@ -815,7 +810,7 @@ function recentcard(rdata) {
                 test = 'loadMenu('+rdata[i].loadmenu +')'
             }
             
-            if (i >= 0 && i <= 2) {
+            if (i >= 0 && i <= 3) {
                 $("#recentMegaMenuList").append(
                     ` <div class="col-sm-6 col-xs-6 megacard" onclick="`+ test +`">
      <div class="card modules bskp-home-modules"onclick="clickRecent('` +
@@ -834,8 +829,9 @@ function recentcard(rdata) {
      </div>
  </div>`
                 );
+                $(".megadiv.showmore").css('visibility','hidden'); 
             }
-            if (i > 2 && rdata[i] !== undefined) {
+            if (i > 3 && rdata[i] !== undefined) {
                 $("#recentMegaMenuList").append(
                     ` <div class="col-sm-6 col-xs-6 more-Mrecent megacard" onclick="`+ test +`">
         <div class="card modules bskp-home-modules"onclick="clickRecent('` +
@@ -854,20 +850,13 @@ function recentcard(rdata) {
         </div>
     </div>`
                 );
+                $(".megadiv.showmore").css('visibility','initial'); 
             }
         }
-        if(rdata.length-1 > 3 ){
-        $("#recentMegaMenuList")
-        .append(` <div class="col-sm-6 col-xs-6 Megamore" style="display: flex; align-items: center;" onclick="Mtogmore($('.Megamore-title').text())">
-<div class="card modules mb-2 bskp-home-modules"onclick="" style="padding: 6px 10px;width: 100px; height: 35px;">
-<div class="bskp-icon-frame" style=" height: 24px;padding:3px; text-align: center; width: 24px;">
-<i class="fa fa-angle-down dropR " aria-hidden="true" style="font-size: 18px;"></i> 
-</div>
-    <p class="mt-2"><label class="Megamore-title ml-2" style="font-size:12px">More...</label></p>
-</div>
-</div>`);
+       
+        if(rdata.length === 0 ){
+            $("#recentMenuList").append('');
         }
-      
     }
 }
 
@@ -970,21 +959,13 @@ $(function () {
 
 function Rtogmore(x) {
     $(".more-Hrecent").toggle();
-    $(".Homemore .dropR").toggleClass("bskp-angleR"); //toggle arrow
-    if (x === "More...") {
-        $(".recentmore-title").text("Less");
-    } else {
-        $(".recentmore-title").text("More...");
-    }
+    $(".showmore .dropR").toggleClass("bskp-angleR"); //toggle arrow
+   
 }
 function Mtogmore(x) {
     $(".more-Mrecent").toggle();
-    $(".Megamore .dropR").toggleClass("bskp-angleR");
-    if (x === "More...") {
-        $(".Megamore-title").text("Less");
-    } else {
-        $(".Megamore-title").text("More...");
-    }
+    $(".showmore .dropR").toggleClass("bskp-angleR");
+   
 }
 function Mrefresh() {
     $(".sclose").addClass("d-none");
