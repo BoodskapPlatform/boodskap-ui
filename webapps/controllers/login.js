@@ -132,12 +132,15 @@ function loadPartDomain() {
 
     for(var i=0;i<userObj.partDomains.length;i++){
         var domain = userObj.partDomains[i];
-        $(".partDomainList").append('<li onclick="switchDomain(\''+domain.domainKey+'\',\''+userObj.token+'\')"><span>'+(domain.label ? domain.label : domain.domainKey) + '</span><br><small>'+domain.domainKey+'</small>'+
+        $(".partDomainList").append('<li onclick="switchDomain(\''+domain.domainKey+'\',\''+userObj.token+'\',\''+domain.label+'\')"><span>'+(domain.label ? domain.label : domain.domainKey) + '</span><br><small>'+domain.domainKey+'</small>'+
             '<i class="fa fa-arrow-right pull-right" style="font-size:16px"></i></li>')
     }
 }
 
-function switchDomain(dkey,token) {
+function switchDomain(dkey,token,domainName) {
+
+    Cookies.set('domain_name', domainName);
+
     switchDomainCall(dkey,token,function (status, data) {
         if(status){
 

@@ -225,7 +225,7 @@ function editDomainName() {
 
 function saveDomainName() {
     var data = {
-        name: DOMAIN_UUID,
+        name: DOMAIN_UUID_,
         value: $("#domainName").val()
     };
 
@@ -858,7 +858,7 @@ function recentcard(rdata) {
 
 function openmegamenu() {
     $("#megaMenu").modal({
-        keyboard: false,
+        keyboard: true,
     });
     $("#search_megahome").focus();
 }
