@@ -873,7 +873,7 @@ function recentcard(rdata) {
 
 function openmegamenu() {
     $("#megaMenu").modal({
-        keyboard: false,
+        keyboard: true,
     });
     $("#search_megahome").focus();
 }
