@@ -8,7 +8,7 @@ var MSG_FIELD_COUNT = 0;
 var TEMP_MSG_FIELD_COUNT = 0;
 $(document).ready(function(){
     initialChecks();
-  
+    checkLicense();
 })
 
 function initialChecks(){
@@ -98,6 +98,25 @@ function initialChecks(){
                 openGetStartedModal(results);
             }
         });
+}
+
+function checkLicense(){
+
+    $.ajax({
+        url: API_BASE_PATH + "/license/domain/get",
+        type: 'GET',
+        error: function (e) {
+            swal("Error", "An Error Occured!", "error");
+        },
+        success: function (data) {
+            
+            var plan = data.plan == 1 ? "Free" : data.plan == 2 ? "Beginner" : data.plan == 3 ? "Basic" : data.plan == 4 ? "Preferred" : data.plan == 5 ? "Professional" : "Free";
+            $("#userPlan").text("Plan : "+plan);
+
+        }
+        
+    });
+
 }
 
 function openGetStartedModal() {
