@@ -2,9 +2,11 @@ var logoPathId = '';
 var selectedId = null;
 var themeProp = {};
 $(document).ready(function () {
-
+   
 
 });
+
+
 
 function getDomainBranding() {
 
@@ -17,7 +19,7 @@ function getDomainBranding() {
             } else {
                 $(".domain_logo_m").attr('src', "/images/boodskap-logo.png");
             }
-            $("#domainModal").modal('show');
+            //  $("#domainModal").modal('show');
 
         })
     }else{
@@ -29,7 +31,7 @@ function getDomainBranding() {
             } else {
                 $(".domain_logo_m").attr('src', "/images/boodskap-logo.png");
             }
-            $("#domainModal").modal('show');
+            // $("#domainModal").modal('show');
 
         })
     }
@@ -43,10 +45,11 @@ function getGoogleMapApiKey() {
 
             $(".apiKey").attr('data-clipboard-text', obj.apiKey);
             var apiKey = new ClipboardJS('.apiKey', {
-                container: document.getElementById('domainModal')
+                container: document.getElementById('domainmodal')
             });
             apiKey.on('success', function (e) {
                 successMsg('Google Map API Key Copied Successfully')
+                
             });
 
             $("#apiKey").val(obj.apiKey);
@@ -55,7 +58,10 @@ function getGoogleMapApiKey() {
         }
         $("#domainModal").modal('show');
 
+
     })
+    
+    
 }
 
 function getOpenMapApiKey() {
@@ -65,7 +71,7 @@ function getOpenMapApiKey() {
 
             $(".apiKey").attr('data-clipboard-text', obj.apiKey);
             var apiKey = new ClipboardJS('.apiKey', {
-                container: document.getElementById('domainModal')
+                container: document.getElementById('domainmodal')
             });
             apiKey.on('success', function (e) {
                 successMsg('Open Weather Map API Key Copied Successfully')
@@ -87,7 +93,7 @@ function getDarkSkyApiKey() {
 
             $(".apiKey").attr('data-clipboard-text', obj.apiKey);
             var apiKey = new ClipboardJS('.apiKey', {
-                container: document.getElementById('domainModal')
+                container: document.getElementById('domainmodal')
             });
             apiKey.on('success', function (e) {
                 successMsg('Dark Sky API Key Copied Successfully')
@@ -107,13 +113,17 @@ function getDomainTheme() {
         if (status) {
 
             themeProp = JSON.parse(data.value);
-
+            header 
+ $("#header").css('background-color', themeProp.headerBg)
+ 
+ 
             $(".headerBg").css('background-color', themeProp.headerBg)
             $(".subHeaderBg").css('background-color', themeProp.subHeaderBg)
             $(".panelHeaderBg").css('background-color', themeProp.panelHeaderBg)
             $(".bodyBg").css('background-color', themeProp.bodyBg)
 
             $(".headerBg").css('color', themeProp.textColor)
+            $(".user_profile_name").css('color', themeProp.textColor)
             $(".subHeaderBg").css('color', themeProp.textColor)
 
         }
@@ -191,7 +201,7 @@ function getGatewaySettings(id, cbk) {
 
                 $(".emailpwd").attr('data-clipboard-text', data.password);
                 var emailpwd = new ClipboardJS('.emailpwd', {
-                    container: document.getElementById('domainModal')
+                    container: document.getElementById('domainmodal')
                 });
                 emailpwd.on('success', function (e) {
                     successMsg('Email Password Copied Successfully')
@@ -212,7 +222,7 @@ function getGatewaySettings(id, cbk) {
 
                 $(".tokenKey").attr('data-clipboard-text', data.token);
                 var tokenKey = new ClipboardJS('.tokenKey', {
-                    container: document.getElementById('domainModal')
+                    container: document.getElementById('domainmodal')
                 });
                 tokenKey.on('success', function (e) {
                     successMsg('Twilio Token Copied Successfully')
@@ -228,7 +238,7 @@ function getGatewaySettings(id, cbk) {
 
                 $(".fcmKey").attr('data-clipboard-text', data.apiKey);
                 var fcmKey = new ClipboardJS('.fcmKey', {
-                    container: document.getElementById('domainModal')
+                    container: document.getElementById('domainmodal')
                 });
                 fcmKey.on('success', function (e) {
                     successMsg('FCM API Key Copied Successfully')
@@ -285,12 +295,12 @@ function getLoginLogo() {
 
 
 
-
             $('#leftBg').colorpicker('setValue',resultData.leftBg);
             $('#leftBottomBg').colorpicker('setValue',resultData.leftBottomBg);
             $('#textColor').colorpicker('setValue',resultData.textColor);
             $('#buttonColor').colorpicker('setValue',resultData.buttonColor);
-
+    
+            
 
             $("#titleName").val(resultData.titleName ? resultData.titleName : '');
             $("#sloganText").val(resultData.sloganText ? resultData.sloganText : '');
@@ -311,7 +321,7 @@ function getLoginLogo() {
 
         $(".redirectURL").attr('data-clipboard-text', WEB_BASE_PATH + '/' + DOMAIN_KEY);
         var redirectURL = new ClipboardJS('.redirectURL', {
-            container: document.getElementById('domainModal')
+            container: document.getElementById('domainmodal')
         });
         redirectURL.on('success', function (e) {
             successMsg('URL Address Copied Successfully')
@@ -326,7 +336,7 @@ function getCustomURL() {
     $(".domainURL").html(WEB_BASE_PATH);
     $(".redirectURL").attr('data-clipboard-text', WEB_BASE_PATH);
     var redirectURL = new ClipboardJS('.redirectURL', {
-        container: document.getElementById('domainModal')
+        container: document.getElementById('domainmodal')
     });
     redirectURL.on('success', function (e) {
         successMsg('URL Address Copied Successfully')
@@ -335,19 +345,22 @@ function getCustomURL() {
 }
 
 
-function openModal(id) {
+function openModal(id,obj) {
 
+    $(".domainList").removeClass("active1")
+    $(obj).addClass("active1")
     selectedId = id;
     $(".modalBody").html('');
 
     if (id === 1) {
-        $(".modal-title").html('Logo Branding');
-        $(".modalBody").html($("#logoBranding").html());
+        // $(".modal-title").html('Logo Branding');
+        // $(".modalBody").html($("#logoBranding").html());
         getDomainBranding();
     } else if (id === 2) {
         $(".modal-title").html('Email Gateway');
         $(".modalBody").html($("#emailGateway").html());
         getGatewaySettings('email');
+        
 
     } else if (id === 3) {
         $(".modal-title").html('Twilio Gateway');
@@ -392,6 +405,8 @@ function openModal(id) {
         $(".modal-title").html('Custom URL Address');
         getCustomURL();
     } else if (id === 13) {
+        $(".modalBody").html($("#Billing").html());
+        $(".modal-title").html('Billing Overview');
         getBillingConfig();
     }
 
@@ -399,8 +414,10 @@ function openModal(id) {
 }
 
 function proceedSave() {
+    console.log(selectedId);
 
     if (selectedId === 1) {
+
 
         if(ADMIN_ACCESS){
 
@@ -415,7 +432,7 @@ function proceedSave() {
                     $(".domain_logo").attr('src', API_BASE_PATH + '/files/public/download/' + logoPathId + '?' + new Date().getTime())
                     Cookies.set('domain_logo', logoPathId);
                     successMsg('Successfully updated')
-                    $("#domainModal").modal('hide')
+                    // $("#domainModal").modal('hide')
 
                 } else {
                     errorMsg('Error in logo branding')
@@ -451,6 +468,7 @@ function proceedSave() {
 
     }
     else if (selectedId === 2) {
+    
 
         var obj = {
             "host": $.trim($("#hostName").val()),
@@ -542,6 +560,7 @@ function proceedSave() {
     }
     else if (selectedId === 7) {
 
+
         var obj = {
             headerBg: $("#headerBg").colorpicker('getValue'),
             subHeaderBg: $("#subHeaderBg").colorpicker('getValue'),
@@ -551,6 +570,9 @@ function proceedSave() {
             layout: $("#bodyLayout").val(),
         };
 
+        console.log(obj.headerBg);
+        
+
 
         var data = {
             name: DOMAIN_THEME_PROPERTY,
@@ -559,6 +581,8 @@ function proceedSave() {
 
         upsertDomainProperty(data, function (status, data) {
             if (status) {
+
+
                 successMsg('Successfully updated')
                 $("#domainModal").modal('hide');
 
@@ -672,6 +696,9 @@ function proceedSave() {
 
 
     }
+
+    $(".btnModal").attr('disabled',true);
+
 
 
 }
