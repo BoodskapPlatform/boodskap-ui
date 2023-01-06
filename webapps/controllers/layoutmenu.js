@@ -225,7 +225,7 @@ function editDomainName() {
 
 function saveDomainName() {
     var data = {
-        name: DOMAIN_UUID,
+        name: DOMAIN_UUID_,
         value: $("#domainName").val()
     };
 
