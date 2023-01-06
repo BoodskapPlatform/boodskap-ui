@@ -82,11 +82,11 @@ var SITE_NOOP = 1000000;
 var DEFAULT_DASHBOARD_BG = '#ffffff';
 var DEFAULT_DASHBOARD_TITLE_BG = '#6d6d6d';
 var DEFAULT_THEME = {
-    headerBg : '#3e3b3b',
-    subHeaderBg : '#585c62',
-    panelHeaderBg : '#6d6d6d',
-    textColor: '#9E9E9E',
-    bodyBg: '#f1f1f1',
+    headerBg : 'white',
+    subHeaderBg : '#fff',
+    panelHeaderBg : '#ffffff',
+    textColor: '#000',
+    bodyBg: '#eaf1f6',
     layout : 'container-fluid',
     submenu : {
         "sidebarBg" : '#2f2b2df7',
