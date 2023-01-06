@@ -2,18 +2,39 @@
 
 
 <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
     .domainList {
-        text-align: center;
-        border: 1px solid #eee;
-        padding: 20px;
+        /* text-align: center; */
+        /* border: 1px solid #eee; */
+       margin: 8px;
+       padding: 15px;
         cursor: pointer;
-        height: 155px;
+        width:180px;
+        border: 2px solid #fff;
+        border-bottom: 2px solid hsl(229deg 41% 95%);
+       
     }
 
-    .domainList:hover, .domainList label:hover, .domainList h1:hover, .domainList small:hover {
-        color: #009688 !important;
-        background-color: #eee;
+    .active1, .domainList:hover
+    { 
+       
+        border-radius: 10px;
+        border: 2px solid  hsl(219deg 32% 90%);
+
+        background-color:rgb(234 241 246);
+        
     }
+    /* .domainList:hover label{
+        color: #2d2f79;
+    }
+    .domainList:hover small{
+        color: black;
+    } */
+
+    /* .domainList:hover, .domainList label:hover, .domainList h1:hover, .domainList small:hover {
+        color: #2d2f79 !important;
+        /* background-color: #eee; */
+    /* } */ 
 
     .divPanel {
         border: 1px solid #eee;
@@ -22,6 +43,10 @@
         height: 100px;
         margin: 12px auto;
     }
+    .icon-save{
+        margin-right:5px;
+    }
+
 
     .sp-container {
         z-index: 9999994;
@@ -30,6 +55,188 @@
     .colorpicker-visible {
         z-index: 9999994 !important;
     }
+    .header-border{
+        border: 2px solid #cdd6e3;
+        border-top-left-radius:13px ;
+        border-top-right-radius:13px ;
+        margin:15px;
+    }
+    .page-header{
+        font-size: 20px;
+        font-weight: 600;
+        margin-left: 25px;
+       
+    }
+   
+    .breadcrumb{
+        font-family:Montserrat;
+        
+     }
+      .bskp-refresh-bg{
+   
+  margin-left: 45px !important;
+  margin-right: 15px;
+ } 
+ .searchBar{
+    border-radius: 10px;
+    font-size: 12px;
+    background-color: #f6f9fe;
+    font-weight: 500;
+    padding-left:35px !important
+
+
+ }
+ .searchBar_row{
+    margin:15px;
+ }
+ .searchBar_row i{
+    position:absolute;
+    top: 12px;
+    left:25px;
+
+ } 
+ .logo_branding{
+    font-size: 14px;
+    font-weight: 600;
+ }
+
+.img-bg{
+    width: 30px;
+    height: 30px;
+    border-radius: 100px;
+    background-color: #ffffff;
+    border: 1px solid #2c2c78;
+}
+.upload-image{
+     width: 16px;
+    position: absolute;
+    left: 7px;
+    top: 7px;
+    cursor: pointer;
+} 
+.upload-file{
+    position:absolute;
+    right:100px;
+    top:2px;
+   
+}
+input{
+    overflow: visible;
+}
+/* .file-upload{
+     display: none;
+} */
+.btn-apply{
+    background-color: #2d2f79;
+    border-radius: 10px;
+    height: 32px;
+    border-style: none;
+    color: #ffffff;
+    padding:5px;
+    width: 80px;
+}
+.Domain_menu{
+    border:2px solid hsl(219deg 32% 90%);
+    background-color: #ffffff;
+
+    border-radius: 13px;
+    height: 480px;
+    overflow: auto;
+    width: 215px;
+    /* position: relative;
+    bottom: 50px; */
+   
+}
+
+.panel{
+    background-color: #eaf1f6 !important;
+}
+.panel-body{
+    padding: 0px !important;
+    padding-left: 8px!important;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+
+  }
+  label{
+    margin-bottom: 0px !important;
+    font-size: 14px;
+  }
+  .show_domain{
+    border: 2px solid #cdd6e3;
+    border-radius: 13px;
+    background-color: #ffffff;
+    height: 480px;
+   
+    width: 1085px;
+    /* margin-left:44px; */
+
+    
+  }
+  .colorpicker-element .input-group-addon i {
+    display: inline-block;
+    cursor: pointer;
+    height: 16px;
+    vertical-align: text-top;
+    width: 16px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    transform: rotate(316deg);
+  }
+  /* .container-fluid{
+    padding-left: 0px !important;
+  } */
+ 
+#headerBg{
+    border-radius: 20px !important;
+}
+.input-group-addon{
+    background-color: #ffffff !important;
+}
+.form-control{
+    border-radius: 10px !important;
+    font-size: 14px !important;
+}
+.btn-proceed{
+    font-weight: 400 !important;
+    padding: 6px !important;
+    width: 140px !important;
+}
+.plan-items{
+    list-style:none;
+    border: 1px solid #f0f0f0;
+}
+.plan-items li{
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
+}
+.blue-bg{
+    background-color:#ecf4fb;
+}
+.light-bg{
+    background-color: #fdfeff;
+}
+.price_rate{
+    margin-left:30px;
+}
+.price_amount li{
+    margin-right:35px;
+    font-size:14px;
+}
+.price_amount ol{
+    border:2px solid #61ccf2;width:159px; border-top-right-radius:15px;border-bottom-left-radius:18px;
+}
+.price-color{
+background-color:#ecf7fb;
+
+}
+.plan_type{
+    color: #2c2c78;
+}
+
 
 
 </style>
@@ -38,119 +245,210 @@
     $("body").removeClass('bg-white');
 
 </script>
-<div class="container mt-2 platformBody domainPage">
-    <ol class="breadcrumb pull-right">
-        <li class="breadcrumb-item"><a href="<%= basepath %>/home">Home</a></li>
-        <li class="breadcrumb-item active">Domain Configurations</li>
-    </ol>
 
-    <h1 class="page-header"><i class="icon-cogs2"></i> Domain Configuration</h1>
-    <div class="panel panel-inverse" style="">
-        <div class="panel-body" style="border: 1px solid #eee;padding-bottom:30px">
-            <div class="row" style="">
+<div class="mt-2 platformBody domainPage">
+    
+    <div class=" header-border pt-3">
+        <ol class="breadcrumb pull-right">
+            <li class="breadcrumb-item"><a href="<%= basepath %>/home">Home</a></li>
+            <li class="breadcrumb-item active">Domain Configuration</li>
+            <div class="btn-group btn-group-justified pull-right bskp-btn-group-align " >
+                <a  class="btn  bskp-refresh-bg" data-click="panel-reload" title="Refresh" onclick="resetDefault()"><img class="refresh-button"  src="images/menu/refresh-button.png" alt=""></a>
+            </div>
+        </ol>
+    
+        <h1 class="page-header"><i class="icon-cogs2"></i> Domain Configuration</h1>
+    </div>
+    <!-- <div class="row searchBar_row">
+        <div class="col-lg-6">
+            <i class="fa fa-search"></i> <input   placeholder="Search here.."  class="form-control w-50 searchBar" type="search">
 
-                <div class="col-lg-12">
+        </div>
+        <div class="col-lg-3 mt-3">
+            <span class="logo_branding">Logo Branding &nbsp</span><span >(change platform logo)</span> <img style="background-color:white; border-radius: 20px;;" src="/images/menu/warning.png" width="18px" alt="">  
+           
+            
+        
+
+            
+
+        </div>
+        <div  class="col-lg-3">
+            <form action="javascript:void(0)" onsubmit="proceedSave()" autocomplete="off">
+             <div  class="text-right">
+                <button type="submit" onclick="openModal(1)" class="\x btn-apply">Apply</button>
+                </div>
+            
+                <div style="position: relative;bottom:38px; border-radius: 13px;background-color:#e9f1fe;border:2px dashed #ced9e8; padding: px;width: 200px; height:50px;overflow: hidden"><img src="" class="domain_logo_m" style="height:40px;"/></div> 
+             <div class="upload-file">
+                <div class="img-bg">
+                    <img class="upload-image" src="images/camera.svg" alt="">
+                 </div>
+                 <input class="file-upload"  type="file" id="logoFile" accept="image/*" onchange="uploadImage()" required/>
+
+            </div>
+        </form>
+           
+           
+
+        </div>
+
+    </div> -->
+
+   
+    <div class="panel panel-inverse">
+        <div class="panel-body" style="padding-bottom:30px">
+            <div class="row">
+
+             <div class="col-lg-12">
 
                     <div class="panel panel-inverse" data-sortable-id="index-1">
                         <div class="panel-body">
 
                             <div class="row">
-                                <div class="col-lg-2">
+                                <!-- <div class="col-lg-2">
                                     <div class="domainList" onclick="openModal(1)">
                                         <h1><i class="icon-image3"></i></h1>
                                         <label>Branding</label><br>
                                         <small>Change Platform Logo</small>
                                     </div>
-                                </div>
+                                </div> -->
 
                                 <div class="col-lg-2">
-                                    <div class="domainList" onclick="openModal(7)">
-                                        <h1><i class="icon-paint-brush"></i></h1>
-                                        <label>Theme & Layout</label><br>
-                                        <small>Change the website theme</small>
+                                    <div  class="Domain_menu ">
+                                         <div id="test" class="domainList" onclick="">
+                                         <!-- <h1><i class="icon-dollar"></i></h1>  -->
+                                         <label  >Licence Status</label><br>
+                                        <small>plan details</small>
                                     </div>
-                                </div>
+                                    <div id="test" class="domainList" onclick="openModal(13,this)">
+                                        <!-- <h1><i class="icon-dollar"></i></h1>  -->
+                                        <label>Billing Overview</label><br>
+                                       <small>plan details</small>
+                                   </div>
 
-                                <div class="col-lg-2">
-                                    <div class="domainList" onclick="openModal(2)">
-                                        <h1><i class="icon-envelope"></i></h1>
+                                    <div id="l2"  class="domainList" onclick="openModal(7,this)">
+                                        <!-- <h1><i class="icon-paint-brush"></i></h1> -->
+                                        <label>Theme & Layout</label><br>
+                                        <small class>Change the website theme</small>
+                                    </div>
+                                    <div id="l3" class="domainList" onclick="openModal(2,this)">
+                                        <!-- <h1><i class="icon-envelope"></i></h1> -->
                                         <label>Email gateway</label><br>
                                         <small>Configure Email</small>
                                     </div>
-                                </div>
-                                <div class="col-lg-2">
-                                    <div class="domainList" onclick="openModal(3)">
-                                        <h1><i class="icon-phone"></i></h1>
+                                    <div id="l4" class="domainList" onclick="openModal(3,this)">
+                                        <!-- <h1><i class="icon-phone"></i></h1> -->
                                         <label>Twilio gateway</label><br>
                                         <small>Configure SMS & Voice</small>
                                     </div>
-                                </div>
-                                <div class="col-lg-2">
-                                    <div class="domainList" onclick="openModal(4)">
-                                        <h1><i class="icon-mobile-phone"></i></h1>
+                                    <div id="l5" class="domainList" onclick="openModal(4,this)">
+                                        <!-- <h1><i class="icon-mobile-phone"></i></h1> -->
                                         <label>FCM gateway</label><br>
                                         <small>Configure push notification</small>
                                     </div>
-                                </div>
-                                <div class="col-lg-2">
-                                    <div class="domainList" onclick="openModal(5)">
-                                        <h1><i class="icon-th-list"></i></h1>
+                                    <div id="l6" class="domainList" onclick="openModal(5,this)">
+                                        <!-- <h1><i class="icon-th-list"></i></h1> -->
                                         <label>UDP Gateway</label><br>
                                         <small>Configure UDP</small>
                                     </div>
-                                </div>
-
-
-                            </div>
-                            <div class="row mt-4">
-
-                                <div class="col-lg-2">
-                                    <div class="domainList" onclick="openModal(12)">
-                                        <h1><i class="icon-globe"></i></h1>
+                                    <div  id="l7" class="domainList" onclick="openModal(12,this)">
+                                        <!-- <h1><i class="icon-globe"></i></h1> -->
                                         <label>Custom URL</label><br>
                                         <small>Custom URL Re-routing</small>
                                     </div>
-                                </div>
-
-                                <div class="col-lg-2">
-                                    <div class="domainList" onclick="openModal(8)">
-                                        <h1><i class="icon-sign-in"></i></h1>
+                                    <div id="l8" class="domainList" onclick="openModal(8,this)">
+                                        <!-- <h1><i class="icon-sign-in"></i></h1> -->
                                         <label>Custom Login</label><br>
                                         <small>Change the Login Screen</small>
                                     </div>
-                                </div>
-
-                                <div class="col-lg-2">
-                                    <div class="domainList" onclick="openModal(9)">
-                                        <h1><i class="icon-map-marker"></i></h1>
+                                    <div id="l9" class="domainList" onclick="openModal(9,this)">
+                                        <!-- <h1><i class="icon-map-marker"></i></h1> -->
                                         <label>Google Map</label><br>
                                         <small>Set Google Map Api Key</small>
                                     </div>
-                                </div>
-
-                                <div class="col-lg-2">
-                                    <div class="domainList" onclick="openModal(10)">
-                                        <h1><i class="icon-map5"></i></h1>
+                                    <div id="l10" class="domainList" onclick="openModal(10,this)">
+                                        <!-- <h1><i class="icon-map5"></i></h1> -->
                                         <label>Open Weather Map</label><br>
                                         <small>Set Open Weather Map Api Key</small>
                                     </div>
-                                </div>
-
-                                <div class="col-lg-2">
-                                    <div class="domainList" onclick="openModal(11)">
-                                        <h1><i class="icon-file-code-o"></i></h1>
+                                    <div id="l11" class="domainList" onclick="openModal(11,this)">
+                                        <!-- <h1><i class="icon-file-code-o"></i></h1> -->
                                         <label>DarkSky</label><br>
                                         <small>Set Dark Sky Api Key to lookup weather data</small>
                                     </div>
+                                   
                                 </div>
 
-                               <!-- <div class="col-lg-2">
-                                    <div class="domainList" onclick="openModal(13)">
-                                        <h1><i class="icon-dollar"></i></h1>
-                                        <label>Billing</label><br>
-                                        <small>Configure billing & invoice details</small>
-                                    </div>
-                                </div>-->
+                                </div>
+
+
+                                <div class="col-lg-10 ">
+                                    <div class="show_domain">
+                                        <!-- <div id="domainModal" class="modal fade" tabindex="-1" role="dialog">
+                                            <div class="modal-dialog" role="document">
+                                                <form action="javascript:void(0)" onsubmit="proceedSave()" autocomplete="off">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title"></h4>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                                                    aria-hidden="true">&times;</span></button>
+                                                        </div>
+                                                        <div class="modal-body modalBody">
+                                        
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btnModal"><i class="icon-save"></i> Save</button>
+                                                        </div> -->
+                                                    <!-- </div>/.modal-content
+                                                </form>
+                                            </div>/.modal-dialog
+                                        </div>/.modal -->
+
+                                    <!-- </div> -->
+                                    <div id="domainmodal">
+                                    <form action="javascript:void(0)" onsubmit="proceedSave()" onkeyup="Submit()" autocomplete="off">
+                                                <h4 style="padding-top: 10px;padding-left:30px;"  class="modal-title"></h4>
+                                            <div class="modal-body modalBody">
+                                                
+                                            </div>
+                                            <!-- <div class="text-center">
+                                                <button type="submit" class="btn btn-proceed btnModal"><i class="icon-save"></i> Save</button> 
+                                            </div> -->
+                                           
+                                    </form>
+                                </div>
+                                    
+
+ 
+                                </div>
+                            </div>
+                            <!-- <div class="row mt-4"> -->
+
+                                <!-- <div class="col-lg-2">
+                                   
+                                </div>
+
+                                <div class="col-lg-2">
+                                   
+                                </div>
+
+                                <div class="col-lg-2">
+                                   
+                                </div>
+
+                                <div class="col-lg-2">
+                                   
+                                </div>
+
+                                <div class="col-lg-2">
+                                  
+                                </div>
+
+                                <div class="col-lg-2">
+                                    
+                                </div> -->
 
 
                                 <!-- <div class="col-lg-2">
@@ -161,7 +459,7 @@
                                      </div>
                                  </div>-->
 
-                            </div>
+                            <!-- </div> -->
 
                         </div>
                     </div>
@@ -180,29 +478,10 @@
 <script src="controllers/domain.js"></script>
 
 
-<div id="domainModal" class="modal fade" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <form action="javascript:void(0)" onsubmit="proceedSave()" autocomplete="off">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title"></h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">&times;</span></button>
-                </div>
-                <div class="modal-body modalBody">
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btnModal"><i class="icon-save"></i> Save</button>
-                </div>
-            </div><!-- /.modal-content -->
-        </form>
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
 
 
-<script type="text/html" id="logoBranding">
+
+<!-- <script type="text/html" id="logoBranding">
     <div class="row">
         <div class="col-md-6"
              style="background-color: #4b4a49;padding: 5px;text-align: center;height:50px;overflow: hidden">
@@ -220,83 +499,84 @@
             </div>
         </div>
     </div>
-</script>
-<script type="text/html" id="emailGateway">
-    <div class="row">
-        <div class="col-md-6">
+</script> -->
+<script type="text/html" class="active" id="emailGateway">
+    <div class="row ml-2">
+        <div class="col-md-4">
             <div class="form-group">
-                <label>Host</label>
+                <label class="mb-2">Host</label>
                 <input type="text" id="hostName" class="form-control input-sm" required autocomplete="off"/>
             </div>
-        </div>
-        <div class="col-md-6">
             <div class="form-group">
-                <label>Port</label>
-                <input type="number" id="portNo" class="form-control input-sm" required/>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                <label>Username</label>
-                <input type="email" id="euserName" class="form-control input-sm" required autocomplete="off"/>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <label>Password <a href="javascript:void(0)" class="emailpwd" style="text-decoration: none"
+                <label class="mb-2">Password <a href="javascript:void(0)" class="emailpwd" style="text-decoration: none"
                                    title="Click here to copy Email Password"><i class="icon-copy2"></i></a></label>
                 <input type="password" id="epassword" class="form-control input-sm" required autocomplete="off"/>
             </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                <label>Primary Email</label>
-                <input type="email" id="primaryEmail" class="form-control input-sm" required/>
+           
+                <div class="form-group row">
+                    <div  class="col-md-3 d-flex"> 
+                        <label>Host</label>
+                        <input class="mr-2 ml-2" type="checkbox" id="ssl" value="true"/>
+                    </div>
+                    <div class="col-md-2 d-flex">
+                        <label>TLS</label>
+                        <input class="mr-2 ml-2" type="checkbox" id="tls" value="true"/>
+                    </div>
+                    <div class="col-md-2 d-flex">
+                        <label>Debug</label>
+                        <input class="mr-2 ml-2" type="checkbox" id="debug" value="true"/>
+                    </div>
+                   
+                    
+                   
+                </div>
+            
             </div>
-        </div>
-        <div class="col-md-6">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="mb-2">Port</label>
+                    <input type="number" id="portNo" class="form-control input-sm" required/>
+                </div>
+                <div class="form-group">
+                    <label class="mb-2">Primary Email</label>
+                    <input type="email" id="primaryEmail" class="form-control input-sm" required/>
+                </div>
+              
+
+            </div>
+           
+        
+        <div class="col-md-4">
             <div class="form-group">
-                <label>Bounce Email</label>
+                <label class="mb-2">Username</label>
+                <input type="email" id="euserName" class="form-control input-sm" required autocomplete="off"/>
+            </div>
+            <div class="form-group">
+                <label class="mb-2">Bounce Email</label>
                 <input type="email" id="bounceEmail" class="form-control input-sm" required/>
             </div>
+             <div class="text-right mt-5">
+             <button type="submit" class="btn btn-proceed btnModal"><i class="icon-save"></i> Save</button> 
+ </div> 
+           
+           
+          
         </div>
+       
     </div>
-    <div class="row">
-        <div class="col-md-1">
-            <div class="form-group">
-                <label>SSL</label>
-                <input type="checkbox" id="ssl" value="true"/>
-            </div>
-        </div>
-        <div class="col-md-1">
-            <div class="form-group">
-                <label>TLS</label>
-                <input type="checkbox" id="tls" value="true"/>
-            </div>
-        </div>
-        <div class="col-md-1">
-            <div class="form-group">
-                <label>Debug</label>
-                <input type="checkbox" id="debug" value="true"/>
-            </div>
-        </div>
-    </div>
+   
 </script>
 <script type="text/html" id="twilioGateway">
-    <div class="row">
-        <div class="col-md-12">
+    <div class="row ml-2">
+        <div class="col-md-4">
             <div class="form-group">
-                <label>SID</label>
+                <label  class="mb-2">SID</label>
                 <input type="text" id="sid" class="form-control input-sm" required autocomplete="off"/>
             </div>
         </div>
-        <div class="col-md-12">
+        <div class="col-md-4">
             <div class="form-group">
-                <label>Token <a href="javascript:void(0)" style="color:#333"
+                <label  class="mb-2">Token <a href="javascript:void(0)" style="color:#333"
                                 onclick="toggleBox('token',this)" class="btn btn-icon btn-xs"><i class="icon-eye4"></i></a>
                     <a href="javascript:void(0)" class="tokenKey" style="text-decoration: none"
                        title="Click here to copy Twilio Token"><i class="icon-copy2"></i></a>
@@ -304,27 +584,39 @@
                 <input type="password" id="token" class="form-control input-sm" required autocomplete="off"/>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                <label>Primary Phone</label>
-                <input type="text" id="primaryPhone" class="form-control input-sm" required/>
-            </div>
+        <div class="col-md-4">
+         
+                <div class="form-group">
+                    <label  class="mb-2">Primary Phone</label>
+                    <input type="text" id="primaryPhone" class="form-control input-sm" required/>
+                </div>
+               
+         
+
         </div>
+    </div>
+    <div class="row ml-2">
+       
         <div class="col-md-12">
-            <div class="form-group">
-                <label>Debug</label> <br>
+            <div class="form-group d-flex">
+                <label class="mr-2">Debug</label> <br>
                 <input type="checkbox" id="debug" value="true"/>
             </div>
+            <div class="text-right">
+                <button type="submit" class="btn btn-proceed btnModal"><i class="icon-save"></i> Save</button> 
+    </div> 
+    
         </div>
     </div>
+    
+       
+      
 </script>
 <script type="text/html" id="fcmGateway">
-    <div class="row">
-        <div class="col-md-12">
+    <div class="row ml-2">
+        <div class="col-md-4">
             <div class="form-group">
-                <label>API Key <a href="javascript:void(0)" style="color:#333"
+                <label  class="mb-2">API Key <a href="javascript:void(0)" style="color:#333"
                                   onclick="toggleBox('apiKey',this)" class="btn btn-icon btn-xs"><i
                         class="icon-eye4"></i></a>
                     <a href="javascript:void(0)" class="fcmKey" style="text-decoration: none"
@@ -334,136 +626,186 @@
             </div>
         </div>
         <div class="col-md-12">
-            <div class="form-group">
-                <label>Debug</label> <br>
+            <div class="form-group d-flex" >
+                <label class="mr-2">Debug</label> <br>
                 <input type="checkbox" id="debug" value="true"/>
             </div>
+            <div class="text-right">
+                <button type="submit" class="btn btn-proceed btnModal"><i class="icon-save"></i> Save</button> 
+    </div> 
+    
         </div>
     </div>
 </script>
 <script type="text/html" id="udpGateway">
-    <div class="row">
-        <div class="col-md-6">
+    <div class="row ml-2">
+        <div class="col-md-4">
             <div class="form-group">
-                <label>Host</label>
+                <label class="mb-2">Host</label>
                 <input type="number" id="portNo" class="form-control input-sm" readonly required/>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="form-group">
-                <label>Port</label>
+                <label  class="mb-2">Port</label>
                 <input type="number" id="threads" class="form-control input-sm" readonly required/>
             </div>
         </div>
-        <div class="col-md-12">
+    </div>
+    <div class="row ml-2">
+        <div class="col-md-8">
             <div class="form-group">
-                <label>Decorder Code</label>
-                <small>Groovy Code</small>
+                <label class="mb-2">Decorder Code</label>
+                <small>(Groovy Code)</small>
                 <textarea id="decoderCode" class="form-control" style="height: 200px;"></textarea>
             </div>
+            <div class="text-right">
+                <button type="submit" class="btn btn-proceed btnModal"><i class="icon-save"></i> Save</button> 
+    </div> 
         </div>
     </div>
+    
 </script>
 <script type="text/html" id="adsAuthentication"></script>
 <script type="text/html" id="platformTheme">
-
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-3">
+            <form action="javascript:void(0)" onsubmit="proceedSave()" autocomplete="off">
+            <label class="ml-3 mb-2"  >logo Branding</label>
+            <div style=" border-radius: 13px;border:2px dashed #ced9e8;width: 240px; height:50px;overflow: hidden"><img src="" class="domain_logo_m" style="height:40px;"/></div> 
+           
+               <!-- <div class="img-bg">
+                   <img class="upload-image" src="images/camera.svg" alt="">
+                </div> -->
+
+          
+
+        </div>
+        <div class="col-2 mt-4">
+            <input class="file-upload mt-2 mb-2"  type="file" id="logoFile" accept="image/*" onchange="uploadImage()"/>
+
+           
+
+        </div>
+        <!-- <div class="col-2 mt-4">
+            <div  class="text-right">
+                <button type="submit" class="\x btn-apply">Apply</button>
+                </div>
+            </form>
+        </div>
+        -->
+
+    </div>
+
+    <div class="row mt-2">
+        <div class="col-md-3">
             <div class="form-group">
-                <label>Header Background</label> <br>
+                <label class=" mb-2"  >Header Background</label> <br>
                 <!--<input type="text" id="headerBg"/>-->
 
                 <div id="headerBg" class="input-group colorpicker-component">
+                    
+
                     <input type="text" value="" class="form-control"/>
                     <span class="input-group-addon"><i></i></span>
+                     <!-- <img  src="images/edit_icon.svg" alt=""> -->
                 </div>
 
             </div>
             <div class="form-group">
-                <label>Sub Header Background</label><br>
+                <label class=" mb-2">Sub Header Background</label><br>
                 <!--<input type="text" id="subHeaderBg"/>-->
 
                 <div id="subHeaderBg" class="input-group colorpicker-component">
+                   
+
                     <input type="text" value="" class="form-control"/>
                     <span class="input-group-addon"><i></i></span>
                 </div>
             </div>
-            <div class="form-group">
-                <label>Header & Sub Header Text Color</label> <br>
+            <div  class="form-group">
+                <label class=" mb-2">Header & Sub Header Text Color</label> <br>
                 <!--<input type="text" id="textColor"/>-->
 
                 <div id="textColor" class="input-group colorpicker-component">
+                   
+
                     <input type="text" value="" class="form-control"/>
                     <span class="input-group-addon"><i></i></span>
                 </div>
             </div>
+            <div class=" text-left form-group">
+                <button style="font-size:14px;height:32px;" class="btn  btn-proceed text-white  btn-sm" type="button" onclick="resetDefault()">Reset to Default</button>
+            </div>
+        </div>
+
+        <div  class="col-md-3">
+            <div class=""  style="border-right: 2px solid hsl(208deg 42% 94%);height: 270px;padding-left: 10px;padding-right: 10px;" >
             <div class="form-group">
-                <label>Body Background</label> <br>
+                <label class=" mb-2">Body Background</label> <br>
                 <!--<input type="text" id="bodyBg"/>-->
 
                 <div id="bodyBg" class="input-group colorpicker-component">
+                 
                     <input type="text" value="" class="form-control"/>
                     <span class="input-group-addon"><i></i></span>
                 </div>
             </div>
             <div class="form-group">
-                <label>Panel Header Background</label><br>
+                <label class=" mb-2">Panel Header Background</label><br>
                 <!--<input type="text" id="panelHeaderBg"/>-->
 
                 <div id="panelHeaderBg" class="input-group colorpicker-component">
                     <input type="text" value="" class="form-control"/>
                     <span class="input-group-addon"><i></i></span>
+
                 </div>
             </div>
+           
             <div class="form-group">
-                <button class="btn btn-default btn-sm" type="button" onclick="previewTheme()">Preview</button>
-                <button class="btn btn-default btn-sm" type="button" onclick="resetDefault()">Reset to Default</button>
+                <label class=" mb-2">Layout</label><br>
+                <select class="form-control input-sm" id="bodyLayout" onchange="changeLayout(this.value)">
+                    <option value="container">Boxed</option>
+                    <option value="container-fluid">Full Width</option>
+                </select>
+            </div>
+            <div class="text-right">
+                <button type="submit" class="btn btn-proceed btnModal"><i class="icon-save"></i> Save</button> 
             </div>
         </div>
+
+        </div>
+
+
+          
         <div class="col-md-6">
             <div class="row">
+                <div class="form-group">
+                    <button style="border-radius:10px;" class="btn btn-default btn-sm" type="button" onclick="previewTheme()">Preview</button>
+                </div>
 
-                <div class="col-lg-12 bodyBg" style="border:1px solid #eee;height:200px;padding:0px;">
-                    <div class="headerBg">Header</div>
-                    <div class="subHeaderBg">Sub Header</div>
-                    <div class="divPanel" style="background-color: #fff">
-                        <div class="panelHeaderBg">Panel Header</div>
+                <div class="col-lg-12 bodyBg" style="border:1px solid hsl(212deg 25% 90%);height:215px;padding-top: 13px;">
+                    <div style="margin-bottom:8px;" class="headerBg">Header</div>
+                    <div style="border-top-left-radius: 10px;border-top-right-radius: 10px;height:35px;" class="subHeaderBg">Sub Header</div>
+                    <div class="divPanel" style="background-color: #fff;border-radius:10px;">
+                        <div style="height:35px;border-radius: 10px;color:black;" class="panelHeaderBg">Panel Header</div>
                     </div>
                 </div>
-                <div class="col-lg-12 mt-2">
-                    <div class="form-group">
-                        <label>Layout</label><br>
-                        <select class="form-control input-sm" id="bodyLayout" onchange="changeLayout(this.value)">
-                            <option value="container">Boxed</option>
-                            <option value="container-fluid">Full Width</option>
-                        </select>
-                    </div>
-                </div>
+               
             </div>
         </div>
     </div>
 </script>
 <script type="text/html" id="loginScreen">
-    <div class="row">
-        <div class="col-md-6"
-             style="background-color: #fff;padding: 5px;text-align: center;height:50px;overflow: hidden">
-            <img src="" class="domain_logo_m" style="height:50px;"/>
-        </div>
-        <div class="col-md-6">
+    <div class="row ml-2">
+        <div class="col-md-3">
+            <div 
+            style="background-color: #fff;padding: 5px;text-align: center;height:50px;overflow: hidden;border: 2px dashed  #ced9e8;border-radius:13px;margin-bottom:8px;">
+           <img  src="" class="domain_logo_m pb-2" style="height:50px;"/>
+       </div>
+           
             <div class="form-group">
-                <input type="file" id="logoFile" onchange="uploadImage()"/> <br><br>
-                <span class="grey" style="font-size:11px">
-                    <b>Criteria:</b><br>
-                    * Only PNG & JPG supported<br>
-                    * Width should be less than 200px<br>
-                </span>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                <label>Left Side Background Color</label> <br>
+                <label class="mb-2">Left Side Background Color</label> <br>
                 <!--<input type="text" id="leftBg" class="form-control input-sm"/>-->
 
                 <div id="leftBg" class="input-group colorpicker-component">
@@ -472,10 +814,8 @@
                 </div>
 
             </div>
-        </div>
-        <div class="col-md-6">
             <div class="form-group">
-                <label>Left Side Bottom Background Color</label> <br>
+                <label class="mb-2">Left Side Bottom Background Color</label> <br>
                 <!--<input type="text" id="leftBottomBg" class="form-control input-sm"/>-->
 
                 <div id="leftBottomBg" class="input-group colorpicker-component">
@@ -483,10 +823,8 @@
                     <span class="input-group-addon"><i></i></span>
                 </div>
             </div>
-        </div>
-        <div class="col-md-6">
             <div class="form-group">
-                <label>Text Highlight Color</label> <br>
+                <label class="mb-2">Text Highlight Color</label> <br>
                 <!--<input type="text" id="textColor" class="form-control input-sm"/>-->
 
                 <div id="textColor" class="input-group colorpicker-component">
@@ -494,77 +832,97 @@
                     <span class="input-group-addon"><i></i></span>
                 </div>
             </div>
+            <div class=" text-left form-group">
+                <button style="font-size:14px;height:32px;" class="btn  btn-proceed text-white  btn-sm" type="button" onclick="setCustomLoginDefault()">Reset to Default</button>
+            </div>
+           
         </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <label>Button Color</label> <br>
-                <!--<input type="text" id="buttonColor" class="form-control input-sm"/>-->
+           
 
-                <div id="buttonColor" class="input-group colorpicker-component">
-                    <input type="text" value="" class="form-control"/>
-                    <span class="input-group-addon"><i></i></span>
+            <div class="col-md-3">
+                <div class=""  style="border-right: 2px solid hsl(208deg 42% 94%);height: 320px;padding-left: 10px;padding-right: 10px;" >
+                <div class="form-group mt-2">
+                    <input type="file" id="logoFile" onchange="uploadImage()"/> <br><br>
+                    <!-- <span class="grey" style="font-size:11px">
+                        <b>Criteria:</b><br>
+                        * Only PNG & JPG supported<br>
+                        * Width should be less than 200px<br>
+                    </span> -->
+                </div>
+              
+               
+
+                <div class="form-group">
+                    <label class="mb-2">Button Color</label> <br>
+                    <!--<input type="text" id="buttonColor" class="form-control input-sm"/>-->
+    
+                    <div id="buttonColor" class="input-group colorpicker-component">
+                        <input type="text" value="" class="form-control"/>
+                        <span class="input-group-addon"><i></i></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="mb-2">Title Text</label> <br>
+                    <input type="text" id="titleName" class="form-control input-sm"/>
+                </div>
+                <div class="form-group">
+                    <label class="mb-2">Slogan Text</label> <br>
+                    <input type="text" id="sloganText" class="form-control input-sm"/>
+                </div>
+                <div style="margin-top:30px;" class="text-right ">
+                    <button type="submit" class="btn btn-proceed btnModal"><i class="icon-save"></i> Save</button> 
                 </div>
             </div>
-        </div>
-        <div class="col-md-12">
-            <div class="form-group">
-                <label>Title Text</label> <br>
-                <input type="text" id="titleName" class="form-control input-sm"/>
+
             </div>
-        </div>
-        <div class="col-md-12">
+
+       
+       
+           
+        
+        <div class="col-md-6">
             <div class="form-group">
-                <label>Slogan Text</label> <br>
-                <input type="text" id="sloganText" class="form-control input-sm"/>
-            </div>
-        </div>
-        <div class="col-md-12">
-            <div class="form-group">
-                <label>HTML Code</label> <br>
+                <label class="mb-2">HTML Code</label> <br>
                 <textarea id="customHtml" class="form-control input-sm" style="height: 200px"></textarea>
                 <small>Note: write html code with inline styles</small>
             </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
             <p>Login URL: <a href="javascript:void(0)" class="domainURL"></a> <a href="javascript:void(0)"
-                                                                                 class="redirectURL"
-                                                                                 style="text-decoration: none"
-                                                                                 title="Click here to copy URL Address"><i
-                    class="icon-copy2"></i></a></p>
+                class="redirectURL"
+                style="text-decoration: none"
+                title="Click here to copy URL Address"><i class="icon-copy2"></i></a></p>
+                <div>
+              
+                 </div>
+           
         </div>
     </div>
-
-    <div class="row">
-        <div class="col-md-12">
-            <button class="btn btn-xs btn-default pull-right" onclick="setCustomLoginDefault()" type="button">Reset to
-                Default
-            </button>
-        </div>
-    </div>
+  
+    
 
 </script>
 <script type="text/html" id="googleMap">
-    <div class="row">
-        <div class="col-md-12">
+    <div class="row ml-2">
+        <div class="col-md-4">
             <div class="form-group">
-                <label>API Key <a href="javascript:void(0)" style="color:#333"
+                <label  class="mb-2">API Key <a href="javascript:void(0)" style="color:#333"
                                   onclick="toggleBox('apiKey',this)" class="btn btn-icon btn-xs"><i
                         class="icon-eye4"></i></a>
                     <a href="javascript:void(0)" class="apiKey" style="text-decoration: none"
                        title="Click here to copy Google API Key"><i class="icon-copy2"></i></a>
                 </label>
                 <input type="password" id="apiKey" class="form-control input-sm" required autocomplete="off"/>
+                <div class="text-right mt-4">
+                    <button type="submit" class="btn btn-proceed btnModal"><i class="icon-save"></i> Save</button> 
+                </div>
             </div>
         </div>
     </div>
 </script>
 <script type="text/html" id="openWeatherMap">
-    <div class="row">
-        <div class="col-md-12">
+    <div class="row ml-2">
+        <div class="col-md-4">
             <div class="form-group">
-                <label>API Key <a href="javascript:void(0)" style="color:#333"
+                <label class="mb-2">API Key <a href="javascript:void(0)" style="color:#333"
                                   onclick="toggleBox('apiKey',this)" class="btn btn-icon btn-xs"><i
                         class="icon-eye4"></i></a>
                     <a href="javascript:void(0)" class="apiKey" style="text-decoration: none"
@@ -572,15 +930,18 @@
                 </label>
                 <input type="password" id="apiKey" class="form-control input-sm" required autocomplete="off"/>
             </div>
+            <div class="text-right mt-4">
+                <button type="submit" class="btn btn-proceed btnModal"><i class="icon-save"></i> Save</button> 
+            </div>
         </div>
     </div>
 </script>
 
 <script type="text/html" id="darkSkyMap">
-    <div class="row">
-        <div class="col-md-12">
+    <div class="row ml-2">
+        <div class="col-md-4">
             <div class="form-group">
-                <label>API Key <a href="javascript:void(0)" style="color:#333"
+                <label class="mb-2">API Key <a href="javascript:void(0)" style="color:#333"
                                   onclick="toggleBox('apiKey',this)" class="btn btn-icon btn-xs"><i
                         class="icon-eye4"></i></a>
                     <a href="javascript:void(0)" class="apiKey" style="text-decoration: none"
@@ -588,35 +949,139 @@
                 </label>
                 <input type="password" id="apiKey" class="form-control input-sm" required autocomplete="off"/>
             </div>
+            <div class="text-right mt-4">
+                <button type="submit" class="btn btn-proceed btnModal"><i class="icon-save"></i> Save</button> 
+            </div>
         </div>
     </div>
 </script>
 
 <script type="text/html" id="customUrl">
-    <div class="row">
-        <div class="col-md-12">
+    <div class="row ml-2">
+        <div class="col-md-3">
             <div class="form-group">
-                <label>Point this URL</label>
-                <p><span class="domainURL"></span> <a href="javascript:void(0)" class="redirectURL"
+                <label  class="mb-2">Point this URL</label>
+                <p style="border: 1px solid #cdd6e3;border-radius:10px ;padding: 6px;height:35px;"><span  class="domainURL"></span> <a href="javascript:void(0)" class="redirectURL"
                                                       style="text-decoration: none"
                                                       title="Click here to copy URL Address"><i class="icon-copy2"></i></a>
                 </p>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
             <div class="form-group">
-                <label>Protocol</label>
+                <label  class="mb-2">Protocol</label>
                 <select class="form-control input-sm" id="protocol">
                     <option value="https">https://</option>
                     <option value="http">http://</option>
                 </select>
             </div>
         </div>
-        <div class="col-md-9">
-            <label>URL Address</label>
+        <div class="col-md-3">
+            <label class="mb-2">URL Address</label>
             <input type="text" id="urlAddress" class="form-control input-sm" required autocomplete="off"/>
+            <div class="text-right mt-4">
+                <button type="submit" class="btn btn-proceed btnModal"><i class="icon-save"></i> Save</button> 
+            </div>
         </div>
-
+       
 
     </div>
+   
 </script>
+
+<script type="text/html" id="Billing">
+    <div class="row">
+
+        <div class="col-lg-5 text-right pr-3">
+
+        </div>
+       
+        <div class="price_rate col-ld-3 text-center">
+            <h4 class="mb-2 plan_type">Free</h4>
+            <div class="" style="width: 150px;color: #fff;font-size:18px; height:40px;background-color:#6dccef;padding:10px; border-top-right-radius:18px;border-bottom-left-radius:18px;text-align:center;">
+ <span>$0</span>
+            </div>
+
+        </div>
+        <div class="col-lg-4">
+            <div class="text-right">
+                <button class="btn btn-success">Upgrade</button>
+
+            </div>
+        </div>
+        
+        
+
+    </div>
+    <div class="row ml-2">
+        <div class="col-lg-2">
+        </div>
+        <div class="col-lg-3 mt-2"> 
+            <div>
+                <ol class="plan-items p-0">
+                    <li  class="blue-bg">Data points</li>
+                    <li class="light-bg">API Hits</li>
+                    <li class="blue-bg">Devices</li>
+                    <li class="light-bg">Connected Devices</li>
+                    <li class="blue-bg">Tenants (Domains)</li>
+                    <li class="light-bg">Add-On Subscription</li>
+                    <li class="blue-bg"> Data Retentions</li>
+                    <li class="light-bg">Support</li>
+                </ol>
+        </div>
+         </div>
+        <div class="col-lg-3 mt-2 mx-0 price_amount">
+            
+                <ol class="plan-items rates p-0">
+                    <li  class="price-color m-0" style="border-top-right-radius: 12px;">10k</li>
+                    <li class="m-0">10k</li>
+                    <li class="price-color m-0">10k</li>
+                    <li class="m-0">10k</li>
+                    <li class="price-color m-0">10k</li>
+                    <li class="m-0">10k</li>
+                    <li class="price-color m-0">10k</li>
+                    <li class="m-0">10k</li>
+
+                </ol>   
+            </div>
+        <div class="col-lg-2">
+            
+        </div>
+        </div>
+</script>
+<script>
+    $(document).ready(function () {
+        
+$(".upload-image").on('click', function() {
+   
+    $(".file-upload").click();
+ });
+
+
+
+
+
+
+});
+const input1 = document.getElementsByClassName("form-control");
+
+// Add active class to the current button (highlight it)
+
+
+
+
+
+function Submit(){
+    $(".btnModal").attr('disabled',false);
+    $(".btn-proceed").on('click',function(){
+        $(".btnModal").attr('disabled',false);
+
+    });
+    
+}
+
+
+</script>
+
+
+
