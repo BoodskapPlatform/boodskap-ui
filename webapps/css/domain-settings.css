@@ -427,3 +427,9 @@ label {
   background-color: #ffffff;
   border-bottom: 1px solid #dddddd;
 }
+.show-domain .modal-body{
+  background: #ffffff;
+  margin: 15px;
+  border: 1px solid #dddddd;
+  border-radius: 8px;
+}

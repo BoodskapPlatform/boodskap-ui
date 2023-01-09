@@ -325,11 +325,11 @@ div::-webkit-scrollbar-thumb {
 
 
 .btnModal{
-    background-color: #009688;
+    background-color: #2D2F79;
     color: #fff;
 }
 .btnModal:hover{
-    background-color: #329788cc;
+    background-color: #2D2F79;
     color: #fff;
 }
 
