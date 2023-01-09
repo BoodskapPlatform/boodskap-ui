@@ -215,21 +215,21 @@ Routes.prototype.init = function () {
                     }
                 }); */
 
-                res.render('login.html', {layout:false,basepath: getBasePath(req),key:''});
+                res.render('login.html', {layout:false,basepath: getBasePath(req),key:'', buildVersion: self.app.conf.buildVersion});
             }
     });
 
     self.router.get('/register',function (req, res) {
-        res.render('register.html', {layout:false,basepath: getBasePath(req),key:''});
+        res.render('register.html', {layout:false,basepath: getBasePath(req),key:'', buildVersion: self.app.conf.buildVersion});
     });
     self.router.get('/forgotpassword',function (req, res) {
-        res.render('forgotpassword.html', {layout:false,basepath: getBasePath(req),key:''});
+        res.render('forgotpassword.html', {layout:false,basepath: getBasePath(req),key:'', buildVersion: self.app.conf.buildVersion});
     });
     self.router.get('/success',function (req, res) {
-        res.render('success-message.html', {layout:false,basepath: getBasePath(req),key:''});
+        res.render('success-message.html', {layout:false,basepath: getBasePath(req),key:'', buildVersion: self.app.conf.buildVersion});
     });
     self.router.get('/registerSuccess',function (req, res) {
-        res.render('register-success.html', {layout:false,basepath: getBasePath(req),key:''});
+        res.render('register-success.html', {layout:false,basepath: getBasePath(req),key:'', buildVersion: self.app.conf.buildVersion});
     });
     
 
@@ -238,12 +238,12 @@ Routes.prototype.init = function () {
         self.license.getLicense(apiUrl,function (status, result){
             if(status){
                 if(!result["licensed"]){
-                    res.render('license-activation.html', {layout:false,basepath: getBasePath(req),key:''});
+                    res.render('license-activation.html', {layout:false,basepath: getBasePath(req),key:'', buildVersion: self.app.conf.buildVersion});
                 }else{
                     res.redirect(self.app.conf.basepath+'/login');
                 }
             }else{
-                res.render('license-activation.html', {layout:false,basepath: getBasePath(req),key:''});
+                res.render('license-activation.html', {layout:false,basepath: getBasePath(req),key:'', buildVersion: self.app.conf.buildVersion});
             }
         });
     });
@@ -252,12 +252,12 @@ Routes.prototype.init = function () {
         self.license.getLicense(apiUrl,function (status, result){
             if(status){
                 if(!result["accountActive"]){
-                    res.render('account-activation.html', {layout:false,basepath: getBasePath(req),key:''});
+                    res.render('account-activation.html', {layout:false,basepath: getBasePath(req),key:'', buildVersion: self.app.conf.buildVersion});
                 }else{
                     res.redirect(self.app.conf.basepath+'/login');
                 }
             }else{
-                res.render('account-activation.html', {layout:false,basepath: getBasePath(req),key:''});
+                res.render('account-activation.html', {layout:false,basepath: getBasePath(req),key:'', buildVersion: self.app.conf.buildVersion});
             }
         });
     });
@@ -266,12 +266,12 @@ Routes.prototype.init = function () {
         self.license.getLicense(apiUrl,function (status, result){
             if(status){
                 if(!result["domainActive"]){
-                    res.render('domain-activation.html', {layout:false,basepath: getBasePath(req),key:''});
+                    res.render('domain-activation.html', {layout:false,basepath: getBasePath(req),key:'', buildVersion: self.app.conf.buildVersion});
                 }else{
                     res.redirect(self.app.conf.basepath+'/login');
                 }
             }else{
-                res.render('domain-activation.html', {layout:false,basepath: getBasePath(req),key:''});
+                res.render('domain-activation.html', {layout:false,basepath: getBasePath(req),key:'', buildVersion: self.app.conf.buildVersion});
             }
         });
     });
@@ -288,123 +288,123 @@ Routes.prototype.init = function () {
         self.license.applyDomainLicense(apiUrl,req,res)
     });
     self.router.get('/profile', roleCheck,function (req, res) {
-        res.render('profile.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, response : ''});
+        res.render('profile.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, response : '', buildVersion: self.app.conf.buildVersion});
     });
     self.router.get('/updateUserPassword', roleCheck,function (req, res) {
-        res.render('updateUserPassword.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, response : ''});
+        res.render('updateUserPassword.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, response : '', buildVersion: self.app.conf.buildVersion});
     });
     self.router.get('/userDomain', roleCheck,function (req, res) {
-        res.render('userDomain.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, response : ''});
+        res.render('userDomain.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, response : '', buildVersion: self.app.conf.buildVersion});
     });
     self.router.get('/domain', roleCheck, function (req, res) {
-        res.render('domain.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+        res.render('domain.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     });
     self.router.get('/home', roleCheck, function (req, res) {
-        res.render('home.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+        res.render('home.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     });
     self.router.get('/statistics-dashboard', roleCheck, function (req, res) {
-        res.render('statistics-dashboard.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+        res.render('statistics-dashboard.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     });
     self.router.get('/dashboard', roleCheck,function (req, res) {
-        res.render('dashboard.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+        res.render('dashboard.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     });
 
     self.router.get('/userevents', roleCheck, function (req, res) {
-        res.render('userevents.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+        res.render('userevents.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     });
     self.router.get('/dashboard/:id', roleCheck,function (req, res) {
-        res.render('singledashboard.html',{layout:'',basepath: getBasePath(req), dashboardId:req.params.id, domainkey:'',token:'', public:false,userRole:req.session.role});
+        res.render('singledashboard.html',{layout:'',basepath: getBasePath(req), dashboardId:req.params.id, domainkey:'',token:'', public:false,userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     });
     self.router.get('/linkeddomain', roleCheck,function (req, res) {
-        res.render('singledashboard.html',{layout:'',basepath: getBasePath(req), dashboardId:'',domainkey:'',token:'', public:false,userRole:req.session.role});
+        res.render('singledashboard.html',{layout:'',basepath: getBasePath(req), dashboardId:'',domainkey:'',token:'', public:false,userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     });
     self.router.get('/dashboard/:id/preview', roleCheck,function (req, res) {
-        res.render('singledashboard.html',{layout:'',basepath: getBasePath(req), dashboardId:req.params.id, domainkey:'',token:'', public:false,userRole:req.session.role});
+        res.render('singledashboard.html',{layout:'',basepath: getBasePath(req), dashboardId:req.params.id, domainkey:'',token:'', public:false,userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     });
     self.router.get('/public/dashboard/:domainkey/:token',function (req, res) {
-        res.render('singledashboard.html',{layout:'',basepath: getBasePath(req), dashboardId:'', domainkey:req.params.domainkey, token: req.params.token, public:true,userRole:req.session.role});
+        res.render('singledashboard.html',{layout:'',basepath: getBasePath(req), dashboardId:'', domainkey:req.params.domainkey, token: req.params.token, public:true,userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     });
     self.router.get('/public/widget/:domainkey/:token',function (req, res) {
-        res.render('singlewidget.html',{layout:'',basepath: getBasePath(req), dashboardId:'', domainkey:req.params.domainkey, token: req.params.token, public:true,userRole:req.session.role});
+        res.render('singlewidget.html',{layout:'',basepath: getBasePath(req), dashboardId:'', domainkey:req.params.domainkey, token: req.params.token, public:true,userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     });
     self.router.get('/dashboard-editor', roleCheck,function (req, res) {
-        res.render('dashboard-editor.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+        res.render('dashboard-editor.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     });
     self.router.get('/message-definition', roleCheck, function (req, res) {
-        res.render('message-definition.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+        res.render('message-definition.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     });
     self.router.get('/record-definition', roleCheck, function (req, res) {
-        res.render('record-definition.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+        res.render('record-definition.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     });
     self.router.get('/rules-engine', roleCheck, function (req, res) {
-        res.render('rules-engine.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+        res.render('rules-engine.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     });
     self.router.get('/script-console', roleCheck, function (req, res) {
-        res.render('script-console.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+        res.render('script-console.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     });
     self.router.get('/machine-learning', roleCheck, function (req, res) {
-        res.render('machine-learning.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+        res.render('machine-learning.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     });
     self.router.get('/machine-learning', roleCheck, function (req, res) {
-        res.render('machine-learning.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+        res.render('machine-learning.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     });
     self.router.get('/face-recognition', roleCheck, function (req, res) {
-        res.render('face-recognition.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+        res.render('face-recognition.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     });
     self.router.get('/block-chain', roleCheck, function (req, res) {
-        res.render('block-chain.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+        res.render('block-chain.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     });
     self.router.get('/templates', roleCheck, function (req, res) {
-        res.render('templates.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+        res.render('templates.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     });
     self.router.get('/events', roleCheck, function (req, res) {
-        res.render('events.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+        res.render('events.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     });
     self.router.get('/geofence', roleCheck, function (req, res) {
-        res.render('geofence.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+        res.render('geofence.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     });
     self.router.get('/geofence/create', roleCheck, function (req, res) {
-        res.render('geofence-create.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+        res.render('geofence-create.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     });
     self.router.get('/mobile-platform', roleCheck, function (req, res) {
-        res.render('mobile-platform.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+        res.render('mobile-platform.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     });
     self.router.get('/device-management', roleCheck, function (req, res) {
-        res.render('device-management.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+        res.render('device-management.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     });
     self.router.get('/device-models', roleCheck, function (req, res) {
-        res.render('device-models.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+        res.render('device-models.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     });
     self.router.get('/sim-provisioning', roleCheck, function (req, res) {
-        res.render('sim-provisioning.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+        res.render('sim-provisioning.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     });
 
     self.router.get('/asset-management', roleCheck, function (req, res) {
-        res.render('asset-management.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+        res.render('asset-management.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     });
     self.router.get('/firmware-management', roleCheck, function (req, res) {
-        res.render('firmware-management.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+        res.render('firmware-management.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     });
     self.router.get('/user-management', roleCheck, function (req, res) {
-        res.render('user-management.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+        res.render('user-management.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     });
     self.router.get('/token-management', roleCheck, function (req, res) {
-        res.render('token-management.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+        res.render('token-management.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     });
     self.router.get('/user-group', roleCheck, function (req, res) {
-        res.render('user-group.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+        res.render('user-group.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     });
     self.router.get('/log-console', onlyAdmin, function (req, res) {
-        res.render('log-console.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+        res.render('log-console.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     });
     self.router.get('/query-console', onlyAdmin, function (req, res) {
-        res.render('query-console.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+        res.render('query-console.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     });
     self.router.get('/mongodb', onlyAdmin, function (req, res) {
-        res.render('mongodb.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+        res.render('mongodb.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     });
     self.router.get('/mongo-console', onlyAdmin, function (req, res) {
-        res.render('mongo-console.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+        res.render('mongo-console.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     });
 
     // self.router.get('/site-noop', billingModuleCheck, function (req, res) {
@@ -415,20 +415,20 @@ Routes.prototype.init = function () {
     //SQL Calls
     self.router.get('/sql-table', onlyAdmin, function (req, res) {
         sqlCheck(req, res, function () {
-            res.render('sql-table.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+            res.render('sql-table.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
         })
 
     });
 
     self.router.get('/sql-templates', roleCheck, function (req, res) {
         sqlCheck(req, res, function () {
-            res.render('sql-templates.html', {layout:'',basepath: getBasePath(req), userRole: req.session.role});
+            res.render('sql-templates.html', {layout:'',basepath: getBasePath(req), userRole: req.session.role, buildVersion: self.app.conf.buildVersion});
         });
     });
 
     self.router.get('/sql-query-console', onlyAdmin, function (req, res) {
         sqlCheck(req, res, function () {
-            res.render('sql-query-console.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+            res.render('sql-query-console.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
         })
 
     });
@@ -437,127 +437,128 @@ Routes.prototype.init = function () {
     //DB Calls
     self.router.get('/db-table', onlyAdmin, function (req, res) {
         dbCheck(req, res, function () {
-            res.render('db-table.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+            res.render('db-table.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
         })
 
     });
 
     self.router.get('/db-templates', roleCheck, function (req, res) {
         dbCheck(req, res, function () {
-            res.render('db-templates.html', {layout:'',basepath: getBasePath(req), userRole: req.session.role});
+            res.render('db-templates.html', {layout:'',basepath: getBasePath(req), userRole: req.session.role, buildVersion: self.app.conf.buildVersion});
         });
     });
 
     self.router.get('/db-query-console', onlyAdmin, function (req, res) {
         dbCheck(req, res, function () {
-            res.render('db-query-console.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+            res.render('db-query-console.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
         })
 
     });
 
 
     self.router.get('/messages', roleCheck, function (req, res) {
-        res.render('messages.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+        res.render('messages.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     });
 
     self.router.get('/domain-audit', roleCheck, function (req, res) {
-        res.render('domain-audit.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+        res.render('domain-audit.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     });
     self.router.get('/event-logs', roleCheck, function (req, res) {
-        res.render('event-logs.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+        res.render('event-logs.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     });
 
     self.router.get('/firmware/ota-upgrade', roleCheck, function (req, res) {
-        res.render('ota-upgrade.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
-    });
-
-    self.router.get('/marketplacev4', roleCheck, function (req, res) {
-        res.render('marketplacev4.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
-    });
-
-    self.router.get('/device-tokens', roleCheck, function (req, res) {
-        res.render('device-tokens.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+        res.render('ota-upgrade.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     });
 
     self.router.get('/marketplace', roleCheck, function (req, res) {
-        res.render('marketplace.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+        res.render('marketplacev4.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     });
+
+    self.router.get('/device-tokens', roleCheck, function (req, res) {
+        res.render('device-tokens.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
+    });
+
+    // self.router.get('/marketplacev5', roleCheck, function (req, res) {
+    //     res.render('marketplace.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
+    // });
+
     self.router.get('/widgets', roleCheck, function (req, res) {
-        res.render('widgets.html',{layout:'',basepath: getBasePath(req),  query:req.query,userRole:req.session.role});
+        res.render('widgets.html',{layout:'',basepath: getBasePath(req),  query:req.query,userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     });
     self.router.get('/widget/addwidget', roleCheck, function (req, res) {
-        res.render('addwidget.html',{layout:'',basepath: getBasePath(req),  widgetId:'',userRole:req.session.role});
+        res.render('addwidget.html',{layout:'',basepath: getBasePath(req),  widgetId:'',userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     });
     self.router.get('/widget/editwidget/:id', roleCheck, function (req, res) {
-        res.render('addwidget.html',{layout:'',basepath: getBasePath(req),  widgetId:req.params.id,userRole:req.session.role});
+        res.render('addwidget.html',{layout:'',basepath: getBasePath(req),  widgetId:req.params.id,userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     });
 
    /* self.router.get('/marketplace/verticals', roleCheck, function (req, res) {
-        res.render('verticals.html',{layout:'',basepath: getBasePath(req),  query:req.query,userRole:req.session.role});
+        res.render('verticals.html',{layout:'',basepath: getBasePath(req),  query:req.query,userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     });
     self.router.get('/marketplace/addvertical', roleCheck, function (req, res) {
-        res.render('addvertical.html',{layout:'',basepath: getBasePath(req), verticalId:'', userRole:req.session.role});
+        res.render('addvertical.html',{layout:'',basepath: getBasePath(req), verticalId:'', userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     });
     self.router.get('/marketplace/addvertical/:id', roleCheck, function (req, res) {
-        res.render('addvertical.html',{layout:'',basepath: getBasePath(req),  verticalId:req.params.id,userRole:req.session.role});
+        res.render('addvertical.html',{layout:'',basepath: getBasePath(req),  verticalId:req.params.id,userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     });*/
 
     /*self.router.get('/simulator', onlyAdmin, function (req, res) {
-        res.render('simulator.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+        res.render('simulator.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     });*/
     self.router.get('/files', roleCheck, function (req, res) {
-        res.render('files.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+        res.render('files.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     });
 
     self.router.get('/documentation', roleCheck, function (req, res) {
-        res.render('api-docs.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+        res.render('api-docs.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     });
 
     self.router.get('/alexa', roleCheck, function (req, res) {
-        res.render('alexa.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+        res.render('alexa.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     });
 
     self.router.get('/code-editor', roleCheck, function (req, res) {
-        res.render('code-editor.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+        res.render('code-editor.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     });
 
 
     self.router.get('/mobileapp', roleCheck, function (req, res) {
-        res.render('navigator.html',{layout:self.mobileLayout, userObj : req.session.userObj, domainkey:req.params.domainkey, token: req.params.token, public:true,userRole:req.session.role});
+        res.render('navigator.html',{layout:self.mobileLayout, userObj : req.session.userObj, domainkey:req.params.domainkey, token: req.params.token, public:true,userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     });
 
     // Publish as website
     self.router.get('/publish/:domainkey/:token',function (req, res) {
-        res.render('publicdashboard.html',{layout:'',basepath: getBasePath(req), dashboardId:'', domainkey:req.params.domainkey, token: req.params.token, public:true,userRole:req.session.role});
+        res.render('publicdashboard.html',{layout:'',basepath: getBasePath(req), dashboardId:'', domainkey:req.params.domainkey, token: req.params.token, public:true,userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     });
 
 
     self.router.get('/callback/thirdparty/:id', function (req, res) {
-        res.render('profile.html',{layout:'',basepath: getBasePath(req), userRole:'', response : {type: req.params['id']}});
+        res.render('profile.html',{layout:'',basepath: getBasePath(req), userRole:'', response : {type: req.params['id']}, buildVersion: self.app.conf.buildVersion});
     });
 
 
     //Plugins
     self.router.get('/plugin-management', roleCheck,function (req, res) {
-        res.render('plugins.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+        res.render('plugins.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     });
 
 
     //Billing
     // self.router.get('/manage-billing', billingModuleCheck, function (req, res) {
-    //     res.render('billing-management.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+    //     res.render('billing-management.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     // });
     // self.router.get('/invoice', roleCheck, function (req, res) {
-    //     res.render('invoice.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+    //     res.render('invoice.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     // });
 
 
     self.router.get('/status',function (req, res) {
-        res.render('public-status.html',{layout:false,basepath: getBasePath(req),});
+        res.render('public-status.html',{layout:false,basepath: getBasePath(req), buildVersion: self.app.conf.buildVersion});
     });
 
     self.router.get('/configuration',function (req, res) {
-        res.render('configuration.html',{layout:false,basepath: getBasePath(req) });
+        res.render('configuration.html',{layout:false,basepath: getBasePath(req), buildVersion: self.app.conf.buildVersion });
     });
 
     self.router.get('/spec',function (req, res) {
@@ -656,17 +657,17 @@ Routes.prototype.init = function () {
     });
 
     self.router.get('/swagger-doc',function (req, res) {
-        res.render('swagger.html',{layout:false,basepath: getBasePath(req)});
+        res.render('swagger.html',{layout:false,basepath: getBasePath(req), buildVersion: self.app.conf.buildVersion});
     });
 
     self.router.get('/404', roleCheck,function (req, res) {
-        res.render('404.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role});
+        res.render('404.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     });
 
     self.router.get('/:key', function (req, res) {
         var userObj = req.cookies['user_details'];
         if(!userObj) {
-            res.render('login.html',{layout:false,basepath: getBasePath(req),key:req.params['key']});
+            res.render('login.html',{layout:false,basepath: getBasePath(req),key:req.params['key'], buildVersion: self.app.conf.buildVersion});
 
         }else{
             res.redirect(getBasePath(req)+"/404");
@@ -675,7 +676,5 @@ Routes.prototype.init = function () {
     });
 
     self.app.use(self.app.conf.basepath,self.router);
-
-
 };
 

@@ -739,7 +739,7 @@ function recentcard(rdata) {
         if(rdata[i].id === 'dsql_templates' || rdata[i].id === 'dsql_query_console'  || rdata[i].id === 'dSQL_tables' ){
             USER_OBJ.sqlAccess ?  test = 'loadMenu('+rdata[i].loadmenu +')' : test = "errorMsg('Contact Administrator!')" ;            
                     
-        }else if(rdata[i].id === 'db_templates' || rdata[i].id === 'db_query_console' || rdata[i].id === 'db_tables' ){
+        }else if(rdata[i].id === 'db-templates' || rdata[i].id === 'db-query-console' || rdata[i].id === 'db-tables' ){
             USER_OBJ.dbAccess ?  test = 'loadMenu('+rdata[i].loadmenu +')' : test = "errorMsg('Contact Administrator!')" ;  
         }else{
             test = 'loadMenu('+rdata[i].loadmenu +')'
@@ -800,7 +800,7 @@ function recentcard(rdata) {
             if(rdata[i].id === 'dsql_templates' || rdata[i].id === 'dsql_query_console'  || rdata[i].id === 'dSQL_tables' ){
                 USER_OBJ.sqlAccess ?  test = 'loadMenu('+rdata[i].loadmenu +')' : test = "errorMsg('Contact Administrator!')" ;            
                         
-            }else if(rdata[i].id === 'db_templates' || rdata[i].id === 'db_query_console' || rdata[i].id === 'db_tables' ){
+            }else if(rdata[i].id === 'db-templates' || rdata[i].id === 'db-query-console' || rdata[i].id === 'db-tables' ){
                 USER_OBJ.dbAccess ?  test = 'loadMenu('+rdata[i].loadmenu +')' : test = "errorMsg('Contact Administrator!')" ;  
             }else{
                 test = 'loadMenu('+rdata[i].loadmenu +')'
