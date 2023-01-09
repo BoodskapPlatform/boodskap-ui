@@ -202,7 +202,7 @@ function getLoginLogo() {
             if(logoPathId)
                 $(".domain_logo_m").attr('src', API_BASE_PATH + '/files/public/download/' + resultData.logoid);
             else
-                $(".domain_logo_m").attr('src', DEFAULT_LOGIN_LOGO_PATH);
+                $(".domain_logo_m").attr('src', DEFAULT_LOGO_PATH);
 
 
             $("#customHtml").val(resultData.customHtml);
@@ -766,7 +766,7 @@ function setCustomLoginDefault(){
 
     logoPathId = null;
 
-    $(".domain_logo_m").attr('src', DEFAULT_LOGIN_LOGO_PATH);
+    $(".domain_logo_m").attr('src', DEFAULT_LOGO_PATH);
 
     $('#leftBg').colorpicker('setValue',DEFAULT_LOGIN_THEME.leftBg);
     $('#leftBottomBg').colorpicker('setValue',DEFAULT_LOGIN_THEME.leftBottomBg);
