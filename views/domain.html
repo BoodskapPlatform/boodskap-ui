@@ -1,1647 +1,899 @@
-<link rel="stylesheet" href="css/bootstrap-colorpicker.min.css"/>
+<link rel="stylesheet" href="css/bootstrap-colorpicker.min.css" />
+<link rel="stylesheet" href="css/domain-settings.css" />
 
-
-<style>
-   
-    .domain-list {
-        margin: 8px;
-        padding: 15px;
-        cursor: pointer;
-        width:180px;
-        border: 2px solid #fff;
-        border-bottom: 2px solid hsl(229deg 41% 95%);
-    }
-
-    .d-menu-active { 
-        color: #ffffff;
-        border-radius: 10px;
-        border: 2px solid #2c2c78;
-        background-color:#2c2c78;
-    }
-
-    /* .domain-list:hover label{
-        color: #2d2f79;
-    }
-    .domain-list:hover small{
-        color: black;
-    } */
-
-    /* .domain-list:hover, .domain-list label:hover, .domain-list h1:hover, .domain-list small:hover {
-        color: #2d2f79 !important;
-        /* background-color: #eee; */
-    /* } */ 
-
-    .divPanel {
-        border: 1px solid #eee;
-        /* margin-top: 23px; */
-        width: 50%;
-        height: 100px;
-        margin: 12px auto;
-    }
-    .icon-save{
-        margin-right:5px;
-    }
-    .domain-list label{
-        cursor: pointer;
-    }
-
-
-    .sp-container {
-        z-index: 9999994;
-    }
-
-    .colorpicker-visible {
-        z-index: 9999994 !important;
-    }
-    .header-border {
-        border: 1px solid #cdd6e3;
-        border-top-left-radius: 13px;
-        border-top-right-radius: 13px;
-        margin: 15px;
-        background: #ffffff;
-    }
-    .page-header{
-        font-size: 20px;
-        font-weight: 600;
-        margin-left: 25px;
-       
-    }
-   
-    .breadcrumb{
-        font-family:Montserrat;
-        
-     }
-      .bskp-refresh-bg{
-   
-  margin-left: 45px !important;
-  margin-right: 15px;
- } 
- .searchBar{
-    border-radius: 10px;
-    font-size: 12px;
-    background-color: #f6f9fe;
-    font-weight: 500;
-    padding-left:35px !important
-
-
- }
- .searchBar_row{
-    margin:15px;
- }
- .searchBar_row i{
-    position:absolute;
-    top: 12px;
-    left:25px;
-
- } 
- .logo_branding{
-    font-size: 14px;
-    font-weight: 600;
- }
- .platformBody {
-    padding-left:0px;
- }
-
-.img-bg{
-    width: 30px;
-    height: 30px;
-    border-radius: 100px;
-    background-color: #ffffff;
-    border: 1px solid #2c2c78;
-}
-.upload-image{
-     width: 16px;
-    position: absolute;
-    left: 7px;
-    top: 7px;
-    cursor: pointer;
-} 
-.upload-file{
-    position:absolute;
-    right:100px;
-    top:2px;
-   
-}
-input{
-    overflow: visible;
-}
-/* .file-upload{
-     display: none;
-} */
-.btn-apply{
-    background-color: #2d2f79;
-    border-radius: 10px;
-    height: 32px;
-    border-style: none;
-    color: #ffffff;
-    padding:5px;
-    width: 80px;
-}
-.Domain_menu{
-    border:2px solid hsl(219deg 32% 90%);
-    background-color: #ffffff;
-
-    border-radius: 13px;
-    height: 465px;
-    overflow: auto;
-    width: 215px;
-    /* position: relative;
-    bottom: 50px; */
-   
-}
-
-.panel{
-    background-color: #eaf1f6 !important;
-}
-.panel-body{
-    padding: 0px !important;
-    padding-left: 8px!important;
-}
-::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-
-  }
-  label{
-    margin-bottom: 0px !important;
-    font-size: 14px;
-  }
-  .show_domain{
-    border: 2px solid #cdd6e3;
-    border-radius: 13px;
-    background-color: #ffffff;
-    height: 465px;
-    /* width: 1085px; */
-    /* margin-left:44px; */
-  }
-  .colorpicker-element .input-group-addon i {
-    display: inline-block;
-    cursor: pointer;
-    height: 16px;
-    vertical-align: text-top;
-    width: 16px;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    transform: rotate(316deg);
-  }
-  /* .container-fluid{
-    padding-left: 0px !important;
-  } */
- 
-#headerBg{
-    border-radius: 20px !important;
-}
-.input-group-addon{
-    background-color: #ffffff !important;
-}
-.form-control{
-    border-radius: 10px !important;
-    font-size: 14px !important;
-}
-.btn-proceed{
-    font-weight: 400 !important;
-    padding: 6px !important;
-    width: 140px !important;
-}
-.plan-items{
-    list-style:none;
-    border: 1px solid #f0f0f0;
-}
-.plan-items li{
-    padding: 10px;
-    text-align: center;
-    font-size: 14px;
-}
-.blue-bg{
-    background-color:#ecf4fb;
-}
-.light-bg{
-    background-color: #fdfeff;
-}
-.price_rate{
-    margin-left:30px;
-}
-.price_amount li{
-    margin-right:35px;
-    font-size:14px;
-}
-.price_amount_free{
-    border:2px solid #61ccf2;width:159px; border-top-right-radius:15px;border-bottom-left-radius:18px;
-}
-.price_amount_beginner {
-    border:2px solid #ecb030;width:159px; border-top-right-radius:15px;border-bottom-left-radius:18px;
-}
-.price_amount_basic {
-    border:2px solid #f48865;width:159px; border-top-right-radius:15px;border-bottom-left-radius:18px;
-}
-.price_amount_preferred{
-    border:2px solid #37bfb5;width:159px; border-top-right-radius:15px;border-bottom-left-radius:18px;
-}
-.price_amount_professional{
-    border:2px solid #5ea0d2;width:159px; border-top-right-radius:15px;border-bottom-left-radius:18px;
-}
-.price_color_free{
-background-color:#ecf7fb;
-
-}
-.price_color_beginner{
-background-color:#fdf9f1;
-
-}
-
-.price_color_basic{
-background-color:#fdf5f2;
-
-}
-
-.price_color_preferred{
-background-color:#f0f9f9;
-
-}
-
-.price_color_professional{
-background-color:#edf5fb;
-
-}
-
-
-.plan_type_free{
-    color: rgb(109 204 239);
-}
-.plan_type_beginner{
-    color: #ecb030;
-}
-.plan_type_basic{
-    color: #f48865;
-}
-.plan_type_preferred{
-    color: #37bfb5;
-}
-.plan_type_professional{
-    color: #5ea0d2;
-}
-.price_amount_beginner, .price_amount_basic, .price_amount_preferred, .price_amount_professional{
-    display: none;
-}
-.price_heading_beginner, .price_heading_basic, .price_heading_preferred, .price_heading_professional{
-    display: none;
-}
-#slide{
-    width:0px;height:600px;background-color:#fff;position:fixed;top:55px;right:0px; transition: 0.5s;box-shadow: 0px 0px 10px rgb(112 102 102);
-}
-#inside_slide{
-    width:0px ;height: 100px;background-color:red;position:fixed;top:0px;right:0px;;height:620px;background-color:#fff; transition: 0.5s;box-shadow: 0px 0px 10px rgb(112 102 102);z-index:9999;
-}
-.plan_benifit_box{
-    width:700px;
-    height: 80px;
-    background-color:#ecf7fb;
-    border-radius:13px;
-    z-index: 99999;
-    
-}
-.inside_price_free{
-
-    width: 120px;
-    height: 60px;
-    /* border-radius:13px; */
-    border-top-left-radius:13px;
-    border-bottom-left-radius:13px;
-    background-color:#3db7e6;
-    margin: 9px;
-}
-.inside_price_beginner{
-    width: 120px;
-    height: 60px;
-    /* border-radius:13px; */
-    border-top-left-radius:13px;
-    border-bottom-left-radius:13px;
-    background-color:#eebe56;
-    margin: 9px;
-
-
-}
-.inside_price_basic{
-    width: 120px;
-    height: 60px;
-    /* border-radius:13px; */
-    border-top-left-radius:13px;
-    border-bottom-left-radius:13px;
-    background-color:#f36e43;
-    margin: 9px;
-
-}
-.inside_price_preferred{
-    width: 120px;
-    height: 60px;
-    /* border-radius:13px; */
-    border-top-left-radius:13px;
-    border-bottom-left-radius:13px;
-    background-color:#1bb6ab;
-    margin: 9px;
-
-}
-.inside_price_professional{
-    width: 120px;
-    height: 60px;
-    /* border-radius:13px; */
-    border-top-left-radius:13px;
-    border-bottom-left-radius:13px;
-    background-color:#3086c6;
-    margin: 9px;
-
-}
-.free_benifit h6{
-color:#3db7e6;
-font-size: 14px;
-text-align: left;
-padding-left:10px;
-font-weight:600;
-}
-.beginner_benifit h6{
-    color:#eebe56;
-font-size: 14px;
-text-align: left;
-padding-left:10px;
-font-weight:600;
-
-}
-.basic_benifit h6{
-    color:#f36e43;
-font-size: 14px;
-text-align: left;
-padding-left:10px;
-font-weight:600;
-}
-.preferred_benifit h6{
- color:#1bb6ab;
-font-size: 14px;
-text-align: left;
-padding-left:10px;
-font-weight:600;
-}
-.professional_benifit h6{
- color:#3086c6;
-font-size: 14px;
-text-align: left;
-padding-left:10px;
-font-weight:600;
-}
-.plan_details_link{
-    text-decoration: underline;
-    font-weight:600;
-}
-.btn-proceed{
-    cursor: pointer;
-}
-.tick-right{
-     position: absolute;
-     top: 8px; 
-    width: 15px;
-    /* right: 75px */
-}
-@media only screen and (max-width:768px){
-    .show_domain{
-        height: auto;
-        width: auto;
-        
-    }
-}
-
-
-</style>
-
-<script>
-    $("body").removeClass('bg-white');
-
-</script>
-
-<div  class="mt-2 platformBody domainPage container-fluid">
-    
-    <div id="header_main" class=" header-border pt-3">
-        <ol class="breadcrumb pull-right">
-            <li class="breadcrumb-item"><a href="<%= basepath %>/home">Home</a></li>
-            <li class="breadcrumb-item active">Domain Configuration</li>
-            <div class="btn-group btn-group-justified pull-right bskp-btn-group-align " >
-                <a  class="btn  bskp-refresh-bg" data-click="panel-reload" title="Refresh" onclick="resetDefault()"><img class="refresh-button"  src="images/menu/refresh-button.png" alt=""></a>
-            </div>
-        </ol>
-    
-        <h1 class="page-header"><i class="icon-cogs2"></i> Domain Configuration</h1>
-    </div>
-    <!-- <div class="row searchBar_row">
-        <div class="col-lg-6">
-            <i class="fa fa-search"></i> <input   placeholder="Search here.."  class="form-control w-50 searchBar" type="search">
-
-        </div>
-        <div class="col-lg-3 mt-3">
-            <span class="logo_branding">Logo Branding &nbsp</span><span >(change platform logo)</span> <img style="background-color:white; border-radius: 20px;;" src="/images/menu/warning.png" width="18px" alt="">  
-           
-            
-        
-
-            
-
-        </div>
-        <div  class="col-lg-3">
-            <form action="javascript:void(0)" onsubmit="proceedSave()" autocomplete="off">
-             <div  class="text-right">
-                <button type="submit" onclick="openModal(1)" class="\x btn-apply">Apply</button>
+<div class="mt-2 platformBody domainPage container-fluid">
+  <div class="panel panel-inverse">
+    <div class="panel-body" style="padding-bottom:30px">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="panel panel-inverse" data-sortable-id="index-1">
+            <div class="panel-body">
+              <div id="content" class="domain-menu">
+                <div class="ds-title">
+                  <i class="icon-globe"></i> Domain Settings
                 </div>
-            
-                <div style="position: relative;bottom:38px; border-radius: 13px;background-color:#e9f1fe;border:2px dashed #ced9e8; padding: px;width: 200px; height:50px;overflow: hidden"><img src="" class="domain_logo_m" style="height:40px;"/></div> 
-             <div class="upload-file">
-                <div class="img-bg">
-                    <img class="upload-image" src="images/camera.svg" alt="">
-                 </div>
-                 <input class="file-upload"  type="file" id="logoFile" accept="image/*" onchange="uploadImage()" required/>
-
-            </div>
-        </form>
-           
-           
-
-        </div>
-
-    </div> -->
-
-    <div class="panel panel-inverse">
-        <div class="panel-body" style="padding-bottom:30px">
-            
-            <div class="row">
-                <div class="col-lg-12">
-                       <div class="panel panel-inverse" data-sortable-id="index-1">
-                           <div class="panel-body">
-                               <div class="row">
-                                   <div id="content" class="col-lg-2">
-                                       <div class="Domain_menu">
-                                            <div class="domain-list d-menu-active" onclick="openModal(13,this)">
-                                            <!-- <h1><i class="icon-dollar"></i></h1>  -->
-                                            <label>Licence Status</label><br>
-                                           <small>plan details</small>
-                                       </div>
-                                       <div class="domain-list" onclick="openModal(13,this)">
-                                           <!-- <h1><i class="icon-dollar"></i></h1>  -->
-                                           <label>Billing Overview</label><br>
-                                          <small>plan details</small>
-                                      </div>
-   
-                                       <div class="domain-list" onclick="openModal(7,this)">
-                                           <!-- <h1><i class="icon-paint-brush"></i></h1> -->
-                                           <label>Theme & Layout</label><br>
-                                           <small class>Change the website theme</small>
-                                       </div>
-                                       <div class="domain-list" onclick="openModal(2,this)">
-                                           <!-- <h1><i class="icon-envelope"></i></h1> -->
-                                           <label>Email gateway</label><br>
-                                           <small>Configure Email</small>
-                                       </div>
-                                       <div  class="domain-list" onclick="openModal(3,this)">
-                                           <!-- <h1><i class="icon-phone"></i></h1> -->
-                                           <label>Twilio gateway</label><br>
-                                           <small>Configure SMS & Voice</small>
-                                       </div>
-                                       <div class="domain-list" onclick="openModal(4,this)">
-                                           <!-- <h1><i class="icon-mobile-phone"></i></h1> -->
-                                           <label>FCM gateway</label><br>
-                                           <small>Configure push notification</small>
-                                       </div>
-                                       <div  class="domain-list" onclick="openModal(5,this)">
-                                           <!-- <h1><i class="icon-th-list"></i></h1> -->
-                                           <label>UDP Gateway</label><br>
-                                           <small>Configure UDP</small>
-                                       </div>
-                                       <div  class="domain-list" onclick="openModal(12,this)">
-                                           <!-- <h1><i class="icon-globe"></i></h1> -->
-                                           <label>Custom URL</label><br>
-                                           <small>Custom URL Re-routing</small>
-                                       </div>
-                                       <div  class="domain-list" onclick="openModal(8,this)">
-                                           <!-- <h1><i class="icon-sign-in"></i></h1> -->
-                                           <label>Custom Login</label><br>
-                                           <small>Change the Login Screen</small>
-                                       </div>
-                                       <div  class="domain-list" onclick="openModal(9,this)">
-                                           <!-- <h1><i class="icon-map-marker"></i></h1> -->
-                                           <label>Google Map</label><br>
-                                           <small>Set Google Map Api Key</small>
-                                       </div>
-                                       <div  class="domain-list" onclick="openModal(10,this)">
-                                           <!-- <h1><i class="icon-map5"></i></h1> -->
-                                           <label>Open Weather Map</label><br>
-                                           <small>Set Open Weather Map Api Key</small>
-                                       </div>
-                                       <div  class="domain-list" onclick="openModal(11,this)">
-                                           <!-- <h1><i class="icon-file-code-o"></i></h1> -->
-                                           <label>DarkSky</label><br>
-                                           <small>Set Dark Sky Api Key to lookup weather data</small>
-                                       </div>
-                                   </div>
-                                   </div>
-   
-   
-                                   <div class="col-lg-10 ">
-                                       <div id="menu" class="show_domain">
-                                       <div id="domainmodal">
-                                       <form action="javascript:void(0)" onsubmit="proceedSave()" onkeyup="Submit()" autocomplete="off">
-                                            <h4 id="blur_header" style="padding-top: 10px;padding-left:30px;"  class="modal-title"></h4>
-                                            <div class="modal-body modalBody">
-                                            </div>
-                                       </form>
-                                   </div>
-                                   </div>
-                               </div>
-                           </div>
-                       </div>
+                <div class="ds-menus">
+                  <div class="domain-list d-menu-active" onclick="openModal('license-status',this)">
+                    <label>
+                      <i class="icon-card"></i> Licence Status </label>
+                    <br>
+                    <small>Current Plan details</small>
+                  </div>
+                  <div class="domain-list" onclick="openModal('billing-overview',this)">
+                    <label>
+                      <i class="icon-dollar"></i> Billing Overview </label>
+                    <br>
+                    <small>Billing & Invoice</small>
+                  </div>
+                  <div class="domain-list" onclick="openModal('theme-layout',this)">
+                    <label>
+                      <i class="icon-paint-brush"></i> Theme & Layout </label>
+                    <br>
+                    <small class>Change the website theme</small>
+                  </div>
+                  <div class="domain-list" onclick="openModal('email-gateway',this)">
+                    <label>
+                      <i class="icon-envelope"></i> Email gateway </label>
+                    <br>
+                    <small>Configure Email</small>
+                  </div>
+                  <div class="domain-list" onclick="openModal('twilio-gateway',this)">
+                    <label>
+                      <i class="icon-phone"></i> Twilio gateway </label>
+                    <br>
+                    <small>Configure SMS & Voice</small>
+                  </div>
+                  <div class="domain-list" onclick="openModal('fcm-gateway',this)">
+                    <label>
+                      <i class="icon-mobile-phone"></i> FCM gateway </label>
+                    <br>
+                    <small>Configure push notification</small>
+                  </div>
+                  <div class="domain-list" onclick="openModal('udp-gateway',this)">
+                    <label>
+                      <i class="icon-th-list"></i> UDP Gateway </label>
+                    <br>
+                    <small>Configure UDP</small>
+                  </div>
+                  <div class="domain-list" onclick="openModal('custom-url',this)">
+                    <label>
+                      <i class="icon-globe"></i> Custom URL </label>
+                    <br>
+                    <small>Custom URL Re-routing</small>
+                  </div>
+                  <div class="domain-list" onclick="openModal('custom-login',this)">
+                    <label>
+                      <i class="icon-sign-in"></i> Custom Login </label>
+                    <br>
+                    <small>Change the Login Screen</small>
+                  </div>
+                  <div class="domain-list" onclick="openModal('google-map',this)">
+                    <label>
+                      <i class="icon-map-marker"></i> Google Map </label>
+                    <br>
+                    <small>Set Google Map Api Key</small>
+                  </div>
+                  <div class="domain-list" onclick="openModal('open-weather-map',this)">
+                    <label>
+                      <i class="icon-map5"></i> Open Weather Map </label>
+                    <br>
+                    <small>Set Open Weather Map Api Key</small>
+                  </div>
+                  <div class="domain-list" onclick="openModal('dark-sky',this)">
+                    <label>
+                      <i class="icon-file-code-o"></i> DarkSky </label>
+                    <br>
+                    <small>Set Dark Sky Api Key to lookup weather data</small>
+                  </div>
                 </div>
+              </div>
+              <div id="menu" class="show-domain">
+                <div id="domainmodal">
+                  <form action="javascript:void(0)" onsubmit="proceedSave()" onkeyup="Submit()" autocomplete="off">
+                    <h4 id="blur_header" class="modal-title ds-header-title"></h4>
+                    <div class="modal-body modalBody"></div>
+                  </form>
+                </div>
+              </div>
             </div>
-
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
 
 <script src="js/bootstrap-colorpicker.min.js"></script>
-
 <script src="controllers/domain.js"></script>
 
-<!-- <script type="text/html" id="logoBranding">
-    <div class="row">
-        <div class="col-md-6"
-             style="background-color: #4b4a49;padding: 5px;text-align: center;height:50px;overflow: hidden">
-            <img src="" class="domain_logo_m" style="height:40px;"/>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <input type="file" id="logoFile" onchange="uploadImage()" required/> <br><br>
-                <span class="grey" style="font-size:11px">
-                    <b>Criteria:</b><br>
+<!-- <script type="text/html" id="logoBranding"><div class="row"><div class="col-md-6"
+             style="background-color: #4b4a49;padding: 5px;text-align: center;height:50px;overflow: hidden"><img src="" class="domain_logo_m" style="height:40px;"/></div><div class="col-md-6"><div class="form-group"><input type="file" id="logoFile" onchange="uploadImage()" required/><br><br><span class="grey" style="font-size:11px"><b>Criteria:</b><br>
                     * Only PNG & JPG supported<br>
                     * Width should be less than 200px<br>
                     * Height should be less than 50px.
-                </span>
-            </div>
-        </div>
-    </div>
-</script> -->
+                </span></div></div></div></script> -->
+
 <script type="text/html" class="active" id="emailGateway">
-    <div class="row ml-2">
-        <div class="col-md-4">
-            <div class="form-group">
-                <label class="mb-2">Host</label>
-                <input type="text" id="hostName" class="form-control input-sm" required autocomplete="off"/>
-            </div>
-            <div class="form-group">
-                <label class="mb-2">Password <a href="javascript:void(0)" class="emailpwd" style="text-decoration: none"
-                                   title="Click here to copy Email Password"><i class="icon-copy2"></i></a></label>
-                <input type="password" id="epassword" class="form-control input-sm" required autocomplete="off"/>
-            </div>
-           
-                <div class="form-group row">
-                    <div  class="col-md-3 d-flex"> 
-                        <label>Host</label>
-                        <input class="mr-2 ml-2" type="checkbox" id="ssl" value="true"/>
-                    </div>
-                    <div class="col-md-2 d-flex">
-                        <label>TLS</label>
-                        <input class="mr-2 ml-2" type="checkbox" id="tls" value="true"/>
-                    </div>
-                    <div class="col-md-2 d-flex">
-                        <label>Debug</label>
-                        <input class="mr-2 ml-2" type="checkbox" id="debug" value="true"/>
-                    </div>
-                   
-                    
-                   
-                </div>
-            
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label class="mb-2">Port</label>
-                    <input type="number" id="portNo" class="form-control input-sm" required/>
-                </div>
-                <div class="form-group">
-                    <label class="mb-2">Primary Email</label>
-                    <input type="email" id="primaryEmail" class="form-control input-sm" required/>
-                </div>
-              
-
-            </div>
-           
-        
-        <div class="col-md-4">
-            <div class="form-group">
-                <label class="mb-2">Username</label>
-                <input type="email" id="euserName" class="form-control input-sm" required autocomplete="off"/>
-            </div>
-            <div class="form-group">
-                <label class="mb-2">Bounce Email</label>
-                <input type="email" id="bounceEmail" class="form-control input-sm" required/>
-            </div>
-             <div class="text-right mt-5">
-             <button type="submit" class="btn btn-proceed btnModal"><i class="icon-save"></i> Save</button> 
- </div> 
-           
-           
-          
+  <div class="row ml-2">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label class="mb-2">Host</label>
+        <input type="text" id="hostName" class="form-control input-sm" required autocomplete="off" />
+      </div>
+      <div class="form-group">
+        <label class="mb-2">Password <a href="javascript:void(0)" class="emailpwd" style="text-decoration: none" title="Click here to copy Email Password">
+            <i class="icon-copy2"></i>
+          </a>
+        </label>
+        <input type="password" id="epassword" class="form-control input-sm" required autocomplete="off" />
+      </div>
+      <div class="form-group row">
+        <div class="col-md-3 d-flex">
+          <label>Host</label>
+          <input class="mr-2 ml-2" type="checkbox" id="ssl" value="true" />
         </div>
-       
+        <div class="col-md-2 d-flex">
+          <label>TLS</label>
+          <input class="mr-2 ml-2" type="checkbox" id="tls" value="true" />
+        </div>
+        <div class="col-md-2 d-flex">
+          <label>Debug</label>
+          <input class="mr-2 ml-2" type="checkbox" id="debug" value="true" />
+        </div>
+      </div>
     </div>
-   
+    <div class="col-md-4">
+      <div class="form-group">
+        <label class="mb-2">Port</label>
+        <input type="number" id="portNo" class="form-control input-sm" required />
+      </div>
+      <div class="form-group">
+        <label class="mb-2">Primary Email</label>
+        <input type="email" id="primaryEmail" class="form-control input-sm" required />
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label class="mb-2">Username</label>
+        <input type="email" id="euserName" class="form-control input-sm" required autocomplete="off" />
+      </div>
+      <div class="form-group">
+        <label class="mb-2">Bounce Email</label>
+        <input type="email" id="bounceEmail" class="form-control input-sm" required />
+      </div>
+      <div class="text-right mt-5">
+        <button type="submit" class="btn btn-proceed btnModal">
+          <i class="icon-save"></i> Save </button>
+      </div>
+    </div>
+  </div>
 </script>
+
 <script type="text/html" id="twilioGateway">
-    <div class="row ml-2">
-        <div class="col-md-4">
-            <div class="form-group">
-                <label  class="mb-2">SID</label>
-                <input type="text" id="sid" class="form-control input-sm" required autocomplete="off"/>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <label  class="mb-2">Token <a href="javascript:void(0)" style="color:#333"
-                                onclick="toggleBox('token',this)" class="btn btn-icon btn-xs"><i class="icon-eye4"></i></a>
-                    <a href="javascript:void(0)" class="tokenKey" style="text-decoration: none"
-                       title="Click here to copy Twilio Token"><i class="icon-copy2"></i></a>
-                </label>
-                <input type="password" id="token" class="form-control input-sm" required autocomplete="off"/>
-            </div>
-        </div>
-        <div class="col-md-4">
-         
-                <div class="form-group">
-                    <label  class="mb-2">Primary Phone</label>
-                    <input type="text" id="primaryPhone" class="form-control input-sm" required/>
-                </div>
-               
-         
-
-        </div>
+  <div class="row ml-2">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label class="mb-2">SID</label>
+        <input type="text" id="sid" class="form-control input-sm" required autocomplete="off" />
+      </div>
     </div>
-    <div class="row ml-2">
-       
-        <div class="col-md-12">
-            <div class="form-group d-flex">
-                <label class="mr-2">Debug</label> <br>
-                <input type="checkbox" id="debug" value="true"/>
-            </div>
-            <div class="text-right">
-                <button type="submit" class="btn btn-proceed btnModal"><i class="icon-save"></i> Save</button> 
-    </div> 
-    
-        </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label class="mb-2">Token <a href="javascript:void(0)" style="color:#333" onclick="toggleBox('token',this)" class="btn btn-icon btn-xs">
+            <i class="icon-eye4"></i>
+          </a>
+          <a href="javascript:void(0)" class="tokenKey" style="text-decoration: none" title="Click here to copy Twilio Token">
+            <i class="icon-copy2"></i>
+          </a>
+        </label>
+        <input type="password" id="token" class="form-control input-sm" required autocomplete="off" />
+      </div>
     </div>
-    
-       
-      
+    <div class="col-md-4">
+      <div class="form-group">
+        <label class="mb-2">Primary Phone</label>
+        <input type="text" id="primaryPhone" class="form-control input-sm" required />
+      </div>
+    </div>
+  </div>
+  <div class="row ml-2">
+    <div class="col-md-12">
+      <div class="form-group d-flex">
+        <label class="mr-2">Debug</label>
+        <br>
+        <input type="checkbox" id="debug" value="true" />
+      </div>
+      <div class="text-right">
+        <button type="submit" class="btn btn-proceed btnModal">
+          <i class="icon-save"></i> Save </button>
+      </div>
+    </div>
+  </div>
 </script>
+
 <script type="text/html" id="fcmGateway">
-    <div class="row ml-2">
-        <div class="col-md-4">
-            <div class="form-group">
-                <label  class="mb-2">API Key <a href="javascript:void(0)" style="color:#333"
-                                  onclick="toggleBox('apiKey',this)" class="btn btn-icon btn-xs"><i
-                        class="icon-eye4"></i></a>
-                    <a href="javascript:void(0)" class="fcmKey" style="text-decoration: none"
-                       title="Click here to copy FCM API Key"><i class="icon-copy2"></i></a>
-                </label>
-                <input type="password" id="apiKey" class="form-control input-sm" required autocomplete="off"/>
-            </div>
-        </div>
-        <div class="col-md-12">
-            <div class="form-group d-flex" >
-                <label class="mr-2">Debug</label> <br>
-                <input type="checkbox" id="debug" value="true"/>
-            </div>
-            <div class="text-right">
-                <button type="submit" class="btn btn-proceed btnModal"><i class="icon-save"></i> Save</button> 
-    </div> 
-    
-        </div>
+  <div class="row ml-2">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label class="mb-2">API Key <a href="javascript:void(0)" style="color:#333" onclick="toggleBox('apiKey',this)" class="btn btn-icon btn-xs">
+            <i class="icon-eye4"></i>
+          </a>
+          <a href="javascript:void(0)" class="fcmKey" style="text-decoration: none" title="Click here to copy FCM API Key">
+            <i class="icon-copy2"></i>
+          </a>
+        </label>
+        <input type="password" id="apiKey" class="form-control input-sm" required autocomplete="off" />
+      </div>
     </div>
+    <div class="col-md-12">
+      <div class="form-group d-flex">
+        <label class="mr-2">Debug</label>
+        <br>
+        <input type="checkbox" id="debug" value="true" />
+      </div>
+      <div class="text-right">
+        <button type="submit" class="btn btn-proceed btnModal">
+          <i class="icon-save"></i> Save </button>
+      </div>
+    </div>
+  </div>
 </script>
+
 <script type="text/html" id="udpGateway">
-    <div class="row ml-2">
-        <div class="col-md-4">
-            <div class="form-group">
-                <label class="mb-2">Host</label>
-                <input type="number" id="portNo" class="form-control input-sm" readonly required/>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <label  class="mb-2">Port</label>
-                <input type="number" id="threads" class="form-control input-sm" readonly required/>
-            </div>
-        </div>
+  <div class="row ml-2">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label class="mb-2">Host</label>
+        <input type="number" id="portNo" class="form-control input-sm" readonly required />
+      </div>
     </div>
-    <div class="row ml-2">
-        <div class="col-md-8">
-            <div class="form-group">
-                <label class="mb-2">Decorder Code</label>
-                <small>(Groovy Code)</small>
-                <textarea id="decoderCode" class="form-control" style="height: 200px;"></textarea>
-            </div>
-            <div class="text-right">
-                <button type="submit" class="btn btn-proceed btnModal"><i class="icon-save"></i> Save</button> 
-    </div> 
-        </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label class="mb-2">Port</label>
+        <input type="number" id="threads" class="form-control input-sm" readonly required />
+      </div>
     </div>
-    
+  </div>
+  <div class="row ml-2">
+    <div class="col-md-8">
+      <div class="form-group">
+        <label class="mb-2">Decorder Code</label>
+        <small>(Groovy Code)</small>
+        <textarea id="decoderCode" class="form-control" style="height: 200px;"></textarea>
+      </div>
+      <div class="text-right">
+        <button type="submit" class="btn btn-proceed btnModal">
+          <i class="icon-save"></i> Save </button>
+      </div>
+    </div>
+  </div>
 </script>
-<script type="text/html" id="adsAuthentication"></script>
-<script type="text/html" id="platformTheme">
-    <div class="row">
-        <div class="col-md-3">
-            <form action="javascript:void(0)" onsubmit="proceedSave()" autocomplete="off">
-            <label class="ml-3 mb-2"  >logo Branding</label>
-            <div style=" border-radius: 13px;border:2px dashed #ced9e8;width: 240px; height:50px;overflow: hidden"><img src="" class="domain_logo_m" style="height:40px;"/></div> 
-           
-               <!-- <div class="img-bg">
-                   <img class="upload-image" src="images/camera.svg" alt="">
-                </div> -->
 
-          
-
+<script type="text/html" id="themeAndLayout">
+  <div class="row">
+    <div class="col-md-3">
+      <form action="javascript:void(0)" onsubmit="proceedSave()" autocomplete="off">
+        <label class="ml-3 mb-2">logo Branding</label>
+        <div style=" border-radius: 13px;border:2px dashed #ced9e8;width: 240px; height:50px;overflow: hidden">
+          <img src="" class="domain_logo_m" style="height:40px;" />
         </div>
-        <div class="col-2 mt-4">
-            <input class="file-upload mt-2 mb-2"  type="file" id="logoFile" accept="image/*" onchange="uploadImage()"/>
-
-           
-
-        </div>
-        <!-- <div class="col-2 mt-4">
-            <div  class="text-right">
-                <button type="submit" class="\x btn-apply">Apply</button>
-                </div>
-            </form>
-        </div>
+        <!-- <div class="img-bg"><img class="upload-image" src="images/camera.svg" alt=""></div> -->
+    </div>
+    <div class="col-2 mt-4">
+      <input class="file-upload mt-2 mb-2" type="file" id="logoFile" accept="image/*" onchange="uploadImage()" />
+    </div>
+    <!-- <div class="col-2 mt-4"><div  class="text-right"><button type="submit" class="\x btn-apply">Apply</button></div></form></div>
         -->
-
+  </div>
+  <div class="row mt-2">
+    <div class="col-md-3">
+      <div class="form-group">
+        <label class=" mb-2">Header Background</label>
+        <br>
+        <!--<input type="text" id="headerBg"/>-->
+        <div id="headerBg" class="input-group colorpicker-component">
+          <input type="text" value="" class="form-control" />
+          <span class="input-group-addon">
+            <i></i>
+          </span>
+          <!-- <img  src="images/edit_icon.svg" alt=""> -->
+        </div>
+      </div>
+      <div class="form-group">
+        <label class=" mb-2">Sub Header Background</label>
+        <br>
+        <!--<input type="text" id="subHeaderBg"/>-->
+        <div id="subHeaderBg" class="input-group colorpicker-component">
+          <input type="text" value="" class="form-control" />
+          <span class="input-group-addon">
+            <i></i>
+          </span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class=" mb-2">Header & Sub Header Text Color</label>
+        <br>
+        <!--<input type="text" id="textColor"/>-->
+        <div id="textColor" class="input-group colorpicker-component">
+          <input type="text" value="" class="form-control" />
+          <span class="input-group-addon">
+            <i></i>
+          </span>
+        </div>
+      </div>
+      <div class=" text-left form-group">
+        <button style="font-size:14px;height:32px;" class="btn  btn-proceed text-white  btn-sm" type="button" onclick="resetDefault()">Reset to Default</button>
+      </div>
     </div>
-
-    <div class="row mt-2">
-        <div class="col-md-3">
-            <div class="form-group">
-                <label class=" mb-2"  >Header Background</label> <br>
-                <!--<input type="text" id="headerBg"/>-->
-
-                <div id="headerBg" class="input-group colorpicker-component">
-                    
-
-                    <input type="text" value="" class="form-control"/>
-                    <span class="input-group-addon"><i></i></span>
-                     <!-- <img  src="images/edit_icon.svg" alt=""> -->
-                </div>
-
-            </div>
-            <div class="form-group">
-                <label class=" mb-2">Sub Header Background</label><br>
-                <!--<input type="text" id="subHeaderBg"/>-->
-
-                <div id="subHeaderBg" class="input-group colorpicker-component">
-                   
-
-                    <input type="text" value="" class="form-control"/>
-                    <span class="input-group-addon"><i></i></span>
-                </div>
-            </div>
-            <div  class="form-group">
-                <label class=" mb-2">Header & Sub Header Text Color</label> <br>
-                <!--<input type="text" id="textColor"/>-->
-
-                <div id="textColor" class="input-group colorpicker-component">
-                   
-
-                    <input type="text" value="" class="form-control"/>
-                    <span class="input-group-addon"><i></i></span>
-                </div>
-            </div>
-            <div class=" text-left form-group">
-                <button style="font-size:14px;height:32px;" class="btn  btn-proceed text-white  btn-sm" type="button" onclick="resetDefault()">Reset to Default</button>
-            </div>
+    <div class="col-md-3">
+      <div class="" style="border-right: 2px solid hsl(208deg 42% 94%);height: 270px;padding-left: 10px;padding-right: 10px;">
+        <div class="form-group">
+          <label class=" mb-2">Body Background</label>
+          <br>
+          <!--<input type="text" id="bodyBg"/>-->
+          <div id="bodyBg" class="input-group colorpicker-component">
+            <input type="text" value="" class="form-control" />
+            <span class="input-group-addon">
+              <i></i>
+            </span>
+          </div>
         </div>
-
-        <div  class="col-md-3">
-            <div class=""  style="border-right: 2px solid hsl(208deg 42% 94%);height: 270px;padding-left: 10px;padding-right: 10px;" >
-            <div class="form-group">
-                <label class=" mb-2">Body Background</label> <br>
-                <!--<input type="text" id="bodyBg"/>-->
-
-                <div id="bodyBg" class="input-group colorpicker-component">
-                 
-                    <input type="text" value="" class="form-control"/>
-                    <span class="input-group-addon"><i></i></span>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class=" mb-2">Panel Header Background</label><br>
-                <!--<input type="text" id="panelHeaderBg"/>-->
-
-                <div id="panelHeaderBg" class="input-group colorpicker-component">
-                    <input type="text" value="" class="form-control"/>
-                    <span class="input-group-addon"><i></i></span>
-
-                </div>
-            </div>
-           
-            <div class="form-group">
-                <label class=" mb-2">Layout</label><br>
-                <select class="form-control input-sm" id="bodyLayout" onchange="changeLayout(this.value)">
-                    <option value="container">Boxed</option>
-                    <option value="container-fluid">Full Width</option>
-                </select>
-            </div>
-            <div class="text-right">
-                <button type="submit" class="btn btn-proceed btnModal"><i class="icon-save"></i> Save</button> 
-            </div>
+        <div class="form-group">
+          <label class=" mb-2">Panel Header Background</label>
+          <br>
+          <!--<input type="text" id="panelHeaderBg"/>-->
+          <div id="panelHeaderBg" class="input-group colorpicker-component">
+            <input type="text" value="" class="form-control" />
+            <span class="input-group-addon">
+              <i></i>
+            </span>
+          </div>
         </div>
-
+        <div class="form-group">
+          <label class=" mb-2">Layout</label>
+          <br>
+          <select class="form-control input-sm" id="bodyLayout" onchange="changeLayout(this.value)">
+            <option value="container">Boxed</option>
+            <option value="container-fluid">Full Width</option>
+          </select>
         </div>
-
-
-          
-        <div class="col-md-6">
-            <div class="row">
-                <div class="form-group">
-                    <button style="border-radius:10px;" class="btn btn-default btn-sm" type="button" onclick="previewTheme()">Preview</button>
-                </div>
-
-                <div class="col-lg-12 bodyBg" style="border:1px solid hsl(212deg 25% 90%);height:215px;padding-top: 13px;">
-                    <div style="margin-bottom:8px;" class="headerBg">Header</div>
-                    <div style="border-top-left-radius: 10px;border-top-right-radius: 10px;height:35px;" class="subHeaderBg">Sub Header</div>
-                    <div class="divPanel" style="background-color: #fff;border-radius:10px;">
-                        <div style="height:35px;border-radius: 10px;color:black;" class="panelHeaderBg">Panel Header</div>
-                    </div>
-                </div>
-               
-            </div>
+        <div class="text-right">
+          <button type="submit" class="btn btn-proceed btnModal">
+            <i class="icon-save"></i> Save </button>
         </div>
+      </div>
     </div>
+    <div class="col-md-6">
+      <div class="row">
+        <div class="form-group">
+          <button style="border-radius:10px;" class="btn btn-default btn-sm" type="button" onclick="previewTheme()">Preview</button>
+        </div>
+        <div class="col-lg-12 bodyBg" style="border:1px solid hsl(212deg 25% 90%);height:215px;padding-top: 13px;">
+          <div style="margin-bottom:8px;" class="headerBg">Header</div>
+          <div style="border-top-left-radius: 10px;border-top-right-radius: 10px;height:35px;" class="subHeaderBg">Sub Header</div>
+          <div class="divPanel" style="background-color: #fff;border-radius:10px;">
+            <div style="height:35px;border-radius: 10px;color:black;" class="panelHeaderBg">Panel Header</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </script>
-<script type="text/html" id="loginScreen">
-    <div class="row ml-2">
-        <div class="col-md-3">
-            <div 
-            style="background-color: #fff;padding: 5px;text-align: center;height:50px;overflow: hidden;border: 2px dashed  #ced9e8;border-radius:13px;margin-bottom:8px;">
-           <img  src="" class="domain_logo_m pb-2" style="height:50px;"/>
-       </div>
-           
-            <div class="form-group">
-                <label class="mb-2">Left Side Background Color</label> <br>
-                <!--<input type="text" id="leftBg" class="form-control input-sm"/>-->
 
-                <div id="leftBg" class="input-group colorpicker-component">
-                    <input type="text" value="" class="form-control"/>
-                    <span class="input-group-addon"><i></i></span>
-                </div>
-
-            </div>
-            <div class="form-group">
-                <label class="mb-2">Left Side Bottom Background Color</label> <br>
-                <!--<input type="text" id="leftBottomBg" class="form-control input-sm"/>-->
-
-                <div id="leftBottomBg" class="input-group colorpicker-component">
-                    <input type="text" value="" class="form-control"/>
-                    <span class="input-group-addon"><i></i></span>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="mb-2">Text Highlight Color</label> <br>
-                <!--<input type="text" id="textColor" class="form-control input-sm"/>-->
-
-                <div id="textColor" class="input-group colorpicker-component">
-                    <input type="text" value="" class="form-control"/>
-                    <span class="input-group-addon"><i></i></span>
-                </div>
-            </div>
-            <div class=" text-left form-group">
-                <button style="font-size:14px;height:32px;" class="btn  btn-proceed text-white  btn-sm" type="button" onclick="setCustomLoginDefault()">Reset to Default</button>
-            </div>
-           
+<script type="text/html" id="loginUITheme">
+  <div class="row ml-2">
+    <div class="col-md-3">
+      <div style="background-color: #fff;padding: 5px;text-align: center;height:50px;overflow: hidden;border: 2px dashed  #ced9e8;border-radius:13px;margin-bottom:8px;">
+        <img src="" class="domain_logo_m pb-2" style="height:50px;" />
+      </div>
+      <div class="form-group">
+        <label class="mb-2">Left Side Background Color</label>
+        <br>
+        <!--<input type="text" id="leftBg" class="form-control input-sm"/>-->
+        <div id="leftBg" class="input-group colorpicker-component">
+          <input type="text" value="" class="form-control" />
+          <span class="input-group-addon">
+            <i></i>
+          </span>
         </div>
-           
-
-            <div class="col-md-3">
-                <div class=""  style="border-right: 2px solid hsl(208deg 42% 94%);height: 320px;padding-left: 10px;padding-right: 10px;" >
-                <div class="form-group mt-2">
-                    <input type="file" id="logoFile" onchange="uploadImage()"/> <br><br>
-                    <!-- <span class="grey" style="font-size:11px">
-                        <b>Criteria:</b><br>
+      </div>
+      <div class="form-group">
+        <label class="mb-2">Left Side Bottom Background Color</label>
+        <br>
+        <!--<input type="text" id="leftBottomBg" class="form-control input-sm"/>-->
+        <div id="leftBottomBg" class="input-group colorpicker-component">
+          <input type="text" value="" class="form-control" />
+          <span class="input-group-addon">
+            <i></i>
+          </span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="mb-2">Text Highlight Color</label>
+        <br>
+        <!--<input type="text" id="textColor" class="form-control input-sm"/>-->
+        <div id="textColor" class="input-group colorpicker-component">
+          <input type="text" value="" class="form-control" />
+          <span class="input-group-addon">
+            <i></i>
+          </span>
+        </div>
+      </div>
+      <div class=" text-left form-group">
+        <button style="font-size:14px;height:32px;" class="btn  btn-proceed text-white  btn-sm" type="button" onclick="setCustomLoginDefault()">Reset to Default</button>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="" style="border-right: 2px solid hsl(208deg 42% 94%);height: 320px;padding-left: 10px;padding-right: 10px;">
+        <div class="form-group mt-2">
+          <input type="file" id="logoFile" onchange="uploadImage()" />
+          <br>
+          <br>
+          <!-- <span class="grey" style="font-size:11px"><b>Criteria:</b><br>
                         * Only PNG & JPG supported<br>
-                        * Width should be less than 200px<br>
-                    </span> -->
-                </div>
-              
-               
-
-                <div class="form-group">
-                    <label class="mb-2">Button Color</label> <br>
-                    <!--<input type="text" id="buttonColor" class="form-control input-sm"/>-->
-    
-                    <div id="buttonColor" class="input-group colorpicker-component">
-                        <input type="text" value="" class="form-control"/>
-                        <span class="input-group-addon"><i></i></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="mb-2">Title Text</label> <br>
-                    <input type="text" id="titleName" class="form-control input-sm"/>
-                </div>
-                <div class="form-group">
-                    <label class="mb-2">Slogan Text</label> <br>
-                    <input type="text" id="sloganText" class="form-control input-sm"/>
-                </div>
-                <div style="margin-top:30px;" class="text-right ">
-                    <button type="submit" class="btn btn-proceed btnModal"><i class="icon-save"></i> Save</button> 
-                </div>
-            </div>
-
-            </div>
-
-       
-       
-           
-        
-        <div class="col-md-6">
-            <div class="form-group">
-                <label class="mb-2">HTML Code</label> <br>
-                <textarea id="customHtml" class="form-control input-sm" style="height: 200px"></textarea>
-                <small>Note: write html code with inline styles</small>
-            </div>
-            <p>Login URL: <a href="javascript:void(0)" class="domainURL"></a> <a href="javascript:void(0)"
-                class="redirectURL"
-                style="text-decoration: none"
-                title="Click here to copy URL Address"><i class="icon-copy2"></i></a></p>
-                <div>
-              
-                 </div>
-           
+                        * Width should be less than 200px<br></span> -->
         </div>
+        <div class="form-group">
+          <label class="mb-2">Button Color</label>
+          <br>
+          <!--<input type="text" id="buttonColor" class="form-control input-sm"/>-->
+          <div id="buttonColor" class="input-group colorpicker-component">
+            <input type="text" value="" class="form-control" />
+            <span class="input-group-addon">
+              <i></i>
+            </span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="mb-2">Title Text</label>
+          <br>
+          <input type="text" id="titleName" class="form-control input-sm" />
+        </div>
+        <div class="form-group">
+          <label class="mb-2">Slogan Text</label>
+          <br>
+          <input type="text" id="sloganText" class="form-control input-sm" />
+        </div>
+        <div style="margin-top:30px;" class="text-right ">
+          <button type="submit" class="btn btn-proceed btnModal">
+            <i class="icon-save"></i> Save </button>
+        </div>
+      </div>
     </div>
-  
-    
-
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="mb-2">HTML Code</label>
+        <br>
+        <textarea id="customHtml" class="form-control input-sm" style="height: 200px"></textarea>
+        <small>Note: write html code with inline styles</small>
+      </div>
+      <p>Login URL: <a href="javascript:void(0)" class="domainURL"></a>
+        <a href="javascript:void(0)" class="redirectURL" style="text-decoration: none" title="Click here to copy URL Address">
+          <i class="icon-copy2"></i>
+        </a>
+      </p>
+      <div></div>
+    </div>
+  </div>
 </script>
+
 <script type="text/html" id="googleMap">
-    <div class="row ml-2">
-        <div class="col-md-4">
-            <div class="form-group">
-                <label  class="mb-2">API Key <a href="javascript:void(0)" style="color:#333"
-                                  onclick="toggleBox('apiKey',this)" class="btn btn-icon btn-xs"><i
-                        class="icon-eye4"></i></a>
-                    <a href="javascript:void(0)" class="apiKey" style="text-decoration: none"
-                       title="Click here to copy Google API Key"><i class="icon-copy2"></i></a>
-                </label>
-                <input type="password" id="apiKey" class="form-control input-sm" required autocomplete="off"/>
-                <div class="text-right mt-4">
-                    <button type="submit" class="btn btn-proceed btnModal"><i class="icon-save"></i> Save</button> 
-                </div>
-            </div>
+  <div class="row ml-2">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label class="mb-2">API Key <a href="javascript:void(0)" style="color:#333" onclick="toggleBox('apiKey',this)" class="btn btn-icon btn-xs">
+            <i class="icon-eye4"></i>
+          </a>
+          <a href="javascript:void(0)" class="apiKey" style="text-decoration: none" title="Click here to copy Google API Key">
+            <i class="icon-copy2"></i>
+          </a>
+        </label>
+        <input type="password" id="apiKey" class="form-control input-sm" required autocomplete="off" />
+        <div class="text-right mt-4">
+          <button type="submit" class="btn btn-proceed btnModal">
+            <i class="icon-save"></i> Save </button>
         </div>
+      </div>
     </div>
+  </div>
 </script>
+
 <script type="text/html" id="openWeatherMap">
-    <div class="row ml-2">
-        <div class="col-md-4">
-            <div class="form-group">
-                <label class="mb-2">API Key <a href="javascript:void(0)" style="color:#333"
-                                  onclick="toggleBox('apiKey',this)" class="btn btn-icon btn-xs"><i
-                        class="icon-eye4"></i></a>
-                    <a href="javascript:void(0)" class="apiKey" style="text-decoration: none"
-                       title="Click here to copy Open Weather Map API Key"><i class="icon-copy2"></i></a>
-                </label>
-                <input type="password" id="apiKey" class="form-control input-sm" required autocomplete="off"/>
-            </div>
-            <div class="text-right mt-4">
-                <button type="submit" class="btn btn-proceed btnModal"><i class="icon-save"></i> Save</button> 
-            </div>
-        </div>
+  <div class="row ml-2">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label class="mb-2">API Key <a href="javascript:void(0)" style="color:#333" onclick="toggleBox('apiKey',this)" class="btn btn-icon btn-xs">
+            <i class="icon-eye4"></i>
+          </a>
+          <a href="javascript:void(0)" class="apiKey" style="text-decoration: none" title="Click here to copy Open Weather Map API Key">
+            <i class="icon-copy2"></i>
+          </a>
+        </label>
+        <input type="password" id="apiKey" class="form-control input-sm" required autocomplete="off" />
+      </div>
+      <div class="text-right mt-4">
+        <button type="submit" class="btn btn-proceed btnModal">
+          <i class="icon-save"></i> Save </button>
+      </div>
     </div>
+  </div>
 </script>
 
 <script type="text/html" id="darkSkyMap">
-    <div class="row ml-2">
-        <div class="col-md-4">
-            <div class="form-group">
-                <label class="mb-2">API Key <a href="javascript:void(0)" style="color:#333"
-                                  onclick="toggleBox('apiKey',this)" class="btn btn-icon btn-xs"><i
-                        class="icon-eye4"></i></a>
-                    <a href="javascript:void(0)" class="apiKey" style="text-decoration: none"
-                       title="Click here to copy Dark Sky API Key"><i class="icon-copy2"></i></a>
-                </label>
-                <input type="password" id="apiKey" class="form-control input-sm" required autocomplete="off"/>
-            </div>
-            <div class="text-right mt-4">
-                <button type="submit" class="btn btn-proceed btnModal"><i class="icon-save"></i> Save</button> 
-            </div>
-        </div>
+  <div class="row ml-2">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label class="mb-2">API Key <a href="javascript:void(0)" style="color:#333" onclick="toggleBox('apiKey',this)" class="btn btn-icon btn-xs">
+            <i class="icon-eye4"></i>
+          </a>
+          <a href="javascript:void(0)" class="apiKey" style="text-decoration: none" title="Click here to copy Dark Sky API Key">
+            <i class="icon-copy2"></i>
+          </a>
+        </label>
+        <input type="password" id="apiKey" class="form-control input-sm" required autocomplete="off" />
+      </div>
+      <div class="text-right mt-4">
+        <button type="submit" class="btn btn-proceed btnModal">
+          <i class="icon-save"></i> Save </button>
+      </div>
     </div>
+  </div>
 </script>
 
 <script type="text/html" id="customUrl">
-    <div class="row ml-2">
-        <div class="col-md-3">
-            <div class="form-group">
-                <label  class="mb-2">Point this URL</label>
-                <p style="border: 1px solid #cdd6e3;border-radius:10px ;padding: 6px;height:35px;"><span  class="domainURL"></span> <a href="javascript:void(0)" class="redirectURL"
-                                                      style="text-decoration: none"
-                                                      title="Click here to copy URL Address"><i class="icon-copy2"></i></a>
-                </p>
-            </div>
-        </div>
-        <div class="col-md-2">
-            <div class="form-group">
-                <label  class="mb-2">Protocol</label>
-                <select class="form-control input-sm" id="protocol">
-                    <option value="https">https://</option>
-                    <option value="http">http://</option>
-                </select>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <label class="mb-2">URL Address</label>
-            <input type="text" id="urlAddress" class="form-control input-sm" required autocomplete="off"/>
-            <div class="text-right mt-4">
-                <button type="submit" class="btn btn-proceed btnModal"><i class="icon-save"></i> Save</button> 
-            </div>
-        </div>
-       
-
+  <div class="row ml-2">
+    <div class="col-md-3">
+      <div class="form-group">
+        <label class="mb-2">Point this URL</label>
+        <p style="border: 1px solid #cdd6e3;border-radius:10px ;padding: 6px;height:35px;">
+          <span class="domainURL"></span>
+          <a href="javascript:void(0)" class="redirectURL" style="text-decoration: none" title="Click here to copy URL Address">
+            <i class="icon-copy2"></i>
+          </a>
+        </p>
+      </div>
     </div>
-   
+    <div class="col-md-2">
+      <div class="form-group">
+        <label class="mb-2">Protocol</label>
+        <select class="form-control input-sm" id="protocol">
+          <option value="https">https://</option>
+          <option value="http">http://</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <label class="mb-2">URL Address</label>
+      <input type="text" id="urlAddress" class="form-control input-sm" required autocomplete="off" />
+      <div class="text-right mt-4">
+        <button type="submit" class="btn btn-proceed btnModal">
+          <i class="icon-save"></i> Save </button>
+      </div>
+    </div>
+  </div>
 </script>
 
-<script type="text/html" id="Billing">
-    <div class="row">
-
-        <div class="col-lg-5 text-right pr-3">
-
+<script type="text/html" id="billingOverview">
+  <div class="row">
+    <div class="col-lg-5 text-right pr-3"></div>
+    <div class="price_rate col-ld-3 text-center">
+      <div class="price_heading_free">
+        <h4 class="mb-2 plan_free">Free</h4>
+        <div class="" style="width: 150px;color: #fff;font-size:18px; height:40px;background-color:#6dccef;padding:10px; border-top-right-radius:18px;border-bottom-left-radius:18px;text-align:center;">
+          <span>$0</span>
         </div>
-       
-        <div class="price_rate col-ld-3 text-center">
-            <div class="price_heading_free">
-                <h4 class="mb-2 plan_free">Free</h4>
-                <div class="" style="width: 150px;color: #fff;font-size:18px; height:40px;background-color:#6dccef;padding:10px; border-top-right-radius:18px;border-bottom-left-radius:18px;text-align:center;">
-     <span>$0</span>
-                </div> 
-
-            </div>
-            <div class="price_heading_beginner" >
-                <h4  class="mb-2 plan_type_beginner">Beginner</h4>
-                <div class="" style="width: 150px;color: #fff;font-size:18px; height:40px;background-color:#ecb030;padding:10px; border-top-right-radius:18px;border-bottom-left-radius:18px;text-align:center;">
-     <span>$10</span>
-                </div>
-            </div>
-           <div class="price_heading_basic">
-            <h4 class="plan_type_basic" >Basic</h4>
-            <div class="" style="width: 150px;color: #fff;font-size:18px; height:40px;background-color:#f48865;padding:10px; border-top-right-radius:18px;border-bottom-left-radius:18px;text-align:center;">
- <span>$10</span>
-            </div>
-           </div>
-           <div class="price_heading_preferred">
-            <h4 class="plan_type_preferred" >Preferred</h4>
-            <div class="" style="width: 150px;color: #fff;font-size:18px; height:40px;background-color:#37bfb5;padding:10px; border-top-right-radius:18px;border-bottom-left-radius:18px;text-align:center;">
- <span>$10</span>
-            </div>
-
-           </div>
-             <div class="price_heading_professional">
-                <h4 class="plan_type_professional" >Professional</h4>
-                <div  style="width: 150px;color: #fff;font-size:18px; height:40px;background-color:#5ea0d2;padding:10px; border-top-right-radius:18px;border-bottom-left-radius:18px;text-align:center;">
-     <span>$10</span>
-                </div> 
-             </div>
-            
-            
-
+      </div>
+      <div class="price_heading_beginner">
+        <h4 class="mb-2 plan_type_beginner">Beginner</h4>
+        <div class="" style="width: 150px;color: #fff;font-size:18px; height:40px;background-color:#ecb030;padding:10px; border-top-right-radius:18px;border-bottom-left-radius:18px;text-align:center;">
+          <span>$10</span>
         </div>
-        <div class="col-lg-4">
-            <div class="text-right">
-                <button  onclick="openUpgrade()" class="btn-proceed btn text-white">Upgrade</button>
-
-            </div>
+      </div>
+      <div class="price_heading_basic">
+        <h4 class="plan_type_basic">Basic</h4>
+        <div class="" style="width: 150px;color: #fff;font-size:18px; height:40px;background-color:#f48865;padding:10px; border-top-right-radius:18px;border-bottom-left-radius:18px;text-align:center;">
+          <span>$10</span>
         </div>
-        
-        
-
+      </div>
+      <div class="price_heading_preferred">
+        <h4 class="plan_type_preferred">Preferred</h4>
+        <div class="" style="width: 150px;color: #fff;font-size:18px; height:40px;background-color:#37bfb5;padding:10px; border-top-right-radius:18px;border-bottom-left-radius:18px;text-align:center;">
+          <span>$10</span>
+        </div>
+      </div>
+      <div class="price_heading_professional">
+        <h4 class="plan_type_professional">Professional</h4>
+        <div style="width: 150px;color: #fff;font-size:18px; height:40px;background-color:#5ea0d2;padding:10px; border-top-right-radius:18px;border-bottom-left-radius:18px;text-align:center;">
+          <span>$10</span>
+        </div>
+      </div>
     </div>
-    <div class="row ml-2">
-        <div id="blur_inside" class="col-lg-2">
+    <div class="col-lg-4">
+      <div class="text-right">
+        <button onclick="openUpgrade()" class="btn-proceed btn text-white">Upgrade</button>
+      </div>
+    </div>
+  </div>
+  <div class="row ml-2">
+    <div id="blur_inside" class="col-lg-2"></div>
+    <div id="blur_inside_two" class="col-lg-3 mt-2">
+      <div>
+        <ol class="plan-items p-0">
+          <li class="blue-bg">Data points</li>
+          <li class="light-bg">API Hits</li>
+          <li class="blue-bg">Devices</li>
+          <li class="light-bg">Connected Devices</li>
+          <li class="blue-bg">Tenants (Domains)</li>
+          <li class="light-bg">Add-On Subscription</li>
+          <li class="blue-bg"> Data Retentions</li>
+          <li class="light-bg">Support</li>
+        </ol>
+      </div>
+    </div>
+    <div class="col-lg-3 mt-2 mx-0">
+      <ol class="plan-items price_amount_free rates p-0">
+        <li class="price_color_free m-0" style="border-top-right-radius: 12px;">10k</li>
+        <li class="m-0">10k</li>
+        <li class="price_color_free m-0">10k</li>
+        <li class="m-0">10k</li>
+        <li class="price_color_free m-0">10k</li>
+        <li class="m-0">10k</li>
+        <li class="price_color_free m-0">10k</li>
+        <li class="m-0">10k</li>
+      </ol>
+      <ol class="plan-items rates price_amount_beginner p-0">
+        <li class="price_color_beginner m-0" style="border-top-right-radius: 12px;">11k</li>
+        <li class="m-0">11k</li>
+        <li class="price_color_beginner m-0">11k</li>
+        <li class="m-0">11k</li>
+        <li class="price_color_beginner m-0">11k</li>
+        <li class="m-0">11k</li>
+        <li class="price_color_beginner m-0">11k</li>
+        <li class="m-0">101</li>
+      </ol>
+      <ol class="plan-items rates p-0 price_amount_basic">
+        <li class="price_color_basic m-0" style="border-top-right-radius: 12px;">12k</li>
+        <li class="m-0">12k</li>
+        <li class="price_color_basic m-0">12k</li>
+        <li class="m-0">12k</li>
+        <li class="price_color_basic m-0">12k</li>
+        <li class="m-0">12k</li>
+        <li class="price_color_basic m-0">12k</li>
+        <li class="m-0">12</li>
+      </ol>
+      <ol class="plan-items price_amount_preferred rates p-0">
+        <li class="price_color_preferred m-0" style="border-top-right-radius: 12px;">13k</li>
+        <li class="m-0">13k</li>
+        <li class="price_color_preferred m-0">13k</li>
+        <li class="m-0">13k</li>
+        <li class="price_color_preferred m-0">13k</li>
+        <li class="m-0">13k</li>
+        <li class="price_color_preferred m-0">13k</li>
+        <li class="m-0">13</li>
+      </ol>
+      <ol class="plan-items price_amount_professional rates p-0">
+        <li class="price_color_professional m-0" style="border-top-right-radius: 12px;">13k</li>
+        <li class="m-0">13k</li>
+        <li class="price_color_professional m-0">13k</li>
+        <li class="m-0">13k</li>
+        <li class="price_color_professional m-0">13k</li>
+        <li class="m-0">13k</li>
+        <li class="price_color_professional m-0">13k</li>
+        <li class="m-0">13</li>
+      </ol>
+    </div>
+    <div class="col-lg-4">
+      <div id="slide">
+        <div class="text-right mr-4 mt-3">
+          <img style="cursor: pointer;" src="images/menu/xicon.svg" onclick="closeNav()" class="bg-secondary bskp-close">
         </div>
-        <div  id="blur_inside_two" class="col-lg-3 mt-2"> 
-            <div>
-                <ol class="plan-items p-0">
-                    <li  class="blue-bg">Data points</li>
-                    <li class="light-bg">API Hits</li>
-                    <li class="blue-bg">Devices</li>
-                    <li class="light-bg">Connected Devices</li>
-                    <li class="blue-bg">Tenants (Domains)</li>
-                    <li class="light-bg">Add-On Subscription</li>
-                    <li class="blue-bg"> Data Retentions</li>
-                    <li class="light-bg">Support</li>
-                </ol>
-        </div>
-         </div>
-        <div class="col-lg-3 mt-2 mx-0">
-    
-            
-                <ol class="plan-items price_amount_free rates p-0">
-                    <li  class="price_color_free m-0" style="border-top-right-radius: 12px;">10k</li>
-                    <li class="m-0">10k</li>
-                    <li class="price_color_free m-0">10k</li>
-                    <li class="m-0">10k</li>
-                    <li class="price_color_free m-0">10k</li>
-                    <li class="m-0">10k</li>
-                    <li class="price_color_free m-0">10k</li>
-                    <li class="m-0">10k</li>
-
-                </ol>   
-                <ol class="plan-items rates price_amount_beginner p-0">
-                    <li  class="price_color_beginner m-0" style="border-top-right-radius: 12px;">11k</li>
-                    <li class="m-0">11k</li>
-                    <li class="price_color_beginner m-0">11k</li>
-                    <li class="m-0">11k</li>
-                    <li class="price_color_beginner m-0">11k</li>
-                    <li class="m-0">11k</li>
-                    <li class="price_color_beginner m-0">11k</li>
-                    <li class="m-0">101</li>
-
-                </ol>   
-                <ol class="plan-items rates p-0 price_amount_basic">
-                    <li  class="price_color_basic m-0" style="border-top-right-radius: 12px;">12k</li>
-                    <li class="m-0">12k</li>
-                    <li class="price_color_basic m-0">12k</li>
-                    <li class="m-0">12k</li>
-                    <li class="price_color_basic m-0">12k</li>
-                    <li class="m-0">12k</li>
-                    <li class="price_color_basic m-0">12k</li>
-                    <li class="m-0">12</li>
-
-                </ol>    
-                 <ol class="plan-items price_amount_preferred rates p-0">
-                    <li  class="price_color_preferred m-0" style="border-top-right-radius: 12px;">13k</li>
-                    <li class="m-0">13k</li>
-                    <li class="price_color_preferred m-0">13k</li>
-                    <li class="m-0">13k</li>
-                    <li class="price_color_preferred m-0">13k</li>
-                    <li class="m-0">13k</li>
-                    <li class="price_color_preferred m-0">13k</li>
-                    <li class="m-0">13</li>
-
-                </ol>   
-                   <ol class="plan-items price_amount_professional rates p-0">
-                    <li  class="price_color_professional m-0" style="border-top-right-radius: 12px;">13k</li>
-                    <li class="m-0">13k</li>
-                    <li class="price_color_professional m-0">13k</li>
-                    <li class="m-0">13k</li>
-                    <li class="price_color_professional m-0">13k</li>
-                    <li class="m-0">13k</li>
-                    <li class="price_color_professional m-0">13k</li>
-                    <li class="m-0">13</li>
-
-                </ol>   
-            </div>
-        <div class="col-lg-4">
-            
-
-            <div id="slide">
-                
-                <div class="text-right mr-4 mt-3">
-
-                <img style="cursor: pointer;"  src="images/menu/xicon.svg" onclick="closeNav()" class="bg-secondary bskp-close" >
-
+        <h4 style="margin-left:70px;" class="">Plan details with benifits</h4>
+        <div class="row">
+          <div class="col-lg-1"></div>
+          <div class="col-lg-10 text-center">
+            <div class=" plan_benifit_box ">
+              <div class="row">
+                <div class="col-lg-2">
+                  <div class="inside_price_free">
+                    <h6 style="padding:15px; color: #ffffff;font-size:30px;font-weight:600;" class="text-center">$0</h6>
+                  </div>
                 </div>
-               
-                <h4 style="margin-left:70px;" class="">Plan details with benifits</h4>
-                <div class="row">
-                    <div class="col-lg-1">
+                <div class="col-lg-3 mt-4">
+                  <div style class="free_benifit ml-2">
+                    <h6 class="">Free</h6>
+                    <h6>(Not for commercial)</h6>
+                  </div>
+                </div>
+                <div class="col-lg-4 text-right mt-4 pt-1">
+                  <a class="plan_details_link" href="">plan details</a>
+                </div>
+                <div class="col-lg-3 mt-2">
+                  <button style="background-color: #cccccc;
+                                color: #666666;" class="btn-proceed mt-3 text-white free_btn" disabled>Select plan &nbsp ></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-lg-1"></div>
+          <div class="col-lg-10 text-center">
+            <div class=" plan_benifit_box ">
+              <div class="row">
+                <div class="col-lg-2">
+                  <div class="inside_price_beginner">
+                    <h6 style="padding:15px; color: #ffffff;font-size:30px;font-weight:600;" class="text-center">$10</h6>
+                  </div>
+                </div>
+                <div class="col-lg-3 mt-4">
+                  <div style class="beginner_benifit ml-2">
+                    <h6 class="mt-2">Beginner</h6>
+                  </div>
+                </div>
+                <div class="col-lg-4 text-right mt-4 pt-1">
+                  <a class="plan_details_link" href="">plan details</a>
+                </div>
+                <div class="col-lg-3 mt-2">
+                  <button onclick="BegginerPlan()" class="btn-proceed mt-3 text-white">Select plan &nbsp ></button>
+                  <div id="inside_slide">
+                    <div style="margin-top:70px;" class="text-right mr-4">
+                      <img style="cursor: pointer;" src="images/menu/xicon.svg" onclick=" CloseBegginerPlan()" class="bg-secondary bskp-close">
                     </div>
-                    
-                    <div class="col-lg-10 text-center">
-                        <div class=" plan_benifit_box ">
-                           
-                           
-                            <div class="row">
-                                <div class="col-lg-2">
-                                    <div class="inside_price_free">
-
-                                        <h6 style="padding:15px; color: #ffffff;font-size:30px;font-weight:600;" class="text-center">$0</h6>
-        
-                                        
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 mt-4">
-                                    <div style class="free_benifit ml-2">
-                              
-                                        <h6 class="">Free</h6>
-                                        <h6>(Not for commercial)</h6>
-                                      
-                 
-                                    </div> 
-                                  
-                                </div>
-                                <div class="col-lg-4 text-right mt-4 pt-1">
-                                    <a class="plan_details_link" href="">plan details</a>
-
-                                </div>
-                                <div class="col-lg-3 mt-2">
-                                    <button  style="background-color: #cccccc;
-                                    color: #666666;" class="btn-proceed mt-3 text-white free_btn" disabled>Select plan &nbsp > </button>
-
-                                </div>
-
-                            </div>
-
-                                </div>
-
-
-
-                        </div>
-
+                    <div class="row">
+                      <div class="col-lg-12">
+                        <h4 style="font-size:18px;" class="text-left pl-5">Plan details</h4>
+                      </div>
                     </div>
-                    <div class="row mt-3">
-                        <div class="col-lg-1">
-                        </div>
-                        
-                        <div class="col-lg-10 text-center">
-                            <div class=" plan_benifit_box ">
-                               
-                               
-                                <div class="row">
-                                    <div class="col-lg-2">
-                                        <div class="inside_price_beginner">
-    
-                                            <h6 style="padding:15px; color: #ffffff;font-size:30px;font-weight:600;" class="text-center">$10</h6>
-            
-                                            
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 mt-4">
-                                        <div style class="beginner_benifit ml-2">
-                                  
-                                            <h6 class="mt-2">Beginner</h6>
-                                            
-                                          
-                     
-                                        </div> 
-                                      
-                                    </div>
-                                    <div class="col-lg-4 text-right mt-4 pt-1">
-                                        <a class="plan_details_link" href="">plan details</a>
-    
-                                    </div>
-                                    <div class="col-lg-3 mt-2">
-                                        <button onclick="BegginerPlan()" class="btn-proceed mt-3 text-white">Select plan &nbsp ></button>
-
-                                    <div  id="inside_slide">
-                                        <div style="margin-top:70px;" class="text-right mr-4">
-
-                                            <img style="cursor: pointer;"  src="images/menu/xicon.svg" onclick=" CloseBegginerPlan()" class="bg-secondary bskp-close" >
-                              
-                                            </div>
-
-                                            <div class="row">
-
-                                    <div class="col-lg-12">
-                                        <h4 style="font-size:18px;" class="text-left pl-5">Plan details</h4>
-                                    </div>
-                                            </div>
-                                            <div class="row">
-
-                                                <div class="col-lg-6">
-                                                    <h4 id="plan_type" style="font-size:18px;" class="text-left pl-5 plan_type_beginner">Beginner</h4>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <h4 id="plan_price" style="font-size:18px;" class="text-center pl-5 plan_type_beginner">$10</h4>
-                                                </div>
-                                                        </div>
-
-                                                        <div class="row">
-                                                            <div class="col-lg-1">
-
-                                                            </div>
-
-                                                            <div class="col-lg-10">
-                                                                
-
-                                                                <div class="row text-left">
-                                                                    <div class="col-lg-12">
-                                                                        <table class="table">
-                                                                            <thead style="background-color: #1f1f53;" class="">
-                                                                              <tr>
-                                                                    <img class="tick-right ml-1 mt-1" src="images/tick-right.svg" alt=""> 
-                                                                    <th class="text-white pl-4" scope="col">benifits</th>
-                                                                                <th scope="col"></th>
-                                                                                <th scope="col"></th>
-                                                                                <th scope="col"></th>
-                                                                              </tr>
-                                                                            </thead>
-                                                                            <tbody>
-                                                                              <tr class="price_color_free">
-                                                                                
-                                                                                <td colspan="2">Data Points</td>
-                                                                                <td colspan="2">2M</td>
-                                                                              </tr>
-                                                                              <tr class="">
-                                                                                
-                                                                                <td colspan="2">API Hits</td>
-                                                                                <td colspan="2">20K</td>
-                                                                            
-                                                                              </tr>
-                                                                              <tr class="price_color_free">
-                                                                                
-                                                                                <td colspan="2">Devices</td>
-                                                                                <td colspan="2">25</td>
-                                                                            
-                                                                              </tr>
-                                                                              <tr class="">
-                                                                                
-                                                                                <td colspan="2">Connected Devices</td>
-                                                                                <td colspan="2">10</td>
-                                                                            
-                                                                              </tr>
-                                                                              <tr class="price_color_free">
-                                                                                
-                                                                                <td colspan="2">Tenants (Domains)
-                                                                                </td>
-                                                                                <td colspan="2">1</td>
-                                                                            
-                                                                              </tr>
-                                                                              <tr class="">
-                                                                                
-                                                                                <td colspan="2">Data Retentions</td>
-                                                                                <td colspan="2">24M Data Points</td>
-                                                                            
-                                                                              </tr>
-                                                                              <tr class="price_color_free">
-                                                                                
-                                                                                <td colspan="2">Add-On Subscription</td>
-                                                                                <td colspan="2">Yes</td>
-                                                                            
-                                                                              </tr>
-                                                                              <tr class="">
-                                                                                
-                                                                                <td colspan="2">Supports(response)</td>
-                                                                                <td colspan="2">Email-in 2 days</td>
-                                                                            
-                                                                              </tr>
-                                                                              
-                                                                            </tbody>
-                                                                          </table>
-
-                                                                    </div>
-                                                                    
-
-                                                                </div>    
-                                                                <div class="row">
-                                                                    <div class="col-lg-12 text-center">
-                                                                        <button class="btn-proceed text-white">Buy Now</button>
-
-                                                                    </div>
-
-                                                                </div>          
-                                                            </div>
-
-                                                        </div>
-
-                                    </div>
-                                    </div>
-    
-                                </div>
-    
-                                    </div>
-    
-    
-    
-                            </div>
-    
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <h4 id="plan_type" style="font-size:18px;" class="text-left pl-5 plan_type_beginner">Beginner</h4>
+                      </div>
+                      <div class="col-lg-6">
+                        <h4 id="plan_price" style="font-size:18px;" class="text-center pl-5 plan_type_beginner">$10</h4>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-lg-1"></div>
+                      <div class="col-lg-10">
+                        <div class="row text-left">
+                          <div class="col-lg-12">
+                            <table class="table">
+                              <thead style="background-color: #1f1f53;" class="">
+                                <tr>
+                                  <img class="tick-right ml-1 mt-1" src="images/tick-right.svg" alt="">
+                                  <th class="text-white pl-4" scope="col">benifits</th>
+                                  <th scope="col"></th>
+                                  <th scope="col"></th>
+                                  <th scope="col"></th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr class="price_color_free">
+                                  <td colspan="2">Data Points</td>
+                                  <td colspan="2">2M</td>
+                                </tr>
+                                <tr class="">
+                                  <td colspan="2">API Hits</td>
+                                  <td colspan="2">20K</td>
+                                </tr>
+                                <tr class="price_color_free">
+                                  <td colspan="2">Devices</td>
+                                  <td colspan="2">25</td>
+                                </tr>
+                                <tr class="">
+                                  <td colspan="2">Connected Devices</td>
+                                  <td colspan="2">10</td>
+                                </tr>
+                                <tr class="price_color_free">
+                                  <td colspan="2">Tenants (Domains) </td>
+                                  <td colspan="2">1</td>
+                                </tr>
+                                <tr class="">
+                                  <td colspan="2">Data Retentions</td>
+                                  <td colspan="2">24M Data Points</td>
+                                </tr>
+                                <tr class="price_color_free">
+                                  <td colspan="2">Add-On Subscription</td>
+                                  <td colspan="2">Yes</td>
+                                </tr>
+                                <tr class="">
+                                  <td colspan="2">Supports(response)</td>
+                                  <td colspan="2">Email-in 2 days</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-1">
-                            </div>
-                            
-                            <div class="col-lg-10 text-center">
-                                <div class=" plan_benifit_box ">
-                                   
-                                   
-                                    <div class="row mt-3">
-                                        <div class="col-lg-2">
-                                            <div class="inside_price_basic">
-        
-                                                <h6 style="padding:15px; color: #ffffff;font-size:30px;font-weight:600;" class="text-center">$49</h6>
-                
-                                                
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3 mt-4">
-                                            <div style class="basic_benifit ml-2">
-                                      
-                                                <h6 class="mt-2">Basic</h6>
-                                                <!-- <h6>(Not for commercial)</h6> -->
-                                              
-                         
-                                            </div> 
-                                          
-                                        </div>
-                                        <div class="col-lg-4 text-right mt-4 pt-1">
-                                            <a class="plan_details_link" href="">plan details</a>
-        
-                                        </div>
-                                        <div class="col-lg-3 mt-2">
-                                            <button onclick="BasicPlan()"  class="btn-proceed mt-3 text-white">Select plan &nbsp ></button>
-        
-                                        </div>
-        
-                                    </div>
-        
-                                        </div>
-        
-        
-        
-                                </div>
-        
-                            </div>
-                            <div class="row mt-3">
-                                <div class="col-lg-1">
-                                </div>
-                                
-                                <div class="col-lg-10 text-center">
-                                    <div class=" plan_benifit_box ">
-                                       
-                                       
-                                        <div class="row">
-                                            <div class="col-lg-2">
-                                                <div class="inside_price_preferred">
-            
-                                                    <h6 style="padding:15px; color: #ffffff;font-size:30px;font-weight:600;" class="text-center">$99</h6>
-                    
-                                                    
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-3 mt-4">
-                                                <div style class="preferred_benifit ml-2">
-                                          
-                                                    <h6 class="mt-2">Preferred</h6>
-                                                  
-                             
-                                                </div> 
-                                              
-                                            </div>
-                                            <div class="col-lg-4 text-right mt-4 pt-1">
-                                                <a class="plan_details_link" href="">plan details</a>
-            
-                                            </div>
-                                            <div class="col-lg-3 mt-2">
-                                                <button onclick="PreferredPlan()" class="btn-proceed mt-3 text-white">Select plan &nbsp ></button>
-            
-                                            </div>
-            
-                                        </div>
-            
-                                            </div>
-            
-            
-            
-                                    </div>
-            
-                                </div>
-                                <div class="row mt-3 pb-4">
-                                    <div class="col-lg-1">
-                                    </div>
-                                    
-                                    <div class="col-lg-10 text-center">
-                                        <div class=" plan_benifit_box ">
-                                           
-                                           
-                                            <div class="row">
-                                                <div class="col-lg-2">
-                                                    <div class="inside_price_professional">
-                
-                                                        <h6 style="padding:15px; color: #ffffff;font-size:30px;font-weight:600;" class="text-center">$149</h6>
-                        
-                                                        
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-3 mt-4">
-                                                    <div style class="professional_benifit ml-2">
-                                              
-                                                        <h6 class="mt-2">Professional</h6>
-                                                      
-                                 
-                                                    </div> 
-                                                  
-                                                </div>
-                                                <div class="col-lg-4 text-right mt-4 pt-1">
-                                                    <a class="plan_details_link" href="">plan details</a>
-                
-                                                </div>
-                                                <div class="col-lg-3 mt-2">
-                                                    <button onclick="ProfessionalPlan()" class="btn-proceed mt-3 text-white">Select plan &nbsp ></button>
-                
-                                                </div>
-                
-                                            </div>
-                
-                                                </div>
-                
-                
-                
-                                        </div>
-                
-                                    </div>
-                   
-                    
-
+                          <div class="col-lg-12 text-center">
+                            <button class="btn-proceed text-white">Buy Now</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              
+              </div>
             </div>
-            
+          </div>
         </div>
+        <div class="row">
+          <div class="col-lg-1"></div>
+          <div class="col-lg-10 text-center">
+            <div class=" plan_benifit_box ">
+              <div class="row mt-3">
+                <div class="col-lg-2">
+                  <div class="inside_price_basic">
+                    <h6 style="padding:15px; color: #ffffff;font-size:30px;font-weight:600;" class="text-center">$49</h6>
+                  </div>
+                </div>
+                <div class="col-lg-3 mt-4">
+                  <div style class="basic_benifit ml-2">
+                    <h6 class="mt-2">Basic</h6>
+                    <!-- <h6>(Not for commercial)</h6> -->
+                  </div>
+                </div>
+                <div class="col-lg-4 text-right mt-4 pt-1">
+                  <a class="plan_details_link" href="">plan details</a>
+                </div>
+                <div class="col-lg-3 mt-2">
+                  <button onclick="BasicPlan()" class="btn-proceed mt-3 text-white">Select plan &nbsp ></button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+        <div class="row mt-3">
+          <div class="col-lg-1"></div>
+          <div class="col-lg-10 text-center">
+            <div class=" plan_benifit_box ">
+              <div class="row">
+                <div class="col-lg-2">
+                  <div class="inside_price_preferred">
+                    <h6 style="padding:15px; color: #ffffff;font-size:30px;font-weight:600;" class="text-center">$99</h6>
+                  </div>
+                </div>
+                <div class="col-lg-3 mt-4">
+                  <div style class="preferred_benifit ml-2">
+                    <h6 class="mt-2">Preferred</h6>
+                  </div>
+                </div>
+                <div class="col-lg-4 text-right mt-4 pt-1">
+                  <a class="plan_details_link" href="">plan details</a>
+                </div>
+                <div class="col-lg-3 mt-2">
+                  <button onclick="PreferredPlan()" class="btn-proceed mt-3 text-white">Select plan &nbsp ></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-3 pb-4">
+          <div class="col-lg-1"></div>
+          <div class="col-lg-10 text-center">
+            <div class=" plan_benifit_box ">
+              <div class="row">
+                <div class="col-lg-2">
+                  <div class="inside_price_professional">
+                    <h6 style="padding:15px; color: #ffffff;font-size:30px;font-weight:600;" class="text-center">$149</h6>
+                  </div>
+                </div>
+                <div class="col-lg-3 mt-4">
+                  <div style class="professional_benifit ml-2">
+                    <h6 class="mt-2">Professional</h6>
+                  </div>
+                </div>
+                <div class="col-lg-4 text-right mt-4 pt-1">
+                  <a class="plan_details_link" href="">plan details</a>
+                </div>
+                <div class="col-lg-3 mt-2">
+                  <button onclick="ProfessionalPlan()" class="btn-proceed mt-3 text-white">Select plan &nbsp ></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </script>
-<script>
-    $(document).ready(function () {
-        
-$(".upload-image").on('click', function() {
-   
-    $(".file-upload").click();
- });
-
-
-
-
- 
-
-});
-
-function openUpgrade() {
-//   document.getElementById("myslide").style.width = "860px";
-  $("#slide",).css({"width":"860px"})
-  $("#content",).css({"filter":"blur(8px)"})
-  $("#blur_header").css({"filter":"blur(8px)"})
-  $("#blur_inside").css({"filter":"blur(8px)"})
-  $("#blur_inside_two").css({"filter":"blur(8px)"}) 
-  $("#header_main").css({"filter":"blur(8px)"})
-  $("#menu").css({"border":"none"})
-  $("body").css({"overflow":"hidden"})
-
-}
-
-function closeNav() {
-    $("#slide").css({"width":"0px"})
-  $("#content").css({"filter":"blur(0px)"})
-  $("#blur_header").css({"filter":"blur(0px)"})
-  $("#blur_inside").css({"filter":"blur(0px)"})
-  $("#blur_inside_two").css({"filter":"blur(0px)"}) 
-  $("#header_main").css({"filter":"blur(0px)"})
-  $("#menu").css({"border":"2px solid #cdd6e3"})
-  $("body").css({"overflow":""})
-
-}
-
-
-
-
-
-function Submit(){
-    $(".btnModal").attr('disabled',false);
-    $(".btn-proceed").on('click',function(){
-        $(".btnModal").attr('disabled',false);
-
-    });
-    
-}
-function BegginerPlan(){
-    $("#inside_slide",).css({"width":"450px"})
-     $("#plan_type").text("Beginner").addClass("plan_type_beginner")
-    $("#plan_price").text("$10").addClass("plan_type_beginner")
-}
-function BasicPlan(){
-    $("#inside_slide",).css({"width":"450px"})
-    $("#plan_type").text("Basic").addClass("plan_type_basic")
-    $("#plan_price").text("$ 49").addClass("plan_type_basic")
-}
-function PreferredPlan(){
-    $("#inside_slide",).css({"width":"450px"})
-  
-   console.log(); $("#plan_type").text("Preferred").addClass("plan_type_Preferred")
-    $("#plan_price").text("$ 99").addClass("plan_type_Preferred")
-}
-function ProfessionalPlan(){
-    $("#inside_slide",).css({"width":"450px"})
-    $("#plan_type").text("Professional").addClass("plan_type_Professional")
-    $("#plan_price").text("$ 149").addClass("plan_type_Professional")
-}
-
-function CloseBegginerPlan(){
-  $("#inside_slide").css({"width":"0px"})
-
-
-}
-
-
-</script>
-
-
-

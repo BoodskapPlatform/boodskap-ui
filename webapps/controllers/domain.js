@@ -2,11 +2,113 @@ var logoPathId = '';
 var selectedId = null;
 
 $(document).ready(function () {
-   
-
+    $("body").removeClass('bg-white');
+    openModal("license-status",$(".d-menu-active"));
+    $(".upload-image").on('click', function() {
+        $(".file-upload").click();
+      });
 });
 
+function openUpgrade() {
+    //   document.getElementById("myslide").style.width = "860px";
+    $("#slide", ).css({
+      "width": "860px"
+    })
+    $("#content", ).css({
+      "filter": "blur(8px)"
+    })
+    $("#blur_header").css({
+      "filter": "blur(8px)"
+    })
+    $("#blur_inside").css({
+      "filter": "blur(8px)"
+    })
+    $("#blur_inside_two").css({
+      "filter": "blur(8px)"
+    })
+    $("#header_main").css({
+      "filter": "blur(8px)"
+    })
+    $("#menu").css({
+      "border": "none"
+    })
+    $("body").css({
+      "overflow": "hidden"
+    })
+  }
 
+  function closeNav() {
+    $("#slide").css({
+      "width": "0px"
+    })
+    $("#content").css({
+      "filter": "blur(0px)"
+    })
+    $("#blur_header").css({
+      "filter": "blur(0px)"
+    })
+    $("#blur_inside").css({
+      "filter": "blur(0px)"
+    })
+    $("#blur_inside_two").css({
+      "filter": "blur(0px)"
+    })
+    $("#header_main").css({
+      "filter": "blur(0px)"
+    })
+    $("#menu").css({
+      "border": "2px solid #cdd6e3"
+    })
+    $("body").css({
+      "overflow": ""
+    })
+  }
+
+  function Submit() {
+    $(".btnModal").attr('disabled', false);
+    $(".btn-proceed").on('click', function() {
+      $(".btnModal").attr('disabled', false);
+    });
+  }
+
+  function BegginerPlan() {
+    $("#inside_slide", ).css({
+      "width": "450px"
+    })
+    $("#plan_type").text("Beginner").addClass("plan_type_beginner")
+    $("#plan_price").text("$10").addClass("plan_type_beginner")
+  }
+
+  function BasicPlan() {
+    $("#inside_slide", ).css({
+      "width": "450px"
+    })
+    $("#plan_type").text("Basic").addClass("plan_type_basic")
+    $("#plan_price").text("$ 49").addClass("plan_type_basic")
+  }
+
+  function PreferredPlan() {
+    $("#inside_slide", ).css({
+      "width": "450px"
+    })
+    console.log();
+    $("#plan_type").text("Preferred").addClass("plan_type_Preferred")
+    $("#plan_price").text("$ 99").addClass("plan_type_Preferred")
+  }
+
+  function ProfessionalPlan() {
+    $("#inside_slide", ).css({
+      "width": "450px"
+    })
+    $("#plan_type").text("Professional").addClass("plan_type_Professional")
+    $("#plan_price").text("$ 149").addClass("plan_type_Professional")
+  }
+
+  function CloseBegginerPlan() {
+    $("#inside_slide").css({
+      "width": "0px"
+    })
+  }
 
 function getDomainBranding() {
 
@@ -243,7 +345,6 @@ function getLoginLogo() {
 
         $("#domainModal").modal('show');
     });
-
 }
 
 function getCustomURL() {
@@ -259,83 +360,99 @@ function getCustomURL() {
 }
 
 
-function openModal(id,domId) {
+function openModal(block,$dom) {
 
     $(".domain-list").removeClass("d-menu-active");
-    $("#"+domId).addClass("d-menu-active");
+    $($dom).addClass("d-menu-active");
     $(".modalBody").html('');
 
-    selectedId = id;
+    selectedId = block;
+    let loadTemplate = '';
+    let title = '';
 
-    if (id === 1) {
-        // $(".modal-title").html('Logo Branding');
-        // $(".modalBody").html($("#logoBranding").html());
-        getDomainBranding();
-    } else if (id === 2) {
+    switch(block){
 
-        $(".modal-title").html('Email Gateway');
-        $(".modalBody").html($("#emailGateway").html());
-        getGatewaySettings('email');
+        case 'license-status' :
+            loadTemplate = 'N/A';
+            title = 'License Status';
+            break;
 
-    } else if (id === 3) {
-        $(".modal-title").html('Twilio Gateway');
-        $(".modalBody").html($("#twilioGateway").html());
-        getGatewaySettings('twilio');
+        case 'billing-overview' :
+            title = 'Billing Overview';
+            loadTemplate = $("#billingOverview").html();
+            // getBillingConfig();
+            break;
 
-    } else if (id === 4) {
-        $(".modal-title").html('FCM Gateway');
-        $(".modalBody").html($("#fcmGateway").html());
-        getGatewaySettings('fcm');
+        case 'theme-layout' :
+            title = 'Theme & Layout';
+            loadTemplate = $("#themeAndLayout").html();
+            getDomainBranding();
+            getDomainTheme();
+            break;
 
-    } else if (id === 5) {
-        $(".modal-title").html('UDP Gateway');
-        $(".modalBody").html($("#udpGateway").html());
-        getGatewaySettings('udp');
+        case 'email-gateway' :
+            title = 'Email Gateway';
+            loadTemplate = $("#emailGateway").html();
+            getGatewaySettings('email');
+            break;
 
-    } else if (id === 6) {
-        $(".modal-title").html('ADS Authentication');
+        case 'twilio-gateway' :
+            title = 'Twilio Gateway';
+            loadTemplate = $("#twilioGateway").html();
+            getGatewaySettings('twilio');
+            break;
 
-    } else if (id === 7) {
-        $(".modalBody").html($("#platformTheme").html());
-        $(".modal-title").html('Platform Theme');
-        getDomainTheme();
-    } else if (id === 8) {
-        $(".modalBody").html($("#loginScreen").html());
-        $(".modal-title").html('Custom Login');
-        getLoginLogo();
-    } else if (id === 9) {
-        $(".modalBody").html($("#googleMap").html());
-        $(".modal-title").html('Google Map API Key');
-        getGoogleMapApiKey();
-    } else if (id === 10) {
-        $(".modalBody").html($("#openWeatherMap").html());
-        $(".modal-title").html('Open Weather Map API Key');
-        getOpenMapApiKey();
-    } else if (id === 11) {
-        $(".modalBody").html($("#darkSkyMap").html());
-        $(".modal-title").html('Dark Sky API Key');
-        getDarkSkyApiKey();
-    } else if (id === 12) {
-        $(".modalBody").html($("#customUrl").html());
-        $(".modal-title").html('Custom URL Address');
-        getCustomURL();
-    } else if (id === 13) {
-        $(".modalBody").html($("#Billing").html());
-        $(".modal-title").html('Billing Overview');
-        getBillingConfig();
+        case 'fcm-gateway' :
+            title = 'FCM Gateway';
+            loadTemplate = $("#fcmGateway").html();
+            getGatewaySettings('fcm');
+            break;
+
+        case 'udp-gateway' :
+            title = 'UDP Gateway';
+            loadTemplate = $("#udpGateway").html();
+            getGatewaySettings('udp');
+            break;
+
+        case 'custom-url' :
+            title = 'Custom URL';
+            loadTemplate = $("#customUrl").html();
+            getCustomURL();
+            break;
+
+        case 'custom-login' :
+            title = 'Custom Login';
+            loadTemplate = $("#loginUITheme").html();
+            getLoginLogo();
+            break;
+
+        case 'google-map' :
+            title = 'Google Map';
+            loadTemplate = $("#googleMap").html();
+            getGoogleMapApiKey();
+            break;
+
+        case 'open-weather-map' :
+            title = 'Open Weather Map';
+            loadTemplate = $("#openWeatherMap").html();
+            getOpenMapApiKey();
+            break;
+
+        case 'dark-sky' :
+            title = 'DarkSky';
+            loadTemplate = $("#darkSkyMap").html();
+            getDarkSkyApiKey();
+            break;
     }
 
-
+    $(".modal-title").html(title);
+    $(".modalBody").html(loadTemplate);
 }
 
 function proceedSave() {
 
-    if (selectedId === 1) {
-
-
+    if (selectedId === 'branding-logo') {
         if(ADMIN_ACCESS){
-
-
             var data = {
                 data: logoPathId
             };
@@ -353,8 +470,7 @@ function proceedSave() {
                 }
             })
 
-        }
-        else {
+        }else {
 
             var obj = {
                 webLogo: logoPathId,
@@ -378,12 +494,8 @@ function proceedSave() {
                 }
             })
         }
-
-
-    }
-    else if (selectedId === 2) {
+    }else if (selectedId === 'email-gateway') {
     
-
         var obj = {
             "host": $.trim($("#hostName").val()),
             "port": Number($("#portNo").val()),
@@ -395,7 +507,6 @@ function proceedSave() {
             "tls": $("#tls").is(':checked'),
             "debug": $("#debug").is(':checked')
         };
-
 
         setDomainSettings('email', obj, function (status, data) {
             if (status) {
@@ -409,7 +520,7 @@ function proceedSave() {
 
 
     }
-    else if (selectedId === 3) {
+    else if (selectedId === 'twilio-gateway') {
 
         var obj = {
             "sid": $.trim($("#sid").val()),
@@ -429,7 +540,7 @@ function proceedSave() {
         });
 
     }
-    else if (selectedId === 4) {
+    else if (selectedId === 'fcm-gateway') {
 
         var obj = {
             "apiKey": $.trim($("#apiKey").val()),
@@ -445,9 +556,8 @@ function proceedSave() {
                 errorMsg('Error in updation')
             }
         });
-
     }
-    else if (selectedId === 5) {
+    else if (selectedId === 'udp-gateway') {
 
         var obj = {
             "decoderCode": $("#decoderCode").val(),
@@ -467,13 +577,7 @@ function proceedSave() {
 
 
     }
-    else if (selectedId === 6) {
-
-        //ADS
-
-    }
-    else if (selectedId === 7) {
-
+    else if (selectedId === 'theme-layout') {
 
         var obj = {
             headerBg: $("#headerBg").colorpicker('getValue'),
@@ -484,10 +588,6 @@ function proceedSave() {
             layout: $("#bodyLayout").val(),
         };
 
-        console.log(obj.headerBg);
-        
-
-
         var data = {
             name: DOMAIN_THEME_PROPERTY,
             value: JSON.stringify(obj)
@@ -495,8 +595,6 @@ function proceedSave() {
 
         upsertDomainProperty(data, function (status, data) {
             if (status) {
-
-
                 successMsg('Successfully updated')
                 $("#domainModal").modal('hide');
 
@@ -508,7 +606,7 @@ function proceedSave() {
             }
         })
 
-    } else if (selectedId === 8) {
+    } else if (selectedId === 'custom-login') {
 
         var obj = {
             logoid: logoPathId,
@@ -525,11 +623,6 @@ function proceedSave() {
             data: JSON.stringify(obj)
         };
 
-        // updateGlobalProperty(data, DOMAIN_UUID, function (status, res) {
-        //     if (status) {
-        //         successMsg('Successfully updated')
-        //         $("#domainModal").modal('hide');
-        //     } else {
         $.ajax({
             url: API_BASE_PATH + "/global/data/insert/" + API_TOKEN_ALT + '?id=' + DOMAIN_UUID,
             data: JSON.stringify(data),
@@ -543,10 +636,8 @@ function proceedSave() {
                 errorMsg('Error in update')
             }
         });
-        //     }
-        // })
 
-    } else if (selectedId === 9) {
+    } else if (selectedId === 'google-map') {
 
         var obj = {
             apiKey: $("#apiKey").val()
@@ -567,7 +658,7 @@ function proceedSave() {
         })
 
 
-    } else if (selectedId === 10) {
+    } else if (selectedId === 'open-weather-map') {
 
         var obj = {
             apiKey: $("#apiKey").val()
@@ -588,7 +679,7 @@ function proceedSave() {
         })
 
 
-    } else if (selectedId === 11) {
+    } else if (selectedId === 'dark-sky') {
 
         var obj = {
             apiKey: $("#apiKey").val()
@@ -612,9 +703,6 @@ function proceedSave() {
     }
 
     $(".btnModal").attr('disabled',true);
-
-
-
 }
 
 
@@ -628,7 +716,7 @@ function uploadFile(file) {
                 var result = JSON.parse(xhr.response);
                 logoPathId = result.id;
 
-                    if (selectedId === 8) {
+                    if (selectedId === 'theme-layout') {
                         $(".domain_logo_m").attr('src', API_BASE_PATH + '/files/public/download/' + logoPathId);
                     } else {
                         if(ADMIN_ACCESS){
@@ -646,7 +734,7 @@ function uploadFile(file) {
             }
         }
     };
-    if (selectedId === 8) {
+    if (selectedId === 'theme-layout') {
         xhr.open('POST', API_BASE_PATH + '/files/upload/' + USER_OBJ.token + '?ispublic=true', true);
     } else {
         if(ADMIN_ACCESS){
@@ -654,9 +742,7 @@ function uploadFile(file) {
         }else{
             xhr.open('POST', API_BASE_PATH + '/files/upload/' + USER_OBJ.token + '?id=' + BRANDING_LOGO_ID, true);
         }
-
     }
-
 
     var formData = new FormData();
     formData.append("binfile", file, file.name);

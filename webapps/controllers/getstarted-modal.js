@@ -99,9 +99,6 @@ function initialChecks(){
             }*/
         },
         function (err, results) {
-            console.log("openGetStartedModal==============");
-            console.log("isMsgDefListEmpty=>",results["isMsgDefListEmpty"]);
-            console.log("isDeviceListEmpty=>",results["isDeviceListEmpty"]);
             // results["isMessageListEmpty"] = true; //Todo: remove once the development done
             if(results["isMsgDefListEmpty"] || results["isDeviceListEmpty"]){
                 openGetStartedModal(results);

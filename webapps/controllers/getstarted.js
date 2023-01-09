@@ -57,43 +57,8 @@ function initialChecks(){
                     }
                 });
             },
-            /*isMessageListEmpty: function (msgcbk) {
-
-                console.log(msgDefObj)
-
-                    var queryParams = {
-                        "method": "GET",
-                        "extraPath": "",
-                        "query": "{\"query\":{\"bool\":{\"must\":[{\"match\":{\"domainkey\":\""+DOMAIN_KEY+"\"}}]}},\"sort\":[{\"receivedstamp\":{\"order\":\"desc\"}}],\"aggs\":{\"total_count\":{\"value_count\":{\"field\":\"receivedstamp\"}},\"group_by_year\":{\"terms\":{\"field\":\"year\",\"size\":5},\"aggs\":{\"group_by_month\":{\"terms\":{\"field\":\"month\",\"size\":12},\"aggs\":{\"group_by_date\":{\"terms\":{\"field\":\"day\",\"size\":31},\"aggs\":{\"group_by_hour\":{\"terms\":{\"field\":\"hour\",\"size\":24},\"aggs\":{\"group_by_minute\":{\"terms\":{\"field\":\"min\",\"size\":60}}}}}}}}}}},\"size\":10,\"from\":0}",
-                        "params": [],
-                        "type": "MESSAGE",
-                        "specId": Number(msgDefObj.id)
-                    }
-                    console.log(queryParams)
-
-                    searchByQuery(queryParams.specId, queryParams.type, queryParams, function (status, data) {
-                        if(status){
-
-                            var resultData = searchQueryFormatterNew(data).data;
-                            console.log("isMessageList---------------");
-                            console.log(resultData.data.length);
-                            if(resultData.data.length === 0){
-
-                                msgcbk(null, true);
-                            } else {
-                                msgcbk(null, false);
-                            }
-                        }else{
-                            msgcbk(null, false);
-                        }
-                    });
-            }*/
         },
         function (err, results) {
-            console.log("openGetStartedModal==============");
-            console.log("isMsgDefListEmpty=>",results["isMsgDefListEmpty"]);
-            console.log("isDeviceListEmpty=>",results["isDeviceListEmpty"]);
-            // results["isMessageListEmpty"] = true; //Todo: remove once the development done
             if(results["isMsgDefListEmpty"] && results["isDeviceListEmpty"]){
                 openGetStartedModal(results);
             }
