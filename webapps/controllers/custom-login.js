@@ -57,7 +57,7 @@ function loadLoginMenu() {
             var src = data.data;
             $(".loginLogo").attr('src', API_BASE_PATH + '/files/public/download/' +src);
         } else {
-            $(".loginLogo").attr('src', DEFAULT_LOGIN_LOGO_PATH);
+            $(".loginLogo").attr('src', DEFAULT_LOGO_PATH);
         }
 
     })
@@ -100,7 +100,7 @@ function getLoginProp() {
             $(".leftBottomBg").css('background-color', resultData.leftBottomBg);
 
         } else {
-            $(".loginLogo").attr('src', DEFAULT_LOGIN_LOGO_PATH);
+            $(".loginLogo").attr('src', DEFAULT_LOGO_PATH);
             $(".poweredBy").html('Powered by Boodskap Inc.,');
             $(".textColor").addClass('text-warning');
             $("#submitButton").addClass('btn-warning');

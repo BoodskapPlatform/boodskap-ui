@@ -125,10 +125,10 @@ function redirectToLogin(){
 }
 
 function loadPartDomain() {
-    $('body').removeClass('bg-white')
-    $("body").css('background-color','#fac300 !important')
+    $('body').removeClass('bg-white');
+    $("body").addClass("content-background");//.css('background-color','#538ECE !important')
     $("#page-container").html($("#partDomain").html());
-    $(".domain_logo").attr('src', DEFAULT_LOGIN_LOGO_PATH);
+    $(".domain_logo").attr('src', DEFAULT_LOGO_PATH);
 
     for(var i=0;i<userObj.partDomains.length;i++){
         var domain = userObj.partDomains[i];
