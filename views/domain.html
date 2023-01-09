@@ -2,8 +2,8 @@
 
 
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
-    .domainList {
+   
+    .domain_list {
         /* text-align: center; */
         /* border: 1px solid #eee; */
        margin: 8px;
@@ -15,7 +15,7 @@
        
     }
 
-    .active1, .domainList:hover
+    .active1, .domain_list:hover
     { 
        
         border-radius: 10px;
@@ -24,14 +24,14 @@
         background-color:rgb(234 241 246);
         
     }
-    /* .domainList:hover label{
+    /* .domain_list:hover label{
         color: #2d2f79;
     }
-    .domainList:hover small{
+    .domain_list:hover small{
         color: black;
     } */
 
-    /* .domainList:hover, .domainList label:hover, .domainList h1:hover, .domainList small:hover {
+    /* .domain_list:hover, .domain_list label:hover, .domain_list h1:hover, .domain_list small:hover {
         color: #2d2f79 !important;
         /* background-color: #eee; */
     /* } */ 
@@ -45,6 +45,9 @@
     }
     .icon-save{
         margin-right:5px;
+    }
+    .domain_list label{
+        cursor: pointer;
     }
 
 
@@ -99,6 +102,9 @@
     font-size: 14px;
     font-weight: 600;
  }
+ .platformBody {
+    padding-left:0px;
+ }
 
 .img-bg{
     width: 30px;
@@ -140,7 +146,7 @@ input{
     background-color: #ffffff;
 
     border-radius: 13px;
-    height: 480px;
+    height: 465px;
     overflow: auto;
     width: 215px;
     /* position: relative;
@@ -167,7 +173,7 @@ input{
     border: 2px solid #cdd6e3;
     border-radius: 13px;
     background-color: #ffffff;
-    height: 480px;
+    height: 465px;
    
     width: 1085px;
     /* margin-left:44px; */
@@ -226,69 +232,188 @@ input{
     margin-right:35px;
     font-size:14px;
 }
-.price_amount{
+.price_amount_free{
     border:2px solid #61ccf2;width:159px; border-top-right-radius:15px;border-bottom-left-radius:18px;
 }
-.price_amount2 {
+.price_amount_beginner {
     border:2px solid #ecb030;width:159px; border-top-right-radius:15px;border-bottom-left-radius:18px;
 }
-.price_amount3 {
+.price_amount_basic {
     border:2px solid #f48865;width:159px; border-top-right-radius:15px;border-bottom-left-radius:18px;
 }
-.price_amount4{
+.price_amount_preferred{
     border:2px solid #37bfb5;width:159px; border-top-right-radius:15px;border-bottom-left-radius:18px;
 }
-.price_amount5{
+.price_amount_professional{
     border:2px solid #5ea0d2;width:159px; border-top-right-radius:15px;border-bottom-left-radius:18px;
 }
-.price-color{
+.price_color_free{
 background-color:#ecf7fb;
 
 }
-.price-color1{
+.price_color_beginner{
 background-color:#fdf9f1;
 
 }
 
-.price-color2{
+.price_color_basic{
 background-color:#fdf5f2;
 
 }
 
-.price-color3{
+.price_color_preferred{
 background-color:#f0f9f9;
 
 }
 
-.price-color4{
+.price_color_professional{
 background-color:#edf5fb;
 
 }
 
 
-.plan_type{
+.plan_type_free{
     color: rgb(109 204 239);
 }
-.plan_type1{
+.plan_type_beginner{
     color: #ecb030;
 }
-.plan_type2{
+.plan_type_basic{
     color: #f48865;
 }
-.plan_type3{
+.plan_type_preferred{
     color: #37bfb5;
 }
-.plan_type4{
+.plan_type_professional{
     color: #5ea0d2;
 }
-.price_amount2, .price_amount3, .price_amount4, .price_amount5{
+.price_amount_beginner, .price_amount_basic, .price_amount_preferred, .price_amount_professional{
     display: none;
 }
-.plan_type1, .plan_type2, .plan_type3, .plan_type4{
+.price_heading_beginner, .price_heading_basic, .price_heading_preferred, .price_heading_professional{
     display: none;
 }
+#slide{
+    width:0px;height:600px;background-color:#fff;position:fixed;top:55px;right:0px; transition: 0.5s;box-shadow: 0px 0px 10px rgb(112 102 102);
+}
+#inside_slide{
+    width:0px ;height: 100px;background-color:red;position:fixed;top:0px;right:0px;;height:620px;background-color:#fff; transition: 0.5s;box-shadow: 0px 0px 10px rgb(112 102 102);z-index:9999;
+}
+.plan_benifit_box{
+    width:700px;
+    height: 80px;
+    background-color:#ecf7fb;
+    border-radius:13px;
+    z-index: 99999;
+    
+}
+.inside_price_free{
+
+    width: 120px;
+    height: 60px;
+    /* border-radius:13px; */
+    border-top-left-radius:13px;
+    border-bottom-left-radius:13px;
+    background-color:#3db7e6;
+    margin: 9px;
+}
+.inside_price_beginner{
+    width: 120px;
+    height: 60px;
+    /* border-radius:13px; */
+    border-top-left-radius:13px;
+    border-bottom-left-radius:13px;
+    background-color:#eebe56;
+    margin: 9px;
 
 
+}
+.inside_price_basic{
+    width: 120px;
+    height: 60px;
+    /* border-radius:13px; */
+    border-top-left-radius:13px;
+    border-bottom-left-radius:13px;
+    background-color:#f36e43;
+    margin: 9px;
+
+}
+.inside_price_preferred{
+    width: 120px;
+    height: 60px;
+    /* border-radius:13px; */
+    border-top-left-radius:13px;
+    border-bottom-left-radius:13px;
+    background-color:#1bb6ab;
+    margin: 9px;
+
+}
+.inside_price_professional{
+    width: 120px;
+    height: 60px;
+    /* border-radius:13px; */
+    border-top-left-radius:13px;
+    border-bottom-left-radius:13px;
+    background-color:#3086c6;
+    margin: 9px;
+
+}
+.free_benifit h6{
+color:#3db7e6;
+font-size: 14px;
+text-align: left;
+padding-left:10px;
+font-weight:600;
+}
+.beginner_benifit h6{
+    color:#eebe56;
+font-size: 14px;
+text-align: left;
+padding-left:10px;
+font-weight:600;
+
+}
+.basic_benifit h6{
+    color:#f36e43;
+font-size: 14px;
+text-align: left;
+padding-left:10px;
+font-weight:600;
+}
+.preferred_benifit h6{
+ color:#1bb6ab;
+font-size: 14px;
+text-align: left;
+padding-left:10px;
+font-weight:600;
+}
+.professional_benifit h6{
+ color:#3086c6;
+font-size: 14px;
+text-align: left;
+padding-left:10px;
+font-weight:600;
+}
+.plan_details_link{
+    text-decoration: underline;
+    font-weight:600;
+}
+.btn-proceed{
+    cursor: pointer;
+}
+.tick-right{
+     position: absolute;
+     top: 8px; 
+    width: 15px;
+    /* right: 75px */
+}
+@media only screen and (max-width:768px){
+    .show_domain{
+        height: auto;
+        width: auto;
+        
+    }
+}
 
 
 </style>
@@ -298,9 +423,9 @@ background-color:#edf5fb;
 
 </script>
 
-<div class="mt-2 platformBody domainPage">
+<div  class="mt-2 platformBody domainPage container-fluid">
     
-    <div class=" header-border pt-3">
+    <div id="header_main" class=" header-border pt-3">
         <ol class="breadcrumb pull-right">
             <li class="breadcrumb-item"><a href="<%= basepath %>/home">Home</a></li>
             <li class="breadcrumb-item active">Domain Configuration</li>
@@ -357,74 +482,74 @@ background-color:#edf5fb;
                     <div class="panel panel-inverse" data-sortable-id="index-1">
                         <div class="panel-body">
 
-                            <div class="row">
+                            <div   class="row">
                                 <!-- <div class="col-lg-2">
-                                    <div class="domainList" onclick="openModal(1)">
+                                    <div class="domain_list" onclick="openModal(1)">
                                         <h1><i class="icon-image3"></i></h1>
                                         <label>Branding</label><br>
                                         <small>Change Platform Logo</small>
                                     </div>
                                 </div> -->
 
-                                <div class="col-lg-2">
+                                <div id="content" class="col-lg-2">
                                     <div  class="Domain_menu ">
-                                         <div id="test" class="domainList" onclick="">
+                                         <div class="domain_list" onclick="">
                                          <!-- <h1><i class="icon-dollar"></i></h1>  -->
                                          <label  >Licence Status</label><br>
                                         <small>plan details</small>
                                     </div>
-                                    <div id="test" class="domainList" onclick="openModal(13,this)">
+                                    <div  class="domain_list" onclick="openModal(13,this)">
                                         <!-- <h1><i class="icon-dollar"></i></h1>  -->
                                         <label>Billing Overview</label><br>
                                        <small>plan details</small>
                                    </div>
 
-                                    <div id="l2"  class="domainList" onclick="openModal(7,this)">
+                                    <div class="domain_list" onclick="openModal(7,this)">
                                         <!-- <h1><i class="icon-paint-brush"></i></h1> -->
                                         <label>Theme & Layout</label><br>
                                         <small class>Change the website theme</small>
                                     </div>
-                                    <div id="l3" class="domainList" onclick="openModal(2,this)">
+                                    <div class="domain_list" onclick="openModal(2,this)">
                                         <!-- <h1><i class="icon-envelope"></i></h1> -->
                                         <label>Email gateway</label><br>
                                         <small>Configure Email</small>
                                     </div>
-                                    <div id="l4" class="domainList" onclick="openModal(3,this)">
+                                    <div  class="domain_list" onclick="openModal(3,this)">
                                         <!-- <h1><i class="icon-phone"></i></h1> -->
                                         <label>Twilio gateway</label><br>
                                         <small>Configure SMS & Voice</small>
                                     </div>
-                                    <div id="l5" class="domainList" onclick="openModal(4,this)">
+                                    <div class="domain_list" onclick="openModal(4,this)">
                                         <!-- <h1><i class="icon-mobile-phone"></i></h1> -->
                                         <label>FCM gateway</label><br>
                                         <small>Configure push notification</small>
                                     </div>
-                                    <div id="l6" class="domainList" onclick="openModal(5,this)">
+                                    <div  class="domain_list" onclick="openModal(5,this)">
                                         <!-- <h1><i class="icon-th-list"></i></h1> -->
                                         <label>UDP Gateway</label><br>
                                         <small>Configure UDP</small>
                                     </div>
-                                    <div  id="l7" class="domainList" onclick="openModal(12,this)">
+                                    <div  class="domain_list" onclick="openModal(12,this)">
                                         <!-- <h1><i class="icon-globe"></i></h1> -->
                                         <label>Custom URL</label><br>
                                         <small>Custom URL Re-routing</small>
                                     </div>
-                                    <div id="l8" class="domainList" onclick="openModal(8,this)">
+                                    <div  class="domain_list" onclick="openModal(8,this)">
                                         <!-- <h1><i class="icon-sign-in"></i></h1> -->
                                         <label>Custom Login</label><br>
                                         <small>Change the Login Screen</small>
                                     </div>
-                                    <div id="l9" class="domainList" onclick="openModal(9,this)">
+                                    <div  class="domain_list" onclick="openModal(9,this)">
                                         <!-- <h1><i class="icon-map-marker"></i></h1> -->
                                         <label>Google Map</label><br>
                                         <small>Set Google Map Api Key</small>
                                     </div>
-                                    <div id="l10" class="domainList" onclick="openModal(10,this)">
+                                    <div  class="domain_list" onclick="openModal(10,this)">
                                         <!-- <h1><i class="icon-map5"></i></h1> -->
                                         <label>Open Weather Map</label><br>
                                         <small>Set Open Weather Map Api Key</small>
                                     </div>
-                                    <div id="l11" class="domainList" onclick="openModal(11,this)">
+                                    <div  class="domain_list" onclick="openModal(11,this)">
                                         <!-- <h1><i class="icon-file-code-o"></i></h1> -->
                                         <label>DarkSky</label><br>
                                         <small>Set Dark Sky Api Key to lookup weather data</small>
@@ -436,7 +561,7 @@ background-color:#edf5fb;
 
 
                                 <div class="col-lg-10 ">
-                                    <div class="show_domain">
+                                    <div id="menu" class="show_domain">
                                         <!-- <div id="domainModal" class="modal fade" tabindex="-1" role="dialog">
                                             <div class="modal-dialog" role="document">
                                                 <form action="javascript:void(0)" onsubmit="proceedSave()" autocomplete="off">
@@ -461,7 +586,7 @@ background-color:#edf5fb;
                                     <!-- </div> -->
                                     <div id="domainmodal">
                                     <form action="javascript:void(0)" onsubmit="proceedSave()" onkeyup="Submit()" autocomplete="off">
-                                                <h4 style="padding-top: 10px;padding-left:30px;"  class="modal-title"></h4>
+                                                <h4 id="blur_header" style="padding-top: 10px;padding-left:30px;"  class="modal-title"></h4>
                                             <div class="modal-body modalBody">
                                                 
                                             </div>
@@ -504,7 +629,7 @@ background-color:#edf5fb;
 
 
                                 <!-- <div class="col-lg-2">
-                                     <div class="domainList"  onclick="successMsg('Not Enabled')">
+                                     <div class="domain_list"  onclick="successMsg('Not Enabled')">
                                          <h1><i class="icon-lock2"></i></h1>
                                          <label>ADS Authentication</label><br>
                                          <small>To enable ADS login</small>
@@ -1049,31 +1174,45 @@ background-color:#edf5fb;
         </div>
        
         <div class="price_rate col-ld-3 text-center">
-            <h4 class="mb-2 plan_type">Free</h4>
-            <div class="" style="width: 150px;color: #fff;font-size:18px; height:40px;background-color:#6dccef;padding:10px; border-top-right-radius:18px;border-bottom-left-radius:18px;text-align:center;">
- <span>$0</span>
-            </div> 
-            <!-- <h4  class="mb-2 plan_type1">Beginner</h4>
-            <div class="" style="width: 150px;color: #fff;font-size:18px; height:40px;background-color:#ecb030;padding:10px; border-top-right-radius:18px;border-bottom-left-radius:18px;text-align:center;">
- <span>$10</span>
-            </div> -->
-             <!-- <h4  class="mb-2 plan_type2">Basic</h4>
+            <div class="price_heading_free">
+                <h4 class="mb-2 plan_free">Free</h4>
+                <div class="" style="width: 150px;color: #fff;font-size:18px; height:40px;background-color:#6dccef;padding:10px; border-top-right-radius:18px;border-bottom-left-radius:18px;text-align:center;">
+     <span>$0</span>
+                </div> 
+
+            </div>
+            <div class="price_heading_beginner" >
+                <h4  class="mb-2 plan_type_beginner">Beginner</h4>
+                <div class="" style="width: 150px;color: #fff;font-size:18px; height:40px;background-color:#ecb030;padding:10px; border-top-right-radius:18px;border-bottom-left-radius:18px;text-align:center;">
+     <span>$10</span>
+                </div>
+            </div>
+           <div class="price_heading_basic">
+            <h4 class="plan_type_basic" >Basic</h4>
             <div class="" style="width: 150px;color: #fff;font-size:18px; height:40px;background-color:#f48865;padding:10px; border-top-right-radius:18px;border-bottom-left-radius:18px;text-align:center;">
  <span>$10</span>
-            </div> -->
-             <!-- <h4  class="mb-2 plan_type3">Preferred</h4>
+            </div>
+           </div>
+           <div class="price_heading_preferred">
+            <h4 class="plan_type_preferred" >Preferred</h4>
             <div class="" style="width: 150px;color: #fff;font-size:18px; height:40px;background-color:#37bfb5;padding:10px; border-top-right-radius:18px;border-bottom-left-radius:18px;text-align:center;">
  <span>$10</span>
-            </div> -->
-            <!-- <h4  class="mb-2 plan_type4">Professional</h4>
-            <div class="" style="width: 150px;color: #fff;font-size:18px; height:40px;background-color:#5ea0d2;padding:10px; border-top-right-radius:18px;border-bottom-left-radius:18px;text-align:center;">
- <span>$10</span>
-            </div>   -->
+            </div>
+
+           </div>
+             <div class="price_heading_professional">
+                <h4 class="plan_type_professional" >Professional</h4>
+                <div  style="width: 150px;color: #fff;font-size:18px; height:40px;background-color:#5ea0d2;padding:10px; border-top-right-radius:18px;border-bottom-left-radius:18px;text-align:center;">
+     <span>$10</span>
+                </div> 
+             </div>
+            
+            
 
         </div>
         <div class="col-lg-4">
             <div class="text-right">
-                <button class="btn btn-success">Upgrade</button>
+                <button  onclick="openUpgrade()" class="btn-proceed btn text-white">Upgrade</button>
 
             </div>
         </div>
@@ -1082,9 +1221,9 @@ background-color:#edf5fb;
 
     </div>
     <div class="row ml-2">
-        <div class="col-lg-2">
+        <div id="blur_inside" class="col-lg-2">
         </div>
-        <div class="col-lg-3 mt-2"> 
+        <div  id="blur_inside_two" class="col-lg-3 mt-2"> 
             <div>
                 <ol class="plan-items p-0">
                     <li  class="blue-bg">Data points</li>
@@ -1101,63 +1240,416 @@ background-color:#edf5fb;
         <div class="col-lg-3 mt-2 mx-0">
     
             
-                <ol class="plan-items price_amount rates p-0">
-                    <li  class="price-color m-0" style="border-top-right-radius: 12px;">10k</li>
+                <ol class="plan-items price_amount_free rates p-0">
+                    <li  class="price_color_free m-0" style="border-top-right-radius: 12px;">10k</li>
                     <li class="m-0">10k</li>
-                    <li class="price-color m-0">10k</li>
+                    <li class="price_color_free m-0">10k</li>
                     <li class="m-0">10k</li>
-                    <li class="price-color m-0">10k</li>
+                    <li class="price_color_free m-0">10k</li>
                     <li class="m-0">10k</li>
-                    <li class="price-color m-0">10k</li>
+                    <li class="price_color_free m-0">10k</li>
                     <li class="m-0">10k</li>
 
                 </ol>   
-                <!-- <ol class="plan-items rates price_amount2 p-0">
-                    <li  class="price-color1 m-0" style="border-top-right-radius: 12px;">11k</li>
+                <ol class="plan-items rates price_amount_beginner p-0">
+                    <li  class="price_color_beginner m-0" style="border-top-right-radius: 12px;">11k</li>
                     <li class="m-0">11k</li>
-                    <li class="price-color1 m-0">11k</li>
+                    <li class="price_color_beginner m-0">11k</li>
                     <li class="m-0">11k</li>
-                    <li class="price-color1 m-0">11k</li>
+                    <li class="price_color_beginner m-0">11k</li>
                     <li class="m-0">11k</li>
-                    <li class="price-color1 m-0">11k</li>
+                    <li class="price_color_beginner m-0">11k</li>
                     <li class="m-0">101</li>
 
-                </ol>    -->
-                <!-- <ol class="plan-items rates p-0 price_amount3">
-                    <li  class="price-color2 m-0" style="border-top-right-radius: 12px;">12k</li>
+                </ol>   
+                <ol class="plan-items rates p-0 price_amount_basic">
+                    <li  class="price_color_basic m-0" style="border-top-right-radius: 12px;">12k</li>
                     <li class="m-0">12k</li>
-                    <li class="price-color2 m-0">12k</li>
+                    <li class="price_color_basic m-0">12k</li>
                     <li class="m-0">12k</li>
-                    <li class="price-color2 m-0">12k</li>
+                    <li class="price_color_basic m-0">12k</li>
                     <li class="m-0">12k</li>
-                    <li class="price-color2 m-0">12k</li>
+                    <li class="price_color_basic m-0">12k</li>
                     <li class="m-0">12</li>
 
-                </ol>     -->
-                 <!-- <ol class="plan-items price_amount4 rates p-0">
-                    <li  class="price-color3 m-0" style="border-top-right-radius: 12px;">13k</li>
+                </ol>    
+                 <ol class="plan-items price_amount_preferred rates p-0">
+                    <li  class="price_color_preferred m-0" style="border-top-right-radius: 12px;">13k</li>
                     <li class="m-0">13k</li>
-                    <li class="price-color3 m-0">13k</li>
+                    <li class="price_color_preferred m-0">13k</li>
                     <li class="m-0">13k</li>
-                    <li class="price-color3 m-0">13k</li>
+                    <li class="price_color_preferred m-0">13k</li>
                     <li class="m-0">13k</li>
-                    <li class="price-color3 m-0">13k</li>
+                    <li class="price_color_preferred m-0">13k</li>
                     <li class="m-0">13</li>
 
-                </ol>    -->
-                   <!-- <ol class="plan-items price_amount5 rates p-0">
-                    <li  class="price-color4 m-0" style="border-top-right-radius: 12px;">13k</li>
+                </ol>   
+                   <ol class="plan-items price_amount_professional rates p-0">
+                    <li  class="price_color_professional m-0" style="border-top-right-radius: 12px;">13k</li>
                     <li class="m-0">13k</li>
-                    <li class="price-color4 m-0">13k</li>
+                    <li class="price_color_professional m-0">13k</li>
                     <li class="m-0">13k</li>
-                    <li class="price-color4 m-0">13k</li>
+                    <li class="price_color_professional m-0">13k</li>
                     <li class="m-0">13k</li>
-                    <li class="price-color4 m-0">13k</li>
+                    <li class="price_color_professional m-0">13k</li>
                     <li class="m-0">13</li>
 
-                </ol>    -->
+                </ol>   
             </div>
-        <div class="col-lg-2">
+        <div class="col-lg-4">
+            
+
+            <div id="slide">
+                
+                <div class="text-right mr-4 mt-3">
+
+                <img style="cursor: pointer;"  src="images/menu/xicon.svg" onclick="closeNav()" class="bg-secondary bskp-close" >
+
+                </div>
+               
+                <h4 style="margin-left:70px;" class="">Plan details with benifits</h4>
+                <div class="row">
+                    <div class="col-lg-1">
+                    </div>
+                    
+                    <div class="col-lg-10 text-center">
+                        <div class=" plan_benifit_box ">
+                           
+                           
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <div class="inside_price_free">
+
+                                        <h6 style="padding:15px; color: #ffffff;font-size:30px;font-weight:600;" class="text-center">$0</h6>
+        
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 mt-4">
+                                    <div style class="free_benifit ml-2">
+                              
+                                        <h6 class="">Free</h6>
+                                        <h6>(Not for commercial)</h6>
+                                      
+                 
+                                    </div> 
+                                  
+                                </div>
+                                <div class="col-lg-4 text-right mt-4 pt-1">
+                                    <a class="plan_details_link" href="">plan details</a>
+
+                                </div>
+                                <div class="col-lg-3 mt-2">
+                                    <button  style="background-color: #cccccc;
+                                    color: #666666;" class="btn-proceed mt-3 text-white free_btn" disabled>Select plan &nbsp > </button>
+
+                                </div>
+
+                            </div>
+
+                                </div>
+
+
+
+                        </div>
+
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-lg-1">
+                        </div>
+                        
+                        <div class="col-lg-10 text-center">
+                            <div class=" plan_benifit_box ">
+                               
+                               
+                                <div class="row">
+                                    <div class="col-lg-2">
+                                        <div class="inside_price_beginner">
+    
+                                            <h6 style="padding:15px; color: #ffffff;font-size:30px;font-weight:600;" class="text-center">$10</h6>
+            
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 mt-4">
+                                        <div style class="beginner_benifit ml-2">
+                                  
+                                            <h6 class="mt-2">Beginner</h6>
+                                            
+                                          
+                     
+                                        </div> 
+                                      
+                                    </div>
+                                    <div class="col-lg-4 text-right mt-4 pt-1">
+                                        <a class="plan_details_link" href="">plan details</a>
+    
+                                    </div>
+                                    <div class="col-lg-3 mt-2">
+                                        <button onclick="BegginerPlan()" class="btn-proceed mt-3 text-white">Select plan &nbsp ></button>
+
+                                    <div  id="inside_slide">
+                                        <div style="margin-top:70px;" class="text-right mr-4">
+
+                                            <img style="cursor: pointer;"  src="images/menu/xicon.svg" onclick=" CloseBegginerPlan()" class="bg-secondary bskp-close" >
+                              
+                                            </div>
+
+                                            <div class="row">
+
+                                    <div class="col-lg-12">
+                                        <h4 style="font-size:18px;" class="text-left pl-5">Plan details</h4>
+                                    </div>
+                                            </div>
+                                            <div class="row">
+
+                                                <div class="col-lg-6">
+                                                    <h4 id="plan_type" style="font-size:18px;" class="text-left pl-5 plan_type_beginner">Beginner</h4>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <h4 id="plan_price" style="font-size:18px;" class="text-center pl-5 plan_type_beginner">$10</h4>
+                                                </div>
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <div class="col-lg-1">
+
+                                                            </div>
+
+                                                            <div class="col-lg-10">
+                                                                
+
+                                                                <div class="row text-left">
+                                                                    <div class="col-lg-12">
+                                                                        <table class="table">
+                                                                            <thead style="background-color: #1f1f53;" class="">
+                                                                              <tr>
+                                                                    <img class="tick-right ml-1 mt-1" src="images/tick-right.svg" alt=""> 
+                                                                    <th class="text-white pl-4" scope="col">benifits</th>
+                                                                                <th scope="col"></th>
+                                                                                <th scope="col"></th>
+                                                                                <th scope="col"></th>
+                                                                              </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                              <tr class="price_color_free">
+                                                                                
+                                                                                <td colspan="2">Data Points</td>
+                                                                                <td colspan="2">2M</td>
+                                                                              </tr>
+                                                                              <tr class="">
+                                                                                
+                                                                                <td colspan="2">API Hits</td>
+                                                                                <td colspan="2">20K</td>
+                                                                            
+                                                                              </tr>
+                                                                              <tr class="price_color_free">
+                                                                                
+                                                                                <td colspan="2">Devices</td>
+                                                                                <td colspan="2">25</td>
+                                                                            
+                                                                              </tr>
+                                                                              <tr class="">
+                                                                                
+                                                                                <td colspan="2">Connected Devices</td>
+                                                                                <td colspan="2">10</td>
+                                                                            
+                                                                              </tr>
+                                                                              <tr class="price_color_free">
+                                                                                
+                                                                                <td colspan="2">Tenants (Domains)
+                                                                                </td>
+                                                                                <td colspan="2">1</td>
+                                                                            
+                                                                              </tr>
+                                                                              <tr class="">
+                                                                                
+                                                                                <td colspan="2">Data Retentions</td>
+                                                                                <td colspan="2">24M Data Points</td>
+                                                                            
+                                                                              </tr>
+                                                                              <tr class="price_color_free">
+                                                                                
+                                                                                <td colspan="2">Add-On Subscription</td>
+                                                                                <td colspan="2">Yes</td>
+                                                                            
+                                                                              </tr>
+                                                                              <tr class="">
+                                                                                
+                                                                                <td colspan="2">Supports(response)</td>
+                                                                                <td colspan="2">Email-in 2 days</td>
+                                                                            
+                                                                              </tr>
+                                                                              
+                                                                            </tbody>
+                                                                          </table>
+
+                                                                    </div>
+                                                                    
+
+                                                                </div>    
+                                                                <div class="row">
+                                                                    <div class="col-lg-12 text-center">
+                                                                        <button class="btn-proceed text-white">Buy Now</button>
+
+                                                                    </div>
+
+                                                                </div>          
+                                                            </div>
+
+                                                        </div>
+
+                                    </div>
+                                    </div>
+    
+                                </div>
+    
+                                    </div>
+    
+    
+    
+                            </div>
+    
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-1">
+                            </div>
+                            
+                            <div class="col-lg-10 text-center">
+                                <div class=" plan_benifit_box ">
+                                   
+                                   
+                                    <div class="row mt-3">
+                                        <div class="col-lg-2">
+                                            <div class="inside_price_basic">
+        
+                                                <h6 style="padding:15px; color: #ffffff;font-size:30px;font-weight:600;" class="text-center">$49</h6>
+                
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 mt-4">
+                                            <div style class="basic_benifit ml-2">
+                                      
+                                                <h6 class="mt-2">Basic</h6>
+                                                <!-- <h6>(Not for commercial)</h6> -->
+                                              
+                         
+                                            </div> 
+                                          
+                                        </div>
+                                        <div class="col-lg-4 text-right mt-4 pt-1">
+                                            <a class="plan_details_link" href="">plan details</a>
+        
+                                        </div>
+                                        <div class="col-lg-3 mt-2">
+                                            <button onclick="BasicPlan()"  class="btn-proceed mt-3 text-white">Select plan &nbsp ></button>
+        
+                                        </div>
+        
+                                    </div>
+        
+                                        </div>
+        
+        
+        
+                                </div>
+        
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-lg-1">
+                                </div>
+                                
+                                <div class="col-lg-10 text-center">
+                                    <div class=" plan_benifit_box ">
+                                       
+                                       
+                                        <div class="row">
+                                            <div class="col-lg-2">
+                                                <div class="inside_price_preferred">
+            
+                                                    <h6 style="padding:15px; color: #ffffff;font-size:30px;font-weight:600;" class="text-center">$99</h6>
+                    
+                                                    
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3 mt-4">
+                                                <div style class="preferred_benifit ml-2">
+                                          
+                                                    <h6 class="mt-2">Preferred</h6>
+                                                  
+                             
+                                                </div> 
+                                              
+                                            </div>
+                                            <div class="col-lg-4 text-right mt-4 pt-1">
+                                                <a class="plan_details_link" href="">plan details</a>
+            
+                                            </div>
+                                            <div class="col-lg-3 mt-2">
+                                                <button onclick="PreferredPlan()" class="btn-proceed mt-3 text-white">Select plan &nbsp ></button>
+            
+                                            </div>
+            
+                                        </div>
+            
+                                            </div>
+            
+            
+            
+                                    </div>
+            
+                                </div>
+                                <div class="row mt-3 pb-4">
+                                    <div class="col-lg-1">
+                                    </div>
+                                    
+                                    <div class="col-lg-10 text-center">
+                                        <div class=" plan_benifit_box ">
+                                           
+                                           
+                                            <div class="row">
+                                                <div class="col-lg-2">
+                                                    <div class="inside_price_professional">
+                
+                                                        <h6 style="padding:15px; color: #ffffff;font-size:30px;font-weight:600;" class="text-center">$149</h6>
+                        
+                                                        
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3 mt-4">
+                                                    <div style class="professional_benifit ml-2">
+                                              
+                                                        <h6 class="mt-2">Professional</h6>
+                                                      
+                                 
+                                                    </div> 
+                                                  
+                                                </div>
+                                                <div class="col-lg-4 text-right mt-4 pt-1">
+                                                    <a class="plan_details_link" href="">plan details</a>
+                
+                                                </div>
+                                                <div class="col-lg-3 mt-2">
+                                                    <button onclick="ProfessionalPlan()" class="btn-proceed mt-3 text-white">Select plan &nbsp ></button>
+                
+                                                </div>
+                
+                                            </div>
+                
+                                                </div>
+                
+                
+                
+                                        </div>
+                
+                                    </div>
+                   
+                    
+
+                </div>
+              
+            </div>
             
         </div>
         </div>
@@ -1173,12 +1665,34 @@ $(".upload-image").on('click', function() {
 
 
 
-
+ 
 
 });
-const input1 = document.getElementsByClassName("form-control");
 
-// Add active class to the current button (highlight it)
+function openUpgrade() {
+//   document.getElementById("myslide").style.width = "860px";
+  $("#slide",).css({"width":"860px"})
+  $("#content",).css({"filter":"blur(8px)"})
+  $("#blur_header").css({"filter":"blur(8px)"})
+  $("#blur_inside").css({"filter":"blur(8px)"})
+  $("#blur_inside_two").css({"filter":"blur(8px)"}) 
+  $("#header_main").css({"filter":"blur(8px)"})
+  $("#menu").css({"border":"none"})
+  $("body").css({"overflow":"hidden"})
+
+}
+
+function closeNav() {
+    $("#slide").css({"width":"0px"})
+  $("#content").css({"filter":"blur(0px)"})
+  $("#blur_header").css({"filter":"blur(0px)"})
+  $("#blur_inside").css({"filter":"blur(0px)"})
+  $("#blur_inside_two").css({"filter":"blur(0px)"}) 
+  $("#header_main").css({"filter":"blur(0px)"})
+  $("#menu").css({"border":"2px solid #cdd6e3"})
+  $("body").css({"overflow":""})
+
+}
 
 
 
@@ -1191,6 +1705,33 @@ function Submit(){
 
     });
     
+}
+function BegginerPlan(){
+    $("#inside_slide",).css({"width":"450px"})
+     $("#plan_type").text("Beginner").addClass("plan_type_beginner")
+    $("#plan_price").text("$10").addClass("plan_type_beginner")
+}
+function BasicPlan(){
+    $("#inside_slide",).css({"width":"450px"})
+    $("#plan_type").text("Basic").addClass("plan_type_basic")
+    $("#plan_price").text("$ 49").addClass("plan_type_basic")
+}
+function PreferredPlan(){
+    $("#inside_slide",).css({"width":"450px"})
+  
+   console.log(); $("#plan_type").text("Preferred").addClass("plan_type_Preferred")
+    $("#plan_price").text("$ 99").addClass("plan_type_Preferred")
+}
+function ProfessionalPlan(){
+    $("#inside_slide",).css({"width":"450px"})
+    $("#plan_type").text("Professional").addClass("plan_type_Professional")
+    $("#plan_price").text("$ 149").addClass("plan_type_Professional")
+}
+
+function CloseBegginerPlan(){
+  $("#inside_slide").css({"width":"0px"})
+
+
 }
 
 

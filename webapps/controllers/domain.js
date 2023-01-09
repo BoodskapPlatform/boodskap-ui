@@ -347,7 +347,7 @@ function getCustomURL() {
 
 function openModal(id,obj) {
 
-    $(".domainList").removeClass("active1")
+    $(".domain_list").removeClass("active1")
     $(obj).addClass("active1")
     selectedId = id;
     $(".modalBody").html('');
@@ -414,7 +414,6 @@ function openModal(id,obj) {
 }
 
 function proceedSave() {
-    console.log(selectedId);
 
     if (selectedId === 1) {
 
