@@ -259,22 +259,23 @@ function getCustomURL() {
 }
 
 
-function openModal(id,obj) {
+function openModal(id,domId) {
 
-    $(".domain_list").removeClass("active1")
-    $(obj).addClass("active1")
-    selectedId = id;
+    $(".domain-list").removeClass("d-menu-active");
+    $("#"+domId).addClass("d-menu-active");
     $(".modalBody").html('');
+
+    selectedId = id;
 
     if (id === 1) {
         // $(".modal-title").html('Logo Branding');
         // $(".modalBody").html($("#logoBranding").html());
         getDomainBranding();
     } else if (id === 2) {
+
         $(".modal-title").html('Email Gateway');
         $(".modalBody").html($("#emailGateway").html());
         getGatewaySettings('email');
-        
 
     } else if (id === 3) {
         $(".modal-title").html('Twilio Gateway');
