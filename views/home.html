@@ -76,230 +76,287 @@
                    </div>
 
                     <div class="row homeMenuList billingManagement siteNoop loginAs">
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 homecard  hmarketplace" onclick="loadMenu(20)">
-                            <div class="card modules bskp-home-modules"  onclick="clickRecent('Boodskap Marketplace','marketplace',20,1)">
-                                <div class="bskp-icon-frame">
-                                    <div class="bskp-Dbg bskp-Dimg1"> </div>
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard  hmarketplace" ><!-- onclick="loadMenu(20)" -->
+                            <a href="<%= basepath %>/marketplace">
+                                <div class="card modules bskp-home-modules"  ><!-- onclick="clickRecent('Boodskap Marketplace','marketplace',20,1)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg1"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">Boodskap Marketplace</label></p>
                                 </div>
-                                <p class="mt-2"><label class="cardtitle">Boodskap Marketplace</label></p>
-                            </div>
+                            </a>
+                        </div>
+                        
+                        
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard hwidgetlibrary" ><!-- onclick="loadMenu(35)" -->
+                            <a href="<%= basepath %>/widgets">
+                                <div class="card modules bskp-home-modules"><!-- onclick="clickRecent('Widget Library','widget_library',35,2)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg2"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">Widget Library</label></p>
+                                </div>
+                            </a>
+                        </div>
+                        
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard hmsgdef" ><!-- onclick="loadMenu(2)" -->
+                            <a href="<%= basepath %>/message-definition">
+                                <div class="card modules bskp-home-modules"><!-- onclick="clickRecent('Message Definition','message_definition',2,3)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg3"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">Message Definition</label></p>
+                                </div>
+                            </a>
+                        </div>
+                        
+                        
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard hrecdef sqlqueryhome" ><!-- onclick="loadMenu(28)"cccccccccccccccccc -->
+                            <a href="<%= basepath %>/message-definition">
+                                <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('DSQL Tables','dSQL_tables',28,4)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg4"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">DSQL Tables</label></p>
+                                </div>
+                            </a>    
+                        </div>
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard hrecdef dbqueryhome" ><!-- onclick="loadMenu(29)" -->
+                            <a href="<%= basepath %>/db-table">
+                                <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('DB Tables','db-tables',29,5)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg5"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">DB Tables</label></p>
+                                </div>
+                            </a>    
                         </div>
 
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 homecard hwidgetlibrary" onclick="loadMenu(35)">
-                            <div class="card modules bskp-home-modules"onclick="clickRecent('Widget Library','widget_library',35,2)">
-                                <div class="bskp-icon-frame">
-                                    <div class="bskp-Dbg bskp-Dimg2"> </div>
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard hmongo" ><!-- onclick="loadMenu(36)" -->
+                            <a href="<%= basepath %>/mongodb">
+                                <div class="card modules bskp-home-modules"  ><!-- onclick="clickRecent('MongoDB','mongoDB',36,6)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg6"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">MongoDB</label></p>
                                 </div>
-                                <p class="mt-2"><label class="cardtitle">Widget Library</label></p>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 homecard hmsgdef" onclick="loadMenu(2)">
-                            <div class="card modules bskp-home-modules"onclick="clickRecent('Message Definition','message_definition',2,3)">
-                                <div class="bskp-icon-frame">
-                                    <div class="bskp-Dbg bskp-Dimg3"> </div>
-                                </div>
-                                <p class="mt-2"><label class="cardtitle">Message Definition</label></p>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 homecard hrecdef sqlqueryhome" onclick="loadMenu(28)">
-                            <div class="card modules bskp-home-modules" onclick="clickRecent('DSQL Tables','dSQL_tables',28,4)">
-                                <div class="bskp-icon-frame">
-                                    <div class="bskp-Dbg bskp-Dimg4"> </div>
-                                </div>
-                                <p class="mt-2"><label class="cardtitle">DSQL Tables</label></p>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 homecard hrecdef dbqueryhome" onclick="loadMenu(29)">
-                            <div class="card modules bskp-home-modules" onclick="clickRecent('DB Tables','db-tables',29,5)">
-                                <div class="bskp-icon-frame">
-                                    <div class="bskp-Dbg bskp-Dimg5"> </div>
-                                </div>
-                                <p class="mt-2"><label class="cardtitle">DB Tables</label></p>
-                            </div>
+                            </a>    
                         </div>
 
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 homecard hmongo" onclick="loadMenu(36)">
-                            <div class="card modules bskp-home-modules" onclick="clickRecent('MongoDB','mongoDB',36,6)" >
-                                <div class="bskp-icon-frame">
-                                    <div class="bskp-Dbg bskp-Dimg6"> </div>
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard hdashboard" ><!-- onclick="loadMenu(1)" -->
+                            <a href="<%= basepath %>/dashboard">
+                                <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('Dashboard','dashboard',1,7)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg7"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">Dashboard</label></p>
                                 </div>
-                                <p class="mt-2"><label class="cardtitle">MongoDB</label></p>
-                            </div>
+                            </a>
                         </div>
-
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 homecard hdashboard" onclick="loadMenu(1)">
-                            <div class="card modules bskp-home-modules" onclick="clickRecent('Dashboard','dashboard',1,7)">
-                                <div class="bskp-icon-frame">
-                                    <div class="bskp-Dbg bskp-Dimg7"> </div>
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard hrecdef" ><!-- onclick="loadMenu(3)"> -->
+                            <a href="<%= basepath %>/record-definition">
+                                <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('Record Definition','record_definition',3,8)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg8"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">Record Definition</label></p>
                                 </div>
-                                <p class="mt-2"><label class="cardtitle">Dashboard</label></p>
-                            </div>
-
+                            </a>    
                         </div>
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 homecard hrecdef" onclick="loadMenu(3)">
-                            <div class="card modules bskp-home-modules" onclick="clickRecent('Record Definition','record_definition',3,8)">
-                                <div class="bskp-icon-frame">
-                                    <div class="bskp-Dbg bskp-Dimg8"> </div>
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard htemplates sqlqueryhome" ><!-- onclick="loadMenu(27)" cccccccccccccccccccc -->
+                            <a href="<%= basepath %>/">
+                                <div class="card modules bskp-home-modules" ><!--  onclick="clickRecent('DSQL Templates','dsql_templates',27,9)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg9"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">DSQL Templates</label></p>
                                 </div>
-                                <p class="mt-2"><label class="cardtitle">Record Definition</label></p>
-                            </div>
+                            </a>    
                         </div>
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 homecard htemplates sqlqueryhome" onclick="loadMenu(27)">
-                            <div class="card modules bskp-home-modules"  onclick="clickRecent('DSQL Templates','dsql_templates',27,9)">
-                                <div class="bskp-icon-frame">
-                                    <div class="bskp-Dbg bskp-Dimg9"> </div>
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard htemplates dbqueryhome" ><!-- onclick="loadMenu(31)" -->
+                            <a href="<%= basepath %>/db-templates">
+                                <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('DB Templates','db-templates',31,10)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg10"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">DB Templates</label></p>
                                 </div>
-                                <p class="mt-2"><label class="cardtitle">DSQL Templates</label></p>
-                            </div>
+                            </a>    
                         </div>
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 homecard htemplates dbqueryhome" onclick="loadMenu(31)">
-                            <div class="card modules bskp-home-modules" onclick="clickRecent('DB Templates','db-templates',31,10)">
-                                <div class="bskp-icon-frame">
-                                    <div class="bskp-Dbg bskp-Dimg10"> </div>
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard hdevice" ><!-- onclick="loadMenu(12)" -->
+                            <a href="<%= basepath %>/device-management">
+                                <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('Device Management','device_management',12,11)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg11"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">Device Management</label></p>
                                 </div>
-                                <p class="mt-2"><label class="cardtitle">DB Templates</label></p>
-                            </div>
+                            </a>    
                         </div>
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 homecard hdevice" onclick="loadMenu(12)">
-                            <div class="card modules bskp-home-modules" onclick="clickRecent('Device Management','device_management',12,11)">
-                                <div class="bskp-icon-frame">
-                                    <div class="bskp-Dbg bskp-Dimg11"> </div>
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard hmessages" ><!-- onclick="loadMenu(22)" -->
+                            <a href="<%= basepath %>/files">
+                                <div class="card modules bskp-home-modules"><!-- onclick="clickRecent('File Storage','file_storage',22,12)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg12"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">File Storage</label></p>
                                 </div>
-                                <p class="mt-2"><label class="cardtitle">Device Management</label></p>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 homecard hmessages" onclick="loadMenu(22)">
-                            <div class="card modules bskp-home-modules"onclick="clickRecent('File Storage','file_storage',22,12)">
-                                <div class="bskp-icon-frame">
-                                    <div class="bskp-Dbg bskp-Dimg12"> </div>
-                                </div>
-                                <p class="mt-2"><label class="cardtitle">File Storage</label></p>
-                            </div>
+                            </a>    
                         </div>
                   
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 homecard hdasheditor" onclick="loadMenu(16)">
-                            <div class="card modules bskp-home-modules" onclick="clickRecent('Dashboard Editor','Dashboard Editor',16,13)">
-                                <div class="bskp-icon-frame">
-                                    <div class="bskp-Dbg bskp-Dimg13"> </div>
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard hdasheditor" ><!-- onclick="loadMenu(16)" -->
+                            <a href="<%= basepath %>/dashboard-editor">
+                                <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('Dashboard Editor','Dashboard Editor',16,13)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg13"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">Dashboard Editor</label></p>
                                 </div>
-                                <p class="mt-2"><label class="cardtitle">Dashboard Editor</label></p>
-                            </div>
+                            </a>    
                         </div>
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 homecard hevents" onclick="loadMenu(9)">
-                            <div class="card modules bskp-home-modules" onclick="clickRecent('Events & Notification','events_notification',9,14)">
-                                <div class="bskp-icon-frame">
-                                    <div class="bskp-Dbg bskp-Dimg14"> </div>
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard hevents"> <!-- onclick="loadMenu(9)" -->
+                            <a href="<%= basepath %>/events">
+                                <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('Events & Notification','events_notification',9,14)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg14"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">Events & Notification</label></p>
                                 </div>
-                                <p class="mt-2"><label class="cardtitle">Events & Notification</label></p>
-                            </div>
+                            </a>    
                         </div>
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 homecard sqlqueryhome" onclick="loadMenu(26)">
-                            <div class="card modules bskp-home-modules" onclick="clickRecent('DSQL Query Console','dsql_query_console',26,15)">
-                                <div class="bskp-icon-frame">
-                                    <div class="bskp-Dbg bskp-Dimg15"> </div>
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard sqlqueryhome" ><!-- onclick="loadMenu(26)" ccccccccccccccccccc -->
+                            <a href="<%= basepath %>/">
+                                <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('DSQL Query Console','dsql_query_console',26,15)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg15"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">DSQL Query Console</label></p>
                                 </div>
-                                <p class="mt-2"><label class="cardtitle">DSQL Query Console</label></p>
-                            </div>
+                            </a>    
                         </div>
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 homecard dbqueryhome" onclick="loadMenu(30)">
-                            <div class="card modules bskp-home-modules" onclick="clickRecent('DB Query Console','db-query-console',30,16)">
-                                <div class="bskp-icon-frame">
-                                    <div class="bskp-Dbg bskp-Dimg16"> </div>
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard dbqueryhome" ><!-- onclick="loadMenu(30)" ccccccccccccccccccccccc -->
+                            <a href="<%= basepath %>/">
+                                <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('DB Query Console','db-query-console',30,16)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg16"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">DB Query Console</label></p>
                                 </div>
-                                <p class="mt-2"><label class="cardtitle">DB Query Console</label></p>
-                            </div>
+                            </a>    
                         </div>
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 homecard hassets" onclick="loadMenu(14)">
-                            <div class="card modules bskp-home-modules" onclick="clickRecent('Asset Management','asset_management',14,17)">
-                                <div class="bskp-icon-frame">
-                                    <div class="bskp-Dbg bskp-Dimg17"> </div>
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard hassets" ><!-- onclick="loadMenu(14)" -->
+                            <a href="<%= basepath %>/asset-management">
+                                <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('Asset Management','asset_management',14,17)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg17"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">Asset Management</label></p>
                                 </div>
-                                <p class="mt-2"><label class="cardtitle">Asset Management</label></p>
-                            </div>
+                            </a>    
                         </div>
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 homecard heventlogs" onclick="loadMenu(17)">
-                            <div class="card modules bskp-home-modules" onclick="clickRecent('Event Logs','event_logs',17,18)">
-                                <div class="bskp-icon-frame">
-                                    <div class="bskp-Dbg bskp-Dimg18"> </div>
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard heventlogs" ><!-- onclick="loadMenu(17)" -->
+                            <a href="<%= basepath %>/event-logs">
+                                <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('Event Logs','event_logs',17,18)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg18"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">Event Logs</label></p>
                                 </div>
-                                <p class="mt-2"><label class="cardtitle">Event Logs</label></p>
-                            </div>
+                            </a>    
                         </div>
                    
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 homecard hmobile" onclick="loadMenu(11)">
-                            <div class="card modules bskp-home-modules" onclick="clickRecent('Mobile Editor','mobile_editor',11,19)">
-                                <div class="bskp-icon-frame">
-                                    <div class="bskp-Dbg bskp-Dimg19"> </div>
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard hmobile" ><!-- onclick="loadMenu(11)" -->
+                            <a href="<%= basepath %>/mobile-platform">
+                                <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('Mobile Editor','mobile_editor',11,19)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg19"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">Mobile Editor</label></p>
                                 </div>
-                                <p class="mt-2"><label class="cardtitle">Mobile Editor</label></p>
-                            </div>
+                            </a>    
                         </div>
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 homecard hscript" onclick="loadMenu(5)">
-                            <div class="card modules bskp-home-modules" onclick="clickRecent('Script Console','script_console',5,20)">
-                                <div class="bskp-icon-frame">
-                                    <div class="bskp-Dbg bskp-Dimg20"> </div>
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard hscript"> <!-- onclick="loadMenu(5)"> -->
+                            <a href="<%= basepath %>/script-console">
+                                <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('Script Console','script_console',5,20)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg20"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">Script Console</label></p>
                                 </div>
-                                <p class="mt-2"><label class="cardtitle">Script Console</label></p>
-                            </div>
+                            </a>    
                         </div>
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 homecard hmessages" onclick="loadMenu(18)">
-                            <div class="card modules bskp-home-modules" onclick="clickRecent('Raw Messages','raw_messages',18,21)">
-                                <div class="bskp-icon-frame">
-                                    <div class="bskp-Dbg bskp-Dimg21"> </div>
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard hmessages" ><!-- onclick="loadMenu(18)" -->
+                            <a href="<%= basepath %>/messages">
+                                <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('Raw Messages','raw_messages',18,21)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg21"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">Raw Messages</label></p>
                                 </div>
-                                <p class="mt-2"><label class="cardtitle">Raw Messages</label></p>
-                            </div>
+                            </a>    
                         </div>
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 homecard hmessages" onclick="loadMenu(37)">
-                            <div class="card modules bskp-home-modules" onclick="clickRecent('Mongo Query Console','mongo_query_console',37,22)">
-                                <div class="bskp-icon-frame">
-                                    <div class="bskp-Dbg bskp-Dimg22"> </div>
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard hmessages" ><!-- onclick="loadMenu(37)" -->
+                            <a href="<%= basepath %>/mongo-console">
+                                <div class="card modules bskp-home-modules"><!--  onclick="clickRecent('Mongo Query Console','mongo_query_console',37,22)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg22"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">Mongo Query Console</label></p>
                                 </div>
-                                <p class="mt-2"><label class="cardtitle">Mongo Query Console</label></p>
-                            </div>
+                            </a>    
                         </div>
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 homecard hfirmware" onclick="loadMenu(13)">
-                            <div class="card modules bskp-home-modules" onclick="clickRecent('Firmware Management','firmware_management',13,23)">
-                                <div class="bskp-icon-frame">
-                                    <div class="bskp-Dbg bskp-Dimg23"> </div>
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard hfirmware" ><!-- onclick="loadMenu(13)" -->
+                            <a href="<%= basepath %>/firmware-management">
+                                <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('Firmware Management','firmware_management',13,23)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg23"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">Firmware Management</label></p>
                                 </div>
-                                <p class="mt-2"><label class="cardtitle">Firmware Management</label></p>
-                            </div>
+                            </a>    
                         </div>
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 homecard hlogs" onclick="loadMenu(19)">
-                            <div class="card modules bskp-home-modules" onclick="clickRecent('Application Logs','application_logs',19,24)">
-                                <div class="bskp-icon-frame">
-                                    <div class="bskp-Dbg bskp-Dimg24"> </div>
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard hlogs" ><!-- onclick="loadMenu(19)" -->
+                            <a href="<%= basepath %>/log-console">
+                                <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('Application Logs','application_logs',19,24)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg24"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">Application Logs</label></p>
                                 </div>
-                                <p class="mt-2"><label class="cardtitle">Application Logs</label></p>
-                            </div>
+                            </a>    
                         </div>
 
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 homecard hrules" onclick="loadMenu(4)">
-                            <div class="card modules bskp-home-modules" onclick="clickRecent('Rules Engine','rules_engine',4,25)">
-                                <div class="bskp-icon-frame">
-                                    <div class="bskp-Dbg bskp-Dimg25"> </div>
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard hrules"><!-- onclick="loadMenu(4)"> -->
+                            <a href="<%= basepath %>/rules-engine">
+                                <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('Rules Engine','rules_engine',4,25)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg25"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">Rules Engine</label></p>
                                 </div>
-                                <p class="mt-2"><label class="cardtitle">Rules Engine</label></p>
-                            </div>
+                            </a>    
                         </div>
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 homecard hquery" onclick="loadMenu(25)">
-                            <div class="card modules bskp-home-modules" onclick="clickRecent('Search Query Console','search_query_console',25,26)">
-                                <div class="bskp-icon-frame">
-                                    <div class="bskp-Dbg bskp-Dimg26"> </div>
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard hquery" ><!-- onclick="loadMenu(25)" -->
+                            <a href="<%= basepath %>/query-console">
+                                <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('Search Query Console','search_query_console',25,26)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg26"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">Query Console</label></p>
                                 </div>
-                                <p class="mt-2"><label class="cardtitle">Query Console</label></p>
-                            </div>
+                            </a>    
                         </div>
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 homecard htemplates" onclick="loadMenu(8)">
-                            <div class="card modules bskp-home-modules" onclick="clickRecent('Platform Templates','platform_templates',8,27)">
-                                <div class="bskp-icon-frame">
-                                    <div class="bskp-Dbg bskp-Dimg27"> </div>
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard htemplates"> <!-- onclick="loadMenu(8)"> -->
+                            <a href="<%= basepath %>/templates">
+                                <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('Platform Templates','platform_templates',8,27)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg27"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">Platform Templates</label></p>
                                 </div>
-                                <p class="mt-2"><label class="cardtitle">Platform Templates</label></p>
-                            </div>
+                            </a>    
                         </div>
-                        <!-- <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 homecard hmessages" onclick="">
+                        <!-- <div class="w-25 w-sm-100 w-md-50 px-2 homecard hmessages" onclick="">
                             <div class="card modules bskp-home-modules" onclick="clickRecent('Cassandra Query Console','cassandra_query_console','',28)">
                                 <div class="bskp-icon-frame">
                                     <div class="bskp-Dbg bskp-Dimg28"> </div>
@@ -307,56 +364,68 @@
                                 <p class="mt-2"><label class="cardtitle">Cassandra Query Console</label></p>
                             </div>
                         </div> -->
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 homecard hgeofence" onclick="loadMenu(10)">
-                            <div class="card modules bskp-home-modules" onclick="clickRecent('Geofence Management','geofence_management',10,29)">
-                                <div class="bskp-icon-frame">
-                                    <div class="bskp-Dbg bskp-Dimg29"> </div>
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard hgeofence" ><!-- onclick="loadMenu(10)" -->
+                            <a href="<%= basepath %>/geofence">
+                                <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('Geofence Management','geofence_management',10,29)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg29"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">Geofence Management</label></p>
                                 </div>
-                                <p class="mt-2"><label class="cardtitle">Geofence Management</label></p>
-                            </div>
+                            </a>    
                         </div>
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 homecard husers" onclick="loadMenu(15)">
-                            <div class="card modules bskp-home-modules" onclick="clickRecent('User Management','user_management',15,30)">
-                                <div class="bskp-icon-frame">
-                                    <div class="bskp-Dbg bskp-Dimg30"> </div>
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard husers" ><!-- onclick="loadMenu(15)" -->
+                            <a href="<%= basepath %>/user-management">
+                                <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('User Management','user_management',15,30)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg30"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">User Management</label></p>
                                 </div>
-                                <p class="mt-2"><label class="cardtitle">User Management</label></p>
-                            </div>
+                            </a>    
                         </div>
                   
-                       <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 homecard hmachine" onclick="loadMenu(6)">
-                            <div class="card modules bskp-home-modules" onclick="clickRecent('AI & Machine Learning','ai_machine',6,31)">
-                                <div class="bskp-icon-frame">
-                                    <div class="bskp-Dbg bskp-Dimg31"> </div>
+                       <div class="w-25 w-sm-100 w-md-50 px-2 homecard hmachine" ><!-- onclick="loadMenu(6)"> --> 
+                            <a href="<%= basepath %>/machine-learning">
+                                <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('AI & Machine Learning','ai_machine',6,31)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg31"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">AI & Machine Learning</label></p>
                                 </div>
-                                <p class="mt-2"><label class="cardtitle">AI & Machine Learning</label></p>
-                            </div>
+                            </a>    
                         </div>
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 homecard hamazon" onclick="loadMenu(24)">
-                            <div class="card modules bskp-home-modules" onclick="clickRecent('Amazon Alexa','amazon_alexa',24,32)">
-                                <div class="bskp-icon-frame">
-                                    <div class="bskp-Dbg bskp-Dimg32"> </div>
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard hamazon" ><!-- onclick="loadMenu(24)" -->
+                            <a href="<%= basepath %>/alexa">
+                                <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('Amazon Alexa','amazon_alexa',24,32)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg32"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">Amazon Alexa</label></p>
                                 </div>
-                                <p class="mt-2"><label class="cardtitle">Amazon Alexa</label></p>
-                            </div>
+                            </a>    
                         </div>
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 homecard hmessages" >
-                            <div class="card modules bskp-home-modules" onclick="clickRecent('Google Voice','google_voice','',33)">
-                                <div class="bskp-icon-frame">
-                                    <div class="bskp-Dbg bskp-Dimg33"> </div>
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard hmessages" >
+                            <a href="<%= basepath %>/">
+                                <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('Google Voice','google_voice','',33)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg33"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">Google Voice</label></p>
                                 </div>
-                                <p class="mt-2"><label class="cardtitle">Google Voice</label></p>
-                            </div>
+                            </a>    
                         </div>
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 homecard hcode" onclick="loadMenu(23)">
-                            <div class="card modules bskp-home-modules" onclick="clickRecent('Code Editor','code_editor',23,34)">
-                                <div class="bskp-icon-frame">
-                                    <div class="bskp-Dbg bskp-Dimg34"> </div>
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard hcode" ><!-- onclick="loadMenu(23)" -->
+                            <a href="<%= basepath %>/code-editor">
+                                <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('Code Editor','code_editor',23,34)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg34"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">Code Editor</label></p>
                                 </div>
-                                <p class="mt-2"><label class="cardtitle">Code Editor</label></p>
-                            </div>
+                            </a>    
                         </div>
-                        <!-- <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 homecard hgeofence" onclick="loadMenu(32)">
+                        <!-- <div class="w-25 w-sm-100 w-md-50 px-2 homecard hgeofence" onclick="loadMenu(32)">
                             <div class="card modules bskp-home-modules" onclick="clickRecent('Plugin Management','plugin_management',32,35)">
                                 <div class="bskp-icon-frame">
                                     <div class="bskp-Dbg bskp-Dimg35"> </div>
@@ -417,12 +486,14 @@
                         <div class="panel panel-inverse bskp-rightpanel col-lg-12" data-sortable-id="ui-widget-1" style="background: none !important;">
                             <div class="panel-heading">
 
-                                <h4 class="panel-title"><img src="images/globe.svg" class="pl-1" height="16" alt=""> <span> Domain Details</span>
-                                     <a href="javascript:;" onclick="startTour()" class="pull-right btn btn-sm btn-icon btn-circle bskp-icon-bg bskp-bord-icon bskp-headbtn"  title="Help"><i class="icon-help"></i></a>
-                                     <a href="<%= basepath %>/domain"  class="pull-right btn btn-sm btn-icon btn-circle bskp-headbtn bskp-icon-bg bskp-bord-icon mr-1"  title="Domain Settings"><i class="fa fa-cog"></i></a>
-                                    <a href="javascript:void(0)" onclick="openLinkModal()"
-                                       class="pull-right mr-1 btn btn-sm btn-icon btn-circle bskp-icon-bg bskp-bord-icon bskp-headbtn"  title="Link Domain"><i class="fa fa-link"></i></a>
-                                </h4>
+                                <div class="panel-title d-flex justify-content-between">
+                                    <div class="col-6 p-0 text-wrap"><img src="images/globe.svg" class="pl-1" height="16" alt=""> <span> Domain Details</span></div>
+                                    <div class="col-6 p-0">
+                                        <a href="javascript:;" onclick="startTour()" class="pull-right btn btn-sm btn-icon btn-circle bskp-icon-bg bskp-bord-icon bskp-headbtn"  title="Help"><i class="icon-help"></i></a>
+                                        <a href="<%= basepath %>/domain"  class="pull-right btn btn-sm btn-icon btn-circle bskp-headbtn bskp-icon-bg bskp-bord-icon mr-1"  title="Domain Settings"><i class="fa fa-cog"></i></a>
+                                        <a href="javascript:void(0)" onclick="openLinkModal()" class="pull-right mr-1 btn btn-sm btn-icon btn-circle bskp-icon-bg bskp-bord-icon bskp-headbtn"  title="Link Domain"><i class="fa fa-link"></i></a>
+                                    </div>    
+                                </div>
                             </div>
                             <div class="panel-body" style="background-color: white; border-radius: 0px 0px 10px 10px;">
                                 <ul class="nav">
@@ -470,16 +541,16 @@
                                             <i class="icon-copy2" style="color: #3b3ea0;"></i></a>
                                     </li>
                                 </ul>
-                                <!-- <ul class="nav">
-                                    <li class="col-lg-6"><label class="mb-0">API Key </label></li>
-                                    <li class="col-lg-6"><span class="api_key_show">***********</span> <span
+                                <ul class="nav justify-content-between">
+                                    <li><label class="mb-0">API Key </label></li>
+                                    <li class="pr-2"><span class="api_key_show">***********</span> <span
                                             class="api_key hide"></span>
                                         <a href="javascript:void(0)" onclick="toggleKeys(1,'apiToggle')" class="apiToggle"><i
                                                 class="fa fa-eye" style="color: #4693cfd4;vertical-align: text-top;"></i></a>
                                         <a href="javascript:void(0)" class="apiKey"  style="text-decoration: none"
                                            title="Click here to copy API Key"><i class="icon-copy2"></i></a>
                                     </li>
-                                </ul> -->
+                                </ul>
                               
                                 
                                 <!-- <% if(userRole.toLowerCase() === 'admin'){ %>

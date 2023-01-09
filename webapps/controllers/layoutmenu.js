@@ -586,7 +586,7 @@ function checkUserExist(groupId, userId, cbk) {
          Cookies.set('sql_access', true);
      }else{
          $(".sqlquery").remove();
-         $(".sqlqueryhome").attr('onclick','errorMsg("Contact Administrator!")')
+         $(".sqlqueryhome").attr('onclick','errorMsg("Contact Administrator!")').children("a").attr("href","javascript:void(0);");
 
      }
  }
@@ -598,7 +598,7 @@ function checkDomainDBAccess() {
         Cookies.set('db_access', true);
     }else{
         $(".dbquery").remove();
-        $(".dbqueryhome").attr('onclick','errorMsg("Contact Administrator!")')
+        $(".dbqueryhome").attr('onclick','errorMsg("Contact Administrator!")').children("a").attr("href","javascript:void(0);");
 
     }
 }
@@ -609,7 +609,7 @@ function checkDomainMongoAccess() {
         Cookies.set('mongo_access', true);
     }else{
         $(".mongoquery").remove();
-        $(".mongoqueryhome").attr('onclick','errorMsg("Contact Administrator!")')
+        $(".mongoqueryhome").attr('onclick','errorMsg("Contact Administrator!")').children("a").attr("href","javascript:void(0);");
 
     }
 }
