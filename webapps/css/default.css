@@ -21,15 +21,15 @@ footer{
     }
 }
 
-body::-webkit-scrollbar {
+body::-webkit-scrollbar , .partDomainList::-webkit-scrollbar {
     width: 5px;
 }
-body::-webkit-scrollbar-track {
+body::-webkit-scrollbar-track , .partDomainList::-webkit-scrollbar-track {
     background: #eee;
     /*border-left: 9px solid white;*/
     /*border-right: 9px solid white;*/
 }
-body::-webkit-scrollbar-thumb {
+body::-webkit-scrollbar-thumb , .partDomainList::-webkit-scrollbar-thumb {
     background: #acacab;
     /*border-left: 7px solid white;*/
     /*border-right: 7px solid white;*/
@@ -509,4 +509,10 @@ font-size: 36px;
 }
 #userTable tr.shown td.details-control {
     background: url('images/details_close.png') no-repeat center center;
+}
+
+
+.domain-select-list{
+    max-height: 55vh;
+    overflow: auto;
 }
