@@ -220,12 +220,12 @@ function editDomainName() {
         backdrop: 'static',
         keyboard: false
     });
-
 }
 
 function saveDomainName() {
+    
     var data = {
-        name: DOMAIN_UUID_,
+        name: DOMAIN_UUID,
         value: $("#domainName").val()
     };
 
