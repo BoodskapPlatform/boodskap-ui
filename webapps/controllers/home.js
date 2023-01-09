@@ -159,11 +159,15 @@ function linkDomainCall() {
 
     linkDomain(obj, function (status, data) {
         if (status) {
-            USER_OBJ.linkedDomains.push(data);
+            if(!USER_OBJ.linkedDomains){
+                USER_OBJ["linkedDomains"] = [];
+            }
+            USER_OBJ["linkedDomains"].push(data);
             Cookies.set('user_details', USER_OBJ);
-            domainList();
-            $("#linkModal form")[0].reset();
-            successMsg('Domain Linked Successfully!')
+                domainList();
+                $("#linkModal form")[0].reset();
+                successMsg('Domain Linked Successfully!')
+            
         } else {
             errorMsg('Error in Linking Domain (or) Domain Not Exist')
         }
