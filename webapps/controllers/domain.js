@@ -1,6 +1,7 @@
 var logoPathId = '';
 var selectedId = null;
 let dom_lic_obj = null;
+let active_plan_obj = null;
 
 $(document).ready(function () {
     $("body").removeClass('bg-white');
@@ -8,7 +9,6 @@ $(document).ready(function () {
     $(".upload-image").on('click', function() {
         $(".file-upload").click();
       });
-    getLicenseDetails();
 });
 
 function openUpgrade() {
@@ -310,9 +310,6 @@ function getLoginLogo() {
 
 
             $("#customHtml").val(resultData.customHtml);
-
-
-
             $('#leftBg').colorpicker('setValue',resultData.leftBg);
             $('#leftBottomBg').colorpicker('setValue',resultData.leftBottomBg);
             $('#textColor').colorpicker('setValue',resultData.textColor);
@@ -327,8 +324,6 @@ function getLoginLogo() {
             setCustomLoginDefault()
 
         }
-
-
 
         // $("#leftBg").val(resultData.leftBg ? resultData.leftBg : DEFAULT_LOGIN_THEME.leftBg);
         // $("#leftBottomBg").val(resultData.leftBottomBg ? resultData.leftBottomBg : DEFAULT_LOGIN_THEME.leftBottomBg);
@@ -377,6 +372,7 @@ function openModal(block,$dom) {
         case 'license-status' :
             loadTemplate = $("#licenseStatus").html();
             title = 'License Status';
+            getLicenseDetails();
             break;
 
         case 'billing-overview' :
@@ -869,6 +865,229 @@ function getLicenseDetails(){
     getDomainLicense(function(status, data){
         if(status){
             dom_lic_obj = data;
+            active_plan_obj = PLANS_LIST[dom_lic_obj.plan];
+            renderPlanCard(active_plan_obj);
+            getPlanUsage(dom_lic_obj);
         }
+    });
+}
+
+function renderPlanCard(obj){
+
+    let plan = obj.details;
+    let plan_name = obj.plan_title.toLowerCase();
+    let loadHtml = ``;
+
+    loadHtml = `<div class="ds-disp">
+    <div style="text-align: center;">
+      <div class="ds-plan-header-box `+plan_name+`Price">
+        <b><i class="fa fa-check-circle"></i> Active Plan</b>
+      </div>
+    </div>
+    <div class="ds-plan-box `+plan_name+`UlBorder">
+      <div class="ds-plan-heading `+plan_name+`-plan-heading">
+       <span id="currentPlanTitle">
+            <span>
+                <img src="images/plans/`+plan_name+`-plan.png" style="height: 30px;">
+                <b style="text-transform:capitalize">`+plan_name+` Plan</b> 
+                <span class="ds-plan-price">$`+obj.price+`</span>
+            </span>
+       </span>
+       <span>
+          <button type="button" class="btn btn-primary upgrade-btn `+plan_name+`-plan-btn"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Upgrade</button>
+       </span>
+      </div>
+      <ol class="plan-items p-0 plan-features">
+        <li class="`+plan_name+`_evenBg">Data points</li>
+        <li>API Hits</li>
+        <li class="`+plan_name+`_evenBg">Devices</li>
+        <li>Connected Devices</li>
+        <li class="`+plan_name+`_evenBg">Tenants (Domains)</li>
+        <li>Add-On Subscription</li>
+        <li class="`+plan_name+`_evenBg"> Data Retentions</li>
+        <li>Support</li>
+      </ol>
+      
+      <ol class="plan-items plan-qty rates p-0">
+        <li id="dataPoints" class="`+plan_name+`_evenBg m-0">`+plan.data_points+`</li>
+        <li id="apiHits" class="m-0">`+plan.api_hits+`</li>
+        <li id="devicesLimit" class="`+plan_name+`_evenBg m-0">`+plan.devices+`</li>
+        <li id="connectedDevices" class="m-0">`+plan.connected_devices+`</li>
+        <li id="tenantsLimit" class="`+plan_name+`_evenBg m-0">`+plan.tenants+`</li>
+        <li id="addOnSubs" class="m-0">`+(plan.add_on_subscription ? "Yes" : "No")+`</li>
+        <li id="dataRententions" class="`+plan_name+`_evenBg m-0">`+plan.data_retentions+`</li>
+        <li id="support" style="text-transform: capitalize;" class="m-0">`+plan.support+`</li>
+      </ol>
+    </div>
+  </div>`
+
+  $("#currentPlanTemplateLoader").html(loadHtml);
+}
+
+function getPlanUsage(){
+
+    let data = {
+        "accountId" : dom_lic_obj.accountId,
+        "planId" : dom_lic_obj.planId
+    };
+
+    getClusterMonthlyUsagePlan(data, function(status, res){
+        if(status){
+            current_plan_usage = res;
+            chartTemplateLoader();
+        }
+    });
+}
+
+function chartTemplateLoader(){
+
+    let charts = [
+        {
+            chartId : 'apiHitsChart',
+            chartTitle : ((active_plan_obj.details.api_hits - current_plan_usage.apiHits) < 1) ? `<i class='fa fa-circle' style="color:red"></i> API Hits` : `<i class='fa fa-circle' style="color:#4caf50"></i> API Hits`,
+            chartData : [
+                { value: (active_plan_obj.details.api_hits - current_plan_usage.apiHits), name: 'Remaining' },
+                { value: current_plan_usage.apiHits, name: 'Used' }
+            ],
+            subTitle : current_plan_usage.apiHits+`/ <i class='fa fa-cogs'></i> `+active_plan_obj.details.api_hits,
+        },
+        {
+            chartId : 'dataPointsCountChart',
+            chartTitle : ((active_plan_obj.details.data_points - current_plan_usage.dataPoints) < 1) ? `<i class='fa fa-circle' style="color:red"></i>` : `<i class='fa fa-circle' style="color:#4caf50"></i>`+` Data Points`,
+            chartData : [
+                { value: (active_plan_obj.details.data_points - current_plan_usage.dataPoints), name: 'Remaining' },
+                { value: current_plan_usage.dataPoints, name: 'Used' }
+              ],
+              subTitle : current_plan_usage.dataPoints+`/ <i class='fa fa-database'></i> `+active_plan_obj.details.data_points
+        },
+        {
+            chartId : 'domainsCountChart',
+            chartTitle : ((active_plan_obj.details.tenants - current_plan_usage.domains) < 1) ? `<i class='fa fa-circle' style="color:red"></i>` : `<i class='fa fa-circle' style="color:#4caf50"></i>`+` Domains`,
+            chartData : [
+                { value: (active_plan_obj.details.tenants - current_plan_usage.domains), name: 'Remaining' },
+                { value: current_plan_usage.dataPoints, name: 'Used' }
+              ],
+              subTitle : current_plan_usage.domains+`/ <i class='fa fa-globe'></i> `+active_plan_obj.details.tenants
+        },
+        {
+            chartId : 'devicesCountChart',
+            chartTitle : ((active_plan_obj.details.devices - current_plan_usage.devices) < 1) ? `<i class='fa fa-circle' style="color:red"></i>` : `<i class='fa fa-circle' style="color:#4caf50"></i>`+` Devices`,
+            chartData : [
+                { value: (active_plan_obj.details.devices - current_plan_usage.devices), name: 'Remaining' },
+                { value: current_plan_usage.dataPoints, name: 'Used' }
+              ],
+              subTitle : current_plan_usage.devices+`/ <i class='fa fa-hdd'></i> `+active_plan_obj.details.devices
+        },
+        {
+            chartId : 'connectedDevicesCountChart',
+            chartTitle : ((active_plan_obj.details.connected_devices - current_plan_usage.connectedDevices) < 1) ? `<i class='fa fa-circle' style="color:red"></i> ` : `<i class='fa fa-circle' style="color:#4caf50"></i>`+` Connected Devices`,
+            chartData : [
+                { value: (active_plan_obj.details.connected_devices - current_plan_usage.connectedDevices), name: 'Remaining' },
+                { value: current_plan_usage.dataPoints, name: 'Used' }
+              ],
+              subTitle : current_plan_usage.connectedDevices+`/ <i class='fa fa-wifi'></i> `+active_plan_obj.details.connected_devices
+        }
+    ];
+
+    $("#usageChartLoader").html("");
+
+    for(let i=0;i<charts.length;i++){
+       renderUsageCharts(charts[i], current_plan_usage);
+    }
+}
+
+function renderUsageCharts(chartObj, planUsage){
+
+    let chartId = chartObj.chartId;
+    let chartTitle = chartObj.chartTitle;
+    let subTitle = chartObj.subTitle;
+
+    return new Promise(function(resolve) {
+
+       $("#usageChartLoader").append(`
+                    <div class="col-lg-4">
+                        <div class="ds-disp">
+                            <div class="ds-chart-box" id="`+chartId+`" ></div>
+                            <p class="ds-chart-title">`+chartTitle+`</p>
+                            <p class="ds-chart-title-sm">`+subTitle+`</p>
+                        </div>
+                    </div>`);
+
+        let dom = document.getElementById(chartId);
+        let myChart = echarts.init(dom, null, {
+            renderer: "canvas",
+            useDirtyRect: false,
+        });
+    
+        let option;
+        let total = 0;
+        let chartData = chartObj.chartData;
+          chartData.forEach(function(item) {
+            total += item.value;
+        });
+    
+        option = {
+            tooltip: {
+              trigger: 'item'
+            },
+            series: [
+              {
+                name: 'API Hits',
+                type: 'pie',
+                color: ["#4caf50","#cccccc"],
+                radius: ['62%', '80%'],
+                avoidLabelOverlap: true,
+                tooltip: {
+                    position: function (point, params, dom, rect, size) {
+                        return [point[0] < size.viewSize[0] ? 'left' : 'right', point[1] < size.viewSize[1] ? 'bottom' : 'top'];
+                    }
+                },
+                itemStyle: {
+                  borderRadius: 0,
+                  borderColor: '#ffffff',
+                  borderWidth: 3
+                },
+                label: {
+                    show: true,
+                    emphasis: {
+                        show: true,
+                    },
+                    position: 'center',
+                    formatter: function(data) {
+                        var percentage = (data.value / total * 100).toFixed(1);
+                        return '\n{boldValue|' + percentage + '%}'+ '\n\n' +data.name;
+                    },
+                    textStyle: {
+                        fontSize: 12,
+                        rich: {
+                            boldValue: {
+                                fontWeight: 'bold',
+                                fontSize: 19
+                            }
+                        }
+                    }
+                },
+                emphasis: {
+                  label: {
+                    show: true,
+                    fontSize: 12,
+                    fontWeight: 'bold'
+                  }
+                },
+                labelLine: {
+                  show: false
+                },
+                data: chartData
+              }
+            ]
+          };
+    
+        if (option && typeof option === "object") {
+            myChart.setOption(option);
+          }
+        
+          window.addEventListener("resize", myChart.resize);
+
+          resolve();
     });
 }

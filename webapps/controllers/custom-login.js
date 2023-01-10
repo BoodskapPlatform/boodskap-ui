@@ -59,8 +59,7 @@ function loadLoginMenu() {
         } else {
             $(".loginLogo").attr('src', DEFAULT_LOGO_PATH);
         }
-
-    })
+    });
 }
 
 

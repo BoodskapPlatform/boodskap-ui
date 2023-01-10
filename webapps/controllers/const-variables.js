@@ -34,7 +34,7 @@ let PLANS_LIST = {
             "devices" : 25,
             "connected_devices" : 10,
             "tenants" : 1,
-            "data_retentions" : 2400000,
+            "data_retentions" : 24000000,
             "add_on_subscription" : true,
             "support" : "Email - in 2 Days"
         }
@@ -44,14 +44,14 @@ let PLANS_LIST = {
         "price" : 49,
         "currency" : "dollar",
         "details" : {
-            "data_points" : 2000000,
-            "api_hits" : 20000,
-            "devices" : 25,
-            "connected_devices" : 10,
+            "data_points" : 1000000,
+            "api_hits" : 100000,
+            "devices" : 1000,
+            "connected_devices" : 25,
             "tenants" : 1,
-            "data_retentions" : 2400000,
+            "data_retentions" : 120000000,
             "add_on_subscription" : true,
-            "support" : "Email - in 2 Days"
+            "support" : "Email - in 1 Days"
         }
     },
     "4" : {
@@ -64,7 +64,7 @@ let PLANS_LIST = {
             "devices" : 5000,
             "connected_devices" : 50,
             "tenants" : 1,
-            "data_retentions" : 30000000,
+            "data_retentions" : 300000000,
             "add_on_subscription" : true,
             "support" : "Email - in 2 Days"
         }
@@ -79,7 +79,7 @@ let PLANS_LIST = {
             "devices" : 10000,
             "connected_devices" : 100,
             "tenants" : 1,
-            "data_retentions" : 60000000,
+            "data_retentions" : 600000000,
             "add_on_subscription" : true,
             "support" : "Email - in 4 hrs"
         }

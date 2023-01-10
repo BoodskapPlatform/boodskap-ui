@@ -4618,3 +4618,16 @@ function getDomainLicense(cbk){
         }
     });
 }
+
+function getClusterMonthlyUsagePlan(data, cbk){
+    $.ajax({
+        url: API_BASE_PATH + "/cluster/usage/plan/get/"+data.accountId+"/"+data.planId,
+        type: 'GET',
+        success: function (data) {
+            cbk(true,data);
+        },
+        error: function (e) {
+            cbk(false,e);
+        }
+    });
+}

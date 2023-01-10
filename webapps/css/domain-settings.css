@@ -8,10 +8,10 @@
 }
 
 .d-menu-active {
-  color: #ffffff;
-  border-radius: 10px;
-  border: 2px solid #2c2c78;
-  background-color: #2c2c78;
+  color: #2c2c78;
+  border-radius: 7px;
+  border: 1px solid #2c2c781c;
+  background-color: #2c2c781a;
 }
 
 /* .domain-list:hover label{
@@ -40,7 +40,7 @@
   cursor: pointer;
 }
 .domain-list.d-menu-active label {
-  color: #ffffff;
+  color: #2c2c78;
 }
 .sp-container {
   z-index: 9999994;
@@ -167,25 +167,6 @@ label {
   padding: 6px !important;
   width: 140px !important;
 }
-.plan-items {
-  list-style: none;
-  border: 1px solid #f0f0f0;
-}
-.plan-items li {
-  padding: 10px;
-  font-size: 14px;
-}
-.plan-features {
-  text-align: left;
-  font-weight: 600;
-  color: #363636;
-}
-.plan-qty {
-  text-align: center;
-  display: inline-block;
-  border: 2px solid #61ccf2;
-  width: 159px;
-}
 .blue-bg {
   background-color: #ecf4fb;
 }
@@ -229,9 +210,6 @@ label {
   width: 159px;
   border-top-right-radius: 15px;
   border-bottom-left-radius: 18px;
-}
-.plan-qty-color {
-  background-color: #ecf7fb;
 }
 .price_color_beginner {
   background-color: #fdf9f1;
@@ -422,9 +400,9 @@ label {
   font-weight: 600;
   padding: 8px 15px;
   padding-top: 10px;
-  background: #363636;
-  color: #ffffff;
-  border-radius: 8px 8px 0 0;
+  background: #5252c947;
+  color: #2c2c78;
+  border-radius: 8px 8px 0 0
 }
 .ds-menus {
   height: calc(100vh - 186px);
@@ -438,9 +416,233 @@ label {
   background-color: #ffffff;
   border-bottom: 1px solid #dddddd;
 }
-.show-domain .modal-body{
+.show-domain .modal-body {
   background: #ffffff;
   margin: 15px;
   border: 1px solid #dddddd;
   border-radius: 8px;
+}
+.ds-plan-box {
+  /* border: 2px solid #2dafe3; */
+  border-radius: 10px;
+  display: inline-block;
+  vertical-align: top;
+  overflow: hidden;
+  box-shadow: 0.5px 3px 4px #dddddd;
+}
+.ds-plan-header-box {
+  padding: 8px 10px;
+  display: inline-block;
+  border-radius: 10px 10px 0 0;
+  width: 40%;
+  box-shadow: 0.5px 3px 4px #dddddd;
+  border-bottom: 0;
+}
+.plan-items {
+  list-style: none;
+}
+.plan-items li {
+  padding: 10px;
+  font-size: 13px;
+}
+.plan-features {
+  text-align: left;
+  font-weight: 600;
+  color: #363636;
+  width: 160px;
+  display: inline-block;
+  vertical-align: top;
+}
+.plan-qty {
+  text-align: center;
+  display: inline-block;
+  width: 160px;
+  margin-bottom: 0;
+}
+.ds-plan-heading {
+  padding: 10px;
+  font-weight: 600;
+}
+.ds-plan-price {
+  font-size: 16px;
+}
+.ds-disp {
+  display: inline-block;
+  vertical-align: top;
+}
+.upgrade-btn {
+  float: right;
+  padding: 4px 10px;
+  background: #ffffff !important;
+}
+
+/* ======================================== */
+/* Free Plan Theme */
+/* ======================================== */
+.free {
+  color: #47c4f1 !important;
+}
+.free_evenBg {
+  background-color: #ecf7fb !important;
+}
+.freePrice {
+  background: linear-gradient(to RIGHT, #44c2efab 0%, #2dafe3 100%) !important;
+  color: #ffffff !important;
+}
+.freeUlBorder {
+  border: 2px solid #47c4f1 !important;
+}
+.free-plan-btn {
+  border-color: #2dafe3 !important;
+  color: #2dafe3 !important;
+}
+.free-plan-heading {
+  /* background: #8bd4f173; */
+  background: #ffffff;
+  color: #128dbf;
+  border-bottom: 1px solid #128dbf52;
+}
+/* ======================================== */
+
+/* ======================================== */
+/* Beginner Plan Theme */
+/* ======================================== */
+.beginner {
+  color: #eaaa1f !important;
+}
+.beginner_evenBg {
+  background-color: #fdf9f1 !important;
+}
+.beginnerPrice {
+  background: linear-gradient(to RIGHT, #eaa91dab 0%, #eaa91d 100%) !important;
+  color: #ffff !important;
+}
+.beginnerUlBorder {
+  border: 1px solid #eaaa1f !important;
+}
+.beginner-plan-btn {
+  border-color: #eaaa1f !important;
+  color: #eaaa1f !important;
+}
+.beginner-plan-heading {
+  background: #ffffff;
+  color: #eaaa1f;
+  border-bottom: 1px solid #eaaa1f52;
+}
+/* ======================================== */
+
+/* ======================================== */
+/* Basic Plan Theme */
+/* ======================================== */
+.basic {
+  color: #f78061 !important;
+}
+.basic_evenBg {
+  background-color: #fdf5f2 !important;
+}
+.basicPrice {
+  background: linear-gradient(to RIGHT, #f26437b5 0%, #f26437 100%) !important;
+  color: #ffff !important;
+}
+.basicUlBorder {
+  border: 1px solid #f78061 !important;
+}
+.basic-plan-btn {
+  border-color: #f78061 !important;
+  color: #f78061 !important;
+}
+.basic-plan-heading {
+  background: #ffffff;
+  color: #f78061;
+  border-bottom: 1px solid #f7806152;
+}
+/* ======================================== */
+
+/* ======================================== */
+/* Preferred Plan Theme */
+/* ======================================== */
+.preferred {
+  color: #34cebd !important;
+}
+.preferred_evenBg {
+  background-color: #f0f9f9 !important;
+}
+.preferredPrice {
+  background: linear-gradient(to RIGHT, #11b3a7c9 0%, #11b3a7 100%) !important;
+  color: #ffff !important;
+}
+.preferredUlBorder {
+  border: 1px solid #34cebd !important;
+}
+.preferred-plan-btn {
+  border-color: #34cebd !important;
+  color: #34cebd !important;
+}
+.preferred-plan-heading {
+  background: #ffffff;
+  color: #34cebd;
+  border-bottom: 1px solid #34cebd52;
+}
+/* ======================================== */
+
+/* ======================================== */
+/* Professional Plan Theme */
+/* ======================================== */
+.professional {
+  color: #3193d6 !important;
+}
+.professional_evenBg {
+  background-color: #edf5fb !important;
+}
+.professionalPrice {
+  background: linear-gradient(to RIGHT, #217dc2a3 0%, #217dc2 100%) !important;
+
+  color: #ffff !important;
+}
+.professionalUlBorder {
+  border: 1px solid #3193d6 !important;
+}
+.professional-plan-btn {
+  border-color: #3193d6 !important;
+  color: #3193d6 !important;
+}
+.professional-plan-heading {
+  background: #ffffff;
+  color: #217dc2;
+  border-bottom: 1px solid #217dc252;
+}
+/* ======================================== */
+
+.borderLeftBt {
+  background: none !important;
+}
+.borderLeftBt .inner-cell {
+  height: 25px !important;
+}
+
+.ds-chart-box {
+  height: 170px;
+  width: 200px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.ds-chart-container{
+  width: calc(100% - 35%);
+  height: calc(100% - 1px);
+  border-left: 1px solid #e6e6e6;
+  margin-left: 15px;
+}
+
+.ds-chart-title{
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: #262626;
+}
+
+.ds-chart-title-sm{
+  text-align: center;
+  font-size: 12px;
+  margin-bottom: 10px;
 }

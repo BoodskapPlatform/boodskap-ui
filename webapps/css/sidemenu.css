@@ -1,8 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
-
-span,li{
-    /* font-family: 'Montserrat', sans-serif !important; */
-}
 .sidebar .nav li a:hover{
     text-decoration: underline;
 }
@@ -15,10 +11,9 @@ li.nav-header  {
 .sidebar .nav>li.nav-header {
     font-size: 12px;
 }
-b{
+.sidebar b{
     color: grey;
 }
-
 #mySidenav img{
     height: 18px;
     width: 18px;
