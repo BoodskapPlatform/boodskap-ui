@@ -274,8 +274,6 @@ function openModal(type, id) {
                 obj = user_list[i];
             }
         }
-        console.log(obj);
-        
         $("#addUser form")[0].reset();
         
         var role = obj.roles[0];
@@ -323,6 +321,10 @@ function addUser() {
     var role = $("#role").val();
     if(role == "other"){
         role = $.trim($("#otherRoleInput").val().toLowerCase());
+        if(role==""){
+            errorMsg('Enter new role.')
+            return false;
+        }
     }
     var userObj = {
         "firstName": $("#firstName").val(),
@@ -359,6 +361,10 @@ function updateUser() {
     var role = $("#role").val();
     if(role == "other"){
         role = $.trim($("#otherRoleInput").val().toLowerCase());
+        if(role==""){
+            errorMsg('Enter new role.')
+            return false;
+        }
     }
     var userObj = {
         "firstName": $("#firstName").val(),
