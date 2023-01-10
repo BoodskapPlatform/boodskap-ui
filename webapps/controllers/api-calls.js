@@ -4606,3 +4606,15 @@ function deleteInvoiceRecord(id,cbk){
     });
 }
 
+function getDomainLicense(cbk){
+    $.ajax({
+        url: API_BASE_PATH + "/license/domain/get",
+        type: 'GET',
+        success: function (data) {
+            cbk(true,data);
+        },
+        error: function (e) {
+            cbk(false,e);
+        }
+    });
+}
