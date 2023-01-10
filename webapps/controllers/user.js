@@ -274,15 +274,19 @@ function openModal(type, id) {
                 obj = user_list[i];
             }
         }
+        console.log(obj);
+        
+        $("#addUser form")[0].reset();
+        
         var role = obj.roles[0];
         if(role!="user"&&role!="developer"&&role!="domainadmin"&&role!="accountadmin"&&role!=""){
             $(".new-role-input").show();
-            $('#role option[value="other"]').attr("selected","selected");
+            $("#role option[value='other']").prop("selected", true);
             $("#otherRoleInput").val(role);
         }else{
             $(".new-role-input").hide();
+            $("#role").val(role);
         }
-        $("#addUser form")[0].reset();
 
         $("#emailId").attr('readonly', 'readonly');
 
@@ -292,7 +296,6 @@ function openModal(type, id) {
         $("#lastName").val(obj.lastName);
         $("#mobileNo").val(obj.primaryPhone);
         $("#emailId").val(obj.email);
-        $("#role").val(obj.roles[0]);
         $("#addUser").modal('show');
         $("#addUser form").attr('onsubmit', 'updateUser()');
     } else if (type === 3) {
