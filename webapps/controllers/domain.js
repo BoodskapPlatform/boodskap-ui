@@ -373,7 +373,7 @@ function openModal(block,$dom) {
     switch(block){
 
         case 'license-status' :
-            loadTemplate = 'N/A';
+            loadTemplate = $("#licenseStatus").html();
             title = 'License Status';
             break;
 

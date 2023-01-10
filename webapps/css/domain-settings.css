@@ -173,8 +173,18 @@ label {
 }
 .plan-items li {
   padding: 10px;
-  text-align: center;
   font-size: 14px;
+}
+.plan-features {
+  text-align: left;
+  font-weight: 600;
+  color: #363636;
+}
+.plan-qty {
+  text-align: center;
+  display: inline-block;
+  border: 2px solid #61ccf2;
+  width: 159px;
 }
 .blue-bg {
   background-color: #ecf4fb;
@@ -189,6 +199,7 @@ label {
   margin-right: 35px;
   font-size: 14px;
 }
+
 .price_amount_free {
   border: 2px solid #61ccf2;
   width: 159px;
@@ -219,7 +230,7 @@ label {
   border-top-right-radius: 15px;
   border-bottom-left-radius: 18px;
 }
-.price_color_free {
+.plan-qty-color {
   background-color: #ecf7fb;
 }
 .price_color_beginner {

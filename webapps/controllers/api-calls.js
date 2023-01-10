@@ -32,10 +32,8 @@ function loginCall(email, password, cbk) {
 
     var data = {
         "email": email,
-        "password": password,
+        "password": password
     };
-
-    console.log(data)
 
     DOMAIN_KEY ? data['targetDomainKey']= DOMAIN_KEY : '';
 

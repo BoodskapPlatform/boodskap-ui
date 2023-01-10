@@ -108,7 +108,6 @@ function login(){
                 //     document.location = BASE_PATH+'/statistics-dashboard';
                 // }
                  else {
-                    console.log("adminnnnnnnnnn");
                     document.location = BASE_PATH+'/home';
                 }
             }
@@ -322,5 +321,4 @@ function toggleBox(){
 function resizeContent() {
     $height = $(window).height();
     $('.right-content').css("height",$height);
-    // console.log($height)
 }
