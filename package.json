@@ -1,6 +1,6 @@
 {
   "name": "boodskap-ui",
-  "version": "5.0.51-alpha",
+  "version": "5.0.52-alpha",
   "license": "MIT",
   "scripts": {
     "start": "node boodskap-platform-node.js"
