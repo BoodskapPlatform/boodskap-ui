@@ -122,11 +122,16 @@
                         <div  class="col-md-6">
                             <div  class="form-group">
                                 <label  class="inputLabel">Role</label>
-                                <select  class="form-control input-sm" id="role" required>
+                                <select  class="form-control input-sm user-add-role" id="role" onchange="checkNewRole(this)" required>
+                                    <option value="" selected>Choose User Role</option>
                                     <option value="user">User</option>
                                     <option value="developer">Developer</option>
                                     <option value="domainadmin">Domain Admin</option>
+                                    <option value="accountadmin">Account Admin</option>
+                                    <option id="otherRoleCreate" value="other">Other</option>
                                 </select>
+                                <input id="otherRoleInput" type="text" class="form-control input-sm mt-4 new-role-input" placeholder="Enter new role" onkeypress="return IsAlphabet(event);" style="display:none;"/>
+                                <small class="grey new-role-input">space and special characters not allowed</small>
                             </div>
                         </div>
                     </div>

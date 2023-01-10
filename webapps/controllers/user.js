@@ -261,7 +261,9 @@ function openModal(type, id) {
         $("#password").attr('required', 'required');
         $("#addUser form")[0].reset();
         $("#addUser").modal('show');
-        $("#addUser form").attr('onsubmit', 'addUser()')
+        $("#addUser form").attr('onsubmit', 'addUser()');
+        $(".new-role-input").hide();
+        $("#otherRoleInput").val("");
     } else if (type === 2) {
         $(".templateAction").html('Update');
         var obj = {};
@@ -272,7 +274,14 @@ function openModal(type, id) {
                 obj = user_list[i];
             }
         }
-
+        var role = obj.roles[0];
+        if(role!="user"&&role!="developer"&&role!="domainadmin"&&role!="accountadmin"&&role!=""){
+            $(".new-role-input").show();
+            $('#role option[value="other"]').attr("selected","selected");
+            $("#otherRoleInput").val(role);
+        }else{
+            $(".new-role-input").hide();
+        }
         $("#addUser form")[0].reset();
 
         $("#emailId").attr('readonly', 'readonly');
@@ -285,7 +294,7 @@ function openModal(type, id) {
         $("#emailId").val(obj.email);
         $("#role").val(obj.roles[0]);
         $("#addUser").modal('show');
-        $("#addUser form").attr('onsubmit', 'updateUser()')
+        $("#addUser form").attr('onsubmit', 'updateUser()');
     } else if (type === 3) {
         var obj = {};
         current_user_id = id;
@@ -308,13 +317,17 @@ function openModal(type, id) {
 
 
 function addUser() {
+    var role = $("#role").val();
+    if(role == "other"){
+        role = $.trim($("#otherRoleInput").val().toLowerCase());
+    }
     var userObj = {
         "firstName": $("#firstName").val(),
         "lastName": $("#lastName").val(),
         "primaryPhone": $("#mobileNo").val(),
         "email": $("#emailId").val(),
         "password": $("#password").val(),
-        "roles": [$("#role").val()]
+        "roles": [role]
     }
     $(".btnSubmit").attr('disabled', 'disabled');
     retreiveUser(userObj.email, function (status, data) {
@@ -340,13 +353,16 @@ function addUser() {
 
 
 function updateUser() {
-
+    var role = $("#role").val();
+    if(role == "other"){
+        role = $.trim($("#otherRoleInput").val().toLowerCase());
+    }
     var userObj = {
         "firstName": $("#firstName").val(),
         "lastName": $("#lastName").val(),
         "primaryPhone": $("#mobileNo").val(),
         "email": $("#emailId").val(),
-        "roles": [$("#role").val()]
+        "roles": [role]
     };
 
     if ($.trim($("#password").val()) === '') {
@@ -689,3 +705,13 @@ function updateUserMobileProp(id, property, e) {
         })
     });
 }
+
+function checkNewRole(obj){
+    var selectedvalue = $(obj).val();
+    if(selectedvalue=="other"){
+        $(".new-role-input").show();
+    }else{
+        $(".new-role-input").hide();
+    }
+}
+
