@@ -8,6 +8,83 @@ var WEB_VERSION = '5.0.16-alpha';
 var CDN_PATH =  CONFIG.cdnPath;
 var ENV = CONFIG.development ? CONFIG.development : false;
 var BASE_PATH = CONFIG.basepath;
+let PLANS_LIST = {
+    "1" : {
+        "plan_title" : "Free",
+        "price" : 0,
+        "currency" : "dollar",
+        "details" : {
+            "data_points" : 100000,
+            "api_hits" : 10000,
+            "devices" : 5,
+            "connected_devices" : 1,
+            "tenants" : 1,
+            "data_retentions" : 1500000,
+            "add_on_subscription" : false,
+            "support" : "community"
+        }
+    },
+    "2" : {
+        "plan_title" : "Beginner",
+        "price" : 10,
+        "currency" : "dollar",
+        "details" : {
+            "data_points" : 2000000,
+            "api_hits" : 20000,
+            "devices" : 25,
+            "connected_devices" : 10,
+            "tenants" : 1,
+            "data_retentions" : 2400000,
+            "add_on_subscription" : true,
+            "support" : "Email - in 2 Days"
+        }
+    },
+    "3" : {
+        "plan_title" : "Basic",
+        "price" : 49,
+        "currency" : "dollar",
+        "details" : {
+            "data_points" : 2000000,
+            "api_hits" : 20000,
+            "devices" : 25,
+            "connected_devices" : 10,
+            "tenants" : 1,
+            "data_retentions" : 2400000,
+            "add_on_subscription" : true,
+            "support" : "Email - in 2 Days"
+        }
+    },
+    "4" : {
+        "plan_title" : "Preferred",
+        "price" : 99,
+        "currency" : "dollar",
+        "details" : {
+            "data_points" : 2500000,
+            "api_hits" : 25000,
+            "devices" : 5000,
+            "connected_devices" : 50,
+            "tenants" : 1,
+            "data_retentions" : 30000000,
+            "add_on_subscription" : true,
+            "support" : "Email - in 2 Days"
+        }
+    },
+    "5" : {
+        "plan_title" : "Professional",
+        "price" : 149,
+        "currency" : "dollar",
+        "details" : {
+            "data_points" : 5000000,
+            "api_hits" : 500000,
+            "devices" : 10000,
+            "connected_devices" : 100,
+            "tenants" : 1,
+            "data_retentions" : 60000000,
+            "add_on_subscription" : true,
+            "support" : "Email - in 4 hrs"
+        }
+    }
+}
 
 if(CONFIG.development){
     API_BASE_PATH = CONFIG.api;

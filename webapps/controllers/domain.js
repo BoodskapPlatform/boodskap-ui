@@ -1,5 +1,6 @@
 var logoPathId = '';
 var selectedId = null;
+let dom_lic_obj = null;
 
 $(document).ready(function () {
     $("body").removeClass('bg-white');
@@ -7,6 +8,7 @@ $(document).ready(function () {
     $(".upload-image").on('click', function() {
         $(".file-upload").click();
       });
+    getLicenseDetails();
 });
 
 function openUpgrade() {
@@ -859,11 +861,14 @@ function setCustomLoginDefault(){
     $('#textColor').colorpicker('setValue',DEFAULT_LOGIN_THEME.textColor);
     $('#buttonColor').colorpicker('setValue',DEFAULT_LOGIN_THEME.buttonColor);
 
-
-
     $("#titleName").val(DEFAULT_LOGIN_THEME.titleName);
     $("#sloganText").val(DEFAULT_LOGIN_THEME.sloganText);
 }
 
-
-
+function getLicenseDetails(){
+    getDomainLicense(function(status, data){
+        if(status){
+            dom_lic_obj = data;
+        }
+    });
+}
