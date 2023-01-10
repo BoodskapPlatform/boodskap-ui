@@ -96,3 +96,8 @@ function getDomainTheme() {
     })
 }
 
+function IsAlphabet(e) {
+    var keyCode = e.keyCode == 0 ? e.charCode : e.keyCode;
+    var ret = ((keyCode >= 65 && keyCode <= 90) || (keyCode >= 97 && keyCode <= 122));
+    return ret;
+}

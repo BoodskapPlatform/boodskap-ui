@@ -118,6 +118,7 @@ function loadNewpage(id) {
 function openLinkModal() {
     $("#linkModal form")[0].reset();
     $("#linkModal").modal('show');
+    $("#linkDomain").find(".fa-spinner").remove();
     domainList();
 
 }
@@ -156,6 +157,7 @@ function linkDomainCall() {
         domainKey: $.trim($("#domainKey").val()),
         label: $.trim($("#labelText").val())
     };
+    $("#linkDomain").attr("disabled",true).prepend("<i class='fa fa-spinner fa-spin px-1' aria-hidden='true'></i>");
 
     linkDomain(obj, function (status, data) {
         if (status) {
@@ -164,13 +166,14 @@ function linkDomainCall() {
             }
             USER_OBJ["linkedDomains"].push(data);
             Cookies.set('user_details', USER_OBJ);
-                domainList();
-                $("#linkModal form")[0].reset();
-                successMsg('Domain Linked Successfully!')
-            
+            domainList();
+            $("#linkModal form")[0].reset();
+            successMsg('Domain Linked Successfully!')
         } else {
-            errorMsg('Error in Linking Domain (or) Domain Not Exist')
+            errorMsg('Error in Linking Domain (or) Domain Not Exist');
+            $("#linkDomain").attr("disabled",false);
         }
+        $("#linkDomain").find(".fa-spinner").remove();
     })
 }
 
@@ -1038,7 +1041,19 @@ function deleteDomain(dkey) {
 }
 var rdata=[]
 
+function validateLinkDomain(obj){
+    var value = []
+    $(".key-inputs").each(function(){
+        value.push($.trim($(this).val()));
+        
+    })
+    if(value.includes("")){
+        $("#linkDomain").attr("disabled",true);
+    }else{
+        $("#linkDomain").attr("disabled",false);
+    }
 
+}
 
 
 

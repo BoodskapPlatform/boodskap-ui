@@ -1126,14 +1126,14 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label>Target Domain Key *</label>
-                                <input class="form-control input-sm" id="domainKey" />
+                                <input class="form-control input-sm key-inputs" id="domainKey" onkeyup="validateLinkDomain(this);"/>
                                 <span id="logdomainKey"></span>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label>API Key *</label>
-                                <input class="form-control input-sm" id="apiKey" />
+                                <input class="form-control input-sm key-inputs" id="apiKey" onkeyup="validateLinkDomain(this);" />
                                 <span id="logapiKey"></span>
                             </div>
                         </div>
@@ -1142,13 +1142,13 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label>Label *</label>
-                                <input class="form-control input-sm" id="labelText" />
+                                <input class="form-control input-sm key-inputs" id="labelText" onkeyup="validateLinkDomain(this);" />
                                 <span id="loglabelText"></span>
                             </div>
                         </div>
                         <div class="col-lg-3">
                             <div class="form-group">
-                                <button class="btn btnModal btn-secondary btn-proceed btnSubmit" style="margin-top: 22px" type="submit">Link Domain</button>
+                                <button id="linkDomain" class="btn btnModal btn-secondary btn-proceed btnSubmit" style="margin-top: 22px" type="submit" disabled>Link Domain</button>
                             </div>
                         </div>
                     </div>

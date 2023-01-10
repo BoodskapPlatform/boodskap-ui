@@ -240,7 +240,9 @@
 
                     <h4 class="panel-title"><em class="fa fa-globe"></em> Choose your domain</h4>
 
-                    <ul class="partDomainList domain-select-list">
+                    <div id="doaminSearchList" class="domain-search"><input type="text" placeholder="Search here..." onkeyup="filterDomain(this)"/></div>
+
+                    <ul id="selectDomainList" class="partDomainList domain-select-list">
                     </ul>
 
                     <button class="btn btn-background btn-lg btn-block btn-size" onclick="logout()"><em class="fa fa-sign-out-alt"></em> Log Out</button>
@@ -255,14 +257,18 @@
 <script>
     $(document).ready(function () {
         App.init();
-
         // resize the right content height
-
         $(window).resize(function() {
-        resizeContent();
-        // alert('hello')
+            resizeContent();
+        
+        });
     });
-    });
+    /* function filterDomain(obj) {
+        var value = $(obj).val().toLowerCase().trim();
+        $("#selectDomainList li .domain-lists").show().filter(function() {
+            return $(this).find("span").text().toLowerCase().trim().indexOf(value) == -1;
+        }).hide();
+    }; */
 </script>
 </body>
 </html>
