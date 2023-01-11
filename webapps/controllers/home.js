@@ -41,7 +41,8 @@ $(document).ready(function () {
         playSound();
     }
    
-   
+    showPartDomain();
+
 });
 
 
@@ -120,7 +121,7 @@ function openLinkModal() {
     $("#linkModal").modal('show');
     $("#linkDomain").find(".fa-spinner").remove();
     domainList();
-
+    $("#labelTextListDiv").hide();
 }
 
 function domainList() {
@@ -1055,8 +1056,46 @@ function validateLinkDomain(obj){
 
 }
 
+function showPartDomainList(obj){
+    $("#labelTextListDiv").slideToggle();
+}
 
+function showPartDomain(){
+    var partdomains = USER_OBJ.partDomains;
+    var ui="";
+    partdomains.forEach(element => {
+        ui+="<div class='part-dm-lists' onclick='selectDomain(this);' value='"+element.label+"'><span style=''>"+element.label+"</span></div>"
+    });
+    ui+="<div id='customDomainList' class='part-dm-lists' onclick='selectDomain(this);' value='' style='display:none;'><span style=''></span></div>"
+    $("#labelTextListDiv").html(ui);
+}
 
+function selectDomain(obj){
+    $("#labelText").val($(obj).attr("value"));
+    $("#labelTextListDiv").slideToggle();
+}
 
+function filterLinkDomainList(obj,event) {
+    var value = $(obj).val().toLowerCase().trim();
+    var flagvalue;
+    $("#labelTextListDiv .part-dm-lists").filter(function() {
+        flagvalue = $(this).children("span").text().toLowerCase().indexOf(value) > -1
+        $(this).toggle($(this).children("span").text().toLowerCase().indexOf(value) > -1);
+        if(flagvalue==false){
+            $("#customDomainList").attr("value",$(obj).val()).children("span").text($(obj).val()).show();
+        }
+        if($(obj).val().trim()==""){
+            $("#customDomainList").attr("value","").hide().children("span").text("");
+        }
+    });
+    if(event.keyCode==13){
+        $(".part-dm-lists").each(function(){
+            if($("#customDomainList").is(":visible")==true){
+                $("#labelText").val($("#customDomainList").attr("value"));
+                $("#labelTextListDiv").hide();
+            }
+        })
+    }
+};
 
 

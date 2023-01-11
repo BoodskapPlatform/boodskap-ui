@@ -517,8 +517,30 @@ font-size: 36px;
     overflow: auto;
 }
 
-.domain-search{
+.domain-search {
     margin: 10px 10px 0px 10px;
-    padding: 7px;
-    border: 1px dashed #ccc;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.label-text-list-cls{
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    box-shadow: 2px 1px 4px;
+    max-height: 125px;
+    border: 1px solid #d3d8de;
+    border-radius: 5px;
+    width: 100%;
+    overflow: auto;
+    top: 65px;
+}
+
+.part-dm-lists{
+    padding: 10px;
+    cursor: pointer;
+}
+.part-dm-lists:hover{
+    background-color: #edf1f7;
 }

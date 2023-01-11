@@ -1139,11 +1139,12 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
+                        <div id="domainLabel" class="col-lg-6">
+                            <div class="form-group position-relative">
                                 <label>Label *</label>
-                                <input class="form-control input-sm key-inputs" id="labelText" onkeyup="validateLinkDomain(this);" />
+                                <input class="form-control input-sm key-inputs" id="labelText" onclick="showPartDomainList(this);" autocomplete="off" onkeyup="validateLinkDomain(this);filterLinkDomainList(this,event)" />
                                 <span id="loglabelText"></span>
+                                <div id="labelTextListDiv" class="label-text-list-cls"></div>    
                             </div>
                         </div>
                         <div class="col-lg-3">
