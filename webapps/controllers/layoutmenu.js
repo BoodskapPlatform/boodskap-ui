@@ -37,7 +37,7 @@ $(document).ready(function () {
                 $(".linked_domains").append('<label class="label label-default" onclick="openLinkedDomain(\''+USER_OBJ.linkedDomains[i].domainKey+'\')">' + USER_OBJ.linkedDomains[i].label + '</label><br>')
             }
         }
-        recentUpdate();
+        //recentUpdate();
 
         loadUserProfilePicture();
         loadLogoPicture();
@@ -731,23 +731,47 @@ function clickRecent(tabname, tabid, loadmenu, cardno) {
 }
 
 function recentcard(rdata) {
+    $("#recentMenuList").html("")
+
     if (rdata) {
         let test;     
+        let ui="";
+        let idd = "";
+        let hideClass="";
         for (let i = 0; i < (rdata.length >= 12 ? 12 : rdata.length ); i++) {
-        test = 'loadMenu('+rdata[i].loadmenu +')'
-           
-        if(rdata[i].id === 'dsql_templates' || rdata[i].id === 'dsql_query_console'  || rdata[i].id === 'dSQL_tables' ){
-            USER_OBJ.sqlAccess ?  test = 'loadMenu('+rdata[i].loadmenu +')' : test = "errorMsg('Contact Administrator!')" ;            
-                    
-        }else if(rdata[i].id === 'db-templates' || rdata[i].id === 'db-query-console' || rdata[i].id === 'db-tables' ){
-            USER_OBJ.dbAccess ?  test = 'loadMenu('+rdata[i].loadmenu +')' : test = "errorMsg('Contact Administrator!')" ;  
-        }else{
             test = 'loadMenu('+rdata[i].loadmenu +')'
+            idd = rdata[i].id.replaceAll("_","-");
+            
+            if(rdata[i].id === 'dsql_templates' || rdata[i].id === 'dsql_query_console'  || rdata[i].id === 'dSQL_tables' ){
+                USER_OBJ.sqlAccess ?  test = 'loadMenu('+rdata[i].loadmenu +')' : test = "errorMsg('Contact Administrator!')" ;            
+            }else if(rdata[i].id === 'db-templates' || rdata[i].id === 'db-query-console' || rdata[i].id === 'db-tables' ){
+                USER_OBJ.dbAccess ?  test = 'loadMenu('+rdata[i].loadmenu +')' : test = "errorMsg('Contact Administrator!')" ;  
+            }else{
+                test = 'loadMenu('+rdata[i].loadmenu +')'
+            }
+            if(i>7){
+                hideClass = "hide-class";
+            }
+            if (i >= 0 && i <= 11) {
+                ui+=`<div class="w-25 w-sm-100 w-md-50 px-2 homecard  hmarketplace `+hideClass+`">
+                    <a href="<%= basepath %>/`+idd+`">
+                        <div class="card modules bskp-home-modules">
+                            <div class="bskp-icon-frame">
+                                <div class="bskp-Dbg bskp-Dimg`+rdata[i].cardno+`"></div>
+                            </div>
+                            <p class="mt-2"><label class="cardtitle">`+rdata[i].name+`</label></p>
+                        </div>
+                    </a>
+                </div>`
+            } 
         }
-        
-            if (i >= 0 && i <= 7) {
-            $("#recentMenuList").append(
-            `<div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 homecard " onclick="`+ test +`">
+        $("#recentMenuList").html(ui);
+    }   
+}
+
+
+
+/* `<div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 homecard " onclick="`+ test +`">
              <div class="card modules bskp-home-modules"onclick="clickRecent('` +
                 rdata[i].name +
                 `','` +
@@ -762,11 +786,21 @@ function recentcard(rdata) {
                     rdata[i].name +
                     `</label></p>
             </div>
-        </div>`
-                );
-                $(".homediv.showmore").css('visibility','hidden'); 
-            } else if (i > 7 && rdata[i] !== undefined) {
+        </div>`  */
+/* 
+''''''''''''''''''''
+else if (i > 7 && rdata[i] !== undefined) {
                 $("#recentMenuList").append(
+                    `<div class="w-25 w-sm-100 w-md-50 px-2 homecard  hmarketplace">
+                        <a href="<%= basepath %>/marketplace">
+                            <div class="card modules bskp-home-modules">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg1"> </div>
+                                </div>
+                                <p class="mt-2"><label class="cardtitle">`+rdata[i].name+`</label></p>
+                            </div>
+                        </a>
+                    </div>`
                     ` <div class="col-lg-3 more-Hrecent col-md-4 col-sm-6 col-xs-6 homecard" onclick="`+ test +`">
             <div class="card modules bskp-home-modules"onclick="clickRecent('` +
                     rdata[i].name +
@@ -782,18 +816,13 @@ function recentcard(rdata) {
                     rdata[i].name +
                     `</label></p>
             </div>
-        </div>`
-                );
-                $(".homediv.showmore").css('visibility','initial'); 
-            }
-               
-        }
+        </div>` 
+        );
+        $(".homediv.showmore").css('visibility','initial'); 
+    }
+''''''''''''''''''''''''''''''''''''''
 
-        if(rdata.length === 0 ){
-            $("#recentMenuList").append('');
-        }
-       
-        for (let i = 0; i < (rdata.length >= 6 ? 6 : rdata.length ); i++) {
+for (let i = 0; i < (rdata.length >= 6 ? 6 : rdata.length ); i++) {
             
             test = 'loadMenu('+rdata[i].loadmenu +')'
            
@@ -808,7 +837,7 @@ function recentcard(rdata) {
             
             if (i >= 0 && i <= 3) {
                 $("#recentMegaMenuList").append(
-                    ` <div class="col-sm-6 col-xs-6 megacard" onclick="`+ test +`">
+                    ` <div class="w-25 w-sm-100 w-md-50 px-2 megacard" onclick="`+ test +`">
      <div class="card modules bskp-home-modules"onclick="clickRecent('` +
                     rdata[i].name +
                     `','` +
@@ -853,8 +882,8 @@ function recentcard(rdata) {
         if(rdata.length === 0 ){
             $("#recentMenuList").append('');
         }
-    }
-}
+    } */
+
 
 function openmegamenu() {
     $("#megaMenu").modal({

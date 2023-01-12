@@ -544,3 +544,7 @@ font-size: 36px;
 .part-dm-lists:hover{
     background-color: #edf1f7;
 }
+
+.hide-class{
+    display: none;
+}

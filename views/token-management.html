@@ -43,9 +43,21 @@
     <div class="row m-0">
         <div class="col-12">
           <div class="btn-group btn-group-justified pull-right bskp-btn-group-align" >
-            <a class="btn bskp-refresh-bg" data-click="panel-reload" onclick="loadTokenList()" title="Refresh"><em class="fa fa-refresh"></em></a>
+            <a class="btn bskp-refresh-bg" data-click="panel-reload" onclick="loadTokenList('all')" title="Refresh"><em class="fa fa-refresh"></em></a>
           </div>
            
+          <div class="form-group pull-right" style="margin-right: 10px;">
+            <!-- <label>Select Token Type:</label> -->
+            <select class="form-control input-sm" id="authTokenTypes" onclick="event.stopPropagation();" onchange="loadTokenList()" style="border-radius: 15px;">
+                <option value="" selected>ALL</option>
+                <option value="API">API</option>
+                <option value="USER">USER</option>
+                <option value="DEVICE">DEVICE</option>
+                <option value="WEB">WEB</option>
+                <option value="ENGINE">ENGINE</option>
+            </select>
+          </div> 
+
           <div class="bskp-table-layout">
             <table class="table table-bordered bskp-table responsive no-wrap bskp-w-100" id="tokenTable">
 
