@@ -875,7 +875,7 @@ function getLicenseDetails(){
 function renderPlanCard(obj){
 
     let plan = obj.details;
-    let plan_name = obj.plan_title.toLowerCase();
+    let plan_name = obj.plan_name.toLowerCase();
     let loadHtml = ``;
 
     loadHtml = `<div class="ds-disp">

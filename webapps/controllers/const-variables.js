@@ -10,9 +10,9 @@ var ENV = CONFIG.development ? CONFIG.development : false;
 var BASE_PATH = CONFIG.basepath;
 let PLANS_LIST = {
     "1" : {
-        "plan_title" : "Free",
+        "plan_name" : "Free",
         "price" : 0,
-        "currency" : "dollar",
+        "currency" : "usd",
         "details" : {
             "data_points" : 100000,
             "api_hits" : 10000,
@@ -25,9 +25,9 @@ let PLANS_LIST = {
         }
     },
     "2" : {
-        "plan_title" : "Beginner",
+        "plan_name" : "Beginner",
         "price" : 10,
-        "currency" : "dollar",
+        "currency" : "usd",
         "details" : {
             "data_points" : 2000000,
             "api_hits" : 20000,
@@ -40,9 +40,9 @@ let PLANS_LIST = {
         }
     },
     "3" : {
-        "plan_title" : "Basic",
+        "plan_name" : "Basic",
         "price" : 49,
-        "currency" : "dollar",
+        "currency" : "usd",
         "details" : {
             "data_points" : 1000000,
             "api_hits" : 100000,
@@ -55,9 +55,9 @@ let PLANS_LIST = {
         }
     },
     "4" : {
-        "plan_title" : "Preferred",
+        "plan_name" : "Preferred",
         "price" : 99,
-        "currency" : "dollar",
+        "currency" : "usd",
         "details" : {
             "data_points" : 2500000,
             "api_hits" : 25000,
@@ -70,9 +70,9 @@ let PLANS_LIST = {
         }
     },
     "5" : {
-        "plan_title" : "Professional",
+        "plan_name" : "Professional",
         "price" : 149,
-        "currency" : "dollar",
+        "currency" : "usd",
         "details" : {
             "data_points" : 5000000,
             "api_hits" : 500000,
