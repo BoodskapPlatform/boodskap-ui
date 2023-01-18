@@ -70,6 +70,10 @@ function checkLicense(){
         if(status){
             var plan = data.plan == 1 ? "Free" : data.plan == 2 ? "Beginner" : data.plan == 3 ? "Basic" : data.plan == 4 ? "Preferred" : data.plan == 5 ? "Professional" : "Free";
             $("#userPlan").text("Plan : "+plan);
+            $(".acc-id").text(data.accountId);
+            $(".plan-id").text(data.planId);
+            $(".acc-id-copy").attr("data-clipboard-text",data.accountId);
+            $(".plan-id-copy").attr("data-clipboard-text",data.planId);
         }else{
             $("#userPlan").text("Plan : N/A");
         }

@@ -20,6 +20,9 @@ $(document).ready(function () {
     var dkey = new ClipboardJS('.domainKey');
     var akey = new ClipboardJS('.apiKey');
     var tkey = new ClipboardJS('.apiToken');
+    var acckey = new ClipboardJS('.acc-id-copy');
+    var plankey = new ClipboardJS('.plan-id-copy');
+
 
     $(".specPath").attr('href', API_BASE_PATH + '/spec/')
 
@@ -31,6 +34,12 @@ $(document).ready(function () {
     });
     tkey.on('success', function (e) {
         successMsg('Session Token Copied Successfully')
+    });
+    acckey.on('success', function (e) {
+        successMsg('Account Key Copied Successfully')
+    });
+    plankey.on('success', function (e) {
+        successMsg('Plan Key Copied Successfully')
     });
 
     var fullName = (USER_OBJ.user.firstName ? USER_OBJ.user.firstName : 'Admin') + ' ' + (USER_OBJ.user.lastName ? USER_OBJ.user.lastName : "");
@@ -88,6 +97,36 @@ function toggleKeys(id, type) {
             $(".api_token_show").removeClass('hide');
             $(".tokenToggle").html('<i class="fa fa-eye"></i>');
             $(".tokenToggle").attr('onclick', "toggleKeys(1,'tokenToggle')");
+        }
+
+    }
+    else if (type === 'accIdTog') {
+
+        if (id === 1) {
+            $(".acc-id-show").addClass('hide');
+            $(".acc-id").removeClass('hide');
+            $(".accIdTog").html('<i class="fa fa-eye-slash"></i>');
+            $(".accIdTog").attr('onclick', "toggleKeys(2,'accIdTog')");
+        } else {
+            $(".acc-id").addClass('hide');
+            $(".acc-id-show").removeClass('hide');
+            $(".accIdTog").html('<i class="fa fa-eye"></i>');
+            $(".accIdTog").attr('onclick', "toggleKeys(1,'accIdTog')");
+        }
+
+    }
+    else if (type === 'planIdTog') {
+
+        if (id === 1) {
+            $(".plan-id-show").addClass('hide');
+            $(".plan-id").removeClass('hide');
+            $(".planIdTog").html('<i class="fa fa-eye-slash"></i>');
+            $(".planIdTog").attr('onclick', "toggleKeys(2,'planIdTog')");
+        } else {
+            $(".plan-id").addClass('hide');
+            $(".plan-id-show").removeClass('hide');
+            $(".planIdTog").html('<i class="fa fa-eye"></i>');
+            $(".planIdTog").attr('onclick', "toggleKeys(1,'planIdTog')");
         }
 
     }

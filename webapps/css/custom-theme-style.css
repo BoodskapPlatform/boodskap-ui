@@ -1038,6 +1038,10 @@ margin-bottom: 10px  !important;
     mask: url(images/menu/templates-bskp.svg) no-repeat center / contain ;
     -webkit-mask: url(images/menu/templates-bskp.svg) no-repeat center / contain;
  }
+ .bskp-Dimg36{
+    mask: url(images/menu/Key.svg) no-repeat center / contain ;
+    -webkit-mask: url(images/menu/Key.svg) no-repeat center / contain;
+ }
  /* Home-page Icons ends */
 
  /* Mega-menu start */
