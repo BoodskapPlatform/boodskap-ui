@@ -37,7 +37,7 @@ $(document).ready(function () {
                 $(".linked_domains").append('<label class="label label-default" onclick="openLinkedDomain(\''+USER_OBJ.linkedDomains[i].domainKey+'\')">' + USER_OBJ.linkedDomains[i].label + '</label><br>')
             }
         }
-        //recentUpdate();
+        recentUpdate();
 
         loadUserProfilePicture();
         loadLogoPicture();
@@ -694,21 +694,21 @@ function clickRecent(tabname, tabid, loadmenu, cardno) {
     }
 
     if(tabname === 'ClearRecent'){
-    rdata=[];
+        rdata=[];
     }
- else{
-    if (newclick) {
-        var inp = {
-            "name": tabname,
-            "id": tabid,
-            "loadmenu": loadmenu,
-            "cardno": cardno,
-            'update_ts': Date.now(),
-        };
- rdata.push(inp);
-    }
+    else{
+        if (newclick) {
+            var inp = {
+                "name": tabname,
+                "id": tabid,
+                "loadmenu": loadmenu,
+                "cardno": cardno,
+                'update_ts': Date.now(),
+            };
+            rdata.push(inp);
+        }
 
-}
+    }
   var obj = {
         dataType: "VARCHAR",
         format: "AS_IS",
@@ -754,7 +754,7 @@ function recentcard(rdata) {
             }
             if (i >= 0 && i <= 11) {
                 ui+=`<div class="w-25 w-sm-100 w-md-50 px-2 homecard  hmarketplace `+hideClass+`">
-                    <a href="<%= basepath %>/`+idd+`">
+                    <a href="`+WEB_BASE_PATH+"/"+idd+`" onclick="clickRecent('`+rdata[i].name+`','`+idd+`',`+rdata[i].loadmenu+`,`+rdata[i].cardno+`)">
                         <div class="card modules bskp-home-modules">
                             <div class="bskp-icon-frame">
                                 <div class="bskp-Dbg bskp-Dimg`+rdata[i].cardno+`"></div>
@@ -983,7 +983,7 @@ $(function () {
 });
 
 function Rtogmore(x) {
-    $(".more-Hrecent").toggle();
+    $(".hide-class").slideToggle();
     $(".showmore .dropR").toggleClass("bskp-angleR"); //toggle arrow
    
 }
