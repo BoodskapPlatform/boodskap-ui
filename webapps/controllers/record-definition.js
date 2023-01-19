@@ -76,7 +76,7 @@ function loadRecordDef() {
             "emptyTable": "No data available",
             "zeroRecords": "No data available",
             "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
-            "searchPlaceholder": "Search by Record Id",
+            "searchPlaceholder": "Search by Record ID",
             loadingRecords: '',
             paginate: {
                 previous: '< Prev',

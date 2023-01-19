@@ -27,7 +27,7 @@ function loadMessageDef() {
     var fields = [
         {
             mData: 'id',
-            sTitle: 'Message Id',
+            sTitle: 'Message ID',
 
         },
         {
@@ -79,7 +79,7 @@ function loadMessageDef() {
             "emptyTable": "No data available",
             "zeroRecords": "No data available",
             "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
-            "searchPlaceholder": "Search by Message Id",
+            "searchPlaceholder": "Search by Message ID",
             loadingRecords: '',
             paginate: {
                 previous: '< Prev',
@@ -721,18 +721,29 @@ function importContent() {
 function checkAndInsert(obj, cbk) {
 
     retreiveMessageDef(obj.id, function (status, data) {
-
+        console.log("------------");
+        console.log(status);
+        console.log(data);
         if (status) {
             $(".btnSubmit").removeAttr('disabled');
             errorMsg(obj.id + ' - Message ID already defined');
             cbk(null)
         } else {
             createUpdateMessageDef(obj, function (status, data) {
+                console.log("========");
+                console.log(status);
+                console.log(data);
                 if (status) {
                     successMsg(obj.id + ' - Message Defined Successfully');
 
                 } else {
-                    errorMsg('Error in Define Message')
+                    console.log(data.message);
+                    if(data.message){
+                        var errmessage = data.message.replaceAll("_"," ")
+                        errorMsg(errmessage);
+                    }else{
+                        errorMsg('Error in Define Message');
+                    }
                 }
                 cbk(null)
             })
