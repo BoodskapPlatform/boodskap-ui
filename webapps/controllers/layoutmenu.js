@@ -272,16 +272,16 @@ function loadLogoPicture() {
             getGlobalProperty(ADMIN_DOMAIN_BRANDING_PROPERTY, function (status, data) {
                 if (status) {
                     var src = data.data;
-                    $(".domain_logo").attr('src', API_BASE_PATH + '/files/public/download/' +src);
+                    $(".domain_logo").attr('src', API_BASE_PATH + '/files/public/download/' +src).show();
                     Cookies.set('domain_logo', src);
                 } else {
-                    $(".domain_logo").attr('src', DEFAULT_LOGO_PATH);
+                    $(".domain_logo").attr('src', DEFAULT_LOGO_PATH).show();
                 }
 
             })
 
         }else{
-            $(".domain_logo").attr('src', API_BASE_PATH + '/files/public/download/'+ Cookies.get('domain_logo'));
+            $(".domain_logo").attr('src', API_BASE_PATH + '/files/public/download/'+ Cookies.get('domain_logo')).show();
         }
     }else{
         if (!Cookies.get('domain_logo')) {
@@ -290,17 +290,17 @@ function loadLogoPicture() {
                 if (status) {
                     var src = JSON.parse(data.value);
                     // if(USER_OBJ.user.email !== 'admin'){
-                    $(".domain_logo").attr('src', API_BASE_PATH + '/files/download/' + USER_OBJ.token + '/' + src.webLogo);
+                    $(".domain_logo").attr('src', API_BASE_PATH + '/files/download/' + USER_OBJ.token + '/' + src.webLogo).show();
                     // }
                     Cookies.set('domain_logo', src.webLogo);
                     // $(".user_profile_name").html(USER_OBJ.user.firstName + ' '+ USER_OBJ.user.lastName );
                 } else {
-                    $(".domain_logo").attr('src', DEFAULT_LOGO_PATH);
+                    $(".domain_logo").attr('src', DEFAULT_LOGO_PATH).show();
                 }
 
             })
         }else{
-            $(".domain_logo").attr('src', API_BASE_PATH + '/files/download/' + USER_OBJ.token + '/' + Cookies.get('domain_logo'));
+            $(".domain_logo").attr('src', API_BASE_PATH + '/files/download/' + USER_OBJ.token + '/' + Cookies.get('domain_logo')).show();
         }
     }
 

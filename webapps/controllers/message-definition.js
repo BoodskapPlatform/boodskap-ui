@@ -337,7 +337,7 @@ function addMessageRule() {
                     check = false;
                     return false;
                 }else if($(this).find('.mesg-type').val() === ""){ 
-                        errorMsgBorder('Field Name is required', $(this).find('.mesg-type').attr('id'));
+                        errorMsgBorder('Data Type is required', $(this).find('.mesg-type').attr('id'));
                         check = false;
                         return false;
                     }
@@ -415,7 +415,13 @@ function addMessageRule() {
                         loadMessageDef();
                         $("#addMessageRule").modal('hide');
                     } else {
-                        errorMsg('Error in Define Message')
+                        if(data.message){
+                            var errmessage = data.message.replaceAll("_"," ")
+                            errorMsg(errmessage);
+                        }else{
+                            errorMsg('Error in Define Message');
+                        }
+                        
                     }
                     $(".btnSubmit").removeAttr('disabled');
                 })
@@ -633,12 +639,25 @@ function loadJsEditor(code) {
 
 function getImportFile(event) {
     const input = event.target;
-    if (input && input.files.length > 0) {
-        placeFileContent(
-            document.getElementById('imported_content'),
-            input.files[0]);
+    
+    var file = input.files[0];
+    var type= input.value.split(".");
+    type = type[type.length - 1]
+    var filename = file.name;
 
-    }
+    if(type == "json" || type == "JSON"){
+        if (input && input.files.length > 0) {
+            placeFileContent(
+                document.getElementById('imported_content'),
+                input.files[0]);
+
+        }
+    }else{
+        $("#imported_content").val("")
+        $("#importFile").val("")
+        loadJsEditor("");
+        errorMsg('Please import valid json file!');
+    }    
 }
 
 function placeFileContent(target, file) {
