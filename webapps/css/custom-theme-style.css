@@ -1172,6 +1172,9 @@ input[type=file]{
     color: #525252;
     font-size: 13px;
 }
+.breadcrumb>li a:hover {
+    color: #348ee3 !important;
+}
 .bskp-plusvg{
     height: 14px;
     position: relative;
