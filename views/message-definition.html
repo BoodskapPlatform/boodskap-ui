@@ -94,7 +94,7 @@
                         <div  class="col-md-6 msg_id">
                             <div  class="form-group">
                                 <label  class="inputLabel">Message ID *</label>
-                                <input  class="form-control input-sm" maxlength="100" min="1" placeholder="Enter Message ID" autocomplete="off" type="number" id="msg_id"  required>
+                                <input  class="form-control input-sm" onkeypress="return isNumber(event);" maxlength="100" min="1" placeholder="Enter Message ID" autocomplete="off" type="text" id="msg_id"  required>
                                 <span id="logmsg_id"></span>
                             </div>
                         </div>

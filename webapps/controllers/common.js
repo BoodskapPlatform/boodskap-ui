@@ -39,7 +39,7 @@ function getDomainTheme() {
             $(".divPanel").css('width', '100%')
         }
 
-        $('#headerBg').colorpicker({
+        /* $('#headerBg').colorpicker({
             color: themeProp.headerBg ? themeProp.headerBg : DEFAULT_THEME.headerBg,
             format: 'hex'
         });
@@ -58,7 +58,7 @@ function getDomainTheme() {
         $('#bodyBg').colorpicker({
             color: themeProp.bodyBg ? themeProp.bodyBg : DEFAULT_THEME.bodyBg,
             format: 'hex'
-        });
+        }); */
 
         /*$("#headerBg").spectrum({
             showPalette: true,
@@ -100,4 +100,13 @@ function IsAlphabet(e) {
     var keyCode = e.keyCode == 0 ? e.charCode : e.keyCode;
     var ret = ((keyCode >= 65 && keyCode <= 90) || (keyCode >= 97 && keyCode <= 122));
     return ret;
+}
+
+function isNumber(evt) {
+    evt = (evt) ? evt : window.event;
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+        return false;
+    }
+    return true;
 }

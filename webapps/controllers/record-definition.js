@@ -27,7 +27,7 @@ function loadRecordDef() {
     var fields = [
         {
             mData: 'id',
-            sTitle: 'Record Id'
+            sTitle: 'Record ID'
         },
         {
             mData: 'name',
@@ -57,8 +57,8 @@ function loadRecordDef() {
             sWidth : '10%',
             mRender: function (data, type, row) {
 
-                return '<button class="btn bskp-edit-btn mr-2" onclick="openEditModal('+row['id']+')"><img src="images/edit_icon.svg" alt=""></button>'+
-                    '<button class="btn bskp-trash-btn" onclick="openDeleteModal(' + row['id'] + ')"> <img src="images/delete.svg" alt=""> </button>';
+                return '<button class="btn bskp-edit-btn mr-2" onclick="openEditModal('+row['id']+')"><img src="images/edit_icon.svg" title="Edit" alt=""></button>'+
+                    '<button class="btn bskp-trash-btn" onclick="openDeleteModal(' + row['id'] + ')"> <img src="images/delete.svg" title="Delete" alt=""> </button>';
             }
         }
 
@@ -302,7 +302,7 @@ function addMessageRule() {
                     check = false;
                     return false;
                 }else if($(this).find('.mesg-type').val() === ""){ 
-                        errorMsgBorder('Field Name is required', $(this).find('.mesg-type').attr('id'));
+                        errorMsgBorder('Data Type is required', $(this).find('.mesg-type').attr('id'));
                         check = false;
                         return false;
                     }
@@ -380,7 +380,12 @@ if(check){
                         loadRecordDef();
                         $("#addMessageRule").modal('hide');
                     }else{
-                        errorMsg('Error in Define Record')
+                        if(data.message){
+                            var errmessage = data.message.replaceAll("_"," ")
+                            errorMsg(errmessage);
+                        }else{
+                            errorMsg('Error in Define Message');
+                        }
                     }
                     $(".btnSubmit").removeAttr('disabled');
                 })
@@ -404,6 +409,7 @@ function openDeleteModal(id) {
         keyboard: false
     }
     ,'show');
+    $(".modal-title").text("Delete Record");
 
 }
 
@@ -487,11 +493,24 @@ function loadJsEditor(code) {
 
 function getImportFile(event) {
     const input = event.target;
-    if (input && input.files.length > 0) {
-        placeFileContent(
-            document.getElementById('imported_content'),
-            input.files[0]);
+    
+    var file = input.files[0];
+    var type= input.value.split(".");
+    type = type[type.length - 1]
+    var filename = file.name;
 
+    if(type == "json" || type == "JSON"){
+        if (input && input.files.length > 0) {
+            placeFileContent(
+                document.getElementById('imported_content'),
+                input.files[0]);
+
+        }
+    }else{
+        $("#imported_content").val("")
+        $("#importFile").val("")
+        loadJsEditor("");
+        errorMsg('Please import valid json file!');
     }
 }
 

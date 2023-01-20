@@ -19,7 +19,7 @@
     <!-- end breadcrumb -->
     <!-- begin page-header --> 
     <div class="page-header bskp-page-topic"><img src="images/menu/templates-bskp.svg" class="bskp-topic-icon mr-1" alt="logo" > Manage Templates <span class="panel-title"></span>
-        <span class="panel-title ml-3 count">Total  Templates&nbsp:&nbsp<strong><span  class="templateCount"></span></strong></span>
+        <span class="panel-title ml-3 count">Total&nbsp:&nbsp<strong><span  class="templateCount"></span></strong></span>
       
     </div>
     <!-- end page-header -->    
@@ -157,7 +157,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="inputLabel">Choose Template file</label>
-                                <input class="form-control" type="file" name="tfile" id="templateFile">
+                                <input class="form-control" type="file" name="tfile" id="templateFile" onchange="checkUploadedFile(event);">
                                 <span class="file_error_templates" id="file_error"></span>
                             </div>
                         </div>

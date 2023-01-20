@@ -348,3 +348,19 @@ function uploadTemplate(){
 
 
 }
+
+function checkUploadedFile(event){
+
+    const input = event.target;
+    
+    var file = input.files[0];
+    var type= input.value.split(".");
+    type = type[type.length - 1]
+    var filename = file.name;
+
+    if(type != "json"){
+        $("#templateFile").val("")
+        errorMsg('Please import valid json file!');
+    }
+
+}
