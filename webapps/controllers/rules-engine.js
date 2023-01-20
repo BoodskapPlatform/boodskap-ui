@@ -6460,8 +6460,7 @@ function simulateMessage(id,type) {
         $(".btn_"+id).attr('disabled', 'disabled');
 
 
-        simulateDeviceMessage(id, jsonObj, function (status, data) {
-
+        simulateDeviceMessage(id, jsonObj,DEVICE_API_TOKEN , function (status, data) {
             $(".btn_"+id).removeAttr('disabled');
             if(status){
                 $(".code_"+id).append('<p>'+new Date() +' | Message sent successfully</p>');
