@@ -91,7 +91,7 @@ function getDomainTheme() {
             showInitial: true
         });
         $("#bodyBg").spectrum("set", themeProp.bodyBg ? themeProp.bodyBg : DEFAULT_THEME.bodyBg);*/
-        $("#domainModal").modal('show');
+        //$("#domainModal").modal('show');
 
     })
 }
