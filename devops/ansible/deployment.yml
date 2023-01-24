@@ -52,7 +52,7 @@
 
     - name: Sleep for 30 seconds 
       wait_for:
-        timeout: 30
+        timeout: 10
       delegate_to: 127.0.0.1
     -
       name: Docker Push the latest image.
