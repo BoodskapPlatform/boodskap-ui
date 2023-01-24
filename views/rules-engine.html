@@ -2708,7 +2708,85 @@
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
+<div id="addDevice" class="modal bskp-modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><span class="templateAction"></span>Add Device</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <image src="images/menu/xicon.svg" class="bg-secondary"  style="border-radius: 13px;padding:3px">
+                    </button>
+            </div>
+            <form action="javascript:void(0)" novalidate onsubmit="addDevice();">
+                <div class="modal-body">
+                    <div  class="row">
+                        <div  class="col-md-6">
+                            <div  class="form-group">
+                                 <label  class="inputLabel">Device Id *</label><!--<span style="font-size: 16px;">&#42;</span> -->
+                                <input  class="form-control input-sm" placeholder="Enter Device ld" maxlength="100" min="1" autocomplete="off" type="text" id="device_id" required>
+                                <span id="logdevice_id"></span>
+                            </div>
+                        </div>
+                        <div  class="col-md-6">
+                            <div  class="form-group">
+                                <label  class="inputLabel">Device Name *</label>
+                                <input  class="form-control input-sm" placeholder="Enter Device Name" maxlength="100" autocomplete="off" type="text" id="device_name" required>
+                                <span id="logdevice_name"></span>
+                            </div>
+                        </div>
+                        <div  class="col-md-6 modechoose">
+                        <div  class="form-group">
+                            <label  class="inputLabel">Choose Device Model *</label>&nbsp; 
+                            <div class="d-flex align-items-center">
+                            <select class="form-control input-sm" id="device_model" required onchange="assignVersion()">  
+                                </select>
+                                <a href="javascript:void(0)" class="btn togeditmodel ml-2 bskp-edit-inp" onclick="togglemodel('edit')" title="Edit device model"><img src="images/edit_icon.svg" alt="">  </a>
+                            </div> 
+                            <span id="logdevice_model"></span>  
+                       </div>  
+                       </div>
+                     </div>
 
+                 <div  class="row mx-0 mt-3 bskp-dmodel-layer">
+                    <div  class="col-md-6 new-model">
+                       <div  class="form-group">
+                            <label  class="inputLabel">New Device Model &nbsp;*</label>&nbsp;
+                            <input class="form-control input-sm" placeholder="Enter Model ld" maxlength="100" autocomplete="off" type="text" id="new_device_model" required>
+                             <span id="lognew_device_model"></span>    
+                        </div>
+                    </div>
+                   
+                  
+                    <div  class="col-md-6">
+                        <div  class="form-group">
+                            <label  class="inputLabel">Device Version *</label>
+                            <input  class="form-control input-sm" placeholder="Enter Device Version" maxlength="100" type="text" id="device_version" required>
+                            <span id="logdevice_version"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="inputLabel">Description *</label>
+                            <textarea class="form-control input-sm" id="device_desc" placeholder="Enter Description" maxlength="1000" autocomplete="off" required="" style="height: 90px;"></textarea>
+                            <span id="logdevice_desc"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-12 d-none">
+                        <div class="row m-0 justify-content-end">
+                            <button type="submit" class="btn btnModal btn-secondary btn-proceed mr-2 btnSubmit">Update</button>
+                            <button type="button" class="btn btn-secondary btn-close" data-dismiss="modal">Clear</button>
+                          </div>
+                    </div>                    
+                </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-close" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btnModal btn-secondary btn-proceed btnSubmit add-device-proceed">Proceed</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 <script id="outputHtml" type="text/html">
     <tr>
