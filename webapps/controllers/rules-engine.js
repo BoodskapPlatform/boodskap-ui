@@ -208,7 +208,7 @@ $(document).ready(function () {
 
             loadCodeType();
 
-
+            allDeviceList();
 
         }, 500);
 
@@ -6184,18 +6184,59 @@ function openSimulateModal(id,type) {
             }
         }
 
-        listAuthToken("DEVICE", function (status, data) {
-            if (status && data.length > 0) {
-                $("#simulatorDeviceList_"+id).html("");
-                var deviceOptionUI="";
-                data.forEach(e => {
-                    deviceOptionUI+="<option value="+e.entity+" token="+e.token+">"+e.entity+"</option>";
+        var queryParams = {
+            "method": "GET",
+            "extraPath": "",
+            "query": "{\"query\":{\"bool\":{\"must\":[{\"match\":{\"domainKey\":\""+DOMAIN_KEY+"\"}}],\"should\":[]}},\"sort\":[{\"reportedStamp\":{\"order\":\"desc\"}}],\"aggs\":{\"total_count\":{\"value_count\":{\"field\":\"reportedStamp\"}}},\"size\":100,\"from\":0}",
+            "params": [],
+            "type": "DEVICE"
+        }
+
+        async.waterfall([
+            async function (cbk) {
+                listAuthToken("DEVICE", function (status, data) {
+                    if (status) {
+                        cbk(null,data);
+                    }else{
+                        cbk(null,data);
+                    }
                 });
-                $("#simulatorDeviceList_"+id).append(deviceOptionUI);
-            } else {
-                errorMsg('Error in fetching device list!')
+                
+            },
+            async function (deviceData, mcbk) {
+                searchDevice(queryParams, function (status, data) {
+                    if(status){
+                        var resultData = searchQueryFormatterNew(data).data;
+                        if(resultData.data.length === 0){
+                            errorMsg('No device list found!');
+                            mcbk(null, null);
+                        } else {
+                            $("#simulatorDeviceList_"+id).html("");
+                            var deviceOptionUI="";
+                            console.log(resultData.data);
+                            resultData.data.forEach(e => {
+                                if(e.name != null){
+                                    deviceData.forEach(element => {
+                                        if(element.entity == e.id){
+                                            deviceOptionUI+="<option value="+e.id+" token="+element.token+">"+e.name+"</option>";
+                                        }
+                                    });
+                                    
+                                }
+                            });
+                            $("#simulatorDeviceList_"+id).append(deviceOptionUI);
+                            mcbk(null, null);
+                        }
+                    }else{
+                        errorMsg('Error in fetching device list!')
+                        mcbk(null, null);
+                    }
+                });
+
+                
             }
-        });
+        ]);
+
 
         simulator[id] = current_msg_obj;
 

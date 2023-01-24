@@ -127,7 +127,7 @@ function assignVersion() {
     }
 }
 
-var choosemodel= true;
+var choosemodel= false;
 var modelmode = 'new';
 function togglemodel(check) {
     if(check === 'edit'){      
