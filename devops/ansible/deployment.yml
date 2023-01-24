@@ -1,13 +1,13 @@
 ---
 -
-  hosts: nginx1_server
+  hosts: haproxy1
   tasks:
     - name: Git checkout
       ansible.builtin.git:
         repo: 'https://github.com/BoodskapPlatform/boodskap-ui.git'
         clone: yes
         accept_newhostkey: yes
-        dest: /home/boodskapui/webapps/boodskap-ui
+        dest: /home/ubuntu/build/boodskap-ui
         version: v5.0
         force: yes
         single_branch: yes
@@ -19,7 +19,7 @@
       name: Branch status.
       command: git branch
       args:
-        chdir: /home/boodskapui/webapps/boodskap-ui
+        chdir: /home/ubuntu/build/boodskap-ui
       register: branch_output
 
     - debug: msg="{{ branch_output }}"
@@ -28,21 +28,37 @@
       name: This command will install dependencies.
       command: npm install
       args:
-        chdir: /home/boodskapui/webapps/boodskap-ui
+        chdir: /home/ubuntu/build/boodskap-ui
       register: dependencies_output
 
     - debug: msg="{{ dependencies_output }}"
 
-    # - 
-    #   name: This command will restart the node process.
-    #   command: pm2 restart boodskap-platform-node.js
-    #   args:
-    #     chdir: /home/boodskapui/webapps/boodskap-ui
-    #   register: command_output
+    - 
+      name: Docker build change mode to executable.
+      command: chmod +x build.sh
+      args:
+        chdir: /home/ubuntu/build/boodskap-ui
+      register: change_buildscript_mode_output
 
-    # - name: Restart output
-    #   ansible.builtin.debug:
-    #     var: command_output.stdout_lines
+    - debug: msg="{{ change_buildscript_mode_output }}"
+
+    -
+      name: Docker build change mode to executable.
+      shell: "chmod +x build.sh"
+      args:
+        chdir: /home/ubuntu/build/boodskap-ui
+      register: change_buildscript_mode_output
+
+    - debug: msg="{{ change_buildscript_mode_output }}"
+
+    -
+      name: Docker build change mode to executable.
+      shell: "sh build.sh"
+      args:
+        chdir: /home/ubuntu/build/boodskap-ui
+      register: run_build_script_output
+    - debug: msg="{{ run_build_script_output.stdout }}"
+
 
 
 -
