@@ -17,9 +17,9 @@ pipeline{
              steps{
             script{ 
                echo "----------------BUILD START-----------------"
-                 sh """ 
-                 ansible-playbook $WORKSPACE/devops/ansible/deployment.yml -i $WORKSPACE/devops/ansible/inventory.yml
-                 """
+                //  sh """ 
+                //  ansible-playbook $WORKSPACE/devops/ansible/deployment.yml -i $WORKSPACE/devops/ansible/inventory.yml
+                //  """
                echo "Build process done"
                  
               }
