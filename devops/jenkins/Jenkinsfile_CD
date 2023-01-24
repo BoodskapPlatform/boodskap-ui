@@ -22,7 +22,7 @@ pipeline{
         echo "####################Deployment Block###############################"
         //executing the ansible playbook for deployment with target machine (inventory file)
             sh """
-            ansible-playbook $WORKSPACE/devops/ansible/deployment.yml -i $WORKSPACE/devops/ansible/inventory_deploy.yml --extra-vars="DOCKER_IMG=$(cat package.json | /usr/bin/jq -r '.version')"
+            ansible-playbook $WORKSPACE/devops/ansible/deployment.yml -i $WORKSPACE/devops/ansible/inventory_deploy.yml --extra-vars="DOCKER_IMG=${(cat package.json | /usr/bin/jq -r '.version')}"
              """
             echo "Deployment job done"
     
