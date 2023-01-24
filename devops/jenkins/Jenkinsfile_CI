@@ -13,22 +13,16 @@ pipeline{
                       timestamps() // show time in output console
              } 
         stages{ 
-           stage("Buid the Docker Image"){  //build block
+           stage("Docker Build & Push"){  //build block
              steps{
             script{ 
                echo "----------------BUILD START-----------------"
                  sh """ 
-                 ansible-playbook $WORKSPACE/devops/ansible/deployment.yml -i $WORKSPACE/devops/ansible/inventory_build_push.yml 
+                 ansible-playbook $WORKSPACE/devops/ansible/deployment.yml -i $WORKSPACE/devops/ansible/inventory.yml
                  """
                echo "Build process done"
                  
               }
-            }
-          }
-          stage("Test"){  // test block
-            steps{
-              echo "----------------TEST START-----------------"
-                  echo "Test process done"
             }
           }
   //          stage("SonarQube Analysis") {
