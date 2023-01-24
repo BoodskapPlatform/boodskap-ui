@@ -33,15 +33,6 @@
 
     - debug: msg="{{ dependencies_output }}"
 
-    - 
-      name: Docker build change mode to executable.
-      command: chmod +x build.sh
-      args:
-        chdir: /home/ubuntu/build/boodskap-ui
-      register: change_buildscript_mode_output
-
-    - debug: msg="{{ change_buildscript_mode_output }}"
-
     -
       name: Docker build change mode to executable.
       shell: "chmod +x build.sh"
@@ -60,26 +51,13 @@
     - debug: msg="{{ run_build_script_output.stdout }}"
 
 
-
 -
   hosts: nginx2_server
   tasks:
-    - 
-      name: Branch status.
-      command: git branch
+    -
+      name: Docker build change mode to executable.
+      shell: "sh build.sh"
       args:
-        chdir: /home/boodskapui/webapps/boodskap-ui
-      register: branch_output
-
-    - debug: msg="{{ branch_output }}"
-
-    # - 
-    #   name: This command will restart the node process.
-    #   command: pm2 restart boodskap-platform-node.js
-    #   args:
-    #     chdir: /home/boodskapui/webapps/boodskap-ui
-    #   register: command_output
-
-    # - name: Restart output
-    #   ansible.builtin.debug:
-    #     var: command_output.stdout_lines
+        chdir: /home/ubuntu/build/boodskap-ui
+      register: run_build_script_output
+    - debug: msg="{{ run_build_script_output.stdout }}" 
