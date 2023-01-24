@@ -548,3 +548,10 @@ font-size: 36px;
 .hide-class{
     display: none;
 }
+
+.blue-color{
+    color: #3b3ea0 ;
+}
+.v-top{
+    vertical-align: text-top;
+}
