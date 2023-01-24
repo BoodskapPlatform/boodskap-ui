@@ -46,6 +46,8 @@ let CHANGED_TYPE = null;
 let CHANGED_TEXT = null;
 let CHANGED_DEFAULT_TEXT = null;
 
+let DEVICE_LIST = [];
+
 let logLevels = {
     trace: 'default',
     debug: 'primary',
@@ -1997,7 +1999,7 @@ function loadTabbar(id, type) {
         }
 
 
-        $(".simulateBtn").attr('onclick','openSimulateModal(\''+id+'\',1)');
+        $(".simulateBtn").attr('onclick','checkSimulateDevices(\''+id+'\',1)');
 
 
     }
@@ -6159,6 +6161,10 @@ function openSimulateModal(id,type) {
 
         let str = '<div id="simulatorModal_'+id+'">' +
             '<div data-role="body">\n' +
+            '<div class="row"><div class="col-md-12"><div class="form-group">'+
+            '<label class="inputLabel">Select Device</label>'+
+            '<select id="simulatorDeviceList_'+id+'" class="form-control input-sm col-12"><option>No Devices Found</option></select>'+
+            '</div></div></div>'+
             '<div class="row msgFieldBlock_'+id+'"></div>' +
             '<div class="row">' +
             '<div class="col-md-12">' +
@@ -6177,6 +6183,19 @@ function openSimulateModal(id,type) {
                 current_msg_obj = message_spec_list[i]
             }
         }
+
+        listAuthToken("DEVICE", function (status, data) {
+            if (status && data.length > 0) {
+                $("#simulatorDeviceList_"+id).html("");
+                var deviceOptionUI="";
+                data.forEach(e => {
+                    deviceOptionUI+="<option value="+e.entity+" token="+e.token+">"+e.entity+"</option>";
+                });
+                $("#simulatorDeviceList_"+id).append(deviceOptionUI);
+            } else {
+                errorMsg('Error in fetching device list!')
+            }
+        });
 
         simulator[id] = current_msg_obj;
 
@@ -6455,12 +6474,14 @@ function simulateMessage(id,type) {
 
         }
 
+        let devToken = $("#simulatorDeviceList_"+id+" option:selected").attr("token");
+
         $(".code_"+id).append('<p>'+new Date() +' | '+JSON.stringify(jsonObj)+'</p>');
 
         $(".btn_"+id).attr('disabled', 'disabled');
 
 
-        simulateDeviceMessage(id, jsonObj,DEVICE_API_TOKEN , function (status, data) {
+        simulateDeviceMessage(id, jsonObj,devToken , function (status, data) {
             $(".btn_"+id).removeAttr('disabled');
             if(status){
                 $(".code_"+id).append('<p>'+new Date() +' | Message sent successfully</p>');
@@ -7758,3 +7779,240 @@ function toggleHandle(id){
 
 }
 
+function checkSimulateDevices(id,place){
+    var queryParams = {
+        "query": {
+          "bool": {
+            "must": [
+              {
+                "match": {
+                  "domainKey": DOMAIN_KEY
+                }
+              }
+            ],
+            "should": []
+          }
+        },
+        "sort": [
+          {
+            "registeredStamp": {
+              "order": "desc"
+            }
+          }
+        ],
+        "size": 100,
+        "from": 0
+    }
+    var ajaxObj = {
+        "method": "GET",
+        "extraPath": "",
+        "query": JSON.stringify(queryParams),
+        "params": [],
+        "type" : 'DEVICE'
+    };
+    $.ajax({
+        "dataType": 'json',
+        "contentType": 'application/json',
+        "type": "POST",
+        "url": API_BASE_PATH + '/elastic/search/query/' + API_TOKEN_ALT,
+        "data": JSON.stringify(ajaxObj),
+        success: function (data) {
+            var resData = searchQueryFormatterNew(data);
+            var resultData = resData.data;
+            DEVICE_LIST =resultData.data;     
+            console.log(DEVICE_LIST);
+            console.log(DEVICE_LIST.length); 
+            if(DEVICE_LIST.length == 0){
+
+                $("#addDevice").modal({
+                    backdrop: 'static',
+                    keyboard: false
+                });
+                $("#device_id").removeAttr('readonly');
+                $("#addDevice form")[0].reset();
+                loadDeviceModels('');
+                $("#addDevice").modal('show');
+                $("#device_desc").css("height","90");
+                $("#addDevice form").attr('onsubmit','addDevice('+id+')');
+                errorMsg('No Devices Added so far!')
+
+            }else{
+                openSimulateModal(id,place);
+            }
+        }
+    });
+
+}
+
+function addDevice(id) {
+      var device_model = "";
+      if(choosemodel){
+        device_model =$.trim($("#device_model").val() );
+      }else{
+        device_model =$.trim($("#new_device_model").val() );
+      }
+    
+      var device_id =$.trim($("#device_id").val() );
+      var device_name =$.trim($("#device_name").val() );
+      var device_version =$.trim($("#device_version").val() );
+      var device_desc =$.trim($("#device_desc").val() );
+  
+       if(device_id === "" ){
+          errorMsgBorder('Device ID is required', 'device_id');
+          return false;
+         
+      }else if(device_name === "" ){
+     
+          errorMsgBorder('Device Name is required', 'device_name');
+          return false;
+         
+      }else if(device_model === "" ){
+     
+          errorMsgBorder('Device Model is required', 'new_device_model');
+          return false;
+         
+      }else if(device_version === "" ){
+     
+          errorMsgBorder('Device Version is required', 'device_version');
+          return false;
+         
+      
+      }else if(device_desc === "" ){
+     
+          errorMsgBorder('Device Description is required', 'device_desc');
+          return false;
+         
+      }else{    
+
+          let modelstatus = true;
+          let modeltext;
+        
+         var modelObj = {
+              "id": device_model,
+              "version": $("#device_version").val(),
+              "description": $("#device_desc").val(),
+          }
+      
+          $(".add-device-proceed").html("<div class='d-flex'><i class='fa fa-spinner fa-spin'></i><p class='pl-2 m-0'>Processing</p></div>").attr("disabled",true);
+
+      async.series({
+          SameModelID: function (rmdcbk) {
+              console.log("same");
+          if( modelmode === 'new'){
+           retreiveDeviceModel(modelObj.id, function (status, data) {
+              if (status) {
+                  modelstatus =false;
+                  console.log("revif");
+                  $(".btnSubmit").removeAttr('disabled');
+                  errorMsgBorder('Device Model ID already exist', 'new_device_model');
+                  rmdcbk(null, true);
+              }else{
+                  console.log("revelse");
+                  modelstatus =true;
+                  rmdcbk(null, false);
+              }
+           }) 
+          }else{
+              rmdcbk(null, false); 
+          }
+          },
+          TriggerModelCreate: function (mdcbk){
+              console.log(modelmode);
+              console.log(modelstatus);
+                // Allow if is not choose - Create Device Model  
+            if(modelmode !== 'choose' && modelstatus){
+              upsertDeviceModel(modelObj,function (status, data) {
+                if(modelmode === 'new'){
+                    modeltext = 'Creat'
+                 }
+                 else{
+                    modeltext = 'Updat'
+                 }           
+                if (status) {
+                    successMsg('Device Model '+modeltext+'ed Successfully');
+                    modelstatus =true;
+                    mdcbk(null, true);
+                } else {
+                    errorMsg('Error in '+modeltext+'ing Device Model')
+                    modelstatus =false;
+                    mdcbk(null, false);
+                 }
+                $(".btnSubmit").removeAttr('disabled');
+               })
+             }else{
+              mdcbk(null, false);
+             }
+          },
+          CreateDevice: function(Dcbk){
+                // Device Create  
+                if(modelstatus){
+                  console.log("dev creat");
+                  var deviceObj = {
+                      "id": $("#device_id").val(),
+                      "name": $("#device_name").val(),
+                      "modelId": device_model,
+                      "version": $("#device_version").val(),
+                      "description": $("#device_desc").val(),
+                      }
+                      retreiveDevice(deviceObj.id, function (status, data) {
+                      if (status) {
+                          $(".btnSubmit").removeAttr('disabled');
+                          errorMsgBorder('Device ID already exist', 'device_id');
+                          $(".add-device-proceed").html("Proceed").attr("disabled",false);
+                          Dcbk(null, false);
+                      } else {
+                          upsertDevice(deviceObj,function (status, data) {
+                              if (status) {
+                                  successMsg('Device Created Successfully');
+                                  //loadDeviceList();
+                                  $("#addDevice").modal('hide');
+                                  openSimulateModal(id,1);
+                                  $(".add-device-proceed").html("Proceed").attr("disabled",false);
+                                  Dcbk(null, true);
+                              } else {
+                                
+                                  errorMsg('Error in Creating Device')
+                                  Dcbk(null, false);
+                              }
+                              $(".btnSubmit").removeAttr('disabled');
+                          })
+                      }
+                      })
+                  }else{
+                      $(".add-device-proceed").html("Proceed").attr("disabled",false);
+                      Dcbk(null, false);
+                  }
+          }
+  
+        })    
+      }  
+       
+  }
+
+  function loadDeviceModels(check) {
+    $("#device_model").html("");
+    let devmodel;
+    getDeviceModel(1000,function (status, data) {
+        if(status && data.length > 0){
+            device_model_list = data;
+
+           check === 'update' ? '' : $("#device_model").append('<option value="newmodel">- Create New Model</option>') ;
+            for(var i=0;i<data.length;i++){
+               $("#device_model").append('<option value="'+data[i].id+'">'+data[i].id+'</option>');  
+                if($("#device_model").val() === data[i].id){
+                $("#device_version").html(data[i].description)
+                $("#device_desc").html(data[i].description)
+                }           
+            }
+           
+            if($("#device_model").val() === 'newmodel' &&   check !== 'update'){
+                togglemodel('newmodel');      
+            }else{
+                togglemodel('edit');
+            }
+            
+        }else{
+            device_model_list = [];
+        }
+    })
+}

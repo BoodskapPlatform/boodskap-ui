@@ -3,8 +3,7 @@ var device_list = [];
 var device_model_list = [];
 var current_device_id = {};
 var cmdTimer = {};
-var choosemodel= true;
-var modelmode = 'new';
+
 
 $(document).ready(function () {
     loadDeviceList();
@@ -168,7 +167,7 @@ function loadDeviceList() {
 
                 }
                     queryParams.query['bool']['must'] = [domainKeyJson];
-
+                console.log("-->"+JSON.stringify(queryParams));
 
                 var ajaxObj = {
                     "method": "GET",
@@ -188,7 +187,7 @@ function loadDeviceList() {
                     success: function (data) {
 
                         var resData = searchQueryFormatterNew(data);
-
+                        console.log(resData);
                         var resultData = resData.data;
                         device_list =resultData.data;     
                         console.log(device_list);
@@ -281,52 +280,10 @@ function loadDeviceModels(check) {
     })
 }
 
-function assignVersion() {
-    $("#device_model").val() === '' ? $("#device_version").val('') && $("#device_desc").val('') : '' ;
-    for(var i=0;i<device_model_list.length;i++){
-        if($("#device_model").val() === device_model_list[i].id){
-            $("#device_version").val(device_model_list[i].version);
-            $("#device_desc").val(device_model_list[i].description);
-        }     
-        
-    }
-    if($("#device_model").val() === 'newmodel'){
-        togglemodel('newmodel')     
-    }else{
-        togglemodel('choose')  
-    }
-}
 
 
-function togglemodel(check) {
-     if(check === 'edit'){      
-        choosemodel=true;  
-        modelmode = 'edit'   
-        console.log(modelmode);
-        $(".new-model").addClass('d-none');
-        $(".togeditmodel").removeClass('d-none');
-        $("#device_version").removeAttr('disabled','disabled');  
-        $("#device_desc").removeAttr('disabled','disabled');
-    }else if(check === 'newmodel'){
-        choosemodel=false;  
-        modelmode = 'new';               
-        $(".togeditmodel").addClass('d-none');
-        $(".new-model").removeClass('d-none');
-        $("#device_version").removeAttr('disabled');
-        $("#device_desc").removeAttr('disabled');
-        $("#device_version").val('');
-        $("#device_desc").val('');
-    }
-    else{
-        choosemodel=true; 
-        modelmode = 'choose';
-        $(".new-model").addClass('d-none');
-        $(".togeditmodel").removeClass('d-none');
-        $("#device_version").attr('disabled','disabled');  
-        $("#device_desc").attr('disabled','disabled');
-     } 
-  
-}
+
+
 
 function openModal(type,id) {
     if (type === 1) {
