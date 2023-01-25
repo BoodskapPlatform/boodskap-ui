@@ -75,12 +75,12 @@ function toggleKeys(id, type) {
         if (id === 1) {
             $(".domain_key_show").addClass('hide');
             $(".domain_key").removeClass('hide');
-            $(".domainToggle").html('<i class="fa fa-eye-slash blue-color"></i>');
+            $(".domainToggle").html('<i class="fa fa-eye-slash blue-color v-top"></i>');
             $(".domainToggle").attr('onclick', "toggleKeys(2,'domainToggle')");
         } else {
             $(".domain_key").addClass('hide');
             $(".domain_key_show").removeClass('hide');
-            $(".domainToggle").html('<i class="fa fa-eye blue-color"></i>');
+            $(".domainToggle").html('<i class="fa fa-eye blue-color v-top"></i>');
             $(".domainToggle").attr('onclick', "toggleKeys(1,'domainToggle')");
         }
 
@@ -90,12 +90,12 @@ function toggleKeys(id, type) {
         if (id === 1) {
             $(".api_token_show").addClass('hide');
             $(".api_token").removeClass('hide');
-            $(".tokenToggle").html('<i class="fa fa-eye-slash blue-color"></i>');
+            $(".tokenToggle").html('<i class="fa fa-eye-slash blue-color v-top"></i>');
             $(".tokenToggle").attr('onclick', "toggleKeys(2,'tokenToggle')");
         } else {
             $(".api_token").addClass('hide');
             $(".api_token_show").removeClass('hide');
-            $(".tokenToggle").html('<i class="fa fa-eye blue-color"></i>');
+            $(".tokenToggle").html('<i class="fa fa-eye blue-color v-top"></i>');
             $(".tokenToggle").attr('onclick', "toggleKeys(1,'tokenToggle')");
         }
 
@@ -105,12 +105,12 @@ function toggleKeys(id, type) {
         if (id === 1) {
             $(".acc-id-show").addClass('hide');
             $(".acc-id").removeClass('hide');
-            $(".accIdTog").html('<i class="fa fa-eye-slash blue-color"></i>');
+            $(".accIdTog").html('<i class="fa fa-eye-slash blue-color v-top"></i>');
             $(".accIdTog").attr('onclick', "toggleKeys(2,'accIdTog')");
         } else {
             $(".acc-id").addClass('hide');
             $(".acc-id-show").removeClass('hide');
-            $(".accIdTog").html('<i class="fa fa-eye blue-color"></i>');
+            $(".accIdTog").html('<i class="fa fa-eye blue-color v-top"></i>');
             $(".accIdTog").attr('onclick', "toggleKeys(1,'accIdTog')");
         }
 
@@ -120,12 +120,12 @@ function toggleKeys(id, type) {
         if (id === 1) {
             $(".plan-id-show").addClass('hide');
             $(".plan-id").removeClass('hide');
-            $(".planIdTog").html('<i class="fa fa-eye-slash blue-color"></i>');
+            $(".planIdTog").html('<i class="fa fa-eye-slash blue-color v-top"></i>');
             $(".planIdTog").attr('onclick', "toggleKeys(2,'planIdTog')");
         } else {
             $(".plan-id").addClass('hide');
             $(".plan-id-show").removeClass('hide');
-            $(".planIdTog").html('<i class="fa fa-eye blue-color"></i>');
+            $(".planIdTog").html('<i class="fa fa-eye blue-color v-top"></i>');
             $(".planIdTog").attr('onclick', "toggleKeys(1,'planIdTog')");
         }
 
@@ -134,12 +134,12 @@ function toggleKeys(id, type) {
         if (id === 1) {
             $(".api_key_show").addClass('hide');
             $(".api_key").removeClass('hide');
-            $(".apiToggle").html('<i class="fa fa-eye-slash blue-color"></i>');
+            $(".apiToggle").html('<i class="fa fa-eye-slash blue-color v-top"></i>');
             $(".apiToggle").attr('onclick', "toggleKeys(2,'apiToggle')");
         } else {
             $(".api_key").addClass('hide');
             $(".api_key_show").removeClass('hide');
-            $(".apiToggle").html('<i class="fa fa-eye blue-color"></i>');
+            $(".apiToggle").html('<i class="fa fa-eye blue-color v-top"></i>');
             $(".apiToggle").attr('onclick', "toggleKeys(1,'apiToggle')");
         }
     }

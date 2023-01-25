@@ -70,9 +70,9 @@ function loadUsersList() {
             sWidth: '10%',
             mRender: function (data, type, row) {
 
-                var str = '<button class="btn btn-sm btn-icon btn-default" onclick="openModal(4,\'' + row["email"] + '\')"><i class="icon-sign-in"></i></button>' +
-                    '<button class="btn btn-sm btn-icon btn-default" onclick="openModal(2,\'' + row["email"] + '\')"><i class="icon-edit2"></i></button>' +
-                    '<button class="btn btn-sm btn-icon btn-default" onclick="openModal(3,\'' + row['email'] + '\')"><i class="icon-trash-o"></i></button>';
+                var str = '<button class="btn btn-sm btn-icon btn-default" title="Login As" onclick="openModal(4,\'' + row["email"] + '\')"><i class="icon-sign-in"></i></button>' +
+                    '<button class="btn btn-sm btn-icon btn-default" title="Edit" onclick="openModal(2,\'' + row["email"] + '\')"><i class="icon-edit2"></i></button>' +
+                    '<button class="btn btn-sm btn-icon btn-default" title="Delete" onclick="openModal(3,\'' + row['email'] + '\')"><i class="icon-trash-o"></i></button>';
 
                 if (row['roles'].indexOf('admin') >= 0) {
                     str = '-';

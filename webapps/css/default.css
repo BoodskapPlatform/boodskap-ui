@@ -309,9 +309,9 @@ div::-webkit-scrollbar-thumb {
     border-radius: 0px;
 }
 
-.modal-header .modal-title, .modal-header .close{
+/* .modal-header .modal-title, .modal-header .close{
     color: #fff;
-}
+} */
 
 .pagination>li>a {
     padding: 0px 10px;
@@ -522,6 +522,8 @@ font-size: 36px;
     padding: 5px 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    display: flex;
+    align-items: center;
 }
 
 .label-text-list-cls{
@@ -554,4 +556,10 @@ font-size: 36px;
 }
 .v-top{
     vertical-align: text-top;
+}
+
+.button-2{
+    border: 1px solid #2d2f79 !important;
+    background-color: #fff !important;
+    color: #2d2f79 !important;
 }
