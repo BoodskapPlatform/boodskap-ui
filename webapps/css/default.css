@@ -563,3 +563,14 @@ font-size: 36px;
     background-color: #fff !important;
     color: #2d2f79 !important;
 }
+.text-decoration:hover {
+    text-decoration: none;
+}
+.error-input-box {
+    border-bottom: 2px solid #dc3545 !important;
+}
+.alertDiv{
+    height: 10px;
+    font-weight: 500;
+    font-size: 14px;
+}

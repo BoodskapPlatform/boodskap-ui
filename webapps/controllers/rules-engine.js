@@ -1172,7 +1172,7 @@ function loadFileRulesList() {
         $(".rulesList").html("");
 
         $(".rulesList").append('<li class="" onclick="loadBinaryRulesList()" title="click here to reload" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
-            '<img src="images/folder.png" /> <b> Fine Rules</b> <span class="loaderSpin"></span></li>');
+            '<img src="images/folder.png" /> <b> File Rules</b> <span class="loaderSpin"></span></li>');
 
         $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
 

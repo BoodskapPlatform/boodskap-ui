@@ -705,3 +705,31 @@ function onlyNumericSpecialChar(event) {
         return false;
     }
 } 
+
+
+function showFeedbackAlert(text,id,alertId) {
+   
+    $("#"+alertId).html('')
+    $("#"+alertId).html('<div class="text-danger mt-1 font-14" role="alert"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ' + text + '</div>')
+
+    if ($("#"+alertId.alert).is(":visible")) {
+        $("#"+alertId).hide();
+    } else {
+        $("#"+alertId).show();
+    }
+    if(id){
+        $('#'+id).focus().addClass('error-input-box');
+        $('#'+id).on('keyup',function (_e) {
+            if ($('#'+id).val() != "") {
+                $('#'+id).removeClass('error-input-box')
+                defaultStyle(alertId)
+            }
+        })  
+    }
+}
+
+function defaultStyle(id) {
+    $("input, select textarea").removeClass('error-input-box')
+    $("#" + id).hide();
+    $('.alertDiv').html('')
+}

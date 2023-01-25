@@ -17,22 +17,22 @@
  
 </style>
 
-<div class="container-fluid montFont bskp-mt-30">
+<div class="container-fluid montFont bskp-mt-30" style="height: calc(100vh - 100px);overflow: auto;">
     
    <!-- begin panel -->
-    <div class="panel panel-inverse bskp-container-frame">
+    <div class="panel panel-inverse bskp-container-frame mb-5">
 
         <!-- begin breadcrumb -->
         <div>
             <ol class="breadcrumb pull-right bskp-align-icon">
-                <li class="breadcrumb-item"><a href="<%= basepath %>/home">Domain</a></li>
-                <li class="breadcrumb-item active">Messages</li>
+                <li class="breadcrumb-item"><a href="<%= basepath %>/home">Home </a></li>
+                <li class="breadcrumb-item active">Raw Messages</li>
                 <div class="ml-4">
-                    <a href="javascript:;">
+                    <a href="javascript:;" class="text-decoration">
                         <label class="text-primary mb-0"><input type="checkbox" value="ON" id="liveUpdate" style="vertical-align: middle !important;"
                                                         onchange="liveUpdate(this)"/> Live Update</label>
                     </a>
-                    <a href="javascript:;" class="btn btn-sm btn-icon btn-circle  bskp-icon-bg" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                    <a href="javascript:;" class="btn btn-sm btn-icon btn-circle  bskp-icon-bg" data-click="panel-expand" title="Expand"><i class="fa fa-expand"></i></a>
                 </div>
             </ol>
             
@@ -40,7 +40,7 @@
         <!-- end breadcrumb -->
      <!-- begin page-header -->
      <div class="page-header bskp-page-topic"><img src="images/menu/message-definition_1-bskp.png" class="bskp-topic-icon mr-1" >Reported Messages
-        <span class="panel-title ml-3" style="color: #478ecc;">Total Reported Messages: <b><span class="totalCount"></span></b></span> </div>
+        <span class="panel-title ml-3" style="color: #478ecc;">Total: <b><span class="totalCount"></span></b></span> </div>
     
     <!-- end page-header -->
      
@@ -49,26 +49,26 @@
             <div class="row">
                 <div class="col-lg-3 col-md-6">
                     <div class="form-group">
-                        <label class="inputLabel">Message Id</label>
+                        <label class="inputLabel">Message ID</label>
                         <select class="form-control input-sm msgList" onchange="loadMessages(this.value)"></select>
                     </div>
 
                 </div>
-                <div class="col-lg-3 col-md-6">
+                <div class="col-lg-3 col-md-6 pr-0">
                     <div class="form-group">
                         <label class="inputLabel">Date Range</label>
                         <div id="reportrange"
-                             style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc;">
+                             style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc;display: flex;align-items: baseline;">
                             <i class="fa fa-calendar"></i>&nbsp;
                             <span></span> <label style="display: inline-block;float:right">
-                            <i class="fa fa-caret-down"></i></label>
+                            <i class="fa fa-caret-down pl-1"></i></label>
                         </div>
 
                     </div>
 
                 </div>
                 <div class="col-md-3">
-                    <div class="form-group raw-message" >
+                    <div class="form-group raw-message pl-2" >
 
                         <label class="inputLabel">Statistics</label> <br>
                         <div class="switches-container">
@@ -112,7 +112,7 @@
             <div class="row mt-2">
                 <div class="col-md-12" id="tablePanel">
                     <div class="btn-group btn-group-justified pull-right bskp-btn-group-align" >
-                        <a class="btn bskp-refresh-bg" data-click="panel-reload" onclick="loadMessages()"><i class="fa fa-refresh"></i></a>
+                        <a class="btn bskp-refresh-bg" data-click="panel-reload" onclick="loadMessages()" title="Refresh"><i class="fa fa-refresh"></i></a>
                     </div>
                     <div class="bskp-table-layout">
                     <table class="table table-bordered bskp-table table-hover responsive no-wrap" id="messageTable" cellspacing="0"

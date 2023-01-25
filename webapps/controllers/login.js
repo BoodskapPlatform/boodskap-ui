@@ -194,12 +194,12 @@ function register(){
     var captchaStatus = grecaptcha.getResponse();
 
     if(firstname == ""){
-        errorMsgBorder('First Name cannot be empty','firstname',1);
+        showFeedbackAlert('First name is required','firstname','logfirstname');
         return false;
     }
 
     if(lastname === ""){
-        errorMsgBorder('Last Name cannot be empty','lastname',1);
+        showFeedbackAlert('Last name is required','lastname','loglastname');
         return false;
     }
 
@@ -207,17 +207,17 @@ function register(){
     var eFlag = regex.test(email);
 
     if (email === "") {
-        errorMsgBorder('Email ID cannot be empty', 'email',1);
+        showFeedbackAlert('Email address is required', 'email','logemail');
         return false;
     }
     
     if(!eFlag){
-        errorMsgBorder('Invalid Email ID', 'email',1);
+        showFeedbackAlert('Invalid Email ID', 'email','logemail');
         return false;
     }
    
     if(captchaStatus === ""){
-        errorMsgBorder('Please verify the captcha!','captchaFeedback');
+        showFeedbackAlert('Please verify the captcha!','','logcaptchaFeedback');
         return false;
     }
 
