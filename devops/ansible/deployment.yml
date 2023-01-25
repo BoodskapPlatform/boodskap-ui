@@ -50,14 +50,25 @@
       register: run_build_script_output
     - debug: msg="{{ run_build_script_output.stdout }}"
 
-
--
-  hosts: nginx2_server
-  tasks:
+    - name: Sleep for 30 seconds 
+      wait_for:
+        timeout: 10
+      delegate_to: 127.0.0.1
     -
-      name: Docker build change mode to executable.
-      shell: "sh build.sh"
+      name: Docker Push the latest image.
+      shell: "sh push.sh"
       args:
         chdir: /home/ubuntu/build/boodskap-ui
       register: run_build_script_output
-    - debug: msg="{{ run_build_script_output.stdout }}" 
+    - debug: msg="{{ run_build_script_output.stdout }}"
+
+- hosts: v5Dev
+  tasks:
+     -
+       name: Deploy the container image.
+       shell: "sh deploy.sh {{ DOCKER_IMG }}"
+       args:
+         chdir: /home/ubuntu/cluster/ui
+       register: deploy_container_output
+     - debug: msg="{{ deploy_container_output.stdout }}" 
+     - debug: msg="{{ DOCKER_IMG }}"
