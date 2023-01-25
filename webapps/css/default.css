@@ -310,7 +310,7 @@ div::-webkit-scrollbar-thumb {
 }
 
 .modal-header .modal-title, .modal-header .close{
-    color: #fff;
+    color: black;
 }
 
 .pagination>li>a {
