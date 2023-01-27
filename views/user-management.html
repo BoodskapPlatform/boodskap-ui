@@ -15,6 +15,11 @@
         border-top-left-radius: .25rem;
         border-top-right-radius: .25rem;
     }
+    .user-mgt-password{
+        position: absolute;
+        top: 40px;
+        right: 15px;
+    }
 </style>
 
 <div class="row-fluid">
@@ -42,18 +47,18 @@
     <div class="panel panel-inverse">
         <div class="panel-heading">
             <div class="panel-heading-btn">
-                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
-                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-success" data-click="panel-reload" onclick="loadUsersList()"><i class="fa fa-redo"></i></a>
+                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-default" data-click="panel-expand" title="Expand"><i class="fa fa-expand"></i></a>
+                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-success" data-click="panel-reload" title="Refresh" onclick="loadUsersList()"><i class="fa fa-redo"></i></a>
                 <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-warning" title="Help"><i class="icon-help"></i></a>
 
             </div>
-            <h4 class="panel-title">Total Users: <b><span class="userCount"></span></b></h4>
+            <h4 class="panel-title">Total : <b><span class="userCount"></span></b></h4>
         </div>
         <div class="panel-body" style="background-color: #eeeeee00;border: 1px solid #eee;padding-bottom: 30px;">
 
             <div class="btn-group btn-group-justified pull-right">
                 <a class="btn btn-default" onclick="openModal(1)"><i class="fa fa-plus-square"></i> <span class="hidden-xs">Add New User</span></a>
-                <a class="btn btn-default" data-click="panel-reload" onclick="loadUsersList()"><i class="fa fa-refresh"></i></a>
+                <a class="btn btn-default" data-click="panel-reload" title="Refresh" onclick="loadUsersList()"><i class="fa fa-refresh"></i></a>
             </div>
 
             <form autocomplete="off" action="javascript:void(0)">
@@ -87,13 +92,13 @@
                         <div  class="col-md-6">
                             <div  class="form-group">
                                 <label  class="inputLabel">First Name</label>
-                                <input  class="form-control input-sm" placeholder="" type="text" id="firstName" required>
+                                <input  class="form-control input-sm" placeholder="" maxlength="100" type="text" id="firstName" required>
                             </div>
                         </div>
                         <div  class="col-md-6">
                             <div  class="form-group">
                                 <label  class="inputLabel">Last Name</label>
-                                <input  class="form-control input-sm" placeholder="" type="text" id="lastName" required>
+                                <input  class="form-control input-sm" placeholder="" maxlength="100" type="text" id="lastName" required>
                             </div>
                         </div>
                     </div>
@@ -101,13 +106,13 @@
                         <div  class="col-md-6">
                             <div  class="form-group">
                                 <label  class="inputLabel">Email</label>
-                                <input  class="form-control input-sm" placeholder="" type="email" id="emailId" required>
+                                <input  class="form-control input-sm" placeholder="" maxlength="100" type="email" id="emailId" required>
                             </div>
                         </div>
                         <div  class="col-md-6">
                             <div  class="form-group">
                                 <label  class="inputLabel">Mobile</label>
-                                <input  class="form-control input-sm" placeholder="+19876543210" type="text" id="mobileNo" onkeypress="return onlyNumericSpecialChar(event);" minlength="10" maxlength="11">
+                                <input  class="form-control input-sm" placeholder="+19876543210" maxlength="20" type="text" id="mobileNo" onkeypress="return onlyNumericSpecialChar(event);" minlength="10" maxlength="11">
                                 <small class="grey">include country code with + symbol</small>
                             </div>
                         </div>
@@ -117,6 +122,7 @@
                             <div  class="form-group">
                                 <label  class="inputLabel">Password</label>
                                 <input  class="form-control input-sm" placeholder="" type="password" id="password" required>
+                                <i class="fa fa-eye user-mgt-password cursor-pointer" onclick="passwordView(this);"></i>
                             </div>
                         </div>
                         <div  class="col-md-6">

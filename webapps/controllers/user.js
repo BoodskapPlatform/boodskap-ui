@@ -52,7 +52,20 @@ function loadUsersList() {
             sTitle: 'Roles',
             orderable: false,
             mRender: function (data, type, row) {
+                /* if(data == "user"){
+                    data = "User";
+                }else if(data == "developer"){
+                    data = "Developer";
+                }else if(data == "domainadmin"){
+                    data = "Domain Admin";
+                }else if(data == "accountadmin"){
+                    data = "Account Admin";
+                }else{
+                    data = data;
+                } */
                 data = data.join(", ")
+                //console.log(data);
+
                 return data;
             }
         },
@@ -103,7 +116,15 @@ function loadUsersList() {
 
     var tableOption = {
         "language": {
-
+            "emptyTable": "No data available",
+            "zeroRecords": "No data available",
+            "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
+            "searchPlaceholder": "Search here",
+            loadingRecords: '',
+            paginate: {
+                previous: '< Prev',
+                next: 'Next >'
+            },
             "processing": '<i class="fa fa-spinner fa-spin"></i> Processing'
         },
         responsive: true,
@@ -114,6 +135,7 @@ function loadUsersList() {
         iDisplayLength: 10,
         lengthMenu: [[10, 50, 100], [10, 50, 100]],
         aoColumns: fields,
+        
         "bProcessing": true,
         "bServerSide": true,
         "sAjaxSource": API_BASE_PATH + '/elastic/search/query/' + API_TOKEN_ALT,
@@ -724,3 +746,12 @@ function checkNewRole(obj){
     }
 }
 
+function passwordView(obj){
+    if($(obj).hasClass("fa-eye")){
+        $(obj).removeClass("fa-eye").addClass("fa-eye-slash");
+        $("#password").attr("type","text");
+    }else{
+        $(obj).removeClass("fa-eye-slash").addClass("fa-eye");
+        $("#password").attr("type","password");
+    }
+}
