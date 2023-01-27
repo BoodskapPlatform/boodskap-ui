@@ -4,7 +4,7 @@ pipeline{
                        //retry(3)
                       buildDiscarder(logRotator(numToKeepStr:'10'))   // last 10 build log only display.
                       disableConcurrentBuilds()  // it will disable the concurrent builds.
-                      timeout(time: 20, unit: 'MINUTES') // build timeout aftrer 30 minutes.
+                      timeout(time: 20, unit: 'MINUTES') // build timeout after 30 minutes.
                       timestamps() // show time in output console
              }
      parameters {  //getting values from CI job and the values are stored in name parameter.

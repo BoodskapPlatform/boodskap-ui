@@ -50,7 +50,7 @@
       register: run_build_script_output
     - debug: msg="{{ run_build_script_output.stdout }}"
 
-    - name: Sleep for 30 seconds 
+    - name: Sleep for 10 seconds 
       wait_for:
         timeout: 10
       delegate_to: 127.0.0.1
