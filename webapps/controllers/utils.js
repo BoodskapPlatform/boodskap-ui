@@ -730,6 +730,47 @@ function showFeedbackAlert(text,id,alertId) {
 
 function defaultStyle(id) {
     $("input, select textarea").removeClass('error-input-box')
+    $("input, select textarea").removeClass('error-box')
     $("#" + id).hide();
     $('.alertDiv').html('')
+}
+
+function showFeedback(text,id,alertId) {
+   
+    $("#"+alertId).html('')
+    $("#"+alertId).html('<div class="text-danger mt-1 font-14" role="alert"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ' + text + '</div>')
+
+    if ($("#"+alertId.alert).is(":visible")) {
+        $("#"+alertId).hide();
+    } else {
+        $("#"+alertId).show();
+    }
+    if(id){
+        $('#'+id).focus().addClass('error-box');
+        $('#'+id).on('keyup',function (_e) {
+            if ($('#'+id).val() != "") {
+                $('#'+id).removeClass('error-box')
+                defaultStyle(alertId)
+            }
+        })  
+    }
+}
+
+function showSelectFeedback(text,id,alertId){
+    $("#"+alertId).html('')
+    $('#'+id).next().children().find('.select2-selection--single').focus().addClass("error-box");
+    $("#"+alertId).html('<div class="text-danger mt-1 font-14" role="alert"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ' + text + '</div>')
+
+    if ($("#"+alertId.alert).is(":visible")) {
+        $("#"+alertId).hide();
+    } else {
+        $("#"+alertId).show();
+    }
+    $('#'+id).on('change',function () {
+        if ($('#'+id).val() != "") {
+            $('.select2-selection--single').removeClass("error-box");
+            defaultStyle(alertId)
+        }
+
+    })  
 }

@@ -24,7 +24,7 @@ function loadDeviceList() {
     var fields = [
         {
             mData: 'id',
-            sTitle: 'Device Id',
+            sTitle: 'Device ID',
             sWidth: '10%',
             mRender: function (data, type, row) {
 
@@ -129,7 +129,7 @@ function loadDeviceList() {
             language: {
                 "emptyTable": "No data available",
                 "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
-                "searchPlaceholder": "Search by Device Id",
+                "searchPlaceholder": "Search by Device ID",
                 loadingRecords: '',
                 paginate: {
                     previous: '< Prev',
@@ -259,7 +259,7 @@ function loadDeviceModels(check) {
         if(status && data.length > 0){
             device_model_list = data;
 
-           check === 'update' ? '' : $("#device_model").append('<option value="newmodel">- Create New Model</option>') ;
+        //    check === 'update' ? '' : $("#device_model").append('<option value="newmodel">- Create New Model</option>') ;
             for(var i=0;i<data.length;i++){
                $("#device_model").append('<option value="'+data[i].id+'">'+data[i].id+'</option>');  
                 if($("#device_model").val() === data[i].id){
@@ -267,7 +267,10 @@ function loadDeviceModels(check) {
                 $("#device_desc").html(data[i].description)
                 }           
             }
-           
+            $("#device_model").select2({
+                placeholder: '- Create New Model',
+            });
+            $("#device_model").val('').trigger('change')
             if($("#device_model").val() === 'newmodel' &&   check !== 'update'){
                 togglemodel('newmodel');      
             }else{
@@ -362,7 +365,7 @@ function openModal(type,id) {
 
 function saveSettings() {
     if($.trim($("#board_config").val()) === ""){
-        errorMsgBorder('Configuration cannot be empty', 'board_config');
+        errorMsgBorder('Board Configuration is required', 'board_config');
         return false;
     }
 
@@ -408,29 +411,31 @@ function addDevice() {
     var device_version =$.trim($("#device_version").val() );
     var device_desc =$.trim($("#device_desc").val() );
 
-     if(device_id === "" ){
-        errorMsgBorder('Device ID is required', 'device_id');
+     if(!device_id){
+        showFeedback('Device ID is required', 'device_id','logdevice_id');
         return false;
        
-    }else if(device_name === "" ){
+    }else if(!device_name){
    
-        errorMsgBorder('Device Name is required', 'device_name');
+        showFeedback('Device Name is required', 'device_name','logdevice_name');
         return false;
        
-    }else if(device_model === "" ){
+    }else if(!$("#device_model").val()){
+        showSelectFeedback('Device Model is required', 'device_model','logdevice_model');
+        return false;
+    }else if(!device_model){
    
-        errorMsgBorder('Device Model is required', 'new_device_model');
+        showFeedback('Device Model is required', 'new_device_model','lognew_device_model');
         return false;
        
-    }else if(device_version === "" ){
+    }else if(!device_version){
    
-        errorMsgBorder('Device Version is required', 'device_version');
+        showFeedback('Device Version is required', 'device_version','logdevice_version');
         return false;
        
     
-    }else if(device_desc === "" ){
-   
-        errorMsgBorder('Device Description is required', 'device_desc');
+    }else if(!device_desc){
+        showFeedback('Device Description is required', 'device_desc','logdevice_desc');
         return false;
        
     }else{    
@@ -514,7 +519,9 @@ function addDevice() {
                         upsertDevice(deviceObj,function (status, data) {
                             if (status) {
                                 successMsg('Device Created Successfully');
-                                loadDeviceList();
+                                setTimeout(() => {
+                                     loadDeviceList();
+                                }, 1500);
                                 $("#addDevice").modal('hide');
                                 Dcbk(null, true);
                             } else {

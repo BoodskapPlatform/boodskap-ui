@@ -94,6 +94,9 @@
 ol li{
     font-size: 13px;
 }
+.breadcrumb li{
+    font-size: 12px;
+}
 .panel-title{
     color: #2D2F79;
 }

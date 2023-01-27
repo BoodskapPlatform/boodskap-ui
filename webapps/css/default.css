@@ -569,6 +569,9 @@ font-size: 36px;
 .error-input-box {
     border-bottom: 2px solid #dc3545 !important;
 }
+.error-box {
+    border: 1px solid #dc3545 !important;
+}
 .alertDiv{
     height: 10px;
     font-weight: 500;
@@ -576,4 +579,8 @@ font-size: 36px;
 }
 .modal{
     z-index: 10000;
+}
+.bskp-submenu2 li a:hover{
+    text-decoration: none;
+    color: #2D2F79;
 }

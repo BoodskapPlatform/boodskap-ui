@@ -4,6 +4,7 @@
     color: #fff !important;
 }
 </style>
+<link rel="stylesheet" type="text/css" href="css/select2.min.css">
 <link href="css/device-management.css" rel="stylesheet"/>
 
 <div class="row-fluid">
@@ -36,7 +37,7 @@
        
        
         <div class="page-header bskp-page-topic"><img src="images/menu/hardware-fanta_1-bskp.svg" class="bskp-topic-icon mr-1" > Manage Devices
-            <span class="panel-title ml-3" >Total Devices: <b><span class="deviceCount"></span></b></span> </div>
+            <span class="panel-title ml-3" >Total : <b><span class="deviceCount"></span></b></span> </div>
  </div>
  <!-- end page-header -->
 
@@ -62,7 +63,7 @@
     <!-- end panel -->
 
 </div>
-
+<script src="js/select2.min.js" type="text/javascript"></script>
 <script src="controllers/devices.js" type="text/javascript"></script>
 
 
@@ -82,7 +83,7 @@
                     <div  class="row">
                         <div  class="col-md-6">
                             <div  class="form-group">
-                                 <label  class="inputLabel">Device Id *</label><!--<span style="font-size: 16px;">&#42;</span> -->
+                                 <label  class="inputLabel">Device ID *</label><!--<span style="font-size: 16px;">&#42;</span> -->
                                 <input  class="form-control input-sm" placeholder="Enter Device ld" maxlength="100" min="1" autocomplete="off" type="text" id="device_id" required>
                                 <span id="logdevice_id"></span>
                             </div>
@@ -191,7 +192,7 @@
                                 <label  class="inputLabel">Type of configuration</label>
                                 <div class="row mt-2">
                                     <!-- <div class="col-md-12"> -->
-                                        <div class="col-md-6">
+                                        <div class="col-md-2">
                                             <label style="font-weight: normal;display: block">
                                             <input onclick="checkConfig()" class="" placeholder="" checked type="radio" name="configType" value="device" required> Device Level</label>
                                         </div>
@@ -213,7 +214,7 @@
                         </div>
                         <div  class="col-md-12">
                             <div  class="form-group">
-                                <label  class="inputLabel">Board Configuration</label>
+                                <label  class="inputLabel">Board Configuration *</label>
                                 <textarea  class="form-control input-sm" id="board_config" placeholder="{name: 'value'}" required style="height: 200px;"></textarea>
                                 <span id="logboard_config"></span>
                             </div>
