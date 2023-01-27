@@ -23,11 +23,11 @@ function loadAssetList() {
     var fields = [
         {
             mData: 'id',
-            sTitle: 'Asset Id',
+            sTitle: 'Asset ID',
             orderable: true,
             mRender: function (data, type, row) {
 
-                return data + '<button class="btn bskp-edit-btn mr-2 bskp-greyicon pull-right" onclick="openModal(4,\'' + row["id"] + '\')" title="View Linked Device">' +
+                return data + '<button class="btn bskp-edit-btn mr-2 bskp-greyicon pull-right" onclick="openModal(4,\'' + row["id"] + '\')" title="Link Device">' +
                     '<em class="icon-eye2"></em></button>';
             }
         },
@@ -56,8 +56,8 @@ function loadAssetList() {
             sWidth: '10%',
             mRender: function (data, type, row) {
 
-                return '<button class="btn bskp-edit-btn mr-2" onclick="openModal(2,\'' + row["id"] + '\')"> <img src="images/edit.svg" alt=""> </button>' +
-                    '<button class="btn bskp-trash-btn" onclick="openModal(3,\'' + row['id'] + '\')">  <img src="images/trash2.svg" alt=""> </button>';
+                return '<button class="btn bskp-edit-btn mr-2" onclick="openModal(2,\'' + row["id"] + '\')" title="Edit"> <img src="images/edit.svg" alt=""> </button>' +
+                    '<button class="btn bskp-trash-btn" onclick="openModal(3,\'' + row['id'] + '\')" title="Delete">  <img src="images/delete.svg" alt=""> </button>';
             }
         }
 
@@ -77,7 +77,7 @@ function loadAssetList() {
             "emptyTable": "No data available",
             "zeroRecords": "No data available",
             "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
-            "searchPlaceholder": "Search by Asset Id",
+            "searchPlaceholder": "Search by Asset ID",
             loadingRecords: '',
             paginate: {
                 previous: '< Prev',
@@ -224,13 +224,13 @@ function addAsset() {
     var asset_desc = $.trim($("#asset_desc").val());
     
     if(asset_id == ""){
-        errorMsgBorder('Asset Id cannot be empty','asset_id');
+        errorMsgBorder('Asset ID is required','asset_id');
         return false;
     }else if(asset_name == ""){
-        errorMsgBorder('Asset Name cannot be empty','asset_name');
+        errorMsgBorder('Asset Name is required','asset_name');
         return false;
     } else if(asset_desc == ""){
-        errorMsgBorder('Description cannot be empty','asset_desc');
+        errorMsgBorder('Description is required','asset_desc');
         return false;
     }
     var assetObj = {

@@ -574,3 +574,6 @@ font-size: 36px;
     font-weight: 500;
     font-size: 14px;
 }
+.modal{
+    z-index: 10000;
+}
