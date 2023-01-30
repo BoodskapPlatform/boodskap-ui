@@ -86,8 +86,8 @@ function loadAssetList() {
              "emptyTable":"No data available",
                 loadingRecords: '',
                 paginate: {
-                    previous: 'Previous',
-                    next: 'Next'
+                    previous: '< Prev',
+                    next: 'Next >'
                 },
 
             },

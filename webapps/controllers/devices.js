@@ -608,7 +608,7 @@ function updateDevice() {
             dcbk(null, true);
             setTimeout(function () {
                 loadDeviceList();
-            },500)
+            },1500)
             
             $("#addDevice").modal('hide');
         } else {
