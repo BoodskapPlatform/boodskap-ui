@@ -38,6 +38,9 @@ function loadRecordDef() {
             mData: 'description',
             sTitle: 'Description',
             orderable : false,
+            mRender: function(data, type, row){
+                return '<div style="max-width: 500px;" class="text-truncate" title='+data+'>'+data+'</div>'
+            }
         },
         {
             mData: 'fields',

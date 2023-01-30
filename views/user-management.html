@@ -48,7 +48,7 @@
         <div class="panel-heading">
             <div class="panel-heading-btn">
                 <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-default" data-click="panel-expand" title="Expand"><i class="fa fa-expand"></i></a>
-                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-success" data-click="panel-reload" title="Refresh" onclick="loadUsersList()"><i class="fa fa-redo"></i></a>
+                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-success" title="Refresh" onclick="loadUsersList()"><i class="fa fa-redo"></i></a>
                 <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-warning" title="Help"><i class="icon-help"></i></a>
 
             </div>
@@ -58,7 +58,7 @@
 
             <div class="btn-group btn-group-justified pull-right">
                 <a class="btn btn-default" onclick="openModal(1)"><i class="fa fa-plus-square"></i> <span class="hidden-xs">Add New User</span></a>
-                <a class="btn btn-default" data-click="panel-reload" title="Refresh" onclick="loadUsersList()"><i class="fa fa-refresh"></i></a>
+                <a class="btn btn-default" title="Refresh" onclick="loadUsersList()"><i class="fa fa-refresh"></i></a>
             </div>
 
             <form autocomplete="off" action="javascript:void(0)">
@@ -144,7 +144,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn button-2" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btnModal btnSubmit">Proceed</button>
                 </div>
             </form>
@@ -163,7 +163,7 @@
                 <h5>Are you sure want to delete <b><span class="fullName"></span> user</b>?</h5>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn button-2" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btnModal" onclick="proceedDelete()">Proceed</button>
             </div>
         </div><!-- /.modal-content -->
@@ -204,7 +204,7 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn button-2" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btnModal" onclick="loginAs()">Proceed</button>
             </div>
         </div><!-- /.modal-content -->

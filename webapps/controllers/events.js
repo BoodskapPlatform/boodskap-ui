@@ -85,77 +85,240 @@ function loadEvents() {
 
     ];
 
-
+    let data = 1000
     var tableOption = {
-        fixedHeader: {
-            header: true,
-            headerOffset: -5
-        },
-        responsive: true,
+        responsive: false,
+        autoWidth: false,
         paging: true,
+        aoColumns: fields,
         searching: true,
-        dom: '<"bskp-search-left" f> lrtip',
-        language: {
-            "emptyTable": "No data available",
-            "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
-            "searchPlaceholder": "Search by Event Id",
-            loadingRecords: '',
-            paginate: {
-                previous: '< Prev',
-                next: 'Next >'
-            }
-        },
+        aaSorting: [[3, 'desc']],
         "ordering": true,
         iDisplayLength: 10,
         lengthMenu: [[10, 50, 100], [10, 50, 100]],
-        aoColumns: fields,
-        data: []
-    };
+                       dom: '<"bskp-search-left" f> lrtip',
+            language: {
+                "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
+             "searchPlaceholder": "Search by Message ID",
+             "zeroRecords": "No data available",
+             "emptyTable":"No data available",
+                loadingRecords: '',
+                paginate: {
+                    previous: '< Prev',
+                    next: 'Next >'
+                },
 
-    listEventsApi(10000, null, null, function (status, data) {
-        if (status && data.length > 0) {
-            tableOption['data'] = data;
-            event_list = data;
-            $(".eventsCount").html(data.length)
-        } else {
-            $(".eventsCount").html(0)
+            },
+        "bServerSide": true,
+        "bProcessing": true,
+        "sAjaxSource": API_BASE_PATH + "/event/list/" + API_TOKEN_ALT + "/" + data,
+        "fnServerData": function (sSource, aoData, fnCallback, oSettings) {
+           
+
+            var keyName = fields[oSettings.aaSorting[0][0]]
+
+            var sortingJson = {};
+            sortingJson[keyName['mData']] = {"order": oSettings.aaSorting[0][1]};
+
+
+
+            oSettings.jqXHR = $.ajax({
+                "type": "GET",
+                "url": sSource,
+                success: function (data) {
+                    console.log(data)
+                    if (data.length > 0) {
+                        tableOption['data'] = data;
+                        event_list = data;
+                        $(".eventsCount").html(data.length)
+                    } else {
+                        $(".eventsCount").html(0)
+                    }
+                    let resultData = {
+                        "recordsTotal": event_list.length,
+                        "recordsFiltered": event_list.length,
+                        "data": event_list
+                    }
+                    resultData['draw'] = oSettings.iDraw;
+
+                    fnCallback(resultData);
+                }
+            });
         }
 
-        eventTable = $("#eventTable").DataTable(tableOption);
-        $('.dataTables_filter input').attr('maxlength', 100)
+    };
+    eventTable = $("#eventTable").DataTable(tableOption);
+    $('.dataTables_filter input').attr('maxlength', 100);
 
-        // Array to track the ids of the details displayed rows
-        var detailRows = [];
+    // Array to track the ids of the details displayed rows
+    var detailRows = [];
 
-        $('#eventTable tbody').on('click', '.details-control', function () {
+    $('#eventTable tbody').on('click', '.details-control', function () {
 
-            $(".eventRow").hide();
-            var tr = $(this).closest('tr');
-            var row = eventTable.row(tr);
-            var idx = $.inArray(tr.attr('id'), detailRows);
+        $(".eventRow").hide();
+        var tr = $(this).closest('tr');
+        var row = eventTable.row(tr);
+        var idx = $.inArray(tr.attr('id'), detailRows);
 
-            if (row.child.isShown()) {
-                tr.removeClass('details');
-                row.child.hide();
+        if (row.child.isShown()) {
+            tr.removeClass('details');
+            row.child.hide();
 
-                // Remove from the 'open' array
-                detailRows.splice(idx, 1);
+            // Remove from the 'open' array
+            detailRows.splice(idx, 1);
+        }
+        else {
+            tr.addClass('details');
+            row.child(formatRow(row.data())).show();
+
+            // Add to the 'open' array
+            if (idx === -1) {
+                detailRows.push(tr.attr('id'));
             }
-            else {
-                tr.addClass('details');
-                row.child(formatRow(row.data())).show();
-
-                // Add to the 'open' array
-                if (idx === -1) {
-                    detailRows.push(tr.attr('id'));
-                }
-            }
-        });
-
-    })
-
+        }
+    });
 
 }
+
+
+// function loadEvents() {
+
+
+//     if (eventTable) {
+//         eventTable.destroy();
+//         $("#eventTable").html("");
+//     }
+
+//     var fields = [
+//         // {
+//         //     sTitle: '',
+//         //     "class": "details-control",
+//         //     "defaultContent": "",
+//         //     orderable: false,
+//         //     sWidth: '5%',
+//         //     mRender: function (data, type, row) {
+//         //         return '<h4 style="text-align: center;color:#666"><i class="icon-caret-right"></i></h4>';
+//         //     }
+//         // },
+//         {
+//             mData: 'id',
+//             sTitle: 'Event Id',
+//             "class": "details-control",
+//             "orderable": true,
+//             sWidth: '10%',
+//         },
+//         {
+//             mData: 'name',
+//             sTitle: 'Event  Name',
+//             "class": "details-control",
+//             "orderable": true,
+//         },
+//         {
+//             mData: 'subject',
+//             sTitle: 'Subject',
+//             "class": "details-control",
+//             orderable: false,
+//         },
+//         {
+//             mData: 'content',
+//             sTitle: 'Content',
+//             "class": "details-control",
+//             orderable: false,
+//             mRender: function (data, type, row) {
+
+//                 data = data.replace(/&/g, "&amp");
+//                 data = data.replace(/</g, "&lt");
+//                 data = data.replace(/>/g, "&gt");
+
+//                 return '<code>' + (data) + '</code>';
+//             }
+//         },
+//         {
+//             mData: 'action',
+//             sTitle: 'Action',
+//             orderable: false,
+//             sWidth: '10%',
+//             mRender: function (data, type, row) {
+
+
+//                 return '<button class="btn bskp-edit-btn mr-2" onclick="openModal(2,' + row["id"] + ')"><img src="images/edit.svg" alt=""></button>' +
+//                     '<button class="btn bskp-trash-btn" onclick="openModal(3,' + row['id'] + ')"><img src="images/trash2.svg" alt=""></button>';
+//             }
+//         }
+
+//     ];
+
+
+//     var tableOption = {
+//         fixedHeader: {
+//             header: true,
+//             headerOffset: -5
+//         },
+//         responsive: true,
+//         paging: true,
+//         searching: true,
+//         dom: '<"bskp-search-left" f> lrtip',
+//         language: {
+//             "emptyTable": "No data available",
+//             "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
+//             "searchPlaceholder": "Search by Event Id",
+//             loadingRecords: '',
+//             paginate: {
+//                 previous: '< Prev',
+//                 next: 'Next >'
+//             }
+//         },
+//         "ordering": true,
+//         iDisplayLength: 10,
+//         lengthMenu: [[10, 50, 100], [10, 50, 100]],
+//         aoColumns: fields,
+//         data: []
+//     };
+
+//     listEventsApi(10000, null, null, function (status, data) {
+//         if (status && data.length > 0) {
+//             tableOption['data'] = data;
+//             event_list = data;
+//             $(".eventsCount").html(data.length)
+//         } else {
+//             $(".eventsCount").html(0)
+//         }
+
+//         eventTable = $("#eventTable").DataTable(tableOption);
+//         $('.dataTables_filter input').attr('maxlength', 100)
+
+//         // Array to track the ids of the details displayed rows
+//         var detailRows = [];
+
+//         $('#eventTable tbody').on('click', '.details-control', function () {
+
+//             $(".eventRow").hide();
+//             var tr = $(this).closest('tr');
+//             var row = eventTable.row(tr);
+//             var idx = $.inArray(tr.attr('id'), detailRows);
+
+//             if (row.child.isShown()) {
+//                 tr.removeClass('details');
+//                 row.child.hide();
+
+//                 // Remove from the 'open' array
+//                 detailRows.splice(idx, 1);
+//             }
+//             else {
+//                 tr.addClass('details');
+//                 row.child(formatRow(row.data())).show();
+
+//                 // Add to the 'open' array
+//                 if (idx === -1) {
+//                     detailRows.push(tr.attr('id'));
+//                 }
+//             }
+//         });
+
+//     })
+
+
+// }
 
 function formatRow(d) {
     cuurent_event_obj = d;

@@ -273,7 +273,7 @@ function loadUserGroupMembers(id) {
         $(".group_" + id).html(' <div class="btn-group btn-group-justified left-right">' +
             '<a class="btn btn-default btn-xs"  onclick="openUserModal(1,\'' + id + '\')"><i class="fa fa-plus-square"></i> <span class="hidden-xs">Add User</span></a>' +
             '<a class="btn btn-default btn-xs"  onclick="openUserModal(2,\'' + id + '\')"><i class="icon-trash4"></i> <span class="hidden-xs">Delete</span></a>' +
-            '<a class="btn btn-default btn-xs" data-click="panel-reload" onclick="loadUserGroupMembers(\'' + id + '\')"><i class="fa fa-refresh"></i></a>' +
+            '<a class="btn btn-default btn-xs"  onclick="loadUserGroupMembers(\'' + id + '\')"><i class="fa fa-refresh"></i></a>' +
             '</div><hr style="clear:both">' +
             '<div class="row" style="clear: both;max-height: 300px;overflow: auto;overflow-x: hidden">' + bodyStr + '</div>');
 

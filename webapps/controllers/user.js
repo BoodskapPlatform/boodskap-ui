@@ -31,6 +31,7 @@ function loadUsersList() {
         {
             mData: 'fullname',
             sTitle: 'Full Name',
+            "orderable": false,
             mRender: function (data, type, row) {
                 data = (row['firstName'] ? row['firstName'] : "") + " " + (row['lastName'] ? row['lastName'] : "");
                 return data;
@@ -38,11 +39,13 @@ function loadUsersList() {
         },
         {
             mData: 'email',
+            "orderable": false,
             sTitle: 'Email'
         },
         {
             mData: 'primaryPhone',
             sTitle: 'Mobile No.',
+            "orderable": false,
             mRender: function (data, type, row) {
                 return data ? data : "-";
             }
