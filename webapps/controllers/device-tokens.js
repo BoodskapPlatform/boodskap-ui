@@ -84,7 +84,7 @@ function loadTokenList() {
             "emptyTable": "No data available",
             "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
             "zeroRecords": "No data available",
-            "searchPlaceholder": "Search by Device Id",
+            "searchPlaceholder": "Search by Device Token",
             loadingRecords: '',
             paginate: {
                 previous: '< Prev',
@@ -92,22 +92,54 @@ function loadTokenList() {
             }
         },
         aoColumns: fields,
-        data: []
-    };
+        "bServerSide": true,
+        "bProcessing": true,
+        "sAjaxSource": API_BASE_PATH + '/auth/token/list?type'+TOKEN_TYPE,
+        "fnServerData": function (sSource, aoData, fnCallback, oSettings) {
+            var keyName = fields[oSettings.aaSorting[0][0]]
 
-    listAuthToken(TOKEN_TYPE, function (status, data) {
-        if (status && data.length > 0) {
-            tableOption['data'] = data;
-            token_list = data;
-            $(".totalCount").html(data.length)
-        } else {
-            $(".tokenCount").html(0)
-            token_list = [];
+            var sortingJson = {};
+            sortingJson[keyName['mData']] = {"order": oSettings.aaSorting[0][1]};
+
+
+            oSettings.jqXHR = $.ajax({
+                "type": "GET",
+                "url": sSource,
+                success: function (data) {
+                    if (data.length > 0) {
+                        token_list = data;
+                        $(".totalCount").html(data.length)
+                    } else {
+                        $(".tokenCount").html(0)
+                        token_list = [];
+                    }
+                    let resultData = {
+                        "recordsTotal": token_list.length,
+                        "recordsFiltered": token_list.length,
+                        "data": token_list
+                    }
+                    resultData['draw'] = oSettings.iDraw;
+
+                    fnCallback(resultData);
+                }
+            });
         }
-
+    };
         tokenTable = $("#tokenTable").DataTable(tableOption);
         $('.dataTables_filter input').attr('maxlength', 100)
-    });
+    // listAuthToken(TOKEN_TYPE, function (status, data) {
+    //     if (status && data.length > 0) {
+    //         tableOption['data'] = data;
+    //         token_list = data;
+    //         $(".totalCount").html(data.length)
+    //     } else {
+    //         $(".tokenCount").html(0)
+    //         token_list = [];
+    //     }
+
+    //     tokenTable = $("#tokenTable").DataTable(tableOption);
+    //     $('.dataTables_filter input').attr('maxlength', 100)
+    // });
 }
 
 function setCopyToken(row_id){

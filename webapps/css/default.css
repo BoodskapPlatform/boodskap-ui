@@ -589,3 +589,6 @@ font-size: 36px;
     text-decoration: none;
     color: #2D2F79;
 }
+.inputDevice:focus-visible{
+    outline: none;
+}

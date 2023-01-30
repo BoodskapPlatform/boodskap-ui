@@ -13,8 +13,6 @@ $(document).ready(function () {
 
 function loadDeviceList() {
 
-    const self = this;
-
 
     if (deviceTable) {
         deviceTable.destroy();
@@ -137,7 +135,7 @@ function loadDeviceList() {
                 }
             },
             aoColumns: fields,
-            // "bProcessing": true,
+            "bProcessing": true,
             "bServerSide": true,
             "sAjaxSource": API_BASE_PATH + '/elastic/search/query/' + API_TOKEN_ALT,
             "fnServerData": function (sSource, aoData, fnCallback, oSettings) {
@@ -608,7 +606,7 @@ function updateDevice() {
             dcbk(null, true);
             setTimeout(function () {
                 loadDeviceList();
-            },500)
+            },1500)
             
             $("#addDevice").modal('hide');
         } else {
