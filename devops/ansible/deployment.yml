@@ -13,7 +13,7 @@
         single_branch: yes
       register: gitoutput
 
-    - debug: msg="{{ gitoutput.stdout }}"
+    - debug: msg="{{ gitoutput }}"
     
     - 
       name: Branch status.
@@ -22,7 +22,7 @@
         chdir: /home/ubuntu/build/boodskap-ui
       register: branch_output
 
-    - debug: msg="{{ branch_output.stdout }}"
+    - debug: msg="{{ branch_output }}"
 
     - 
       name: This command will install dependencies.
@@ -31,7 +31,7 @@
         chdir: /home/ubuntu/build/boodskap-ui
       register: dependencies_output
 
-    - debug: msg="{{ dependencies_output.stdout }}"
+    - debug: msg="{{ dependencies_output }}"
 
     - 
       name: Changing the version and Push the code.
