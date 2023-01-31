@@ -127,7 +127,7 @@ div::-webkit-scrollbar-thumb {
     height: 35px;
 }
 .submenu li a{
-    color:#fff;
+    color:#6e7179;
 }
 .submenu li{
     line-height: 30px;
@@ -562,6 +562,11 @@ font-size: 36px;
     border: 1px solid #2d2f79 !important;
     background-color: #fff !important;
     color: #2d2f79 !important;
+}
+
+.button-2:hover{
+    background-color: #2d2f79 !important;
+    color: #fff !important;
 }
 .text-decoration:hover {
     text-decoration: none;

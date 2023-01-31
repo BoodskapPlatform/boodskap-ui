@@ -27,20 +27,27 @@ function loadMessageDef() {
     var fields = [
         {
             mData: 'id',
+            sWidth: '15%',
             sTitle: 'Message ID',
 
         },
         {
             mData: 'name',
+            sWidth: '15%',
             sTitle: 'Message Name'
         },
         {
             mData: 'description',
+            sWidth: '40%',
             orderable: false,
-            sTitle: 'Description'
+            sTitle: 'Description',
+            mRender: function(data, type, row){
+                return '<div style="max-width: 500px;" class="text-truncate" title='+data+'>'+data+'</div>'
+            }
         },
         {
             mData: 'fields',
+            sWidth: '15%',
             sTitle: 'Fields',
             orderable: false,
             mRender: function (data, type, row) {
@@ -65,52 +72,74 @@ function loadMessageDef() {
 
     ];
 
-
+    let data = 1000
     var tableOption = {
-        fixedHeader: {
-            header: true,
-            headerOffset: -5
-        },
-        responsive: true,
+        responsive: false,
+        autoWidth: false,
         paging: true,
+        aoColumns: fields,
         searching: true,
-        dom: '<"bskp-search-left" f> lrtip',
-        language: {
-            "emptyTable": "No data available",
-            "zeroRecords": "No data available",
-            "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
-            "searchPlaceholder": "Search by Message ID",
-            loadingRecords: '',
-            paginate: {
-                previous: '< Prev',
-                next: 'Next >'
-            }
-        },
+        aaSorting: [[3, 'desc']],
         "ordering": true,
         iDisplayLength: 10,
         lengthMenu: [[10, 50, 100], [10, 50, 100]],
-        aoColumns: fields,
-        data: []
-    };
+                       dom: '<"bskp-search-left" f> lrtip',
+            language: {
+                "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
+             "searchPlaceholder": "Search by Message ID",
+             "zeroRecords": "No data available",
+             "emptyTable":"No data available",
+                loadingRecords: '',
+                paginate: {
+                    previous: '< Prev',
+                    next: 'Next >'
+                },
 
-    listMessageSpec(1000, null, null, function (status, data) {
-        if (status && data.length > 0) {
-            tableOption['data'] = data;
-            message_list = data;
-            createDownload();
-            $(".messageCount").html(data.length)
-        } else {
-            $(".messageCount").html(0)
-            message_list = [];
+            },
+        "bServerSide": true,
+        "bProcessing": true,
+        "sAjaxSource": API_BASE_PATH + "/mspec/list/" + API_TOKEN_ALT + "/" + data,
+        "fnServerData": function (sSource, aoData, fnCallback, oSettings) {
+           
+
+            var keyName = fields[oSettings.aaSorting[0][0]]
+
+            var sortingJson = {};
+            sortingJson[keyName['mData']] = {"order": oSettings.aaSorting[0][1]};
+
+
+
+            oSettings.jqXHR = $.ajax({
+                "type": "GET",
+                "url": sSource,
+                success: function (data) {
+                    console.log(data)
+                    if (data.length > 0) {
+                        tableOption['data'] = data;
+                        message_list = data;
+                        createDownload();
+                        $(".messageCount").html(data.length)
+                    } else {
+                        $(".messageCount").html(0)
+                        message_list = [];
+                    }
+                    let resultData = {
+                        "recordsTotal": message_list.length,
+                        "recordsFiltered": message_list.length,
+                        "data": message_list
+                    }
+                    resultData['draw'] = oSettings.iDraw;
+
+                    fnCallback(resultData);
+                }
+            });
         }
 
-        messageTable = $("#messageTable").DataTable(tableOption);
-      
-        $('.dataTables_filter input').attr('maxlength', 100)
-    })    
-
-
+    };
+    messageTable = $("#messageTable").DataTable(tableOption);
+    $('.dataTables_filter input').attr('maxlength', 100)
 }
+
 
 function loadRowClicks() {
 
