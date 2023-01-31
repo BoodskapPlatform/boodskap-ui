@@ -13,7 +13,7 @@
         single_branch: yes
       register: gitoutput
 
-    - debug: msg="{{ gitoutput }}"
+    - debug: msg="{{ gitoutput.stdout }}"
     
     - 
       name: Branch status.
@@ -22,7 +22,7 @@
         chdir: /home/ubuntu/build/boodskap-ui
       register: branch_output
 
-    - debug: msg="{{ branch_output }}"
+    - debug: msg="{{ branch_output.stdout }}"
 
     - 
       name: This command will install dependencies.
@@ -31,7 +31,7 @@
         chdir: /home/ubuntu/build/boodskap-ui
       register: dependencies_output
 
-    - debug: msg="{{ dependencies_output }}"
+    - debug: msg="{{ dependencies_output.stdout }}"
 
     - 
       name: Changing the version and Push the code.
@@ -40,7 +40,7 @@
         chdir: /home/ubuntu/build/boodskap-ui
       register: dependencies_output
 
-    - debug: msg="{{ dependencies_output }}"
+    - debug: msg="{{ dependencies_output.stdout }}"
 
     -
       name: Docker build change mode to executable.
@@ -49,7 +49,7 @@
         chdir: /home/ubuntu/build/boodskap-ui
       register: change_buildscript_mode_output
 
-    - debug: msg="{{ change_buildscript_mode_output }}"
+    - debug: msg="{{ change_buildscript_mode_output.stdout }}"
 
     -
       name: Docker build change mode to executable.
