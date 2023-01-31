@@ -2,4 +2,4 @@
 
 npm version patch 
 
-git push origin v5.0
+git push common v5.0
