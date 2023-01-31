@@ -9,8 +9,8 @@ pipeline{
                        //retry(3)
                       buildDiscarder(logRotator(numToKeepStr:'10'))   // last 10 build log only display.
                       disableConcurrentBuilds()  // it will disable the concurrent builds.
-                      timeout(time: 20, unit: 'MINUTES') // build timeout aftrer 30 minutes.
-                      timestamps() // show time in output console
+                      timeout(time: 25, unit: 'MINUTES') // build timeout aftrer 30 minutes.
+                      timestamps() // show time in output console 
              } 
         stages{ 
            stage("Docker Build & Push"){  //build block
