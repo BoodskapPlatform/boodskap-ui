@@ -592,3 +592,6 @@ font-size: 36px;
 .inputDevice:focus-visible{
     outline: none;
 }
+.breadcrumb-item.active{
+    font-size: 12px;
+}
