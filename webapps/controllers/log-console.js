@@ -48,7 +48,7 @@ function mqttListen() {
             var parsedData = JSON.parse(message.payloadString);
             var topicName = message.destinationName;
 
-            // console.log("topicName => "+topicName, parsedData)
+            console.log("topicName => "+topicName, parsedData)
 
             var nodeClass = new Date().getTime();
             var color = 'default';

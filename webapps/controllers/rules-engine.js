@@ -2747,9 +2747,9 @@ function deleteTab(id, type) {
 
     let temp = [];
 
-    for (let i = 0; i < tabbar_list.length; i++) {
-        if (id !== tabbar_list[i]) {
-            temp.push(tabbar_list[i])
+    for (const element of tabbar_list) {
+        if (id !== element) {
+            temp.push(element)
         }
     }
 
