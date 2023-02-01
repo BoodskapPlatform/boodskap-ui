@@ -100,6 +100,8 @@ function loadSimList() {
         aaSorting: [[3, 'desc']],
         "ordering": true,
         iDisplayLength: 10,
+        scrollY: '100px',
+        scrollCollapse: true,
         lengthMenu: [[10, 50, 100], [10, 50, 100]],
         aoColumns: fields,
         data: sim_list
@@ -107,6 +109,7 @@ function loadSimList() {
 
     $(".simCount").html(sim_list.length)
     simTable = $("#simTable").DataTable(tableOption);
+    $(".dataTables_scrollBody").removeAttr("style").css({"min-height":"calc(100vh - 425px)","position":"relative","width":"100%"});
 
 
 }

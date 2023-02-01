@@ -132,6 +132,8 @@ function loadOTA() {
         searching: true,
         "ordering": true,
         iDisplayLength: 10,
+        scrollY: '100px',
+        scrollCollapse: true,
         lengthMenu: [[10, 50, 100], [10, 50, 100]],
         dom: '<"bskp-search-left" f> lrtip',
         language: {
@@ -155,6 +157,9 @@ function loadOTA() {
         $(".otaBatchCount").html(data.length)
 
         otaTable = $("#otaTable").DataTable(tableOption);
+
+        $(".dataTables_scrollBody").removeAttr("style").css({"min-height":"calc(100vh - 510px)","position":"relative","width":"100%"});
+
         // Array to track the ids of the details displayed rows
         var detailRows = [];
 

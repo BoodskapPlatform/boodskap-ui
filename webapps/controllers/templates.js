@@ -83,11 +83,11 @@ function loadTemplates() {
             headerOffset: -5
         },
         responsive: false,
-        scrollY: '350px',
-            scrollCollapse: true,
         paging: true,
         searching: true,
         "ordering": true,
+        scrollY: '100px',
+        scrollCollapse: true,
         iDisplayLength: 10,
         lengthMenu: [[10, 50, 100], [10, 50, 100]],
         dom: '<"bskp-search-left" f> lrtip',
@@ -119,7 +119,8 @@ function loadTemplates() {
         templateTable = $("#templateTable").DataTable(tableOption);
         $('.dataTables_filter input').attr('maxlength', 100)
 
-
+        $(".dataTables_scrollBody").removeAttr("style").css({"min-height":"calc(100vh - 425px)","position":"relative","width":"100%"});
+        
 
     })
 
@@ -240,7 +241,7 @@ function addTemplate() {
 
         }
         else if($("#template_name").val()==""){
-            $("#template_error").text("Please fill out this field !")
+            $("#template_error").text("Name is required !")
             $("#template_name").css({"border-color":"red"})
     
             setTimeout(function(){

@@ -1310,7 +1310,7 @@ function loadProcessRulesList() {
     $(".rulesList").html("");
     listProcessRules(query,pType, function (status, data) {
 
-        $(".rulesList").append('<li class="" onclick="loadProcessRulesList()" title="click here to reload" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
+        $(".rulesList").html('<li class="" onclick="loadProcessRulesList()" title="click here to reload" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
             '<img src="images/folder.png" /> <b> Process Rules</b> <span class="loaderSpin"></span></li>');
 
         $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
@@ -5204,12 +5204,15 @@ function addProcessRule() {
         if (status) {
             successMsg('Successfully saved!');
             Cookies.set('pfGroup','')
-            loadProcessRulesListAggs();
+            setTimeout(() => {
+                loadProcessRulesListAggs();
 
-            loadProcessRulesList();
-            setTimeout(function () {
-                loadTabbar(data.id, 9);
-            },500)
+                loadProcessRulesList();
+                setTimeout(function () {
+                    loadTabbar(data.id, 9);
+                },1000)
+            }, 1000);
+            
 
             $("#addProcessRule").modal('hide');
         } else {
@@ -6159,7 +6162,7 @@ function openSimulateModal(id,type) {
 
     if(type === 1){
 
-        let str = '<div id="simulatorModal_'+id+'">' +
+        let str = '<div id="simulatorModal_'+id+'" class="w-100">' +
             '<div data-role="body">\n' +
             '<div class="row"><div class="col-md-12"><div class="form-group">'+
             '<label class="inputLabel">Select Device</label>'+
@@ -6171,7 +6174,7 @@ function openSimulateModal(id,type) {
             '<button class="btn btn-sm btn-success pull-right btn_'+id+'" onclick="simulateMessage(\''+id+'\','+type+')">Send Message</button>' +
             '<button class="btn btn-sm btn-default pull-right" onclick="closeSimulator(\''+id+'\')" style="margin-right: 10px;">Close</button>' +
             '</div> ' +
-            '<div class="col-md-12" style="clear:both;max-height: 200px;overflow: auto;overflow-x: hidden">' +
+            '<div class="col-md-12" style="clear:both;max-height: 200px;">' +//overflow: auto;overflow-x: hidden
             '<code class="code_'+id+'" ></code>' +
             '</div>' +
             '</div></div>' +
@@ -6288,7 +6291,7 @@ function openSimulateModal(id,type) {
 
         let placeholder='{\n"key":"value",\n"key":"value",\n"key":"value",\n"key":"value"\n}';
 
-        let str = '<div id="simulatorModal_'+id+'">' +
+        let str = '<div id="simulatorModal_'+id+'" class="w-100">' +
             '<div data-role="body">\n' +
             '<div class="row>' +
             '<div class="col-md-12">' +
@@ -6300,7 +6303,7 @@ function openSimulateModal(id,type) {
             '<button class="btn btn-sm btn-success pull-right btn_'+id+'" onclick="simulateMessage(\''+id+'\','+type+')">Invoke NamedRule</button>' +
             '<button class="btn btn-sm btn-default pull-right" onclick="closeSimulator(\''+id+'\')" style="margin-right: 10px;">Close</button>' +
             '</div> ' +
-            '<div class="col-md-12" style="clear:both;max-height: 200px;overflow: auto;overflow-x: hidden">' +
+            '<div class="col-md-12" style="clear:both;max-height: 200px;">' +//overflow: auto;overflow-x: hidden
             '<code class="code_'+id+'" ></code>' +
             '</div>' +
             '</div></div>' +
@@ -6355,7 +6358,7 @@ function openSimulateModal(id,type) {
     }
     else if(type === 3){
 
-        let str = '<div id="simulatorModal_'+id+'">' +
+        let str = '<div id="simulatorModal_'+id+'" class="w-100">' +
             '<div data-role="body">\n' +
             '<div class="row>' +
             '<div class="col-md-12">' +
@@ -6367,7 +6370,7 @@ function openSimulateModal(id,type) {
             '<button class="btn btn-sm btn-success pull-right btn_'+id+'" onclick="simulateMessage(\''+id+'\','+type+')">Upload File</button>' +
             '<button class="btn btn-sm btn-default pull-right" onclick="closeSimulator(\''+id+'\')" style="margin-right: 10px;">Close</button>' +
             '</div> ' +
-            '<div class="col-md-12" style="clear:both;max-height: 200px;overflow: auto;overflow-x: hidden">' +
+            '<div class="col-md-12" style="clear:both;max-height: 200px;">' +//overflow: auto;overflow-x: hidden
             '<code class="code_'+id+'" ></code>' +
             '</div>' +
             '</div></div>' +
@@ -6421,7 +6424,7 @@ function openSimulateModal(id,type) {
     }
     else if(type === 4){
 
-        let str = '<div id="simulatorModal_'+id+'">' +
+        let str = '<div id="simulatorModal_'+id+'" class="w-100">' +
             '<div data-role="body">\n' +
             '<div class="row>' +
             '<div class="col-md-12">' +
@@ -6433,7 +6436,7 @@ function openSimulateModal(id,type) {
             '<button class="btn btn-sm btn-success pull-right btn_'+id+'" onclick="simulateMessage(\''+id+'\','+type+')">Upload File</button>' +
             '<button class="btn btn-sm btn-default pull-right" onclick="closeSimulator(\''+id+'\')" style="margin-right: 10px;">Close</button>' +
             '</div> ' +
-            '<div class="col-md-12" style="clear:both;max-height: 200px;overflow: auto;overflow-x: hidden">' +
+            '<div class="col-md-12" style="clear:both;max-height: 200px;">' +//overflow: auto;overflow-x: hidden
             '<code class="code_'+id+'" ></code>' +
             '</div>' +
             '</div></div>' +

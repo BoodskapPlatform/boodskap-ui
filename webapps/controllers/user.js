@@ -55,21 +55,20 @@ function loadUsersList() {
             sTitle: 'Roles',
             orderable: false,
             mRender: function (data, type, row) {
-                /* if(data == "user"){
-                    data = "User";
-                }else if(data == "developer"){
-                    data = "Developer";
-                }else if(data == "domainadmin"){
-                    data = "Domain Admin";
-                }else if(data == "accountadmin"){
-                    data = "Account Admin";
-                }else{
-                    data = data;
-                } */
-                data = data.join(", ")
-                //console.log(data);
-
-                return data;
+                
+                var inputs = [];
+                data.map((word) => {
+                    let capitalizedFirst = word.charAt(0).toUpperCase();
+                    let rest = word.slice(1).toLowerCase();
+                    if(rest.indexOf("admin") > -1){
+                        rest = rest.split("admin")[0]+" "+"Admin";
+                    }
+                    inputs.push(capitalizedFirst + rest);
+                });
+                inputs = inputs.join(", ");
+                
+                return inputs;
+                
             }
         },
         {
@@ -133,6 +132,8 @@ function loadUsersList() {
         responsive: true,
         paging: true,
         searching: true,
+        scrollY: '100px',
+        scrollCollapse: true,
         aaSorting: [[5, 'desc']],
         "ordering": true,
         iDisplayLength: 10,
@@ -256,6 +257,7 @@ function loadUsersList() {
     };
 
     userTable = $("#userTable").DataTable(tableOption);
+    $(".dataTables_scrollBody").removeAttr("style").css({"min-height":"calc(100vh - 425px)","position":"relative","width":"100%"});
 
     $('#userTable tbody').on('click', 'td.details-control', function () {
         var tr = $(this).closest('tr');

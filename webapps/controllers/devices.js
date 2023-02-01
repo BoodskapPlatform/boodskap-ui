@@ -121,6 +121,8 @@ function loadDeviceList() {
             searching: true,
             aaSorting: [[6, 'desc']],
             "ordering": true,
+            scrollY: '100px',
+            scrollCollapse: true,
             iDisplayLength: 10,
             lengthMenu: [[10, 50, 100], [10, 50, 100]],
             dom: '<"bskp-search-left" f> lrtip',
@@ -165,8 +167,7 @@ function loadDeviceList() {
 
                 }
                     queryParams.query['bool']['must'] = [domainKeyJson];
-                console.log("-->"+JSON.stringify(queryParams));
-
+                
                 var ajaxObj = {
                     "method": "GET",
                     "extraPath": "",
@@ -203,6 +204,7 @@ function loadDeviceList() {
 
     deviceTable = $("#deviceTable").DataTable(tableOption);
     $('.dataTables_filter input').attr('maxlength', 100)
+    $(".dataTables_scrollBody").removeAttr("style").css({"min-height":"calc(100vh - 425px)","position":"relative","width":"100%"});
 
 }
 

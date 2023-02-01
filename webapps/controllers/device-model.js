@@ -86,6 +86,8 @@ function loadDeviceModelList() {
         aaSorting: [[3, 'desc']],
         "ordering": true,
         iDisplayLength: 10,
+        scrollY: '100px',
+        scrollCollapse: true,
         lengthMenu: [[10, 50, 100], [10, 50, 100]],
         aoColumns: fields,
         "bServerSide": true,
@@ -127,6 +129,7 @@ function loadDeviceModelList() {
 
     deviceModelTable = $("#deviceModelTable").DataTable(tableOption);
     $('.dataTables_filter input').attr('maxlength', 100)
+    $(".dataTables_scrollBody").removeAttr("style").css({"min-height":"calc(100vh - 425px)","position":"relative","width":"100%"});
 
     // getDeviceModel(1000,function (status, data) {
     //     if(status && data.length > 0){

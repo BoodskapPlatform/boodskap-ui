@@ -17,7 +17,6 @@ function loadTokenList(type) {
         tokenTable.destroy();
         $("#tokenTable").html("");
     }
-    $("#tokenTable_filter").find("input").attr("autocomplete","off").val("");
     if(type!="" && typeof(type)!="undefined"){
         TOKEN_TYPE = "";
         $("#authTokenTypes option[value='']").prop("selected", true);
@@ -83,6 +82,8 @@ function loadTokenList(type) {
         paging: true,
         searching: true,
         "ordering": true,
+        scrollY: '100px',
+        scrollCollapse: true,
         iDisplayLength: 10,
         lengthMenu: [[10, 50, 100], [10, 50, 100]],
         dom: '<"bskp-search-left" f> lrtip',
@@ -90,7 +91,7 @@ function loadTokenList(type) {
             "emptyTable": "No data available",
             "zeroRecords": "No data available",
             "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
-            "searchPlaceholder": "Search by Message Id",
+            "searchPlaceholder": "Search here",
             loadingRecords: '',
             paginate: {
                 previous: '< Prev',
@@ -112,7 +113,19 @@ function loadTokenList(type) {
         }
 
         tokenTable = $("#tokenTable").DataTable(tableOption);
-        $('.dataTables_filter input').attr('maxlength', 100)
+        $("#tokenTable_filter").hide();
+        $('.dataTables_filter input').attr('maxlength', 100);
+        if(type!="all"){
+            $("#tokenTable_filter").show();
+        }else{
+            setTimeout(() => {
+                $('.dataTables_filter input').attr('maxlength', 100).attr("autocomplete","off").attr("type","text").val("");
+                $("#tokenTable_filter").show();
+            }, 1000);
+        }
+        $(".dataTables_scrollBody").removeAttr("style").css({"min-height":"calc(100vh - 425px)","position":"relative","width":"100%"});
+        
+        
         //$("#tokenTable_filter").find("input").attr("autocomplete","off").val("");
     });
 }

@@ -634,7 +634,9 @@
             <div class="pOption pFilter" style="padding:5px;display:none;width: 100%;background-color: #eee;">
                 <strong class="pull-right" onclick="$('.pFilter').toggle()"><i class="fa fa-close"></i></strong>
                 <label class="mb-0">Group</label><br>
-                <select style="width: 100%" class="form-control form-control-sm" id="pfGroup" onchange="loadProcessRulesList()"></select>
+                <select style="width: 100%" class="form-control form-control-sm" id="pfGroup" onchange="loadProcessRulesList()">
+                    <option value="">Select</option>
+                </select>
                 <label class="mb-0">Tags</label>
                 <input type="text" class="form-control form-control-sm" id="pfTag" onkeyup="loadProcessRulesList()"/>
             </div>
@@ -833,7 +835,7 @@
                         class="delete_rule_name"></span></b> Rule?</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn button-2" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btnModal" onclick="proceedDelete()">Proceed</button>
             </div>
         </div><!-- /.modal-content -->

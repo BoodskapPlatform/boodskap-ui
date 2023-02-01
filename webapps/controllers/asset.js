@@ -76,6 +76,8 @@ function loadAssetList() {
         searching: true,
         aaSorting: [[3, 'desc']],
         "ordering": true,
+        scrollY: '100px',
+        scrollCollapse: true,
         iDisplayLength: 10,
         lengthMenu: [[10, 50, 100], [10, 50, 100]],
                        dom: '<"bskp-search-left" f> lrtip',
@@ -130,7 +132,9 @@ function loadAssetList() {
 
     };
     assetTable = $("#assetTable").DataTable(tableOption);
-    $('.dataTables_filter input').attr('maxlength', 100)
+    $('.dataTables_filter input').attr('maxlength', 100);
+    $(".dataTables_scrollBody").removeAttr("style").css({"min-height":"calc(100vh - 425px)","position":"relative","width":"100%"});
+
     // getAssetList(1000, function (status, data) {
     //     if (status && data.length > 0) {
     //         tableOption['data'] = data;

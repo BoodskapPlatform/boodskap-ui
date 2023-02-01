@@ -312,13 +312,13 @@ function addMessageRule() {
     var msg_desc= $.trim($("#msg_desc").val()
     )
     if(msg_id == ""){
-        errorMsgBorder('Record ID cannot be empty','msg_id');
+        errorMsgBorder('Record ID is required','msg_id');
         return false;
     }else if(msg_name == ""){
-        errorMsgBorder('Record Name cannot be empty','msg_name');
+        errorMsgBorder('Record Name is required','msg_name');
         return false;
     }else if(msg_desc == ""){
-        errorMsgBorder('Description cannot be empty','msg_desc');
+        errorMsgBorder('Description is required','msg_desc');
         return false;
     }else{
         var fields = []; 
