@@ -1261,7 +1261,7 @@ function retreiveRecordDef(data, cbk) {
         error: function (e) {
             //called when there is an error
             //console.log(e.message);
-            cbk(false, null);
+            cbk(false, e.responseJSON);
         }
     });
 
@@ -1449,7 +1449,7 @@ function createUpdateRecordDef(data, cbk) {
         error: function (e) {
             //called when there is an error
             //console.log(e.message);
-            cbk(false, null);
+            cbk(false, e.responseJSON);
         }
     });
 

@@ -37,6 +37,13 @@ function loadRecordDef() {
             mData: 'description',
             sTitle: 'Description',
             orderable : false,
+            mRender: function (data, type, row) {
+
+                var desc = data;
+
+                return '<div style="max-width: 500px;" class="text-truncate" title="'+data+'">'+data+'</div>';
+
+            }
         },
         {
             mData: 'fields',
@@ -174,6 +181,7 @@ function openModal() {
     });
     $(".msgFieldBody").html("");
     addMessageField();
+    $("#addMessageRule form").attr("onsubmit","addMessageRule()")
 }
 
 
@@ -206,6 +214,7 @@ function openEditModal(id) {
         definedFields(message_obj.fields[i]);
     }
     addMessageField();
+    $("#addMessageRule form").attr("onsubmit","addMessageRule('edit')");
 
 }
 
@@ -221,7 +230,7 @@ function definedFields(obj) {
 
     var str = `<tr>
     <td>
-        <label>`+obj.name+`</label>
+        <label class='field-name'>`+obj.name+`</label>
     </td>
     <td>
      <label>`+obj.dataType+`</label>
@@ -277,7 +286,7 @@ function addMessageField() {
     TEMP_MSG_FIELD_COUNT ++;
 }
 
-function addMessageRule() {
+function addMessageRule(place) {
 
     var msg_id = $.trim($("#msg_id").val())
     var msg_name=$.trim($("#msg_name").val())
@@ -294,8 +303,10 @@ function addMessageRule() {
         return false;
     }else{
         var fields = []; 
-            var check = false;
-           
+        var fieldValArr = [];
+        var check = false;
+        
+        if (place!="edit"){ 
             $.each($('.fieldrow'),function () {
                 if($(this).find('.mesg-field').val() === ""){ 
                     errorMsgBorder('Field Name is required', $(this).find('.mesg-field').attr('id'));
@@ -305,8 +316,13 @@ function addMessageRule() {
                         errorMsgBorder('Data Type is required', $(this).find('.mesg-type').attr('id'));
                         check = false;
                         return false;
-                    }
-                    else{
+                }else if(fieldValArr.includes($(this).find(".mesg-field").val()) == true){
+                    errorMsgBorder('Field Name cannot be duplicted', $(this).find('.mesg-field').attr('id'));
+                    check = false;
+                    return false;
+                }else{
+                    fieldValArr.push($(this).find(".mesg-field").val());
+
                         var json = {
                             "dataType":$(this).find('.mesg-type').val(),
                             "format": "AS_IS",
@@ -317,8 +333,40 @@ function addMessageRule() {
                         fields.push(json);
                          check = true;
                         return true;
-                    }
-                       })
+                }
+            })
+        }else{
+            $.each($(".field-name"),function (){
+                fieldValArr.push($(this).text());
+            })
+            $.each($('.fieldrow'),function () {
+                if(fieldValArr.includes($(this).find(".mesg-field").val()) == true){
+                    errorMsgBorder('Field Name cannot be duplicted', $(this).find('.mesg-field').attr('id'));
+                    check = false;
+                    return false;
+                }
+                if($(this).find('.mesg-field').val() != "" && $(this).find('.mesg-type').val() == ""){ 
+                        errorMsgBorder('Data Type is required', $(this).find('.mesg-type').attr('id'));
+                        check = false;
+                        return false;
+                }else if($(this).find('.mesg-field').val() != "" && $(this).find('.mesg-type').val() != ""){
+                        fieldValArr.push($(this).find(".mesg-field").val());
+
+                        var json = {
+                            "dataType":$(this).find('.mesg-type').val(),
+                            "format": "AS_IS",
+                            "label": "",
+                            "description": "",
+                            "name": $(this).find('.mesg-field').val()
+                        }
+                        fields.push(json);
+                        check = true;
+                        return true;
+                }else{
+                    check = true;
+                }
+            })
+        }  
     }
 
     // for (var i = 0; i < fields.length; i++) {
@@ -384,7 +432,7 @@ if(check){
                             var errmessage = data.message.replaceAll("_"," ")
                             errorMsg(errmessage);
                         }else{
-                            errorMsg('Error in Define Message');
+                            //errorMsg('Error in Define Message');
                         }
                     }
                     $(".btnSubmit").removeAttr('disabled');
@@ -535,6 +583,8 @@ function readFileContent(file) {
 })
 }
 
+var duplicateIds = [];
+var newIds = [];
 function importContent() {
     var val = jsEditor.getSession().getValue();
 
@@ -546,7 +596,8 @@ function importContent() {
 
                 $(".btnSubmit").attr('disabled', 'disabled');
 
-
+            duplicateIds = [];
+            newIds = [];
             async.filter(val, function (obj, cbk) {
 
                 checkAndInsert(obj, function (d) {
@@ -556,6 +607,40 @@ function importContent() {
             }, function (err, result) {
                 loadRecordDef();
                 $(".btnSubmit").removeAttr('disabled');
+                $('#importModal').modal('hide');
+                if(duplicateIds.length){
+                    var dupIds = "";
+                    duplicateIds.forEach(element => {
+                        dupIds = element+",";
+                    });
+                    dupIds=dupIds.substring(0,dupIds.length-1);
+                    var text = dupIds + " Id's are duplicated"
+                    errorMsg(text);
+
+                }
+                if(duplicateIds.length){
+                    setTimeout(() => {
+                        if(newIds.length){
+                            var newAddIds = "";
+                            newIds.forEach(element => {
+                                newAddIds = element+",";
+                            });
+                            newAddIds=newAddIds.substring(0,newAddIds.length-1);
+                            var text = newAddIds + " Id's are Defined Successfully"
+                            successMsg(text);
+                        }
+                    }, 2000);
+                }else{
+                    if(newIds.length){
+                        var newAddIds = "";
+                        newIds.forEach(element => {
+                            newAddIds = element+",";
+                        });
+                        newAddIds=newAddIds.substring(0,newAddIds.length-1);
+                        var text = newAddIds + " Id's are Defined Successfully"
+                        successMsg(text);
+                    }
+                }
 
             })
 
@@ -576,15 +661,20 @@ function checkAndInsert(obj, cbk) {
 
         if (status) {
             $(".btnSubmit").removeAttr('disabled');
-            errorMsg(obj.id + ' - Record ID already defined');
+            duplicateIds.push(obj.id);
             cbk(null)
         } else {
             createUpdateRecordDef(obj, function (status, data) {
                 if (status) {
                     successMsg(obj.id + ' - Record Defined Successfully');
-
+                    newIds.push(obj.id)
                 } else {
-                    errorMsg('Error in Define Record')
+                    if(data.message){
+                        var errmessage = data.message.replaceAll("_"," ")
+                        errorMsg(errmessage);
+                    }else{
+                        //errorMsg('Error in Define Record');
+                    }
                 }
                 cbk(null)
             })

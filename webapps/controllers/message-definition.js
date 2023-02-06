@@ -204,6 +204,7 @@ function openModal() {
     $(".msgFieldBody").html("");
 
     addMessageField();  
+    $("#addMessageRule form").attr("onsubmit","addMessageRule()")
 }
 
 
@@ -337,7 +338,7 @@ function addMessageRule(place) {
 
     }else{
             var fields = []; 
-            var fieldValArr = []
+            var fieldValArr = [];
             var check = false;
             console.log(place);
             if (place!="edit"){
