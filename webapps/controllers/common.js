@@ -133,7 +133,6 @@ function togglemodel(check) {
     if(check === 'edit'){      
        choosemodel=true;  
        modelmode = 'edit'   
-       console.log(modelmode);
        $(".new-model").addClass('d-none');
        $(".togeditmodel").removeClass('d-none');
        $("#device_version").removeAttr('disabled','disabled');  

@@ -1,13 +1,5 @@
 <style>
-.bskp-modal tbody > tr:first-child > td{
-        padding: 20px 15px 8px 15px !important;
-}
-.bskp-modal tbody > tr > td:first-child{
-   padding-left: 0px !important;
-}
-.bskp-modal thead > tr >th:last-child{
-   text-align: center !important;
-}
+
 #defineMesg tbody > tr ,#defineMesg tbody > tr > td{
     border: 0px !important;
 }
@@ -24,8 +16,7 @@
          <div>
             <ol class="breadcrumb pull-right bskp-align-icon" >
                 <li class="breadcrumb-item"><a href="<%= basepath %>/home">Home</a></li>
-                <li class="breadcrumb-item"><a href="<%= basepath %>/message-definition">Message Definition</a> </li>
-                <li class="breadcrumb-item active">Manage message</li>
+                <li class="breadcrumb-item active"><u>Message Definition</u></li>
                <div class="ml-4">
                 <a href="javascript:;" class="btn btn-sm btn-icon btn-circle  bskp-icon-bg" title="Expand" data-click="panel-expand"><em class="fa fa-expand"></em></a>
                 <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg" title="Help"><em class="icon-help"></em></a>  
@@ -94,7 +85,7 @@
                         <div  class="col-md-6 msg_id">
                             <div  class="form-group">
                                 <label  class="inputLabel">Message ID *</label>
-                                <input  class="form-control input-sm" onkeypress="return isNumber(event);" maxlength="100" min="1" placeholder="Enter Message ID" autocomplete="off" type="text" id="msg_id"  required>
+                                <input  class="form-control input-sm" onkeypress="return isNumber(event);" maxlength="15" min="1" placeholder="Enter Message ID" autocomplete="off" type="text" id="msg_id"  required>
                                 <span id="logmsg_id"></span>
                             </div>
                         </div>
@@ -179,7 +170,7 @@
                         <div  class="col-md-12">
                             <div  class="form-group">
                                 <label  class="inputLabel">Choose File</label>
-                                <input  class="form-control input-sm" placeholder="" type="file" id="importFile" style="font-size:10px !important;" required/>
+                                <input  class="form-control input-sm" placeholder="" type="file" id="importFile" onchange="getImportFile(this,event)" style="font-size:10px !important;" required/>
                             </div>
                         </div>
                     </div>

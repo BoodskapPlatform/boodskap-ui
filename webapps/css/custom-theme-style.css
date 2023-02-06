@@ -521,6 +521,10 @@ color: #1a1a1a !important;
     padding-left: 21px;
 }
 
+.bskp-modal tbody > tr > td:first-child {
+    padding-left: 21px !important;
+}
+
 .bskp-table th:last-child {
     border-radius: 0px 7px 7px 0px;
     padding-right: 16px;

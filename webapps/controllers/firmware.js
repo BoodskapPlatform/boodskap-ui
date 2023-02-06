@@ -281,7 +281,6 @@ function loadFirmwareList() {
 
                     var resultData = QueryFormatter(data).data;
                     firmware_list = resultData.data;
-                    console.log(firmware_list)
                     $(".firmwareCount").html(resultData.recordsFiltered)
                     resultData['draw'] = oSettings.iDraw;
                     fnCallback(resultData);

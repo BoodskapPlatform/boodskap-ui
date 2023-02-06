@@ -182,7 +182,7 @@ function proceedPrivacy() {
             $("#privacyModal").modal('hide');
             checkDomainName();
         }else{
-            errorMsg('Error Occurred!')
+            errorMsg(data.message)
         }
     })
 

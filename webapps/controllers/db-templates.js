@@ -304,7 +304,6 @@ function updateTemplate() {
 
 function proceedDelete() {
     deleteDBTemplate(current_template_name, function (status, data) {
-        console.log(status)
         if (status) {
             successMsg('Template Deleted Successfully');
             loadTemplates();

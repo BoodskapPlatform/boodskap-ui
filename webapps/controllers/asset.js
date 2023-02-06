@@ -110,7 +110,6 @@ function loadAssetList() {
                 "type": "GET",
                 "url": sSource,
                 success: function (data) {
-                    console.log(data)
                     if (data.length > 0) {
                         $(".assetCount").html(data.length)
                         asset_list = data;

@@ -126,7 +126,6 @@ function loadEvents() {
                 "type": "GET",
                 "url": sSource,
                 success: function (data) {
-                    console.log(data)
                     if (data.length > 0) {
                         tableOption['data'] = data;
                         event_list = data;
@@ -553,7 +552,6 @@ function removeChannel() {
         "address": current_event_address,
     }
 
-    console.log(eventObj)
     $(".btnSubmit").attr('disabled','disabled');
 
     unregisterEvent(eventObj.eid, eventObj.channel, eventObj.address, function (status, data) {

@@ -279,7 +279,6 @@ function addTemplate() {
     var template_name = $.trim($("#template_name").val());
    var template_lang = $.trim($("#template_lang").val());
     var template_code = $.trim($("#template_code").val());
-    console.log(template_name  == "" + "----");
     if(template_name === ""){
         errorMsgBorder('Template Name cannot be empty','template_name');
         return false;

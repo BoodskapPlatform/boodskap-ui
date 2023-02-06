@@ -202,7 +202,6 @@ function loadDBTable() {
             if(resultData.length > 0) {
                 var resultData = result.data[0];
 
-                console.log(resultData)
 
                 $(".dbMetadata").html('')
 

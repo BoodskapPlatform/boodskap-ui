@@ -124,7 +124,6 @@ function deleteMessageField(id) {
     $("#msg_field_row_" + id).remove();
     //   MSG_FIELD_COUNT--;
      TEMP_MSG_FIELD_COUNT--;
-     console.log(TEMP_MSG_FIELD_COUNT);
      TEMP_MSG_FIELD_COUNT === 1 ? $(".minus").addClass('minus-none'):''  ;
 }
 
@@ -213,7 +212,6 @@ function prevnavigate(navto){
 }
 
 function modalnavigate(currentStep){
-    console.log("open");
     switch(currentStep){
     case 1:
         createMsgDef()

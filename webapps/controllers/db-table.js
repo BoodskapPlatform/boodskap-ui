@@ -88,9 +88,7 @@ function loadDBPool() {
             orderable: false,
             sWidth: '40%',
             mRender: function (data, type, row) {
-                console.log(row,"---------------")
                 var code = js_beautify(JSON.stringify(row[row['type'].toLowerCase() + 'Args']), { indent_size: 4 })
-                console.log(code)
 
                 return '<textarea class="form-control text-area" style="width: 100%;height: 250px;resize: none;background-color: #fff;color: #333;opacity: 0.8;" readonly>' + code + '</textarea>';
             
@@ -270,7 +268,6 @@ function openModal(type, id) {
         $("#pool_type2").val(obj.type) 
         $("#pool_type3").val(obj.type)
         $("#pool_type4").val(obj.type)
-        console.log(obj.type);
 
         renderType1();
         renderType2();
@@ -323,7 +320,6 @@ function openModal(type, id) {
 
 
 function addPool() {
-    console.log(tempObj);
 
     var tempObj = buildData();
 
@@ -369,7 +365,6 @@ function addPool() {
             $(".btnSubmit").removeAttr('disabled');
             errorMsgBorder('DB Connection Pool name already exist', 'Name');
         } else {
-            console.log(tempObj);
             
     
             upsertDBPool(tempObj, function (status, data) {
@@ -388,7 +383,6 @@ function addPool() {
 }
 
 function updatePool() {
-    console.log(tempObj);
 
     var tempObj = buildData();
 
@@ -494,11 +488,9 @@ function loadDBTable() {
                 
                 for (var i = 0; i < resultData.tables.length; i++) {
                     var table = resultData.tables[i];
-                    console.log(table,"jjjj")
                     var str = '<tr><td>' + table.name + '<br><small>scheme: ' + table.schema + '</small></td>' +
                         '<td><textarea class="form-control"  style="width: 100%;height: 150px;resize: none;background-color: #fff;color: #333;opacity: 0.8;" readonly>' +
                         js_beautify(JSON.stringify(table.fields), { indent_size: 4 }) + '</textarea></td></tr>';
-                    console.log(table.fields)
                     $(".dbMetadata").append(str);
 
                 }
@@ -515,7 +507,6 @@ function loadDBTable() {
 
 function renderType1() {
     var id = $("#pool_type1").val();
-    console.log(id)
     $(".typeBody").html('')
     if (id == "HIKARI") {
         $("#pool_type1").prop("checked", true)
@@ -529,7 +520,6 @@ function renderType1() {
 
     for (var i = 0; i < POOL_TYPE[id].length; i++) {
         var pool = POOL_TYPE[id][i];
-        console.log(pool)
         var str = '';
       if (pool.type === 'string') {
             if (pool.text) {
@@ -614,7 +604,6 @@ function renderType1() {
 // console.log(id);
 function renderType2() {
     var id = $("#pool_type2").val();
-console.log(id)
     $(".typeBody").html('')
 
     if (id == "DBCP") {
@@ -714,7 +703,6 @@ console.log(id)
 }
 function renderType3() {
     var id = $("#pool_type3").val();
-    console.log(id)
 
     $(".typeBody").html('')
     if (id == "C3P0") {
@@ -967,7 +955,6 @@ function buildData() {
 
     };
     resultObj[arg] = val;
-    console.log(resultObj)
 
     return resultObj;
 }

@@ -19,7 +19,6 @@ $(document).ready(function () {
 
 function loadRecordDef() {
 
-
     if (recordTable) {
         recordTable.destroy();
         $("#recordTable").html("");
@@ -38,9 +37,6 @@ function loadRecordDef() {
             mData: 'description',
             sTitle: 'Description',
             orderable : false,
-            mRender: function(data, type, row){
-                return '<div style="max-width: 500px;" class="text-truncate" title='+data+'>'+data+'</div>'
-            }
         },
         {
             mData: 'fields',
@@ -68,72 +64,48 @@ function loadRecordDef() {
 
     ];
 
-    let data = 1000
+
     var tableOption = {
-        responsive: false,
-        autoWidth: false,
+        responsive: true,
         paging: true,
-        aoColumns: fields,
         searching: true,
-        aaSorting: [[3, 'desc']],
         "ordering": true,
         iDisplayLength: 10,
+        dom: '<"bskp-search-left" f> lrtip',
+        language: {
+            "emptyTable": "No data available",
+            "zeroRecords": "No data available",
+            "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
+            "searchPlaceholder": "Search by Record ID",
+            loadingRecords: '',
+            paginate: {
+                previous: '< Prev',
+                next: 'Next >'
+            }
+        },
         lengthMenu: [[10, 50, 100], [10, 50, 100]],
-                       dom: '<"bskp-search-left" f> lrtip',
-            language: {
-                "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
-             "searchPlaceholder": "Search by Message ID",
-             "zeroRecords": "No data available",
-             "emptyTable":"No data available",
-                loadingRecords: '',
-                paginate: {
-                    previous: '< Prev',
-                    next: 'Next >'
-                },
-
-            },
-        "bServerSide": true,
-        "bProcessing": true,
-        "sAjaxSource": API_BASE_PATH + "/storage/spec/list/" + API_TOKEN_ALT + "/" + data,
-        "fnServerData": function (sSource, aoData, fnCallback, oSettings) {
-           
-
-            var keyName = fields[oSettings.aaSorting[0][0]]
-
-            var sortingJson = {};
-            sortingJson[keyName['mData']] = {"order": oSettings.aaSorting[0][1]};
-
-
-
-            oSettings.jqXHR = $.ajax({
-                "type": "GET",
-                "url": sSource,
-                success: function (data) {
-                    console.log(data)
-                    if (data.length > 0) {
-                        tableOption['data'] = data;
-                        $(".recordCount").html(data.length)
-                        message_list = data;
-                        createDownload();
-                    } else {
-                        $(".recordCount").html(0)
-                        message_list = [];
-                    }
-                    let resultData = {
-                        "recordsTotal": message_list.length,
-                        "recordsFiltered": message_list.length,
-                        "data": message_list
-                    }
-                    resultData['draw'] = oSettings.iDraw;
-
-                    fnCallback(resultData);
-                }
-            });
-        }
-
+        aoColumns: fields,
+        data: []
     };
-    recordTable = $("#recordTable").DataTable(tableOption);
-    $('.dataTables_filter input').attr('maxlength', 100)
+   
+    listRecordSpec(1000, null, null, function (status, data) {
+        if (status && data.length > 0) {
+            tableOption['data'] = data;
+            $(".recordCount").html(data.length)
+            message_list = data;
+            createDownload();
+
+        } else {
+            $(".recordCount").html(0)
+            message_list = [];
+
+        }
+        
+        recordTable = $("#recordTable").DataTable(tableOption);
+        $('.dataTables_filter input').attr('maxlength', 100)
+    })
+
+
 }
 
 function searchQueryFormatter(data) {

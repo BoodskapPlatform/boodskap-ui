@@ -6216,7 +6216,6 @@ function openSimulateModal(id,type) {
                         } else {
                             $("#simulatorDeviceList_"+id).html("");
                             var deviceOptionUI="";
-                            console.log(resultData.data);
                             resultData.data.forEach(e => {
                                 if(e.name != null){
                                     deviceData.forEach(element => {
@@ -7864,8 +7863,6 @@ function checkSimulateDevices(id,place){
             var resData = searchQueryFormatterNew(data);
             var resultData = resData.data;
             DEVICE_LIST =resultData.data;     
-            console.log(DEVICE_LIST);
-            console.log(DEVICE_LIST.length); 
             if(DEVICE_LIST.length == 0){
 
                 $("#addDevice").modal({
@@ -7941,17 +7938,14 @@ function addDevice(id) {
 
       async.series({
           SameModelID: function (rmdcbk) {
-              console.log("same");
           if( modelmode === 'new'){
            retreiveDeviceModel(modelObj.id, function (status, data) {
               if (status) {
                   modelstatus =false;
-                  console.log("revif");
                   $(".btnSubmit").removeAttr('disabled');
                   errorMsgBorder('Device Model ID already exist', 'new_device_model');
                   rmdcbk(null, true);
               }else{
-                  console.log("revelse");
                   modelstatus =true;
                   rmdcbk(null, false);
               }
@@ -7961,8 +7955,6 @@ function addDevice(id) {
           }
           },
           TriggerModelCreate: function (mdcbk){
-              console.log(modelmode);
-              console.log(modelstatus);
                 // Allow if is not choose - Create Device Model  
             if(modelmode !== 'choose' && modelstatus){
               upsertDeviceModel(modelObj,function (status, data) {
@@ -7990,7 +7982,6 @@ function addDevice(id) {
           CreateDevice: function(Dcbk){
                 // Device Create  
                 if(modelstatus){
-                  console.log("dev creat");
                   var deviceObj = {
                       "id": $("#device_id").val(),
                       "name": $("#device_name").val(),

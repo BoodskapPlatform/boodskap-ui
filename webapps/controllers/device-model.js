@@ -107,7 +107,6 @@ function loadDeviceModelList() {
                 "type": "GET",
                 "url": sSource,
                 success: function (data) {
-                    console.log(data)
                     if (data.length > 0) {
                         device_model_list = data;
                         $(".deviceModelCount").html(data.length)
