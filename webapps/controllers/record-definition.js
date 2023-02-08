@@ -317,7 +317,7 @@ function addMessageRule(place) {
                         check = false;
                         return false;
                 }else if(fieldValArr.includes($(this).find(".mesg-field").val()) == true){
-                    errorMsgBorder('Field Name cannot be duplicted', $(this).find('.mesg-field').attr('id'));
+                    errorMsgBorder('Field Name cannot be duplicated', $(this).find('.mesg-field').attr('id'));
                     check = false;
                     return false;
                 }else{
@@ -341,7 +341,7 @@ function addMessageRule(place) {
             })
             $.each($('.fieldrow'),function () {
                 if(fieldValArr.includes($(this).find(".mesg-field").val()) == true){
-                    errorMsgBorder('Field Name cannot be duplicted', $(this).find('.mesg-field').attr('id'));
+                    errorMsgBorder('Field Name cannot be duplicated', $(this).find('.mesg-field').attr('id'));
                     check = false;
                     return false;
                 }
