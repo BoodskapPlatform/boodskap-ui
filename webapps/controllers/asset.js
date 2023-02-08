@@ -23,28 +23,32 @@ function loadAssetList() {
     var fields = [
         {
             mData: 'id',
-            sTitle: 'Asset Id',
+            sTitle: 'Asset ID',
+            sWidth: '15%',
             orderable: true,
             mRender: function (data, type, row) {
 
-                return data + '<button class="btn bskp-edit-btn mr-2 bskp-greyicon pull-right" onclick="openModal(4,\'' + row["id"] + '\')" title="View Linked Device">' +
+                return data + '<button class="btn bskp-edit-btn mr-2 bskp-greyicon pull-right" onclick="openModal(4,\'' + row["id"] + '\')" title="Link Device">' +
                     '<em class="icon-eye2"></em></button>';
             }
         },
         {
             mData: 'name',
             sTitle: 'Asset Name',
+            sWidth: '20%',
             orderable: true,
         },
         {
             mData: 'description',
             sTitle: 'Description',
+            sWidth: '35%',
             orderable: false,
         },
         {
             mData: 'registeredStamp',
             sTitle: 'Created Time',
             orderable: true,
+            sWidth: '20%',
             mRender: function (data, type, row) {
                 return data ? moment(data).format('MM/DD/YYYY hh:mm:ss a') : "-";
             }
@@ -56,55 +60,93 @@ function loadAssetList() {
             sWidth: '10%',
             mRender: function (data, type, row) {
 
-                return '<button class="btn bskp-edit-btn mr-2" onclick="openModal(2,\'' + row["id"] + '\')"> <img src="images/edit.svg" alt=""> </button>' +
-                    '<button class="btn bskp-trash-btn" onclick="openModal(3,\'' + row['id'] + '\')">  <img src="images/trash2.svg" alt=""> </button>';
+                return '<button class="btn bskp-edit-btn mr-2" onclick="openModal(2,\'' + row["id"] + '\')" title="Edit"> <img src="images/edit.svg" alt=""> </button>' +
+                    '<button class="btn bskp-trash-btn" onclick="openModal(3,\'' + row['id'] + '\')" title="Delete">  <img src="images/delete.svg" alt=""> </button>';
             }
         }
 
     ];
 
-
+    let data = 1000
     var tableOption = {
-        fixedHeader: {
-            header: true,
-            headerOffset: -5
-        },
-        responsive: true,
+        responsive: false,
+        autoWidth: false,
         paging: true,
+        aoColumns: fields,
         searching: true,
-        dom: '<"bskp-search-left" f> lrtip',
-        language: {
-            "emptyTable": "No data available",
-            "zeroRecords": "No data available",
-            "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
-            "searchPlaceholder": "Search by Asset Id",
-            loadingRecords: '',
-            paginate: {
-                previous: '< Prev',
-                next: 'Next >'
-            }
-        },
         aaSorting: [[3, 'desc']],
         "ordering": true,
+        scrollY: '100px',
+        scrollCollapse: true,
         iDisplayLength: 10,
         lengthMenu: [[10, 50, 100], [10, 50, 100]],
-        aoColumns: fields,
-        data: []
-    };
+                       dom: '<"bskp-search-left" f> lrtip',
+            language: {
+                "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
+             "searchPlaceholder": "Search by Asset ID",
+             "zeroRecords": "No data available",
+             "emptyTable":"No data available",
+                loadingRecords: '',
+                paginate: {
+                    previous: '< Prev',
+                    next: 'Next >'
+                },
 
-    getAssetList(1000, function (status, data) {
-        if (status && data.length > 0) {
-            tableOption['data'] = data;
-            $(".assetCount").html(data.length)
-            asset_list = data;
-        } else {
-            $(".assetCount").html(0);
-            asset_list = [];
+            },
+        "bServerSide": true,
+        "bProcessing": true,
+        "sAjaxSource": API_BASE_PATH + "/asset/list/" + API_TOKEN_ALT + '/' + data,
+        "fnServerData": function (sSource, aoData, fnCallback, oSettings) {
+           
+
+            var keyName = fields[oSettings.aaSorting[0][0]]
+
+            var sortingJson = {};
+            sortingJson[keyName['mData']] = {"order": oSettings.aaSorting[0][1]};
+
+
+
+            oSettings.jqXHR = $.ajax({
+                "type": "GET",
+                "url": sSource,
+                success: function (data) {
+                    if (data.length > 0) {
+                        $(".assetCount").html(data.length)
+                        asset_list = data;
+                    } else {
+                        $(".assetCount").html(0);
+                        asset_list = [];
+                    }
+                    let resultData = {
+                        "recordsTotal": asset_list.length,
+                        "recordsFiltered": asset_list.length,
+                        "data": asset_list
+                    }
+                    resultData['draw'] = oSettings.iDraw;
+
+                    fnCallback(resultData);
+                }
+            });
         }
 
-        assetTable = $("#assetTable").DataTable(tableOption);
-        $('.dataTables_filter input').attr('maxlength', 100)
-    })
+    };
+    assetTable = $("#assetTable").DataTable(tableOption);
+    $('.dataTables_filter input').attr('maxlength', 100);
+    $(".dataTables_scrollBody").removeAttr("style").css({"min-height":"calc(100vh - 425px)","position":"relative","width":"100%"});
+
+    // getAssetList(1000, function (status, data) {
+    //     if (status && data.length > 0) {
+    //         tableOption['data'] = data;
+    //         $(".assetCount").html(data.length)
+    //         asset_list = data;
+    //     } else {
+    //         $(".assetCount").html(0);
+    //         asset_list = [];
+    //     }
+
+    //     assetTable = $("#assetTable").DataTable(tableOption);
+    //     $('.dataTables_filter input').attr('maxlength', 100)
+    // })
 
 
 }
@@ -173,9 +215,10 @@ function openModal(type, id) {
 }
 
 function linkDevice() {
-    if($("#deviceID").val() ||$("#deviceID").val()==='' ){
+    if(!$("#deviceID").val()){
         errorMsgBorder('Device Id cannot be empty','dropdownMenu1')
     }else{
+        $("#linkDeviceBtn").html('<i class="fa fa-spinner fa-spin"></i> Processing..').attr('disabled','disabled')
         assetLink(current_asset_id, $("#deviceID").val(), function (status, data) {
         if (status) {
             successMsg('Device Linked Successfully');
@@ -183,6 +226,7 @@ function linkDevice() {
         } else {
             errorMsg('Error in Linking Device')
         }
+        $("#linkDeviceBtn").html('Link Device').attr('disabled',false)
         });
       }
 }
@@ -224,13 +268,13 @@ function addAsset() {
     var asset_desc = $.trim($("#asset_desc").val());
     
     if(asset_id == ""){
-        errorMsgBorder('Asset Id cannot be empty','asset_id');
+        errorMsgBorder('Asset ID is required','asset_id');
         return false;
     }else if(asset_name == ""){
-        errorMsgBorder('Asset Name cannot be empty','asset_name');
+        errorMsgBorder('Asset Name is required','asset_name');
         return false;
     } else if(asset_desc == ""){
-        errorMsgBorder('Description cannot be empty','asset_desc');
+        errorMsgBorder('Description is required','asset_desc');
         return false;
     }
     var assetObj = {
@@ -304,7 +348,8 @@ function loadDeviceList(searchText) {
     var queryParams = {
         "query": {
             "bool": {
-                "must": []
+                "must": [],
+                "should":[]
             }
         },
         "size": 25,
@@ -312,15 +357,47 @@ function loadDeviceList(searchText) {
     };
 
     if (searchText) {
-        var searchJson = {
-            "multi_match": {
-                "query": '*' + searchText + '*',
-                "type": "phrase_prefix",
-                "fields": ['_all']
+        queryParams.query['bool']['should'].push({ "wildcard": { "name": "*" + searchText + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "name": "*" + searchText.toLowerCase() + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "name": "*" + searchText.toUpperCase() + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "name": "*" + capitalizeFLetter(searchText) + "*" } })
+        queryParams.query['bool']["minimum_should_match"] = 1;
+        queryParams.query['bool']['should'].push({
+            "match_phrase": {
+                "name": "*" + searchText + "*"
             }
-        };
-        queryParams.query['bool']['must'] = [domainKeyJson, searchJson];
-
+        })
+        queryParams.query['bool']['should'].push({ "wildcard": { "modelId": "*" + searchText + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "modelId": "*" + searchText.toLowerCase() + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "modelId": "*" + searchText.toUpperCase() + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "modelId": "*" + capitalizeFLetter(searchText) + "*" } })
+        queryParams.query['bool']["minimum_should_match"] = 1;
+        queryParams.query['bool']['should'].push({
+            "match_phrase": {
+                "modelId": "*" + searchText + "*"
+            }
+        })
+        queryParams.query['bool']['should'].push({ "wildcard": { "version": "*" + searchText + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "version": "*" + searchText.toLowerCase() + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "version": "*" + searchText.toUpperCase() + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "version": "*" + capitalizeFLetter(searchText) + "*" } })
+        queryParams.query['bool']["minimum_should_match"] = 1;
+        queryParams.query['bool']['should'].push({
+            "match_phrase": {
+                "version": "*" + searchText + "*"
+            }
+        })
+        queryParams.query['bool']['should'].push({ "wildcard": { "id": "*" + searchText + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "id": "*" + searchText.toLowerCase() + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "id": "*" + searchText.toUpperCase() + "*" } });
+        queryParams.query['bool']['should'].push({ "wildcard": { "id": "*" + capitalizeFLetter(searchText) + "*" } })
+        queryParams.query['bool']["minimum_should_match"] = 1;
+        queryParams.query['bool']['should'].push({
+            "match_phrase": {
+                "id": "*" + searchText + "*"
+            }
+        })
+        queryParams.query['bool']['must'] = [domainKeyJson];
     } else {
         queryParams.query['bool']['must'] = [domainKeyJson];
     }
@@ -340,15 +417,21 @@ function loadDeviceList(searchText) {
 
             var resultData = searchQueryFormatterNew(res).data;
             device_list = resultData['data'];
-
-            for (var i = 0; i < device_list.length; i++) {
-                $(".deviceListUl").append('<li class="deviceListLi" onclick="setDeviceId(\'' + device_list[i].id + '\')">' +
-                    (device_list[i].name ? device_list[i].name : device_list[i].id) + ' | ' + device_list[i].modelId + ' | <b>' +
-                    device_list[i].version +
-                    '</b></li>');
+            $(".deviceListUl").html('');
+            if(device_list.length > 0){
+                for (const element of device_list) {
+                    $(".deviceListUl").append('<li class="deviceListLi" onclick="setDeviceId(\'' + element.id + '\')">' +
+                        (element.name ? element.name : element.id) + ' | ' + element.modelId + ' | <b>' +
+                        element.version +
+                        '</b></li>');
+                }
+            }else{
+                $('.deviceListUl').html(`<li class="deviceListLi" >No data found</li>`)
             }
+         
         } else {
             device_list = []
+            $('.deviceListUl').html(`<li class="deviceListLi" >No data found</li>`)
         }
 
 

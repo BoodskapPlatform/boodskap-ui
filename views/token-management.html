@@ -22,7 +22,7 @@
  <div class="panel-header">
       <!-- begin breadcrumb -->
     <ol class="breadcrumb pull-right  bskp-align-icon">
-        <li class="breadcrumb-item"><a href="<%= basepath %>/dashboard">Domain</a></li>
+        <li class="breadcrumb-item"><a href="<%= basepath %>/home">Home</a></li>
         <li class="breadcrumb-item"><a href="<%= basepath %>/token-management">Token Management</a></li>
         <li class="breadcrumb-item active">My App Tokens</li>
         <div class="ml-4">
@@ -33,7 +33,7 @@
     <!-- end breadcrumb -->
 
     <div class="page-header bskp-page-topic"><img src="images/menu/hardware-fanta_1-bskp.svg" class="bskp-topic-icon mr-1" > My App Tokens
-        <span class="panel-title ml-3" >Total Tokens: <b><span class="totalCount"></span></b></span> 
+        <span class="panel-title ml-3" >Total : <b><span class="totalCount"></span></b></span> 
     </div>
    
 </div>
@@ -43,7 +43,7 @@
     <div class="row m-0">
         <div class="col-12">
           <div class="btn-group btn-group-justified pull-right bskp-btn-group-align" >
-            <a class="btn bskp-refresh-bg" data-click="panel-reload" onclick="loadTokenList('all')" title="Refresh"><em class="fa fa-refresh"></em></a>
+            <a class="btn bskp-refresh-bg" onclick="loadTokenList('all')" title="Refresh"><em class="fa fa-refresh"></em></a>
           </div>
            
           <div class="form-group pull-right" style="margin-right: 10px;">
@@ -159,7 +159,7 @@
                 <h5>Are you sure want to delete <b><span class="fullName"></span> token</b>?</h5>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn  btn-secondary btn-close" data-dismiss="modal">Close</button>
+                <button type="button" class="btn  button-2 btn-close" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btnModal btn-secondary btn-proceed btnSubmit" onclick="proceedDelete()">Proceed</button>
             </div>
         </div><!-- /.modal-content -->
@@ -179,7 +179,7 @@
                 <h5>Are you sure want to make this <code><i class="icon-key2"></i> <b id="expireTokenId"></b> </code> <br> token expire?</h5>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn  btn-secondary btn-close" data-dismiss="modal">Close</button>
+                <button type="button" class="btn  button-2 btn-close" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btnModal btn-secondary btn-proceed btnSubmit" onclick="proceedExpire()">Proceed</button>
             </div>
         </div><!-- /.modal-content -->

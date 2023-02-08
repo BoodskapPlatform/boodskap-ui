@@ -75,7 +75,6 @@ var tree_menu_class = {
 
 
 function loadGroovyTreeMenu(obj) {
-    console.log(obj)
     var GROOVY_CODE = obj;
     //Creating the tree
     groovyTree = createTree('groovy_tree', 'white', tree_menu_class);

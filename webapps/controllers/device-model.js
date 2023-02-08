@@ -23,17 +23,20 @@ function loadDeviceModelList() {
     var fields = [
         {
             mData: 'id',
-            sTitle: 'Model Id',
+            sTitle: 'Model ID',
             orderable: true,
+            sWidth: '10%',
         },
         {
             mData: 'version',
             sTitle: 'Version',
             orderable: true,
+            sWidth: '10%',
         },
         {
             mData: 'description',
             sTitle: 'Description',
+            sWidth: '45%',
             orderable: false,
             mRender: function (data, type, row) {
                 return data ? data : '-';
@@ -42,6 +45,8 @@ function loadDeviceModelList() {
         {
             mData: 'registeredStamp',
             sTitle: 'Created Time',
+            sWidth: '20%',
+            orderable: true,
             mRender: function (data, type, row) {
                 return moment(data).format('MM/DD/YYYY hh:mm a')
             }
@@ -49,8 +54,8 @@ function loadDeviceModelList() {
         {
             mData: 'action',
             sTitle: 'Action',
+            sWidth: '15%',
             orderable: false,
-            sWidth: '12%',
             mRender: function (data, type, row) {
 
                 return '<button class="btn bskp-edit-btn mr-2" onclick="openModal(4,\'' + row["id"] + '\')" title="Board Configuration">  <img src="images/settings.svg" alt=""> </button>' +
@@ -61,21 +66,17 @@ function loadDeviceModelList() {
 
     ];
 
-
-
+    let data = 1000
     var tableOption = {
-        fixedHeader: {
-            header: true,
-            headerOffset: -5
-        },
-        responsive: true,
+        responsive: false,
+        autoWidth: false,
         paging: true,
         searching: true,
         dom: '<"bskp-search-left" f> lrtip',
         language: {
             "emptyTable": "No data available",
             "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
-            "searchPlaceholder": "Search by Model Id",
+            "searchPlaceholder": "Search by Model ID",
             loadingRecords: '',
             paginate: {
                 previous: '< Prev',
@@ -85,27 +86,62 @@ function loadDeviceModelList() {
         aaSorting: [[3, 'desc']],
         "ordering": true,
         iDisplayLength: 10,
+        scrollY: '100px',
+        scrollCollapse: true,
         lengthMenu: [[10, 50, 100], [10, 50, 100]],
         aoColumns: fields,
-        data : []
+        "bServerSide": true,
+        "bProcessing": true,
+        "sAjaxSource": API_BASE_PATH + "/dmodel/list/" + API_TOKEN_ALT + '/' + data,
+        "fnServerData": function (sSource, aoData, fnCallback, oSettings) {
+           
+
+            var keyName = fields[oSettings.aaSorting[0][0]]
+
+            var sortingJson = {};
+            sortingJson[keyName['mData']] = {"order": oSettings.aaSorting[0][1]};
+
+
+
+            oSettings.jqXHR = $.ajax({
+                "type": "GET",
+                "url": sSource,
+                success: function (data) {
+                    if (data.length > 0) {
+                        device_model_list = data;
+                        $(".deviceModelCount").html(data.length)
+                    } else {
+                        $(".deviceModelCount").html(0)
+                    }
+                    let resultData = {
+                        "recordsTotal": device_model_list.length,
+                        "recordsFiltered": device_model_list.length,
+                        "data": device_model_list
+                    }
+                    resultData['draw'] = oSettings.iDraw;
+
+                    fnCallback(resultData);
+                }
+            });
+        }
     };
 
-    getDeviceModel(1000,function (status, data) {
-        if(status && data.length > 0){
-            tableOption['data'] = data;
-            device_model_list = data;
-            $(".deviceModelCount").html(data.length)
-        }else{
-            $(".deviceModelCount").html(0)
-        }
+    deviceModelTable = $("#deviceModelTable").DataTable(tableOption);
+    $('.dataTables_filter input').attr('maxlength', 100)
+    $(".dataTables_scrollBody").removeAttr("style").css({"min-height":"calc(100vh - 425px)","position":"relative","width":"100%"});
 
-        deviceModelTable = $("#deviceModelTable").DataTable(tableOption);
-        $('.dataTables_filter input').attr('maxlength', 100)
-    })
+    // getDeviceModel(1000,function (status, data) {
+    //     if(status && data.length > 0){
+    //         tableOption['data'] = data;
+    //         device_model_list = data;
+    //         $(".deviceModelCount").html(data.length)
+    //     }else{
+    //         $(".deviceModelCount").html(0)
+    //     }
 
-
-
-
+    //     deviceModelTable = $("#deviceModelTable").DataTable(tableOption);
+    //     $('.dataTables_filter input').attr('maxlength', 100)
+    // })
 
 }
 
@@ -180,17 +216,17 @@ function addDevice() {
 
     if(device_id === "" ){
    
-        errorMsgBorder('Device ID is required', 'device_id');
+        showFeedback('Model ID is required', 'device_id','logdevice_id');
         return false;
        
     }else if(device_version === "" ){
    
-        errorMsgBorder('Device Name is required', 'device_version');
+        showFeedback('Model Version is required', 'device_version','logdevice_version');
         return false;
        
     }else if(device_desc === "" ){
    
-        errorMsgBorder('Device Name is required', 'device_desc');
+        showFeedback('Description is required', 'device_desc','logdevice_desc');
         return false;
        
     } else {
@@ -232,7 +268,6 @@ function updateDevice() {
 
     upsertDeviceModel(deviceObj, function (status, data) {
         if (status) {
-          
             successMsg('Device Model Updated Successfully');
             loadDeviceModelList();
             $("#addDevice").modal('hide');

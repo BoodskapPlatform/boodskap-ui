@@ -1780,7 +1780,6 @@ function openCorrID(id) {
     findByID(id,'COMMAND',function (status, data) {
         if (status) {
             var result = JSON.parse(data.result);
-            console.log(result)
             $(".cmdData").html(JSON.stringify(result['_source']));
             $("#cmdModal").modal('show');
         }

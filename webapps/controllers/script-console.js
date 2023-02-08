@@ -36,8 +36,7 @@ function mqttListen() {
         mqttSubscribe("/" + USER_OBJ.domainKey + "/log/#", 0);
         mqtt_client.onMessageArrived = function (message) {
 
-            console.log("mqtt_client ============> Connected!!!!!!!");
-            console.log(message);
+           
 
             var parsedData = JSON.parse(message.payloadString);
             var topicName = message.destinationName;
@@ -157,8 +156,6 @@ function loadTerminal() {
 
             if (event.ctrlKey && event.keyCode === 13) {
 
-                console.log("commandsList--------------------1");    
-                console.log(commandsList);    
 
                 if (commandsList.length > 0) {
                     var id = guid();
@@ -255,17 +252,12 @@ function loadTerminal() {
                         })
                     } else {
 
-                        console.log("cmdObj--------------------2");    
-                        console.log(cmdObj);   
 
                         this.echo('<div class="log_' + id + '">' + moment().format("MM/DD/YYYY hh:mm a") +
                             " | Command executed successfully </div><div class='console_" + id + "'></div><div class='console_loader_" + id + " text-info'>" +
                             '<i class="fa fa-spinner fa-spin"></i> waiting for command response</div>', {raw: true});
                         executeConsoleScript(cmdObj, function (status, data) {
 
-                            console.log("executeConsoleScript----------------res----3");    
-                            console.log(status); 
-                            console.log(data); 
 
                             if (status) {
                                 // console.log(data)
@@ -577,9 +569,6 @@ function executeScriptCommand() {
 
         executeConsoleScript(cmdObj, function (status, data) {
 
-            console.log("executeConsoleScript-----------------1");
-            console.log(status);
-            console.log(data);
 
             if (status) {
                 console.log(data)

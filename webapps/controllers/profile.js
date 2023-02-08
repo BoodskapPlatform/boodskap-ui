@@ -151,7 +151,6 @@ function updateProfile(obj) {
 
     upsertUser(obj,function (status, data) {
         if(status){
-            console.log(obj);
             delete obj.password;
             USER_OBJ.user = obj;
             Cookies.set('user_details', USER_OBJ);

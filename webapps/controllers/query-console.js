@@ -51,7 +51,7 @@ function loadIdList(id) {
 
 function loadMessageDef() {
 
-    $(".actionName").html('Message Id');
+    $(".actionName").html('Message ID');
 
     $("#idList").html('<option value="">--- Choose ---</option>')
 
@@ -59,10 +59,9 @@ function loadMessageDef() {
 
         query_list = data;
 
-        for (var i = 0; i < data.length; i++) {
+        for (const element of data) {
 
-
-            $("#idList").append('<option value="' + data[i]['id'] + '">' + data[i]['id'] + ' - ' + data[i]['name'] + '</option>')
+            $("#idList").append('<option value="' + element['id'] + '">' + element['id'] + ' - ' + element['name'] + '</option>')
         }
 
     })
@@ -218,10 +217,13 @@ function executeQuery() {
 
     Cookies.set('bdskap_elk',defaultQuery)
 
-
-    if ($.trim(json) && $("#idList").val()) {
-
-
+    if(!$('#options').val()){
+        showSelectFeedback('Choose Index is required', 'options','indexAlert');
+        return false;
+    }else if(!$('#idList').val()){
+        showSelectFeedback('Choose '+$(".actionName").text()+' is required', 'idList','idListAlert');
+        return false;
+    }else{
         if (isJSON(json)) {
 
             var startTime = new Date().getTime();
@@ -263,17 +265,9 @@ function executeQuery() {
         } else {
             errorMsg('Invalid JSON Query');
         }
-
-    } else  {
-
-       
-         $(".index").text("Required Field cannot be empty")
-         $(".select2-container--default, .select2-selection--single").css({'border':'1px solid red',"border-radius":"10px"})
-        setTimeout(function(){
-            $(".select2-container--default, .select2-selection--single").css('border','')
-            $(".index").text('')
-        },2500)
     }
+
+    
 }
 
 

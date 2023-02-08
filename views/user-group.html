@@ -15,7 +15,7 @@
 <div class="container mt-3 platformBody">
     <!-- begin breadcrumb -->
     <ol class="breadcrumb pull-right">
-        <li class="breadcrumb-item"><a href="<%= basepath %>/dashboard">Domain</a></li>
+        <li class="breadcrumb-item"><a href="<%= basepath %>/home">Home</a></li>
         <li class="breadcrumb-item"><a href="<%= basepath %>/user-management">User Management</a></li>
         <li class="breadcrumb-item active">Users Group</li>
     </ol>
@@ -28,18 +28,18 @@
     <div class="panel panel-inverse">
         <div class="panel-heading">
             <div class="panel-heading-btn">
-                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
-                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-success" data-click="panel-reload" onclick="loadUserGroup()"><i class="fa fa-redo"></i></a>
-                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-warning" title="Help"><i class="icon-help"></i></a>
+                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-default" data-click="panel-expand" title="Expand"><i class="fa fa-expand"></i></a>
+                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-success" onclick="loadUserGroup()" title="Refresh"><i class="fa fa-redo"></i></a>
+                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-warning" title="Help" title="Help"><i class="icon-help"></i></a>
 
             </div>
-            <h4 class="panel-title">Total Users Group: <b><span class="userGroupCount"></span></b></h4>
+            <h4 class="panel-title">Total :<b><span class="userGroupCount"></span></b></h4>
         </div>
         <div class="panel-body" style="background-color: #eeeeee00;border: 1px solid #eee;padding-bottom: 30px;">
 
             <div class="btn-group btn-group-justified pull-right">
                 <a class="btn btn-default" onclick="openModal(1)"><i class="fa fa-plus-square"></i> <span class="hidden-xs">Add User Group</span></a>
-                <a class="btn btn-default" data-click="panel-reload" onclick="loadUserGroup()"><i class="fa fa-refresh"></i></a>
+                <a class="btn btn-default" onclick="loadUserGroup()" title="Refresh"><i class="fa fa-refresh"></i></a>
             </div>
 
 
@@ -79,7 +79,7 @@
                         <div  class="col-md-6">
                             <div  class="form-group">
                                 <label  class="inputLabel">Group Name *</label>
-                                <input  class="form-control input-sm" placeholder="" type="text" id="group_name" required>
+                                <input  class="form-control input-sm" placeholder="" maxlength="100" type="text" id="group_name" required>
                             </div>
                         </div>
                     </div>
@@ -87,20 +87,20 @@
                         <div  class="col-md-6">
                             <div  class="form-group">
                                 <label  class="inputLabel">Email</label>
-                                <input  class="form-control input-sm" placeholder="" type="email" id="group_email">
+                                <input  class="form-control input-sm" placeholder="" maxlength="100" type="email" id="group_email">
                             </div>
                         </div>
                         <div  class="col-md-6">
                             <div  class="form-group">
                                 <label  class="inputLabel">Mobile No.</label>
-                                <input  class="form-control input-sm" placeholder="" type="text" id="group_phone" onkeypress="return onlyNumericSpecialChar(event);" minlength="10" maxlength="11">
+                                <input  class="form-control input-sm" placeholder="" maxlength="20" type="text" id="group_phone" onkeypress="return onlyNumericSpecialChar(event);" minlength="10" maxlength="11">
                                 <small>with plus sign & country code, eg., +19876543210</small>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn button-2" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btnModal btnSubmit">Proceed</button>
                 </div>
             </form>
@@ -119,7 +119,7 @@
                 <h5>Are you sure want to delete <b><span class="delete_group_id"></span></b> user group?</h5>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn button-2" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btnModal btnSubmit" onclick="proceedDelete()">Proceed</button>
             </div>
         </div><!-- /.modal-content -->
@@ -137,7 +137,7 @@
                 <h5>Are you sure want to remove <b><span class="removeUserCount"></span></b><span class="userText ml-1"></span> from the user group?</h5>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn button-2" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btnModal btnSubmit" onclick="proceedDeleteUser()">Proceed</button>
             </div>
         </div><!-- /.modal-content -->
@@ -146,15 +146,15 @@
 
 
 <div id="addUserModal" class="modal fade" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content"  style="width: 600px">
+    <div class="modal-dialog" role="document" style="max-width: 800px !important;margin: 1.75rem 25rem !important;">
+        <div class="modal-content" >
             <div class="modal-header">
                 <h4 class="modal-title">Add User To Group</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
 
-                <p>Total Users: <b><span class="userCount"></span></b>
+                <p>Total : <b><span class="userCount"></span></b>
                 <span class="pull-right">Selected Users: <b><span class="selectedCount"></span></b></span>
                 </p>
 
@@ -165,7 +165,7 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn button-2" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btnModal btnSubmit" onclick="addUserToGroup()">Add</button>
             </div>
         </div><!-- /.modal-content -->

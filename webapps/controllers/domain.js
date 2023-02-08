@@ -93,7 +93,6 @@ function openUpgrade() {
     $("#inside_slide", ).css({
       "width": "450px"
     })
-    console.log();
     $("#plan_type").text("Preferred").addClass("plan_type_Preferred")
     $("#plan_price").text("$ 99").addClass("plan_type_Preferred")
   }

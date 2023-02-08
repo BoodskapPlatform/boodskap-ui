@@ -31,6 +31,7 @@ function loadUsersList() {
         {
             mData: 'fullname',
             sTitle: 'Full Name',
+            "orderable": false,
             mRender: function (data, type, row) {
                 data = (row['firstName'] ? row['firstName'] : "") + " " + (row['lastName'] ? row['lastName'] : "");
                 return data;
@@ -38,11 +39,13 @@ function loadUsersList() {
         },
         {
             mData: 'email',
+            "orderable": false,
             sTitle: 'Email'
         },
         {
             mData: 'primaryPhone',
             sTitle: 'Mobile No.',
+            "orderable": false,
             mRender: function (data, type, row) {
                 return data ? data : "-";
             }
@@ -52,8 +55,20 @@ function loadUsersList() {
             sTitle: 'Roles',
             orderable: false,
             mRender: function (data, type, row) {
-                data = data.join(", ")
-                return data;
+                
+                var inputs = [];
+                data.map((word) => {
+                    let capitalizedFirst = word.charAt(0).toUpperCase();
+                    let rest = word.slice(1).toLowerCase();
+                    if(rest.indexOf("admin") > -1){
+                        rest = rest.split("admin")[0]+" "+"Admin";
+                    }
+                    inputs.push(capitalizedFirst + rest);
+                });
+                inputs = inputs.join(", ");
+                
+                return inputs;
+                
             }
         },
         {
@@ -70,9 +85,9 @@ function loadUsersList() {
             sWidth: '10%',
             mRender: function (data, type, row) {
 
-                var str = '<button class="btn btn-sm btn-icon btn-default" onclick="openModal(4,\'' + row["email"] + '\')"><i class="icon-sign-in"></i></button>' +
-                    '<button class="btn btn-sm btn-icon btn-default" onclick="openModal(2,\'' + row["email"] + '\')"><i class="icon-edit2"></i></button>' +
-                    '<button class="btn btn-sm btn-icon btn-default" onclick="openModal(3,\'' + row['email'] + '\')"><i class="icon-trash-o"></i></button>';
+                var str = '<button class="btn btn-sm btn-icon btn-default" title="Login As" onclick="openModal(4,\'' + row["email"] + '\')"><i class="icon-sign-in"></i></button>' +
+                    '<button class="btn btn-sm btn-icon btn-default" title="Edit" onclick="openModal(2,\'' + row["email"] + '\')"><i class="icon-edit2"></i></button>' +
+                    '<button class="btn btn-sm btn-icon btn-default" title="Delete" onclick="openModal(3,\'' + row['email'] + '\')"><i class="icon-trash-o"></i></button>';
 
                 if (row['roles'].indexOf('admin') >= 0) {
                     str = '-';
@@ -103,17 +118,28 @@ function loadUsersList() {
 
     var tableOption = {
         "language": {
-
+            "emptyTable": "No data available",
+            "zeroRecords": "No data available",
+            "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
+            "searchPlaceholder": "Search here",
+            loadingRecords: '',
+            paginate: {
+                previous: '< Prev',
+                next: 'Next >'
+            },
             "processing": '<i class="fa fa-spinner fa-spin"></i> Processing'
         },
         responsive: true,
         paging: true,
         searching: true,
+        scrollY: '100px',
+        scrollCollapse: true,
         aaSorting: [[5, 'desc']],
         "ordering": true,
         iDisplayLength: 10,
         lengthMenu: [[10, 50, 100], [10, 50, 100]],
         aoColumns: fields,
+        
         "bProcessing": true,
         "bServerSide": true,
         "sAjaxSource": API_BASE_PATH + '/elastic/search/query/' + API_TOKEN_ALT,
@@ -231,6 +257,7 @@ function loadUsersList() {
     };
 
     userTable = $("#userTable").DataTable(tableOption);
+    $(".dataTables_scrollBody").removeAttr("style").css({"min-height":"calc(100vh - 425px)","position":"relative","width":"100%"});
 
     $('#userTable tbody').on('click', 'td.details-control', function () {
         var tr = $(this).closest('tr');
@@ -724,3 +751,12 @@ function checkNewRole(obj){
     }
 }
 
+function passwordView(obj){
+    if($(obj).hasClass("fa-eye")){
+        $(obj).removeClass("fa-eye").addClass("fa-eye-slash");
+        $("#password").attr("type","text");
+    }else{
+        $(obj).removeClass("fa-eye-slash").addClass("fa-eye");
+        $("#password").attr("type","password");
+    }
+}

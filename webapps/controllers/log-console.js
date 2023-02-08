@@ -22,6 +22,7 @@ $(document).ready(function () {
     for(var key in logLevels){
         $(".logLevelList").append('<option value="'+key+'">'+key.toUpperCase()+'</option>')
     }
+    mqttConnect()
 });
 
 
@@ -38,9 +39,13 @@ function mqttListen() {
 
         }*/
 
-        setTimeout(function () {
+        /* setTimeout(function () {
             mqttSubscribeGlobal("/" + USER_OBJ.domainKey + "/log/#", 0);
-        }, 500)
+        }, 500) */
+
+        mqttSubscribe("/" + USER_OBJ.domainKey + "/log/#", 0);
+
+        mqttSubscribe("/global/#", 0);
 
 
         mqtt_client.onMessageArrived = function (message) {
@@ -48,7 +53,6 @@ function mqttListen() {
             var parsedData = JSON.parse(message.payloadString);
             var topicName = message.destinationName;
 
-            // console.log("topicName => "+topicName, parsedData)
 
             var nodeClass = new Date().getTime();
             var color = 'default';

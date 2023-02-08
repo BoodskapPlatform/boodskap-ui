@@ -11,8 +11,7 @@ $(document).ready(function () {
     $('body').removeClass('bg-white');
    
   
-    document.getElementById('importFile')
-        .addEventListener('change', getImportFile)
+    //document.getElementById('importFile').addEventListener('change', getImportFile)
 });
 
 
@@ -27,7 +26,7 @@ function loadMessageDef() {
     var fields = [
         {
             mData: 'id',
-            sTitle: 'Message Id',
+            sTitle: 'Message ID',
 
         },
         {
@@ -37,7 +36,15 @@ function loadMessageDef() {
         {
             mData: 'description',
             orderable: false,
-            sTitle: 'Description'
+            sTitle: 'Description',
+            mRender: function (data, type, row) {
+
+                var desc = data;
+
+                return '<div style="max-width: 500px;" class="text-truncate" title="'+data+'">'+data+'</div>';
+
+            }
+            
         },
         {
             mData: 'fields',
@@ -79,7 +86,7 @@ function loadMessageDef() {
             "emptyTable": "No data available",
             "zeroRecords": "No data available",
             "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
-            "searchPlaceholder": "Search by Message Id",
+            "searchPlaceholder": "Search by Message ID",
             loadingRecords: '',
             paginate: {
                 previous: '< Prev',
@@ -111,6 +118,7 @@ function loadMessageDef() {
 
 
 }
+
 
 function loadRowClicks() {
 
@@ -196,6 +204,7 @@ function openModal() {
     $(".msgFieldBody").html("");
 
     addMessageField();  
+    $("#addMessageRule form").attr("onsubmit","addMessageRule()")
 }
 
 
@@ -230,14 +239,14 @@ function openEditModal(id) {
         definedFields(message_obj.fields[i]);
     }
     addMessageField();
-
+    $("#addMessageRule form").attr("onsubmit","addMessageRule('edit')")
 }
 
 function definedFields(obj) {
 
     var str = `<tr>
     <td>
-        <label>` + obj.name + `</label>
+        <label class='field-name'>` + obj.name + `</label>
     </td>
     <td>
      <label>` + obj.dataType + `</label>
@@ -301,7 +310,7 @@ function addMessageField() {
     TEMP_MSG_FIELD_COUNT ++;
 }
 
-function addMessageRule() {
+function addMessageRule(place) {
 
     var msg_id =$.trim($("#msg_id").val() )
     var msg_name =$.trim($("#msg_name").val() )
@@ -329,31 +338,71 @@ function addMessageRule() {
 
     }else{
             var fields = []; 
+            var fieldValArr = [];
             var check = false;
-           
-            $.each($('.fieldrow'),function () {
-               if($(this).find('.mesg-field').val() === ""){ 
-                    errorMsgBorder('Field Name is required', $(this).find('.mesg-field').attr('id'));
-                    check = false;
-                    return false;
-                }else if($(this).find('.mesg-type').val() === ""){ 
-                        errorMsgBorder('Field Name is required', $(this).find('.mesg-type').attr('id'));
+            console.log(place);
+            if (place!="edit"){
+                
+                $.each($('.fieldrow'),function () {
+                    
+                    if($(this).find('.mesg-field').val() === ""){ 
+                        errorMsgBorder('Field Name is required', $(this).find('.mesg-field').attr('id'));
+                        check = false;
+                        return false;
+                    }else if($(this).find('.mesg-type').val() === ""){ 
+                        errorMsgBorder('Data Type is required', $(this).find('.mesg-type').attr('id'));
+                        check = false;
+                        return false;
+                    }else if(fieldValArr.includes($(this).find(".mesg-field").val()) == true){
+                        errorMsgBorder('Field Name cannot be duplicted', $(this).find('.mesg-field').attr('id'));
+                        check = false;
+                        return false;
+                    }else{
+                            fieldValArr.push($(this).find(".mesg-field").val());
+                            var json = {
+                                "dataType":$(this).find('.mesg-type').val(),
+                                "format": "AS_IS",
+                                "label": "",
+                                "description": "",
+                                "name": $(this).find('.mesg-field').val()
+                            }
+                            fields.push(json);
+                            check = true;
+                            return true;
+                    }
+                })
+            }else{
+                $.each($(".field-name"),function (){
+                    fieldValArr.push($(this).text());
+                })
+                $.each($('.fieldrow'),function () {
+                    if(fieldValArr.includes($(this).find(".mesg-field").val()) == true){
+                        errorMsgBorder('Field Name cannot be duplicted', $(this).find('.mesg-field').attr('id'));
                         check = false;
                         return false;
                     }
-                    else{
-                        var json = {
-                            "dataType":$(this).find('.mesg-type').val(),
-                            "format": "AS_IS",
-                            "label": "",
-                            "description": "",
-                            "name": $(this).find('.mesg-field').val()
-                        }
-                        fields.push(json);
+                    if($(this).find('.mesg-field').val() != "" && $(this).find('.mesg-type').val() == ""){ 
+                            errorMsgBorder('Data Type is required', $(this).find('.mesg-type').attr('id'));
+                            check = false;
+                            return false;
+                    }else if($(this).find('.mesg-field').val() != "" && $(this).find('.mesg-type').val() != ""){
+                            fieldValArr.push($(this).find(".mesg-field").val());
+
+                            var json = {
+                                "dataType":$(this).find('.mesg-type').val(),
+                                "format": "AS_IS",
+                                "label": "",
+                                "description": "",
+                                "name": $(this).find('.mesg-field').val()
+                            }
+                            fields.push(json);
+                            check = true;
+                            return true;
+                    }else{
                         check = true;
-                        return true;
                     }
-                       })
+                })
+            }        
 
     // for (var i = 0; i < fields.length; i++) {
 
@@ -415,7 +464,16 @@ function addMessageRule() {
                         loadMessageDef();
                         $("#addMessageRule").modal('hide');
                     } else {
-                        errorMsg('Error in Define Message')
+                        if(data.message){
+                            var errmessage = data.message.replaceAll("_"," ")
+                            if(errmessage == "INVALID MESSAGE ID"){
+                                errmessage = "Message ID minimum 3 digits required";
+                            }
+                            errorMsg(errmessage);
+                        }else{
+                            errorMsg('Error in Define Message');
+                        }
+                        
                     }
                     $(".btnSubmit").removeAttr('disabled');
                 })
@@ -631,14 +689,32 @@ function loadJsEditor(code) {
 }
 
 
-function getImportFile(event) {
-    const input = event.target;
-    if (input && input.files.length > 0) {
-        placeFileContent(
-            document.getElementById('imported_content'),
-            input.files[0]);
+function getImportFile(input,event) {
+    //const input = event.target;
+    if(input.value.length ){
+        var file = input.files[0];
+        var type= input.value.split(".");
+        type = type[type.length - 1]
+        var filename = file.name;
 
-    }
+        if(type == "json" || type == "JSON"){
+            if (input && input.files.length > 0) {
+                placeFileContent(
+                    document.getElementById('imported_content'),
+                    input.files[0]);
+
+            }
+        }else{
+            $("#imported_content").val("")
+            $("#importFile").val("")
+            loadJsEditor("");
+            errorMsg('Please import valid json file!');
+        }
+    }else{
+        $("#imported_content").val("")
+        $("#importFile").val("")
+        loadJsEditor("");
+    }       
 }
 
 function placeFileContent(target, file) {
@@ -666,6 +742,9 @@ function readFileContent(file) {
     })
 }
 
+
+var duplicateIds = [];
+var newIds = [];
 function importContent() {
     var val = jsEditor.getSession().getValue();
 
@@ -676,7 +755,8 @@ function importContent() {
 
             $(".btnSubmit").attr('disabled', 'disabled');
 
-
+            duplicateIds = [];
+            newIds = [];
             async.filter(val, function (obj, cbk) {
 
                 checkAndInsert(obj, function (d) {
@@ -684,8 +764,46 @@ function importContent() {
                 })
 
             }, function (err, result) {
+                ///show alert for all duplicate msg id
+
                 loadMessageDef();
                 $(".btnSubmit").removeAttr('disabled');
+                $('#importModal').modal('hide');
+                if(duplicateIds.length){
+                    var dupIds = "";
+                    duplicateIds.forEach(element => {
+                        dupIds = element+",";
+                    });
+                    dupIds=dupIds.substring(0,dupIds.length-1);
+                    var text = dupIds + " Id's are duplicated"
+                    errorMsg(text);
+
+                }
+                
+                if(duplicateIds.length){
+                    setTimeout(() => {
+                        if(newIds.length){
+                            var newAddIds = "";
+                            newIds.forEach(element => {
+                                newAddIds = element+",";
+                            });
+                            newAddIds=newAddIds.substring(0,newAddIds.length-1);
+                            var text = newAddIds + " Id's are Defined Successfully"
+                            successMsg(text);
+                        }
+                    }, 2000);
+                }else{
+                    if(newIds.length){
+                        var newAddIds = "";
+                        newIds.forEach(element => {
+                            newAddIds = element+",";
+                        });
+                        newAddIds=newAddIds.substring(0,newAddIds.length-1);
+                        var text = newAddIds + " Id's are Defined Successfully"
+                        successMsg(text);
+                    }
+                }
+                
 
             })
 
@@ -702,18 +820,23 @@ function importContent() {
 function checkAndInsert(obj, cbk) {
 
     retreiveMessageDef(obj.id, function (status, data) {
-
         if (status) {
             $(".btnSubmit").removeAttr('disabled');
-            errorMsg(obj.id + ' - Message ID already defined');
+            duplicateIds.push(obj.id);
+            //errorMsg(obj.id + ' - Message ID already defined');
             cbk(null)
         } else {
             createUpdateMessageDef(obj, function (status, data) {
                 if (status) {
                     successMsg(obj.id + ' - Message Defined Successfully');
-
+                    newIds.push(obj.id)
                 } else {
-                    errorMsg('Error in Define Message')
+                    if(data.message){
+                        var errmessage = data.message.replaceAll("_"," ")
+                        errorMsg(errmessage);
+                    }else{
+                        //errorMsg('Error in Define Message');
+                    }
                 }
                 cbk(null)
             })

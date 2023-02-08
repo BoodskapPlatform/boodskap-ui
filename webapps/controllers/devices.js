@@ -3,8 +3,7 @@ var device_list = [];
 var device_model_list = [];
 var current_device_id = {};
 var cmdTimer = {};
-var choosemodel= true;
-var modelmode = 'new';
+
 
 $(document).ready(function () {
     loadDeviceList();
@@ -13,8 +12,6 @@ $(document).ready(function () {
 });
 
 function loadDeviceList() {
-
-    const self = this;
 
 
     if (deviceTable) {
@@ -25,7 +22,7 @@ function loadDeviceList() {
     var fields = [
         {
             mData: 'id',
-            sTitle: 'Device Id',
+            sTitle: 'Device ID',
             sWidth: '10%',
             mRender: function (data, type, row) {
 
@@ -124,13 +121,15 @@ function loadDeviceList() {
             searching: true,
             aaSorting: [[6, 'desc']],
             "ordering": true,
+            scrollY: '100px',
+            scrollCollapse: true,
             iDisplayLength: 10,
             lengthMenu: [[10, 50, 100], [10, 50, 100]],
             dom: '<"bskp-search-left" f> lrtip',
             language: {
                 "emptyTable": "No data available",
                 "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
-                "searchPlaceholder": "Search by Device Id",
+                "searchPlaceholder": "Search by Device ID",
                 loadingRecords: '',
                 paginate: {
                     previous: '< Prev',
@@ -138,7 +137,7 @@ function loadDeviceList() {
                 }
             },
             aoColumns: fields,
-            // "bProcessing": true,
+            "bProcessing": true,
             "bServerSide": true,
             "sAjaxSource": API_BASE_PATH + '/elastic/search/query/' + API_TOKEN_ALT,
             "fnServerData": function (sSource, aoData, fnCallback, oSettings) {
@@ -168,8 +167,7 @@ function loadDeviceList() {
 
                 }
                     queryParams.query['bool']['must'] = [domainKeyJson];
-
-
+                
                 var ajaxObj = {
                     "method": "GET",
                     "extraPath": "",
@@ -188,10 +186,8 @@ function loadDeviceList() {
                     success: function (data) {
 
                         var resData = searchQueryFormatterNew(data);
-
                         var resultData = resData.data;
                         device_list =resultData.data;     
-                        console.log(device_list);
                         resultData['draw'] = oSettings.iDraw;
 
                         // $(".deviceCount").html(resData.aggregations.total_count.value);
@@ -206,6 +202,7 @@ function loadDeviceList() {
 
     deviceTable = $("#deviceTable").DataTable(tableOption);
     $('.dataTables_filter input').attr('maxlength', 100)
+    $(".dataTables_scrollBody").removeAttr("style").css({"min-height":"calc(100vh - 425px)","position":"relative","width":"100%"});
 
 }
 
@@ -260,7 +257,7 @@ function loadDeviceModels(check) {
         if(status && data.length > 0){
             device_model_list = data;
 
-           check === 'update' ? '' : $("#device_model").append('<option value="newmodel">- Create New Model</option>') ;
+        //    check === 'update' ? '' : $("#device_model").append('<option value="newmodel">- Create New Model</option>') ;
             for(var i=0;i<data.length;i++){
                $("#device_model").append('<option value="'+data[i].id+'">'+data[i].id+'</option>');  
                 if($("#device_model").val() === data[i].id){
@@ -268,7 +265,10 @@ function loadDeviceModels(check) {
                 $("#device_desc").html(data[i].description)
                 }           
             }
-           
+            $("#device_model").select2({
+                placeholder: '- Create New Model',
+            });
+            $("#device_model").val('').trigger('change')
             if($("#device_model").val() === 'newmodel' &&   check !== 'update'){
                 togglemodel('newmodel');      
             }else{
@@ -281,52 +281,10 @@ function loadDeviceModels(check) {
     })
 }
 
-function assignVersion() {
-    $("#device_model").val() === '' ? $("#device_version").val('') && $("#device_desc").val('') : '' ;
-    for(var i=0;i<device_model_list.length;i++){
-        if($("#device_model").val() === device_model_list[i].id){
-            $("#device_version").val(device_model_list[i].version);
-            $("#device_desc").val(device_model_list[i].description);
-        }     
-        
-    }
-    if($("#device_model").val() === 'newmodel'){
-        togglemodel('newmodel')     
-    }else{
-        togglemodel('choose')  
-    }
-}
 
 
-function togglemodel(check) {
-     if(check === 'edit'){      
-        choosemodel=true;  
-        modelmode = 'edit'   
-        console.log(modelmode);
-        $(".new-model").addClass('d-none');
-        $(".togeditmodel").removeClass('d-none');
-        $("#device_version").removeAttr('disabled','disabled');  
-        $("#device_desc").removeAttr('disabled','disabled');
-    }else if(check === 'newmodel'){
-        choosemodel=false;  
-        modelmode = 'new';               
-        $(".togeditmodel").addClass('d-none');
-        $(".new-model").removeClass('d-none');
-        $("#device_version").removeAttr('disabled');
-        $("#device_desc").removeAttr('disabled');
-        $("#device_version").val('');
-        $("#device_desc").val('');
-    }
-    else{
-        choosemodel=true; 
-        modelmode = 'choose';
-        $(".new-model").addClass('d-none');
-        $(".togeditmodel").removeClass('d-none');
-        $("#device_version").attr('disabled','disabled');  
-        $("#device_desc").attr('disabled','disabled');
-     } 
-  
-}
+
+
 
 function openModal(type,id) {
     if (type === 1) {
@@ -405,7 +363,7 @@ function openModal(type,id) {
 
 function saveSettings() {
     if($.trim($("#board_config").val()) === ""){
-        errorMsgBorder('Configuration cannot be empty', 'board_config');
+        errorMsgBorder('Board Configuration is required', 'board_config');
         return false;
     }
 
@@ -451,29 +409,31 @@ function addDevice() {
     var device_version =$.trim($("#device_version").val() );
     var device_desc =$.trim($("#device_desc").val() );
 
-     if(device_id === "" ){
-        errorMsgBorder('Device ID is required', 'device_id');
+     if(!device_id){
+        showFeedback('Device ID is required', 'device_id','logdevice_id');
         return false;
        
-    }else if(device_name === "" ){
+    }else if(!device_name){
    
-        errorMsgBorder('Device Name is required', 'device_name');
+        showFeedback('Device Name is required', 'device_name','logdevice_name');
         return false;
        
-    }else if(device_model === "" ){
+    }else if(!$("#device_model").val()){
+        showSelectFeedback('Device Model is required', 'device_model','logdevice_model');
+        return false;
+    }else if(!device_model){
    
-        errorMsgBorder('Device Model is required', 'new_device_model');
+        showFeedback('Device Model is required', 'new_device_model','lognew_device_model');
         return false;
        
-    }else if(device_version === "" ){
+    }else if(!device_version){
    
-        errorMsgBorder('Device Version is required', 'device_version');
+        showFeedback('Device Version is required', 'device_version','logdevice_version');
         return false;
        
     
-    }else if(device_desc === "" ){
-   
-        errorMsgBorder('Device Description is required', 'device_desc');
+    }else if(!device_desc){
+        showFeedback('Device Description is required', 'device_desc','logdevice_desc');
         return false;
        
     }else{    
@@ -487,21 +447,17 @@ function addDevice() {
             "version": $("#device_version").val(),
             "description": $("#device_desc").val(),
         }
-    console.log(modelmode);
-    console.log(modelstatus);
+    
     async.series({
         SameModelID: function (rmdcbk) {
-            console.log("same");
         if( modelmode === 'new'){
          retreiveDeviceModel(modelObj.id, function (status, data) {
             if (status) {
                 modelstatus =false;
-                console.log("revif");
                 $(".btnSubmit").removeAttr('disabled');
                 errorMsgBorder('Device Model ID already exist', 'new_device_model');
                 rmdcbk(null, true);
             }else{
-                console.log("revelse");
                 modelstatus =true;
                 rmdcbk(null, false);
             }
@@ -511,8 +467,6 @@ function addDevice() {
         }
         },
         TriggerModelCreate: function (mdcbk){
-            console.log(modelmode);
-            console.log(modelstatus);
               // Allow if is not choose - Create Device Model  
           if(modelmode !== 'choose' && modelstatus){
             upsertDeviceModel(modelObj,function (status, data) {
@@ -540,7 +494,6 @@ function addDevice() {
         CreateDevice: function(Dcbk){
               // Device Create  
               if(modelstatus){
-                console.log("dev creat");
                 var deviceObj = {
                     "id": $("#device_id").val(),
                     "name": $("#device_name").val(),
@@ -557,7 +510,9 @@ function addDevice() {
                         upsertDevice(deviceObj,function (status, data) {
                             if (status) {
                                 successMsg('Device Created Successfully');
-                                loadDeviceList();
+                                setTimeout(() => {
+                                     loadDeviceList();
+                                }, 1500);
                                 $("#addDevice").modal('hide');
                                 Dcbk(null, true);
                             } else {
@@ -644,7 +599,7 @@ function updateDevice() {
             dcbk(null, true);
             setTimeout(function () {
                 loadDeviceList();
-            },500)
+            },1500)
             
             $("#addDevice").modal('hide');
         } else {

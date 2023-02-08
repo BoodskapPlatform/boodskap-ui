@@ -1,5 +1,5 @@
 <style>
-    .bskp-modal tbody > tr:first-child > td{
+/*     .bskp-modal tbody > tr:first-child > td{
         padding: 20px 15px 8px 15px !important;
 }
 .bskp-modal tbody > tr > td:first-child{
@@ -10,6 +10,10 @@
 }
 #addMessageRule tbody > tr ,#addMessageRule tbody > tr > td{
     border: 0px !important;
+}
+ */
+.bskp-table th:first-child {
+    padding-left: 15px !important;
 }
 
 </style>
@@ -22,9 +26,9 @@
          <!-- begin breadcrumb -->
    <div>
         <ol class="breadcrumb pull-right bskp-align-icon">
-            <li class="breadcrumb-item"><a href="<%= basepath %>/dashboard">Domain</a></li>
-            <li class="breadcrumb-item"><a href="<%= basepath %>/record-definition">Record Definition</a></li>
-            <li class="breadcrumb-item active">Define Record</li>
+            <li class="breadcrumb-item"><a href="<%= basepath %>/home">Home</a></li>
+            <!-- <li class="breadcrumb-item"><a href="<%= basepath %>/record-definition">Record Definition</a></li> -->
+            <li class="breadcrumb-item active">Record Definition</li>
             <div class="ml-4">
                 <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg"title="Expand" data-click="panel-expand"><em class="fa fa-expand"></em></a>
                 <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg" title="Help"><em class="icon-help"></em></a>
@@ -34,7 +38,7 @@
     <!-- end breadcrumb -->
     <!-- begin page-header -->
     <div class="page-header bskp-page-topic"><img src="images/menu/record-definition-bskp.svg" class="bskp-topic-icon mr-1" > Record Definition
-        <span class="panel-title ml-3" style="color: #2d2f79;">Total Defined Records: <b><span class="recordCount"></span></b></span> </div>
+        <span class="panel-title ml-3" style="color: #2d2f79;">Total: <b><span class="recordCount"></span></b></span> </div>
     
     <!-- end page-header -->
       <div class="panel-body" style="background-color: #eeeeee00;">
@@ -44,7 +48,7 @@
                         <a class="btn bskp-btn-shadow bskp-blue-bg" onclick="openModal()"> <img src="images/plus.svg" class="bskp-plusvg"> <span class="hidden-xs">&nbsp;Define Record</span></a>
                         <a class="btn bskp-radius-btn" id="exportMsg" title="Export"> <img src="images/download.svg" alt=""> </a>
                         <a class="btn bskp-radius-btn" id="importMsg" onclick="importMsg()" title="Import"> <img src="images/upload.svg" alt=""></a>
-                        <a class="btn bskp-refresh-bg ref-btn" title="Refresh" data-click="panel-reload" onclick="loadRecordDef()" ><img src="images/menu/refresh-button.png" alt=""></a>
+                        <a class="btn bskp-refresh-bg ref-btn" title="Refresh"  onclick="loadRecordDef()" ><img src="images/menu/refresh-button.png" alt=""></a>
                     </div>
                     <div class="bskp-table-layout">
                         <table class="table table-bordered bskp-table responsive no-wrap" id="recordTable">
@@ -93,7 +97,7 @@
                         <div  class="col-md-6">
                             <div  class="form-group">
                                 <label  class="inputLabel">Record ID *</label>
-                                <input  class="form-control input-sm"placeholder="Enter Record ld" autocomplete="off" type="number" id="msg_id" min=1  maxlength="100" required>
+                                <input  class="form-control input-sm" placeholder="Enter Record ID" onkeypress="return isNumber(event);" autocomplete="off" type="text" id="msg_id" maxlength="100" min="1" required>
                                 <span id="logmsg_id"></span>
                                 <!--<small>ID Range from <b><span class="idRange"></span></b></small>-->
                             </div>
@@ -131,7 +135,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-close"  data-dismiss="modal">Close</button>
+                    <button type="button" class="btn button-2 btn-close"  data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btnModal btn-secondary btn-proceed btnSubmit">Proceed </button>
                 </div>
             </form>
@@ -154,7 +158,7 @@
                 <h5>Are you sure want to delete <b><span class="delete_rule_id"></span> <span class="delete_rule_name"></span></b>?</h5>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary btn-close" data-dismiss="modal">Close</button>
+                <button type="button" class="btn button-2 btn-close" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btnModal btn-secondary btn-proceed" onclick="proceedDelete()">Proceed</button>
             </div>
         </div><!-- /.modal-content -->
@@ -196,7 +200,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-close" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn button-2 btn-close" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btnModal btn-secondary btn-proceed btnSubmit">Proceed</button>
                 </div>
             </form>

@@ -883,7 +883,7 @@ function toggleViewRaw() {
         buildChartData()
         loadProcessedMsgData();
     }else{
-
+        loadMessages();
     }
 }
 function tableViewRaw(id) {

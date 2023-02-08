@@ -4,8 +4,8 @@
 <div id="searchQueryConsole" class="container panel  msgDef platformBody ">
     <!-- begin breadcrumb -->
     <ol  class=" panel-inverse breadcrumb pull-right ">
-            <li class="breadcrumb-item"><a href="<%= basepath %>/home">Domain</a></li>
-            <li class="breadcrumb-item active">Query Console</li>
+            <li class="breadcrumb-item"><a href="<%= basepath %>/home">Home</a></li>
+            <li class="breadcrumb-item active">Elastic Search Query</li>
         <div class="ml-2 mr-4">
             <a href="javascript:;" class="btn btn-sm btn-icon btn-circle  bskp-icon-bg expand_img" onclick="expand()" data-click="panel-expand" title="Expand"><img height="14px" src="images/menu/expand-icon.svg" alt=""></a>
              <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg"  title="Help" > <img src="images/Question_icon.png" alt=""> </a>
@@ -24,20 +24,20 @@
                     <div  class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label >Choose Index</label>
+                                <label >Choose Index <strong class="star_required_icon">*</strong></label>
                                 <select id="options" class="form-control input-sm border" onchange="loadIdList(this.value)">  
                                     <option value="1">Message</option>
                                     <option value="2">Record</option>
                                     <option value="3">Model</option>
                                 </select>
-                                <span class="index"></span>
+                                <span id="indexAlert" ></span>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Choose <span class="actionName"></span> <strong class="star_required_icon">*</strong></label>
                                 <select class="form-control input-sm" id="idList"  onchange="selectChange()"></select>
-                                <span class="index"></span>
+                                <span id="idListAlert"></span>
                             </div>
                         </div>
                     </div>

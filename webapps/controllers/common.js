@@ -39,7 +39,7 @@ function getDomainTheme() {
             $(".divPanel").css('width', '100%')
         }
 
-        $('#headerBg').colorpicker({
+        /* $('#headerBg').colorpicker({
             color: themeProp.headerBg ? themeProp.headerBg : DEFAULT_THEME.headerBg,
             format: 'hex'
         });
@@ -58,7 +58,7 @@ function getDomainTheme() {
         $('#bodyBg').colorpicker({
             color: themeProp.bodyBg ? themeProp.bodyBg : DEFAULT_THEME.bodyBg,
             format: 'hex'
-        });
+        }); */
 
         /*$("#headerBg").spectrum({
             showPalette: true,
@@ -91,7 +91,7 @@ function getDomainTheme() {
             showInitial: true
         });
         $("#bodyBg").spectrum("set", themeProp.bodyBg ? themeProp.bodyBg : DEFAULT_THEME.bodyBg);*/
-        $("#domainModal").modal('show');
+        //$("#domainModal").modal('show');
 
     })
 }
@@ -100,4 +100,60 @@ function IsAlphabet(e) {
     var keyCode = e.keyCode == 0 ? e.charCode : e.keyCode;
     var ret = ((keyCode >= 65 && keyCode <= 90) || (keyCode >= 97 && keyCode <= 122));
     return ret;
+}
+
+function isNumber(evt) {
+    evt = (evt) ? evt : window.event;
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+        return false;
+    }
+    return true;
+}
+
+function assignVersion() {
+    $("#device_model").val() === '' ? $("#device_version").val('') && $("#device_desc").val('') : '' ;
+    for(var i=0;i<device_model_list.length;i++){
+        if($("#device_model").val() === device_model_list[i].id){
+            $("#device_version").val(device_model_list[i].version);
+            $("#device_desc").val(device_model_list[i].description);
+        }     
+        
+    }
+    if($("#device_model").val() === 'newmodel'){
+        togglemodel('newmodel')     
+    }else{
+        togglemodel('choose')  
+    }
+}
+
+var choosemodel= false;
+var modelmode = 'new';
+function togglemodel(check) {
+    if(check === 'edit'){      
+       choosemodel=true;  
+       modelmode = 'edit'   
+       $(".new-model").addClass('d-none');
+       $(".togeditmodel").removeClass('d-none');
+       $("#device_version").removeAttr('disabled','disabled');  
+       $("#device_desc").removeAttr('disabled','disabled');
+   }else if(check === 'newmodel'){
+       choosemodel=false;  
+       modelmode = 'new';               
+       $(".togeditmodel").addClass('d-none');
+       $(".new-model").removeClass('d-none');
+       $("#device_version").removeAttr('disabled');
+       $("#device_desc").removeAttr('disabled');
+       $("#device_version").val('');
+       $("#device_desc").val('');
+   }
+   else{
+       choosemodel=true; 
+       modelmode = 'choose';
+       $(".new-model").addClass('d-none');
+       $(".togeditmodel").removeClass('d-none');
+       $("#device_version").attr('disabled','disabled');  
+       $("#device_desc").attr('disabled','disabled');
+    } 
+ 
 }

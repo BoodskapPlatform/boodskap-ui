@@ -85,6 +85,18 @@ function loadUserGroup() {
             header: true,
             headerOffset: -5
         },
+        "language": {
+            "emptyTable": "No data available",
+            "zeroRecords": "No data available",
+            "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
+            "searchPlaceholder": "Search here",
+            loadingRecords: '',
+            paginate: {
+                previous: '< Prev',
+                next: 'Next >'
+            },
+            "processing": '<i class="fa fa-spinner fa-spin"></i> Processing'
+        },
         responsive: true,
         paging: true,
         searching: true,
@@ -261,7 +273,7 @@ function loadUserGroupMembers(id) {
         $(".group_" + id).html(' <div class="btn-group btn-group-justified left-right">' +
             '<a class="btn btn-default btn-xs"  onclick="openUserModal(1,\'' + id + '\')"><i class="fa fa-plus-square"></i> <span class="hidden-xs">Add User</span></a>' +
             '<a class="btn btn-default btn-xs"  onclick="openUserModal(2,\'' + id + '\')"><i class="icon-trash4"></i> <span class="hidden-xs">Delete</span></a>' +
-            '<a class="btn btn-default btn-xs" data-click="panel-reload" onclick="loadUserGroupMembers(\'' + id + '\')"><i class="fa fa-refresh"></i></a>' +
+            '<a class="btn btn-default btn-xs"  onclick="loadUserGroupMembers(\'' + id + '\')"><i class="fa fa-refresh"></i></a>' +
             '</div><hr style="clear:both">' +
             '<div class="row" style="clear: both;max-height: 300px;overflow: auto;overflow-x: hidden">' + bodyStr + '</div>');
 
@@ -276,7 +288,7 @@ function openModal(type, id) {
         $(".userAction").html('Create');
         $("#addUserGroup form")[0].reset();
         $("#addUserGroup").modal('show');
-
+        $("#group_id").removeAttr('disabled');
 
         $("#group_id").attr('min', USER_OBJ.domain.startId)
         $("#group_id").attr('max', USER_OBJ.domain.startId + ID_RANGE_COUNT)
@@ -387,6 +399,18 @@ function loadUsersList() {
         fixedHeader: {
             header: true,
             headerOffset: -5
+        },
+        "language": {
+            "emptyTable": "No data available",
+            "zeroRecords": "No data available",
+            "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
+            "searchPlaceholder": "Search here",
+            loadingRecords: '',
+            paginate: {
+                previous: '< Prev',
+                next: 'Next >'
+            },
+            "processing": '<i class="fa fa-spinner fa-spin"></i> Processing'
         },
         pagingType: 'simple',
         responsive: true,
@@ -500,9 +524,11 @@ function addUserGroup() {
         } else {
             upsertDomainUserGroup(groupObj, function (status, data) {
                 if (status) {
+                    setTimeout(() => {
+                        loadUserGroup();
+                    }, 1000);
                     successMsg('User Group Created Successfully');
-                    loadUserGroup();
-                    $("#addUserGroup").modal('hide');
+                    $("#addUserGroup").modal('hide');   
                 } else {
                     errorMsg('Error in Creating User Group')
                 }
@@ -544,9 +570,11 @@ function proceedDelete() {
     $(".btnSubmit").attr('disabled', 'disabled');
     deleteDomainUserGroup(current_group_id, function (status, data) {
         if (status) {
-            successMsg('User Group Deleted Successfully');
-            loadUserGroup();
+            setTimeout(() => {
+                loadUserGroup();
+            }, 1000);
             $("#deleteModal").modal('hide');
+            successMsg('User Group Deleted Successfully');
         } else {
             errorMsg('Error in delete')
         }

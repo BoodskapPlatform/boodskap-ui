@@ -250,7 +250,6 @@ function openModal(type, id) {
 function addPool() {
     var tempObj = buildData();
 
-   console.log(tempObj);
 
 
     $(".btnSubmit").attr('disabled', 'disabled');
@@ -281,7 +280,6 @@ function updatePool() {
 
     var tempObj = buildData();
 
-    console.log(tempObj);
 
 
     $(".btnSubmit").attr('disabled', 'disabled');

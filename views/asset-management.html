@@ -7,7 +7,7 @@
          <!-- begin breadcrumb -->
     <div>
         <ol class="breadcrumb pull-right bskp-align-icon" >
-            <li class="breadcrumb-item"><a href="<%= basepath %>/dashboard">Domain</a></li>
+            <li class="breadcrumb-item"><a href="<%= basepath %>/home">Home</a></li>
             <li class="breadcrumb-item"><a href="<%= basepath %>/user-management">Asset Management</a></li>
             <li class="breadcrumb-item active">Manage Assets</li>
             <div class="ml-4">
@@ -19,7 +19,7 @@
     <!-- end breadcrumb -->
     <!-- begin page-header -->
     <div class="page-header bskp-page-topic"><img src="images/menu/assets-management-bskp.svg" alt="img" class="bskp-topic-icon mr-1" > Manage Assets
-        <span class="panel-title ml-3 bskp-text" >Total Assets: <strong><span class="assetCount"></span></strong></span> </div>
+        <span class="panel-title ml-3 bskp-text" >Total: <strong><span class="assetCount"></span></strong></span> </div>
     
     <!-- end page-header -->
 
@@ -29,7 +29,7 @@
               <div class="col-12">
                 <div class="btn-group btn-group-justified pull-right bskp-btn-group-align" >
                 <a class="btn bskp-btn-shadow bskp-blue-bg" onclick="openModal(1)"><img src="images/plus.svg" alt="img" class="bskp-plusvg"> <span class="hidden-xs">Add New Asset</span></a>
-                <a class="btn bskp-refresh-bg" data-click="panel-reload" title="Refresh" onclick="loadAssetList()"><em class="fa fa-refresh"></em></a>
+                <a class="btn bskp-refresh-bg"  title="Refresh" onclick="loadAssetList()"><em class="fa fa-refresh"></em></a>
                 </div>
 
                 <div class="bskp-table-layout">
@@ -76,7 +76,7 @@
                     <div  class="row">
                         <div  class="col-md-6">
                             <div  class="form-group">
-                                <label  class="inputLabel">Asset Id *</label>
+                                <label  class="inputLabel">Asset ID *</label>
                                 <input  class="form-control input-sm"  placeholder="Enter Asset ld" autocomplete="off" min="1" maxlength="100" type="text" id="asset_id" required>
                                  <span id="logasset_id"></span>
                             </div>
@@ -101,7 +101,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-close"  data-dismiss="modal">Close</button>
+                    <button type="button" class="btn button-2 btn-close"  data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btnModal btn-secondary btn-proceed btnSubmit">Proceed </button>
                 </div>
             </form>
@@ -122,7 +122,7 @@
                 <h5>Are you sure want to delete <b><span class="assetId"></span> asset</b>?</h5>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary btn-close"  data-dismiss="modal">Close</button>
+                <button type="button" class="btn button-2 btn-close"  data-dismiss="modal">Close</button>
                 <button type="submit" class="btn btnModal btn-secondary btn-proceed btnSubmit" onclick="proceedDelete()">Proceed </button>
             </div>
         </div><!-- /.modal-content -->
@@ -162,7 +162,7 @@
                     </div>
                     <div class="col-md-4 mt-2">
                         <label  class="inputLabel">&nbsp;</label>
-                        <button class="btn bskp-btn-shadow mt-4 bskp-blue-bg" onclick="linkDevice()">Link Device</button>
+                        <button class="btn bskp-btn-shadow mt-4 bskp-blue-bg" id="linkDeviceBtn" onclick="linkDevice()">Link Device</button>
                     </div>
                 </div>
 

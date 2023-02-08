@@ -2,12 +2,12 @@
 <!-- <link rel="stylesheet" href="css/custom-theme-style.css"> -->
 
 
-<div class="panel container msgDef  platformBody">  
+<div class="container msgDef  platformBody  bskp-mt-30">  
     <!-- begin panel -->
-    <div class=" panel-inverse bskp-container-frame">
+    <div class="panel panel-inverse bskp-container-frame">
         <div>
             <ol class="breadcrumb pull-right">
-                <li class="breadcrumb-item"><a href="<%= basepath %>/dashboard">Domain</a></li>
+                <li class="breadcrumb-item"><a href="<%= basepath %>/home">Home</a></li>
                 <li class="breadcrumb-item active">Templates</li>
                 <div class="ml-4 mr-1">
                     <a href="javascript:;" class="btn btn-sm btn-icon btn-circle  bskp-icon-bg" title="Expand" data-click="panel-expand" ><img height="14px" src="images/menu/expand-icon.svg" alt="expand-icon"></a>
@@ -19,7 +19,7 @@
     <!-- end breadcrumb -->
     <!-- begin page-header --> 
     <div class="page-header bskp-page-topic"><img src="images/menu/templates-bskp.svg" class="bskp-topic-icon mr-1" alt="logo" > Manage Templates <span class="panel-title"></span>
-        <span class="panel-title ml-3 count">Total  Templates&nbsp:&nbsp<strong><span  class="templateCount"></span></strong></span>
+        <span class="panel-title ml-3 count">Total&nbsp:&nbsp<strong><span  class="templateCount"></span></strong></span>
       
     </div>
     <!-- end page-header -->    
@@ -107,7 +107,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-close" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn button-2 btn-close" data-dismiss="modal">Close</button>
                     <button type="submit"  class="btn btn-secondary btn-proceed btnSubmit btnModal">Proceed</button>
                 </div>
             </form>
@@ -130,7 +130,7 @@
                 <h5>Are you sure want to delete <b><span class="templateName"></span> template</b>?</h5>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary btn-close" data-dismiss="modal">Close</button>
+                <button type="button" class="btn button-2 btn-close" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btnModal btn-secondary btn-proceed btnModal" onclick="proceedDelete()">Proceed</button>
             </div>
         </div><!-- /.modal-content -->
@@ -157,7 +157,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="inputLabel">Choose Template file</label>
-                                <input class="form-control" type="file" name="tfile" id="templateFile">
+                                <input class="form-control" type="file" name="tfile" id="templateFile" onchange="checkUploadedFile(event);">
                                 <span class="file_error_templates" id="file_error"></span>
                             </div>
                         </div>
@@ -167,7 +167,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-close btn-border" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn button-2 btn-close btn-border" data-dismiss="modal">Close</button>
                     <button type="submit" id="uploadBtn" class=" btnModal btn-secondary btn-proceed btn btnModal">
                         Upload Template
                     </button>

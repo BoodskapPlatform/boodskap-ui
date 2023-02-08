@@ -106,6 +106,8 @@ function loadFirmwareList() {
         searching: true,
         "ordering": true,
         iDisplayLength: 10,
+        scrollY: '100px',
+        scrollCollapse: true,
         lengthMenu: [[10, 50, 100], [10, 50, 100]],
         aoColumns: fields,
     };
@@ -134,6 +136,8 @@ function loadFirmwareList() {
         searching: true,
         "ordering": true,
         iDisplayLength: 10,
+        scrollY: '100px',
+        scrollCollapse: true,
         lengthMenu: [[10, 50, 100], [10, 50, 100]],
         dom: '<"bskp-search-left" f> lrtip',
         language: {
@@ -277,7 +281,6 @@ function loadFirmwareList() {
 
                     var resultData = QueryFormatter(data).data;
                     firmware_list = resultData.data;
-                    console.log(firmware_list)
                     $(".firmwareCount").html(resultData.recordsFiltered)
                     resultData['draw'] = oSettings.iDraw;
                     fnCallback(resultData);
@@ -288,6 +291,8 @@ function loadFirmwareList() {
     };
 
     firmwareTable = $("#firmwareTable").DataTable(tableOption);
+    $(".dataTables_scrollBody").removeAttr("style").css({"min-height":"calc(100vh - 510px)","position":"relative","width":"100%"});
+
     /* listFirmwareApi($("#deviceModel").val(), 1000, null, null, function (status, data) {
          if (status && data.length > 0) {
              tableOption['data'] = data;

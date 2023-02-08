@@ -23,18 +23,18 @@
     <div class="panel-header">  
         <div>
             <ol class="breadcrumb pull-right bskp-align-icon">
-                <li class="breadcrumb-item"><a href="<%= basepath %>/dashboard">Domain</a></li>
+                <li class="breadcrumb-item"><a href="<%= basepath %>/home">Home</a></li>
                 <li class="breadcrumb-item"><a href="<%= basepath %>/device-management">Device Management</a></li>
                 <li class="breadcrumb-item active">Manage Device Models</li>
                 <div class="ml-4">
-                    <a href="javascript:;" class="btn btn-sm btn-icon btn-circle  bskp-icon-bg" data-click="panel-expand"><em class="fa fa-expand"></em></a>
+                    <a href="javascript:;" class="btn btn-sm btn-icon btn-circle  bskp-icon-bgt" title="Expand"  data-click="panel-expand"><em class="fa fa-expand"></em></a>
                     <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg" title="Help" ><em class="icon-help"></em></a>
                 </div>
             </ol>
            </div>
             
             <div class="page-header bskp-page-topic"><img src="images/menu/hardware-fanta_1-bskp.svg" class="bskp-topic-icon mr-1" > Manage Device Models
-                <span class="panel-title ml-3" >Total Device Models: <b><span class="deviceModelCount"></span></b></span> </div>
+                <span class="panel-title ml-3" >Total : <b><span class="deviceModelCount"></span></b></span> </div>
             
     </div>
     
@@ -44,7 +44,7 @@
                 <div class="col-12">
                   <div class="btn-group btn-group-justified pull-right bskp-btn-group-align" >
                     <a class="btn bskp-btn-shadow bskp-blue-bg" onclick="openModal(1)"><img src="images/menu/plusicon.svg" class="bskp-plusvg"> <span class="hidden-xs">Add Device Model</span></a>
-                    <a class="btn bskp-refresh-bg" data-click="panel-reload" onclick="loadDeviceModelList()" title="Refresh"><em class="fa fa-refresh"></em></a>
+                    <a class="btn bskp-refresh-bg"  onclick="loadDeviceModelList()" title="Refresh"><em class="fa fa-refresh"></em></a>
                   </div>
                   <div class="bskp-table-layout">
                     <table class="table table-bordered bskp-table responsive no-wrap" id="deviceModelTable">
@@ -78,8 +78,8 @@
                     <div  class="row">
                         <div  class="col-md-6">
                             <div  class="form-group">
-                                <label  class="inputLabel">Model Id *</label>
-                                <input  class="form-control input-sm" placeholder="Enter Model ld" maxlength="100" autocomplete="off" type="text" id="device_id" required>
+                                <label  class="inputLabel">Model ID *</label>
+                                <input  class="form-control input-sm" placeholder="Enter Model ID" maxlength="100" autocomplete="off" type="text" id="device_id" required>
                                 <span id="logdevice_id"></span>
                             </div>
                         </div>
@@ -102,7 +102,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-close" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn button-2 btn-close" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btnModal btn-secondary btn-proceed  btnSubmit ">Proceed</button>
                 </div>
             </form>
@@ -126,7 +126,7 @@
                 <h5>Are you sure want to delete <b><span class="deviceId"></span> device model</b>?</h5>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary btn-close" data-dismiss="modal">Close</button>
+                <button type="button" class="btn button-2 btn-close" data-dismiss="modal">Close</button>
                 <button type="submit" class="btn btnModal btn-secondary btn-proceed btnSubmit" onclick="proceedDelete()">Proceed</button>
             </div>
         </div><!-- /.modal-content -->
@@ -152,7 +152,7 @@ svg
                     <div  class="row">
                         <div  class="col-md-12">
                             <div  class="form-group">
-                                <label  class="inputLabel">Board Configuration</label>
+                                <label  class="inputLabel">Board Configuration *</label>
                                 <textarea  class="form-control input-sm" id="board_config" placeholder="{name: 'value'}" required style="height: 200px;"></textarea>
                                 <span id="logboard_config"></span>
                             </div>
@@ -160,7 +160,7 @@ svg
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-close mr-4" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn button-2 btn-close mr-4" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btnModal btn-secondary btn-proceed btnSubmit" onclick="saveSettings()">Save Configuration</button>
                 </div>
             </form>
