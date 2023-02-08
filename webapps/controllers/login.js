@@ -94,6 +94,7 @@ function login(){
                 data.user.roles = ['user'];
                 roles = ['user'];
             }
+            data.linkedDomains = [];
             Cookies.set('user_details', data);
 
             if (data.partDomains && data.partDomains.length > 1) {
