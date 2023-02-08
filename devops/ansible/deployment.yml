@@ -33,14 +33,14 @@
 
     - debug: msg="{{ dependencies_output }}"
 
-    - 
-      name: Changing the version and Push the code.
-      shell: "sh package_version.sh"
-      args:
-        chdir: /home/ubuntu/build/boodskap-ui
-      register: dependencies_output
+    # - 
+    #   name: Changing the version and Push the code.
+    #   shell: "sh package_version.sh"
+    #   args:
+    #     chdir: /home/ubuntu/build/boodskap-ui
+    #   register: dependencies_output
 
-    - debug: msg="{{ dependencies_output.stdout }}"
+    # - debug: msg="{{ dependencies_output.stdout }}"
 
     -
       name: Docker build change mode to executable.

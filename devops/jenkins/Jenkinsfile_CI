@@ -18,6 +18,7 @@ pipeline{
             script{ 
                echo "----------------BUILD START-----------------"
                  sh """ 
+                 npm version patch
                  ansible-playbook $WORKSPACE/devops/ansible/deployment.yml -i $WORKSPACE/devops/ansible/inventory.yml
                  """
                echo "Build process done"
