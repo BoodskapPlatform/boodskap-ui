@@ -428,11 +428,15 @@ if(check){
                         loadRecordDef();
                         $("#addMessageRule").modal('hide');
                     }else{
-                        if(data.message){
-                            var errmessage = data.message.replaceAll("_"," ")
-                            errorMsg(errmessage);
+                        if(typeof(data)!="undefined"){
+                            if(data.message){
+                                var errmessage = data.message.replaceAll("_"," ")
+                                errorMsg(errmessage);
+                            }else{
+                                errorMsg('Error in Define Message');
+                            }
                         }else{
-                            //errorMsg('Error in Define Message');
+                            errorMsg('Error in Define Message');
                         }
                     }
                     $(".btnSubmit").removeAttr('disabled');
@@ -669,12 +673,16 @@ function checkAndInsert(obj, cbk) {
                     successMsg(obj.id + ' - Record Defined Successfully');
                     newIds.push(obj.id)
                 } else {
-                    if(data.message){
-                        var errmessage = data.message.replaceAll("_"," ")
-                        errorMsg(errmessage);
+                    if(typeof(data) != "undefined"){
+                        if(data.message){
+                            var errmessage = data.message.replaceAll("_"," ")
+                            errorMsg(errmessage);
+                        }else{
+                            errorMsg('Error in Define Record');
+                        }
                     }else{
-                        //errorMsg('Error in Define Record');
-                    }
+                        errorMsg('Error in Define Record');
+                    }    
                 }
                 cbk(null)
             })

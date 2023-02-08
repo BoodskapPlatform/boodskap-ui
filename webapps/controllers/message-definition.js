@@ -464,15 +464,21 @@ function addMessageRule(place) {
                         loadMessageDef();
                         $("#addMessageRule").modal('hide');
                     } else {
-                        if(data.message){
-                            var errmessage = data.message.replaceAll("_"," ")
-                            if(errmessage == "INVALID MESSAGE ID"){
-                                errmessage = "Message ID minimum 3 digits required";
+                        if(typeof(data)!="undefined"){
+                            if(data.message){
+                                var errmessage = data.message.replaceAll("_"," ")
+                                if(errmessage == "INVALID MESSAGE ID"){
+                                    errmessage = "Message ID minimum 3 digits required";
+                                }
+                                errorMsg(errmessage);
+                            }else{
+                                errorMsg('Error in Define Message');
                             }
-                            errorMsg(errmessage);
                         }else{
                             errorMsg('Error in Define Message');
                         }
+                        
+                        
                         
                     }
                     $(".btnSubmit").removeAttr('disabled');
@@ -831,12 +837,17 @@ function checkAndInsert(obj, cbk) {
                     successMsg(obj.id + ' - Message Defined Successfully');
                     newIds.push(obj.id)
                 } else {
-                    if(data.message){
-                        var errmessage = data.message.replaceAll("_"," ")
-                        errorMsg(errmessage);
+                    if(typeof(data)!="undefined"){
+                        if(data.message){
+                            var errmessage = data.message.replaceAll("_"," ")
+                            errorMsg(errmessage);
+                        }else{
+                            errorMsg('Error in Define Message');
+                        }
                     }else{
-                        //errorMsg('Error in Define Message');
+                        errorMsg('Error in Define Message');
                     }
+                    
                 }
                 cbk(null)
             })
