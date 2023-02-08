@@ -2,7 +2,7 @@
 <link rel="stylesheet" media="screen" type="text/css" href="libraries/colorpicker/spectrum.css" />
 
 <link href="css/select2.min.css" rel=stylesheet>
-<link href="css/rules-engine.css" rel=stylesheet>
+<link href="css/rules-engine.css?ver=1" rel=stylesheet>
 <link href="css/Aimara.css" rel=stylesheet>
 <link href="css/jsCronUI.css" rel=stylesheet>
 <link href="css/multiple-select.css" rel=stylesheet>
@@ -857,7 +857,7 @@
                         <div class="col-md-10">
                             <div class="form-group">
                                 <label class="inputLabel">Process Name *</label>
-                                <input class="form-control input-sm" placeholder=""
+                                <input class="form-control input-sm" placeholder="" maxlength="100"
                                        type="text" id="processName" required onkeyup="changeId(this.value)">
                                 <small>Process ID: <strong id="processId"></strong></small>
                             </div>
@@ -906,7 +906,7 @@
                                         <tbody class="outputBody">
                                         <tr>
                                             <td>
-                                                <input required type="text" class="form-control output_key"  placeholder="Key Name" />
+                                                <input required type="text" class="form-control output_key" maxlength="100" placeholder="Key Name" />
                                             </td>
                                             <td>
                                                 <select class="form-control output_value" required>
@@ -944,18 +944,18 @@
                         </div>
                         <div class="col-md-6">
                             <label class="inputLabel">Group</label>
-                            <input class="form-control input-sm" placeholder=""
+                            <input class="form-control input-sm" placeholder="" maxlength="100"
                                    type="text" id="pGroup">
                         </div>
                         <div class="col-md-6">
                             <label class="inputLabel">Tags</label>
-                            <input class="form-control input-sm" placeholder=""
+                            <input class="form-control input-sm" placeholder="" maxlength="100"
                                    type="text" id="pTags">
                             <small>Note: comma separated value</small>
                         </div>
                         <div class="col-md-12">
                             <label class="inputLabel">Description</label>
-                            <textarea class="form-control input-sm"  id="description"></textarea>
+                            <textarea class="form-control input-sm"  id="description"  maxlength="5000"></textarea>
                         </div>
                     </div>
                 </div>
