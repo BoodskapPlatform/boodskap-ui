@@ -372,7 +372,7 @@
                                 </div>
                                 <div id="collapseOne" class="collapse show" data-parent="#accordion" style="">
                                     <div class="card-body">
-                                        <table class="table msg-def-table">
+                                        <table class="table msg-def-table mb-0">
                                             <tbody>
                                             <tr>
                                                 <td>Name</td>
@@ -400,7 +400,7 @@
                                             </tr>
                                             </tbody>
                                         </table>
-                                        <div style="text-align: center;margin-bottom:10px;">
+                                        <div class="w-50" style="text-align: center;margin: 10px auto;">
                                             <button class="btn btn-block btn-sm btn-danger deleteBtn"
                                                     style="display: none;" onclick="openDeleteModal()"><i
                                                     class="fa fa-trash"></i> Delete
@@ -837,6 +837,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn button-2" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btnModal" onclick="proceedDelete()">Proceed</button>
+                <input type="hidden" class="viewId" value=""/>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

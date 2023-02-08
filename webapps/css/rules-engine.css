@@ -61,6 +61,15 @@
 
 }
 
+.rules-list-active{
+    background-color: #42424287 !important;
+    color:#fff !important;
+}
+
+#deleteModal .modal-dialog{
+    max-width: 600px;
+}
+
 .domainTab.active{
     border-bottom: 5px solid #eb974e;
 
@@ -516,4 +525,8 @@
 
 .break-word{
     word-break: break-all;
+}
+
+.outputBody > tr > td {
+    padding-left: 0px !important;
 }

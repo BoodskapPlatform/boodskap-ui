@@ -208,7 +208,7 @@ $(document).ready(function () {
 
             loadCodeType();
 
-            allDeviceList();
+            ///allDeviceList();
 
         }, 500);
 
@@ -1754,26 +1754,28 @@ function loadTabbar(id, type) {
     $(".processBlock").css('display', 'none');
     $(".inputBlock").css('display', 'none');
 
+    $(".rulesListli").removeClass("rules-list-active");
+    $(".rule_"+id).addClass("rules-list-active")
 
     if (_.indexOf(tabbar_list, id) < 0) {
         if (type === 1) {
 
             str = '<li role="presentation" data-ruleType="' + type + '" class="messageTab tabbar messageTab_' + id + '" >' +
                 '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadMessageRule(' + id + ')>' + id + ' ' +
-                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(' + id + ',1)" title="close"><i class="fa fa-close"></i></span></a>' +
+                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(' + id + ',1,this)" title="close"><i class="fa fa-close"></i></span></a>' +
                 '</li>';
 
         }
         else if (type === 2) {
             str = '<li role="presentation" data-ruleType="' + type + '" class="namedTab tabbar namedTab_' + id + '"  >' +
                 '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadNamedRule(\'' + id + '\')>' + id + ' ' +
-                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',2)" title="close"><i class="fa fa-close"></i></span></a>' +
+                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',2,this)" title="close"><i class="fa fa-close"></i></span></a>' +
                 '</li>';
         }
         else if (type === 3) {
             str = '<li role="presentation" data-ruleType="' + type + '" class="scheduleTab tabbar scheduleTab_' + id + '"  >' +
                 '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadScheduleRule(' + id + ')>' + id + ' ' +
-                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(' + id + ',3)" title="close"><i class="fa fa-close"></i></span></a>' +
+                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(' + id + ',3,this)" title="close"><i class="fa fa-close"></i></span></a>' +
                 '</li>';
         }
         else if (type === 4) {
@@ -1789,7 +1791,7 @@ function loadTabbar(id, type) {
 
             str = '<li role="presentation" data-ruleType="' + type + '" class="groovyTab tabbar groovyTab_' + id + '"  >' +
                 '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadGroovyClass(\'' + id + '\')>' + obj.name + ' ' +
-                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',4)" title="close"><i class="fa fa-close"></i></span></a>' +
+                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',4,this)" title="close"><i class="fa fa-close"></i></span></a>' +
                 '</li>';
         }
         else if (type === 5) {
@@ -1803,7 +1805,7 @@ function loadTabbar(id, type) {
 
             str = '<li role="presentation" data-ruleType="' + type + '" class="jarTab tabbar jarTab_' + id + '"  >' +
                 '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadJarClass(\'' + id + '\')>' + obj.packageName + ' ' +
-                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',5)" title="close"><i class="fa fa-close"></i></span></a>' +
+                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',5,this)" title="close"><i class="fa fa-close"></i></span></a>' +
                 '</li>';
         }
 
@@ -1818,7 +1820,7 @@ function loadTabbar(id, type) {
 
             str = '<li role="presentation" data-ruleType="' + type + '" class="binaryTab tabbar binaryTab_' + id + '"  >' +
                 '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadBinaryRule(\'' + id + '\')>' + obj.type + ' ' +
-                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',6)" title="close"><i class="fa fa-close"></i></span></a>' +
+                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',6,this)" title="close"><i class="fa fa-close"></i></span></a>' +
                 '</li>';
         }
 
@@ -1833,7 +1835,7 @@ function loadTabbar(id, type) {
 
             str = '<li role="presentation" data-ruleType="' + type + '" class="jobTab tabbar jobTab_' + id + '"  >' +
                 '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadJobRule(\'' + id + '\')>' + obj.id + ' ' +
-                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',7)" title="close"><i class="fa fa-close"></i></span></a>' +
+                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',7,this)" title="close"><i class="fa fa-close"></i></span></a>' +
                 '</li>';
         }
 
@@ -1848,7 +1850,7 @@ function loadTabbar(id, type) {
 
             str = '<li role="presentation" data-ruleType="' + type + '" class="fileTab tabbar fileTab_' + id + '"  >' +
                 '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadFileRule(\'' + id + '\')>' + obj.type + ' ' +
-                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',8)" title="close"><i class="fa fa-close"></i></span></a>' +
+                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',8,this)" title="close"><i class="fa fa-close"></i></span></a>' +
                 '</li>';
         }
 
@@ -1863,7 +1865,7 @@ function loadTabbar(id, type) {
 
             str = '<li role="presentation" data-ruleType="' + type + '" class="processTab tabbar processTab_' + id + '"  >' +
                 '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadProcessRule(\'' + id + '\')>' + obj.name + ' ' +
-                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',9)" title="close"><i class="fa fa-close"></i></span></a>' +
+                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',9,this)" title="close"><i class="fa fa-close"></i></span></a>' +
                 '</li>';
         }
         else if (type === 10) {
@@ -1877,7 +1879,7 @@ function loadTabbar(id, type) {
 
             str = '<li role="presentation" data-ruleType="' + type + '" class="sftpTab tabbar sftpTab_' + id + '"  >' +
                 '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadSftpRule(\'' + id + '\')>' + obj.name + ' ' +
-                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',10)" title="close"><i class="fa fa-close"></i></span></a>' +
+                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',10,this)" title="close"><i class="fa fa-close"></i></span></a>' +
                 '</li>';
         }
         else if (type === 11) {
@@ -1891,7 +1893,7 @@ function loadTabbar(id, type) {
 
             str = '<li role="presentation" data-ruleType="' + type + '" class="mqttTab tabbar mqttTab_' + id + '"  >' +
                 '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadMqttRule(\'' + id + '\')>' + obj.name + ' ' +
-                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',11)" title="close"><i class="fa fa-close"></i></span></a>' +
+                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',11,this)" title="close"><i class="fa fa-close"></i></span></a>' +
                 '</li>';
         }
         else if (type === 12) {
@@ -1905,7 +1907,7 @@ function loadTabbar(id, type) {
 
             str = '<li role="presentation" data-ruleType="' + type + '" class="udpTab tabbar udpTab_' + id + '"  >' +
                 '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadUdpRule(\'' + id + '\')>' + obj.name + ' ' +
-                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',12)" title="close"><i class="fa fa-close"></i></span></a>' +
+                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',12,this)" title="close"><i class="fa fa-close"></i></span></a>' +
                 '</li>';
         }
         else if (type === 13) {
@@ -1919,7 +1921,7 @@ function loadTabbar(id, type) {
 
             str = '<li role="presentation" data-ruleType="' + type + '" class="tcpTab tabbar tcpTab_' + id + '"  >' +
                 '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadTcpRule(\'' + id + '\')>' + obj.name + ' ' +
-                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',13)" title="close"><i class="fa fa-close"></i></span></a>' +
+                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',13,this)" title="close"><i class="fa fa-close"></i></span></a>' +
                 '</li>';
         }
         else if (type === 14) {
@@ -1933,7 +1935,7 @@ function loadTabbar(id, type) {
 
             str = '<li role="presentation" data-ruleType="' + type + '" class="emailTab tabbar emailTab_' + id + '"  >' +
                 '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadEmailRule(\'' + id + '\')>' + obj.name + ' ' +
-                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',14)" title="close"><i class="fa fa-close"></i></span></a>' +
+                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',14,this)" title="close"><i class="fa fa-close"></i></span></a>' +
                 '</li>';
         }
         else if (type === 15) {
@@ -1947,7 +1949,7 @@ function loadTabbar(id, type) {
 
             str = '<li role="presentation" data-ruleType="' + type + '" class="microTab tabbar microTab_' + id + '"  >' +
                 '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadMicroRule(\'' + obj.name + '\')>' + obj.name + ' ' +
-                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',15)" title="close"><i class="fa fa-close"></i></span></a>' +
+                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',15,this)" title="close"><i class="fa fa-close"></i></span></a>' +
                 '</li>';
         }
 
@@ -2703,7 +2705,20 @@ function executeAction(id, executeAction) {
 }
 
 
-function deleteTab(id, type) {
+function deleteTab(id, type, obj) {
+    var prevmenu = "";;
+    var splitValue = "";
+    if(typeof (obj) == "undefined"){
+        prevmenu = $("."+$(".viewId").val()).prev().attr("class");
+    }else{
+        prevmenu = $(obj).parent().parent().prev().attr("class");
+    }
+    if(prevmenu == "domainTab"){
+        splitValue = prevmenu
+    }else{
+        splitValue = prevmenu.split(" ")[2];
+    }
+    $(".rulesListli").removeClass("rules-list-active");
     if (type === 1) {
         $(".messageTab_" + id).remove();
     } else if (type === 2) {
@@ -2770,8 +2785,10 @@ function deleteTab(id, type) {
         $(".tcpTab").removeClass('active')
         $(".emailTab").removeClass('active')
         $(".microTab").removeClass('active')
-        $(".domainTab").addClass('active')
-        loadDomainRule();
+        $(".domainTab").removeClass('active')
+        $("."+splitValue).addClass('active')
+        $("."+splitValue).children("a").trigger("click");
+        ///loadDomainRule();
         // $("#codeEditor").remove();
         // $("#editorContent").html('<div id="codeEditor"></div>');
         // $("#codeEditor").html('');
@@ -2913,7 +2930,7 @@ function loadDomainRule() {
     // mqttCancelSubscribe();
 
     $(".simulateBtn").css('display','none');
-
+    $(".rulesListli").removeClass("rules-list-active");
     $("#editorContent").html('<div id="codeEditor"></div>');
     $("#codeEditor").html('');
     loadEditor(CHANGED_DEFAULT_TEXT ? CHANGED_DEFAULT_TEXT : domain_rule_obj.code, 'domainTab');
@@ -2997,7 +3014,8 @@ function loadJarClass(id) {
 
 function loadMessageRule(id) {
     $(".simulateBtn").css('display','block');
-
+    $(".rulesListli").removeClass("rules-list-active");
+    $(".rule_"+id).addClass("rules-list-active");
     // mqttCancelSubscribe(CURRENT_ID);
     $("#editorContent").html('<div id="codeEditor"></div>');
     let data = returnObj(id, 1);
@@ -4663,47 +4681,60 @@ function openDeleteModal() {
         if (CURRENT_TYPE === 1) {
             $(".delete_rule_name").html('Message');
             $(".delete_rule_id").html(CURRENT_ID);
+            $(".viewId").val("messageTab_"+CURRENT_ID);
         } else if (CURRENT_TYPE === 2) {
             $(".delete_rule_name").html('Named');
             $(".delete_rule_id").html(CURRENT_ID);
+            $(".viewId").val("namedTab_"+CURRENT_ID);
         } else if (CURRENT_TYPE === 3) {
             $(".delete_rule_name").html('Schedule');
             $(".delete_rule_id").html(CURRENT_ID);
+            $(".viewId").val("scheduleTab_"+CURRENT_ID);
         }
         else if (CURRENT_TYPE === 6) {
             $(".delete_rule_name").html('Binary');
             $(".delete_rule_id").html(CURRENT_ID);
+            $(".viewId").val("binaryTab_"+CURRENT_ID);
         }
         else if (CURRENT_TYPE === 8) {
             $(".delete_rule_name").html('File');
             $(".delete_rule_id").html(CURRENT_ID);
+            $(".viewId").val("fileTab_"+CURRENT_ID);
         }
         else if (CURRENT_TYPE === 7) {
             $(".delete_rule_name").html('Job');
             $(".delete_rule_id").html(CURRENT_ID);
+            $(".viewId").val("jobTab_"+CURRENT_ID);
         }
         else if (CURRENT_TYPE === 9) {
             $(".delete_rule_name").html('Process');
             $(".delete_rule_id").html(CURRENT_ID);
+            $(".viewId").val("processTab_"+CURRENT_ID);
         }
         else if (CURRENT_TYPE === 10) {
             $(".delete_rule_name").html('SFTP');
             $(".delete_rule_id").html(CURRENT_ID);
+            $(".viewId").val("sftpTab_"+CURRENT_ID);
         } else if (CURRENT_TYPE === 11) {
             $(".delete_rule_name").html('MQTT');
             $(".delete_rule_id").html(CURRENT_ID);
+            $(".viewId").val("mqttTab_"+CURRENT_ID);
         } else if (CURRENT_TYPE === 12) {
             $(".delete_rule_name").html('UDP');
             $(".delete_rule_id").html(CURRENT_ID);
+            $(".viewId").val("udpTab_"+CURRENT_ID);
         } else if (CURRENT_TYPE === 13) {
             $(".delete_rule_name").html('TCP');
             $(".delete_rule_id").html(CURRENT_ID);
+            $(".viewId").val("tcpTab_"+CURRENT_ID);
         } else if (CURRENT_TYPE === 14) {
             $(".delete_rule_name").html('EMAIL');
             $(".delete_rule_id").html(CURRENT_ID);
+            $(".viewId").val("emailTab_"+CURRENT_ID);
         } else if (CURRENT_TYPE === 15) {
             $(".delete_rule_name").html('Micro API');
             $(".delete_rule_id").html(CURRENT_ID);
+            $(".viewId").val("microTab_"+CURRENT_ID);
         }
         $("#deleteModal").modal('show');
     } else {
@@ -5147,7 +5178,7 @@ function addProcessRule() {
         },
         "domainKey": DOMAIN_KEY,
         "group": $("#pGroup").val(),
-        "tags": $("#pGroup").val()
+        "tags": $("#pTags").val()
     }
 
     let input = {};
