@@ -849,9 +849,9 @@ function mqttListen() {
 
 function loadDomain() {
 
-    for (var i = 0; i < LINKED_DOMAIN.length; i++) {
-        if (id === LINKED_DOMAIN[i].domainKey) {
-            CURRENT_DOMAIN = LINKED_DOMAIN[i];
+    for (var i = 0; i < LINKED_DOMAINS.length; i++) {
+        if (id === LINKED_DOMAINS[i].domainKey) {
+            CURRENT_DOMAIN = LINKED_DOMAINS[i];
         }
     }
 
