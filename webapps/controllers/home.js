@@ -166,20 +166,20 @@ function openLinkModal() {
 function domainList() {
     $(".domainList").html("");
     $(".linked_domains").html("");
-    if(USER_OBJ.linkedDomains) {
-        for (var i = 0; i < USER_OBJ.linkedDomains.length; i++) {
+    if(LINKED_DOMAINS) {
+        for (var i = 0; i < LINKED_DOMAINS.length; i++) {
 
-            $(".linked_domains").append('<label class="label label-default" onclick="openLinkedDomain(\'' + USER_OBJ.linkedDomains[i].domainKey + '\')">' + USER_OBJ.linkedDomains[i].label + '</label><br>')
+            $(".linked_domains").append('<label class="label label-default" onclick="openLinkedDomain(\'' + LINKED_DOMAINS[i].domainKey + '\')">' + LINKED_DOMAINS[i].label + '</label><br>')
 
             $(".domainList").append('<tr>' +
-                '<td>' + USER_OBJ.linkedDomains[i].label + '</td>' +
-                '<td>' + USER_OBJ.linkedDomains[i].domainKey + '</td>' +
-                '<td>' + USER_OBJ.linkedDomains[i].apiKey + '</td>' +
+                '<td>' + LINKED_DOMAINS[i].label + '</td>' +
+                '<td>' + LINKED_DOMAINS[i].domainKey + '</td>' +
+                '<td>' + LINKED_DOMAINS[i].apiKey + '</td>' +
                 '<td>' +
                 '<button class="btn btn-xs btn-default" title="Unlink Domain" ' +
-                'onclick="unlinkDomainCall(\'' + USER_OBJ.linkedDomains[i].domainKey + '\')"><i class="icon-unlink"></i></button>' +
+                'onclick="unlinkDomainCall(\'' + LINKED_DOMAINS[i].domainKey + '\')"><i class="icon-unlink"></i></button>' +
                 '<button class="btn btn-xs btn-default ml-2" title="View Domain Dashboard" ' +
-                'onclick="openLinkedDomain(\'' + USER_OBJ.linkedDomains[i].domainKey + '\')"><i class="icon-play"></i> view</button>' +
+                'onclick="openLinkedDomain(\'' + LINKED_DOMAINS[i].domainKey + '\')"><i class="icon-play"></i> view</button>' +
                 '</td>' +
                 '</tr>')
         }
@@ -201,10 +201,14 @@ function linkDomainCall() {
 
     linkDomain(obj, function (status, data) {
         if (status) {
-            if(!USER_OBJ.linkedDomains){
-                USER_OBJ["linkedDomains"] = [];
-            }
-            USER_OBJ["linkedDomains"].push(data);
+            // if(!USER_OBJ.linkedDomains){
+            //     USER_OBJ["linkedDomains"] = [];
+            // }
+            //USER_OBJ["linkedDomains"].push(data);
+            LINKED_DOMAINS.push(data);
+            Cookies.set('linked_domains', LINKED_DOMAINS);
+            
+            USER_OBJ.linkedDomains = [];
             Cookies.set('user_details', USER_OBJ);
             domainList();
             $("#linkModal form")[0].reset();
@@ -227,13 +231,17 @@ function unlinkDomainCall(id) {
 
             var linkedDomain = [];
 
-            for (var i = 0; i < USER_OBJ.linkedDomains.length; i++) {
-                if (id !== USER_OBJ.linkedDomains[i].domainKey) {
-                    linkedDomain.push(USER_OBJ.linkedDomains[i]);
+            for (var i = 0; i < LINKED_DOMAINS.length; i++) {
+                if (id !== LINKED_DOMAINS[i].domainKey) {
+                    linkedDomain.push(LINKED_DOMAINS[i]);
                 }
             }
 
-            USER_OBJ.linkedDomains = linkedDomain;
+            //USER_OBJ.linkedDomains = linkedDomain;
+
+            Cookies.set('linked_domains', linkedDomain);
+            USER_OBJ.linkedDomains = [];
+
             Cookies.set('user_details', USER_OBJ);
             domainList();
             successMsg('Domain Un-Linked Successfully!')
@@ -422,6 +430,11 @@ function loginAs(key, email) {
                 roles = ['domainadmin'];
             }
 
+            ///data.linkedDomains = [];
+
+            Cookies.set('linked_domains', data.linkedDomains);
+            data.linkedDomains = [];
+            
             Cookies.set('user_details', data);
 
             var flag = false;

@@ -94,6 +94,7 @@ function login(){
                 data.user.roles = ['user'];
                 roles = ['user'];
             }
+            Cookies.set('linked_domains', data.linkedDomains);
             data.linkedDomains = [];
             Cookies.set('user_details', data);
 
@@ -144,6 +145,8 @@ function switchDomain(dkey,token,domainName) {
     switchDomainCall(dkey,token,function (status, data) {
         if(status){
 
+            Cookies.set('linked_domains', data.linkedDomains);
+            data.linkedDomains = [];
             Cookies.set('user_details', data);
 
             Cookies.set('partDomain',true);

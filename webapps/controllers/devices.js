@@ -326,7 +326,7 @@ function openModal(type,id) {
         setTimeout(() => {
             $("#device_id").val(obj.id);
             $("#device_name").val(obj.name);
-             $("#device_model").val(obj.modelId);
+            $("#device_model option[value='"+obj.modelId+"']").prop("selected", true);
             $("#device_version").val(obj.version);
             $("#device_desc").val(obj.description);
             $("#addDevice").modal('show');
@@ -444,8 +444,8 @@ function addDevice() {
 
        var modelObj = {
             "id": device_model,
-            "version": $("#device_version").val(),
-            "description": $("#device_desc").val(),
+            "version": device_version,
+            "description": device_desc,
         }
     
     async.series({
@@ -562,9 +562,9 @@ function updateDevice() {
         isModelUpdated: function (mdcbk) {
            if(modelmode === 'edit'){
             var deviceObj = {
-                "id": $("#device_model").val(),
-                "version": $("#device_version").val(),
-                "decription": $("#device_desc").val(),
+                "id": device_model,
+                "version": device_version,
+                "decription": device_desc
             }
         
             upsertDeviceModel(deviceObj, function (status, data) {

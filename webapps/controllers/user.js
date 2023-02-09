@@ -455,6 +455,9 @@ function loginAs() {
             Cookies.remove('user_picture');
             Cookies.remove('greetings');
 
+
+            Cookies.set('linked_domains', data.linkedDomains);
+            data.linkedDomains = [];
             Cookies.set('user_details', data);
 
             var roles = data.user.roles;

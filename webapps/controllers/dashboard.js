@@ -17,7 +17,7 @@ if ($.trim($('#isPublic').val()) === 'true') {
 var DASHBOARD_LIST = [];
 var CURRENT_DASHBOARD = {};
 var CURRENT_DASHBOARD_ID = null;
-var LINKED_DOMAIN = USER_OBJ.linkedDomains ? USER_OBJ.linkedDomains : [];
+var LINKED_DOMAIN = LINKED_DOMAINS ? LINKED_DOMAINS : []; ///USER_OBJ.linkedDomains ? USER_OBJ.linkedDomains : [];
 var DEFAULT_DOMAIN = {
     apiKey: USER_OBJ.apiKey,
     domainKey: USER_OBJ.domainKey,
