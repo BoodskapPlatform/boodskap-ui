@@ -83,7 +83,7 @@ function loadRecordDef() {
             "emptyTable": "No data available",
             "zeroRecords": "No data available",
             "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
-            "searchPlaceholder": "Search by Record ID",
+            "searchPlaceholder": "Search here",
             loadingRecords: '',
             paginate: {
                 previous: '< Prev',
@@ -317,7 +317,7 @@ function addMessageRule(place) {
                         check = false;
                         return false;
                 }else if(fieldValArr.includes($(this).find(".mesg-field").val()) == true){
-                    errorMsgBorder('Field Name cannot be duplicted', $(this).find('.mesg-field').attr('id'));
+                    errorMsgBorder('Field Name cannot be duplicated', $(this).find('.mesg-field').attr('id'));
                     check = false;
                     return false;
                 }else{
@@ -341,7 +341,7 @@ function addMessageRule(place) {
             })
             $.each($('.fieldrow'),function () {
                 if(fieldValArr.includes($(this).find(".mesg-field").val()) == true){
-                    errorMsgBorder('Field Name cannot be duplicted', $(this).find('.mesg-field').attr('id'));
+                    errorMsgBorder('Field Name cannot be duplicated', $(this).find('.mesg-field').attr('id'));
                     check = false;
                     return false;
                 }
@@ -428,11 +428,15 @@ if(check){
                         loadRecordDef();
                         $("#addMessageRule").modal('hide');
                     }else{
-                        if(data.message){
-                            var errmessage = data.message.replaceAll("_"," ")
-                            errorMsg(errmessage);
+                        if(typeof(data)!="undefined"){
+                            if(data.message){
+                                var errmessage = data.message.replaceAll("_"," ")
+                                errorMsg(errmessage);
+                            }else{
+                                errorMsg('Error in Define Message');
+                            }
                         }else{
-                            //errorMsg('Error in Define Message');
+                            errorMsg('Error in Define Message');
                         }
                     }
                     $(".btnSubmit").removeAttr('disabled');
@@ -669,12 +673,16 @@ function checkAndInsert(obj, cbk) {
                     successMsg(obj.id + ' - Record Defined Successfully');
                     newIds.push(obj.id)
                 } else {
-                    if(data.message){
-                        var errmessage = data.message.replaceAll("_"," ")
-                        errorMsg(errmessage);
+                    if(typeof(data) != "undefined"){
+                        if(data.message){
+                            var errmessage = data.message.replaceAll("_"," ")
+                            errorMsg(errmessage);
+                        }else{
+                            errorMsg('Error in Define Record');
+                        }
                     }else{
-                        //errorMsg('Error in Define Record');
-                    }
+                        errorMsg('Error in Define Record');
+                    }    
                 }
                 cbk(null)
             })
