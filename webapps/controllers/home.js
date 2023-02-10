@@ -54,6 +54,11 @@ $(document).ready(function () {
 
 });
 
+$(document).on('click', function (e) {
+    if ($(e.target).closest("#domainLabel").length === 0) {
+        $("#labelTextListDiv").hide("slow","linear");
+    }
+});    
 
 function mqttCancelSubscribe(id) {
 
@@ -236,15 +241,17 @@ function unlinkDomainCall(id) {
                     linkedDomain.push(LINKED_DOMAINS[i]);
                 }
             }
-
             //USER_OBJ.linkedDomains = linkedDomain;
 
             Cookies.set('linked_domains', linkedDomain);
+            LINKED_DOMAINS = linkedDomain;
             USER_OBJ.linkedDomains = [];
 
             Cookies.set('user_details', USER_OBJ);
-            domainList();
             successMsg('Domain Un-Linked Successfully!')
+            setTimeout(() => {
+                domainList();
+            }, 1000);
         } else {
             errorMsg('Error in Un-Linking Domain')
         }

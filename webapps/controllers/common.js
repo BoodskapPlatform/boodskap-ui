@@ -112,7 +112,7 @@ function isNumber(evt) {
 }
 
 function assignVersion() {
-    $("#device_model").val() === '' ? $("#device_version").val('') && $("#device_desc").val('') : '' ;
+    //$("#device_model").val() === '' ? $("#device_version").val('') && $("#device_desc").val('') : '' ;
     for(var i=0;i<device_model_list.length;i++){
         if($("#device_model").val() === device_model_list[i].id){
             $("#device_version").val(device_model_list[i].version);
@@ -121,6 +121,8 @@ function assignVersion() {
         
     }
     if($("#device_model").val() === 'newmodel'){
+        togglemodel('newmodel')     
+    }else if($("#device_model").val() === null){
         togglemodel('newmodel')     
     }else{
         togglemodel('choose')  
