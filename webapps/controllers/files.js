@@ -74,6 +74,7 @@ function loadFiles(flag) {
             $(".loadingButton").hide();
             tCount+=file_list.length;
             if(file_list.length > 0){
+                
                 $(".loadMore").show();
                 for (var i = 0; i < file_list.length; i++) {
                     $(".fileList").append(renderHtml(file_list[i]));
@@ -205,6 +206,7 @@ function openModal(type, id) {
 
         $("#uploadFile").prop('required',true);
 
+        $("#uploadBtn").html("Upload File");
 
         $(".fileAction").html('Add');
         $(".imgBlock").html('')
@@ -216,6 +218,8 @@ function openModal(type, id) {
     else if (type === 2) {
 
         $(".fileAction").html('Update');
+        $("#uploadBtn").html("Update File");
+        // $('#uploadFile').attr('placeholder','No file chosen');
         var obj = {};
         current_file_id = id;
         $(".imgBlock").html('<img class="imgFile" style="width: 75px;height:75px" />')
@@ -269,6 +273,7 @@ function updateFile() {
 
     $(".btnSubmit").attr('disabled', 'disabled');
     uploadFile();
+    
 }
 
 
@@ -333,6 +338,7 @@ function uploadFile() {
 
     var fileInput = document.getElementById("uploadFile");
 
+
     var files = fileInput.files;
 
     if (files.length === 0) {
@@ -352,16 +358,17 @@ function uploadFile() {
                     setTimeout(function () {
                         loadFiles();
                     }, 500)
-                    successMsg('Successfully updated')
-
+                    successMsg('Successfully updated');
                 }else{
                     errorMsg('Error in file update');
+                    $(".btnSubmit").removeAttr('disabled','disabled');
                     return false;
                 }
             })
 
         }else{
             errorMsg('File not found. select a file to start upload');
+            $("#uploadBtn").removeAttr("disabled","disable")
             return false;
         }
 
@@ -375,3 +382,6 @@ function uploadFile() {
 
 
 }
+
+
+

@@ -22,6 +22,25 @@
         max-height: 100%;
         cursor: pointer;
     }
+    .modal-header .close{
+        outline: none !important;
+    }
+    .active{
+        text-decoration: underline;
+    }
+    .panel.panel-loading .panel-body .panel-loader {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: #ffffff;
+    opacity: 1 !important;
+    -webkit-animation: fadeIn .2s;
+    animation: fadeIn .2s;
+    z-index: 1020;
+    border-radius: 0 0 4px 4px;
+}
 </style>
 <div class="container mt-3 platformBody">
     <!-- begin breadcrumb -->
@@ -39,9 +58,9 @@
         <div class="panel-heading">
             <div class="panel-heading-btn">
                 <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-default" data-click="panel-expand"><i
-                        class="fa fa-expand"></i></a>
+                        class="fa fa-expand" title="Expand"></i></a>
                 <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-success" data-click="panel-reload"
-                   onclick="loadFiles()"><i class="fa fa-redo"></i></a>
+                   onclick="loadFiles();refresh()"><i class="fa fa-redo" title="Refresh"></i></a>
                 <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-warning" title="Help"><i
                         class="icon-help"></i></a>
 
@@ -77,7 +96,7 @@
 
 
                 <div class="col-lg-2  col-md-2">
-                    <button class="btn btn-default btn-block btn-lg" onclick="openModal(1)" style="margin-right: 20px;"><i class="icon-upload4"></i> Upload File</button>
+                    <button class="btn btn-default btn-block btn-lg" onclick="openModal(1);fade()" style="margin-right: 20px;"><i class="icon-upload4"></i> Upload File</button>
 
                 </div>
             </div>
@@ -126,7 +145,7 @@
 
 
 <div id="addFile" class="modal fade" tabindex="-1" role="dialog" style="">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog" role="document" id="modalElement">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title"><i class="icon-file-picture-o"></i> <span class="fileAction"></span> File</h4>
@@ -143,7 +162,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="inputLabel">Choose file</label>
-                                <input type="file" id="uploadFile" required>
+                                <input type="file" id="uploadFile" required> <small id="no-file"></small>
                             </div>
                             <div class="form-group">
                                 <label>Choose File Type</label>
@@ -164,14 +183,14 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>Tags</label>
-                                <input class="form-control input-sm" id="file_tags" required/>
+                                <input class="form-control input-sm" id="file_tags" maxlength="100" required/>
                                 <small>comma separated</small>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>Description</label>
-                                <textarea class="form-control input-sm" id="file_desc"></textarea>
+                                <textarea class="form-control input-sm" id="file_desc" maxlength="5000"></textarea>
                             </div>
                         </div>
                     </div>
@@ -181,7 +200,7 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default btn-border" data-dismiss="modal">Close</button>
-                    <button type="submit" id="uploadBtn" class="btn btnModal btnSubmit">Upload File</button>
+                    <button type="submit" id="uploadBtn" class="btn btnModal btnSubmit" onclick="destroy()">Upload File</button>
                 </div>
             </form>
         </div>
