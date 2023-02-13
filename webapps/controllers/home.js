@@ -439,7 +439,7 @@ function loginAs(key, email) {
 
             ///data.linkedDomains = [];
 
-            Cookies.set('linked_domains', data.linkedDomains);
+            data.linkedDomains && Cookies.set('linked_domains', data.linkedDomains);
             data.linkedDomains = [];
             
             Cookies.set('user_details', data);
