@@ -249,7 +249,7 @@
                                             <span>Asset Management</span>
                                         </a>
                                         <ul class="sub-menu">
-                                            <li class="sideSub assetMenu"><a href="<%= basepath %>/asset-management" style="color: #2d2f79;">Mange Assets</a></li>
+                                            <li class="sideSub assetMenu"><a href="<%= basepath %>/asset-management" style="color: #2d2f79;">Manage Assets</a></li>
                                         </ul>
                                     </li>
                                     <li class="has-sub sideMain marketMenu">
@@ -277,6 +277,13 @@
                                         <span>Dashboard</span>
                                     </a>
                                 </li>
+
+                                <li class="has-sub sideMain marketMenu">
+                                    <a href="<%= basepath %>/userevents" style="color: #2d2f79;">
+                                        <img src="images/bell.svg" alt="">
+                                        <span>Event Subscriptions</span>
+                                    </a>
+                                </li>
                                 
                                 <li class="has-sub sideMain dashboardEditor">
                                         <a href="<%= basepath %>/dashboard-editor" style="color: #2d2f79;">
@@ -293,13 +300,19 @@
                                     <ul class="sub-menu">
                                         <li class="sideSub deviceMenu"><a href="<%= basepath %>/device-management" style="color: #2d2f79;">Manage Devices</a></li>
                                         <li class="sideSub deviceModelMenu"><a href="<%= basepath %>/device-models" style="color: #2d2f79;">Manage Device Models</a></li>
-                                        <li class="sideSub deviceSimMenu"><a href="<%= basepath %>/sim-provisioning" style="color: #2d2f79;">Sim Provisioning</a></li>
+                                        <li class="sideSub deviceSimMenu"><a href="<%= basepath %>/device-tokens" style="color: #2d2f79;">Manage Device Tokens</a></li>
                                     </ul>
                                 </li>
                                 <li class="has-sub sideMain marketMenu">
                                     <a href="<%= basepath %>/query-console" style="color: #2d2f79;">
                                         <img src="images/menu/Search.png" alt="">
                                         <span>Elastic Search Query</span>
+                                    </a>
+                                </li>
+                                <li class="has-sub sideMain marketMenu">
+                                    <a href="<%= basepath %>/sql-query-console" style="color: #2d2f79;">
+                                        <img src="images/menu/dsql-console.svg" alt="">
+                                        <span>Ignite SQL Query</span>
                                     </a>
                                 </li>
                                 <li class="has-sub sideMain marketMenu">
@@ -327,7 +340,7 @@
                                         <span>Firmware Management</span>
                                     </a>
                                     <ul class="sub-menu">
-                                        <li class="sideSub firmwareMenu"><a href="<%= basepath %>/firmware-management" style="color:#2d2f79 !important; ">Mange Firmware</a></li>
+                                        <li class="sideSub firmwareMenu"><a href="<%= basepath %>/firmware-management" style="color:#2d2f79 !important; ">Manage Firmware</a></li>
                                         <!--&lt;!&ndash; <li class="sideSub otadeviceMenu"><a href="<%= basepath %>/ota-device-batches">OTA Device Batches</a></li>-->
                                         <li class="sideSub otalMenu"><a href="<%= basepath %>/firmware/ota-upgrade" style="color: #2d2f79;">OTA Upgrade</a></li>
                                     </ul>
@@ -351,6 +364,12 @@
                                         <span>Message Definition</span>
                                     </a>
                                 </li>
+                                <li class="has-sub sideMain dbqueryMenu">
+                                    <a href="<%= basepath %>/db-table" style="color: #2d2f79;">
+                                        <img src="images/menu/db-table.svg" alt="">
+                                        <span>DB Tables</span>
+                                    </a>
+                                </li>
                                 <li class="has-sub sideMain marketMenu">
                                     <a href="<%= basepath %>/messages" style="color: #2d2f79;">
                                         <img src="images/menu/messages.svg" alt="">
@@ -367,6 +386,18 @@
                                     <a href="<%= basepath %>/templates" style="color: #2d2f79;">
                                         <img src="images/menu/templates-bskp.svg" alt="">
                                         <span>Plaform Templates</span>
+                                    </a>
+                                </li>
+                                <li class="has-sub sideMain eventMenu">
+                                    <a href="<%= basepath %>/dsql-templates" style="color: #2d2f79;">
+                                        <img src="images/menu/dsql-temp.svg" alt="">
+                                        <span>DSQL Templates</span>
+                                    </a>
+                                </li>
+                                <li class="has-sub sideMain eventMenu">
+                                    <a href="<%= basepath %>/db-templates" style="color: #2d2f79;">
+                                        <img src="images/menu/db-templates.svg" alt="">
+                                        <span>DB Templates</span>
                                     </a>
                                 </li>
                             
@@ -394,6 +425,18 @@
                                         <span>Script Console</span>
                                     </a>
                                 </li>
+                                <li class="has-sub sideMain scriptMenu">
+                                    <a href="<%= basepath %>/db-query-console" style="color: #2d2f79;">
+                                        <img src="images/menu/db-query.svg" alt="">
+                                        <span>DB Query</span>
+                                    </a>
+                                </li>
+                                <li class="has-sub sideMain scriptMenu">
+                                    <a href="<%= basepath %>/sql-table" style="color: #2d2f79;">
+                                        <img src="images/menu/sql-table.svg" alt="">
+                                        <span>SQL Table</span>
+                                    </a>
+                                </li>
                                 <li class="has-sub sideMain tokenHeader">
                                     <a href="javascript:void(0);" style="color: #2d2f79;">
                                         <b class="caret"></b>
@@ -413,6 +456,7 @@
                                     </a>
                                     <ul class="sub-menu">
                                         <li class="sideSub userMenu"><a href="<%= basepath %>/user-management" style="color: #2d2f79;">Manage Users</a></li>
+                                        <li class="sideSub groupMenu"><a href="<%= basepath %>/user-group" style="color: #2d2f79;">Users group</a></li>
                                         <!--<li class="sideSub userRoleMenu"><a href="<%= basepath %>/user-roles">Manage User Roles</a></li>-->
                                     </ul>
                                 </li>
@@ -467,6 +511,18 @@
                                 </div>
                             </a>    
                         </div>
+
+                        <div class="w-50 w-sm-100 w-md-50 px-2 megacard" ><!-- onclick="loadMenu(1)" -->
+                            <a href="<%= basepath %>/userevents" onclick="clickRecent('Event Subscriptions','userevents',52,38)">
+                                <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('userevents','userevents',1,7)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg38"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">Event Subscriptions</label></p>
+                                </div>
+                            </a>
+                        </div>
+
                     </div>
                    </div>
                    <div class="megdiv">
@@ -533,7 +589,7 @@
                             </a>    
                         </div>
                         <div class="w-50 w-sm-100 w-md-50 px-2 megacard dbqueryhome" ><!-- onclick="loadMenu(30)" ccccccccccccccccccccccc -->
-                            <a href="<%= basepath %>/" onclick="clickRecent('DB Query Console','db-query-console',30,16)">
+                            <a href="<%= basepath %>/db-query-console" onclick="clickRecent('DB Query Console','db-query-console',30,16)">
                                 <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('DB Query Console','db-query-console',30,16)" -->
                                     <div class="bskp-icon-frame">
                                         <div class="bskp-Dbg bskp-Dimg16"> </div>
@@ -542,6 +598,18 @@
                                 </div>
                             </a>    
                         </div>
+
+                        <div class="w-50 w-sm-100 w-md-50 px-2 megacard sqlqueryconsolehome" ><!-- onclick="loadMenu(30)" ccccccccccccccccccccccc -->
+                            <a href="<%= basepath %>/sql-query-console" onclick="clickRecent('Ignite SQL Query','sql-query-console',54,40)">
+                                <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('DB Query Console','db-query-console',30,16)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg40"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">Ignite SQL Query</label></p>
+                                </div>
+                            </a>    
+                        </div>
+
                         <div class="w-50 w-sm-100 w-md-50 px-2 megacard" ><!-- onclick="loadMenu(20)" -->
                             <a href="<%= basepath %>/marketplace" onclick="clickRecent('Boodskap Marketplace','marketplace',20,1)">
                                 <div class="card modules bskp-home-modules"  ><!-- onclick="clickRecent('Boodskap Marketplace','marketplace',20,1)" -->
@@ -799,6 +867,16 @@
                                         <div class="bskp-Dbg bskp-Dimg9"> </div>
                                     </div>
                                     <p class="mt-2"><label class="cardtitle">DSQL Templates</label></p>
+                                </div>
+                            </a>    
+                        </div>
+                        <div class="w-50 w-sm-100 w-md-50 px-2 megacard sqltablehome" ><!-- onclick="loadMenu(29)" -->
+                            <a href="<%= basepath %>/sql-table" onclick="clickRecent('SQL Table','sql-table',53,39)">
+                                <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('DB Tables','db-tables',29,5)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg39"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">SQL Table</label></p>
                                 </div>
                             </a>    
                         </div>
