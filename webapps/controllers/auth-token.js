@@ -123,7 +123,7 @@ function loadTokenList(type) {
                 $("#tokenTable_filter").show();
             }, 1000);
         }
-        $(".dataTables_scrollBody").removeAttr("style").css({"min-height":"calc(100vh - 425px)","position":"relative","width":"100%"});
+        $(".dataTables_scrollBody").removeAttr("style").css({"min-height":"calc(100vh - 425px)","position":"relative","width":"100%","border-bottom":"0px"});
         
         
         //$("#tokenTable_filter").find("input").attr("autocomplete","off").val("");

@@ -61,6 +61,7 @@ $(document).ready(function () {
 
     $("#geoType").on('change',function (e) {
        mapTools(e.target.value);
+       $('.value-box').val("")
     });
 
     console.log($("#geoCreateType").val());
@@ -230,37 +231,28 @@ function upsertEntityGeofence(){
     geoInputObj['geometries']['coordinates'] = geoInputObj.coordinates;
     geoInputObj['geometries'] = JSON.stringify(geoInputObj.geometries);
 
-    $("input").css({"border":"1px solid #ccc","background":"#fff"});
+    
 
    if(!geofenceObj.name){
-
-        $("#name").css({"border":"1px solid red","background":"#ff00000d"}).focus();
-        errorMsg('Geofence Name is Required');
+        showFeedbackAlert('Geofence name is required','name','nameAlert');
 
     }else if(!geofenceObj.geoType){
-
-        $("#geoType").css({"border":"1px solid red","background":"#ff00000d"}).focus();
-        errorMsg('Geofence Type is Required');
+        showFeedbackAlert('Geofence type is required','geoType','typeAlert');
 
     }else if(!geofenceObj.label){
+        showFeedbackAlert('Label is required','label','labelAlert');
 
-        $("#label").css({"border":"1px solid red","background":"#ff00000d"}).focus();
-        errorMsg('Label is Required');
 
     } else{
 
-        if(geofenceObj.geoType === 'POINTS'){
+        if(geofenceObj.geoType === 'POINT'){
 
             if(!$("#pointLat").val()){
-
-                $("#pointLat").css({"border":"1px solid red","background":"#ff00000d"}).focus();
-                errorMsg('Lat. is required for points');
+                showFeedbackAlert('Latitude is required','pointLat','latitudeAlert');
                 return false;
 
             }else if(!$("#pointLong").val()){
-
-                $("#pointLong").css({"border":"1px solid red","background":"#ff00000d"}).focus();
-                errorMsg('Long. is required for points');
+                showFeedbackAlert('Longitude is required ','pointLong','longitudeAlert');
                 return false;
 
             }
@@ -268,25 +260,30 @@ function upsertEntityGeofence(){
         }else if(geofenceObj.geoType === 'CIRCLE'){
 
             if(!$("#bskpLat").val()){
-
-                $("#bskpLat").css({"border":"1px solid red","background":"#ff00000d"}).focus();
-                errorMsg('Lat. is required for circle');
+                showFeedbackAlert('Latitude is required','bskpLat','bskpLatAlert');
                 return false;
 
             }else if(!$("#bskpLong").val()){
-
-                $("#bskpLong").css({"border":"1px solid red","background":"#ff00000d"}).focus();
-                errorMsg('Long. is required for circle');
+                showFeedbackAlert('Longitude is required','bskpLong','bskpLongAlert');
                 return false;
 
             }else if(!$("#bskpCircleRadius").val()){
+                showFeedbackAlert('Circle radius is required','bskpCircleRadius','bskpCircleRadiusAlert');
 
-                $("#bskpCircleRadius").css({"border":"1px solid red","background":"#ff00000d"}).focus();
-                errorMsg('Radius is required for circle');
                 return false;
 
             }
 
+        }else if(geofenceObj.geoType === 'LINESTRING'){
+            if(!$("#linestringCoordinates").val()){
+                showFeedbackAlert('Coordinates is required','linestringCoordinates','linestringCoordinatesAlert');
+                return false;
+            }
+        }else if(geofenceObj.geoType === 'POLYGON'){
+            if(!$("#polygonCoordinates").val()){
+                showFeedbackAlert('Polygon coordinates is required','polygonCoordinates','polygonCoordinatesAlert');
+                return false;
+            }
         }
 
         Swal({
@@ -313,10 +310,10 @@ function upsertEntityGeofence(){
 
                             $("#geoCreateForm input").val("");
                             $("#geoCreateForm textarea").val("");
-                            $("#geoCreateForm #geoType").val("POINT");
                             mapTools("DEFAULT")
 
                             setTimeout(function () {
+                                $("#geoCreateForm #geoType").val("POINT");
                                 loadGeofenceList();
                             },1000);
                             Swal("Created!", "Your Geofence has been Created.", "success");
@@ -701,6 +698,8 @@ function resetAll(){
         drawingManager.setDrawingMode(null); //Reset Drawing Mode
         // drawingManager.setMap(null);//Reset Drawing Tool
     }
+    disableFn('map-preview')
+    $('.value-box').val("")
 }
 
 function loadGeofenceList() {
@@ -1276,6 +1275,9 @@ function googleMapDrawingTool(){
      var drawingStyle = {
         strokeWeight: 2,
         fillOpacity: 0.45,
+        fillColor: '#FF0000',
+        strokeColor: '#FF0000',
+        strokeOpacity: 0.8, 
         editable: true,
         draggable: true
     };
@@ -1318,7 +1320,7 @@ function googleMapDrawingTool(){
         overlayClickListener(event.overlay);
          var newShape = event.overlay;
         newShape.type = event.type;
-
+            
         if(geofenceObj.geoType == "POINT"){  //POINT
 
             var centerLtlg = event.overlay.position;
@@ -1328,7 +1330,7 @@ function googleMapDrawingTool(){
                 id: 'marker_' + markerId
             });
             markersGroup[markerId] = newMark;
-
+            newGeoMarker = newShape
             google.maps.event.addListener(newShape, 'rightclick', function(e) {
 
                 var newMark2 = markersGroup[markerId];
@@ -1422,7 +1424,7 @@ function googleMapDrawingTool(){
             drawingManager.setDrawingMode(null)
 
         }
-
+        enableFn('map-preview')
         $("#geoType").val(geofenceObj.geoType);
         $(".map-top-tools .min-tool-btn").removeClass("active");
         $("#DEFAULT").addClass("active");
@@ -1514,7 +1516,9 @@ function searchLocationAPI() {
         geofenceObj['lat'] = place.geometry.location.lat();
         geofenceObj['lng'] = place.geometry.location.lng();
         geofenceObj['geoType'] = $("#geoType").val() ? $("#geoType").val() : "POINT";
-
+        if (newGeoMarker) {
+            newGeoMarker.setMap(null); //Reset Map Markers
+        }
         mapPreview();
     });
 }
@@ -1857,6 +1861,8 @@ function geofenceMapManagement(){
                     path: lineCoords,
                     strokeColor: "#FF0000",
                     strokeOpacity: 1.0,
+                    editable: false,
+                    draggable: true,
                     strokeWeight: 2
                 });
                 geoLineString.setMap(geoMapio);
@@ -1917,6 +1923,8 @@ function geofenceMapManagement(){
                     strokeColor: '#FF0000',
                     strokeOpacity: 0.8,
                     strokeWeight: 2,
+                    editable: false,
+                    draggable: true,
                     fillColor: '#FF0000',
                     fillOpacity: 0.35
                 });
@@ -1989,7 +1997,7 @@ function RadiusWidget() {
     var circle = new google.maps.Circle({
         fillColor: '#efefef',
         fillOpacity: 0.5,
-        strokeColor: '#000',
+        strokeColor: '#FF0000',
         strokeOpacity: 1.0,
         strokeWeight: 2
     });

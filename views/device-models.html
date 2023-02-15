@@ -27,8 +27,8 @@
         <div>
             <ol class="breadcrumb pull-right bskp-align-icon">
                 <li class="breadcrumb-item"><a href="<%= basepath %>/home">Home</a></li>
-                <li class="breadcrumb-item"><a href="<%= basepath %>/device-management">Device Management</a></li>
-                <li class="breadcrumb-item active">Manage Device Models</li>
+                <!-- <li class="breadcrumb-item"><a href="<%= basepath %>/device-management">Device Management</a></li> -->
+                <li class="breadcrumb-item active"><u>Device Management</u></li>
                 <div class="ml-4">
                     <a href="javascript:;" class="btn btn-sm btn-icon btn-circle  bskp-icon-bgt" title="Expand"  data-click="panel-expand"><em class="fa fa-expand"></em></a>
                     <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg" title="Help" ><em class="icon-help"></em></a>
@@ -83,14 +83,14 @@
                             <div  class="form-group">
                                 <label  class="inputLabel">Model ID *</label>
                                 <input  class="form-control input-sm" placeholder="Enter Model ID" maxlength="100" autocomplete="off" type="text" id="device_id" required>
-                                <span id="logdevice_id"></span>
+                                <span id="logdevice_id" class="error-msg"></span>
                             </div>
                         </div>
                         <div  class="col-md-6">
                             <div  class="form-group">
                                 <label  class="inputLabel">Model Version *</label>
                                 <input  class="form-control input-sm" placeholder="Enter Model Version" maxlength="100" autocomplete="off" type="text" id="device_version" required>
-                                <span id="logdevice_version"></span>
+                                <span id="logdevice_version" class="error-msg"></span>
                             </div>
                         </div>
                     </div>
@@ -99,7 +99,7 @@
                             <div  class="form-group">
                                 <label  class="inputLabel">Description *</label>
                                 <textarea class="form-control input-sm" id="device_desc" placeholder="Enter Description" maxlength="1000" autocomplete="off" required ></textarea>
-                                <span id="logdevice_desc"></span>
+                                <span id="logdevice_desc" class="error-msg"></span>
                             </div>
                         </div>
                     </div>
@@ -135,7 +135,6 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-svg
 
 
 

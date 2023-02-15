@@ -2618,7 +2618,7 @@ function sendCommandProperty(did, cmdid, pname, data, cbk) {
         error: function (e) {
             //called when there is an error
             //console.log(e.message);
-            cbk(false, e);
+            cbk(false, e.responseJSON);
         }
     });
 }
@@ -2637,7 +2637,7 @@ function sendCommandTemplate(did, cmdid, tid, system, data, cbk) {
         error: function (e) {
             //called when there is an error
             //console.log(e.message);
-            cbk(false, e);
+            cbk(false, e.responseJSON);
         }
     });
 }

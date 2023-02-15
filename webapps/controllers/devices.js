@@ -202,7 +202,7 @@ function loadDeviceList() {
 
     deviceTable = $("#deviceTable").DataTable(tableOption);
     $('.dataTables_filter input').attr('maxlength', 100)
-    $(".dataTables_scrollBody").removeAttr("style").css({"min-height":"calc(100vh - 425px)","position":"relative","width":"100%"});
+    $(".dataTables_scrollBody").removeAttr("style").css({"min-height":"calc(100vh - 425px)","position":"relative","width":"100%","border-bottom":"0px"});
 
 }
 
@@ -271,6 +271,8 @@ function loadDeviceModels(check) {
             $("#device_model").val('').trigger('change')
             if($("#device_model").val() === 'newmodel' &&   check !== 'update'){
                 togglemodel('newmodel');      
+            }else if($("#device_model").val() === null){
+                togglemodel('newmodel');    
             }else{
                 togglemodel('edit');
             }
@@ -291,6 +293,7 @@ function openModal(type,id) {
         loadDeviceModels('');
         $(".new-model").removeClass('d-none');
         $(".new_device_model").val('');
+        $("#device_desc").val("");
         $("#addDevice").modal({
             backdrop: 'static',
             keyboard: false
@@ -302,7 +305,15 @@ function openModal(type,id) {
         $("#addDevice").modal('show');
         $("#addDevice form").attr('onsubmit','addDevice()')
         
+        
     }else if (type === 2) {
+        var obj ={};
+        current_device_id = id;
+        for(var i=0;i<device_list.length;i++){
+            if(id === device_list[i].id){
+                obj = device_list[i];
+            }
+        }
         $("#device_version").removeAttr('readonly');       
         $(".new-model").addClass('d-none');
         $("#device_model").removeAttr('disabled');
@@ -310,28 +321,25 @@ function openModal(type,id) {
         $("#device_id").attr('readonly','readonly');
         loadDeviceModels('update');
         $(".templateAction").html('Update');
-        var obj ={};
-        current_device_id = id;
+        
      
         $("#addDevice").modal({
             backdrop: 'static',
             keyboard: false
         });
 
-        for(var i=0;i<device_list.length;i++){
-            if(id === device_list[i].id){
-                obj = device_list[i];
-            }
-        }
+        $("#addDevice form").prepend('<div id="loadProcessing" class="position-absolute" style="padding: 10px 30px;background-color: #eff2f4;z-index: 1;top: 2%;left: 40%;"><i class="fa fa-spinner fa-spin "></i> <span class="">Processing...</span></div>');
+        
         setTimeout(() => {
             $("#device_id").val(obj.id);
             $("#device_name").val(obj.name);
-            $("#device_model option[value='"+obj.modelId+"']").prop("selected", true);
+            $("#device_model").val(obj.modelId).change();
             $("#device_version").val(obj.version);
             $("#device_desc").val(obj.description);
             $("#addDevice").modal('show');
-            $("#addDevice form").attr('onsubmit','updateDevice()') 
-        }, 440);
+            $("#addDevice form").attr('onsubmit','updateDevice()');
+            $("#loadProcessing").remove();
+        }, 500);
         
         
     }else if (type === 3) {
@@ -401,8 +409,16 @@ function checkConfig() {
 function addDevice() {
   if(choosemodel){
     var device_model =$.trim($("#device_model").val() );
+    if(!$("#device_model").val()){
+        showSelectFeedback('Device Model is required', 'device_model','logdevice_model');
+        return false;
+    }
   }else{
     var device_model =$.trim($("#new_device_model").val() );
+    if(!device_model){
+        showFeedback('Device Model is required', 'new_device_model','lognew_device_model');
+        return false;
+    }
   }
     var device_id =$.trim($("#device_id").val() );
     var device_name =$.trim($("#device_name").val() );
@@ -416,14 +432,6 @@ function addDevice() {
     }else if(!device_name){
    
         showFeedback('Device Name is required', 'device_name','logdevice_name');
-        return false;
-       
-    }else if(!$("#device_model").val()){
-        showSelectFeedback('Device Model is required', 'device_model','logdevice_model');
-        return false;
-    }else if(!device_model){
-   
-        showFeedback('Device Model is required', 'new_device_model','lognew_device_model');
         return false;
        
     }else if(!device_version){
@@ -447,6 +455,7 @@ function addDevice() {
             "version": device_version,
             "description": device_desc,
         }
+        $(".btnSubmit").attr('disabled','disabled');
     
     async.series({
         SameModelID: function (rmdcbk) {
@@ -461,6 +470,7 @@ function addDevice() {
                 modelstatus =true;
                 rmdcbk(null, false);
             }
+
          }) 
         }else{
             rmdcbk(null, false); 
@@ -485,7 +495,6 @@ function addDevice() {
                   modelstatus =false;
                   mdcbk(null, false);
                }
-              $(".btnSubmit").removeAttr('disabled');
              })
            }else{
             mdcbk(null, false);
@@ -502,8 +511,9 @@ function addDevice() {
                     "description": $("#device_desc").val(),
                     }
                     retreiveDevice(deviceObj.id, function (status, data) {
-                    if (status) {
                         $(".btnSubmit").removeAttr('disabled');
+
+                    if (status) {
                         errorMsgBorder('Device ID already exist', 'device_id');
                         Dcbk(null, false);
                     } else {
@@ -519,9 +529,9 @@ function addDevice() {
                                 errorMsg('Error in Creating Device')
                                 Dcbk(null, false);
                             }
-                            $(".btnSubmit").removeAttr('disabled');
                         })
                     }
+
                     })
                 }else{
                     Dcbk(null, false);
@@ -558,6 +568,8 @@ function updateDevice() {
        return false;
       
    }else{
+        $(".btnSubmit").attr('disabled','disabled');
+
         async.series({
         isModelUpdated: function (mdcbk) {
            if(modelmode === 'edit'){
@@ -570,8 +582,9 @@ function updateDevice() {
             upsertDeviceModel(deviceObj, function (status, data) {
                 if (status) {
                     successMsg('Device Model Updated Successfully');
-                    mdcbk(null, true);
                     $("#addDevice").modal('hide');
+                    mdcbk(null, true);
+                    
                 } else {
                     errorMsg('Error in Updating Device Model')
                     mdcbk(null, false);
@@ -594,6 +607,8 @@ function updateDevice() {
         $(".btnSubmit").attr('disabled','disabled');
 
         upsertDevice(deviceObj, function (status, data) {
+        $(".btnSubmit").attr('disabled','disabled');
+
         if (status) {
             successMsg('Device Updated Successfully');
             dcbk(null, true);
@@ -644,7 +659,17 @@ function uploadConfig() {
             checkCommandStatus(data['corrId'],1);
 
         } else {
-            errorMsg('Error in uploading config');
+            if(typeof(data)!="undefined"){
+                if(data.message){
+                    var errmessage = data.message.replaceAll("_"," ")
+                    errorMsg(errmessage);
+                }else{
+                    errorMsg('Error in uploading config');
+                }
+            }else{
+                errorMsg('Error in uploading config');
+            }
+            
         }
     })
 }
@@ -664,7 +689,17 @@ function downloadConfig() {
             },3000);
             checkCommandStatus(data['corrId'],2);
         } else {
-            errorMsg('Error in downloading config');
+            if(typeof(data)!="undefined"){
+                if(data.message){
+                    var errmessage = data.message.replaceAll("_"," ")
+                    errorMsg(errmessage);
+                }else{
+                    errorMsg('Error in downloading config');
+                }
+            }else{
+                errorMsg('Error in downloading config');
+            }
+            
         }
     })
 }

@@ -321,7 +321,7 @@ agm-map {
 
 .map-tools{
   padding: 2px;
-  /*background: #F62459;*/
+  background: #2D2F79 !important;
   font-size: 11px;
   color: #ffffff;
   font-weight: 600;
@@ -399,4 +399,16 @@ table.dataTable span.column_highlight {
 
 input{
   outline: none;
+}
+.geo-input:focus{
+  box-shadow: 0px 2px 0px rgb(52 142 227 / 30%) !important;
+}
+.page-header{
+  color: hsl(0deg 0% 25%);
+  margin-left: 6px;
+  font-weight: 700;
+  font-size: 20px;
+}
+.gmnoprint{
+  opacity: 0;
 }

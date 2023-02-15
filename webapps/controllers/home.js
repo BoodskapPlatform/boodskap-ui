@@ -54,6 +54,11 @@ $(document).ready(function () {
 
 });
 
+$(document).on('click', function (e) {
+    if ($(e.target).closest("#domainLabel").length === 0) {
+        $("#labelTextListDiv").hide("slow","linear");
+    }
+});    
 
 function mqttCancelSubscribe(id) {
 
@@ -178,8 +183,8 @@ function domainList() {
                 '<td>' +
                 '<button class="btn btn-xs btn-default" title="Unlink Domain" ' +
                 'onclick="unlinkDomainCall(\'' + LINKED_DOMAINS[i].domainKey + '\')"><i class="icon-unlink"></i></button>' +
-                '<button class="btn btn-xs btn-default ml-2" title="View Domain Dashboard" ' +
-                'onclick="openLinkedDomain(\'' + LINKED_DOMAINS[i].domainKey + '\')"><i class="icon-play"></i> view</button>' +
+                // '<button class="btn btn-xs btn-default ml-2" title="View Domain Dashboard" ' +
+                // 'onclick="openLinkedDomain(\'' + LINKED_DOMAINS[i].domainKey + '\')"><i class="icon-play"></i> view</button>' +
                 '</td>' +
                 '</tr>')
         }
@@ -236,15 +241,17 @@ function unlinkDomainCall(id) {
                     linkedDomain.push(LINKED_DOMAINS[i]);
                 }
             }
-
             //USER_OBJ.linkedDomains = linkedDomain;
 
             Cookies.set('linked_domains', linkedDomain);
+            LINKED_DOMAINS = linkedDomain;
             USER_OBJ.linkedDomains = [];
 
             Cookies.set('user_details', USER_OBJ);
-            domainList();
             successMsg('Domain Un-Linked Successfully!')
+            setTimeout(() => {
+                domainList();
+            }, 1000);
         } else {
             errorMsg('Error in Un-Linking Domain')
         }
@@ -432,7 +439,7 @@ function loginAs(key, email) {
 
             ///data.linkedDomains = [];
 
-            Cookies.set('linked_domains', data.linkedDomains);
+            data.linkedDomains && Cookies.set('linked_domains', data.linkedDomains);
             data.linkedDomains = [];
             
             Cookies.set('user_details', data);

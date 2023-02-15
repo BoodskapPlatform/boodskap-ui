@@ -630,7 +630,7 @@ function recentUpdate() {
         url:
             API_BASE_PATH +
             "/domain/property/get/" +
-            API_TOKEN +
+            API_TOKEN_ALT +
             "/" +
             USER_OBJ.user.email,
         contentType: "application/json",
