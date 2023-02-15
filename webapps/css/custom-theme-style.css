@@ -1258,7 +1258,7 @@ input[type=file]{
 
 .bskp-submenu2 li.active {
     background-color: #2d2f79 !important;
-    /* border-radius: 10px 10px 0px 0px; */
+    border-radius: 0px !important;
     font-weight: 600;
     color: white;
 }
