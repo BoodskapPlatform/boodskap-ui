@@ -72,7 +72,7 @@ let rule_types = {
     "9" : "process_rule.groovy",
     "10" : "sftp_rule.groovy",
     "11" : "mqtt_rule.groovy",
-    "12" : "udp.groovy",
+    "12" : "udp_rule.groovy",
     "13" : "tcp_rule.groovy",
     "14" : "email_rule.groovy",
     "15" : "micro_api_rule.groovy",
@@ -1324,7 +1324,7 @@ function loadProcessRulesList() {
         if(status){
 
             let resultData = QueryFormatter(data);
-
+            console.log(resultData);
             data = resultData.data.data;
 
             process_rules_list = data;
@@ -3689,7 +3689,6 @@ async function loadEditor(code, tabid) {
 
             let consoleText = codeEditor.getSession().getValue();
 
-
             if (CURRENT_TYPE === 0) {
 
                 let data = {
@@ -4014,7 +4013,7 @@ let CRON_JOB = null;
 
 function openModal(e) {
     let id = e ? e : $("#rulesType").val() * 1
-
+        console.log(e);
     if (id === 1) {
 
         MSG_FIELD_COUNT = 0;

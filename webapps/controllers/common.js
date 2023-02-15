@@ -1,7 +1,7 @@
 
 var themeProp = {};
 $(document).ready(function () {
-    getDomainTheme()
+    // getDomainTheme()
 });
 
 function getDomainTheme() {
