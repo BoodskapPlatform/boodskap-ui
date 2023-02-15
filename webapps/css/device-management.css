@@ -111,3 +111,6 @@ ol li{
 .platformBody{
     padding-bottom: 50px !important;
 }
+#deleteModal .modal-dialog{
+    max-width: 600px !important;
+}

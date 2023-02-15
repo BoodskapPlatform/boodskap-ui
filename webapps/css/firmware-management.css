@@ -186,3 +186,6 @@ bottom:12px;
     position: relative;
     left:8px;
 }
+#deleteModal .modal-dialog{
+    max-width: 600px;
+}
