@@ -29,17 +29,14 @@
         text-decoration: underline;
     }
     .panel.panel-loading .panel-body .panel-loader {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    background: #ffffff;
     opacity: 1 !important;
-    -webkit-animation: fadeIn .2s;
-    animation: fadeIn .2s;
-    z-index: 1020;
-    border-radius: 0 0 4px 4px;
+}
+.panel-inverse>.panel-heading {
+    background: #ffffff;
+}
+.modal-header {
+    background-color: #ffffff;
+    border-radius: 0px;
 }
 </style>
 <div class="container mt-3 platformBody">
@@ -54,10 +51,10 @@
     <!-- end page-header -->
 
     <!-- begin panel -->
-    <div class="panel panel-inverse">
+    <div id="modalFade" class="panel panel-inverse">
         <div class="panel-heading">
             <div class="panel-heading-btn">
-                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-default" data-click="panel-expand"><i
+                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-default" data-click="panel-expand" onclick="expand()"><i
                         class="fa fa-expand" title="Expand"></i></a>
                 <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-success" data-click="panel-reload"
                    onclick="loadFiles();refresh()"><i class="fa fa-redo" title="Refresh"></i></a>
@@ -162,7 +159,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="inputLabel">Choose file</label>
-                                <input type="file" id="uploadFile" required> <small id="no-file"></small>
+                                <input type="file" id="uploadFile" required>
                             </div>
                             <div class="form-group">
                                 <label>Choose File Type</label>
@@ -200,7 +197,7 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default btn-border" data-dismiss="modal">Close</button>
-                    <button type="submit" id="uploadBtn" class="btn btnModal btnSubmit" onclick="destroy()">Upload File</button>
+                    <button type="submit" id="uploadBtn" class="btn btnModal btnSubmit">Upload File</button>
                 </div>
             </form>
         </div>
