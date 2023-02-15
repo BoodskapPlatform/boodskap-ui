@@ -67,18 +67,20 @@ function loadAssetList() {
 
     ];
 
+    let data = 1000
     var tableOption = {
         responsive: false,
         autoWidth: false,
         paging: true,
         aoColumns: fields,
-        searching: true,
+        searchable: true,
+        aaSorting: [[3, 'desc']],
         "ordering": true,
-        // scrollY: '100px',
+        scrollY: '100px',
         scrollCollapse: true,
         iDisplayLength: 10,
         lengthMenu: [[10, 50, 100], [10, 50, 100]],
-            dom: '<"bskp-search-left" f> lrtip',
+                       dom: '<"bskp-search-left" f> lrtip',
             language: {
                 "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
              "searchPlaceholder": "Search by Asset ID",
@@ -91,23 +93,63 @@ function loadAssetList() {
                 },
 
             },
-    };
-    $('.dataTables_filter input').attr('maxlength', 100);
-    $(".dataTables_scrollBody").removeAttr("style").css({"min-height":"calc(100vh - 425px)","position":"relative","width":"100%"});
+        "bServerSide": false,
+        "bProcessing": true,
+        "sAjaxSource": API_BASE_PATH + "/asset/list/" + API_TOKEN_ALT + '/' + data,
+        "fnServerData": function (sSource, aoData, fnCallback, oSettings) {
+           
 
-    getAssetList(1000, function (status, data) {
-        if (status && data.length > 0) {
-            tableOption['data'] = data;
-            $(".assetCount").html(data.length)
-            asset_list = data;
-        } else {
-            $(".assetCount").html(0);
-            asset_list = [];
+            var keyName = fields[oSettings.aaSorting[0][0]]
+
+            var sortingJson = {};
+            sortingJson[keyName['mData']] = {"order": oSettings.aaSorting[0][1]};
+
+
+
+            oSettings.jqXHR = $.ajax({
+                "type": "GET",
+                "url": sSource,
+                success: function (data) {
+                    if (data.length > 0) {
+                        $(".assetCount").html(data.length)
+                        asset_list = data;
+                    } else {
+                        $(".assetCount").html(0);
+                        asset_list = [];
+                    }
+                    let resultData = {
+                        "recordsTotal": asset_list.length,
+                        "recordsFiltered": asset_list.length,
+                        "data": asset_list
+                    }
+                    resultData['draw'] = oSettings.iDraw;
+
+                    fnCallback(resultData);
+                }
+            });
         }
 
-        assetTable = $("#assetTable").DataTable(tableOption);
-        $('.dataTables_filter input').attr('maxlength', 100)
-    })
+    };
+    assetTable = $("#assetTable").DataTable(tableOption);
+    $('.dataTables_filter input').attr('maxlength', 100);
+    $(".dataTables_scrollBody").removeAttr("style").css({"min-height":"calc(100vh - 425px)","position":"relative","width":"100%"});
+    $('.dataTables_filter input').on('keyup', function () {
+        console.log('hh')
+        assetTable.search( this.value ).draw();
+    } );
+    // getAssetList(1000, function (status, data) {
+    //     if (status && data.length > 0) {
+    //         tableOption['data'] = data;
+    //         $(".assetCount").html(data.length)
+    //         asset_list = data;
+    //     } else {
+    //         $(".assetCount").html(0);
+    //         asset_list = [];
+    //     }
+
+    //     assetTable = $("#assetTable").DataTable(tableOption);
+    //     $('.dataTables_filter input').attr('maxlength', 100)
+    // })
 
 
 }
