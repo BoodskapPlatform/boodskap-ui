@@ -159,3 +159,10 @@ function togglemodel(check) {
     } 
  
 }
+
+function enableFn(id){
+    $('#'+id).attr('disabled',false)
+}
+function disableFn(id){
+    $('#'+id).attr('disabled',true)
+}

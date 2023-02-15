@@ -1373,3 +1373,9 @@ vertical-align: middle;
      width: 24px;
      margin: auto;    
 }
+.btn-bskp:hover{
+    color: #fff !important;
+}
+table.table-bordered.dataTable th, table.table-bordered.dataTable td{
+    vertical-align: middle;
+}
