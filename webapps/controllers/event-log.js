@@ -467,7 +467,7 @@ var logFields = {
                 mData: 'message',
                 sTitle: 'Response',
                 orderable: false,
-                sWidth:'60%',
+                sWidth:'50%',
                 mRender: function (data, type, row) {
 
                     if(data) {
