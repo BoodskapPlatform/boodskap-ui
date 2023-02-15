@@ -183,8 +183,8 @@ function domainList() {
                 '<td>' +
                 '<button class="btn btn-xs btn-default" title="Unlink Domain" ' +
                 'onclick="unlinkDomainCall(\'' + LINKED_DOMAINS[i].domainKey + '\')"><i class="icon-unlink"></i></button>' +
-                '<button class="btn btn-xs btn-default ml-2" title="View Domain Dashboard" ' +
-                'onclick="openLinkedDomain(\'' + LINKED_DOMAINS[i].domainKey + '\')"><i class="icon-play"></i> view</button>' +
+                // '<button class="btn btn-xs btn-default ml-2" title="View Domain Dashboard" ' +
+                // 'onclick="openLinkedDomain(\'' + LINKED_DOMAINS[i].domainKey + '\')"><i class="icon-play"></i> view</button>' +
                 '</td>' +
                 '</tr>')
         }

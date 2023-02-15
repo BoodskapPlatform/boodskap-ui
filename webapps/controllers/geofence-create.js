@@ -699,7 +699,7 @@ function resetAll(){
         // drawingManager.setMap(null);//Reset Drawing Tool
     }
     disableFn('map-preview')
-
+    $('.value-box').val("")
 }
 
 function loadGeofenceList() {
@@ -1275,6 +1275,9 @@ function googleMapDrawingTool(){
      var drawingStyle = {
         strokeWeight: 2,
         fillOpacity: 0.45,
+        fillColor: '#FF0000',
+        strokeColor: '#FF0000',
+        strokeOpacity: 0.8, 
         editable: true,
         draggable: true
     };
@@ -1856,6 +1859,8 @@ function geofenceMapManagement(){
                     path: lineCoords,
                     strokeColor: "#FF0000",
                     strokeOpacity: 1.0,
+                    editable: false,
+                    draggable: true,
                     strokeWeight: 2
                 });
                 geoLineString.setMap(geoMapio);
@@ -1916,6 +1921,8 @@ function geofenceMapManagement(){
                     strokeColor: '#FF0000',
                     strokeOpacity: 0.8,
                     strokeWeight: 2,
+                    editable: false,
+                    draggable: true,
                     fillColor: '#FF0000',
                     fillOpacity: 0.35
                 });
