@@ -31,11 +31,14 @@ function loadDeviceModelList() {
         },
         {
             mData: 'description',
-            sTitle: 'Description',
             orderable: false,
+            sTitle: 'Description',
             mRender: function (data, type, row) {
-                return data ? data : '-';
+
+                var val = data ? data : '-';
+                return "<div style='max-width: 500px;' class='text-truncate' title='"+val+"'>"+val+"</div>"
             }
+            
         },
         {
             mData: 'registeredStamp',

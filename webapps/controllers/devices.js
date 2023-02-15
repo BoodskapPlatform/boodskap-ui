@@ -202,7 +202,7 @@ function loadDeviceList() {
 
     deviceTable = $("#deviceTable").DataTable(tableOption);
     $('.dataTables_filter input').attr('maxlength', 100)
-    $(".dataTables_scrollBody").removeAttr("style").css({"min-height":"calc(100vh - 425px)","position":"relative","width":"100%"});
+    $(".dataTables_scrollBody").removeAttr("style").css({"min-height":"calc(100vh - 425px)","position":"relative","width":"100%","border-bottom":"0px"});
 
 }
 
@@ -328,6 +328,7 @@ function openModal(type,id) {
             keyboard: false
         });
 
+        $("#addDevice form").prepend('<div id="loadProcessing" class="position-absolute" style="padding: 10px 30px;background-color: #eff2f4;z-index: 1;top: 2%;left: 40%;"><i class="fa fa-spinner fa-spin "></i> <span class="">Processing...</span></div>');
         
         setTimeout(() => {
             $("#device_id").val(obj.id);
@@ -336,7 +337,8 @@ function openModal(type,id) {
             $("#device_version").val(obj.version);
             $("#device_desc").val(obj.description);
             $("#addDevice").modal('show');
-            $("#addDevice form").attr('onsubmit','updateDevice()') 
+            $("#addDevice form").attr('onsubmit','updateDevice()');
+            $("#loadProcessing").remove();
         }, 500);
         
         
@@ -657,7 +659,17 @@ function uploadConfig() {
             checkCommandStatus(data['corrId'],1);
 
         } else {
-            errorMsg('Error in uploading config');
+            if(typeof(data)!="undefined"){
+                if(data.message){
+                    var errmessage = data.message.replaceAll("_"," ")
+                    errorMsg(errmessage);
+                }else{
+                    errorMsg('Error in uploading config');
+                }
+            }else{
+                errorMsg('Error in uploading config');
+            }
+            
         }
     })
 }
@@ -677,7 +689,17 @@ function downloadConfig() {
             },3000);
             checkCommandStatus(data['corrId'],2);
         } else {
-            errorMsg('Error in downloading config');
+            if(typeof(data)!="undefined"){
+                if(data.message){
+                    var errmessage = data.message.replaceAll("_"," ")
+                    errorMsg(errmessage);
+                }else{
+                    errorMsg('Error in downloading config');
+                }
+            }else{
+                errorMsg('Error in downloading config');
+            }
+            
         }
     })
 }

@@ -68,78 +68,54 @@ function loadTokenList() {
         }
     ];
 
-    var tableOption = {
-        fixedHeader: {
-            header: true,
-            headerOffset: -5
-        },
-        responsive: true,
-        paging: true,
-        searching: true,
-        "ordering": true,
-        iDisplayLength: 10,
-        lengthMenu: [[10, 50, 100], [10, 50, 100]],
-        dom: '<"bskp-search-left" f> lrtip',
-        language: {
-            "emptyTable": "No data available",
-            "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
-            "zeroRecords": "No data available",
-            "searchPlaceholder": "Search by Device Token",
-            loadingRecords: '',
-            paginate: {
-                previous: '< Prev',
-                next: 'Next >'
-            }
-        },
-        aoColumns: fields,
-        "bServerSide": true,
-        "bProcessing": true,
-        "sAjaxSource": API_BASE_PATH + '/auth/token/list?type'+TOKEN_TYPE,
-        "fnServerData": function (sSource, aoData, fnCallback, oSettings) {
-            var keyName = fields[oSettings.aaSorting[0][0]]
+   
 
-            var sortingJson = {};
-            sortingJson[keyName['mData']] = {"order": oSettings.aaSorting[0][1]};
-
-
-            oSettings.jqXHR = $.ajax({
-                "type": "GET",
-                "url": sSource,
-                success: function (data) {
-                    if (data.length > 0) {
-                        token_list = data;
-                        $(".totalCount").html(data.length)
-                    } else {
-                        $(".tokenCount").html(0)
-                        token_list = [];
-                    }
-                    let resultData = {
-                        "recordsTotal": token_list.length,
-                        "recordsFiltered": token_list.length,
-                        "data": token_list
-                    }
-                    resultData['draw'] = oSettings.iDraw;
-
-                    fnCallback(resultData);
+        var tableOption = {
+            fixedHeader: {
+                header: true,
+                headerOffset: -5
+            },
+            responsive: true,
+            paging: true,
+            searching: true,
+            "ordering": true,
+            iDisplayLength: 10,
+            lengthMenu: [[10, 50, 100], [10, 50, 100]],
+            dom: '<"bskp-search-left" f> lrtip',
+            language: {
+                "emptyTable": "No data available",
+                "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
+                "zeroRecords": "No data available",
+                "searchPlaceholder": "Search by Device Id",
+                loadingRecords: '',
+                paginate: {
+                    previous: '< Prev',
+                    next: 'Next >'
                 }
-            });
-        }
-    };
-        tokenTable = $("#tokenTable").DataTable(tableOption);
-        $('.dataTables_filter input').attr('maxlength', 100)
-    // listAuthToken(TOKEN_TYPE, function (status, data) {
-    //     if (status && data.length > 0) {
-    //         tableOption['data'] = data;
-    //         token_list = data;
-    //         $(".totalCount").html(data.length)
-    //     } else {
-    //         $(".tokenCount").html(0)
-    //         token_list = [];
-    //     }
+            },
+            aoColumns: fields,
+            data: []
+        };
+    
+        listAuthToken(TOKEN_TYPE, function (status, data) {
+            if (status && data.length > 0) {
+                tableOption['data'] = data;
+                token_list = data;
+            } else {
+                $(".tokenCount").html(0)
+                token_list = [];
+            }
+            $(".totalCount").html(data.length);
 
-    //     tokenTable = $("#tokenTable").DataTable(tableOption);
-    //     $('.dataTables_filter input').attr('maxlength', 100)
-    // });
+            tokenTable = $("#tokenTable").DataTable(tableOption);
+            $('.dataTables_filter input').attr('maxlength', 100)
+            $("#tokenTable_filter").hide();
+
+            setTimeout(() => {
+                $('.dataTables_filter input').attr('maxlength', 100).attr("autocomplete","off").attr("type","text").val("");
+                $("#tokenTable_filter").show();
+            }, 1000);
+        });
 }
 
 function setCopyToken(row_id){
