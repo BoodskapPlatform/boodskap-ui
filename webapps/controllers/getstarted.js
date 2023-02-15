@@ -68,14 +68,14 @@ function initialChecks(){
 function checkLicense(){
     getDomainLicense(function(status, data){
         if(status){
-            var plan = data.plan == 1 ? "Free" : data.plan == 2 ? "Beginner" : data.plan == 3 ? "Basic" : data.plan == 4 ? "Preferred" : data.plan == 5 ? "Professional" : "Free";
-            $("#userPlan").text("Plan : "+plan);
+            var plan = data.plan == 1 ? "Free" : data.plan == 2 ? "Beginner" : data.plan == 3 ? "Basic" : data.plan == 4 ? "Preferred" : data.plan == 5 ? "Professional" : "N/A";
+            data.plan == 0 ? $("#userPlan").html("<span>Plan : </span><span class='pl-1 text-muted'>N/A</span>") : $("#userPlan").text("Plan : "+plan);
             $(".acc-id").text(data.accountId);
             $(".plan-id").text(data.planId);
             $(".acc-id-copy").attr("data-clipboard-text",data.accountId);
             $(".plan-id-copy").attr("data-clipboard-text",data.planId);
         }else{
-            $("#userPlan").text("Plan : N/A");
+            $("#userPlan").html("<span>Plan : </span><span class='pl-1 text-muted'>N/A</span>");
         }
     });
 }

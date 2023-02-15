@@ -385,29 +385,21 @@ function uploadFile() {
 
 function fade(){
 
-    if ( $( "#modalFade" ).is( ".panel-expand" ) ) {
+    if ( $( "#modalExpand" ).is( ".panel-expand" ) ) {
         $(".platformBody").fadeTo(1000, 0.9);
         $("#header").css("display","none");
-     
     }
-
-    else if ( $( "#modalFade" ).not( ".panel-expand" ) ) {
-        $("#header").css("display", "block");
-     
-    }
-
+     else if($("#modalExpand").not('.panel-expand')){
+        $("#header").css("display","block");
+     }
 }
 
 function expand(){
-
-    if ( $( "#modalFade" ).is( ".panel-expand" ) ) {
+    if ( $( "#modalExpand" ).is( ".panel-expand" ) ) {
         $("#header").css("display","block");
-     
     }
+    else if($("#modalExpand").not('.panel-expand')){
+        $("#header").css("display","none");
+     }
 
-    else if ( $( "#modalFade" ).not( ".panel-expand" ) ) {
-        $("#header").css("display", "none");
-     
-    }
 }
-
