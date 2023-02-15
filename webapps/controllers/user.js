@@ -475,7 +475,17 @@ function loginAs() {
             }
 
         } else {
-            errorMsg('Erron in login!')
+            if(typeof(data)!="undefined"){
+                if(data.message){
+                    var errmessage = data.message.replaceAll("_"," ")
+                    errorMsg(errmessage);
+                }else{
+                    errorMsg('Erron in login!')
+                }
+            }else{
+                errorMsg('Erron in login!')
+            }
+            
         }
     })
 

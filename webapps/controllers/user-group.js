@@ -262,7 +262,7 @@ function loadUserGroupMembers(id) {
                 // console.log(data)
                 bodyStr = bodyStr + '<div class="col-md-3" style="margin-top: 10px;">' +
                     '<label style="display: block;text-align: left"><input type="checkbox" class="ch_' + id + '" name="ch_' + id + '[]" value="' + data['email'] + '"/> ' + (data.firstName + ' ' + data.lastName) + '</label>' +
-                    '<small>' + data.email + '</small>' +
+                    '<small class="added-emails">' + data.email + '</small>' +
                     '</div>';
             }
 
@@ -325,12 +325,18 @@ function openModal(type, id) {
     }
 }
 
+var addedMemListArr = [];
 function openUserModal(type, gid) {
     user_group_id = gid;
     if (type === 1) {
+        addedMemListArr=[];
         selected_user = [];
         $(".userList").html('');
         loadUsersList();
+
+        $(".group_"+gid+" .added-emails").each(function(){
+            addedMemListArr.push($(this).text());
+        })
     } else {
         selected_user = [];
         $(".removeUserCount").html(0);
@@ -340,12 +346,14 @@ function openUserModal(type, gid) {
                 selected_user.push(inputElements[i].value);
             }
         }
-        if(selected_user.length===1){
-            $(".removeUserCount").html(selected_user.length);
+        $(".removeUserCount").html(selected_user.length);
+        if(selected_user.length===0){
+            errorMsg('Atleast one user should be selected');
+            return false;
+        }else if(selected_user.length===1){
             $(".userText").html("user")
         }
         else{
-            $(".removeUserCount").html(selected_user.length);
             $(".userText").html("users")
         }
      
@@ -436,12 +444,18 @@ function loadUsersList() {
 
         userTable = $("#userTable").DataTable(tableOption);
         $("#addUserModal").modal('show');
+        $("#userTable tr").css("cursor","pointer");
 
         $('#userTable tbody').on('click', 'tr', function () {
-            $(this).toggleClass('selected');
+            var data = $(this);
+            data.toggleClass('selected');
             selected_user = userTable.rows('.selected').data();
             $(".selectedCount").html(userTable.rows('.selected').data().length);
-
+            var clickData = userTable.rows(data).data()[0];
+            if(addedMemListArr.includes(clickData.email) == true){
+                data.toggleClass('selected');
+                errorMsg("User Already Selected");
+            }
         });
     })
 
