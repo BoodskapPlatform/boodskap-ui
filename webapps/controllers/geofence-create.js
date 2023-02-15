@@ -1320,7 +1320,7 @@ function googleMapDrawingTool(){
         overlayClickListener(event.overlay);
          var newShape = event.overlay;
         newShape.type = event.type;
-
+            
         if(geofenceObj.geoType == "POINT"){  //POINT
 
             var centerLtlg = event.overlay.position;
@@ -1330,7 +1330,7 @@ function googleMapDrawingTool(){
                 id: 'marker_' + markerId
             });
             markersGroup[markerId] = newMark;
-
+            newGeoMarker = newShape
             google.maps.event.addListener(newShape, 'rightclick', function(e) {
 
                 var newMark2 = markersGroup[markerId];
@@ -1516,7 +1516,9 @@ function searchLocationAPI() {
         geofenceObj['lat'] = place.geometry.location.lat();
         geofenceObj['lng'] = place.geometry.location.lng();
         geofenceObj['geoType'] = $("#geoType").val() ? $("#geoType").val() : "POINT";
-
+        if (newGeoMarker) {
+            newGeoMarker.setMap(null); //Reset Map Markers
+        }
         mapPreview();
     });
 }
@@ -1995,7 +1997,7 @@ function RadiusWidget() {
     var circle = new google.maps.Circle({
         fillColor: '#efefef',
         fillOpacity: 0.5,
-        strokeColor: '#000',
+        strokeColor: '#FF0000',
         strokeOpacity: 1.0,
         strokeWeight: 2
     });
