@@ -74,7 +74,6 @@ function loadAssetList() {
         paging: true,
         aoColumns: fields,
         searchable: true,
-        aaSorting: [[3, 'desc']],
         "ordering": true,
         scrollY: '100px',
         scrollCollapse: true,
@@ -134,7 +133,6 @@ function loadAssetList() {
     $('.dataTables_filter input').attr('maxlength', 100);
     $(".dataTables_scrollBody").removeAttr("style").css({"min-height":"calc(100vh - 425px)","position":"relative","width":"100%"});
     $('.dataTables_filter input').on('keyup', function () {
-        console.log('hh')
         assetTable.search( this.value ).draw();
     } );
     // getAssetList(1000, function (status, data) {
@@ -204,6 +202,7 @@ function openModal(type, id) {
     } else if (type === 4) {
         current_asset_id = id;
         $(".assetId").html(id);
+        $('#deviceID').val('')
         loadDeviceList();
         loadLinkedDevices(id);
         $("#linkModal").modal({
@@ -219,15 +218,22 @@ function openModal(type, id) {
 
 function linkDevice() {
     if(!$("#deviceID").val()){
-        errorMsgBorder('Device Id cannot be empty','dropdownMenu1')
+        errorMsgBorder('Device ID is required','dropdownMenu1')
     }else{
         $("#linkDeviceBtn").html('<i class="fa fa-spinner fa-spin"></i> Processing..').attr('disabled','disabled')
         assetLink(current_asset_id, $("#deviceID").val(), function (status, data) {
+            $('#deviceID').val('')
         if (status) {
             successMsg('Device Linked Successfully');
             loadLinkedDevices(current_asset_id);
         } else {
-            errorMsg('Error in Linking Device')
+            console.log(data.responseJSON.message)
+            if(data.responseJSON.message == 'device:'+$("#deviceID").val()+' is already linked'){
+                errorMsg('Device ID already linked')
+            }else{
+                errorMsg('Error in Linking Device')
+            }
+            console.log(data)
         }
         $("#linkDeviceBtn").html('Link Device').attr('disabled',false)
         });
@@ -255,7 +261,7 @@ function loadLinkedDevices(id) {
                     '<td>' + device_list[i].id + '</td>' +
                     '<td>' + device_list[i].modelId + '</td>' +
                     '<td>' + device_list[i].version + '</td>' +
-                    '<td><button class="btn bskp-edit-btn  bskp-greyicon mr-2" onclick="unlinkDevice(\'' + device_list[i].id + '\')"><em class="icon-unlink"></em></button> </td>' +
+                    '<td><button class="btn bskp-edit-btn  bskp-greyicon mr-2" title="Unlink device" onclick="unlinkDevice(\'' + device_list[i].id + '\')"><em class="icon-unlink"></em></button> </td>' +
                     '</tr>');
             }
         } else {

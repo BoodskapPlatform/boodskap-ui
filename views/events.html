@@ -12,8 +12,7 @@
                <!-- begin breadcrumb -->
     <ol class="breadcrumb pull-right" style="align-items: center;margin: 15px 30px 0px 0px;">
         <li class="breadcrumb-item"><a href="<%= basepath %>/home">Home</a></li>
-        <li class="breadcrumb-item"><a href="<%= basepath %>/events">Events & Notification</a></li>
-        <li class="breadcrumb-item active">Manage Events</li>
+        <li class="breadcrumb-item active"><u>Events & Notification</u></li>
         <div class="ml-4">
             <a href="javascript:;" class="btn btn-sm btn-icon btn-circle  bskp-icon-bg" title="Expand" data-click="panel-expand"><em class="fa fa-expand"></em></a>
             <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg" title="Help" onclick="startTour()"><em class="icon-help"></em></a>
@@ -65,8 +64,8 @@
                     <div  class="row">
                         <div  class="col-md-6">
                             <div  class="form-group">
-                                <label  class="inputLabel">Event Id *</label>
-                                <input  class="form-control input-sm" placeholder="Enter Event Id" autocomplete="off"  maxlength="100" type="number" id="event_id" min="1" required>
+                                <label  class="inputLabel">Event ID *</label>
+                                <input  class="form-control input-sm" placeholder="Enter Event Id" autocomplete="off"  maxlength="100" onkeypress="return onlyNumber(event)" type="text" id="event_id" min="1" required>
                                <span id="logevent_id"></span>
                             </div>
                         </div>
@@ -140,8 +139,9 @@
                     <div  class="row">
                         <div  class="col-md-12 eventAddress nonfcmdevice">
                             <div  class="form-group">
-                                <label  class="inputLabel">Notification Address</label>
-                                <input  class="form-control input-sm" placeholder="" type="text" id="n_event_adddress" value="">
+                                <label  class="inputLabel">Notification Address *</label>
+                                <input  class="form-control input-sm" placeholder="" maxlength="100" type="text" id="n_event_adddress" value="">
+                                <span id="n_event_adddressAlert" class="alertDiv"></span>
                             </div>
                         </div>
                         <div  class="col-md-12 eventAddress fcmdevice">
@@ -150,6 +150,7 @@
                                 <select  class="form-control input-sm" id="n_event_adddress_fcm">
 
                                 </select>
+                                <span id="n_event_adddress_fcmAlert" class="alertDiv"></span>
                             </div>
                         </div>
                     </div>
