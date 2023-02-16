@@ -932,7 +932,24 @@
 
                                     <table class="mt-1" style="width:100%">
                                         <tbody class="inputBody">
-
+                                            <tr>
+                                                <td>
+                                                    <input required type="text" class="form-control input_key" maxlength="100" placeholder="Key Name" />
+                                                </td>
+                                                <td>
+                                                    <select class="form-control input_value" required>
+                                                        <option value="String">String</option>
+                                                        <option value="boolean">boolean</option>
+                                                        <option value="int">int</option>
+                                                        <option value="long">long</option>
+                                                        <option value="float">float</option>
+                                                        <option value="double">double</option>
+                                                        <option value="byte">byte</option>
+                                                        <option value="short">short</option>
+                                                        <option value="char">char</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
                                         </tbody>
                                     </table>
 
@@ -2794,7 +2811,7 @@
 <script id="outputHtml" type="text/html">
     <tr>
         <td>
-            <input type="text" class="form-control output_key"  placeholder="Key Name" required />
+            <input type="text" class="form-control output_key" maxlength="100" placeholder="Key Name" required />
         </td>
         <td>
             <select class="form-control output_value mt-3" required>
@@ -2816,7 +2833,7 @@
 <script id="inputHtml" type="text/html">
     <tr>
         <td>
-            <input type="text" class="form-control input_key"  placeholder="Key Name"/>
+            <input type="text" class="form-control input_key" maxlength="100" placeholder="Key Name"/>
         </td>
         <td>
             <select class="form-control input_value mt-3" required>
