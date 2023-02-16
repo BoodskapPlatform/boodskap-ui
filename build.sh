@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 # Parse current version number
 JSON_FILE="/home/ubuntu/build/v5-boodskap-ui/test/boodskap-ui/package.json"
 version=$(cat $HOME/build/version.txt)
@@ -23,7 +23,7 @@ else
 fi
 
 # Update version number in version.txt
-echo "$major.$minor.$patch" > $version
+echo "$major.$minor.$patch" > $HOME/build/version.txt
 jq ".version = \"$major.$minor.$patch\"" "$JSON_FILE" > tmp.json
 mv tmp.json "$JSON_FILE"
 lversion="$major.$minor.$patch"
