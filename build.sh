@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Parse current version number
 JSON_FILE="/home/ubuntu/build/v5-boodskap-ui/test/boodskap-ui/package.json"
 version=$(cat $HOME/build/version.txt)
