@@ -72,7 +72,7 @@ function loadTokenList() {
 
         var tableOption = {
             fixedHeader: {
-                header: true,
+                header: false,
                 headerOffset: -5
             },
             responsive: true,
@@ -86,13 +86,14 @@ function loadTokenList() {
                 "emptyTable": "No data available",
                 "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
                 "zeroRecords": "No data available",
-                "searchPlaceholder": "Search by Device Id",
+                "searchPlaceholder": "Search here",
                 loadingRecords: '',
                 paginate: {
                     previous: '< Prev',
                     next: 'Next >'
                 }
             },
+            aaSorting: [[3, 'desc']],
             aoColumns: fields,
             data: []
         };

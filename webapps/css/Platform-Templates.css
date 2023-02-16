@@ -150,3 +150,6 @@
   opacity: 1 !important;
 
 }
+#mandatory-key{
+  color: red;
+}
