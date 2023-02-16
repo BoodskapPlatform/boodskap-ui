@@ -73,7 +73,7 @@ function loadAssetList() {
         autoWidth: false,
         paging: true,
         aoColumns: fields,
-        searching: true,
+        searchable: true,
         aaSorting: [[3, 'desc']],
         "ordering": true,
         scrollY: '100px',
@@ -93,7 +93,7 @@ function loadAssetList() {
                 },
 
             },
-        "bServerSide": true,
+        "bServerSide": false,
         "bProcessing": true,
         "sAjaxSource": API_BASE_PATH + "/asset/list/" + API_TOKEN_ALT + '/' + data,
         "fnServerData": function (sSource, aoData, fnCallback, oSettings) {
@@ -133,7 +133,10 @@ function loadAssetList() {
     assetTable = $("#assetTable").DataTable(tableOption);
     $('.dataTables_filter input').attr('maxlength', 100);
     $(".dataTables_scrollBody").removeAttr("style").css({"min-height":"calc(100vh - 425px)","position":"relative","width":"100%"});
-
+    $('.dataTables_filter input').on('keyup', function () {
+        console.log('hh')
+        assetTable.search( this.value ).draw();
+    } );
     // getAssetList(1000, function (status, data) {
     //     if (status && data.length > 0) {
     //         tableOption['data'] = data;
