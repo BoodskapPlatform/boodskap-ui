@@ -1,0 +1,152 @@
+<link href="css/db-templates.css" rel="stylesheet"/>
+<div class="container mt-3 msgDef platformBody">
+   
+    <!-- begin panel -->
+    <div class="panel panel-inverse bskp-container-frame">
+        <div>
+            <!-- begin breadcrumb -->
+            <ol class="breadcrumb pull-right" style="">
+                <li class="breadcrumb-item"><a href="<%= basepath %>/home">Home</a></li>
+                <li class="breadcrumb-item active">Templates</li>
+               
+                <div class="ml-4">
+                   
+                    <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg" data-click="panel-expand"><em class="fa fa-expand"></em></a>
+                    <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg" title="Help"><em class="icon-help"></em></a>
+                   </div>
+            </ol>
+            <!-- end breadcrumb -->
+        </div>
+        <!-- begin page-header -->
+   
+    <div class="page-header bskp-page-topic"><img style="width:30px ;" src="images/menu/db-templates.svg" class="bskp-topic-icon mr-1" alt="Db Templates" > Manage DB Templates</span>
+        <span class="panel-title ml-3 count" style="color: hsl(238deg 27% 45%);">Total Templates&nbsp:&nbsp<strong><span  class="totalCount"></span></strong></span> 
+    </div>
+    <!-- end page-header -->
+        <div class="panel-body" style="background-color: #eeeeee00;">
+            <div class="btn-group btn-group-justified pull-right bskp-btn-group-align">
+                <a class="btn bskp-blue-bg" style="border-radius: 10px;font-size:14px;height:32px;padding-top: 5px;" onclick="openModal(1)"><img class="pb-1" src="images/menu/plusicon.svg" width="20px" height="20px" alt="add"><span class="hidden-xs">Add Template</span></a>
+                <a class="btn  bskp-refresh-bg " data-click="panel-reload" onclick="loadTemplates()" title="Refresh"><img class="refresh-button" src="images/menu/refresh-button.png" alt=""></a>
+            </div>
+
+
+            <table class="table table-bordered bskp-table responsive no-wrap" id="templateTable"  cellspacing="0" width="100%">
+
+            </table>
+
+                            
+        </div>
+    </div>
+    <!-- end panel -->
+
+</div>
+
+<script src="js/beautify.min.js" type="text/javascript"></script>
+
+
+<script src="controllers/db-templates.js" type="text/javascript"></script>
+
+
+
+
+
+<div id="addTemplate" class="modal bskp-modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="border-radius: 10px;">
+            <div class="modal-header bskp-page-topic">
+                <h4 class="modal-title"><span class="templateAction"></span>   Template</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <image src="images/menu/xicon.svg" class="bg-secondary"  onclick="onclosebutton()" style="border-radius: 13px;padding:3px">
+                    </button>
+               
+            </div>
+            <form action="javascript:void(0)" novalidate onsubmit="addTemplate();">
+                <div class="modal-body">
+                    <div  class="row">
+                        <div  class="col-md-6">
+                            <div  class="form-group">
+                                <label  class="inputLabel">Name</label>
+                                <input  class="form-control input-sm" placeholder="Enter Name" maxlength="100" type="text" id="template_name" required>
+                            <span id="logtemplate_name"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div  class="row">
+                        <div  class="col-md-12">
+                            <div  class="form-group">
+                                <label  class="inputLabel">Template</label>
+                                 <textarea  class="form-control input-sm" placeholder="Enter Query" autocomplete="off"  type="text"  id="template_code" required></textarea>
+                                <span id="logtemplate_code"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn button-2 btn-close"  data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btnModal btn-secondary btn-proceed btnSubmit">Proceed </button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+<div id="deleteModal" class="modal bskp-modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Delete Template</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure want to delete <strong><span class="templateName"></span></strong> template?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btnModal btn-secondary btn-proceed btnSubmit" onclick="proceedDelete()">Proceed</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+
+<div id="execTemplate" class="modal bskp-modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Execute Query</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <code  class="template_code"></code>
+
+                <div class="row m-t-20">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Choose connection pool</label>
+                            <select class="form-control input-sm" id="pool_name"></select>
+                        </div>
+                        <div class="form-group">
+                            <label>Parameters <small>JSON value</small></label>
+                            <textarea class="form-control" id="temp_param" style="height: 250px;resize: none;"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Output</label>
+                            <div id="result_data" style="height: 250px;width:100%;"></div>
+
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="btn btnModal" onclick="executeTempQuery()">Execute</button>
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+

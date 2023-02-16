@@ -1,0 +1,1671 @@
+<link href="css/jquery.steps.css" type="text/css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="css/getstarted.css" />
+<!-- <link href="css/getstarted-modal.css" type="text/css" rel="stylesheet" /> -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+<style>
+   
+.card {
+    margin-bottom: 20px;
+}
+.loginas-btn{
+    color: #676767;
+    padding: 2px 6px !important;
+    font-size: 14px;
+}
+.blur {
+    -webkit-filter: blur(6px);
+    -moz-filter: blur(6px);
+    -o-filter: blur(6px);
+    -ms-filter: blur(6px);
+    filter: blur(6px);
+}
+.modal-backdrop {
+   background-color:transparent;
+}
+.bskp-modal tbody>tr:first-child>td {
+    padding: 10px 15px !important;
+}
+
+</style>
+
+<div class="container mt-3 platformBody">
+    <!-- begin breadcrumb -->
+    
+    <!-- end breadcrumb -->
+    <!-- begin page-header -->
+    <div class="d-flex bskp-dash-head" >
+        <h1 class="page-header fw-900" style="margin:0 0 3px">Welcome to Boodskap IoT Platform!
+            <small class="hidden-xs bskp-small"> <u  class=" cursor-pointer"onclick="openGetStartedModal()" >Let's start</u> building your IoT Solutions on the fly. </small>
+    
+        </h1>
+    </div>
+
+    <div class="panel panel-inverse" style="background-color: #eaf1f6;">
+        <div class="panel-body bskp-px-4" style="padding-bottom: 30px;">
+           
+            <div class="row">
+                <div class="col-lg-9  mb-3 bskp-main-sec">
+                    <div class="d-flex bskp-dash-head pt-2" style="margin:0px !important;" >
+                        <!-- <h1 class="page-header fw-900 recenthead" style="font-size:16px;"> <span class="underdash" >Features</span> </h1> -->
+                        <h1 class="page-header fw-900" style="font-size:16px;"> <span class="underdash" >Features</span> </h1>
+                    
+                        <ol class="breadcrumb pull-right mb-2 hidden-xs">
+                            <li class="breadcrumb-item">
+                              <form class="bskp-dash-search position-relative">
+                                <label><i class="fa fa-search" aria-hidden="true"></i> &nbsp;  
+                                    <div class="d-inline-flex ">
+                                      <input type="search" class="form-control input-sm searchcard" onkeyup=""  autocomplete="off" maxlength="100" id="search_home" placeholder="Search here..." aria-controls="messageTable" required="required" title="Search">
+                                      <span class="sclose d-none position-absolute" onclick="refresh()" aria-label="Close" style="right: 14px;cursor: pointer;">
+                                        <img src="images/close.svg" height="15" alt=""> </span>
+                                   </div>
+                                  </label>
+                              </form>
+                            </li>
+                        </ol>
+                    </div>
+
+                   <div class="recent-fram">
+                    <div class="row homeMenuList" id="recentMenuList">                                                    
+                    </div> 
+                    <div class="bskp-icon-frame homediv showmore"  onclick='Rtogmore()'>
+                        <i class="fa fa-angle-down dropR " aria-hidden="true" style="font-size: 18px;"></i> 
+                     </div>
+                    <hr class="recent-dash">
+                   </div>
+
+                    <div class="row homeMenuList billingManagement siteNoop loginAs">
+                        <!-- <div class="w-25 w-sm-100 w-md-50 px-2 homecard  hmarketplace">
+                            <a href="<%= basepath %>/marketplace" onclick="clickRecent('Boodskap Marketplace','marketplace',20,1)">
+                                <div class="card modules bskp-home-modules"  >
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg1"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">Boodskap Marketplace</label></p>
+                                </div>
+                            </a>
+                        </div> -->
+                        
+                        
+                        <!--<div class="w-25 w-sm-100 w-md-50 px-2 homecard hwidgetlibrary" ><!-- onclick="loadMenu(35)" -->
+                            <!--<a href="<%= basepath %>/widgets" onclick="clickRecent('Widget Library','widgets',35,2)">
+                                <div class="card modules bskp-home-modules"><!-- onclick="clickRecent('Widget Library','widget_library',35,2)" -->
+                                    <!--<div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg2"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">Widget Library</label></p>
+                                </div>
+                            </a>
+                        </div>-->
+                        
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard hmsgdef" ><!-- onclick="loadMenu(2)" -->
+                            <a href="<%= basepath %>/message-definition" onclick="clickRecent('Message Definition','message-definition',2,3)">
+                                <div class="card modules bskp-home-modules"><!-- onclick="clickRecent('Message Definition','message_definition',2,3)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg3"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">Message Definition</label></p>
+                                </div>
+                            </a>
+                        </div>
+                        
+                        
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard hrecdef sqlqueryhome" ><!-- onclick="loadMenu(28)"cccccccccccccccccc -->
+                            <a href="<%= basepath %>/dSQL-tables" onclick="clickRecent('DSQL Tables','dSQL_tables',28,4)">
+                                <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('DSQL Tables','dSQL_tables',28,4)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg4"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">DSQL Tables</label></p>
+                                </div>
+                            </a>    
+                        </div>
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard hrecdef dbqueryhome" ><!-- onclick="loadMenu(29)" -->
+                            <a href="<%= basepath %>/db-table" onclick="clickRecent('DB Tables','db-tables',29,5)">
+                                <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('DB Tables','db-tables',29,5)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg5"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">DB Tables</label></p>
+                                </div>
+                            </a>    
+                        </div>
+
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard hrecdef sqltablehome" ><!-- onclick="loadMenu(29)" -->
+                            <a href="<%= basepath %>/sql-table" onclick="clickRecent('SQL Table','sql-table',53,39)">
+                                <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('DB Tables','db-tables',29,5)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg39"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">SQL Tables</label></p>
+                                </div>
+                            </a>    
+                        </div>
+
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard hmongo" ><!-- onclick="loadMenu(36)" -->
+                            <a href="<%= basepath %>/mongodb" onclick="clickRecent('MongoDB','mongoDB',36,6)">
+                                <div class="card modules bskp-home-modules"  ><!-- onclick="clickRecent('MongoDB','mongoDB',36,6)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg6"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">MongoDB</label></p>
+                                </div>
+                            </a>    
+                        </div>
+
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard huserevents" ><!-- onclick="loadMenu(1)" -->
+                            <a href="<%= basepath %>/userevents" onclick="clickRecent('Event Subscriptions','userevents',52,38)">
+                                <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('userevents','userevents',1,7)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg38"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">Event Subscriptions</label></p>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- <div class="w-25 w-sm-100 w-md-50 px-2 homecard hdashboard" >
+                            <a href="<%= basepath %>/dashboard" onclick="clickRecent('Dashboard','dashboard',1,7)">
+                                <div class="card modules bskp-home-modules" >
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg7"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">Dashboard</label></p>
+                                </div>
+                            </a>
+                        </div> -->
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard hrecdef" ><!-- onclick="loadMenu(3)"> -->
+                            <a href="<%= basepath %>/record-definition" onclick="clickRecent('Record Definition','record-definition',3,8)">
+                                <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('Record Definition','record_definition',3,8)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg8"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">Record Definition</label></p>
+                                </div>
+                            </a>    
+                        </div>
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard htemplates sqlqueryhome" ><!-- onclick="loadMenu(27)" cccccccccccccccccccc -->
+                            <a href="<%= basepath %>/dsql-templates" onclick="clickRecent('DSQL Templates','dsql-templates',27,9)">
+                                <div class="card modules bskp-home-modules" ><!--  onclick="clickRecent('DSQL Templates','dsql_templates',27,9)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg9"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">DSQL Templates</label></p>
+                                </div>
+                            </a>    
+                        </div>
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard htemplates dbqueryhome" ><!-- onclick="loadMenu(31)" -->
+                            <a href="<%= basepath %>/db-templates" onclick="clickRecent('DB Templates','db-templates',31,10)">
+                                <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('DB Templates','db-templates',31,10)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg10"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">DB Templates</label></p>
+                                </div>
+                            </a>    
+                        </div>
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard hdevice" ><!-- onclick="loadMenu(12)" -->
+                            <a href="<%= basepath %>/device-management" onclick="clickRecent('Device Management','device-management',12,11)">
+                                <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('Device Management','device_management',12,11)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg11"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">Device Management</label></p>
+                                </div>
+                            </a>    
+                        </div>
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard hmessages" ><!-- onclick="loadMenu(22)" -->
+                            <a href="<%= basepath %>/files" onclick="clickRecent('File Storage','file_storage',22,12)">
+                                <div class="card modules bskp-home-modules"><!-- onclick="clickRecent('File Storage','file_storage',22,12)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg12"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">File Storage</label></p>
+                                </div>
+                            </a>    
+                        </div>
+                  
+                        <!-- <div class="w-25 w-sm-100 w-md-50 px-2 homecard hdasheditor" >
+                            <a href="<%= basepath %>/dashboard-editor" onclick="clickRecent('Dashboard Editor','dashboard-editor',16,13)">
+                                <div class="card modules bskp-home-modules" >
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg13"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">Dashboard Editor Studio</label></p>
+                                </div>
+                            </a>    
+                        </div> -->
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard hevents"> <!-- onclick="loadMenu(9)" -->
+                            <a href="<%= basepath %>/events" onclick="clickRecent('Events & Notification','events',9,14)">
+                                <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('Events & Notification','events_notification',9,14)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg14"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">Events & Notification</label></p>
+                                </div>
+                            </a>    
+                        </div>
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard sqlqueryhome" ><!-- onclick="loadMenu(26)" ccccccccccccccccccc -->
+                            <a href="<%= basepath %>/" onclick="clickRecent('DSQL Query Console','dsql-query-console',26,15)">
+                                <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('DSQL Query Console','dsql_query_console',26,15)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg15"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">DSQL Query Console</label></p>
+                                </div>
+                            </a>    
+                        </div>
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard dbqueryhome" ><!-- onclick="loadMenu(30)" ccccccccccccccccccccccc -->
+                            <a href="<%= basepath %>/db-query-console" onclick="clickRecent('DB Query Console','db-query-console',30,16)">
+                                <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('DB Query Console','db-query-console',30,16)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg16"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">DB Query Console</label></p>
+                                </div>
+                            </a>    
+                        </div>
+
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard sqlqueryconsolehome" ><!-- onclick="loadMenu(30)" ccccccccccccccccccccccc -->
+                            <a href="<%= basepath %>/sql-query-console" onclick="clickRecent('Ignite SQL Query','sql-query-console',54,40)">
+                                <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('DB Query Console','db-query-console',30,16)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg40"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">Ignite SQL Query</label></p>
+                                </div>
+                            </a>    
+                        </div>
+
+                        <!-- <div class="w-25 w-sm-100 w-md-50 px-2 homecard messageshome" >onclick="loadMenu(30)" ccccccccccccccccccccccc -->
+                            <!-- <a href="<%= basepath %>/messages" onclick="clickRecent('Messages','messages',55,41)"> -->
+                                <!-- <div class="card modules bskp-home-modules" >onclick="clickRecent('DB Query Console','db-query-console',30,16)" -->
+                                    <!-- <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg41"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">Messages</label></p>
+                                </div>
+                            </a>    
+                        </div> -->
+
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard hassets" ><!-- onclick="loadMenu(14)" -->
+                            <a href="<%= basepath %>/asset-management" onclick="clickRecent('Asset Management','asset-management',14,17)">
+                                <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('Asset Management','asset_management',14,17)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg17"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">Asset Management</label></p>
+                                </div>
+                            </a>    
+                        </div>
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard heventlogs" ><!-- onclick="loadMenu(17)" -->
+                            <a href="<%= basepath %>/event-logs" onclick="clickRecent('Event Logs','event-logs',17,18)">
+                                <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('Event Logs','event_logs',17,18)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg18"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">Event Logs</label></p>
+                                </div>
+                            </a>    
+                        </div>
+                   
+                        <!-- <div class="w-25 w-sm-100 w-md-50 px-2 homecard hmobile" >
+                            <a href="<%= basepath %>/mobile-platform" onclick="clickRecent('Mobile Editor Studio','mobile-platform',11,19)">
+                                <div class="card modules bskp-home-modules" >
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg19"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">Mobile Editor Studio</label></p>
+                                </div>
+                            </a>    
+                        </div> -->
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard hscript"> <!-- onclick="loadMenu(5)"> -->
+                            <a href="<%= basepath %>/script-console" onclick="clickRecent('Script Console','script-console',5,20)">
+                                <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('Script Console','script_console',5,20)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg20"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">Script Console</label></p>
+                                </div>
+                            </a>    
+                        </div>
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard hmessages" ><!-- onclick="loadMenu(18)" -->
+                            <a href="<%= basepath %>/messages" onclick="clickRecent('Raw Messages','messages',18,21)">
+                                <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('Raw Messages','raw_messages',18,21)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg21"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">Raw Messages</label></p>
+                                </div>
+                            </a>    
+                        </div>
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard hmessages" ><!-- onclick="loadMenu(37)" -->
+                            <a href="<%= basepath %>/mongo-console" onclick="clickRecent('Mongo Query Console','mongo-console',37,22)">
+                                <div class="card modules bskp-home-modules"><!--  onclick="clickRecent('Mongo Query Console','mongo_query_console',37,22)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg22"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">Mongo Query Console</label></p>
+                                </div>
+                            </a>    
+                        </div>
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard hfirmware" ><!-- onclick="loadMenu(13)" -->
+                            <a href="<%= basepath %>/firmware-management" onclick="clickRecent('Firmware Management','firmware-management',13,23)">
+                                <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('Firmware Management','firmware_management',13,23)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg23"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">Firmware Management</label></p>
+                                </div>
+                            </a>    
+                        </div>
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard hlogs" ><!-- onclick="loadMenu(19)" -->
+                            <a href="<%= basepath %>/log-console" onclick="clickRecent('Application Logs','log-console',19,24)">
+                                <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('Application Logs','application_logs',19,24)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg24"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">Application Logs</label></p>
+                                </div>
+                            </a>    
+                        </div>
+
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard hrules"><!-- onclick="loadMenu(4)"> -->
+                            <a href="<%= basepath %>/rules-engine" onclick="clickRecent('Rules Engine','rules-engine',4,25)">
+                                <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('Rules Engine','rules_engine',4,25)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg25"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">Rules Engine</label></p>
+                                </div>
+                            </a>    
+                        </div>
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard hquery" ><!-- onclick="loadMenu(25)" -->
+                            <a href="<%= basepath %>/query-console" onclick="clickRecent('Search Query Console','query-console',25,26)">
+                                <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('Search Query Console','search_query_console',25,26)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg26"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">Elastic Search Query</label></p>
+                                </div>
+                            </a>    
+                        </div>
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard htemplates"> <!-- onclick="loadMenu(8)"> -->
+                            <a href="<%= basepath %>/templates" onclick="clickRecent('Platform Templates','templates',8,27)">
+                                <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('Platform Templates','platform_templates',8,27)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg27"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">Platform Templates</label></p>
+                                </div>
+                            </a>    
+                        </div>
+                        <!-- <div class="w-25 w-sm-100 w-md-50 px-2 homecard hmessages" onclick="">
+                            <div class="card modules bskp-home-modules" onclick="clickRecent('Cassandra Query Console','cassandra_query_console','',28)">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg28"> </div>
+                                </div>
+                                <p class="mt-2"><label class="cardtitle">Cassandra Query Console</label></p>
+                            </div>
+                        </div> -->
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard hgeofence" ><!-- onclick="loadMenu(10)" -->
+                            <a href="<%= basepath %>/geofence" onclick="clickRecent('Geofence Management','geofence',10,29)">
+                                <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('Geofence Management','geofence_management',10,29)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg29"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">Geofence Management</label></p>
+                                </div>
+                            </a>    
+                        </div>
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard husers" ><!-- onclick="loadMenu(15)" -->
+                            <a href="<%= basepath %>/user-management" onclick="clickRecent('User Management','user-management',15,30)">
+                                <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('User Management','user_management',15,30)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg30"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">User Management</label></p>
+                                </div>
+                            </a>    
+                        </div>
+
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard htoken" >
+                            <a href="<%= basepath %>/token-management" onclick="clickRecent('Token Management','token-management',51,36)">
+                                <div class="card modules bskp-home-modules" >
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg36"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">Token Management</label></p>
+                                </div>
+                            </a>    
+                        </div>
+                  
+                       <!-- <div class="w-25 w-sm-100 w-md-50 px-2 homecard hmachine" >onclick="loadMenu(6)"> --> 
+                            <!--<a href="<%= basepath %>/machine-learning" onclick="clickRecent('AI & Machine Learning','machine-learning',6,31)">
+                                <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('AI & Machine Learning','ai_machine',6,31)" -->
+                                    <!--<div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg31"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">AI & Machine Learning</label></p>
+                                </div>
+                            </a>    
+                        </div>--> 
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard hamazon" ><!-- onclick="loadMenu(24)" -->
+                            <a href="<%= basepath %>/alexa" onclick="clickRecent('Amazon Alexa','alexa',24,32)">
+                                <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('Amazon Alexa','amazon_alexa',24,32)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg32"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">Amazon Alexa</label></p>
+                                </div>
+                            </a>    
+                        </div>
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard hmessages" >
+                            <a href="<%= basepath %>/" onclick="clickRecent('Google Voice','google_voice','',33)">
+                                <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('Google Voice','google_voice','',33)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg33"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">Google Voice</label></p>
+                                </div>
+                            </a>    
+                        </div>
+                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard hcode" ><!-- onclick="loadMenu(23)" -->
+                            <a href="<%= basepath %>/code-editor" onclick="clickRecent('Code Editor','code-editor',23,34)">
+                                <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('Code Editor','code_editor',23,34)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg34"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">Code Editor</label></p>
+                                </div>
+                            </a>    
+                        </div>
+                        <!-- <div class="w-25 w-sm-100 w-md-50 px-2 homecard hgeofence" onclick="loadMenu(32)">
+                            <div class="card modules bskp-home-modules" onclick="clickRecent('Plugin Management','plugin_management',32,35)">
+                                <div class="bskp-icon-frame">
+                                    <div class="bskp-Dbg bskp-Dimg35"> </div>
+                                </div>
+                                <p class="mt-2"><label class="cardtitle">Plugin Management</label></p>
+                            </div>
+                        </div> -->
+                    </div>
+                    
+                    <!-- <div class="row homeMenuList billingManagement siteNoop loginAs">
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 homecard hmachine" onclick="loadMenu(6)">
+                            <div class="card modules bskp-home-modules">
+                                <div class="bskp-icon-frame">
+                                    <img src="images/menu/market-place.png"/>
+                                </div>
+                                <p class="mt-2"><label class="cardtitle">AI & Machine Learning</label></p>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 homecard hamazon" onclick="loadMenu(24)">
+                            <div class="card modules bskp-home-modules">
+                                <div class="bskp-icon-frame">
+                                    <img src="images/menu/market-place.png"/>
+                                </div>
+                                <p class="mt-2"><label class="cardtitle">Amazon Alexa</label></p>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 homecard hmessages" onclick="">
+                            <div class="card modules bskp-home-modules">
+                                <div class="bskp-icon-frame">
+                                    <img src="images/menu/market-place.png"/>
+                                </div>
+                                <p class="mt-2"><label class="cardtitle">Google Voice</label></p>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 homecard hcode" onclick="loadMenu(23)">
+                            <div class="card modules bskp-home-modules">
+                                <div class="bskp-icon-frame">
+                                    <img src="images/menu/market-place.png"/>
+                                </div>
+                                <p class="mt-2"><label class="cardtitle">Code Editor</label></p>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 homecard hgeofence" onclick="loadMenu(32)">
+                            <div class="card modules bskp-home-modules">
+                                <div class="bskp-icon-frame">
+                                    <img src="images/menu/market-place.png"/>
+                                </div>
+                                <p class="mt-2"><label class="cardtitle">Plugin Management</label></p>
+                            </div>
+                        </div>
+                    </div> -->
+
+
+                </div>
+
+                <div class="col-lg-3 bskp-right-sec">
+                    <div class="row">
+                        <div class="panel panel-inverse bskp-rightpanel col-lg-12" data-sortable-id="ui-widget-1" style="background: none !important;">
+                            <div class="panel-heading">
+
+                                <div class="panel-title d-flex justify-content-between">
+                                    <div class="col-6 p-0 text-wrap"><img src="images/globe.svg" class="pl-1" height="16" alt=""> <span> Domain Details</span></div>
+                                    <div class="col-6 p-0">
+                                        <!-- <a href="javascript:;" onclick="startTour()" class="pull-right btn btn-sm btn-icon btn-circle bskp-icon-bg bskp-bord-icon bskp-headbtn"  title="Help"><i class="icon-help"></i></a> -->
+                                        <a href="<%= basepath %>/domain"  class="pull-right btn btn-sm btn-icon btn-circle bskp-headbtn bskp-icon-bg bskp-bord-icon mr-1"  title="Domain Settings"><i class="fa fa-cog"></i></a>
+                                        <a href="javascript:void(0)" onclick="openLinkModal()" class="pull-right mr-1 btn btn-sm btn-icon btn-circle bskp-icon-bg bskp-bord-icon bskp-headbtn"  title="Link Domain"><i class="fa fa-link"></i></a>
+                                    </div>    
+                                </div>
+                            </div>
+                            <div class="panel-body" style="background-color: white; border-radius: 0px 0px 10px 10px;">
+                                <ul class="nav">
+
+                                    <li class="col-lg-12 mb-2"><span class="domain_name blue-color v-top v-top" style="font-weight: 600;line-height: 24px;"></span>  
+                                        <i class="fa fa-user-o bskp-icon-bg mr-1 bskp-user-icon ml-auto blue-color v-top" style="background: #f2f6ff;" aria-hidden="true"></i>
+                                        <a href="javascript:void(0)" onclick="editDomainName()" style="text-decoration: none" title="Edit Domain Name">
+                                        &nbsp;&nbsp;  <i class="icon-edit2 blue-color v-top"></i></a></li>
+                                </ul>
+                                
+                                <ul class="nav">
+                                   
+                                    <li class="col-lg-12 mb-2">  <i class="fa fa-envelope-o mr-1 bskp-user-icon  ml-auto" style="color:black" aria-hidden="true"></i>
+                                        <span class="domain_email" style="max-width: 100%;text-overflow: ellipsis;overflow: hidden;display: block;font-weight: 600; ">
+                                        </span>
+                                    </li>
+                                </ul> 
+
+                                <ul class="nav">
+                                    
+                                    <li class="col-lg-12 mb-2"> <i class="fa fa-id-card-o mr-1 pt-1 bskp-user-icon  ml-auto" style="color:rgb(70, 70, 70) ;" aria-hidden="true"></i>
+                                        <span id="userPlan" style="cursor: help;font-weight: 600;color:#595959; ">Developer License</span>
+                                    </li>
+                                </ul>
+
+                                <ul class="nav justify-content-between">
+                                    <li><label class="mb-0">Account ID</label></li>
+                                    <li class="pr-2"><span class="acc-id-show">***********</span> <span
+                                            class="acc-id hide"></span>
+                                        <a href="javascript:void(0)" onclick="toggleKeys(1,'accIdTog')" class="accIdTog"><i
+                                                class="fa fa-eye blue-color v-top"></i></a>
+                                        <a href="javascript:void(0)" class="acc-id-copy blue-color v-top"  style="text-decoration: none"
+                                           title="Click here to copy Account Key"><i class="icon-copy2 blue-color v-top"></i></a>
+                                    </li>
+                                </ul>
+
+                                <ul class="nav justify-content-between">
+                                    <li><label class="mb-0">Plan ID</label></li>
+                                    <li class="pr-2"><span class="plan-id-show">***********</span> <span
+                                            class="plan-id hide"></span>
+                                        <a href="javascript:void(0)" onclick="toggleKeys(1,'planIdTog')" class="planIdTog"><i
+                                                class="fa fa-eye blue-color v-top"></i></a>
+                                        <a href="javascript:void(0)" class="plan-id-copy blue-color v-top"  style="text-decoration: none"
+                                           title="Click here to copy Plan Key"><i class="icon-copy2 blue-color v-top"></i></a>
+                                    </li>
+                                </ul>
+
+                                <ul class="nav justify-content-between">
+                                    <li >
+                                        <label class="mb-0 pr-2">Token </label>
+                                        <a href="<%= basepath %>/token-management" style="text-decoration: none" title="Goto Manage Token(s)">
+                                            <i class="icon-key2 blue-color"></i> </a>
+                                    </li>
+                                    <li class="pr-2"><span class="api_token_show">*********</span> <span
+                                            class="api_token hide"></span>
+                                        <a href="javascript:void(0)" onclick="toggleKeys(1,'tokenToggle')" class="tokenToggle">
+                                            <i class="fa fa-eye blue-color v-top"></i> </a>
+                                        <a href="javascript:void(0)" class="apiToken"  style="text-decoration: none" title="Click here to copy Current Session Token">
+                                            <i class="icon-copy2 blue-color v-top"></i> </a>
+                                        
+                                    </li>
+                                </ul>
+                                <ul class="nav  justify-content-between">
+                                    <li><label  class="mb-0">Domain Key </label></li>
+                                    <li class="pr-2"><span class="domain_key_show">*********</span> <span
+                                            class="domain_key hide"></span>
+                                        <a href="javascript:void(0)" onclick="toggleKeys(1,'domainToggle')" class="domainToggle">
+                                            <i class="fa fa-eye blue-color v-top"></i></a>
+                                        <a href="javascript:void(0)" class="domainKey" style="text-decoration: none"  title="Click here to copy Domain Key">
+                                            <i class="icon-copy2 blue-color v-top" ></i></a>
+                                    </li>
+                                </ul>
+                                <ul class="nav justify-content-between">
+                                    <li><label class="mb-0">API Key </label></li>
+                                    <li class="pr-2"><span class="api_key_show">***********</span> <span
+                                            class="api_key hide"></span>
+                                        <a href="javascript:void(0)" onclick="toggleKeys(1,'apiToggle')" class="apiToggle"><i
+                                                class="fa fa-eye blue-color v-top"></i></a>
+                                        <a href="javascript:void(0)" class="apiKey"  style="text-decoration: none"
+                                           title="Click here to copy API Key"><i class="icon-copy2 blue-color v-top"></i></a>
+                                    </li>
+                                </ul>
+                              
+                                
+                                <!-- <% if(userRole.toLowerCase() === 'admin'){ %>
+                                <div style="text-align: center" class="adminAccess">
+                                    <button class="btn btn-bskp w-xs-100 btn-proceed mt-3" onclick="createDomain()"><i class="fa fa-globe"></i> Create New Domain</button>
+                                    <br><small>Only visible to platform ADMIN</small>
+                                </div>
+                                <% }  %> -->
+                                <!-- <ul class="nav">
+                                     <li class="col-lg-6"><label>Linked Domains </label>
+                                     </li>
+                                     <li class="col-lg-6">
+                                         <span class="linked_domains"></span>
+                                     </li>
+                                 </ul>-->
+                                <!-- <ul class="nav">
+                                     <li class="col-lg-6"><label>ID Range</label>
+                                     </li>
+                                     <li class="col-lg-6">
+                                         <span class="idRange"></span>
+                                     </li>
+                                 </ul>-->
+                                <!-- <p style="text-align: left" class="mt-2">
+                                     <a href="<%= basepath %>/domain" class="btn btn-sm btn-warning" style="text-decoration: none;"><i
+                                             class="fa fa-cog"></i> Domain Settings</a>
+                                 </p>-->
+
+                            </div>
+                        </div>
+                        <div class="panel panel-inverse bskp-rightpanel bskp-rp-2  col-lg-12" data-sortable-id="ui-widget-1" style="background: none !important;">
+                            <div class="panel-heading">
+                                <!--<div class="panel-heading-btn">
+                                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default"><i class="fa fa-expand"></i></a>
+                                </div>-->
+                                <h4 class="panel-title"><i class="fa fa-code pl-1" style="font-size: 16px; color: black; vertical-align: middle;"></i> 
+                                    <span>Developers</span>
+                                    <a href="http://developer.boodskap.io/" target="_blank"   class="pull-right btn btn-icon btn-sm btn-circle bskp-icon-bg bskp-bord-icon bskp-headbtn" title="Help Docs">
+                                        <i class="icon-help"></i> 
+                                    </a>
+                                </h4>
+
+                            </div> 
+                            <div class="panel-body" style="border:1px solid #eee;background-color: white;border-radius: 0px 0px 10px 10px;">
+
+                                <!-- <ul class="nav">
+                                    <li class="col-lg-12"><a href="https://hub.docker.com/r/boodskapiot/platform" class="" target="_blank">
+                                        <i class="icon-download"></i>&nbsp; <span>Docker Container </span> 
+                                    </a></li>
+                                </ul> -->
+                                <!-- <ul class="nav">
+                                     <li class="col-lg-12"><a href="https://developer.boodskap.io/docs" target="_blank">
+                                         <i class="fa fa-book"></i>&nbsp; <span> </span> Platform Guide</a></li>
+                                 </ul>-->
+                                <ul class="nav">
+                                    <li class="col-lg-12"><a href="https://developer.boodskap.io" class="" target="_blank">
+                                        <i class="icon-file-code-o"></i>&nbsp; <span>Developer Docs</span> 
+                                    </a></li>
+                                </ul>
+                                <ul class="nav">
+                                    <li class="col-lg-12"><a href="<%= basepath %>/documentation" class="" target="_blank">
+                                        <i class="icon-file-code-o"></i>&nbsp; <span> API Console</span> 
+                                    </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav">
+                                    <li class="col-lg-12"><a href="https://www.youtube.com/channel/UC1yOEmlV7mBfKI1aHSMk3GQ"
+                                                            target="_blank">
+                                        <i class="fa fa-youtube"></i>&nbsp; <span>Video Tutorials</span> </a></li>
+                                </ul>
+                                <!-- <ul class="nav">
+                                    <li class="col-lg-12"><a href="https://github.com/BoodskapPlatform" target="_blank">
+                                        <i class="fa fa-github"></i>&nbsp; <span> Github</span> 
+                                    </a></li>
+                                </ul>
+                                <ul class="nav">
+                                    <li class="col-lg-12"><a href="<%= basepath %>/swagger-doc" class="" target="_blank">
+                                        <i class="icon-file"></i>&nbsp; <span>Swagger Spec </span> 
+                                    </a></li>
+                                </ul> -->
+                            </div>
+                        </div>
+
+                        <!--
+                                                <div class="panel panel-inverse col-lg-12" data-sortable-id="ui-widget-1">
+                                                    <div class="panel-heading">
+                                                        &lt;!&ndash;<div class="panel-heading-btn">
+                                                            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default"><i class="fa fa-expand"></i></a>
+                                                        </div>&ndash;&gt;
+                                                        <h4 class="panel-title"><i class="icon-video-camera2"></i> Quickstart Guide
+
+                                                        </h4>
+
+                                                    </div>
+                                                    <div class="panel-body" style="border: 1px solid #eee;padding:0px">
+
+                                                        <iframe width="100%" height="200"
+                                                                src="https://www.youtube.com/embed/YnDQsN4bqEc?rel=0&amp;controls=1&amp;showinfo=0"
+                                                                frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                                                    </div>
+                                                </div>
+                        -->
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12" style="text-align: center;">
+                            <!--<a class="twitter-timeline" href="https://twitter.com/boodskapIOT?ref_src=twsrc%5Etfw"> </a>
+                            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>-->
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <!-- end panel -->
+</div>
+
+<script src="js/jquery.steps.js"></script>
+<!-- <script src="controllers/home.js"></script> -->
+<script src="controllers/getstarted.js"></script>
+<!-- <script src="controllers/getstarted-modal.js"></script> -->
+
+<!-- <div id="getStartedModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Get Started</h4>
+            </div>
+            <div class="modal-body">
+                <div id="getStartedForm">
+                    <h3>
+                        <div><b>Message Definition</b></div>
+                        <div>Define Your Device Message Spec.</div>
+                    </h3>
+                    <section>
+                        <div>
+                            <div class="gs-step-title">
+                                <div>
+                                    <div class="step-cir" style="background: #458fcd;">
+                                        <i class="fa fa-envelope"></i>
+                                    </div>
+                                    <div class="gs-disp">
+                                        <div class="gs-title-head">Message Definition</div>
+                                        <div><b>Step 1 :</b> Define Your Device Message Specification</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <form action="javascript:void(0)" style="margin-top: 10px; margin-left: 10px;">
+                                <div class="jq-wiz-content-area">
+                                    <div  class="row">
+                                        <div  class="col-md-6 msg_id">
+                                            <div  class="form-group">
+                                                <label  class="inputLabel">Message ID *</label>
+                                                <input  class="form-control input-sm" placeholder="" type="number" id="msg_id"  required>
+                                               
+                                            </div>
+                                        </div>
+                                        <div  class="col-md-6 msg_name">
+                                            <div  class="form-group">
+                                                <label  class="inputLabel">Message Name *</label>
+                                                <input  class="form-control input-sm" placeholder="" type="text" id="msg_name" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div  class="row">
+                                        <div  class="col-md-12 msg_desc">
+                                            <div  class="form-group">
+                                                <label  class="inputLabel">Description *</label>
+                                                <textarea  class="form-control input-sm" placeholder="" type="text"  id="msg_desc" required></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <table class="table table-border">
+                                                <thead>
+                                                <tr>
+                                                    <th>Field Name</th><th>DataType</th><th>Action</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody class="msgFieldBody">
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-top: 15px;">
+                                    <div class="col-lg-12">
+                                        <button class="btn btn-warning btnSubmit pull-right" type="button" onclick="proceedWizard('step1')">Proceed, Next</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                                    <div  class="row">
+                                        <div  class="col-md-6">
+                                            <div  class="form-group">
+                                                <label  class="inputLabel">Device Id</label>
+                                                <input  class="form-control input-sm" placeholder="" type="text" id="device_id" required>
+                                            </div>
+                                        </div>
+                                        <div  class="col-md-6">
+                                            <div  class="form-group">
+                                                <label  class="inputLabel">Device Name</label>
+                                                <input  class="form-control input-sm" placeholder="" type="text" id="device_name" required>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div  class="row">
+                                        <div  class="col-md-6">
+                                            <div  class="form-group">
+                                                <label class="inputLabel">Model Id</label>
+                                                <input class="form-control input-sm" placeholder="" type="text" id="device_model" required>
+                                            </div>
+                                        </div>
+                                        <div  class="col-md-6">
+                                            <div  class="form-group">
+                                                <label class="inputLabel">Model Version</label>
+                                                <input class="form-control input-sm" placeholder="" type="text" id="device_version" required>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div  class="row">
+                                        <div  class="col-md-12">
+                                            <div  class="form-group">
+                                                <label  class="inputLabel">Description</label>
+                                                <textarea class="form-control input-sm" id="device_desc" required ></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div>
+                                    <button class="btn btn-warning btnSubmit" type="button" onclick="proceedWizard('step2')" style="float: right;">Proceed, Next</button>
+                                </div>
+                            </form>
+                        </div>
+                    </section>
+                    <h3>
+                        <div><b>Send Message</b></div>
+                        <div>Send Your First Message</div>
+                    </h3>
+                    <section>
+                        <div>
+                            <div class="gs-step-title">
+                                <div>
+                                    <div class="step-cir" style="background: #f59c1a;">
+                                        <i class="fa fa-paper-plane"></i>
+                                    </div>
+                                    <div class="gs-disp">
+                                        <div class="gs-title-head">Send Message</div>
+                                        <div><b>Step 3 :</b> Simulate & Send Your First Message</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <form action="javascript:void(0)">
+                                <div class="jq-wiz-content-area">
+                                    <div id="msgDefDetails">
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <label>Device ID</label>
+                                                <div class="device-obj-id" style="font-weight: 600;color: #363636;"></div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <label>Device Name </label>
+                                                <div class="device-obj-name" style="font-weight: 600;color: #363636;"></div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <label>Model / Version </label>
+                                                <div class="device-obj-version" style="font-weight: 600;color: #363636;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div style="border: 1px solid #dddddd;border-radius: 5px;">
+                                        <div class="msg-spec-title">
+                                            <b><span class="msg-def-msgid" style="color: #f5611a;font-size: 14px;"></span> Message Specs</b>
+                                        </div>
+                                        <div id="connectAndSendContent">
+                                            <div id="simulatorModal" style="padding: 10px;">
+                                                <div data-role="body">
+                                                    <div class="row msgFieldBlock"></div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <button class="btn btn-sm btn-success btnSubmit pull-right" onclick="proceedWizard('step3')" style="margin-left: 10px;">Send Message</button>
+                                                            <button class="btn btn-sm btn-success btnSubmit pull-right" onclick="proceedWizard('finish')">Try Later</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="simulationConsole">
+                                                        <code class="msgDefCode"></code>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="gs-video-frame ">
+                    <iframe class="gs-video-frame-inr gs-msgdef-video" width="280" height="160" src="https://www.youtube.com/embed/s8Zb6CIA2nU"
+                            title="YouTube video player" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+                </div>
+            </div>
+        </div> 
+    </div> 
+</div>  -->
+
+<div class="modal fade bskp-getmodal bd-example-modal-lg" id="getstartedmodal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="border-radius: 1rem;">
+            <div class="modal-body p-0"  style="background: #f9fbfc;">
+                <div class="modal-header">
+                    <img src="images/logo.jpeg" class="logo-img"alt="">
+                    <h3 class="modal-title pl-3 mr-auto fw-900" id="exampleModalLongTitle">Getting Started</h3>
+                    <button type="button" class="btn-sm btn-secondary btn-skip" onclick="closeGetStart()" data-dismiss="modal" aria-label="Close">
+                        Skip
+                    </button>
+                </div>
+                <div style="padding: 16px !important;">
+                    <div class="row mx-3 mb-4 roadmap-info fs-14">
+                        First things first! We shall start working by defining the messages.
+                        <div class="ml-auto"> <a style="color:#2d2f79;" href="https://boodskap.io/contact-us" target="_blank"><u>Need help?</u></a> </div>
+                    </div>
+                    <div class="row m-0 mt-4">
+                        <div class="left-sec px-35">
+                            <section>
+                                <div class="wrapper pt-3">
+                                    <ul class="StepProgress fs-18">
+                                        <div class="active-step tab1" style="top: -5px;"> <span class="spot"><i class="fa fa-circle" aria-hidden="true"></i> </span> Message Definition  <span class="ml-2 check"><i class="fa fa-check" aria-hidden="true"></i></span></i></div>
+                                        <div class="StepProgress-item tab1 landmark pt-0 is-done active-dot" onclick="tabnavigate(this,1)"><span>Message Definition</span>   <span class="ml-2 check"><i class="fa fa-check" aria-hidden="true"></i></span></i></div>
+                                        <div class="active-step tab2 d-none"> <span class="spot"><i class="fa fa-circle" aria-hidden="true"></i> </span> Add/Create Device(s) <span class="ml-2 check"><i class="fa fa-check" aria-hidden="true"></i></span></i></div>
+                                        <div class="StepProgress-item tab2 landmark" onclick="tabnavigate(this,2)">Add/Create Device(s)  <span class="ml-2 check"><i class="fa fa-check" aria-hidden="true"></i></span></i></div>
+                                        <div class="active-step tab3 d-none"> <span class="spot"><i class="fa fa-circle" aria-hidden="true"></i> </span> Simulate the Message  <span class="ml-2 check"><i class="fa fa-check" aria-hidden="true"></i></span></i></div>
+                                        <div class="StepProgress-item tab3 landmark" onclick="tabnavigate(this,3)">Simulate the Message  <span class="ml-2 check"><i class="fa fa-check" aria-hidden="true"></i></span></i></div>
+                                        <div class="active-step tab4 d-none"> <span class="spot"><i class="fa fa-circle" aria-hidden="true"></i> </span> Send Message <span class="ml-2 check"><i class="fa fa-check" aria-hidden="true"></i></span></i></div>
+                                        <div class="StepProgress-item tab4 landmark" onclick="tabnavigate(this,4)">Send Message  <span class="ml-2 check"><i class="fa fa-check" aria-hidden="true"></i></span></i></div>
+                                    </ul>
+                                </div>
+                                <p class="mt-2 pl-1 fs-14 d-xs-none" style="color:black;">Check out our tutorial video on YouTube for
+                                    <span class="video-title"> Message Specification</span></p>
+                                <iframe  class="d-xs-none" height="220" style="border-radius: 1rem;width:100%;"
+                                         src="https://www.youtube.com/embed/s8Zb6CIA2nU?playlist=s8Zb6CIA2nU&loop=1" allowfullscreen>
+                                </iframe>
+                            </section>
+                        </div>
+                        <div class="col col-xs-12 mr-xs-none mb-2 mr-33px" id="mesgDefine">
+                            <section class="right-content sec1 pt-3">
+                                <form action="javascript:(0)" novalidate>
+                                <div class="row m-0">
+                                    <div class="col-12">
+                                        <p class="fs-25 content-head fw-900 fs-18 pt-2">Define your first message</p>
+                                       
+                                            <div class="form-row justify-content-between">
+                                                <div class="form-group col-md-6 pr-md-4">
+                                                    <label for="msg_id">Message ld *</label>
+                                                    <input type="number" class="form-control" id="msg_id" min='1'placeholder="Enter Message ld" maxlength="50" autocomplete="off" required autofocus>
+                                                    <span id="logmsg_id"></span>
+                                                </div>
+                                                <div class="form-group col-md-6 pl-md-4">
+                                                    <label for="msg_name">Message Name *</label>
+                                                    <input type="text" class="form-control" id="msg_name" placeholder="Enter Message Name" maxlength="100" autocomplete="off" required>
+                                                    <span id="logmsg_name"></span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="msg_desc">Description *</label>
+                                                <textarea class="form-control" id="msg_desc" placeholder="Enter Message Description" maxlength="1000"autocomplete="off" required></textarea>
+                                                <span id="logmsg_desc"></span>
+                                            </div>
+                                        
+                                    </div>
+                                    </div>
+                                <div class="row m-0" style="height:170px; overflow:auto">
+                                    <div class="col-12 mt-2">
+                                        <table class="display" style="width:100%;">
+                                            <thead>
+                                            <tr>
+                                                <th>Field Name</th>
+                                                <th>Data Type</th>
+                                                <th style="text-align:center;">Action</th>
+                                            </tr>
+                                            </thead>`
+                                            <tbody class="msgFieldBody">
+                                            
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                    <div class="footer">
+                                        <div class="row m-0 foot-sec-1 justify-content-center" style="padding:25px 0px 35px 0px;border-top: 1px solid #dedede;">
+                                            <button  class="btn-sm btn-secondary w-xs-100 btn-proceed" onclick="modalnavigate(1)">Proceed <i class="fa fa-angle-right" aria-hidden="true"></i> </button>
+                                        </div>
+                                </div>
+                                </form>
+                            </section>
+                            <section class="right-content sec2 d-none pt-3">
+                                <form action="javascript:(0)" novalidate>
+                                <div class="row m-0">
+                                    <div class="col-12">
+                                        <p class="fs-25 content-head fw-900 fs-18 pt-2">Add your device(s) here</p>
+                                            <div class="form-row justify-content-between">
+                                                <div class="form-group col-md-6 pr-lg-4">
+                                                    <label for="inputLabel">Device ld *</label>
+                                                    <input type="text" class="form-control" id="device_id" maxlength="50" placeholder="Enter Device ld" autocomplete="off" required>
+                                                    <span id="logdevice_id"></span>
+                                                </div>
+                                                <div class="form-group col-md-6 pl-lg-4">
+                                                    <label for="inputLabel">Device Name *</label>
+                                                    <input type="text" class="form-control" id="device_name" maxlength="100" placeholder="Enter Device Name" autocomplete="off" required>
+                                                    <span id="logdevice_name"></span>
+                                                </div>
+                                                <div class="form-group col-md-6 pr-lg-4">
+                                                    <label for="inputLabel">Device Model *</label>
+                                                    <input type="text" class="form-control" id="device_model" maxlength="50" placeholder="Enter Device Model" autocomplete="off" required>
+                                                    <span id="logdevice_model"></span>
+                                                </div>
+                                                <div class="form-group col-md-6 pl-lg-4">
+                                                    <label for="inputLabel">Device Version *</label>
+                                                    <input type="text" class="form-control" id="device_version" maxlength="50" placeholder="Enter Device Version" autocomplete="off" required>
+                                                    <span id="logdevice_version"></span>
+                                                </div>
+                                            </div>
+                                    </div>
+                                </div>
+                                <div class="footer pt-4">
+                                    <div class="row m-0 foot-sec-1 justify-content-between" style="padding:25px 0px 35px 0px;border-top: 1px solid #dedede;">
+                                        <button  class="btn-sm btn-secondary btn-previous w-xs-100" onclick="prevnavigate(1)"><i class="fa fa-angle-left" aria-hidden="true"></i>  Previous </button>
+                                        <button  class="btn-sm btn-secondary btn-proceed w-xs-100" onclick="modalnavigate(2)">Proceed <i class="fa fa-angle-right" aria-hidden="true"></i> </button>
+                                    </div>
+                                </div>
+                            </form>
+                            </section>
+                            <section class="right-content sec3 d-none pt-3">
+                                <div class="row m-0">
+                                    <div class="col-12">
+                                        <p class="fs-25 content-head fw-900 fs-18 pt-2">Simulate your defined message</p>
+                                    </div>
+                                    <div class="col-12">
+                                    <div id="msgDefDetails">
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <label>Device ID</label>
+                                                <div class="device-obj-id" style="font-weight: 600;color: #363636;"></div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <label>Device Name </label>
+                                                <div class="device-obj-name" style="font-weight: 600;color: #363636;"></div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <label>Model / Version </label>
+                                                <div class="device-obj-version" style="font-weight: 600;color: #363636;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <div class="col-12">
+                                      <div style="border: 1px solid #dddddd;border-radius: 5px;width: 100%;">
+                                        <div class="msg-spec-title">
+                                            <b><span class="msg-def-msgid" style="color: #f5611a;font-size: 14px;"></span> Message Specs</b>
+                                        </div>
+                                        <div id="connectAndSendContent">
+                                            <div id="simulatorModal" style="padding: 10px;max-height: 240px;overflow: auto;">
+                                                 <form action="javascript:(0)" novalidate>
+                                                    <div data-role="body">
+                                                        <div class="row msgFieldBlock">
+    
+                                                        </div>
+                                                    </div>
+                                                 </form>
+                                           </div>      
+                                        </div>
+                                       </div>
+                                     </div>
+                                </div>
+                                <div class="footer pt-4">
+                                    <div class="row m-0 foot-sec-1 justify-content-between" style="padding:25px 0px 35px 0px;border-top: 1px solid #dedede;">
+                                        <button  class="btn-sm btn-secondary btn-previous w-xs-100" onclick="prevnavigate(2)"><i class="fa fa-angle-left" aria-hidden="true"></i>  Previous </button>
+                                       <div class="w-xs-100">
+                                        <button  class="btn-sm btn-secondary btn-proceed mr-3 w-xs-100" onclick="modalnavigate(0)"> Try Later </button>
+                                        <button  class="btn-sm btn-secondary btn-proceed btn-simulate w-xs-100" onclick="modalnavigate(3)"><i class="fa fa-play f-s-12" aria-hidden="true"></i> Simulate </button>
+                                       </div>
+                                    </div>
+                                </div>
+                            </section>
+                            <section class="right-content sec4 d-none pt-3">
+                                <div class="row m-0">
+                                    <div class="col-12">
+                                        <p class="fs-25 content-head fw-900 fs-18 pt-2"></p>
+                                        <div class="row m-0">
+                                            <div class="col-12 px-0">
+                                                <div class="livelog-bg">
+                                                    <div class="livelog-text">
+                                                        <p>Wed Oct 12/20/2022 </p>
+                                                    </div>
+        
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="footer pt-4" >
+                                    <div class="row m-0 foot-sec-1 justify-content-between" style="padding:25px 0px 35px 0px;border-top: 1px solid #dedede;">
+                                        <button  class="btn-sm btn-secondary w-xs-100 btn-previous" onclick="prevnavigate(3)"><i class="fa fa-angle-left" aria-hidden="true"></i>  Previous </button>
+                                        <button  class="btn-sm btn-secondary btn-proceed w-xs-100 btn-simulate" onclick="modalnavigate(0)">Finish <i class="fa fa-angle-right" aria-hidden="true"></i> </button>
+                                    </div>
+                                </div>
+                                
+                            </section>
+                           
+                        </div>
+                        <div class="col-12 d-xs-show mt-3">
+                           <div class="col-12 p-0">
+                            <p class="mt-2 pl-1 fs-14" style="color:black;">Check out our tutorial video on YouTube for
+                                <span class="video-title d-xs-show"> Message Specification</span></p>
+                            <iframe height="250" style="border-radius: 1rem;width:100%;"
+                                     src="https://www.youtube.com/embed/s8Zb6CIA2nU?playlist=s8Zb6CIA2nU&loop=1" allowfullscreen>
+                            </iframe>
+                           </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="greetingsModal" class="modal bskp-modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12 align-content-center text-center">
+                        <div class="d-inline-block">
+                            <img src="images/launch.png" />
+                            <h3 style="margin-top: 15px;">Hurrah!</h3>
+                            <h4 style="color: #565656;">You're off to a good start</h4>
+                            <p style="font-size: 14px;">Now, you can start to create your applications</p>
+                            <button class="btn btn-warning" data-dismiss="modal">Ok, Thanks</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+   
+</div>
+
+<div id="linkModal" class="modal bskp-modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Manage Linked Domains</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <img src="images/menu/xicon.svg" class="bg-secondary bskp-close">
+                    </button>
+            </div>
+            <div class="modal-body">
+
+                <form action="javascript:void(0)" onsubmit="linkDomainCall()">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Target Domain Key *</label>
+                                <input class="form-control input-sm key-inputs" id="domainKey" onkeyup="validateLinkDomain(this);"/>
+                                <span id="logdomainKey"></span>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>API Key *</label>
+                                <input class="form-control input-sm key-inputs" id="apiKey" onkeyup="validateLinkDomain(this);" />
+                                <span id="logapiKey"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div id="domainLabel" class="col-lg-6">
+                            <div class="form-group position-relative">
+                                <label>Label *</label>
+                                <input class="form-control input-sm key-inputs" id="labelText" onclick="showPartDomainList(this);" autocomplete="off" onkeyup="validateLinkDomain(this);filterLinkDomainList(this,event)" />
+                                <span id="loglabelText"></span>
+                                <div id="labelTextListDiv" class="label-text-list-cls"></div>    
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <button id="linkDomain" class="btn btnModal btn-secondary btn-proceed btnSubmit" style="margin-top: 22px" type="submit" disabled>Link Domain</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="row mt-2">
+                    <table class="table table-bordered bskp-table responsive ">
+                        <thead>
+                        <tr><th>Label</th><th>Domain Key</th><th>API Key</th><th>Action</th></tr>
+                        </thead>
+                        <tbody class="domainList">
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn button-2 btn-close" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="domainModal" class="modal bskp-modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document" >
+        <div class="modal-content" style="">
+            <div class="modal-header">
+                <h4 class="modal-title">Login As</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <i class="fa fa-times" aria-hidden="true"></i> </button>
+            </div>
+            <div class="modal-body" style="max-height: 700px;overflow: auto;overflow-x: hidden">
+
+
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label style="margin-top: 8px;">
+                                Enter Admin Password
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <input type="password" id="adminPwd" maxlength="50" class="form-control input-sm" placeholder="Enter Admin Password" autocomplete="off"/>
+                             <span id="logadminPwd"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="sqlTable bskp-table-layout" style="overflow: auto">
+                    <table class="table table-bordered bskp-table responsive no-wrap" id="domainTable"  cellspacing="0" width="100%">
+
+                    </table>
+                </div>
+            </div>
+            <!-- <div class="modal-footer">
+                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+             </div>-->
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script type="text/html" id="logConsole">
+
+</script>
+
+<script type="text/html" id="loginAs">
+    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 homecard" onclick="openDomainModal()" title="Only Visible to Admin">
+
+        <div class="card modules bskp-home-modules" onclick="clickRecent('DB Tables','db-tables',29,5)">
+            <div class="bskp-icon-frame">
+                <div class="bskp-Dbg bskp-Dimg30"> </div>
+            </div>
+            <p class="mt-2"><label class="cardtitle">Login As</label></p>
+        </div>
+
+    </div>
+</script>
+
+<script type="text/html" id="billingManagement">
+
+    <!-- <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 homecard" onclick="loadMenu(33)" title="Only Visible to Admin">
+        <div class="card modules bskp-home-modules" onclick="clickRecent('DB Tables','db-tables',29,5)">
+            <div class="bskp-icon-frame">
+                <div class="bskp-Dbg bskp-Dimg30"> </div>
+            </div>
+            <p class="mt-2"><label class="cardtitle">Billing Management</label></p>
+        </div>
+    </div> -->
+</script>
+
+<script type="text/html" id="siteNoop">
+
+    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 homecard" onclick="loadMenu(34)" title="Only Visible to Admin">
+        <div class="card modules bskp-home-modules" onclick="clickRecent('DB Tables','db-tables',29,5)">
+            <div class="bskp-icon-frame">
+                <div class="bskp-Dbg bskp-Dimg30"> </div>
+            </div>
+            <p class="mt-2"><label class="cardtitle">Site Noop</label></p>
+        </div>
+    </div>
+</script>
+
+<div id="createDomain" class="modal bskp-modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document" >
+        <div class="modal-content" style="">
+            <div class="modal-header">
+                <h4 class="modal-title"><i class="fa fa-globe"></i> Create Domain</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <i class="fa fa-times" aria-hidden="true"></i> </button>
+            </div>
+            <form action="javascript:void(0)" novalidate id="registerForm" class="margin-bottom-0"  onsubmit="register()">
+
+                <div class="modal-body" style="max-height: 700px;overflow: auto;overflow-x: hidden">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group m-b-15">
+                                <label>Domain Name *</label>
+                                <input type="text" class="form-control" id="firstname" placeholder="Enter Domain Name" maxlength="100" required />
+                                 <div id="logfirstname"></div>
+                            </div>
+                            <div class="form-group m-b-15">
+                                <label>Email ID *</label>
+                                <input type="email" class="form-control" id="email" placeholder="Enter Email ID" maxlength="50" required />
+                                 <div id="logemail"></div>
+                            </div>
+                            <div class="form-group m-b-15">
+                                <label>Password *</label>
+                                <input type="password" class="form-control" id="password" placeholder="Enter Password" maxlength="50" required />
+                                 <div id="logpassword"></div>
+                            </div>
+                            <div class="form-group m-b-15">
+                                <label>Confirm Password *</label>
+                                <input type="password" class="form-control" id="confirmpassword" placeholder="Enter Confirm Password" maxlength="50" required />
+                                 <div id="logconfirmpassword"></div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn  btn-secondary btn-close" data-dismiss="modal">Close</button>
+                    <button type="submit" id="submitButton" class="btn btnModal btn-secondary btn-proceed btnSubmit">Create</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+<!-- <div class="modal fade bd-example-modal-lg" id="getstartedmodal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+    <div class="modal-content" style="border-radius: 1rem;">
+    
+        <div class="modal-body p-0"  style="background: #f9fbfc;">
+        <div class="modal-header">
+            <img src="images/logo.jpeg" class="logo-img"alt="">
+            <h3 class="modal-title pl-3 mr-auto fw-900" id="exampleModalLongTitle">Getting Started</h3>
+            <button type="button" class="btn-sm btn-secondary btn-skip" onclick="closeGetStart()" data-dismiss="modal" aria-label="Close">
+            Skip
+            </button>
+        </div>
+    <div style="padding: 16px !important;">
+        <div class="row mx-3 mb-4 roadmap-info fs-14">
+        First things first! We shall start working by defining the messages. 
+        <div class="ml-auto"> <a href="javascript:void(0)"><u>Need help?</u></a> </div>
+        </div>
+        <div class="row m-0 mt-4">
+        <!-- left side--->
+        <!-- <div class="left-sec px-35">
+            <section>
+            <div class="wrapper pt-3">
+            <ul class="StepProgress fs-18">
+                <div class="active-step tab1" style="top: -5px;"> <span class="spot"><i class="fa fa-circle" aria-hidden="true"></i> </span> Message Definition  <span class="ml-2 check"><i class="fa fa-check" aria-hidden="true"></i></span></i></div> 
+                <div class="StepProgress-item tab1 landmark pt-0 is-done active-dot"><span>Message Definition</span>   <span class="ml-2 check"><i class="fa fa-check" aria-hidden="true"></i></span></i></div>
+                <div class="active-step tab2 d-none"> <span class="spot"><i class="fa fa-circle" aria-hidden="true"></i> </span> Add/Create Device(s) <span class="ml-2 check"><i class="fa fa-check" aria-hidden="true"></i></span></i></div> 
+                <div class="StepProgress-item tab2 landmark">Add/Create Device(s)  <span class="ml-2 check"><i class="fa fa-check" aria-hidden="true"></i></span></i></div>
+                <div class="active-step tab3 d-none"> <span class="spot"><i class="fa fa-circle" aria-hidden="true"></i> </span> Simulate the Message  <span class="ml-2 check"><i class="fa fa-check" aria-hidden="true"></i></span></i></div> 
+                <div class="StepProgress-item tab3 landmark">Simulate the Message  <span class="ml-2 check"><i class="fa fa-check" aria-hidden="true"></i></span></i></div>
+                <div class="active-step tab4 d-none"> <span class="spot"><i class="fa fa-circle" aria-hidden="true"></i> </span> Send Message <span class="ml-2 check"><i class="fa fa-check" aria-hidden="true"></i></span></i></div> 
+                <div class="StepProgress-item tab4 landmark">Send Message  <span class="ml-2 check"><i class="fa fa-check" aria-hidden="true"></i></span></i></div>
+             </ul>
+            </div>  
+                <p class="mt-2 pl-1 fs-14" style="color:black;">Check out our tutorial video on Youtube for
+                <span class="video-title"> Message Specification</span></p>  
+                    <iframe  height="220" style="border-radius: 1rem;width:100%;"
+    src="https://www.youtube.com/embed/s8Zb6CIA2nU?playlist=s8Zb6CIA2nU&loop=1">
+    </iframe> 
+            </section>
+        </div> -->
+             
+            <!-- right side--->
+             <!-- <div class="col mb-2" id="mesgDefine" style="margin-right: 33px;">
+                 <section class="right-content sec1  pt-3">
+                       <div class="row m-0">
+                        <div class="col-12">
+                            <p class="fs-25 content-head fw-900 fs-18">Define your first message</p>
+                            <form>
+                             <div class="form-row justify-content-between">
+                               <div class="form-group col-md-6 pr-4">
+                                 <label for="mesgid">Message ld</label>
+                                 <input type="text" class="form-control" id="mesgid" placeholder="Enter Message ld">
+                               </div>
+                               <div class="form-group col-md-6 pl-4">
+                                 <label for="mesgnam">Message Name</label>
+                                 <input type="text" class="form-control" id="mesgnam" placeholder="Enter Message Name">
+                               </div>
+                             </div>
+                             <div class="form-group">
+                               <label for="mesgnote">Description</label>
+                                <textarea class="form-control" id="mesgnote" placeholder="Enter Message Description" required></textarea>
+                             </div>
+                         </form>
+                       </div>
+                       <div class="col-12 mt-2">
+                         <table class="display" style="width:100%;">
+                             <thead>
+                                 <tr>
+                                     <th>Field Name</th> 
+                                     <th>Data Type</th>
+                                     <th style="text-align:center;">Action</th>
+                                 </tr>
+                             </thead>
+                             <tbody>
+                                 <tr>
+                                     <td>
+                                         <form>
+                                         <div class="form-row justify-content-between">
+                                           <div class="form-group col-md-12 pr-4 m-0">
+                                             <input type="text" class="form-control" id="fieldname" placeholder="Field Name">
+                                           </div>
+                                           </div>
+                                           </form>
+                                      </td>
+                                     <td> <form>
+                                       <div class="form-row justify-content-between">
+                                         <div class="form-group col-md-12 pr-4 m-0">
+                                           <select id="inputState" class="form-control">
+                                             <option selected class="text-grey">Choose Data Type</option>
+                                             <option>INTEGER</option>
+                                             <option>DOUBLE</option>
+                                             <option>FLOAT</option>
+                                           </select>
+                                         </div>
+                                         </div>
+                                         </form> 
+                                     </td>
+                                     <td class="action-cell">
+                                      <div class="row m-0">
+                                        <i class="fa fa-plus-circle px-2 addrow-icon" aria-hidden="true"></i>
+                                        <i class="fa fa-minus-circle px-2 addrow-icon" aria-hidden="true"></i>
+                                      </div>
+                                      </td>
+                                 </tr>
+                             </tbody>
+                         </table>
+                       </div>
+                       <div class="footer">
+                        <div class="row m-0 foot-sec-1 justify-content-center" style="padding:25px 0px 35px 0px;border-top: 1px solid #dedede;">
+                          <button  class="btn-sm btn-secondary btn-proceed" onclick="modalnavigate(2)">Proceed <i class="fa fa-angle-right" aria-hidden="true"></i> </button>
+                         </div>                        
+                        </div>
+                        
+                        </div>
+                      </section>
+                      <section class="right-content sec2 d-none pt-3">
+                        <div class="row m-0">
+                         <div class="col-12">
+                             <p class="fs-25 content-head fw-900 fs-18">Add your device(s) here</p>
+                             <form>
+                              <div class="form-row justify-content-between">
+                                <div class="form-group col-md-6 pr-4">
+                                  <label for="devid">Device ld</label>
+                                  <input type="text" class="form-control" id="devid" placeholder="Enter Device ld">
+                                </div>
+                                <div class="form-group col-md-6 pl-4">
+                                  <label for="devnam">Device Name</label>
+                                  <input type="text" class="form-control" id="devnam" placeholder="Enter Device Name">
+                                </div>
+                                <div class="form-group col-md-6 pr-4">
+                                  <div class="form-row justify-content-between">
+                                    <div class="form-group col-md-12 m-0">
+                                      <label for="devnam">Choose Device Model</label>
+                                      <select id="inputState" class="form-control">
+                                        <option selected class="text-grey">- - - - </option>
+                                        <option>Model 1</option>
+                                        <option>Model 2</option>
+                                        <option>Model 3</option>
+                                      </select>
+                                    </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group col-md-6 pl-4">
+                                  <label for="devVersion">Device Version</label>
+                                  <input type="text" class="form-control" id="devVersion" disabled>
+                                </div>
+                              </div>
+                              
+                          </form>
+                        </div>
+                      </div>
+                      <div class="footer">
+                        <div class="row m-0 foot-sec-1 justify-content-between" style="padding:25px 0px 35px 0px;border-top: 1px solid #dedede;">
+                        <button  class="btn-sm btn-secondary btn-previous" onclick="modalnavigate(1)"><i class="fa fa-angle-left" aria-hidden="true"></i>  Previous </button>
+                       <button  class="btn-sm btn-secondary btn-proceed" onclick="modalnavigate(3)">Proceed <i class="fa fa-angle-right" aria-hidden="true"></i> </button>
+                         </div>                        
+                        </div>
+                    </section>
+                    <section class="right-content sec3 d-none pt-3">
+                        <div class="row m-0">
+                         <div class="col-12">
+                             <p class="fs-25 content-head fw-900 fs-18">Simulate your defined message</p>
+                           <p class="sub-sec">Rule Details</p>
+                            </div>
+                          
+                      
+                        <div class="col-12 px-2 mt-2 pb-4">
+                          <table class="simulate" style="width:100%;">
+                              <thead>
+                                  <tr>
+                                      <th>Rule ID</th> 
+                                      <th>Rule Type</th>
+                                      <th>Language</th>
+                                      <th style="text-align:center;">Action</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr>
+                                      <td style="padding-left:20px !important ;">
+                                         <div class="mb-2">1000</div>
+                                         <div class="fs-13">Device Entry Message</div>
+                                       </td>
+                                      <td> 
+                                        <p >Message Rule</p>
+                                      </td>
+                                      <td>
+                                        <span class="lang-tag">Groovy</span>
+                                     </td>
+                                      <td class="action-cell">
+                                       <div class="row m-0">
+                                         <i class="fa fa-plus-circle addrow-icon" aria-hidden="true"></i>
+                                       </div>
+                                       </td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                        </div>
+                        </div>
+                        <div class="row px-3 mt-3 mx-0 mb-3 sub-sec">
+                          Message Fields <div  class="ml-auto"> <u> <a href="javascript:void(0)" class="text-secondary">Default Fields</a></u> </div>                         
+                          </div>
+                          <div class="row m-0">
+                         <div class="col-12 px-2 mt-2">
+                            <table class="simulate" style="width:60%;">
+                                <thead>
+                                    <tr>
+                                        <th>Fields</th> 
+                                        <th>Data Type</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                           <div style="padding-left:20px !important ;">Frame_Id</div>
+                                         </td>
+                                        <td> 
+                                           <span class="lang-tag" style="background:#f9eef9 ;">Keyword</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                           <div style="padding-left:20px !important ;">Muid</div>
+                                         </td>
+                                        <td> 
+                                           <span class="lang-tag" style="background:#f9eef9 ;">Keyword</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                          </div>
+                        </div>
+                   
+                          <div class="footer">
+                            <div class="row m-0 foot-sec-1 justify-content-between" style="padding:25px 0px 35px 0px;border-top: 1px solid #dedede;">
+                            <button  class="btn-sm btn-secondary btn-previous" onclick="modalnavigate(2)"><i class="fa fa-angle-left" aria-hidden="true"></i>  Previous </button>
+                           <button  class="btn-sm btn-secondary btn-proceed btn-simulate" onclick="modalnavigate(4)"><i class="fa fa-play f-s-12" aria-hidden="true"></i> Simulate </button>
+                             </div>                        
+                            </div>
+                     </section>
+                      <section class="right-content sec4 d-none pt-3">
+                        <div class="row m-0">
+                         <div class="col-12">
+                             <p class="fs-25 content-head fw-900 fs-18">Send your message</p>
+                             <form>
+                              <div class="form-row justify-content-between">
+                                <div class="form-group col-md-6 pr-4">
+                                    <label for="Frame_id">Device ld</label>
+                                    <input type="text" class="form-control" id="Frame_id" >
+                                    <div> <p class="mb-2 text-lite"> Data type KEYWORD </p></div>
+                                </div>
+                                <div class="form-group col-md-6 pl-4">
+                                    <label for="Muid">Device Name</label>
+                                    <input type="text" class="form-control" id="Muid" >
+                                    <div> <p class="mb-2 text-lite"> Data type KEYWORD </p></div>
+                                </div>
+                              </div>               
+                             </form>
+                            </div>
+                         </div>
+                         <div class="footer" style="position: unset;padding: 0px 10px;">
+                            <div class="row m-0 foot-sec-1 justify-content-between" style="padding:25px 0px 35px 0px;border-top: 1px solid #dedede;">
+                            <button  class="btn-sm btn-secondary btn-previous" onclick="modalnavigate(3)"><i class="fa fa-angle-left" aria-hidden="true"></i>  Previous </button>
+                           <button  class="btn-sm btn-secondary btn-proceed btn-simulate" onclick="modalnavigate(4)">Send Message <i class="fa fa-angle-right" aria-hidden="true"></i> </button>
+                             </div>                        
+                            </div>
+                            <div class="row m-0">
+                                <div class="col-12">
+                                    <div class="livelog-bg">
+                                        <div class="livelog-text">
+                                            <p>Wed Oct 12/20/2022 </p>
+                                        </div>
+                                        
+                                    </div>
+                               </div>
+                            </div>           
+                       </section>
+                       
+                       </div> -->
+                 
+             <!-- </div>
+            </div>
+            </div>
+            </div>
+        
+     </div>
+</div> --> 

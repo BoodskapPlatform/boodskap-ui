@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en" class="ie8">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7"/>
+
+    <title>Boodskap - API Explorer </title>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui"
+          name="viewport"/>
+
+    <meta name="description"
+          content="Boodskap is a disruptive (IoT) Platform helps to quickly connect any hardware devices and to rapidly build connected applications in a cost efficient manner"/>
+    <meta name="keywords"
+          content="boodskap.io, boodskap inc, boodskap, boodskap platform,iot starter kit, iot, internet of things, iot devices,what is internet of things,iot platform,iot applications,iot sensors,iot internet of things,industrial iot,industrial internet of things, m2m">
+
+    <meta content="Boodskap Inc.," name="author"/>
+
+
+    <meta name="theme-color" content="#fac300"/>
+
+    <meta name="google-play-app" content="app-id=io.boodskap.platform">
+    <meta name="apple-itunes-app" content="app-id=1398841657">
+
+    <!-- Facebook Share -->
+    <meta property="og:url" content="https://platform.boodskap.io"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="Boodskap - Highly Scalable IoT Platform"/>
+    <meta property="og:description"
+          content="Boodskap is a disruptive (IoT) Platform helps to quickly connect any hardware devices and to rapidly build connected applications in a cost efficient manner"/>
+    <meta property="og:image" content="https://boodskap.io/images/boodskap-logo.png"/>
+
+
+    <script type="application/ld+json">
+        {
+            "@context": "http://schema.org",
+            "@type": "Organization",
+            "url": "https://platform.boodskap.io",
+            "logo": "https://boodskap.io/images/boodskap-logo.png",
+            "name": "Boodskap - Highly Scalable IoT Platform",
+            "description": "Boodskap is a disruptive (IoT) Platform helps to quickly connect any hardware devices and to rapidly build connected applications in a cost efficient manner",
+            "contactPoint": {
+                "@type": "ContactPoint",
+                "telephone": "+1-833-266-3752",
+                "contactType": "Customer Service"
+            },
+            "sameAs": [
+                "https://www.facebook.com/boodskapiot",
+                "https://twitter.com/boodskapIOT",
+                "https://www.linkedin.com/company/16180585",
+                "https://www.youtube.com/channel/UC1yOEmlV7mBfKI1aHSMk3GQ"
+            ]
+        }
+
+    </script>
+
+
+    <link href="images/favicon.ico" rel="icon">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet"/>
+    <link href="css/jquery-ui.min.css" rel="stylesheet"/>
+    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="css/animate.min.css" rel="stylesheet"/>
+    <link href="css/style.min.css" rel="stylesheet"/>
+    <link href="css/style-responsive.min.css" rel="stylesheet"/>
+    <link href="css/default.css" rel="stylesheet" id="theme"/>
+    <link href="css/fontawesome-all.min.css" rel="stylesheet"/>
+    <script src="libraries/pace.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/swagger-ui.css" >
+
+    <base href="<%=basepath %>/" />
+
+
+    <style>
+        .swagger-ui .topbar {
+            /*background-color: rgb(62, 59, 59);*/
+        }
+        .download-url-wrapper{
+            display: none !important;
+        }
+        .information-container.wrapper{
+            /*display: none !important;*/
+        }
+
+        .opblock-summary-method {
+            /*background-color: #3e3b3b !important;*/
+        }
+
+        .swagger-ui .opblock.opblock-post .opblock-summary, .swagger-ui .opblock.opblock-post {
+            /*border-color: #3e3b3b;*/
+        }
+
+        .swagger-ui .opblock.opblock-post {
+            /*background-color: #fff !important;*/
+        }
+
+        .swagger-ui .opblock-tag {
+            /*color: #3e3b3b;*/
+        }
+
+        .markdown {
+            /*color: #666*/
+        }
+
+        .swagger-ui .btn.execute {
+            /*background-color: #3e3b3b;*/
+            /*border-color: #3e3b3b;*/
+        }
+    </style>
+</head>
+<body class="pace-top bg-white">
+<div id="page-container" class="">
+    <div id="swagger-ui"></div>
+</div>
+
+<script src="libraries/jquery-3.5.1.min.js"></script>
+<script src="libraries/jquery-ui.min.js"></script>
+<script src="libraries/bootstrap.bundle.min.js"></script>
+<script src="js/swagger-ui-bundle.js"> </script>
+<script src="js/swagger-ui-standalone-preset.js"> </script>
+<script src="libraries/js.cookie.js"></script>
+<script src="platform-config.js"> </script>
+<script src="controllers/const-variables.js"> </script>
+<script>
+
+    loadStatistics();
+
+    function loadStatistics() {
+        /*$.ajax({
+            url: API_BASE_PATH+"/cluster/statistics",
+            // url: "https://dev.boodskap.io/api/cluster/statistics",
+            type: 'GET',
+            // "headers": {
+            //     "contentType": "application/json",
+            // },
+            success: function (data) {
+                if (data) {
+                    try{
+                        loadAPI(data.version)
+                    }
+                    catch(e){}
+
+                }
+            },
+            error: function (e) {
+
+            }
+        });*/
+
+        $.ajax({
+            url: API_BASE_PATH+'/license/status',
+            type: 'GET',
+            success: function (data) {
+                if (data) {
+                    try{
+                        loadAPI(data.version)
+                    }
+                    catch(e){}
+
+                }
+            },
+            error: function (e) {
+
+            }
+        });
+    }
+
+    function loadAPI(version) {
+
+        // Build a system
+        var url = window.location.search.match(/url=([^&]+)/);
+        if (url && url.length > 1) {
+            url = decodeURIComponent(url[1]);
+        } else {
+            url = window.location.origin;
+        }
+        var options = {}
+        url = options.swaggerUrl || url
+        var urls = options.swaggerUrls
+        var customOptions = options.customOptions
+        var spec1 = options.swaggerDoc
+        var swaggerOptions = {
+            url: WEB_BASE_PATH+"/spec?version="+version,
+            dom_id: '#swagger-ui',
+            deepLinking: true,
+            presets: [
+                SwaggerUIBundle.presets.apis,
+                SwaggerUIStandalonePreset
+            ],
+            plugins: [
+                SwaggerUIBundle.plugins.DownloadUrl
+            ],
+            layout: "StandaloneLayout"
+        }
+        for (var attrname in customOptions) {
+            swaggerOptions[attrname] = customOptions[attrname];
+        }
+        var ui = SwaggerUIBundle(swaggerOptions)
+        $(".link img").attr('src','images/boodskap-logo.png');
+
+        window.ui = ui
+    }
+</script>
+</body>
+</html>
+
+
+
+
+

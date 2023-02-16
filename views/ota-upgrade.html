@@ -1,0 +1,96 @@
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="css/ota-upgrade.css">
+<style>
+       
+</style>
+<div class="row-fluid">
+    <ul class="nav  bskp-submenu2" style="">
+        <li class="deact" style=""><a href="<%= basepath %>/firmware-management">Manage Firmwares</a></li>
+        <li class="active  manage activate"><a href="<%= basepath %>/firmware/ota-upgrade">OTA Upgrade</a></li>
+    </ul>
+</div>
+
+<div class="container platformBody mt-3 plat">
+
+    <div class="panel panel-inverse bskp-container-frame">
+        <div>
+            <ol class="breadcrumb pull-right bskp-align-icon">
+                <li class="breadcrumb-item" ><a href="<%= basepath %>/dashboard">Domain</a></li>
+                <li class="breadcrumb-item"><a href="<%= basepath %>/firmware-management">Firmware Management</a></li>
+                <li class="breadcrumb-item active activate">OTA Upgrade</li>
+                <div class="ml-3">
+                    <a href="javascript:;" class="btn btn-sm btn-icon btn-circle  bskp-icon-bg"
+                        data-click="panel-expand"><image src="images/menu/expand-icon.svg" height="14px" title="Expand"></a>
+                    <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg " title="Help">
+                        <img src="images/menu/Question_icon (2).png"></a>
+
+                </div>
+            </ol>
+        </div>
+        <div class="page-header bskp-page-topic"><img src="images/menu/firmwareicon.svg"
+            class="bskp-topic-icon mr-1 firmwareicon" > 
+    <span class="page-header head">OTA <small>(On The Air)</small> Upgrade</span>
+
+        <span class="panel-title ml-3 count">Total Devices : <span
+                    class="firmwareCount">0</span></span>
+
+    </div>
+
+
+        <div>
+            <div class="panel-heading header bg-white">
+
+                <h4 class="panel-title">
+                    <div class="form-group col-md-3">
+
+                        <select class="form-control-sm input-sm ota-upgrade" id="otaType" onchange="loadOTA()">
+                            <option value="1">Device Batches</option>
+                            <option value="2">Device Model Batches</option>
+                        </select>
+                    </div>
+                </h4>
+            </div>
+            <div class="panel-body panelbody">
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="btn-group btn-group-justified pull-right bskp-btn-group-align">
+                            <a class="btn btn bskp-btn-shadow bskp-blue-bg Create-button"  onclick="openModal(1)"> 
+                                <image src="images/menu/plusicon.svg" class="plusicon"> <span class="hidden-xs ">Create OTA Batch</span></a>
+                            
+                                    <a class="btn bskp-refresh-bg  refreshbutton"  title="Refresh" data-click="panel-reload"  onclick="loadOTA()">
+                                        <img class="refresh-button"src="images/menu/refresh-button.png" alt="">
+                                    </a>
+                        </div>
+                        <div class="bskp-table-layout">
+
+                            <table class="table table-bordered  bskp-table responsive no-wrap" id="otaTable"
+                                cellspacing="0" width="100%">
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+            </div>
+        </div>
+        <!-- end panel -->
+
+    </div>
+</div>
+<script>
+    $(document).ready(function(){
+        $("#otaType").select2();
+    
+      
+    })
+    
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<script src="controllers/ota-upgrade.js" type="text/javascript"></script>

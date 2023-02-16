@@ -1,0 +1,149 @@
+<ons-page ng-controller="loginController" id="loginPage" var="loginPage">
+    <style>
+        #loginPage .page--material__background {
+            background-color: #ffffff;
+        }
+
+        #loginPage .login-form {
+            text-align: center;
+            width: 80%;
+            margin: 60px auto 0;
+        }
+
+        #loginPage #username, #loginpwd {
+            display: block;
+            width: 100%;
+            margin: 0 auto;
+            outline: none;
+            height: 100%;
+            padding-top: 20px;
+            padding-bottom: 10px;
+            color: #ffffff;
+            font-size: 16px;
+        }
+
+        #loginPage #username::placeholder, #loginpwd::placeholder {
+            color: rgb(169, 205, 250);
+        }
+
+        #loginPage .login-button {
+            width: 50%;
+            margin: 0 auto;
+            border-radius: 25px;
+            padding: 4px;
+            background: #ffffff;
+            color: #4083d7;
+        }
+        #loginPage .big-title{
+            color: #ffffff;
+            font-size: 12px;
+            margin: 0;
+        }
+        #loginPage .forgot-password {
+            display: block;
+            margin: 8px auto 0 auto;
+            font-size: 14px;
+            color: #134191;
+        }
+        #loginPage .pwd-align {
+            position: absolute;
+            right: 0;
+            bottom: 2px;
+            background: transparent;
+            border: 0;
+            font-size: 20px;
+            outline: none;
+        }
+        #loginPage .slide{
+            width: 90%;
+            margin: 0 auto;
+        }
+        #loginPage .pwd-align i{
+            color: #ffffff;
+        }
+    </style>
+
+    <ons-row>
+        <ons-col>
+            <div class="padded">
+
+                <div class="login-form" style="margin-top: 30px;">
+
+                    <ons-carousel fullscreen swipeable auto-scroll auto-refresh overscrollable id="carousel">
+                        <ons-carousel-item>
+                            <div class="slider-1 slide">
+                                <img src="img/sliders/slider1.svg" style="margin-top: 20px;">
+                                <p style="font-size: 14px;font-weight: 600;color: #666;">VERY FAST DEVELOPMENT & INTEGRATION</p>
+                                <p style="font-size: 12px;color: #999;">Build Enterprise class IoT Applications & Platforms</p>
+                            </div>
+                        </ons-carousel-item>
+                        <ons-carousel-item>
+                            <div class="slider-2 slide" >
+                                <img src="img/sliders/slider2.svg" style="height: 220px;margin-top: 20px;">
+                                <p style="font-size: 14px;font-weight: 600;color: #666;">Bring your own <br>IoT Sensors & devices</p>
+                                <p style="font-size: 12px;color: #999;">Libraries in 36 Languages (Java, Scala, Groovy, Node.js, ...) Integrate them on the fly.</p>
+                            </div>
+                        </ons-carousel-item>
+                        <ons-carousel-item>
+                            <div class="slider-3 slide">
+                                <img src="img/sliders/slider3.svg" style="height: 250px;margin-top: 20px;">
+                                <p style="font-size: 14px;font-weight: 600;color: #666;">Wealth of Platform Components</p>
+                                <p style="font-size: 12px;color: #999;">Script your complex business rules dynamically Raise your Alerts, Events & Notifications</p>
+                            </div>
+                        </ons-carousel-item>
+                        <ons-carousel-item>
+                            <div class="slider-4 slide">
+                                <img src="img/sliders/slider4.svg" style="height: 250px;margin-top: 20px;">
+                                <p style="font-size: 14px;font-weight: 600;color: #666;">Built with Clustering & High Availability</p>
+                                <p style="font-size: 12px;color: #999;">Industry Standard IoT Protocols MQTT, COAP, UDP, Http, GCM, FCM, APN</p>
+                            </div>
+                        </ons-carousel-item>
+                        <ons-carousel-item>
+                            <div class="slider-5 slide">
+                                <img src="img/sliders/slider5.svg" style="margin-top: 20px;height: 250px;">
+                                <p style="font-size: 14px;font-weight: 600;color: #666;">Visually appealing UX</p>
+                                <p style="font-size: 12px;color: #999;">Design your Web & Mobile UX by Drag & Drop Exponentially growing widget libraries</p>
+                            </div>
+                        </ons-carousel-item>
+                    </ons-carousel>
+                </div>
+
+                <div class="login-form" style="margin-top: 0;position: fixed;width: 100%;bottom: 0px;left: 0;background: #4083d7;padding: 25px 0;box-shadow: 0.5px 0.6px 10px #999;">
+
+                    <p class="big-title">
+                        <img src="img/boodskap-logo.png" style="height: 30px;">
+                        <span style="vertical-align: 11px;font-weight: 600;padding-left: 5px;font-size: 16px;">BOODSKAP</span>
+                    </p>
+
+                    <form name="myform" id="myform" style="width: 80%;margin:0 auto;">
+                        <input type="text" class="text-input text-input--material" placeholder="Email" ng-model="username" id="username" name="username" >
+
+                        <div style="position: relative;">
+                            <input type="password" class="text-input text-input--material" id="loginpwd" placeholder="Password" ng-model="password" required>
+                            <button class="pwd-align" type="button">
+                                <i class="fa fa-eye"></i>
+                                <i class="fa fa-eye-slash" style="display: none;"></i>
+                            </button>
+                        </div>
+
+                        <br>
+                        <ons-button class="login-button" ng-disabled="isLoginClicked" ng-click="login()">
+                           <span ng-if="!isLoginClicked" style="font-family: Play;">Log In</span>
+                           <span ng-if="isLoginClicked">
+                               <i class="fa fa-circle-o-notch fa-spin"></i>
+                               <span style="font-family: Play;">Loading...</span>
+                              </span>
+                        </ons-button>
+                        <br>
+                        <!--<ons-button modifier="quiet" class="forgot-password" ng-click="myNavigator.pushPage('views/forgot-password.html')">Forgot password?</ons-button>-->
+                        <!--<p style="margin-top: 0;font-family: Play;"><a href="javascript:void(0)" style="color: #134191;font-size: 13px;text-decoration: none;">Powered by Boodskap</a> </p>-->
+                        <!--<p style="margin-top: 0;font-family: Play;"><a href="javascript:void(0)" style="color: #134191;font-size: 11px;text-decoration: none;">version {{ appVersion }}</a> </p>-->
+                        <!--<p style="margin-top: 0;"><a href="javascript:void(0)" ng-click="myNavigator.pushPage('views/secret-settings.html');" style="color: #898989;font-size: 13px;text-decoration: none;">Powered by Boodskap</a> </p>-->
+                    </form>
+
+                </div>
+
+            </div>
+        </ons-col>
+    </ons-row>
+</ons-page>

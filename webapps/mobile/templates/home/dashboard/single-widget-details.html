@@ -1,0 +1,137 @@
+<ons-page var="singleDashboardPage" id="singleDashboardPage">
+    <style>
+        .ext-vis-li{
+            padding: 5px;
+            border: 1px solid #ddd;
+            background: #fff;
+            box-shadow: 0.7px 0.8px 3px #ccc;
+            margin-top: 10px;
+        }
+        .ext-vis-name{
+            font-size: 14px;padding: 3px;border: 0;display: inline-block;border-bottom: 1px solid #ddd;width: 75%;height: 32px;
+        }
+        #singleScheduleVisitorsPage .b-row{
+            padding: 5px 10px;
+            border: 0;
+        }
+        #singleScheduleVisitorsPage .b-row p{
+            color: #888;
+            font-size: 14px;
+        }
+        #singleScheduleVisitorsPage .b-row p b{
+            color: #333;
+            font-size: 16px;
+        }
+        #singleScheduleVisitorsPage .page--material__background {
+            background-color: #eeeeee;
+        }
+        #singleScheduleVisitorsPage .card-box p{
+            margin-top: 10px;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        #singleScheduleVisitorsPage .card-box{
+            background: #fff;
+            margin: 10px 20px;
+            border: 1px solid #ddd;
+            box-shadow: 0.5px 0.6px 3px #ddd;
+        }
+        #singleScheduleVisitorsPage .card-inner{
+            padding: 10px 20px;
+        }
+        #singleScheduleVisitorsPage .vphoto{
+            width: 100px;
+            height: 100px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            margin: 10px;
+        }
+        #singleScheduleVisitorsPage .card-header{
+            background: #eee;
+            color: #666;
+            font-weight: 600;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 0 !important;
+        }
+
+        .schedule-update{
+            font-size: 13px;
+            margin-top: -2px;
+            margin-right: 8px;
+            padding: 0 7px;
+            background: #4083d7;
+            color: #fff;
+            border: 1px solid #fff;
+            font-weight: 600;
+        }
+
+        .active-update{
+            font-size: 13px;
+            font-weight: 600;
+            margin-top: -2px;
+            padding: 0 7px;
+            background: #ffffff;
+            color: #4083d7;
+            border: 1px solid #ffffff;
+        }
+    </style>
+
+    <ons-toolbar>
+        <div class="left"><ons-back-button>Back</ons-back-button></div>
+        <div class="center">Dashboard 1</div>
+    </ons-toolbar>
+
+    <div class="page-cover">
+        <ons-row>
+            <ons-col>
+
+                <div class="widget" ng-if="singleWidgetDetails.type == 'Grid'">
+                   <table style="border: 1px solid #dddddd;background: #ffffff;" cellpadding="0" cellspacing="0">
+                       <tr>
+                           <th class="one-th" ng-repeat="th in singleWidgetDetails.widgetSettings.grid.fields track by $index" ng-hide="th.mData == 'id'" >
+                               {{ th.sTitle }}
+                           </th>
+                       </tr>
+                       <tr class="one-tr" ng-repeat="onefield1 in singleWidgetDetails.widgetResultObj.data.data track by $index">
+                           <td ng-hide="th.mData == 'id'" class="one-td" ng-repeat="th in singleWidgetDetails.widgetSettings.grid.fields track by $index">
+                               <div ng-if="th.mData != 'receivedstamp'">
+                                   {{ onefield1[th.mData] }}
+                               </div>
+                               <div ng-if="th.mData == 'receivedstamp'"  style="width : 150px;">
+                                   {{ onefield1[th.mData] | date:'medium' }}
+                               </div>
+                           </td>
+                       </tr>
+                   </table>
+               </div>
+
+
+
+                <div class="widget" ng-if="singleWidgetDetails.type == 'Chart'">
+                    <table style="border: 1px solid #dddddd;background: #ffffff;" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <th class="one-th" ng-repeat="th in singleWidgetDetails.widgetSettings.grid.fields track by $index" ng-hide="th.mData == 'id'" >
+                                {{ th.sTitle }}
+                            </th>
+                        </tr>
+                        <tr class="one-tr" ng-repeat="onefield1 in singleWidgetDetails.widgetResultObj.data.data track by $index">
+                            <td ng-hide="th.mData == 'id'" class="one-td" ng-repeat="th in singleWidgetDetails.widgetSettings.grid.fields track by $index">
+                                <div ng-if="th.mData != 'receivedstamp'">
+                                    {{ onefield1[th.mData] }}
+                                </div>
+                                <div ng-if="th.mData == 'receivedstamp'"  style="width : 150px;">
+                                    {{ onefield1[th.mData] | date:'medium' }}
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+            </ons-col>
+        </ons-row>
+
+    </div>
+</ons-page>
+
+

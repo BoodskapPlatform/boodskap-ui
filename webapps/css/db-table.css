@@ -1,0 +1,96 @@
+.group{
+    border-radius: 10px;
+    border: 1px solid #cbd1d8;
+}
+.label{
+    font-size: 12px !important;
+    /* padding-left: 5px; */
+    margin-left: 8px;
+}
+
+.connectionbtn{
+    display: inline-flex;
+
+}
+
+.inputselect{
+    font-size:16px;color:black;font-weight:600
+}
+.label{
+    font-weight: 500;
+}
+.inputpassword{
+    position: relative;
+}
+.fas{
+    position: absolute;
+    right: 27px;
+    bottom: 25px;
+    cursor: pointer !important;
+}
+.radio{
+    position: relative;
+    left: 14px;
+    top:2px;
+}
+.checkimg{
+   
+   display: none;
+   padding-top: 1px;
+   padding-bottom: 1px;
+   position: relative;
+   right: 5px;
+
+}
+.input-sm{
+    font-size: 14px;
+}
+.total-db{
+    color: #2D2F79;
+}
+.panelbody{
+    background-color: #eeeeee00;padding-bottom: 30px;
+}
+.add-anchor{
+    font-size: 14px;font-weight: 500;
+}
+.plus{
+    position: relative;bottom:1px
+}
+.inputselect{
+    font-size:16px;color:black
+}
+ol li{
+    font-size: 13px;
+}
+.xicon{
+    border-radius: 13px;padding:3px
+}
+.footer{
+    margin-left:25px;margin-right:30px
+}
+.bskp-mt-30{
+    padding-bottom: 77px;
+}
+::-webkit-scrollbar{
+     width:5px !important
+ } 
+::-webkit-scrollbar-thumb {
+     background: hsl(60deg 1% 67%); 
+     border-radius: 10px;
+ }
+     ::-webkit-scrollbar-track {
+     background-color:hsl(0deg 0% 93%); 
+    }
+ .odd{
+    font-size: 14px;
+ }   
+  .even{
+    font-size:14px;
+  }  
+  .text-area{
+    font-size: 14px;
+  }
+  #deleteModal .modal-dialog{
+    max-width: 600px;
+}

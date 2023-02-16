@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100" height="100" viewBox="0 0 100 100">
+  <defs>
+    <clipPath id="clip-icon_57">
+      <rect width="100" height="100"/>
+    </clipPath>
+  </defs>
+  <g id="icon_57" data-name="icon – 57" clip-path="url(#clip-icon_57)">
+    <g id="Group_2457" data-name="Group 2457" transform="translate(3502 6052.474)">
+      <g id="Rectangle_4497" data-name="Rectangle 4497" transform="translate(-3494 -5997)" fill="none" stroke="#2d2f79" stroke-width="3">
+        <path d="M13,0H71A13,13,0,0,1,84,13v0a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0v0A13,13,0,0,1,13,0Z" stroke="none"/>
+        <path d="M11.5,1.5h61a10,10,0,0,1,10,10v0a0,0,0,0,1,0,0H1.5a0,0,0,0,1,0,0v0A10,10,0,0,1,11.5,1.5Z" fill="none"/>
+      </g>
+      <g id="Rectangle_4498" data-name="Rectangle 4498" transform="translate(-3494 -5966)" fill="none" stroke="#2d2f79" stroke-width="3">
+        <path d="M0,0H84a0,0,0,0,1,0,0V0A13,13,0,0,1,71,13H13A13,13,0,0,1,0,0V0A0,0,0,0,1,0,0Z" stroke="none"/>
+        <path d="M1.5,1.5h81a0,0,0,0,1,0,0v0a10,10,0,0,1-10,10h-61a10,10,0,0,1-10-10v0A0,0,0,0,1,1.5,1.5Z" fill="none"/>
+      </g>
+      <g id="Group_2454" data-name="Group 2454" transform="translate(-97 1)">
+        <rect id="Rectangle_4499" data-name="Rectangle 4499" width="8" height="3" rx="1.5" transform="translate(-3393 -5977)" fill="#2d2f79"/>
+        <rect id="Rectangle_4500" data-name="Rectangle 4500" width="8" height="3" rx="1.5" transform="translate(-3381 -5977)" fill="#2d2f79"/>
+        <rect id="Rectangle_4501" data-name="Rectangle 4501" width="8" height="3" rx="1.5" transform="translate(-3369 -5977)" fill="#2d2f79"/>
+        <rect id="Rectangle_4502" data-name="Rectangle 4502" width="8" height="3" rx="1.5" transform="translate(-3357 -5977)" fill="#2d2f79"/>
+        <g id="Ellipse_1042" data-name="Ellipse 1042" transform="translate(-3327 -5981)" fill="none" stroke="#2d2f79" stroke-width="2.6">
+          <circle cx="5.5" cy="5.5" r="5.5" stroke="none"/>
+          <circle cx="5.5" cy="5.5" r="4.2" fill="none"/>
+        </g>
+      </g>
+      <g id="Group_2456" data-name="Group 2456" transform="translate(0.376)">
+        <g id="Group_2455" data-name="Group 2455" transform="translate(-153 -2)">
+          <g id="Rectangle_4504" data-name="Rectangle 4504" transform="translate(-3305 -6036)" fill="none" stroke="#2d2f79" stroke-width="3">
+            <path d="M6,0H6a6,6,0,0,1,6,6V43.175a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V6A6,6,0,0,1,6,0Z" stroke="none"/>
+            <path d="M6,1.5H6A4.5,4.5,0,0,1,10.5,6V41.675a0,0,0,0,1,0,0h-9a0,0,0,0,1,0,0V6A4.5,4.5,0,0,1,6,1.5Z" fill="none"/>
+          </g>
+          <rect id="Rectangle_4503" data-name="Rectangle 4503" width="12" height="3" rx="1.5" transform="translate(-3305 -6027.542)" fill="#2d2f79"/>
+        </g>
+        <path id="Path_6554" data-name="Path 6554" d="M77.079,90.968a1.181,1.181,0,0,0,1.671-.01,23.744,23.744,0,0,1,33.763,0,1.182,1.182,0,0,0,1.681-1.661,25.721,25.721,0,0,0-8.664-5.789,26.378,26.378,0,0,0-19.8,0,25.718,25.718,0,0,0-8.66,5.788,1.181,1.181,0,0,0,.011,1.671Zm18.553,7.265a9.32,9.32,0,0,1,6.769,2.879,1.182,1.182,0,1,1-1.7,1.64,7.033,7.033,0,0,0-10.133,0,1.182,1.182,0,0,1-1.7-1.639,9.32,9.32,0,0,1,6.769-2.88Zm-6.74-6.957a17.888,17.888,0,0,1,13.48,0,17.454,17.454,0,0,1,5.892,3.957,1.181,1.181,0,1,1-1.686,1.655,15.4,15.4,0,0,0-21.892,0A1.181,1.181,0,1,1,83,95.234a17.454,17.454,0,0,1,5.892-3.957Z" transform="translate(-3338.043 -6128.674) rotate(90)" fill="#2d2f79"/>
+        <path id="Path_6555" data-name="Path 6555" d="M.352,12.146a1.181,1.181,0,0,1,1.671.01,23.538,23.538,0,0,0,7.732,5.213,23.535,23.535,0,0,0,9.149,1.8,23.534,23.534,0,0,0,9.149-1.8,23.536,23.536,0,0,0,7.732-5.214,1.182,1.182,0,0,1,1.681,1.661A25.721,25.721,0,0,1,28.8,19.6,26.378,26.378,0,0,1,9,19.6a25.718,25.718,0,0,1-8.66-5.788,1.181,1.181,0,0,1,.011-1.671ZM18.905,4.881A9.32,9.32,0,0,0,25.674,2a1.182,1.182,0,1,0-1.7-1.64,7.032,7.032,0,0,1-5.067,2.155A7.032,7.032,0,0,1,13.838.362,1.182,1.182,0,0,0,12.136,2a9.32,9.32,0,0,0,6.769,2.88Zm-6.74,6.957a17.888,17.888,0,0,0,13.48,0A17.454,17.454,0,0,0,31.537,7.88a1.181,1.181,0,1,0-1.686-1.655,15.4,15.4,0,0,1-6.935,4.036,15.4,15.4,0,0,1-8.023,0A15.4,15.4,0,0,1,7.959,6.225,1.181,1.181,0,1,0,6.272,7.88a17.454,17.454,0,0,0,5.892,3.957Z" transform="translate(-3462.843 -6051.947) rotate(90)" fill="#2d2f79"/>
+      </g>
+    </g>
+  </g>
+</svg>

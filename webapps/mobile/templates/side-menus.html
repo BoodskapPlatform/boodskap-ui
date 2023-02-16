@@ -1,0 +1,105 @@
+<ons-page style="background-color: #686868;" var="sideMenu" id="sideMenu">
+    <style>
+        #sideMenu .page__content{
+            border-right: 1px solid #ccc;
+        }
+        .m-item{
+            margin-left: 10px;
+        }
+        #menus ons-list-item{
+            color:#454545;
+            padding-left: 40px;
+            background: transparent;
+        }
+        .change-photo{
+            text-align: center;
+            margin: 0;
+            font-size: 11px;
+            /*font-style: italic;*/
+            color: #ccc;
+        }
+        .s-m-box{
+            padding: 0 10px;
+            width: 100%;
+        }
+        .s-m-container{
+            margin-top: 10px;
+           background: #eee;
+            width: 100%;
+        }
+        .smenu-profile-bg{
+            background: #013243;
+            color: #fff;
+        }
+    </style>
+
+    <ons-row>
+        <ons-col>
+
+            <ons-row>
+                <ons-col class="smenu-profile-bg">
+                    <div style="text-align: center;margin-top: 20px;margin-bottom: 20px;" >
+                    <span onclick="myNavigator.pushPage('views/home/profile/profile.html', {closeMenu: true, animation:'slide'})" style="position: relative;">
+                        <img src="mobile/img/user.png"  style="height: 75px;width: 75px;border-radius: 50%;border: 3px solid #ddd;" />
+                        <!--<img ng-src="{{ rooturl }}/files/download/{{ platformDetails.token }}/{{ mainUserDetails.hphoto }}" ng-if="mainUserDetails.hphoto"  style="height: 75px;width: 75px;border-radius: 50%;border: 3px solid #ddd;"
+                             alt="" style="height: 75px;width: 75px;border-radius: 50%;border: 3px solid #ddd;"/>-->
+
+                        <div class="mqtt-dot mqttClass"></div>
+                    </span>
+                        <p class="change-photo">change photo</p>
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <p style="text-align: center;margin-bottom:5px;text-transform: capitalize;"><b class="user-fullname"></b></p>
+                        <p style="text-align: center;font-size: 13px;margin-top:0;" class="user-emailid"></p>
+                    </div>
+
+                </ons-col>
+            </ons-row>
+            <ons-list id="menus">
+                <!--<ons-list-item style="padding: 0;" id="dashboards">
+
+                    <div class="s-m-box sideMenuListText">
+                        <i class="fa fa-th-large" aria-hidden="true"></i> <span class="m-item">Home</span>
+                        <i class="fa fa-chevron-down" style="float: right;"></i>
+                        <i class="fa fa-chevron-up" style="float: right;display: none;"></i>
+                    </div>
+
+                    <div id="subMenus" class="s-m-container">
+                        <ons-list class="dashboardList sideMenuListText" style="background: #eee;"></ons-list>
+                    </div>
+
+                </ons-list-item>-->
+
+                <ons-list-item style="padding: 0;" modifier="chevron" id="dashboards" onclick="">
+                    <div class="s-m-box sideMenuListText">
+                        <i class="fa fa-home" aria-hidden="true"></i> <span class="m-item">Home</span>
+                    </div>
+                </ons-list-item>
+
+                <ons-list-item style="padding: 0;" modifier="chevron" onclick="">
+
+                    <div class="s-m-box sideMenuListText">
+                        <i class="fa fa-user" aria-hidden="true"></i> <span class="m-item">Profile</span>
+                    </div>
+                </ons-list-item>
+                <ons-list-item style="padding: 0;" modifier="chevron" onclick="">
+                    <div class="s-m-box sideMenuListText">
+                        <i class="fa fa-wrench" aria-hidden="true"></i> <span class="m-item">Settings</span>
+                    </div>
+                </ons-list-item>
+                <ons-list-item style="padding: 0;" modifier="chevron" onclick="">
+                    <div class="s-m-box sideMenuListText">
+                        <i class="fa fa-life-ring" aria-hidden="true"></i> <span class="m-item">Help & Support</span>
+                    </div>
+                </ons-list-item>
+                <!--<ons-list-item style="padding: 0;" modifier="chevron" onclick="logoutUser()">
+                    <div class="s-m-box">
+                        <i class="fa fa-sign-out" aria-hidden="true"></i> <span class="m-item">Logout</span>
+                    </div>
+                </ons-list-item>-->
+            </ons-list>
+
+        </ons-col>
+    </ons-row>
+
+</ons-page>

@@ -1,0 +1,273 @@
+<link rel="stylesheet" href="css/db-table.css">
+<!--<div class="row-fluid">
+    <ul class="nav submenu" style="">
+        <li class=""><a href="<%= basepath %>/home"><i class="fa fa-home"></i> </a></li>
+        <li class=""><a href="<%= basepath %>/dashboard">Dashboard</a></li>
+        <li class="active"><a href="<%= basepath %>/templates">Templates</a></li>
+    </ul>
+</div>-->
+<div class="container bskp-mt-30 msgDef platformBody">
+    <!-- begin breadcrumb -->
+    <div class="panel panel-inverse bskp-container-frame">
+        <div>
+
+            <ol class="breadcrumb pull-right bskp-align-icon">
+                <li class="breadcrumb-item"><a href="<%= basepath %>/home">Home</a></li>
+                <li class="breadcrumb-item active">DB Tables</li>
+                <div class="ml-4">
+                    <a href="javascript:;" class="btn btn-sm btn-icon btn-circle  bskp-icon-bg"
+                        data-click="panel-expand" title="Expand">
+                        <image src="images/menu/expand-icon.svg" height="14px">
+                    </a>
+
+                    <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg" title="Help">
+                        <image src="images/menu/Question_icon (2).png">
+                    </a>
+
+                </div>
+            </ol>
+        </div>
+        <!-- end breadcrumb -->
+        <!-- begin page-header -->
+
+        <div class="page-header bskp-page-topic"><img src="images/menu/dbtableicon.svg"
+                class="bskp-topic-icon sqlicon mr-1">Manage DB Connection Pool
+            <span class="panel-title ml-3 total-db">Total DB Connection Pool : <b><span
+                        class="poolCount"></span></b></span>
+        </div>
+
+        <!-- end page-header -->
+
+        <!-- begin panel -->
+        <div class="panel-body panelbody">
+            <div class="row m-0">
+                <div class="col-12">
+
+                    <div class="btn-group bskp-btn-group-align btn-group-justified pull-right">
+                        <a class="btn bskp-btn-shadow bskp-blue-bg add-anchor"
+                            onclick="openModal(1)">
+                            <image src="images/menu/plusicon.svg" class="plus"> <span
+                                    class="hidden-xs">Add DB Connection</span>
+                        </a>
+                        <a class="btn bskp-refresh-bg  refreshbutton" onclick="loadDBPool()" title="Refresh"
+                            data-click="panel-reload" onclick="loadSQLTable()"><img class="refresh-button"src="images/menu/refresh-button.png" alt=""></a>
+
+                    </div>
+
+                    <div class="bskp-table-layout">
+
+                        <table class="table table-bordered bskp-table responsive no-wrap" id="poolTable" cellspacing="0"
+                            width="100%">
+
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+            <!-- end panel -->
+
+        </div>
+    </div>
+</div>
+<script src="js/beautify.min.js" type="text/javascript"></script>
+
+
+<script src="controllers/db-table.js" type="text/javascript"></script>
+
+
+
+
+
+<div id="addPool" class="modal bskp-modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><span class="templateAction"></span> DB Connection Pool</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <image src="images/menu/xicon.svg" class="bg-secondary" onclick="onclosebutton()"
+                        style="border-radius: 13px;padding:3px">
+
+                </button>
+            </div>
+            <form action="javascript:void(0)">
+                <div class="modal-body">
+
+
+
+                    <div class="form-group">
+                        <p class="inputselect"> Select the type of Connection Pool
+                        </p>
+                        <div class="row">
+
+                            <div class="form-check form-control input-sm col-md-2 mx-2 mb-3 group"
+                                onclick="renderType1()">
+                                <input class="form-check-input radio check" type="radio" name="exampleRadios" id="pool_type1"
+                                    value="HIKARI">
+                                <span class="connectionbtn">
+                                    <label class="form-check-label label" for="exampleRadios1">
+                                        Hikari CP
+                                    </label>
+                                    <img src="images/menu/checks.png" class="checkimg" id="checkimg1">
+                                </span>
+                            </div>
+                            <div class="form-check form-control input-sm col-md-2 mx-2  mb-3 group"
+                                onclick="renderType2()">
+                                <input class="form-check-input radio check" type="radio" name="exampleRadios" id="pool_type2"
+                                    value="DBCP">
+                                <span class="connectionbtn">
+
+                                    <label class="form-check-label label" for="exampleRadios1">
+                                        DBCP
+                                    </label>
+                                    <img src="images/menu/checks.png" class="checkimg" id="checkimg2">
+                                </span>
+                            </div>
+
+
+                            <div class="form-check form-control input-sm col-md-2 mb-3 mx-2 group" width="200px"
+                                onclick="renderType3()">
+                                <input class="form-check-input radio check" type="radio" name="exampleRadios" id="pool_type3"
+                                    value="C3P0">
+                                <span class="connectionbtn">
+                                    <label class="form-check-label label" for="exampleRadios1">
+                                        C3P0
+                                    </label>
+                                    <img src="images/menu/checks.png" class="checkimg" id="checkimg3">
+                                </span>
+                            </div>
+
+                            <div class="form-check form-control input-sm col-md-2 mb-3 mx-2 group"
+                                onclick="renderType4()">
+                                <input class="form-check-input radio check" type="radio" name="exampleRadios" id="pool_type4"
+                                    value="TOMCAT">
+                                <span class="connectionbtn">
+
+                                    <label class="form-check-label label" for="exampleRadios1">
+                                        TOMCAT
+                                    </label>
+                                    <img src="images/menu/checks.png" class="checkimg" id="checkimg4">
+
+                                </span>
+                            </div>
+
+
+
+                        </div>
+                        <div class="row typeBody">
+
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn  btn-secondary btn-close closebutton" data-dismiss="modal"
+                                >Next</button>
+                            <button type="submit" class="btn btnModal  btn-proceed btnSubmit save-and-proceed-button"
+                            >Save & Exit</button>
+
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+<div id="deleteModal" class="modal bskp-modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Delete DB Table</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <image src="images/menu/xicon.svg" class="bg-secondary xicon">
+                    </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure want to delete <b><span class="templateName"></span></b> DB Table?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn button-2 btn-close closebutton" data-dismiss="modal"
+                        >Close</button>
+                    <button type="submit" class="btn btnModal btn-secondary btn-proceed btnSubmit savebutton"
+                        onclick="proceedDelete()">Proceed</button>
+
+                 </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div id="syncModal" class="modal bskp-modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Sync DB Connection Pool</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <image src="images/menu/xicon.svg" class="bg-secondary xicon">
+
+                        </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure want to sync <b><span class="poolName"></span></b> connection pool?</p>
+
+                <div class="form-group">
+                    <div class="checkbox checkbox-css checkbox-inline">
+                        <input type="checkbox" id="async" />
+                        <label for="async"> Sync in background</label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn button-2 btn-close" data-dismiss="modal"
+                        >Close</button>
+                    <button type="submit" class="btn btnModal btn-secondary btn-proceed btnSubmit"
+                        >Proceed</button>
+
+                   </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+
+<div id="viewTable" class="modal bskp-modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title poolName"></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <image src="images/menu/xicon.svg" class="bg-secondary xicon" >
+
+                    </button>
+            </div>
+            <div class="modal-body">
+                <div class="row m-t-20">
+                    <div class="col-md-12">
+                        <table class="table table-bordered bskp-table" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th style="width: 30%">Table Name</th>
+                                    <th>Fields</th>
+                                </tr>
+                            </thead>
+                            <tbody class="">
+                                <tr>
+                                    <td colspan="2">
+                                        <p style="text-align: center">No data found!</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<script>
+    $(document).ready(function () {
+    $('input[type=search]').addClass('searchbox');
+    $('.searchbox').attr('maxlength', 100);
+    });
+</script>

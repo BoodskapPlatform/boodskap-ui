@@ -1,0 +1,191 @@
+#page-container {
+    background-color: hsl(205deg 40% 94%);
+}
+
+.bskp-submenu2 li.active {
+    background-color: #2d2f79;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    font-weight: 600;
+
+    color: white;
+}
+
+.bskp-submenu2 li.active>a {
+    color: white;
+/* font-family:'Montserrat' ; */
+
+}
+
+.bskp-submenu2 {
+    height: 35px;
+    border-radius: 10px;
+    margin: 27px 39px 0px 40px !important;
+
+}
+
+.bskp-submenu2 li a {
+    color: rgb(0, 0, 0);
+    /* font-family: 'Montserrat'; */
+}
+
+.bskp-submenu2 li {
+    line-height: 30px;
+    padding: 3px 15px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+
+    /* border-right: 1px solid #e8e8e8; */
+    background-color: #fff;
+}
+
+
+.bskp-submenu2 li a:hover {
+    text-decoration: none;
+    color: rgb(54, 48, 48) !important;
+}
+
+.bskp-submenu2 li.active a:hover {
+    /* text-decoration: none; */
+    color: rgb(58, 41, 41) !important;
+}
+
+.bskp-submenu2 li:first-child>a>i {
+    font-size: 16px;
+    color: darkslategrey;
+}
+.model-id-req{
+color: red;
+}
+.bskp-submenu2 li:first-child>a:hover>i {
+    font-size: 16px;
+
+}
+
+/* .bskp-container-frame{
+    position: relative!important;
+    top: -5px;
+} */
+
+.bskp-page-topic {
+    font-size: 10px;
+    font-weight: 600;
+    color: #3e3e3e;
+    padding: 12px 30px;
+    box-shadow: 0px 2px 8px 0px #e6eaf8e3;
+}
+
+.bskp-modal textarea {
+    min-height: 50px;
+}
+
+
+.firmwareicon {
+
+
+    width: 30px;
+    height: 24px;
+}
+
+.select2-container--default .select2-selection--single {
+    border-radius: 10px !important;
+}
+
+
+
+.bskp-modal label {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+ .bskp-submenu2 {
+    position: relative;
+    top: 0px;
+    
+} 
+.bskp-container-frame {
+   
+    position:relative;
+} 
+
+a {
+    padding-bottom: 5px;
+}
+.nav>li>a:focus{
+    background-color: none !important;
+}
+.nav>li>a:hover{
+    background-color: none !important;
+}
+.nav>li.firmwareactive>:hover {
+
+    color: #ffffff;
+    list-style: none;
+}
+.nav>li.activate>a:hover{
+background-color: #2D2F79 !important;
+color: #ffffff !important;
+}
+.nav>li.deact>a:hover{
+background: #ffffff !important;
+color: black !important;
+}
+
+ol li{
+    font-size: 13px;
+}
+#model-span{
+    color:red;
+}
+.span{
+color:red;
+font-weight: 600;
+
+}
+.choose-device{
+
+position: relative;
+bottom:12px;
+}
+.head{
+    margin-left:0px;font-size:20px ;font-weight: 600;
+}
+.total-device{
+    color: #2d2f79;
+}
+.body{
+    background-color: #eeeeee00;
+    padding: 5px;
+}
+.uploadfirmware{
+    font-size: 14px;font-weight: 500;
+}
+.plusicon{
+    position: relative;bottom:2px;
+}
+.xicon{
+    border-radius: 13px;padding:3px;
+}
+.add-xicon{
+    position: relative;
+    left:19px;
+}
+.dropdoggle{
+    width: 100%;
+    border: 1px solid #3e373738;
+    border-radius: 10px;
+}
+.odd{
+    font-size: 14px;
+}
+.even{
+    font-size: 14px;
+
+}
+#firmwareTable_length{
+    position: relative;
+    left:8px;
+}
+#deleteModal .modal-dialog{
+    max-width: 600px;
+}

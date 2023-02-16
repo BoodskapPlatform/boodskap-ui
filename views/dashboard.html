@@ -1,0 +1,191 @@
+<style>
+    .modules {
+        text-align: center;
+        background-color: #eeeeee69;
+        border: 1px solid #eee;
+        padding-top: 10px;
+
+    }
+
+    .modules label {
+        font-weight: 400;
+    }
+
+    .modules:hover {
+        background-color: #9e9e9e91;
+        cursor: pointer;
+    }
+
+    .modules i {
+        font-size: 50px;
+    }
+
+    .well {
+        background: #f2f2f28f;
+    }
+
+    .panel-body {
+        border: 1px solid #cccccc63;
+    }
+</style>
+<div class="container-fluid mt-3 dashboardDIV platformBody" style="padding: 3px 5px;position: relative">
+
+    <!-- begin panel -->
+    <div class="panel panel-inverse">
+        <div class="panel-body dashboardBody"
+             style="background-color: #eeeeee00;border: 1px solid rgba(109, 109, 109, 0.16);">
+
+
+            <p style="text-align: center" class="noData hide">
+                <span style="font-size:50px;color:#ccc"><i class="icon-exclamation-triangle"></i></span> <br>
+                <span style="font-size:25px;color:#ccc">OOPS! No Dashboard's Created Yet </span><br>
+                <span style="font-size:16px;margin-top: 25px;color:#666">Please, Contact Domain Administrator / Developer.</span>
+            </p>
+
+
+            <div class="panel panel-inverse dashboardMenuHeader hide" data-sortable-id="ui-widget-7">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn hidden-xs shareButton">
+                        <button class="btn btn-xs btn-default" onclick="shareModal(1)"><i class="icon-globe"></i> Publish</button>
+                    </div>
+                    <h4 class="panel-title">Domain Dashboard's
+                    </h4>
+                </div>
+                <div class="panel-body">
+                    <div class="row dashboardList">
+
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+           <!-- vertical will comes here -->
+
+
+
+        </div>
+    </div>
+    <!-- end panel -->
+
+</div>
+
+
+<div id="deleteVerticalModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Delete Vertical</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h5>Are you sure want to delete the <b><span class="verticalImportName"></span></b> vertical from the
+                    domain?</h5>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btnModal" onclick="deleteImportedVertical()">Proceed</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<script src="controllers/dashboard-home.js"></script>
+
+
+
+
+
+
+
+<div id="shareModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title shareTitle"></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <h5><label><input type="radio" id="enableBtn" name="shareBtn" onclick="shareDashboard()" value="enable"/> Publish</label></h5>
+                <h5><label><input type="radio" id="disableBtn" name="shareBtn" onclick="shareDashboard()" value="disbale"/> Un-Publish</label></h5>
+
+                <h5 class="mt-2 shareLink" style="width:100%;word-wrap:break-word"></h5>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+
+
+<div id="permissionModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width: 600px;">
+            <div class="modal-header">
+                <h4 class="modal-title">Add User Group Permission</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+
+                <div class="row">
+                    <div class="col-md-5">
+                        <label>Vertical Name</label>
+                        <p class="verticalName"></p>
+                    </div>
+                    <div class="col-md-3">
+                        <label>Category</label>
+                        <p class="verticalCat"></p>
+                    </div>
+                    <div class="col-md-4">
+                        <label>Version</label>
+                        <p class="verticalVersion"></p>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Dashboard's</label>
+                        <ul class="dashList" style="list-style: none;padding-left: 0px;margin-left: 0px;">
+
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <label>Assign User Group</label>
+                        <ul class="groupList" style="list-style: none;padding-left: 0px;margin-left: 0px;">
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="row" mobiledashboard>
+                    <div class="col-md-6">
+                        <label>Mobile Dashboard's</label>
+                        <ul class="mobileDashList" style="list-style: none;padding-left: 0px;margin-left: 0px;">
+
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <label>Assign User Group</label>
+                        <ul class="mobileGroupList" style="list-style: none;padding-left: 0px;margin-left: 0px;">
+
+                        </ul>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btnModal btnSubmit" onclick="savePermission()">Save Permission</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+

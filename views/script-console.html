@@ -1,0 +1,125 @@
+<link href="https://fonts.googleapis.com/css?family=Share+Tech+Mono" rel="stylesheet">
+<link href="css/jquery.terminal-1.12.1.css" rel=stylesheet>
+
+<link href="css/Script-Console.css" rel=stylesheet>
+
+<div class="row-fluid">
+    <div class="panel panel-inverse">
+        <div class="panel-body consoleBody">
+            <span class="serverStatus"></span>
+            <div class="row">
+                <div class="col-lg-12 leftSide">
+                    <button class="btn btn-sm  hidden-xs hidden-sm" id="btnMax"
+                         onclick="resizePanel()">
+                        <em class="icon-eye4 mt-1"></em> Show Class
+                    </button>
+                    <button class="btn btn-sm " id="btnEditor"
+                            onclick="showEditor()">
+                        <em class="icon-eye4 mt-1"></em> Show Editor
+                    </button>
+                    <button class="btn btn-sm  hidden-lg hidden-md" id="btnExec"
+                         onclick="executeCommand()">
+                        <em class="icon-bolt mt-1"></em> Execute
+                    </button>
+                    <div id="scriptTerminal" ></div>
+                </div>
+                <div class="editorBlock">
+                    <div id="section">
+                        <h5><em class="icon-code2"></em> Editor </h5>
+                        <div class="text-right">
+                            <button class=" btnExec" onclick="executeScriptCommand()">Execute</button> 
+                        </div>
+                    <div class="col-md-12">
+                        <div id="codeEditor"></div>
+                    </div>
+                    <div id="consoleBox"></div>
+                    </div>
+                </div>
+                <div class="rightSide">
+                    <div class="inside_style">
+                    <h5 >Groovy Class & JAR</h5>
+                        <button class="btn btn-block btn-sm btn_import"
+                                onclick="openModalClasses()">
+                            <img class="mb-1 mr-1" src="images/menu/upload.png" alt="close_icon"> Import Class/JAR
+                        </button>
+                    <form action="javascript:void(0)" onsubmit="loadCodeType()" style="width: 100%">
+                        <div class="text-right">
+                            <select id="codeType" onchange="loadCodeType()">
+                                <option value="CLASS">Groovy Class</option>
+                                <option value="JAR">JAR</option>
+                            </select> <br>
+                        </div>
+                       <div>
+                        <label style="margin-right: 10px;"><input class="radio" type="radio" name="fileType" value="PUBLIC_GROOVY" onclick="loadCodeType()"> Public</label>
+                        <label><input type="radio" name="fileType" value="GROOVY" checked onclick="loadCodeType()"> Private</label> 
+                       </div>
+                        <div class="input-group mb-3">
+                            <input type="text" id="searchText" autocomplete="off" class="form-control"
+                                   placeholder="Search by Package,Class,Method Name">
+                        </div>
+                    </form>
+                    <div class="classFolder"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script src="js/jquery.terminal-1.12.1.js" type="text/javascript"></script>
+<script src="js/unix_formatting.js" type="text/javascript"></script>
+<script src="js/keyboard.js" type="text/javascript"></script>
+
+<script src="js/Aimara.js" type="text/javascript"></script>
+<script src="controllers/folder-menu.js" type="text/javascript"></script>
+
+<script src="js/editor/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/editor/src-noconflict/ext-language_tools.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/editor/src-noconflict/ext-searchbox.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/editor/src-noconflict/snippets/groovy.js" type="text/javascript" charset="utf-8"></script>
+<script src="controllers/script-console.js" type="text/javascript"></script>
+
+
+<div id="addClass" class=" bskp-modal  modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Import Class/JAR</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <image src="images/menu/xicon.svg" class="bg-secondary close_icon">
+                    </button>
+            </div>
+            <form action="javascript:void(0)" onsubmit="uploadClassFile()"> 
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div  class="form-group">
+                                <label class="inputLabel">Select Type</label>
+                                <select   class="form-control input-sm select" id="class_type"
+                                        onchange="loadClassTemplate(this.value)">
+                                    <option value=""></option>
+                                    <option value="GROOVY">Groovy Class</option>
+                                    <option value="JAR">JAR File</option>
+                                 </select>
+                                 <span id="error"></span>
+                            </div>     
+                        </div>
+                        <div class="col-md-6">
+                        </div>
+                    </div>
+                    <di class="row classTemplate">
+                    </di>
+                    <div class="row">
+                        <div class="col-md-12 logResult">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn button-2 btn-close" data-dismiss="modal">Close</button>
+                    <button onclick="validation()" type="submit" class=" btn-secondary btn-proceed btnSubmit btnModal">Upload</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

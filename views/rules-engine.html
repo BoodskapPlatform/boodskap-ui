@@ -1,0 +1,2837 @@
+<link href="css/layout-default-latest.css" rel=stylesheet>
+<link rel="stylesheet" media="screen" type="text/css" href="libraries/colorpicker/spectrum.css" />
+
+<link href="css/select2.min.css" rel=stylesheet>
+<link href="css/rules-engine.css?ver=1" rel=stylesheet>
+<link href="css/Aimara.css" rel=stylesheet>
+<link href="css/jsCronUI.css" rel=stylesheet>
+<link href="css/multiple-select.css" rel=stylesheet>
+
+<style>
+    .ace_content{
+        border-right: 1px solid #cccccc;
+        border-top: 1px solid #cccccc;
+    }
+    .ace-eclipse .ace_gutter{
+        background: #ebebeb;
+        border-right: 1px solid rgb(159, 159, 159);
+        color: rgb(136, 136, 136);
+        border-left: 1px solid rgb(159, 159, 159);
+    }
+
+    pre {
+        background: #f4f4f4;
+        border: 1px solid #ddd;
+        color: #666;
+        page-break-inside: avoid;
+        font-family: monospace;
+        font-size: 14px !important;
+        line-height: 1.6;
+        margin-bottom: 1.6em;
+        max-width: 100%;
+        overflow: auto;
+        padding: 1em 1.5em;
+        padding-left: 10px !important;
+        display: block;
+        word-wrap: break-word;
+    }
+
+    #helpModal .nav.nav-tabs .nav-link{
+        color: #666666;
+    }
+
+    #helpModal .nav.nav-tabs .nav-link.active {
+        color: #333333;
+        font-weight: bold;
+        /*background: #ffe9c8;*/
+
+    }
+
+    #helpModal .nav.nav-tabs .nav-link.active {
+        /*border-color: #FF9800 !important;*/
+    }
+
+    .ui-state-hover {
+        text-decoration: none !important;
+        background: transparent !important;
+        border: none !important;;
+        margin-top: 0px !important;
+        border-radius: 0;
+         top: 10% !important;
+
+    }
+
+    .nav-tabs-long {
+        overflow-x: auto;
+        overflow-y: hidden;
+        display: -webkit-box;
+        display: -moz-box;
+    }
+
+    .nav-tabs-long > li {
+        float: none;
+        border: 1px solid #cccccc57;
+        background-color: #fff;
+        padding: 5px;
+    }
+
+    .nav-tabs > li > a {
+        text-decoration: none;
+    }
+
+    .tab-content {
+        padding: 0px;
+    }
+
+    #codeEditor {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
+
+    table tr td {
+        padding: 2px !important;
+    }
+
+    .panel-title {
+        font-size: 11px;
+        font-weight: bold;
+    }
+
+    .rightSide .nav-tabs .nav-items.active {
+        /* border-top: 2px solid #FF9800; */
+        background-color: #eeeeee59;
+        font-weight: bold;
+    }
+
+    .rightSide .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+        color: #2c2c78 !important;
+        background-color: #dedefc !important;
+        border-color: #dee2e6 #dee2e6 #ffffff;
+    }
+
+    .rightSide .nav-tabs > li.active > a, .rightSide .nav-tabs > li.active > a:hover, .rightSide .nav-tabs > li.active > a:focus {
+        border: 1px solid #e1e1f7 !important;
+        border-bottom: 0px !important;
+    }
+
+    .rightSide .nav-tabs .nav-link{
+        border: 1px solid #dddddd !important;
+        border-bottom: 0;
+        border-radius: 8px 8px 0px 0px;
+        background-color: #ffffff;
+    }
+
+    .centerBlock {
+        background: #eeeeee !important;
+    }
+
+    #tree {
+        list-style: none;
+        margin-left: 0px;
+        padding-left: 0px;
+    }
+
+    .classFolder {
+        overflow: auto;
+        overflow-x: hidden;
+        word-wrap: break-word;
+    }
+
+    #tree li img:hover {
+        cursor: pointer;
+    }
+
+    #tree li a:hover {
+        cursor: pointer;
+        background-color: #eee;
+    }
+
+    .re-tools-btn{
+        margin: 4px 2px;
+        background-color: #ffffff;
+        color: #2c2c78;
+        border: 1px solid #2c2c78;
+        padding: 4px 8px !important;
+    }
+
+    .re-tools-active-btn{
+        margin: 4px 2px;
+        background-color: #2c2c78;
+        color: #ffffff;
+        border: 1px solid #2c2c78;
+        padding: 4px 8px !important;
+    }
+
+    .re-sec-btn{
+        background: #ffffff;
+        color: #2c2c78;
+        border: 1px solid #2c2c78;
+    }
+
+    .re-sec-btn:hover,.re-sec-btn:active{
+        background: #2c2c78;
+        color: #ffffff;
+        border: 1px solid #2c2c78;
+    }
+</style>
+
+<!--<div class="row-fluid">
+    <ul class="nav submenu" style="">
+        <li class=""><a href="<%= basepath %>/home"><i class="fa fa-home"></i> </a></li>
+        <li class=""><a href="<%= basepath %>/dashboard">Dashboard</a></li>
+        <li class="active"><a href="<%= basepath %>/rules-engine">Rules Engine</a></li>
+    </ul>
+</div>-->
+<div style="position: relative" id="rulesBlock">
+<div class="row-fluid loaderBlock">
+    <h1 style="color:#fff;text-align: center;margin-top: 15%"><i class="fa fa-spinner fa-spin"></i> <span
+            style="font-size: 25px;">Please Wait...</span></h1>
+</div>
+<div class="row-fluid ">
+    <div class="col-lg-12 mainwindow" style="    background-color: #3e3e3ee8;padding:5px; display: none">
+        <div class="ui-layout-center centerBlock" style="">
+
+            <div class="row-fluid" style="">
+
+                <button class="btn btn-xs btn-default" id="btnMax" style="position: absolute;right:12px;top:5px"
+                        title="Full Screen" onclick="resizeEditor()">
+                    <i class="fa fa-arrows-alt"></i>
+                </button>
+                <button class="btn btn-xs btn-default" id="btnHelp" style="position: absolute;right:37px;top:5px"
+                        title="Help" onclick="loadHelpTab()">
+                    <i class="fa fa-question-circle"></i>
+                </button>
+
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs nav-tabs-long editorBar" role="tablist">
+                    <li role="presentation" class="active domainTab" data-ruleType="domain">
+                        <a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab"
+                           onclick="loadDomainRule()">Domain Rule</a>
+                    </li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content tabBody" style="position: relative">
+                    <div id="context"
+                         style="display:none;position: absolute;right:30px;top:30px;width:250px;height:300px;background-color: #fff;z-index:9999999;overflow: hidden;overflow-x: hidden">
+
+                        <div class="row">
+                            <div class="col-md-12 mt-1">
+                                <div style="padding: 3px 10px">
+                                    <label><i class="fa fa-search"></i> Context Search</label>
+                                </div>
+
+                            </div>
+                            <div class="col-md-12 cl">
+                                <div style="padding: 3px 10px">
+                                    <input onkeyup="filterContext()" type="text" class="form-control form-control-sm"
+                                           id="contextSearch" placeholder="Search by Context Name"/>
+                                </div>
+                                <div class="contextList" style="padding: 10px;overflow: auto;"></div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div role="tabpanel" class="tab-pane active" id="editorContent"
+                         style="font-size: 13px;padding:10px;position: relative;">
+
+
+                        <div id="codeEditor" style=""></div>
+
+
+                    </div>
+                </div>
+
+
+            </div>
+
+
+        </div>
+        <!--<div class="pane ui-layout-north"></div>-->
+       <!-- <div class="ui-layout-south bottomSide">
+
+
+            <div class="row" style="font-size: 11px !important;">
+
+                <div class="col-md-2">
+
+                    <table style="width: 100%;border:0px">
+                        <tr>
+                            <td style="width: 40%">
+                                <p style="margin-bottom: 5px;">Logs Filter:<br>
+
+                                    <label style="color: #fff;display: block;margin-bottom: 0px"><input type="checkbox"
+                                                                                                        value="true"
+                                                                                                        class="fatal mt-1"
+                                                                                                        onclick="Cookies.set('fatal', $('.fatal').is(':checked'));"
+                                                                                                        checked>
+                                        Fatal</label>
+                                    <label style="color: #fff;display: block;margin-bottom: 0px"><input type="checkbox"
+                                                                                                        value="true"
+                                                                                                        class="error mt-1"
+                                                                                                        onclick="Cookies.set('error', $('.error').is(':checked'));"
+                                                                                                        checked>
+                                        Error</label>
+                                    <label style="color: #fff;display: block;margin-bottom: 0px"><input type="checkbox"
+                                                                                                        value="true"
+                                                                                                        class="warn mt-1"
+                                                                                                        onclick="Cookies.set('warn', $('.warn').is(':checked'));"
+                                                                                                        checked>
+                                        Warn</label>
+                                    <label style="color: #fff;display: block;margin-bottom: 0px"><input type="checkbox"
+                                                                                                        value="true"
+                                                                                                        class="info mt-1"
+                                                                                                        onclick="Cookies.set('info', $('.info').is(':checked'));"
+                                                                                                        checked>
+                                        Info</label>
+                                    <label style="color: #fff;display: block;margin-bottom: 0px"><input type="checkbox"
+                                                                                                        value="true"
+                                                                                                        class="debug mt-1"
+                                                                                                        onclick="Cookies.set('debug', $('.debug').is(':checked'));">
+                                        Debug</label>
+                                    <label style="color: #fff;display: block;margin-bottom: 0px"><input type="checkbox"
+                                                                                                        value="true"
+                                                                                                        class="trace mt-1"
+                                                                                                        onclick="Cookies.set('trace', $('.trace').is(':checked'));">
+                                        Trace</label>
+
+                                </p>
+                            </td>
+                            <td style="vertical-align: text-top">
+                                <label style="color: #fff;"><input type="checkbox" value="true" class="allLogs mt-1"
+                                                                   checked
+                                                                   onclick="enableLogs()"> All rules logs </label>
+                                <p style="margin-bottom: 5px;">Fields Filter:<br>
+                                    <label style="color: #fff;display: block;margin-bottom: 0px"><input type="checkbox"
+                                                                                                        value="true"
+                                                                                                        class="node mt-1">
+                                        Node</label>
+                                    <label style="color: #fff;display: block;margin-bottom: 0px"><input type="checkbox"
+                                                                                                        value="true"
+                                                                                                        class="session mt-1">
+                                        Session</label>
+                                </p>
+                                <p class="mt-2">Live Status: <br><span class="serverStatus"><span
+                                        class="label label-danger">Not Connected</span></span>
+
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-lg-10" style="position:relative">
+<span style="position: absolute;top:0px;right:0px;cursor: pointer;z-index:99999999">
+                            <button class="btn btn-icon btn-sm btn-default" onclick="clearLogs()" title="Clear Logs"><i
+                                    class="icon-trash-o"></i></button>
+                            <button class="btn btn-icon btn-sm btn-default" id="consoleMax" title="Full Screen"><i
+                                    class="fa fa-arrows-alt"></i></button>
+                        </span>
+                    <div class="consoleBox" style="position: relative">
+
+                        <div class="loggerHtml"></div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>-->
+        <div class="ui-layout-east rightSide">
+
+            <div class="row-fluid" style="margin-bottom: 5px;margin-top: 10px;">
+
+                <ul class="nav nav-tabs ">
+                    <li class="nav-items active">
+                        <a href="#default-tab-1" data-toggle="tab" class="nav-link active show">
+                            <span class="d-sm-none">Rules Details</span>
+                            <span class="d-sm-block d-none">Rules Details</span>
+                        </a>
+                    </li>
+                    <li class="nav-items">
+                        <a href="#default-tab-2" data-toggle="tab" class="nav-link">
+                            <span class="d-sm-none">Class</span>
+                            <span class="d-sm-block d-none">Class</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="tab-content" style="margin-bottom: 0px;">
+                    <!-- begin tab-pane -->
+                    <div class="tab-pane fade active show" id="default-tab-1">
+
+                        <div id="accordion1" class="card-accordion">
+                            <!-- begin card -->
+                            <div class="card detailsBlock">
+                                <div class="card-header bg-black text-white pointer-cursor" data-toggle="collapse"
+                                     data-target="#collapseOne" aria-expanded="true">
+                                    Rules Details
+
+                                </div>
+                                <div id="collapseOne" class="collapse show" data-parent="#accordion" style="">
+                                    <div class="card-body">
+                                        <table class="table msg-def-table mb-0">
+                                            <tbody>
+                                            <tr>
+                                                <td>Name</td>
+                                                <td><label class="ruleName"></label>
+                                                    <button class="btn btn-warning btn-block btn-sm simulateBtn mt-2 mb-2"
+                                                            style="display: none"><i class="fa fa-play"></i> Simulate
+                                                    </button>
+                                                </td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>RuleType</td>
+                                                <td><label class="ruleType"></label></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Language</td>
+                                                <td><label class="ruleLanguage label label-default"></label></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2" style="text-align: center">
+                                                    <a href="javascript:void(0)" id="exportMsg"
+                                                       class="btn btn-secondary btn-sm mt-2 exportBtn re-sec-btn"><i
+                                                            class="fa fa-download"></i> Export Rule</a>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        <div class="w-50" style="text-align: center;margin: 10px auto;">
+                                            <button class="btn btn-block btn-sm btn-danger deleteBtn"
+                                                    style="display: none;" onclick="openDeleteModal()"><i
+                                                    class="fa fa-trash"></i> Delete
+                                            </button>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end card -->
+
+                            <div class="card processBlock" style="display: none">
+                                <div class="card-header bg-black text-white pointer-cursor collapsed"
+                                     data-toggle="collapse" data-target="#collapseFour" aria-expanded="true">
+                                    Process Details
+                                    <a href="javascript:void(0)" class="pull-right text-white" onclick="openModal(9)"><i
+                                            class="fa fa-edit"></i></a>
+                                </div>
+                                <div id="collapseFour" class="collapse in show" data-parent="#accordion" style="">
+                                    <div class="card-body pBody">
+
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card inputBlock" style="display: none">
+                                <div class="card-header bg-black text-white pointer-cursor collapsed"
+                                     data-toggle="collapse" data-target="#collapseTwo11" aria-expanded="true">
+                                    Input Details
+                                    <a href="javascript:void(0)" class="pull-right text-white" onclick="editInputModal()"><i
+                                            class="fa fa-edit"></i></a>
+                                </div>
+                                <div id="collapseTwo11" class="collapse in show" data-parent="#accordion" style="">
+                                    <div class="card-body">
+                                        <table class="table">
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card jobFields" style="display: none">
+                                <div class="card-header bg-black text-white pointer-cursor collapsed"
+                                     data-toggle="collapse" data-target="#collapseTwo1" aria-expanded="true">
+                                    Job Details
+                                    <a href="javascript:void(0)" class="pull-right text-white" onclick="editJobModal()"><i
+                                            class="fa fa-edit"></i></a>
+                                </div>
+                                <div id="collapseTwo1" class="collapse in show" data-parent="#accordion" style="">
+                                    <div class="card-body">
+                                        <a href="javascript:void(0)" class="btn btn-xs btn-default btn-block"
+                                           onclick="loadRunningCount()"><i class="fa fa-refresh"></i> Refresh Job Status</a>
+                                        <table class="table">
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- begin card -->
+                            <div class="card messageFields" style="display: none">
+                                <div class="card-header bg-black text-white pointer-cursor collapsed"
+                                     data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false">
+                                    Message Fields
+                                </div>
+                                <div id="collapseTwo" class="collapse" data-parent="#accordion" style="">
+                                    <div class="card-body">
+                                        <table class="table">
+                                            <thead>
+                                            <th>Field</th>
+                                            <th>DataType</th>
+                                            </thead>
+                                            <tbody>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end card -->
+                            <!-- begin card -->
+                            <div class="card defaultFields" style="display: none">
+                                <div class="card-header bg-black text-white pointer-cursor collapsed"
+                                     data-toggle="collapse" data-target="#collapseThree">
+                                    Default Fields
+                                </div>
+                                <div id="collapseThree" class="collapse" data-parent="#accordion">
+                                    <div class="card-body">
+                                        <table class="table">
+                                            <thead>
+                                            <th>Field</th>
+                                            <th>DataType</th>
+                                            </thead>
+                                            <tbody>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end tab-pane -->
+                    <!-- begin tab-pane -->
+                    <div class="tab-pane fade" id="default-tab-2">
+
+                        <div class="tab-content treeBody"
+                             style="margin-bottom: 0px;background-color: #eeeeee6b;padding: 5px;">
+
+                            <!--<label>Select: </label>
+                            <label style="font-weight: normal;margin-right:5px">
+                                <input type="radio" name="codeType" value="CLASS" onclick="loadCodeType()" checked/>
+                                Groovy Class
+                            </label>
+                            <label style="font-weight: normal">
+                                <input type="radio" name="codeType" value="JAR" onclick="loadCodeType()"/> JAR
+                            </label>-->
+
+                            <button class="btn btn-block btn-sm"
+                                    style="margin: 5px 0px;background-color: #2c2c78;color:#fff"
+                                    onclick="openModalClasses()">
+                                <i class="fa fa-cloud-upload"></i> Import Class/JAR
+                            </button>
+
+                            <form action="javascript:void(0)" onsubmit="loadCodeType()">
+
+                                <select id="codeType" style="margin-bottom: 5px;" onchange="loadCodeType()">
+                                    <option value="CLASS">Groovy Class</option>
+                                    <option value="JAR">JAR</option>
+                                </select> <br>
+
+                                <label style="margin-right: 10px;"><input type="radio" name="fileType"
+                                                                          value="PUBLIC_GROOVY"
+                                                                          onclick="loadCodeType()"> Public</label>
+                                <label><input type="radio" name="fileType" value="GROOVY" checked
+                                              onclick="loadCodeType()"> Private</label>
+
+                                <div class="input-group mb-3">
+                                    <input type="text" id="searchText" autocomplete="off" class="form-control"
+                                           placeholder="Search Package,Class,Method Name">
+                                    <div class="input-group-prepend">
+                                        <button class="btn btn-secondary" type="submit"><i class="icon-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <div class="classFolder" style="border: 1px dotted #ccc;background-color: #fff"></div>
+
+
+                        </div>
+
+                    </div>
+                    <!-- end tab-pane -->
+                </div>
+
+
+            </div>
+
+            <!--<div style="position: fixed;background-color: #fff;z-index:9999;top: 60px;">
+
+                <button class="btn btn-block btn-sm" style="margin: 5px 0px;background-color: #404040;color:#fff" onclick="openModalClasses()">
+                    <i class="fa fa-cloud-upload"></i> Import Class</button>
+
+
+                <ul class="nav nav-tabs nav-tabs-long rightSideBar" role="tablist">
+                    <li role="presentation" class="active">
+                        <a  href="#groovyRight" aria-controls="groovyRight" role="tab" data-toggle="tab" onclick="">Groovy Class</a>
+                    </li>
+                    <li role="presentation">
+                        <a  href="#jarRight" aria-controls="jarRight" role="tab" data-toggle="tab" onclick="">JAR Class</a>
+                    </li>
+                </ul>
+
+            </div>
+
+            &lt;!&ndash; Tab panes &ndash;&gt;
+            -->
+        </div>
+        <div class="ui-layout-west leftSide" style="">
+
+            <div class="row-fluid">
+                <button class="btn btn-sm pull-right re-tools-active-btn"
+                        onclick="openModal()"><i class="fa fa-plus"></i> Add Rule
+                </button>
+                <button class="btn btn-sm pull-right re-tools-btn"
+                        onclick="reloadRules()" title="Refresh Rule"><span class="btnRefresh"><i class="fa fa-refresh"></i></span></button>
+                <button class="btn btn-sm pull-right re-tools-btn"
+                        title="Upload Rule"
+                        onclick="uploadRuleModal()"><span class=""><i class="fa fa-upload"></i></span></button>
+            </div>
+
+            <div class="" style="margin-bottom: 5px;">
+                <label>Choose the rule</label>
+                <select class="input-sm form-control" onchange="loadRules(this.value)" id="rulesType">
+                    <option value="1">Message Rules</option>
+                    <option value="2">Named Rules</option>
+                    <option value="3">Scheduled Rules</option>
+                    <option value="6">Binary Rules</option>
+                    <option value="7">Job Rules</option>
+                    <option value="8">File Rules</option>
+                    <option value="9">Process Rules</option>
+                    <option value="10">SFTP Rules</option>
+                    <option value="11">MQTT Rules</option>
+                    <option value="12">UDP Rules</option>
+                    <option value="13">TCP Rules</option>
+                    <option value="14">Email Rules</option>
+                    <option value="15">Micro API Rules</option>
+                    <!--<option value="4">Groovy Class</option>-->
+                    <!--<option value="5">JAR Class</option>-->
+                </select>
+            </div>
+
+            <div class=""
+                 style="clear: both;background-color: #dedefc;color: #fff;border: 1px solid #eee;">
+                <label style="margin:5px;"><i class="fa fa-search"></i> Search</label>
+
+                <a onclick="$('.pFilter').toggle()" href="javascript:void(0)" style="font-size: 1rem;" class="pOption pull-right ml-1 mr-1 text-dark"><i class="fa fa-filter"></i> </a>
+
+                <select class="pull-right pOption" id="pType" onchange="loadProcessRulesList()">
+                    <option value="DOMAIN">Domain</option>
+                </select>
+
+
+                <input type="text" class="form-control input-sm" style="background-color: #fffded"
+                       placeholder="Search by ID or Name" id="searchInput" onkeyup="searchFunction()"/>
+            </div>
+
+            <div class="pOption pFilter" style="padding:5px;display:none;width: 100%;background-color: #eee;">
+                <strong class="pull-right" onclick="$('.pFilter').toggle()"><i class="fa fa-close"></i></strong>
+                <label class="mb-0">Group</label><br>
+                <select style="width: 100%" class="form-control form-control-sm" id="pfGroup" onchange="loadProcessRulesList()">
+                    <option value="">Select</option>
+                </select>
+                <label class="mb-0">Tags</label>
+                <input type="text" class="form-control form-control-sm" id="pfTag" onkeyup="loadProcessRulesList()"/>
+            </div>
+
+            <div class="listHeight"
+                 style="border:1px solid #4242424d;clear:both;background-color: #fff;overflow: auto;overflow-x: hidden;position: relative">
+                <ul class="rulesList"></ul>
+
+
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
+
+<div class="row bottomBar" style="margin:0px;z-index: 9;font-size: 11px !important;position: absolute;width:100%;bottom:0px;left:0px;background: #333;padding:10px;height: 0px">
+
+    <button class="btn btn-dark btnHandle" onclick="toggleHandle(2)">Live Logs <i
+            class="icon-chevron-up"></i></button>
+
+    <div class="col-md-2 liveBlocks" style="display: none">
+
+        <table style="width: 100%;border:0px">
+            <tr>
+                <td style="width: 40%">
+                    <p style="margin-bottom: 5px;">Logs Filter:<br>
+
+                        <label style="color: #fff;display: block;margin-bottom: 0px"><input type="checkbox"
+                                                                                            value="true"
+                                                                                            class="fatal mt-1"
+                                                                                            onclick="Cookies.set('fatal', $('.fatal').is(':checked'));"
+                                                                                            checked>
+                            Fatal</label>
+                        <label style="color: #fff;display: block;margin-bottom: 0px"><input type="checkbox"
+                                                                                            value="true"
+                                                                                            class="error mt-1"
+                                                                                            onclick="Cookies.set('error', $('.error').is(':checked'));"
+                                                                                            checked>
+                            Error</label>
+                        <label style="color: #fff;display: block;margin-bottom: 0px"><input type="checkbox"
+                                                                                            value="true"
+                                                                                            class="warn mt-1"
+                                                                                            onclick="Cookies.set('warn', $('.warn').is(':checked'));"
+                                                                                            checked>
+                            Warn</label>
+                        <label style="color: #fff;display: block;margin-bottom: 0px"><input type="checkbox"
+                                                                                            value="true"
+                                                                                            class="info mt-1"
+                                                                                            onclick="Cookies.set('info', $('.info').is(':checked'));"
+                                                                                            checked>
+                            Info</label>
+                        <label style="color: #fff;display: block;margin-bottom: 0px"><input type="checkbox"
+                                                                                            value="true"
+                                                                                            class="debug mt-1"
+                                                                                            onclick="Cookies.set('debug', $('.debug').is(':checked'));">
+                            Debug</label>
+                        <label style="color: #fff;display: block;margin-bottom: 0px"><input type="checkbox"
+                                                                                            value="true"
+                                                                                            class="trace mt-1"
+                                                                                            onclick="Cookies.set('trace', $('.trace').is(':checked'));">
+                            Trace</label>
+
+                    </p>
+                </td>
+                <td style="vertical-align: text-top">
+                    <label style="color: #fff;"><input type="checkbox" value="true" class="allLogs mt-1"
+                                                       checked
+                                                       onclick="enableLogs()"> All rules logs </label>
+                    <p style="margin-bottom: 5px;">Fields Filter:<br>
+                        <label style="color: #fff;display: block;margin-bottom: 0px"><input type="checkbox"
+                                                                                            value="true"
+                                                                                            class="node mt-1">
+                            Node</label>
+                        <label style="color: #fff;display: block;margin-bottom: 0px"><input type="checkbox"
+                                                                                            value="true"
+                                                                                            class="session mt-1">
+                            Session</label>
+                    </p>
+                    <p class="mt-2">Live Status: <br><span class="serverStatus"><span
+                            class="label label-danger">Not Connected</span></span>
+
+                    </p>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-md-10 liveBlocks" style="position:relative;padding: 0px;display: none">
+<span style="position: absolute;top: 2px;right: 2px;cursor: pointer;z-index:9999;">
+                            <button class="btn btn-sm btn-icon btn-default" onclick="clearLogs()" title="Clear Logs"><i
+                                    class="icon-trash-o"></i></button>
+                            <button class="btn btn-sm btn-icon btn-default" onclick="toggleFullscreen('consoleBox')" title="Clear Logs"><i
+                                    class="icon-maximize"></i></button>
+                        </span>
+        <div class="consoleBox" id="consoleBox" style="position: relative;height:155px">
+
+            <div class="loggerHtml"></div>
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/jquery-ui-latest.js"></script>
+<script src="js/jquery.layout-latest.js"></script>
+<script type="text/javascript" src="libraries/colorpicker/spectrum.js"></script>
+
+<script src="js/Aimara.js" type="text/javascript"></script>
+<script src="js/editor/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/editor/src-noconflict/ext-language_tools.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/editor/src-noconflict/ext-searchbox.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/editor/src-noconflict/snippets/groovy.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jsCronUI.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jsCronUI-template.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/multiple-select.js" type="text/javascript" charset="utf-8"></script>
+<script src="controllers/folder-menu.js" type="text/javascript"></script>
+<script src="js/select2.min.js" type="text/javascript"></script>
+<script src="controllers/rules-engine.js" type="text/javascript"></script>
+
+
+<div id="addMessageRule" class="modal bskp-modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Define Message</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="javascript:void(0)" onsubmit="addMessageRule();">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="inputLabel">Message ID</label>
+                                <input class="form-control input-sm" placeholder="" type="number" id="msg_id" required>
+                                <!--<small>ID Range from <b><span class="idRange"></span></b></small>-->
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="inputLabel">Message Name</label>
+                                <input class="form-control input-sm" placeholder="" type="text" id="msg_name" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="inputLabel">Description</label>
+                                <textarea class="form-control input-sm" placeholder="" type="text" id="msg_desc"
+                                          required></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="height: 250px;overflow:auto;overflow-x: hidden">
+                        <div class="col-md-12">
+                            <table class="table table-border">
+                                <thead>
+                                <tr>
+                                    <th>Field Name</th>
+                                    <th>DataType</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody class="msgFieldBody">
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn button-2 btn-close" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btnModal btn-secondary btn-proceed btnSubmit">Proceed</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div id="deleteModal" class="modal bskp-modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Delete <span class="delete_rule_name"></span> Rule</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure want to delete <b><span class="delete_rule_id"></span> <span
+                        class="delete_rule_name"></span></b> Rule?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn button-2" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btnModal" onclick="proceedDelete()">Proceed</button>
+                <input type="hidden" class="viewId" value=""/>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div id="addProcessRule" class="modal bskp-modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form action="javascript:void(0)" onsubmit="addProcessRule()">
+                <div class="modal-header">
+                    <h4 class="modal-title"><span class="tempAction"></span> Process Rule</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div class="form-group">
+                                <label class="inputLabel">Process Name *</label>
+                                <input class="form-control input-sm" placeholder="" maxlength="100"
+                                       type="text" id="processName" required onkeyup="changeId(this.value)">
+                                <small>Process ID: <strong id="processId"></strong></small>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div style="float:right;border:1px solid #eee;position: relative" onmouseover="$('.eBtn').removeClass('hide')"
+                                 onmouseout="$('.eBtn').addClass('hide')">
+                                <a href="javascript:void(0)" onclick="$('#processIcon').click()" class="eBtn btn btn-sm btn-default hide"
+                                   style="position: absolute;width: 100%;text-align:center;z-index: 2;bottom:0px;"><i class="fa fa-edit"></i></a>
+                                <img src="images/generate_claim.svg" class="process_img" style="width:48px;height:48px;z-index: 1"/>
+
+                                <input type="file" style="display: none" class="form-control input-box" id="processIcon" onchange="uploadProcessImage()" />
+
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="inputLabel">Color Code</label>
+                                <input type="text" class="form-control input-box" id="processColor" />
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-default btn-sm" style="float: right" onclick="addBlock()"><i class="fa fa-plus"></i> Add</button>
+                            <ul class="nav nav-tabs mt-2" id="myTab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link tclass outClass active" id="output-tab" data-toggle="tab" href="#output" role="tab"
+                                       aria-controls="output" aria-selected="true">Output <span class="text-danger">*</span></a>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link tclass inClass" id="input-tab" data-toggle="tab" href="#input" role="tab"
+                                       aria-controls="input" aria-selected="false">Input</a>
+                                </li>
+
+                            </ul>
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade show active" id="output" role="tabpanel" aria-labelledby="output-tab">
+
+                                    <table class="mt-1" style="width:100%">
+                                        <!--<thead>
+                                        <tr>
+                                            <th style="width: 50%">Key Name</th>
+                                            <th>Data Type</th>
+                                        </tr>
+                                        </thead>-->
+                                        <tbody class="outputBody">
+                                        <tr>
+                                            <td>
+                                                <input required type="text" class="form-control output_key" maxlength="100" placeholder="Key Name" />
+                                            </td>
+                                            <td>
+                                                <select class="form-control output_value" required>
+                                                    <option value="String">String</option>
+                                                    <option value="boolean">boolean</option>
+                                                    <option value="int">int</option>
+                                                    <option value="long">long</option>
+                                                    <option value="float">float</option>
+                                                    <option value="double">double</option>
+                                                    <option value="byte">byte</option>
+                                                    <option value="short">short</option>
+                                                    <option value="char">char</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+
+
+
+                                </div>
+                                <div class="tab-pane fade" id="input" role="tabpanel" aria-labelledby="input-tab">
+
+                                    <table class="mt-1" style="width:100%">
+                                        <tbody class="inputBody">
+
+                                        </tbody>
+                                    </table>
+
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="inputLabel">Group</label>
+                            <input class="form-control input-sm" placeholder="" maxlength="100"
+                                   type="text" id="pGroup">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="inputLabel">Tags</label>
+                            <input class="form-control input-sm" placeholder="" maxlength="100"
+                                   type="text" id="pTags">
+                            <small>Note: comma separated value</small>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="inputLabel">Description</label>
+                            <textarea class="form-control input-sm"  id="description"  maxlength="5000"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btnModal pBtn">Save changes</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div id="addNamedRule" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form action="javascript:void(0)" onsubmit="addNamedRule()">
+                <div class="modal-header">
+                    <h4 class="modal-title">Add Named Rule</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="inputLabel">Rule Name</label>
+                                <input class="form-control input-sm" onkeyup="avoidSpaces(this)" placeholder=""
+                                       type="text" id="rule_id" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="inputLabel">Language</label>
+                                <select class="form-control input-sm" id="rule_language">
+                                    <option value="GROOVY">GROOVY</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btnModal">Save changes</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div id="addBinaryRule" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form action="javascript:void(0)" onsubmit="addBinaryRule()">
+                <div class="modal-header">
+                    <h4 class="modal-title">Add Binary Rule</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="inputLabel">Rule Name</label>
+                                <input class="form-control input-sm" onkeyup="avoidSpaces(this)" placeholder=""
+                                       type="text" id="binary_rule" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="inputLabel">Language</label>
+                                <select class="form-control input-sm" id="binary_lang">
+                                    <option value="GROOVY">GROOVY</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btnModal">Save changes</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div id="addFileRule" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form action="javascript:void(0)" onsubmit="addFileRule()">
+                <div class="modal-header">
+                    <h4 class="modal-title">Add File Rule</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="inputLabel">Rule Name</label>
+                                <input class="form-control input-sm" onkeyup="avoidSpaces(this)" placeholder=""
+                                       type="text" id="file_rule" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="inputLabel">Language</label>
+                                <select class="form-control input-sm" id="file_lang">
+                                    <option value="GROOVY">GROOVY</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btnModal">Save changes</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div id="addScheduleRule" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form action="javascript:void(0)" onsubmit="addScheduleRule()">
+                <div class="modal-header">
+                    <h4 class="modal-title">Add Schedule Rule</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="inputLabel">Rule ID</label>
+                                <input class="form-control input-sm" placeholder="" type="number" id="sch_id" required>
+                                <!--<small>ID Range from <b><span class="idRange"></span></b></small>-->
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="inputLabel">Language</label>
+                                <select class="form-control input-sm" id="sch_language">
+                                    <option value="GROOVY">GROOVY</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="inputLabel">Pattern</label>
+                                <input class="form-control input-sm" placeholder=""  type="text"
+                                       id="sch_pattern" value="* * * * *" required>
+                                <div id="pattren_desc"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <% include cron-template.html %>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btnModal">Save changes</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div id="addClass" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form action="javascript:void(0)" onsubmit="uploadClassFile()">
+                <div class="modal-header">
+                    <h4 class="modal-title">Import Class/JAR</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="inputLabel">Select Type</label>
+                                <select class="form-control input-sm" id="class_type" required
+                                        onchange="loadClassTemplate(this.value)">
+                                    <option value=""></option>
+                                    <option value="GROOVY">Groovy Class</option>
+                                    <option value="JAR">JAR File</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+
+                        </div>
+                    </div>
+                    <di class="row classTemplate">
+
+                    </di>
+
+                    <div class="row">
+
+                        <div class="col-md-12 logResult">
+
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btnModal">Save changes</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="simulatorModal">
+
+</div>
+
+
+<div id="importModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="">
+            <div class="modal-header">
+                <h4 class="modal-title">Import Rule</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="javascript:void(0)">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="inputLabel">Choose File</label>
+                                <input class="form-control input-sm" placeholder="" type="file" id="importFile"
+                                       required/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div id="addJobRule" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form action="javascript:void(0)">
+                <div class="modal-header">
+                    <h4 class="modal-title"><span class="jAction">Add</span> Job Rule</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="inputLabel">Rule Name</label>
+                                <input class="form-control input-sm" onkeyup="avoidSpaces(this)"
+                                       onkeypress="avoidSpaces(this)" placeholder=""
+                                       type="text" id="job_rule" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="inputLabel">Language</label>
+                                <select class="form-control input-sm" id="job_lang">
+                                    <option value="GROOVY">GROOVY</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="inputLabel">Job Type</label>
+                                <select class="form-control input-sm" id="job_type" onchange="checkJobInstance()">
+                                    <option value="DISTRIBUTED">Distributed</option>
+                                    <option value="ATOMIC">Atomic</option>
+                                    <option value="SCALABLE">Scalable</option>
+                                    <option value="NODE_SINGLETON">Node Singleton</option>
+                                    <option value="CLUSTER_SINGLETON">Cluster Singleton</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="inputLabel">Job Instances</label>
+                                <input class="form-control input-sm"
+                                       type="number" min="1" value="1" id="job_instance">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="inputLabel">Job State</label>
+                                <select class="form-control input-sm" id="job_state">
+                                    <option value="ENABLED">Enabled</option>
+                                    <option value="DISABLED">Disabled</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group systemTemplate">
+                                <label class="inputLabel">System Job</label>
+                                <select class="form-control input-sm" id="job_system">
+                                    <option value="0">No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="inputLabel">Start on Boot</label>
+                                <select class="form-control input-sm" id="job_boot">
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="inputLabel">Restart on Change</label>
+                                <select class="form-control input-sm" id="job_restart">
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btnModal">Save changes</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div id="addSftpInputRule" class="modal fade" tabindex="-1" role="dialog">
+<!--<div id="addSftpInputRule" class="modal fade show" tabindex="-1" role="dialog" style="display: block">-->
+    <div class="modal-dialog modal-lg" role="document" style="    max-width: 80% !important;">
+        <div class="modal-content">
+            <form action="javascript:void(0)">
+                <div class="modal-header">
+                    <h4 class="modal-title"><span class="iAction">Add</span> SFTP Input Rule</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Rule Name *</label>
+                                        <input class="form-control input-sm" onkeyup="inputId('sftp_name','sftp_id')"
+                                               onkeypress="inputId('sftp_name','sftp_id')" placeholder=""
+                                               type="text" id="sftp_name" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Rule ID</label><br>
+                                        <strong class="sftp_id">-</strong>
+                                        <input class="form-control input-sm"
+                                               type="hidden" id="sftp_id" style="display: none">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Instance Type *</label>
+                                        <select class="form-control input-sm" id="sftp_instanceType">
+                                            <option value="SCALABLE">Scalable</option>
+                                            <option value="NODE_SINGLETON">Node Singleton</option>
+                                            <option value="CLUSTER_SINGLETON">Cluster Singleton</option>
+                                            <option value="DISTRIBUTED">Distributed</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Instances *</label>
+                                        <input class="form-control input-sm"
+                                               type="number" min="1" value="" id="sftp_instances" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Start At Boot</label>
+                                        <select class="form-control input-sm" id="sftp_startAtBoot">
+                                            <option value="1">Yes</option>
+                                            <option value="0">No</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Remote Host *</label>
+                                        <input class="form-control input-sm"
+                                               type="text" id="sftp_remoteHost" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Remote Port *</label>
+                                        <input class="form-control input-sm"
+                                               type="number" min="1" value="" id="sftp_remotePort" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Username *</label>
+                                        <input class="form-control input-sm"
+                                               type="text" value="" id="sftp_userName" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Password</label>
+                                        <input class="form-control input-sm"
+                                               type="text" value="" id="sftp_password">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Remote Paths</label>
+                                        <input class="form-control input-sm"
+                                               type="text" value="" id="sftp_remotePaths">
+                                        <small>Note: multiple paths with comma separated</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Implementation *</label>
+                                        <select class="form-control input-sm" id="sftp_implementation">
+                                            <option value="JSCH">JSCH</option>
+                                            <option value="SSHJ">SSHJ</option>
+                                            <option value="VFS2">VFS2</option>
+                                        </select>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Poll Interval</label>
+                                        <input class="form-control input-sm"
+                                               type="number" min="1" value="" id="sftp_pollInterval">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="inputLabel">List Pattern</label>
+                                        <input class="form-control input-sm"
+                                               type="text" value="" id="sftp_listPattern">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="inputLabel">List Directory Pattern</label>
+                                        <input class="form-control input-sm"
+                                               type="text" value="" id="sftp_sftp_listDirPattern">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Key Files *</label>
+                                        <select class="form-control input-sm" id="sftp_keyFilesBuiltIn" onchange="checkKeyFile(this.value)">
+                                            <option value="0">No</option>
+                                            <option value="1">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <input type="file" style="display: none" class="form-control input-box" id="pemFile" onchange="uploadPemFile()" />
+
+                                <div class="col-md-4">
+                                    <div class="form-group sftp_privateKeyFilePath" style="display:none">
+                                        <label class="inputLabel">PrivateKey *
+                                            <a href="javascript:void(0)" onclick="checkPemFile('sftp_privateKeyFilePath')"><i class="fa fa-folder-open"></i></a></label>
+                                        <input class="form-control input-sm"
+                                               type="text" value="" id="sftp_privateKeyFilePath">
+                                        <small>FileName: <strong class="sftp_privateKeyFilePath_name">-</strong></small>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group sftp_publicKeyFilePath" style="display:none">
+                                        <label class="inputLabel">PublicKey
+                                            <a href="javascript:void(0)" onclick="checkPemFile('sftp_publicKeyFilePath')"><i class="fa fa-folder-open"></i></a></label>
+                                        <input class="form-control input-sm"
+                                               type="text" value="" id="sftp_publicKeyFilePath">
+                                        <small>FileName: <strong class="sftp_publicKeyFilePath_name">-</strong></small>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Connection Timeout</label>
+                                        <input class="form-control input-sm"
+                                               type="number" min="1" value="" id="sftp_connectTimeOut">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">List Recursive</label>
+                                        <input class="form-control input-sm"
+                                               type="number" min="-1" value="" id="sftp_listRecursive">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="inputLabel">key PassPhrase</label>
+                                        <textarea class="form-control input-sm"
+                                                  id="sftp_keyPassPhrase"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row bg-light">
+                                <div class="col-md-12 mt-2">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Config</label>
+
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Value</th>
+                                                    <th>
+                                                        <button class="btn btn-xs" type="button" onclick="addConfigBody()"><i class="fa fa-plus"></i></button>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="configBody">
+
+                                            </tbody>
+
+                                        </table>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 mt-2">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Properties</label>
+                                        <textarea style="height: 100px" class="form-control input-sm" id="sftp_properties">{}</textarea>
+                                        <small>JSON value</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btnModal">Save changes</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div id="addMqttInputRule" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document" style="max-width: 80% !important;">
+        <div class="modal-content">
+            <form action="javascript:void(0)">
+                <div class="modal-header">
+                    <h4 class="modal-title"><span class="iAction">Add</span> MQTT Input Rule</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Rule Name *</label>
+                                        <input class="form-control input-sm" onkeyup="inputId('mqtt_name','mqtt_id')"
+                                               onkeypress="inputId('mqtt_name','mqtt_id')" placeholder=""
+                                               type="text" id="mqtt_name" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Rule ID</label><br>
+                                        <strong class="mqtt_id">-</strong>
+                                        <input class="form-control input-sm"
+                                               type="hidden" id="mqtt_id" style="display: none">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Instance Type *</label>
+                                        <select class="form-control input-sm" id="mqtt_instanceType">
+                                            <option value="SCALABLE">Scalable</option>
+                                            <option value="NODE_SINGLETON">Node Singleton</option>
+                                            <option value="CLUSTER_SINGLETON">Cluster Singleton</option>
+                                            <option value="DISTRIBUTED">Distributed</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Instances *</label>
+                                        <input class="form-control input-sm"
+                                               type="number" min="1" value="" id="mqtt_instances" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Start at Boot</label>
+                                        <select class="form-control input-sm" id="mqtt_startAtBoot">
+                                            <option value="1">Yes</option>
+                                            <option value="0">No</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Server URL's</label>
+                                        <input class="form-control input-sm"
+                                               type="text" value="" id="mqtt_serverUrls" required>
+                                        <small>Note: comma separated values</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Username</label>
+                                        <input class="form-control input-sm"
+                                               type="text" value="" id="mqtt_userName">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Password</label>
+                                        <input class="form-control input-sm"
+                                               type="text" value="" id="mqtt_password" >
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Client ID</label>
+                                        <input class="form-control input-sm"
+                                               type="text" value="" id="mqtt_clientId">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Clean Session</label>
+                                        <select class="form-control input-sm" id="mqtt_cleanSession">
+                                            <option value="1">Yes</option>
+                                            <option value="0">No</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Connection Timeout</label>
+                                        <input class="form-control input-sm"
+                                               type="number" min="1" value="" id="mqtt_connectionTimeout">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Keep Alive Interval</label>
+                                        <input class="form-control input-sm"
+                                               type="text" value="" id="mqtt_keepAliveInterval">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="inputLabel">MQTT Version</label>
+                                        <input class="form-control input-sm"
+                                               type="text" value="" id="mqtt_mqttVersion">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="inputLabel">SSL *</label>
+                                        <select class="form-control input-sm" id="mqtt_ssl" onchange="checkMqttSSL(this.value)">
+                                            <option value="0">No</option>
+                                            <option value="1">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group mqtt_ssl_block">
+                                        <label class="inputLabel">SSL SkipHostName Verification *</label>
+                                        <select class="form-control input-sm" id="mqtt_sslSkipHostNameVerification">
+                                            <option value="1">Yes</option>
+                                            <option value="0">No</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group mqtt_ssl_block">
+                                        <label class="inputLabel">SSL Store BuiltIn *</label>
+                                        <select class="form-control input-sm" id="mqtt_sslStoreBuiltIn" onchange="checkMqttKeyFile(this.value)">
+                                            <option value="0">No</option>
+                                            <option value="1">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group mqtt_ssl mqtt_ssl_block" style="display:none">
+                                        <label class="inputLabel">SSL KeyStore Path *
+                                            <a href="javascript:void(0)" onclick="checkMqttKeyFile('mqtt_sslKeyStorePath')"><i class="fa fa-folder-open"></i></a></label>
+                                        <input class="form-control input-sm"
+                                               type="text" value="" id="mqtt_sslKeyStorePath">
+                                        <small>FileName: <strong class="mqtt_sslKeyStorePath">-</strong></small>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group mqtt_ssl mqtt_ssl_block" style="display:none">
+                                        <label class="inputLabel">SSL KeyStore Password</label>
+                                        <input class="form-control input-sm"
+                                               type="text" value="" id="mqtt_sslKeyStorePassword">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group mqtt_ssl mqtt_ssl_block" style="display:none">
+                                        <label class="inputLabel">SSL TrustStore Path *
+                                            <a href="javascript:void(0)" onclick="checkPemFile('mqtt_sslTrustStorePath')"><i class="fa fa-folder-open"></i></a></label>
+                                        <input class="form-control input-sm"
+                                               type="text" value="" id="mqtt_sslTrustStorePath">
+                                        <small>FileName: <strong class="mqtt_sslTrustStorePath">-</strong></small>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group mqtt_ssl mqtt_ssl_block" style="display:none">
+                                        <label class="inputLabel">SSL TrustStore Password</label>
+                                        <input class="form-control input-sm"
+                                               type="text" value="" id="mqtt_sslTrustStorePassword">
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row bg-light">
+                                <div class="col-md-12 mt-2">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Subscriptions - MQTT Topic</label>
+
+                                        <table class="table table-bordered">
+                                            <thead>
+                                            <tr>
+                                                <th>Pattern</th>
+                                                <th>QoS</th>
+                                                <th>
+                                                    <button class="btn btn-xs" type="button" onclick="addMqttBody()"><i class="fa fa-plus"></i></button>
+                                                </th>
+                                            </tr>
+                                            </thead>
+                                            <tbody class="mqttBody">
+
+                                            </tbody>
+
+                                        </table>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 mt-2">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Config</label>
+
+                                        <table class="table table-bordered">
+                                            <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Value</th>
+                                                <th>
+                                                    <button class="btn btn-xs" type="button" onclick="addConfigBody()"><i class="fa fa-plus"></i></button>
+                                                </th>
+                                            </tr>
+                                            </thead>
+                                            <tbody class="configBody">
+
+                                            </tbody>
+
+                                        </table>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 mt-2">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Properties</label>
+                                        <textarea style="height: 100px" class="form-control input-sm" id="mqtt_properties">{}</textarea>
+                                        <small>JSON value</small>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btnModal">Save changes</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div id="addUdpInputRule" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document" style="max-width: 80% !important;">
+        <div class="modal-content">
+            <form action="javascript:void(0)">
+                <div class="modal-header">
+                    <h4 class="modal-title"><span class="iAction">Add</span> UDP Input Rule</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Rule Name *</label>
+                                        <input class="form-control input-sm" onkeyup="inputId('udp_name','udp_id')"
+                                               onkeypress="inputId('udp_name','udp_id')" placeholder=""
+                                               type="text" id="udp_name" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Rule ID</label><br>
+                                        <strong class="udp_id">-</strong>
+                                        <input class="form-control input-sm"
+                                               type="hidden" id="udp_id" style="display: none">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Instance Type *</label>
+                                        <select class="form-control input-sm" id="udp_instanceType">
+                                            <option value="SCALABLE">Scalable</option>
+                                            <option value="NODE_SINGLETON">Node Singleton</option>
+                                            <option value="CLUSTER_SINGLETON">Cluster Singleton</option>
+                                            <option value="DISTRIBUTED">Distributed</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Instances *</label>
+                                        <input class="form-control input-sm"
+                                               type="number" min="1" value="" id="udp_instances" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Start at Boot</label>
+                                        <select class="form-control input-sm" id="udp_startAtBoot">
+                                            <option value="1">Yes</option>
+                                            <option value="0">No</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-4"></div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Listen Host *</label>
+                                        <input class="form-control input-sm"
+                                               type="text" value="" id="udp_listenHost" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Listen Port *</label>
+                                        <input class="form-control input-sm"
+                                               type="number" min="0" value="" id="udp_listenPort" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Receive Buffer Size</label>
+                                        <input class="form-control input-sm"
+                                               type="number" min="0" value="" id="udp_receiveBufferSize">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Send Buffer Size</label>
+                                        <input class="form-control input-sm"
+                                               type="number" min="0" value="" id="udp_sendBufferSize">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">So Timeout</label>
+                                        <input class="form-control input-sm"
+                                               type="number" min="0" value="" id="udp_soTimeout">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Time To Live</label>
+                                        <input class="form-control input-sm"
+                                               type="number" min="0" value="" id="udp_timeToLive">
+                                    </div>
+                                </div><div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Traffice Class</label>
+                                        <input class="form-control input-sm"
+                                               type="number" min="0" value="" id="udp_trafficeClass">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Reuse Address</label>
+                                        <select class="form-control input-sm" id="udp_reuseAddress">
+                                            <option value="1">Yes</option>
+                                            <option value="0">No</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Multicast</label>
+                                        <select class="form-control input-sm" id="udp_multicast">
+                                            <option value="0">No</option>
+                                            <option value="1">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Multicast Group</label>
+                                        <input class="form-control input-sm"
+                                               type="text" value="" id="udp_multicastGroup">
+                                        <small>Note: comma separated values</small>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row bg-light">
+                                <div class="col-md-12 mt-2">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Config</label>
+
+                                        <table class="table table-bordered">
+                                            <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Value</th>
+                                                <th>
+                                                    <button class="btn btn-xs" type="button" onclick="addConfigBody()"><i class="fa fa-plus"></i></button>
+                                                </th>
+                                            </tr>
+                                            </thead>
+                                            <tbody class="configBody">
+
+                                            </tbody>
+
+                                        </table>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 mt-2">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Properties</label>
+                                        <textarea style="height: 100px" class="form-control input-sm" id="udp_properties">{}</textarea>
+                                        <small>JSON value</small>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                          </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btnModal">Save changes</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div id="addTcpInputRule" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document" style="max-width: 80% !important;">
+        <div class="modal-content">
+            <form action="javascript:void(0)">
+                <div class="modal-header">
+                    <h4 class="modal-title"><span class="iAction">Add</span> TCP Input Rule</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Rule Name *</label>
+                                        <input class="form-control input-sm" onkeyup="inputId('tcp_name','tcp_id')"
+                                               onkeypress="inputId('tcp_name','tcp_id')" placeholder=""
+                                               type="text" id="tcp_name" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Rule ID</label><br>
+                                        <strong class="tcp_id">-</strong>
+                                        <input class="form-control input-sm"
+                                               type="hidden" id="tcp_id" style="display: none">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Instance Type *</label>
+                                        <select class="form-control input-sm" id="tcp_instanceType">
+                                            <option value="SCALABLE">Scalable</option>
+                                            <option value="NODE_SINGLETON">Node Singleton</option>
+                                            <option value="CLUSTER_SINGLETON">Cluster Singleton</option>
+                                            <option value="DISTRIBUTED">Distributed</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Instances *</label>
+                                        <input class="form-control input-sm"
+                                               type="number" min="1" value="" id="tcp_instances" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Start at Boot</label>
+                                        <select class="form-control input-sm" id="tcp_startAtBoot">
+                                            <option value="1">Yes</option>
+                                            <option value="0">No</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Listen Host *</label>
+                                        <input class="form-control input-sm"
+                                               type="text" value="" id="tcp_listenHost" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Listen Port *</label>
+                                        <input class="form-control input-sm"
+                                               type="number" min="0" value="" id="tcp_listenPort" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">SSL *</label>
+                                        <select class="form-control input-sm" id="tcp_ssl" onchange="checkTcpSSL(this.value)">
+                                            <option value="0">No</option>
+                                            <option value="1">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group tcp_ssl_block">
+                                        <label class="inputLabel">SSL Files BuiltIn *</label>
+                                        <select class="form-control input-sm" id="tcp_sslStoresBuiltIn" onchange="checkTcpKeyFile(this.value)">
+                                            <option value="0">No</option>
+                                            <option value="1">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group tcp_ssl_block">
+                                        <label class="inputLabel">TLS Version</label>
+                                        <input class="form-control input-sm"
+                                               type="text" value="" id="tcp_tlsVersion">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group tcp_ssl" style="display:none">
+                                        <label class="inputLabel">Trust Store Path *
+                                            <a href="javascript:void(0)" onclick="checkPemFile('tcp_trustStorePath')"><i class="fa fa-folder-open"></i></a></label>
+                                        <input class="form-control input-sm"
+                                               type="text" value="" id="tcp_trustStorePath">
+                                        <small>FileName: <strong class="tcp_trustStorePath">-</strong></small>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group tcp_ssl" style="display:none">
+                                        <label class="inputLabel">Trust Store Password</label>
+                                        <input class="form-control input-sm"
+                                               type="text" value="" id="tcp_trustStorePassword">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group tcp_ssl" style="display:none">
+                                        <label class="inputLabel">Key Store Path *
+                                            <a href="javascript:void(0)" onclick="checkPemFile('tcp_keyStorePath')"><i class="fa fa-folder-open"></i></a></label>
+                                        <input class="form-control input-sm"
+                                               type="text" value="" id="tcp_keyStorePath">
+                                        <small>FileName: <strong class="tcp_keyStorePath">-</strong></small>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group tcp_ssl" style="display:none">
+                                        <label class="inputLabel">Key Store Password</label>
+                                        <input class="form-control input-sm"
+                                               type="text" value="" id="tcp_keyStorePassword">
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group ">
+                                        <label class="inputLabel">Keep Alive</label>
+                                        <select class="form-control input-sm" id="tcp_keepAlive" onchange="checkTcpKeyFile(this.value)">
+                                            <option value="0">No</option>
+                                            <option value="1">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="inputLabel">So Timeout</label>
+                                        <input class="form-control input-sm"
+                                               type="number" min="0" value="" id="tcp_soTimeout">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group ">
+                                        <label class="inputLabel">SoLinger On</label>
+                                        <select class="form-control input-sm" id="tcp_soLingerOn">
+                                            <option value="0">No</option>
+                                            <option value="1">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="inputLabel">SoLinger</label>
+                                        <input class="form-control input-sm"
+                                               type="number" min="0" value="" id="tcp_soLinger">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group ">
+                                        <label class="inputLabel">OOB Line</label>
+                                        <select class="form-control input-sm" id="tcp_oobLine">
+                                            <option value="0">No</option>
+                                            <option value="1">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Receive BufferSize</label>
+                                        <input class="form-control input-sm"
+                                               type="number" min="0" value="" id="tcp_receiveBufferSize">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Send BufferSize</label>
+                                        <input class="form-control input-sm"
+                                               type="number" min="0" value="" id="tcp_sendBufferSize">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group ">
+                                        <label class="inputLabel">TCP NoDelay</label>
+                                        <select class="form-control input-sm" id="tcp_tcpNoDelay">
+                                            <option value="0">No</option>
+                                            <option value="1">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Traffice Class</label>
+                                        <input class="form-control input-sm"
+                                               type="number" min="0" value="" id="tcp_trafficeClass">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group ">
+                                        <label class="inputLabel">Reuse Address</label>
+                                        <select class="form-control input-sm" id="tcp_reuseAddress">
+                                            <option value="0">No</option>
+                                            <option value="1">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group ">
+                                        <label class="inputLabel">Execute</label>
+                                        <select class="form-control input-sm" id="tcp_execute">
+                                            <option value="DIRECT">DIRECT</option>
+                                            <option value="BUFFER_CONTENT">BUFFER CONTENT</option>
+                                            <option value="LINE_BY_LINE">LINE BY LINE</option>
+                                            <option value="FIXED_SIZE">FIXED SIZE</option>
+                                            <option value="DELIMITER">DELIMITER</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group ">
+                                        <label class="inputLabel">Execute Partial Buffered</label>
+                                        <select class="form-control input-sm" id="tcp_executePartialBuffered" >
+                                            <option value="0">No</option>
+                                            <option value="1">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Fixed BufferSize</label>
+                                        <input class="form-control input-sm"
+                                               type="number" min="0" value="" id="tcp_fixedBufferSize">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Read Timeout</label>
+                                        <input class="form-control input-sm"
+                                               type="number" min="0" value="" id="tcp_readTimeout">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Close OnRead Timeout</label>
+                                        <select class="form-control input-sm" id="tcp_closeOnReadTimeout" >
+                                            <option value="0">No</option>
+                                            <option value="1">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Delimiter</label>
+                                        <input class="form-control input-sm"
+                                               type="text" value="" id="tcp_delimiter">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row bg-light">
+                                <div class="col-md-12 mt-2">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Config</label>
+
+                                        <table class="table table-bordered">
+                                            <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Value</th>
+                                                <th>
+                                                    <button class="btn btn-xs" type="button" onclick="addConfigBody()"><i class="fa fa-plus"></i></button>
+                                                </th>
+                                            </tr>
+                                            </thead>
+                                            <tbody class="configBody">
+
+                                            </tbody>
+
+                                        </table>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 mt-2">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Properties</label>
+                                        <textarea style="height: 100px" class="form-control input-sm" id="tcp_properties">{}</textarea>
+                                        <small>JSON value</small>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btnModal">Save changes</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div id="addEmailInputRule" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document" style="max-width: 80% !important;">
+        <div class="modal-content">
+            <form action="javascript:void(0)">
+                <div class="modal-header">
+                    <h4 class="modal-title"><span class="iAction">Add</span> Email Input Rule</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Rule Name *</label>
+                                        <input class="form-control input-sm" onkeyup="inputId('email_name','email_id')"
+                                               onkeypress="inputId('email_name','email_id')" placeholder=""
+                                               type="text" id="email_name" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Rule ID</label><br>
+                                        <strong class="email_id">-</strong>
+                                        <input class="form-control input-sm"
+                                               type="hidden" id="email_id" style="display: none">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Instance Type *</label>
+                                        <select class="form-control input-sm" id="email_instanceType">
+                                            <option value="SCALABLE">Scalable</option>
+                                            <option value="NODE_SINGLETON">Node Singleton</option>
+                                            <option value="CLUSTER_SINGLETON">Cluster Singleton</option>
+                                            <option value="DISTRIBUTED">Distributed</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Instances *</label>
+                                        <input class="form-control input-sm"
+                                               type="number" min="1" value="" id="email_instances" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Start at Boot</label>
+                                        <select class="form-control input-sm" id="email_startAtBoot">
+                                            <option value="1">Yes</option>
+                                            <option value="0">No</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Type</label>
+                                        <select class="form-control input-sm" id="email_type">
+                                            <option value="POP3">POP3</option>
+                                            <option value="IMAP">IMAP</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Secured</label>
+                                        <select class="form-control input-sm" id="email_secured">
+                                            <option value="0">No</option>
+                                            <option value="1">Yes</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Implicit</label>
+                                        <select class="form-control input-sm" id="email_implicit">
+                                            <option value="0">No</option>
+                                            <option value="1">Yes</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Protocol</label>
+                                        <input class="form-control input-sm"
+                                               type="text" min="1" value="" id="email_protocol">
+                                    </div>
+
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Remote Host *</label>
+                                        <input class="form-control input-sm"
+                                               type="text" value="" id="email_remoteHost" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Remote Port</label>
+                                        <input class="form-control input-sm"
+                                               type="number" min="0" value="" id="email_remotePort">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Local Port</label>
+                                        <input class="form-control input-sm"
+                                               type="number" min="0" value="" id="email_localPort">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Connect Timeout</label>
+                                        <input class="form-control input-sm"
+                                               type="number" min="0" value="" id="email_connectTimeout">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Read Timeout</label>
+                                        <input class="form-control input-sm"
+                                               type="number" min="0" value="" id="email_readTimeout">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Keep Alive</label>
+                                        <select class="form-control input-sm" id="email_keepAlive">
+                                            <option value="0">No</option>
+                                            <option value="1">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="inputLabel">TCP No Delay</label>
+                                        <select class="form-control input-sm" id="email_tcpNoDelay">
+                                            <option value="0">No</option>
+                                            <option value="1">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Username *</label>
+                                        <input class="form-control input-sm"
+                                               type="text" value="" id="email_userName" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Password</label>
+                                        <input class="form-control input-sm"
+                                               type="text" value="" id="email_password">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="inputLabel">ProcessOnly Attachments</label>
+                                        <select class="form-control input-sm" id="email_processOnlyAttachments">
+                                            <option value="0">No</option>
+                                            <option value="1">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Subject Patterns</label>
+                                        <input class="form-control input-sm"
+                                               type="text" value="" id="email_subjectPatterns">
+                                        <small>Note: comma separated value</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Allowed ContentTypes</label>
+                                        <input class="form-control input-sm"
+                                               type="text" value="" id="email_allowedContentTypes">
+                                        <small>Note: comma separated value</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Allowed Attachment FileExtensions</label>
+                                        <input class="form-control input-sm"
+                                               type="text" value="" id="email_allowedAttachmentFileExtensions">
+                                        <small>Note: comma separated value</small>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 mt-2">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Folders</label>
+
+                                        <table class="table table-bordered">
+                                            <thead>
+                                            <tr>
+                                                <th>Name *</th>
+                                                <th>Mark Message AfterProcessing</th>
+                                                <th>Proccess OnlyFlags</th>
+                                                <th>To MovedFolder</th>
+                                                <th>
+                                                    <button class="btn btn-xs" type="button" onclick="addFolderBody()"><i class="fa fa-plus"></i></button>
+                                                </th>
+                                            </tr>
+                                            </thead>
+                                            <tbody class="folderBody">
+
+                                            </tbody>
+
+                                        </table>
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row bg-light">
+
+
+                                <div class="col-md-12 mt-2">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Config</label>
+
+                                        <table class="table table-bordered">
+                                            <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Value</th>
+                                                <th>
+                                                    <button class="btn btn-xs" type="button" onclick="addConfigBody()"><i class="fa fa-plus"></i></button>
+                                                </th>
+                                            </tr>
+                                            </thead>
+                                            <tbody class="configBody">
+
+                                            </tbody>
+
+                                        </table>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mt-2">
+                                    <div class="form-group">
+                                        <label class="inputLabel">Properties</label>
+                                        <textarea style="height: 100px" class="form-control input-sm" id="email_properties">{}</textarea>
+                                        <small>JSON value</small>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btnModal">Save changes</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div id="addMicroRule" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form action="javascript:void(0)" onsubmit="addMicroRule()">
+                <div class="modal-header">
+                    <h4 class="modal-title">Add Micro API Rule</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="inputLabel">Rule Name</label>
+                                <input class="form-control input-sm" onkeyup="onlyAlphaNumeric(this)" placeholder=""
+                                       type="text" id="micro_id" required>
+                                <small>The name must not contain any white spaces.
+                                    The name should not start with special characters like & (ampersand), $ (dollar), _ (underscore). It should start with the uppercase letter.
+                                </small>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="inputLabel">Language</label>
+                                <select class="form-control input-sm" id="micro_language">
+                                    <option value="GROOVY">GROOVY</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="inputLabel">Auth Type</label>
+                                <select class="form-control input-sm" id="micro_authType" onchange="checkAPI(this.value)">
+                                    <option value="NONE">NONE</option>
+                                    <option value="TOKEN">TOKEN</option>
+                                    <option value="KEY">KEY</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group micro_apiKey" style="display: none;" >
+                                <label class="inputLabel">API Key</label>
+                                <input class="form-control input-sm" placeholder=""
+                                       type="text" id="micro_apiKey">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="inputLabel">
+                                    <input type="checkbox" id="methodGet" /> GET
+                                </label>
+
+                                <label class="inputLabel ml-3">
+                                    <input type="checkbox" id="methodPost" /> POST
+                                </label>
+                                <label class="inputLabel ml-3">
+                                    <input type="checkbox" id="methodDelete" /> DELETE
+                                </label>
+                                <label class="inputLabel ml-3">
+                                    <input type="checkbox" id="methodPut" /> PUT
+                                </label>
+                                <label class="inputLabel ml-3">
+                                    <input type="checkbox" id="methodUpload" /> UPLOAD
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="inputLabel">Properties</label>
+                                <textarea style="height: 100px" class="form-control input-sm" id="micro_properties">{}</textarea>
+                                <small>JSON value</small>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btnModal">Save changes</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div id="microAPIModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"><span class="microRuleName"></span> - API Console</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <form action="javascript:void(0)" onsubmit="updateAPISlug()">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label>Micro API URL</label><br>
+                                <span class="micro_apiPath" style="display: inline-block"></span>
+                                <input class="form-control form-control-sm" onkeyup="onlyAlphaNumeric(this)" placeholder=""
+                                       type="text" id="micro_apiSlug"
+                                       style="display: inline-block;border: 0px;border-bottom: 1px solid #cccccc;width:150px;font-weight: bold" required>
+                                <button type="submit" class="btn btnModal btn-xs"><i class="fa fa-save"></i></button>
+                                <button type="button" class="btn btn-default btn-xs" onclick="resetAPISlug()"><i class="fa fa-refresh"></i></button>
+                               <br> <small> [METHOD] - get,post,put,del (delete),upload </small>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="div apiBody mt-2">
+
+                    </div>
+                </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div id="addDevice" class="modal bskp-modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><span class="templateAction"></span>Add Device</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <image src="images/menu/xicon.svg" class="bg-secondary"  style="border-radius: 13px;padding:3px">
+                    </button>
+            </div>
+            <form action="javascript:void(0)" novalidate onsubmit="addDevice();">
+                <div class="modal-body">
+                    <div  class="row">
+                        <div  class="col-md-6">
+                            <div  class="form-group">
+                                 <label  class="inputLabel">Device Id *</label><!--<span style="font-size: 16px;">&#42;</span> -->
+                                <input  class="form-control input-sm" placeholder="Enter Device ld" maxlength="100" min="1" autocomplete="off" type="text" id="device_id" required>
+                                <span id="logdevice_id"></span>
+                            </div>
+                        </div>
+                        <div  class="col-md-6">
+                            <div  class="form-group">
+                                <label  class="inputLabel">Device Name *</label>
+                                <input  class="form-control input-sm" placeholder="Enter Device Name" maxlength="100" autocomplete="off" type="text" id="device_name" required>
+                                <span id="logdevice_name"></span>
+                            </div>
+                        </div>
+                        <div  class="col-md-6 modechoose">
+                        <div  class="form-group">
+                            <label  class="inputLabel">Choose Device Model *</label>&nbsp; 
+                            <div class="d-flex align-items-center">
+                            <select class="form-control input-sm" id="device_model" required onchange="assignVersion()">  
+                                </select>
+                                <a href="javascript:void(0)" class="btn togeditmodel ml-2 bskp-edit-inp" onclick="togglemodel('edit')" title="Edit device model"><img src="images/edit_icon.svg" alt="">  </a>
+                            </div> 
+                            <span id="logdevice_model"></span>  
+                       </div>  
+                       </div>
+                     </div>
+
+                 <div  class="row mx-0 mt-3 bskp-dmodel-layer">
+                    <div  class="col-md-6 new-model">
+                       <div  class="form-group">
+                            <label  class="inputLabel">New Device Model &nbsp;*</label>&nbsp;
+                            <input class="form-control input-sm" placeholder="Enter Model ld" maxlength="100" autocomplete="off" type="text" id="new_device_model" required>
+                             <span id="lognew_device_model"></span>    
+                        </div>
+                    </div>
+                   
+                  
+                    <div  class="col-md-6">
+                        <div  class="form-group">
+                            <label  class="inputLabel">Device Version *</label>
+                            <input  class="form-control input-sm" placeholder="Enter Device Version" maxlength="100" type="text" id="device_version" required>
+                            <span id="logdevice_version"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="inputLabel">Description *</label>
+                            <textarea class="form-control input-sm" id="device_desc" placeholder="Enter Description" maxlength="1000" autocomplete="off" required="" style="height: 90px;"></textarea>
+                            <span id="logdevice_desc"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-12 d-none">
+                        <div class="row m-0 justify-content-end">
+                            <button type="submit" class="btn btnModal btn-secondary btn-proceed mr-2 btnSubmit">Update</button>
+                            <button type="button" class="btn button-2 btn-close" data-dismiss="modal">Clear</button>
+                          </div>
+                    </div>                    
+                </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn button-2 btn-close" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btnModal btn-secondary btn-proceed btnSubmit add-device-proceed">Proceed</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script id="outputHtml" type="text/html">
+    <tr>
+        <td>
+            <input type="text" class="form-control output_key"  placeholder="Key Name" required />
+        </td>
+        <td>
+            <select class="form-control output_value mt-3" required>
+                <option value="String">String</option>
+                <option value="boolean">boolean</option>
+                <option value="int">int</option>
+                <option value="long">long</option>
+                <option value="float">float</option>
+                <option value="double">double</option>
+                <option value="byte">byte</option>
+                <option value="short">short</option>
+                <option value="char">char</option>
+            </select>
+            <a href="javascript:void(0)" style="float: right;font-size: 10px" onclick="$(this).parent().parent().remove()"><i class="fa fa-close"></i> Remove</a>
+        </td>
+    </tr>
+</script>
+
+<script id="inputHtml" type="text/html">
+    <tr>
+        <td>
+            <input type="text" class="form-control input_key"  placeholder="Key Name"/>
+        </td>
+        <td>
+            <select class="form-control input_value mt-3" required>
+                <option value="String">String</option>
+                <option value="boolean">boolean</option>
+                <option value="int">int</option>
+                <option value="long">long</option>
+                <option value="float">float</option>
+                <option value="double">double</option>
+                <option value="byte">byte</option>
+                <option value="short">short</option>
+                <option value="char">char</option>
+            </select>
+            <a href="javascript:void(0)" style="float: right;font-size: 10px" onclick="$(this).parent().parent().remove()"><i class="fa fa-close"></i> Remove</a>
+        </td>
+    </tr>
+</script>
+

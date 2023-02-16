@@ -1,0 +1,100 @@
+<div class="row-fluid">
+<ul class="nav submenu" style="">
+    <li class=""><a href="<%= basepath %>/home"><i class="fa fa-home"></i> </a></li>
+    <li class=""><a href="<%= basepath %>/dashboard">Dashboard</a></li>
+    <li><a href="<%= basepath %>/device-management">Manage Devices</a></li>
+    <li class=""><a href="<%= basepath %>/device-models">Manage Device Models</a></li>
+    <li class=""><a href="<%= basepath %>/sim-provisioning">Sim Provisioning</a></li>
+
+
+    <li class=""><a href="<%= basepath %>/module-profile">Module Profile</a></li>
+    <li class=""><a href="<%= basepath %>/module-attributes">Module Attributes</a></li>
+    <li class=""><a href="<%= basepath %>/device-profile">Device Profile</a></li>
+    <li class=""><a href="<%= basepath %>/sensor-profile-attributes">Sensor Profile & Attributes</a></li>
+    <li class=""><a href="<%= basepath %>/message-services-profile">Message Services Profile</a></li>
+    <li class="active"><a href="<%= basepath %>/carrier-profile">Carrier Profile</a></li>
+</ul>
+</div>
+<div class="container platformBody mt-3">
+    <!-- begin breadcrumb -->
+    <ol class="breadcrumb pull-right">
+        <li class="breadcrumb-item"><a href="<%= basepath %>/home">Home</a></li>
+        <li class="breadcrumb-item"><a href="<%= basepath %>/device-management">Device Management</a></li>
+
+
+        <!--<li class="breadcrumb-item active">Module Profile</li>-->
+        <!--<li class="breadcrumb-item active">Module Attributes</li>-->
+        <!--<li class="breadcrumb-item active">Device Profile</li>-->
+        <!--<li class="breadcrumb-item active">Sensor Profile & Attributes</li>-->
+        <!--<li class="breadcrumb-item active">Message Services Profile</li>-->
+        <li class="breadcrumb-item active">Carrier Profile</li>
+
+
+    </ol>
+    <!-- end breadcrumb -->
+    <!-- begin page-header -->
+    <!--<h1 class="page-header">Module Profile</h1>-->
+    <!--<h1 class="page-header">Module Attributes</h1>-->
+    <!--<h1 class="page-header">Device Profile</h1>-->
+    <!--<h1 class="page-header">Sensor Profile & Attributes</h1>-->
+    <!--<h1 class="page-header">Message Services Profile</h1>-->
+    <h1 class="page-header">Carrier Profile</h1>
+    <!-- end page-header -->
+
+    <!-- begin panel -->
+    <div class="panel panel-inverse">
+        <div class="panel-heading">
+            <div class="panel-heading-btn">
+                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-success" data-click="panel-reload" onclick="loadSimList()"><i class="fa fa-redo"></i></a>
+                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-warning" title="Help"><i class="icon-help"></i></a>
+
+            </div>
+            <!--<h4 class="panel-title">Total Module Profile: <b><span class="simCount"></span></b></h4>-->
+            <!--<h4 class="panel-title">Total Module Attributes: <b><span class="simCount"></span></b></h4>-->
+            <!--<h4 class="panel-title">Total Profiles: <b><span class="simCount"></span></b></h4>-->
+            <h4 class="panel-title">Total Carrier Profile: <b><span class="simCount"></span></b></h4>
+
+
+        </div>
+        <div class="panel-body" style="background-color: #eeeeee00;border: 1px solid #eee;padding-bottom:30px">
+
+            <!-- Module Profile -->
+            <!--<div class="btn-group btn-group-justified pull-right">
+                <a class="btn btn-default" onclick="openModal(0)"><i class="icon-plus-square-o" ></i> <span class="hidden-xs"> Add Module Profile</span></a>
+                <a class="btn btn-default" onclick="openModal(0)"><i class="icon-upload4" ></i> <span class="hidden-xs"> Bulk Upload</span></a>
+            </div>-->
+
+            <!-- Module Attributes -->
+           <!-- <div class="btn-group btn-group-justified pull-right">
+                <a class="btn btn-default" onclick="openModal(0)"><i class="icon-plus-square-o" ></i> <span class="hidden-xs"> Add Module Attributes</span></a>
+                <a class="btn btn-default" onclick="openModal(0)"><i class="icon-upload4" ></i> <span class="hidden-xs"> Bulk Upload</span></a>
+            </div>-->
+
+            <!-- Device Profile, Sensor Profile & Attributes, Message Services Profile -->
+          <!--  <div class="btn-group btn-group-justified pull-right">
+                <a class="btn btn-default" onclick="openModal(0)"><i class="icon-plus-square-o" ></i> <span class="hidden-xs"> Add Profile</span></a>
+                <a class="btn btn-default" onclick="openModal(0)"><i class="icon-upload4" ></i> <span class="hidden-xs"> Bulk Upload</span></a>
+            </div>-->
+
+            <!-- Carrier Profile -->
+            <div class="btn-group btn-group-justified pull-right">
+                <a class="btn btn-default" onclick="openModal(0)"><i class="icon-plus-square-o" ></i> <span class="hidden-xs"> Add Profile</span></a>
+                <a class="btn btn-default" onclick="openModal(0)"><i class="icon-upload4" ></i> <span class="hidden-xs"> Bulk Upload</span></a>
+                <a class="btn btn-default" onclick="openModal(0)"><i class="icon-magic" ></i> <span class="hidden-xs"> Provision</span></a>
+            </div>
+
+
+            <table class="table table-bordered table-hover responsive no-wrap" id="simTable"  cellspacing="0" width="100%">
+
+            </table>
+
+            
+        </div>
+    </div>
+    <!-- end panel -->
+
+</div>
+
+<script src="controllers/dummy.js" type="text/javascript"></script>
+

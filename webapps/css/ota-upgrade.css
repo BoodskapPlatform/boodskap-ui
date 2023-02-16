@@ -1,0 +1,142 @@
+#page-container{
+    background-color: hsl(205deg 40% 94%);
+}
+.bskp-submenu2 li.active {
+    background-color: #2d2f79;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+
+    font-weight: 600;
+    font-size: 13px !important;
+    color:white;
+}
+.tooltip-inner{
+background-color:rgb(237 241 247);
+    color: black;
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+.bskp-submenu2 li.active>a {
+    color:white;
+    /* font-family: 'Montserrat'; */
+
+} 
+
+.bskp-submenu2 {
+    height: 35px;
+    border-radius: 10px;
+    margin: 27px 39px 0px 40px !important;
+
+}
+
+.bskp-submenu2 li a {
+    color: rgb(0, 0, 0);
+    /* font-family: 'Montserrat'; */
+}
+
+.bskp-submenu2 li {
+    line-height: 30px;
+    padding: 5px 15px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    background-color:#fff;
+}
+
+
+.bskp-submenu2 li a:hover {
+    text-decoration: none;
+    color: rgb(54, 48, 48) !important;
+}
+
+.bskp-submenu2 li.active a:hover {
+    color: rgb(58, 41, 41) !important;
+}
+
+.bskp-submenu2 li:first-child>a>i {
+    font-size: 16px;
+    color: darkslategrey;
+}
+
+.bskp-submenu2 li:first-child>a:hover>i {
+    font-size: 16px;
+    
+}
+
+.bskp-page-topic {
+    font-size: 10px;
+    font-weight: 600;
+    color: #3e3e3e;
+    padding: 12px 30px;
+    box-shadow: 0px 2px 8px 0px #e6eaf8e3;
+}
+
+.bskp-modal textarea {
+    min-height: 50px;
+}
+
+.firmwareicon{
+    
+    
+    width: 30px;
+    height: 24px;
+}
+.select2-container--default .select2-selection--single{
+    border-radius: 10px !important;
+
+}
+
+#otaTable_length{
+    margin-left: 10px;
+}
+.bskp-modal label{
+    font-size:13px ;
+    font-weight: 600;
+}
+.bskp-submenu2{
+    position: relative;
+    top:1px;
+}
+.bskp-container-frame{
+    position: relative;
+}
+.nav>li.activate>a:hover{
+background: #2D2F79 !important;
+color: #ffffff !important;
+}
+.nav>li.deact>a:hover{
+background: #ffffff !important;
+color: black !important;
+}
+
+.plat{
+margin-top: 0px !important;
+}
+ol li{
+font-size: 12px !important;
+}
+
+.deact{
+    font-size: 13px !important;font-weight:600;padding-bottom: 10px;
+}
+.head{
+    margin-left:0px;font-size:20px ;font-weight: 600;
+}
+.count{
+    color: #2d2f79;
+}
+.panelbody{
+    background-color: #eeeeee00;
+}
+.Create-button{
+    font-size: 14px;font-weight: 500;
+}
+.plusicon{
+    position: relative;bottom:1px
+}
+.Create-ota-button{
+    font-size: 14px;font-weight: 500;
+}
+.header{
+    padding-top: 20px;
+    padding-bottom: 0px;
+}

@@ -1,0 +1,29 @@
+<ons-page var="singleDashboardPage" id="singleDashboardPage">
+    <ons-toolbar class="bskp-ons-toolbar">
+        <div class="left toolbar-text">
+            <ons-toolbar-button class="toolbar-text" onclick="pagePushBack()">
+                <i class="fa fa-chevron-left" style="font-size: 17px;vertical-align: -1px;"></i> Back
+            </ons-toolbar-button>
+            <!--<ons-back-button class="toolbar-text"></ons-back-button>-->
+        </div>
+        <div class="center toolbar-text">
+            <!--<span class="dashboardIcon"></span> -->
+            <span class="dashboardName"></span>
+            <span class="widgets-count"></span></div>
+        <div class="right toolbar-text" >
+            <ons-toolbar-button onclick="loadWidgets(CURRENT_DASHBOARD.property)" class="toolbar-text">
+                <!--<ons-icon class="toolbar-text" icon="ion-navicon, material:md-refresh" size="32px, material:24px"></ons-icon>-->
+                <i class="fa fa-refresh"></i>
+            </ons-toolbar-button>
+        </div>
+    </ons-toolbar>
+
+    <div class="page-cover">
+        <div class="dashboardContent" style="overflow: auto;overflow-x: hidden;padding-top:10px;">
+            <div class="grid-stack"></div>
+            <div id="widgetsList"></div>
+        </div>
+    </div>
+</ons-page>
+
+

@@ -1,0 +1,294 @@
+<style>
+    #demo-device-ios, #demo-device-android, #demo-device-windows {
+        width: 467px;
+        height: 800px;
+        background: center top no-repeat url(/images/devices-sprite.jpg);
+        background-size: 467px;
+        margin: 0 auto;
+    }
+    #demo-device-ios iframe, #demo-device-android iframe, #demo-device-windows iframe {
+        margin-top: 85px;
+        margin-left: 77px;
+        width: 320px;
+        height: 568px;
+    }
+    .panelHeader{
+        padding: 10px 15px;
+        border: none;
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px;
+        background-color: #6d6d6d;
+        color:#fff
+    }
+    .panel-body{
+        border: 1px solid #eee;
+    }
+    .dashboardBody{
+        overflow: auto;
+        overflow-x: hidden;
+    }
+    body{
+        background-color: #9e9e9ea3 !important;
+    }
+    .widgetHeader{
+        font-size: 13px;
+        background-color: #6d6d6d;
+        padding: 5px;
+        color: #fff;
+    }
+
+    .dashboardContent {
+        /*background: #eeeeee38;*/
+        border: 1px solid #eee;
+        padding: 5px;
+    }
+
+    .grid-stack-item-content {
+        color: #2c3e50;
+        text-align: center;
+        background-color: #fff;
+        border: 1px solid #33333330;
+    }
+    .grid-stack-item-content img{
+        width: 64px;
+        height:64px;
+    }
+    .dashboardList{
+        padding: 0px;
+        list-style: none;
+    }
+
+    .dashboardList li{
+        line-height: 25px;
+        padding: 5px;
+        cursor: pointer;
+        padding-left: 10px;
+    }
+
+    .dashboardList li a{
+        text-decoration: none;
+        color:#333;
+    }
+
+    .dashboardList li:hover{
+        background-color: #eeeeeec2;
+    }
+
+    .dashboardList li.active{
+        background-color: #eeeeeec2;
+        font-weight: bold;
+        border: 1px solid #cccccc70;
+        border-left: 2px solid #FF9800;
+        border-right: 3px solid #FF9800;
+    }
+
+    .widgetsBox{
+        border: 1px solid #ddd;
+        text-align: center;
+        padding: 10px;
+        -webkit-box-shadow: 0 0 31px -3px #ddd;
+        box-shadow: 0 0 31px -3px #ddd;
+        cursor: pointer;
+    }
+
+    .widgetsBox img{
+        width: 64px;
+        height: 64px;
+    }
+    .widgetsBox label{
+        display: block;
+        margin: 5px 0px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    .custom-dropdown-item {
+        padding: 3px 10px;
+        font-weight: 400;
+        color: #373a3c;
+        text-align: inherit;
+        white-space: nowrap;
+        background: none;
+        border: 1px solid #eee;
+        margin: 3px;
+        display: inline-block;
+        cursor: pointer;
+        font-size: 22px;
+    }
+
+</style>
+
+<link rel="stylesheet" href="css/gridstack.css"/>
+<link rel="stylesheet" href="css/gridstack-extra.css"/>
+<link rel="stylesheet" href="css/spectrum.css"/>
+
+<div class="container-fluid msgDef platformBody" style="padding: 3px 5px;">
+
+    <!-- begin panel -->
+    <div class="panel panel-inverse">
+        <div class="panel-heading">
+            <div class="panel-heading-btn hidden-xs">
+                <a href="javascript:;" style="text-decoration: none" class="dashboardStatus"></a>
+                <a href="javascript:;" class="btn btn-xs btn-circle btn-default" data-click="panel-expand"><i class="icon-expand2"></i></a>
+                <a href="javascript:;" class="btn btn-xs btn-circle btn-default" data-click="panel-reload"><i class="fa fa-redo"></i></a>
+            </div>
+            <h4 class="panel-title">
+                Mobile Platform
+            </h4>
+        </div>
+        <div class="panel-body dashboardBody" style="background-color: #eeeeee00;border: 1px solid #eee;">
+            <div class="row">
+                <div class="col-lg-2" style="padding: 0px;">
+                    <div class="panel panel-inverse col-lg-12" style="padding: 0px">
+                        <div class="panel-heading">
+                            <div class="panel-heading-btn">
+                                <a href="javascript:;" onclick="openDashboardModal(1)" class="btn btn-sm btn-icon btn-circle btn-default"><i class="fa fa-plus"></i></a>
+                                <a href="javascript:void(0)" data-click="panel-reload" onclick="loadDashboardlist()" class="btn btn-sm btn-icon btn-circle btn-default">
+                                    <i class="fa fa-refresh"></i></a>
+                            </div>
+                            <h4 class="panel-title">Dashboards List</h4>
+                        </div>
+                        <div class="panel-body dashboardListBody" style="border: 1px solid #eee;background-color: #eeeeee73;padding:1px">
+
+                            <ul class="dashboardList"></ul>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+
+                    <!--<div class="row">
+
+                        <div class="col-lg-12">
+                            <h4 class=" pull-left" style="color:#666">
+                                <span class="dashboardIcon"></span>
+                                <span class="dashboardName"></span>
+
+                                <a href="javascript:void(0)" class="ml-3 btn btn-sm btn-icon btn-circle btn-default" onclick="openDashboardModal(2)"><i class="icon-edit2"></i></a>
+                                <a href="javascript:void(0)" class="btn btn-sm btn-icon btn-circle btn-default" onclick="openDashboardModal(3)"><i class="icon-trash4"></i></a>
+
+                            </h4>
+
+                            <div class="btn-group btn-group-justified pull-right">
+                                &lt;!&ndash;<button class="btn btn-default" onclick="previewDashboard()"><i class="icon-eye4" ></i> Preview</button>&ndash;&gt;
+                                <button class="btn btn-default" data-click="panel-reload" onclick="saveDashboard()"><i class="icon-save"></i> Save</button>
+                            </div>
+
+                        </div>
+                    </div>-->
+
+                    <div id="demo-device-ios">
+                        <iframe id="demo-ios" src="/mobileapp" frameborder="0">
+                        </iframe>
+                    </div>
+                    <button class="btn btn-default" data-click="panel-reload" onclick="saveDashboard()" style="position: absolute;top: 0;right: 15px;border-radius: 0;border: 1px solid #f1c40f;background: #fff;color: #e67e22;"><i class="icon-rocket"></i> Publish</button>
+
+                    <!--<div class="dashboardContent" style="overflow: auto;overflow-x: hidden;padding-top:10px;">
+                        <div class="grid-stack" style=""></div>
+                    </div>-->
+                </div>
+                <div class="col-lg-2" style="padding: 0px;">
+                    <div class="panel panel-inverse col-lg-12" style="padding: 0px">
+                        <div class="panel-heading" >
+                            <div class="panel-heading-btn">
+                                <a href="<%= basepath %>/widgets" title="Add widgets from marketplace" target="_blank" class="btn btn-sm btn-icon btn-circle btn-default">
+                                    <i class="icon-download4"></i></a>
+                                <a href="javascript:void(0)" data-click="panel-reload" class="btn btn-sm btn-icon btn-circle btn-default">
+                                    <i class="fa fa-refresh"></i></a>
+                            </div>
+                            <h4 class="panel-title"><i class="icon-th"></i> Widgets</h4>
+                        </div>
+                        <div class="panel-body widgetBody" style="border: 1px solid #eee;overflow-x: hidden;overflow: auto">
+
+                            <div class="widgetsBox">
+                                <img src="images/menu/widget.png" />
+                                <label>Widget Name</label>
+                                <button class="btn btn-default btn-outline btn-xs btn-block" onclick="triggerAddWidget()"><i class="icon-plus"></i> Add</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end panel -->
+</div>
+
+<div id="addDashboard" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><span class="dashboardAction"></span> Dashboard</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <form action="javascript:void(0)">
+                <div class="modal-body">
+                    <div  class="row">
+                        <div  class="col-md-6">
+                            <div  class="form-group">
+                                <label  class="inputLabel">Dashboard Name</label>
+                                <input  class="form-control input-sm" placeholder="" type="text" id="dashboard_name" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div  class="row">
+                        <div  class="col-md-3">
+                            <div  class="form-group">
+                                <label  class="inputLabel">Dashboard Icon</label> <br>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-defaul btn-block dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="iconClass" id="dashboard_icon"></span>
+                                    </button>
+                                    <div class="dropdown-menu open-left arrow iconList" style="height:200px;overflow: scroll;overflow-x: hidden;width:50px;">
+                                        <!--<a class="custom-dropdown-item" style="" (click)="dashboard.setIconClass(icon)"><i class="{{icon}}"></i></a>-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div  class="col-md-6">
+                            <div  class="form-group">
+                                <label  class="inputLabel">Background Color</label> <br>
+                                <input id="dashboard_bg" required></input>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btnModal btnSubmit">Proceed</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div id="deleteModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Delete Dashboard</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <h5>Are you sure want to delete <b><span class="dashboardDeleteName"></span> dashboard</b>?</h5>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btnModal" onclick="deleteDashboard()">Proceed</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script src="js/jquery-ui.js"></script>
+<script src="js/gridstack.js"></script>
+<script src="js/gridstack.jQueryUI.js"></script>
+<script src="js/spectrum.js"></script>
+<script src="controllers/mobile-platform.js"></script>
+
+
+<script>
+    $(".mobileimg").css('max-height',$(window).height()-150)
+</script>

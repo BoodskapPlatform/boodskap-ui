@@ -1,0 +1,117 @@
+body{
+    font-size: 14px !important;
+}
+.platformBody{
+    padding-top: 10px;
+    padding-bottom: 50px;
+}
+.bskp-icon-bg{
+    background-color: #fff;
+}
+#dbquery #queryEditor, #resultEditor {
+    position: relative;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    border-top: none;
+    border-bottom: none;
+    border-radius: 10px;
+}
+#dbquery .bskp-icon-bg{
+   margin-top: 5px;
+   
+}
+@media screen and (max-width:499px){
+   #dbquery .bskp-icon-bg{
+     position: relative;
+     left: 100px;
+     
+   }
+  
+}
+#dbquery .execute_btn{
+   
+    background-color:hsl(238deg 46% 33%);
+    border: none;
+    color: white;
+    font-size:12px;
+    border-radius: 10px;
+    width: 80px;
+    border-style: none;
+    cursor: pointer;
+    height: 30px;
+    margin-left: 193px;
+    margin-bottom: 5px;
+
+
+}
+#dbquery .breadcrumb{
+   margin: 5px;
+   align-items: center !important;
+    margin: 15px 30px 0px 0px !important;
+    font-size: 13px !important;
+}
+.breadcrumb{
+    font-size: 13px !important;
+    align-items: center;
+}
+.ace-eclipse .ace_gutter{
+    background: hsl(210deg 31% 95%);
+    border: 2px solid #eaf1f6;
+    border-radius: 10px;
+}
+.panel{
+   background-color: #e9f0f7;
+   
+}
+#dbQuery .table-border{
+    border: 1px solid hsl(214deg 23% 79%);border-radius: 15px;margin:5px;
+    background-color: #ffffff;
+}
+
+.ace_scroller{
+    left: 52px !important;
+    border: 2px solid #eee;
+    border-radius: 10px;
+}
+
+#dbQuery .page-header{
+    color: hsl(0deg 0% 25%);
+    padding-left: 6px;
+    font-weight: 700;
+    font-size: 20px;
+}
+#dbquery .btnPrimary{
+    background-color:hsl(238deg 46% 33%) !important;
+    color: white !important;
+    font-size:12px;
+    border-radius: 10px;
+    width: 80px;
+    border-style: none;
+    cursor: pointer;
+    height: 30px;
+}
+.bskp-table.table>thead>tr>th{
+    padding: 5px 15px;
+}
+.dbStyle{
+    color: #212529;
+    font-weight:600 ;
+}
+select{
+    border: 2px solid #e8ebf0;
+    border-radius: 10px !important;
+    font-size: 14px !important;
+    /* color: #e8ebf0; */
+    font-weight: 500;
+    padding: 4px;
+}
+.select2-container--default .select2-selection--single{
+    border-radius: 10px !important;
+    font-size: 14px;
+}
+/* .select2-container--default .select2-results__option--highlighted[aria-selected]{
+background-color: #2d2f79 !important;
+} */

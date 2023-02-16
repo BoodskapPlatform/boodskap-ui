@@ -1,0 +1,58 @@
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="css/Event-Logs.css">
+
+
+<div class="panel container msgDef  platformBody">  
+    <!-- begin panel -->
+    <div class="panel panel-inverse bskp-container-frame">
+        <div>
+            <ol class="breadcrumb pull-right">
+                <li class="breadcrumb-item"><a href="<%= basepath %>/home">Home</a></li>
+                <li class="breadcrumb-item active">Event Logs</li>
+                <div class="ml-4 mr-1">
+                    <a href="javascript:;" class="btn btn-sm btn-icon btn-circle  bskp-icon-bg" title="Expand" data-click="panel-expand" ><img height="14px" src="images/menu/expand-icon.svg" alt="expand-icon"></a>
+                     <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg" title="Help"  > <img src="images/menu/Question_icon.png" alt="help_icon"> </a>
+                   </div>
+            </ol>
+        </div>
+               <!-- begin breadcrumb -->
+    <!-- end breadcrumb -->
+    <!-- begin page-header --> 
+    <div class="page-header bskp-page-topic"><img  height="24px" src="images/menu/event.svg" class="bskp-topic-icon mr-1 mb-1 ml-2" alt="logo" > Event Logs <span class="panel-title"><span class="eventType"></span> Logs</span>
+        <span class="panel-title ml-3 count" style="color:#2d2f79;">Total&nbsp:&nbsp<strong><span  class="totalCount"></span></strong></span> 
+    </div>
+    <!-- end page-header -->    
+        <div class="panel-body">
+            <div class="row m-0">
+                <div class="col-12">
+                <div class="form-group pull-right mr-3" >
+                    <select  class="form-control input-sm" id="logType" onchange="loadLogs()">
+                </select>
+                </div>  
+                <div class="col-12">
+                    <div class="btn-group btn-group-justified pull-right bskp-btn-group-align " >
+                        <a   class="btn  bskp-refresh-bg" data-click="panel-reload" title="Refresh" onclick="loadLogs()"><img class="refresh-button"  src="images/menu/refresh-button.png" alt=""></a>
+                    </div>
+                </div>
+                <div class="bskp-table-layout">
+                    <table class="table table-bordered  bskp-table responsive no-wrap" id="logTable"  cellspacing="0" width="100%">
+                    </table>
+                </div>
+                </div>
+             </div>
+        </div>
+     </div>
+    <!-- end panel -->
+</div>
+
+<script>
+    $(document).ready(function(){
+
+        $("#logType").select2()
+
+        $('[data-toggle="tooltip"]').tooltip();
+    })
+</script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="controllers/event-log.js" type="text/javascript"></script>
+

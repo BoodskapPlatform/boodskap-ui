@@ -1,0 +1,234 @@
+<style>
+    .nav-tabs a.nav-link{
+        color:#fff !important;
+    }
+    .nav-tabs {
+        background: #6d6d6d82;
+        border-radius: 5px 5px 0 0;
+    }
+    .nav-tabs .nav-link.active{
+        background-color: #575b6261;
+        border-color: #dee2e6 #dee2e6 #fff;
+        font-weight: bold;
+    }
+    .nav-tabs .nav-link:hover {
+          background-color: #575b6261;
+          border-color: #dee2e6 #dee2e6 #fff;
+      }
+
+    .pointer-cursor:hover{
+        background-color: #9e9e9e40;
+    }
+    .tab-pane{
+        height: 400px;
+        overflow: auto;
+        overflow-x: hidden;
+        border:1px solid #eee
+    }
+    .tab-content {
+         padding: 0px;
+        margin-bottom: 0px;
+    }
+
+    .resultSummary{
+        white-space: pre-wrap;
+        font-size: 13px;
+        font-family: monospace;
+        color: #666;
+        color: #ffffffd9;
+        background-color: #000;
+        padding: 5px;
+    }
+</style>
+<div class="row-fluid">
+    <ul class="nav submenu" style="">
+        <li class=""><a href="<%= basepath %>/home"><i class="fa fa-home"></i> </a></li>
+        <li class=""><a href="<%= basepath %>/dashboard">Dashboard</a></li>
+        <li><a href="<%= basepath %>/machine-learning">Data Learning</a></li>
+        <li  class="active"><a href="<%= basepath %>/face-recognition">Face Recognition</a></li>
+        <!-- <li><a href="<%= basepath %>/opencv-recognition">OpenCV Object Recognition</a></li>
+         <li><a href="<%= basepath %>/tensorflow-recognition">TensorFlow Object Recognition</a></li>
+         <li><a href="<%= basepath %>/message-image-recognition">Message Image Recognition</a></li>-->
+    </ul>
+</div>
+<div class="container platformBody mt-3">
+    <!-- begin breadcrumb -->
+    <ol class="breadcrumb pull-right">
+        <li class="breadcrumb-item"><a href="<%= basepath %>/home">Home</a></li>
+        <li class="breadcrumb-item"><a href="<%= basepath %>/machine-learning">Machine Learning</a></li>
+        <li class="breadcrumb-item active">Face Recognition</li>
+    </ol>
+    <!-- end breadcrumb -->
+    <!-- begin page-header -->
+    <h1 class="page-header">Face Recognition</h1>
+    <!-- end page-header -->
+
+    <!-- begin panel -->
+    <div class="panel panel-inverse">
+        <div class="panel-heading">
+            <div class="panel-heading-btn">
+                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-success" data-click="panel-reload" onclick="loadMLFRList()"><i class="fa fa-redo"></i></a>
+                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-warning" title="Help"><i class="icon-help"></i></a>
+            </div>
+            <h4 class="panel-title">Total Models: <b><span class="modelCount"></span></b></h4>
+        </div>
+        <div class="panel-body" style="background-color: #eeeeee00;border: 1px solid #eee;">
+
+            <div class="row mb-2">
+                <div class="col-lg-12">
+                    <div class="btn-group btn-group-justified pull-right">
+                        <a class="btn btn-default" onclick="openModal(4)"><i class="icon-plus-square"></i> <span class="hidden-xs">Create Model</span></a>
+                        <a class="btn btn-default" data-click="panel-reload" onclick="loadMLFRList()"><i class="fa fa-refresh"></i></a>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div id="accordion" class="card-accordion modelList">
+                <!-- begin card -->
+
+            </div>
+
+
+
+
+        </div>
+    </div>
+    <!-- end panel -->
+
+</div>
+
+<script src="controllers/ml-fr.js" type="text/javascript"></script>
+
+<div id="createModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form action="javascript:void(0)" onsubmit="createModel()">
+                <div class="modal-header">
+                    <h4 class="modal-title">Create Model</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Model Name</label>
+                                <input type="text" class="form-control input-sm" id="modelName" onkeypress="return blockSpecialChar(event)" required/>
+                                <small>No special characters & spaces are allowed</small>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Algorithm</label>
+                                <select id="algorithm" class="form-control input-sm" required>
+                                    <option value="LBPH" selected>LBPH</option>
+                                    <option value="EIGEN">EIGEN</option>
+                                    <option value="FISHER">FISHER</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Image Width (px)</label>
+                                <input type="number" class="form-control input-sm" id="imgWidth" min="50" max="100" required/>
+                                <small>min-50px, max-100px</small>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Image Height (px)</label>
+                                <input type="number" class="form-control input-sm" id="imgHeight" min="50" max="100" required/>
+                                <small>min-50px, max-100px</small>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btnModal">Proceed</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div id="addDataModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form action="javascript:void(0)" onsubmit="addDataModel()">
+            <div class="modal-header">
+                <h4 class="modal-title">Add Data</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Image Label</label>
+                            <input type="text" class="form-control input-sm" id="labelName" onkeypress="return blockSpecialChar(event)" required/>
+                            <small>No special characters & spaces are allowed</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Image File</label>
+                            <input type="file"  id="imageFile" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btnModal btnSubmit">Proceed</button>
+            </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div id="trainDataModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Train / Re-Train Model</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure want to train/re-train this <label class="modelName"></label> model?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btnModal" onclick="trainModel()">Proceed</button>
+                </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div id="deleteDataModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Delete Model</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure want to delete this <label class="modelName"></label> model?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btnModal" onclick="deleteModel()">Proceed</button>
+                </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
