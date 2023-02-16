@@ -33,14 +33,17 @@
 
     - debug: msg="{{ dependencies_output }}"
 
-    # - 
-    #   name: Changing the version and Push the code.
-    #   shell: "git stash"
-    #   args:
-    #     chdir: /home/ubuntu/build/v5-boodskap-ui/test/boodskap-ui
-    #   register: dependencies_output
-
-    # - debug: msg="{{ dependencies_output.stdout }}"
+    - 
+      name: Changing the version and Push the code.
+      shell: '''
+               git add .
+               git commit -m "version update"
+               git push --no-verify 
+             '''
+      args:
+        chdir: /home/ubuntu/build/v5-boodskap-ui/test/boodskap-ui
+      register: dependencies_output
+    - debug: msg="{{ dependencies_output.stdout }}"
 
     -
       name: Docker build change mode to executable.
@@ -68,8 +71,8 @@
       shell: "sh push.sh"
       args:
         chdir: /home/ubuntu/build/v5-boodskap-ui/test/boodskap-ui
-      register: run_build_script_output
-    - debug: msg="{{ run_build_script_output.stdout }}"
+      register: run_push_script_output
+    - debug: msg="{{ run_push_script_output.stdout }}"
 
 - hosts: v5test
   tasks:
