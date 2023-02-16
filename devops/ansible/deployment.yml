@@ -7,8 +7,8 @@
         repo: 'https://github.com/BoodskapPlatform/boodskap-ui.git'
         clone: yes
         accept_newhostkey: yes
-        dest: /home/ubuntu/build/boodskap-ui
-        version: v5.0
+        dest: /home/ubuntu/build/v5-boodskap-ui/test/boodskap-ui
+        version: test
         force: yes
         single_branch: yes
       register: gitoutput
@@ -19,7 +19,7 @@
       name: Branch status.
       command: git branch
       args:
-        chdir: /home/ubuntu/build/boodskap-ui
+        chdir: /home/ubuntu/build/v5-boodskap-ui/test/boodskap-ui
       register: branch_output
 
     - debug: msg="{{ branch_output }}"
@@ -28,16 +28,16 @@
       name: This command will install dependencies.
       command: npm install
       args:
-        chdir: /home/ubuntu/build/boodskap-ui
+        chdir: /home/ubuntu/build/v5-boodskap-ui/test/boodskap-ui
       register: dependencies_output
 
     - debug: msg="{{ dependencies_output }}"
 
     - 
       name: Changing the version and Push the code.
-      shell: "sh package_version.sh"
+      shell: "git stash"
       args:
-        chdir: /home/ubuntu/build/boodskap-ui
+        chdir: /home/ubuntu/build/v5-boodskap-ui/test/boodskap-ui
       register: dependencies_output
 
     - debug: msg="{{ dependencies_output.stdout }}"
@@ -46,7 +46,7 @@
       name: Docker build change mode to executable.
       shell: "chmod +x build.sh"
       args:
-        chdir: /home/ubuntu/build/boodskap-ui
+        chdir: /home/ubuntu/build/v5-boodskap-ui/test/boodskap-ui
       register: change_buildscript_mode_output
 
     - debug: msg="{{ change_buildscript_mode_output.stdout }}"
@@ -55,7 +55,7 @@
       name: Docker build change mode to executable.
       shell: "sh build.sh"
       args:
-        chdir: /home/ubuntu/build/boodskap-ui
+        chdir: /home/ubuntu/build/v5-boodskap-ui/test/boodskap-ui
       register: run_build_script_output
     - debug: msg="{{ run_build_script_output.stdout }}"
 
@@ -67,11 +67,11 @@
       name: Docker Push the latest image.
       shell: "sh push.sh"
       args:
-        chdir: /home/ubuntu/build/boodskap-ui
+        chdir: /home/ubuntu/build/v5-boodskap-ui/test/boodskap-ui
       register: run_build_script_output
     - debug: msg="{{ run_build_script_output.stdout }}"
 
-- hosts: v5Dev
+- hosts: v5test
   tasks:
      -
        name: Deploy the container image.
