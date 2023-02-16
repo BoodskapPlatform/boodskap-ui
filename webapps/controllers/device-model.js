@@ -21,7 +21,7 @@ function loadDeviceModelList() {
     var fields = [
         {
             mData: 'id',
-            sTitle: 'Model Id',
+            sTitle: 'Model ID',
             orderable: true,
         },
         {
@@ -66,7 +66,7 @@ function loadDeviceModelList() {
 
     var tableOption = {
         fixedHeader: {
-            header: true,
+            header: false,
             headerOffset: -5
         },
         responsive: true,
@@ -76,7 +76,7 @@ function loadDeviceModelList() {
         language: {
             "emptyTable": "No data available",
             "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
-            "searchPlaceholder": "Search by Model ID",
+            "searchPlaceholder": "Search here",
             loadingRecords: '',
             paginate: {
                 previous: '< Prev',

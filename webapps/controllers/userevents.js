@@ -27,7 +27,7 @@ function loadEvents() {
     var fields = [
         {
             mData: 'id',
-            sTitle: 'Event Id',
+            sTitle: 'Event ID',
             "class": "details-control",
             "orderable": true,
             sWidth: '10%',
@@ -74,6 +74,17 @@ function loadEvents() {
         iDisplayLength: 10,
         lengthMenu: [[10, 50, 100], [10, 50, 100]],
         aoColumns: fields,
+        language: {
+            "emptyTable": "No data available",
+            "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
+            "zeroRecords": "No data available",
+            "searchPlaceholder": "Search here",
+            loadingRecords: '',
+            paginate: {
+                previous: '< Prev',
+                next: 'Next >'
+            }
+        },
         data: []
     };
 

@@ -55,7 +55,7 @@ function loadDeviceList() {
         },
         {
             mData: 'nodeId',
-            sTitle: 'Node Id',
+            sTitle: 'Node ID',
             sWidth: '7%',
             orderable: false,
             mRender: function (data, type, row) {
@@ -129,7 +129,7 @@ function loadDeviceList() {
             language: {
                 "emptyTable": "No data available",
                 "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
-                "searchPlaceholder": "Search by Device ID",
+                "searchPlaceholder": "Search here",
                 loadingRecords: '',
                 paginate: {
                     previous: '< Prev',

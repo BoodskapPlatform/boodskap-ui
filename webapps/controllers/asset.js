@@ -83,7 +83,7 @@ function loadAssetList() {
                        dom: '<"bskp-search-left" f> lrtip',
             language: {
                 "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
-             "searchPlaceholder": "Search by Asset ID",
+             "searchPlaceholder": "Search here",
              "zeroRecords": "No data available",
              "emptyTable":"No data available",
                 loadingRecords: '',

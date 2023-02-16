@@ -39,7 +39,7 @@ function loadEvents() {
         // },
         {
             mData: 'id',
-            sTitle: 'Event Id',
+            sTitle: 'Event ID',
             "class": "details-control",
             "orderable": true,
             sWidth: '10%',
@@ -99,7 +99,7 @@ function loadEvents() {
                        dom: '<"bskp-search-left" f> lrtip',
             language: {
                 "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
-             "searchPlaceholder": "Search by Message ID",
+             "searchPlaceholder": "Search here",
              "zeroRecords": "No data available",
              "emptyTable":"No data available",
                 loadingRecords: '',
