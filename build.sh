@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
+# Build the js file 
+node build.js
 # Parse current version number
 JSON_FILE="package.json"
 version=$(cat $HOME/build/version.txt)
+echo "version no...................$version"
 # Split version number into major, minor, and patch components
 IFS='.' read -r -a version_components <<< "$version"
 major=${version_components[0]}
@@ -28,6 +31,5 @@ jq ".version = \"$major.$minor.$patch\"" "$JSON_FILE" > tmp.json
 mv tmp.json "$JSON_FILE"
 lversion="$major.$minor.$patch"
 # Print new version number
-node build.js
 docker build -t boodskapiot/ui:$lversion . -f Dockerfile
 
