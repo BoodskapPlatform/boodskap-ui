@@ -23,7 +23,7 @@ else
 fi
 
 # Update version number in version.txt
-echo "$major.$minor.$patch" > $HOME/version.txt
+echo "$major.$minor.$patch" > $version
 jq ".version = \"$major.$minor.$patch\"" "$JSON_FILE" > tmp.json
 mv tmp.json "$JSON_FILE"
 lversion="$major.$minor.$patch"
