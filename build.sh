@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Parse current version number
-JSON_FILE="/home/ubuntu/build/v5-boodskap-ui/test/boodskap-ui/package.json"
+JSON_FILE="package.json"
 version=$(cat $HOME/build/version.txt)
 # Split version number into major, minor, and patch components
 IFS='.' read -r -a version_components <<< "$version"
