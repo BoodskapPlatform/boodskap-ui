@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # Build the js file 
 node build.js
 # Parse current version number
