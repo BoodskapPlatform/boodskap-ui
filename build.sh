@@ -29,5 +29,5 @@ mv tmp.json "$JSON_FILE"
 lversion="$major.$minor.$patch"
 # Print new version number
 node build.js
-docker build -t boodskapiot/ui:${lversion} . -f Dockerfile
+docker build -t boodskapiot/ui:$lversion . -f Dockerfile
 
