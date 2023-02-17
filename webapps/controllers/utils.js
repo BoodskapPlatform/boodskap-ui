@@ -774,3 +774,8 @@ function showSelectFeedback(text,id,alertId){
 
     })  
 }
+
+function onlyNumber(e) {
+    const keyCode = e.keyCode == 0 ? e.charCode : e.keyCode;
+    return (keyCode >= 48 && keyCode <= 57);
+}

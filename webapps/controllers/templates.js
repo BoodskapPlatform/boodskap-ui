@@ -93,7 +93,7 @@ function loadTemplates() {
         dom: '<"bskp-search-left" f> lrtip',
         language: {
             "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
-         "searchPlaceholder": "Search by Template Name",
+         "searchPlaceholder": "Search here",
          "zeroRecords": "No data available",
        
             loadingRecords: '',

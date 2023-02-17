@@ -16,6 +16,8 @@ $(document).ready(function () {
 });
 
 
+
+
 function loadEvents() {
 
 
@@ -27,7 +29,7 @@ function loadEvents() {
     var fields = [
         {
             mData: 'id',
-            sTitle: 'Event Id',
+            sTitle: 'Event ID',
             "class": "details-control",
             "orderable": true,
             sWidth: '10%',
@@ -61,63 +63,135 @@ function loadEvents() {
 
     ];
 
-
+    let data = 10000
     var tableOption = {
-        fixedHeader: {
-            header: true,
-            headerOffset: -5
-        },
-        responsive: true,
+        responsive: false,
+        autoWidth: false,
         paging: true,
-        searching: true,
+        aoColumns: fields,
+        searchable: true,
         "ordering": true,
+        scrollY: '100px',
+        scrollCollapse: true,
         iDisplayLength: 10,
         lengthMenu: [[10, 50, 100], [10, 50, 100]],
-        aoColumns: fields,
-        data: []
-    };
+                       dom: '<"bskp-search-left" f> lrtip',
+            language: {
+                "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
+             "searchPlaceholder": "Search by Event ID",
+             "zeroRecords": "No data available",
+             "emptyTable":"No data available",
+                loadingRecords: '',
+                paginate: {
+                    previous: '< Prev',
+                    next: 'Next >'
+                },
 
-    listEventsApi(10000, null, null, function (status, data) {
-        if (status && data.length > 0) {
-            tableOption['data'] = data;
-            event_list = data;
-            $(".eventsCount").html(data.length)
-        } else {
-            $(".eventsCount").html(0)
+            },
+        "bServerSide": false,
+        "bProcessing": true,
+        "sAjaxSource": API_BASE_PATH + "/event/list/" + API_TOKEN_ALT + '/' + data,
+        "fnServerData": function (sSource, aoData, fnCallback, oSettings) {
+           
+
+            var keyName = fields[oSettings.aaSorting[0][0]]
+
+            var sortingJson = {};
+            sortingJson[keyName['mData']] = {"order": oSettings.aaSorting[0][1]};
+
+
+
+            oSettings.jqXHR = $.ajax({
+                "type": "GET",
+                "url": sSource,
+                success: function (data) {
+                    if (data.length > 0) {
+                        event_list = data;
+                        $(".eventsCount").html(data.length)
+                    } else {
+                        $(".eventsCount").html(0);
+                        event_list = [];
+                    }
+                    let resultData = {
+                        "recordsTotal": event_list.length,
+                        "recordsFiltered": event_list.length,
+                        "data": event_list
+                    }
+                    resultData['draw'] = oSettings.iDraw;
+
+                    fnCallback(resultData);
+                }
+            });
         }
 
-        eventTable = $("#eventTable").DataTable(tableOption);
+    };
+    eventTable = $("#eventTable").DataTable(tableOption);
+    $(".dataTables_scrollBody").removeAttr("style").css({"min-height":"calc(100vh - 425px)","position":"relative","width":"100%"});
+    $('#eventTable tbody').on('click', '.details-control', function () {
+        $(".eventRow").hide();
+        var tr = $(this).closest('tr');
+        var row = eventTable.row(tr);
+        var idx = $.inArray(tr.attr('id'), detailRows);
 
+        if (row.child.isShown()) {
+            tr.removeClass('details');
+            row.child.hide();
 
-        // Array to track the ids of the details displayed rows
-        var detailRows = [];
+            // Remove from the 'open' array
+            detailRows.splice(idx, 1);
+        }
+        else {
+            tr.addClass('details');
+            row.child(formatRow(row.data())).show();
 
-        $('#eventTable tbody').on('click', '.details-control', function () {
-
-            $(".eventRow").hide();
-            var tr = $(this).closest('tr');
-            var row = eventTable.row(tr);
-            var idx = $.inArray(tr.attr('id'), detailRows);
-
-            if (row.child.isShown()) {
-                tr.removeClass('details');
-                row.child.hide();
-
-                // Remove from the 'open' array
-                detailRows.splice(idx, 1);
+            // Add to the 'open' array
+            if (idx === -1) {
+                detailRows.push(tr.attr('id'));
             }
-            else {
-                tr.addClass('details');
-                row.child(formatRow(row.data())).show();
+        }
+    });
+    
+    // listEventsApi(10000, null, null, function (status, data) {
+    //     if (status && data.length > 0) {
+    //         tableOption['data'] = data;
+    //         event_list = data;
+    //         $(".eventsCount").html(data.length)
+    //     } else {
+    //         $(".eventsCount").html(0)
+    //     }
 
-                // Add to the 'open' array
-                if (idx === -1) {
-                    detailRows.push(tr.attr('id'));
-                }
-            }
-        });
+    //     eventTable = $("#eventTable").DataTable(tableOption);
 
-    })
+
+    //     // Array to track the ids of the details displayed rows
+    //     var detailRows = [];
+
+    //     $('#eventTable tbody').on('click', '.details-control', function () {
+
+    //         $(".eventRow").hide();
+    //         var tr = $(this).closest('tr');
+    //         var row = eventTable.row(tr);
+    //         var idx = $.inArray(tr.attr('id'), detailRows);
+
+    //         if (row.child.isShown()) {
+    //             tr.removeClass('details');
+    //             row.child.hide();
+
+    //             // Remove from the 'open' array
+    //             detailRows.splice(idx, 1);
+    //         }
+    //         else {
+    //             tr.addClass('details');
+    //             row.child(formatRow(row.data())).show();
+
+    //             // Add to the 'open' array
+    //             if (idx === -1) {
+    //                 detailRows.push(tr.attr('id'));
+    //             }
+    //         }
+    //     });
+
+    // })
 
 
 }

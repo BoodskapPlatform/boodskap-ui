@@ -39,7 +39,7 @@ function loadEvents() {
         // },
         {
             mData: 'id',
-            sTitle: 'Event Id',
+            sTitle: 'Event ID',
             "class": "details-control",
             "orderable": true,
             sWidth: '10%',
@@ -79,7 +79,7 @@ function loadEvents() {
 
 
                 return '<button class="btn bskp-edit-btn mr-2" onclick="openModal(2,' + row["id"] + ')"><img src="images/edit.svg" alt=""></button>' +
-                    '<button class="btn bskp-trash-btn" onclick="openModal(3,' + row['id'] + ')"><img src="images/trash2.svg" alt=""></button>';
+                    '<button class="btn bskp-trash-btn" onclick="openModal(3,' + row['id'] + ')"><img src="images/delete.svg" alt=""></button>';
             }
         }
 
@@ -99,7 +99,7 @@ function loadEvents() {
                        dom: '<"bskp-search-left" f> lrtip',
             language: {
                 "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
-             "searchPlaceholder": "Search by Message ID",
+             "searchPlaceholder": "Search by Event ID",
              "zeroRecords": "No data available",
              "emptyTable":"No data available",
                 loadingRecords: '',
@@ -109,7 +109,7 @@ function loadEvents() {
                 },
 
             },
-        "bServerSide": true,
+        "bServerSide": false,
         "bProcessing": true,
         "sAjaxSource": API_BASE_PATH + "/event/list/" + API_TOKEN_ALT + "/" + data,
         "fnServerData": function (sSource, aoData, fnCallback, oSettings) {
@@ -423,6 +423,7 @@ function formatRow(d) {
 
 
 function openModal(type, id, channel) {
+    defaultStyle()
     if (type === 1) {
         $("#event_id").removeAttr('readonly');
         $("#event_content").css('height','100px')
@@ -437,6 +438,7 @@ function openModal(type, id, channel) {
 
         // $("#event_id").attr('min',USER_OBJ.domain.startId)
         // $("#event_id").attr('max',USER_OBJ.domain.startId+ID_RANGE_COUNT)
+        $("#event_id").attr('disabled',false);
 
         $("#addEvent form").attr('onsubmit', 'addEvent()')
     } else if (type === 2) {
@@ -526,22 +528,30 @@ function addChannel() {
     if($("#n_event_channel").val() === 'FCM'){
         eventObj.address = $("#n_event_adddress_fcm").val();
     }
-
-    registerEvent(eventObj.eid, eventObj.channel, eventObj.address, function (status, data) {
-        if (status) {
-            successMsg('Event Registered Successfully');
-            loadEvents();
-            $("#addChannel").modal('hide');
-        } else {
-            if(data.responseJSON.message === "ALREADY_REGISTERED"){
-                errorMsgBorder(eventObj.channel + ' already exists.', 'n_event_adddress')
-            }else{
-                errorMsg('Error in registering event')
-            }
-
+    if(!eventObj.address){
+        if(eventObj.channel == 'FCM'){
+         showFeedback('FCM device is required','n_event_adddress_fcm','n_event_adddress_fcmAlert')
+        }else{
+            showFeedback('Notification address is required','n_event_adddress','n_event_adddressAlert')
         }
-        $(".btnSubmit").removeAttr('disabled');
-    })
+    }else{
+        registerEvent(eventObj.eid, eventObj.channel, eventObj.address, function (status, data) {
+            if (status) {
+                successMsg('Event Registered Successfully');
+                loadEvents();
+                $("#addChannel").modal('hide');
+            } else {
+                if(data.responseJSON.message === "ALREADY_REGISTERED"){
+                    errorMsgBorder(eventObj.channel + ' already exists.', 'n_event_adddress')
+                }else{
+                    errorMsg('Error in registering event')
+                }
+    
+            }
+            $(".btnSubmit").removeAttr('disabled');
+        })
+    }
+  
 }
 
 function removeChannel() {
