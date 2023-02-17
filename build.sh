@@ -1,5 +1,5 @@
 #!/bin/bash
-# Build the js file 
+# Build the build.js file 
 node build.js
 # Parse current version number
 JSON_FILE="package.json"
