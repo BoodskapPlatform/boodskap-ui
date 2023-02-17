@@ -253,6 +253,7 @@ function formatRow(d, cbk) {
 
 function loadUserGroupMembers(id) {
 
+    $("#userGroupList_" + id).html('<div class="w-100" style="padding:5px 0px;"><div class="d-flex mx-auto" style="padding: 10px 20px;background-color: #F2F3F4;width: 10%;"><i class="fa fa-spinner fa-spin"></i><p class="pl-2 m-0">Processing</p></div><div></div></div>');
     listDomainUserGroupUsers(id, 1000, function (status, resdata) {
         var bodyStr = ''
         if (status && resdata.length > 0) {
@@ -273,9 +274,9 @@ function loadUserGroupMembers(id) {
         $(".group_" + id).html(' <div class="btn-group btn-group-justified left-right">' +
             '<a class="btn btn-default btn-xs"  onclick="openUserModal(1,\'' + id + '\')"><i class="fa fa-plus-square"></i> <span class="hidden-xs">Add User</span></a>' +
             '<a class="btn btn-default btn-xs"  onclick="openUserModal(2,\'' + id + '\')"><i class="icon-trash4"></i> <span class="hidden-xs">Delete</span></a>' +
-            '<a class="btn btn-default btn-xs"  onclick="loadUserGroupMembers(\'' + id + '\')"><i class="fa fa-refresh"></i></a>' +
+            '<a class="btn btn-default btn-xs"  onclick="loadUserGroupMembers(\'' + id + '\')" title="Refresh"><i class="fa fa-refresh"></i></a>' +
             '</div><hr style="clear:both">' +
-            '<div class="row" style="clear: both;max-height: 300px;overflow: auto;overflow-x: hidden">' + bodyStr + '</div>');
+            '<div id="userGroupList_'+id+'" class="row" style="clear: both;max-height: 300px;overflow: auto;overflow-x: hidden">' + bodyStr + '</div>');
 
 
     })

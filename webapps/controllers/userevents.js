@@ -16,6 +16,8 @@ $(document).ready(function () {
 });
 
 
+
+
 function loadEvents() {
 
 
@@ -27,7 +29,7 @@ function loadEvents() {
     var fields = [
         {
             mData: 'id',
-            sTitle: 'Event Id',
+            sTitle: 'Event ID',
             "class": "details-control",
             "orderable": true,
             sWidth: '10%',
@@ -60,65 +62,140 @@ function loadEvents() {
         }
 
     ];
-
+    var queryParams = {
+        query: {
+            "bool": {
+                "must": [],
+                "should":[]
+            }
+        },
+        sort: []
+    };
+    var domainKeyJson = {"match": {"domainKey": DOMAIN_KEY}};
 
     var tableOption = {
-        fixedHeader: {
-            header: true,
-            headerOffset: -5
-        },
-        responsive: true,
+        responsive: false,
+        autoWidth: false,
         paging: true,
-        searching: true,
+        aaSorting: [[0, 'desc']],
+        aoColumns: fields,
+        searchable: true,
         "ordering": true,
+        scrollY: '100px',
+        scrollCollapse: true,
         iDisplayLength: 10,
         lengthMenu: [[10, 50, 100], [10, 50, 100]],
-        aoColumns: fields,
-        data: []
-    };
+                       dom: '<"bskp-search-left" f> lrtip',
+            language: {
+                "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
+             "searchPlaceholder": "Search by Event ID",
+             "zeroRecords": "No data available",
+             "emptyTable":"No data available",
+                loadingRecords: '',
+                paginate: {
+                    previous: '< Prev',
+                    next: 'Next >'
+                },
 
-    listEventsApi(10000, null, null, function (status, data) {
-        if (status && data.length > 0) {
-            tableOption['data'] = data;
-            event_list = data;
-            $(".eventsCount").html(data.length)
-        } else {
-            $(".eventsCount").html(0)
+            },
+        "bServerSide": false,
+        "bProcessing": true,
+        "sAjaxSource": API_BASE_PATH + "/elastic/search/query/" + API_TOKEN_ALT,
+        "fnServerData": function (sSource, aoData, fnCallback, oSettings) {
+           
+
+            queryParams.query['bool']['must'] = [];
+            queryParams.query['bool']['should'] = [];
+            delete queryParams.query['bool']["minimum_should_match"];
+
+            var keyName = fields[oSettings.aaSorting[0][0]]
+
+            var sortingJson = {};
+            sortingJson[keyName['mData']] = {"order": oSettings.aaSorting[0][1]};
+            queryParams.sort = [sortingJson];
+
+            queryParams['size'] = oSettings._iDisplayLength;
+            queryParams['from'] = oSettings._iDisplayStart;
+            var searchText = oSettings.oPreviousSearch.sSearch;
+
+            if (searchText) {
+                queryParams.query['bool']['should'].push({ "wildcard": { "id": "*" + searchText + "*" } });
+                queryParams.query['bool']['should'].push({ "wildcard": { "id": "*" + searchText.toLowerCase() + "*" } });
+                queryParams.query['bool']['should'].push({ "wildcard": { "id": "*" + searchText.toUpperCase() + "*" } });
+                queryParams.query['bool']['should'].push({ "wildcard": { "id": "*" + capitalizeFLetter(searchText) + "*" } })
+                queryParams.query.bool.should.push({
+                    "match_phrase": {
+                        "id": searchText
+                    }
+                })
+
+                queryParams.query['bool']["minimum_should_match"]=1;
+
+            } 
+            queryParams.query['bool']['must'] = [domainKeyJson];
+
+            var ajaxObj = {
+                "method": "GET",
+                "extraPath": "",
+                "query": JSON.stringify(queryParams),
+                "params": [],
+                type : 'EVENT'
+            };
+
+            oSettings.jqXHR = $.ajax({
+                "dataType": 'json',
+                "contentType": 'application/json',
+                "type": "POST",
+                "url": sSource,
+                "data": JSON.stringify(ajaxObj),
+                success: function (data) {
+                    var resultData
+                    if (data.httpCode == 200) {
+                        let finalData = searchQueryFormatterNew(data)
+                        resultData = finalData.data;
+                        event_list = resultData.data;;
+                        $(".eventsCount").html(finalData.length)
+                    } else {
+                        $(".eventsCount").html(0);
+                        event_list = [];
+                    }
+                    
+                    resultData['draw'] = oSettings.iDraw;
+
+                    fnCallback(resultData);
+                }
+            });
         }
 
-        eventTable = $("#eventTable").DataTable(tableOption);
+    };
+    eventTable = $("#eventTable").DataTable(tableOption);
+    $(".dataTables_scrollBody").removeAttr("style").css({"min-height":"calc(100vh - 425px)","position":"relative","width":"100%"});
+    var detailRows = [];
+    $('#eventTable tbody').on('click', '.details-control', function () {
+        $(".eventRow").hide();
+        var tr = $(this).closest('tr');
+        var row = eventTable.row(tr);
+        var idx = $.inArray(tr.attr('id'), detailRows);
 
+        if (row.child.isShown()) {
+            tr.removeClass('details');
+            row.child.hide();
 
-        // Array to track the ids of the details displayed rows
-        var detailRows = [];
+            // Remove from the 'open' array
+            detailRows.splice(idx, 1);
+        }
+        else {
+            tr.addClass('details');
+            row.child(formatRow(row.data())).show();
 
-        $('#eventTable tbody').on('click', '.details-control', function () {
-
-            $(".eventRow").hide();
-            var tr = $(this).closest('tr');
-            var row = eventTable.row(tr);
-            var idx = $.inArray(tr.attr('id'), detailRows);
-
-            if (row.child.isShown()) {
-                tr.removeClass('details');
-                row.child.hide();
-
-                // Remove from the 'open' array
-                detailRows.splice(idx, 1);
+            // Add to the 'open' array
+            if (idx === -1) {
+                detailRows.push(tr.attr('id'));
             }
-            else {
-                tr.addClass('details');
-                row.child(formatRow(row.data())).show();
-
-                // Add to the 'open' array
-                if (idx === -1) {
-                    detailRows.push(tr.attr('id'));
-                }
-            }
-        });
-
-    })
-
+        }
+    });
+    
+   
 
 }
 

@@ -1,7 +1,7 @@
 
 var themeProp = {};
 $(document).ready(function () {
-    getDomainTheme()
+    // getDomainTheme()
 });
 
 function getDomainTheme() {
@@ -166,3 +166,4 @@ function enableFn(id){
 function disableFn(id){
     $('#'+id).attr('disabled',true)
 }
+
