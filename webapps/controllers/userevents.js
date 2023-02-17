@@ -127,6 +127,7 @@ function loadEvents() {
     };
     eventTable = $("#eventTable").DataTable(tableOption);
     $(".dataTables_scrollBody").removeAttr("style").css({"min-height":"calc(100vh - 425px)","position":"relative","width":"100%"});
+    var detailRows = [];
     $('#eventTable tbody').on('click', '.details-control', function () {
         $(".eventRow").hide();
         var tr = $(this).closest('tr');

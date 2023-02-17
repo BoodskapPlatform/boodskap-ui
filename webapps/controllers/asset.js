@@ -36,7 +36,7 @@ function loadAssetList() {
             mData: 'name',
             sTitle: 'Asset Name',
             sWidth: '20%',
-            orderable: true,
+            orderable: false,
         },
         {
             mData: 'description',
@@ -67,11 +67,22 @@ function loadAssetList() {
 
     ];
 
-    let data = 1000
-    var tableOption = {
+    var queryParams = {
+        query: {
+            "bool": {
+                "must": [],
+                "should":[]
+            }
+        },
+        sort: []
+    };
+    var domainKeyJson = {"match": {"domainKey": DOMAIN_KEY}};
+
+        var tableOption = {
         responsive: false,
         autoWidth: false,
         paging: true,
+        aaSorting: [[3, 'desc']],
         aoColumns: fields,
         searchable: true,
         "ordering": true,
@@ -92,35 +103,67 @@ function loadAssetList() {
                 },
 
             },
-        "bServerSide": false,
+        "bServerSide": true,
         "bProcessing": true,
-        "sAjaxSource": API_BASE_PATH + "/asset/list/" + API_TOKEN_ALT + '/' + data,
+        "sAjaxSource": API_BASE_PATH + "/elastic/search/query/" + API_TOKEN_ALT ,
         "fnServerData": function (sSource, aoData, fnCallback, oSettings) {
            
+            queryParams.query['bool']['must'] = [];
+            queryParams.query['bool']['should'] = [];
+            delete queryParams.query['bool']["minimum_should_match"];
 
             var keyName = fields[oSettings.aaSorting[0][0]]
 
             var sortingJson = {};
             sortingJson[keyName['mData']] = {"order": oSettings.aaSorting[0][1]};
+            queryParams.sort = [sortingJson];
 
+            queryParams['size'] = oSettings._iDisplayLength;
+            queryParams['from'] = oSettings._iDisplayStart;
+            var searchText = oSettings.oPreviousSearch.sSearch;
 
+            if (searchText) {
+                queryParams.query['bool']['should'].push({ "wildcard": { "id": "*" + searchText + "*" } });
+                queryParams.query['bool']['should'].push({ "wildcard": { "id": "*" + searchText.toLowerCase() + "*" } });
+                queryParams.query['bool']['should'].push({ "wildcard": { "id": "*" + searchText.toUpperCase() + "*" } });
+                queryParams.query['bool']['should'].push({ "wildcard": { "id": "*" + capitalizeFLetter(searchText) + "*" } })
+                queryParams.query.bool.should.push({
+                    "match_phrase": {
+                        "id": searchText
+                    }
+                })
 
+                queryParams.query['bool']["minimum_should_match"]=1;
+
+            } 
+            queryParams.query['bool']['must'] = [domainKeyJson];
+
+            var ajaxObj = {
+                "method": "GET",
+                "extraPath": "",
+                "query": JSON.stringify(queryParams),
+                "params": [],
+                type : 'ASSET'
+            };
             oSettings.jqXHR = $.ajax({
-                "type": "GET",
+                "dataType": 'json',
+                "contentType": 'application/json',
+                "type": "POST",
                 "url": sSource,
+                "data": JSON.stringify(ajaxObj),
                 success: function (data) {
-                    if (data.length > 0) {
-                        $(".assetCount").html(data.length)
-                        asset_list = data;
+                    let resultData
+                    if (data.httpCode == 200) {
+                    let finalData = searchQueryFormatterNew(data)
+                     resultData = finalData.data;
+                    console.log(resultData)
+                        $(".assetCount").html(finalData.total)
+                        asset_list = resultData.data;
                     } else {
                         $(".assetCount").html(0);
                         asset_list = [];
                     }
-                    let resultData = {
-                        "recordsTotal": asset_list.length,
-                        "recordsFiltered": asset_list.length,
-                        "data": asset_list
-                    }
+                   
                     resultData['draw'] = oSettings.iDraw;
 
                     fnCallback(resultData);
@@ -132,9 +175,7 @@ function loadAssetList() {
     assetTable = $("#assetTable").DataTable(tableOption);
     $('.dataTables_filter input').attr('maxlength', 100);
     $(".dataTables_scrollBody").removeAttr("style").css({"min-height":"calc(100vh - 425px)","position":"relative","width":"100%"});
-    $('.dataTables_filter input').on('keyup', function () {
-        assetTable.search( this.value ).draw();
-    } );
+  
     // getAssetList(1000, function (status, data) {
     //     if (status && data.length > 0) {
     //         tableOption['data'] = data;
@@ -302,7 +343,9 @@ function addAsset() {
             upsertAsset(assetObj, function (status, data) {
                 if (status) {
                     successMsg('Asset Created Successfully');
-                    loadAssetList();
+                    setTimeout(() => {
+                     loadAssetList();
+                    }, 1500);
                     $("#addAsset").modal('hide');
                 } else {
                     errorMsg('Error in Creating Asset')
@@ -454,43 +497,4 @@ function setDeviceId(id) {
     $("#deviceID").val(id)
 }
 
-function searchQueryFormatter(data) {
 
-    var resultObj = {
-        total: 0,
-        data: {},
-        aggregations: {}
-    }
-
-    if (data.httpCode === 200) {
-
-        var arrayData = JSON.parse(data.result);
-
-        var totalRecords = arrayData.hits.total ? arrayData.hits.total.value : 0;
-        var records = arrayData.hits.hits;
-
-        var aggregations = arrayData.aggregations ? arrayData.aggregations : {};
-
-
-        for (var i = 0; i < records.length; i++) {
-            records[i]['_source']['_id'] = records[i]['_id'];
-        }
-
-        resultObj = {
-            "total": totalRecords,
-            "data": {
-                "recordsTotal": totalRecords,
-                "recordsFiltered": totalRecords,
-                "data": _.pluck(records, '_source')
-            },
-            aggregations: aggregations
-        }
-
-        return resultObj;
-
-    } else {
-
-        return resultObj;
-    }
-
-}
