@@ -285,7 +285,6 @@ function loadLogoPicture() {
         }
     }else{
         if (!Cookies.get('domain_logo')) {
-
             getDomainProperty(DOMAIN_BRANDING_PROPERTY, function (status, data) {
                 if (status) {
                     var src = JSON.parse(data.value);

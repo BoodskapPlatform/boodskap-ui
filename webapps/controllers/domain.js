@@ -589,7 +589,6 @@ function proceedSave() {
             name: DOMAIN_THEME_PROPERTY,
             value: JSON.stringify(obj)
         };
-
         upsertDomainProperty(data, function (status, data) {
             if (status) {
                 successMsg('Successfully updated')
