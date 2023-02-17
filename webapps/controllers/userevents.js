@@ -62,12 +62,22 @@ function loadEvents() {
         }
 
     ];
+    var queryParams = {
+        query: {
+            "bool": {
+                "must": [],
+                "should":[]
+            }
+        },
+        sort: []
+    };
+    var domainKeyJson = {"match": {"domainKey": DOMAIN_KEY}};
 
-    let data = 10000
     var tableOption = {
         responsive: false,
         autoWidth: false,
         paging: true,
+        aaSorting: [[0, 'desc']],
         aoColumns: fields,
         searchable: true,
         "ordering": true,
@@ -90,33 +100,66 @@ function loadEvents() {
             },
         "bServerSide": false,
         "bProcessing": true,
-        "sAjaxSource": API_BASE_PATH + "/event/list/" + API_TOKEN_ALT + '/' + data,
+        "sAjaxSource": API_BASE_PATH + "/elastic/search/query/" + API_TOKEN_ALT,
         "fnServerData": function (sSource, aoData, fnCallback, oSettings) {
            
+
+            queryParams.query['bool']['must'] = [];
+            queryParams.query['bool']['should'] = [];
+            delete queryParams.query['bool']["minimum_should_match"];
 
             var keyName = fields[oSettings.aaSorting[0][0]]
 
             var sortingJson = {};
             sortingJson[keyName['mData']] = {"order": oSettings.aaSorting[0][1]};
+            queryParams.sort = [sortingJson];
 
+            queryParams['size'] = oSettings._iDisplayLength;
+            queryParams['from'] = oSettings._iDisplayStart;
+            var searchText = oSettings.oPreviousSearch.sSearch;
 
+            if (searchText) {
+                queryParams.query['bool']['should'].push({ "wildcard": { "id": "*" + searchText + "*" } });
+                queryParams.query['bool']['should'].push({ "wildcard": { "id": "*" + searchText.toLowerCase() + "*" } });
+                queryParams.query['bool']['should'].push({ "wildcard": { "id": "*" + searchText.toUpperCase() + "*" } });
+                queryParams.query['bool']['should'].push({ "wildcard": { "id": "*" + capitalizeFLetter(searchText) + "*" } })
+                queryParams.query.bool.should.push({
+                    "match_phrase": {
+                        "id": searchText
+                    }
+                })
+
+                queryParams.query['bool']["minimum_should_match"]=1;
+
+            } 
+            queryParams.query['bool']['must'] = [domainKeyJson];
+
+            var ajaxObj = {
+                "method": "GET",
+                "extraPath": "",
+                "query": JSON.stringify(queryParams),
+                "params": [],
+                type : 'EVENT'
+            };
 
             oSettings.jqXHR = $.ajax({
-                "type": "GET",
+                "dataType": 'json',
+                "contentType": 'application/json',
+                "type": "POST",
                 "url": sSource,
+                "data": JSON.stringify(ajaxObj),
                 success: function (data) {
-                    if (data.length > 0) {
-                        event_list = data;
-                        $(".eventsCount").html(data.length)
+                    var resultData
+                    if (data.httpCode == 200) {
+                        let finalData = searchQueryFormatterNew(data)
+                        resultData = finalData.data;
+                        event_list = resultData.data;;
+                        $(".eventsCount").html(finalData.length)
                     } else {
                         $(".eventsCount").html(0);
                         event_list = [];
                     }
-                    let resultData = {
-                        "recordsTotal": event_list.length,
-                        "recordsFiltered": event_list.length,
-                        "data": event_list
-                    }
+                    
                     resultData['draw'] = oSettings.iDraw;
 
                     fnCallback(resultData);
@@ -152,48 +195,7 @@ function loadEvents() {
         }
     });
     
-    // listEventsApi(10000, null, null, function (status, data) {
-    //     if (status && data.length > 0) {
-    //         tableOption['data'] = data;
-    //         event_list = data;
-    //         $(".eventsCount").html(data.length)
-    //     } else {
-    //         $(".eventsCount").html(0)
-    //     }
-
-    //     eventTable = $("#eventTable").DataTable(tableOption);
-
-
-    //     // Array to track the ids of the details displayed rows
-    //     var detailRows = [];
-
-    //     $('#eventTable tbody').on('click', '.details-control', function () {
-
-    //         $(".eventRow").hide();
-    //         var tr = $(this).closest('tr');
-    //         var row = eventTable.row(tr);
-    //         var idx = $.inArray(tr.attr('id'), detailRows);
-
-    //         if (row.child.isShown()) {
-    //             tr.removeClass('details');
-    //             row.child.hide();
-
-    //             // Remove from the 'open' array
-    //             detailRows.splice(idx, 1);
-    //         }
-    //         else {
-    //             tr.addClass('details');
-    //             row.child(formatRow(row.data())).show();
-
-    //             // Add to the 'open' array
-    //             if (idx === -1) {
-    //                 detailRows.push(tr.attr('id'));
-    //             }
-    //         }
-    //     });
-
-    // })
-
+   
 
 }
 

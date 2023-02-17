@@ -86,7 +86,7 @@ function loadAssetList() {
         aoColumns: fields,
         searchable: true,
         "ordering": true,
-        scrollY: '100px',
+        // scrollY: '100px',
         scrollCollapse: true,
         iDisplayLength: 10,
         lengthMenu: [[10, 50, 100], [10, 50, 100]],
@@ -173,23 +173,7 @@ function loadAssetList() {
     };
     assetTable = $("#assetTable").DataTable(tableOption);
     $('.dataTables_filter input').attr('maxlength', 100);
-    $(".dataTables_scrollBody").removeAttr("style").css({"min-height":"calc(100vh - 425px)","position":"relative","width":"100%"});
-  
-    // getAssetList(1000, function (status, data) {
-    //     if (status && data.length > 0) {
-    //         tableOption['data'] = data;
-    //         $(".assetCount").html(data.length)
-    //         asset_list = data;
-    //     } else {
-    //         $(".assetCount").html(0);
-    //         asset_list = [];
-    //     }
-
-    //     assetTable = $("#assetTable").DataTable(tableOption);
-    //     $('.dataTables_filter input').attr('maxlength', 100)
-    // })
-
-
+    // $(".dataTables_scrollBody").removeAttr("style").css({"min-height":"calc(100vh - 425px)","position":"relative","width":"100%"});
 }
 
 
@@ -212,9 +196,9 @@ function openModal(type, id) {
         var obj = {};
         current_asset_id = id;
 
-        for (var i = 0; i < asset_list.length; i++) {
-            if (id === asset_list[i].id) {
-                obj = asset_list[i];
+        for (const element of asset_list) {
+            if (id === element.id) {
+                obj = element;
             }
         }
         $("#asset_id").attr('readonly', 'readonly');
