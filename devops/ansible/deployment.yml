@@ -74,7 +74,7 @@
   tasks:
      -
        name: Deploy the container image.
-       shell: "sh deploy.sh {{ DOCKER_IMG }}"
+       shell: "sh deploy.sh"
        args:
          chdir: /home/ubuntu/cluster/ui
        register: deploy_container_output

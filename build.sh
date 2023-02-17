@@ -27,9 +27,9 @@ fi
 
 # Update version number in version.txt
 echo "$major.$minor.$patch" > $HOME/build/version.txt
-jq ".version = \"$major.$minor.$patch\"" "$JSON_FILE" > tmp.json
-mv tmp.json "$JSON_FILE"
+#jq ".version = \"$major.$minor.$patch\"" "$JSON_FILE" > tmp.json
+#mv tmp.json "$JSON_FILE"
 lversion="$major.$minor.$patch"
 # Print new version number
-docker build -t boodskapiot/ui:$lversion . -f Dockerfile
+docker build -t boodskapiot/ui-test:$lversion . -f Dockerfile
 
