@@ -156,7 +156,6 @@ function loadAssetList() {
                     if (data.httpCode == 200) {
                     let finalData = searchQueryFormatterNew(data)
                      resultData = finalData.data;
-                    console.log(resultData)
                         $(".assetCount").html(finalData.total)
                         asset_list = resultData.data;
                     } else {
@@ -268,13 +267,11 @@ function linkDevice() {
             successMsg('Device Linked Successfully');
             loadLinkedDevices(current_asset_id);
         } else {
-            console.log(data.responseJSON.message)
             if(data.responseJSON.message == 'device:'+$("#deviceID").val()+' is already linked'){
                 errorMsg('Device ID already linked')
             }else{
                 errorMsg('Error in Linking Device')
             }
-            console.log(data)
         }
         $("#linkDeviceBtn").html('Link Device').attr('disabled',false)
         });
