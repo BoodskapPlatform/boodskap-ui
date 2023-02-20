@@ -729,8 +729,8 @@ function showFeedbackAlert(text,id,alertId) {
 }
 
 function defaultStyle(id) {
-    $("input, select textarea").removeClass('error-input-box')
-    $("input, select textarea").removeClass('error-box')
+    $("input, select, textarea").removeClass('error-input-box')
+    $("input, select, textarea").removeClass('error-box')
     $("#" + id).hide();
     $('.alertDiv').html('')
 }

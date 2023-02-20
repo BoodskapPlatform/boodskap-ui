@@ -568,6 +568,7 @@ function loadLogs() {
                 },
 
             },
+        "bProcessing": true,
         "bServerSide": true,
         "sAjaxSource": API_BASE_PATH + '/elastic/search/query/' + API_TOKEN_ALT,
         "fnServerData": function (sSource, aoData, fnCallback, oSettings) {
