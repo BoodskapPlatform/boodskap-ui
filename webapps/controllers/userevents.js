@@ -57,7 +57,8 @@ function loadEvents() {
                 data = data.replace(/</g, "&lt");
                 data = data.replace(/>/g, "&gt");
 
-                return '<code>' + (data) + '</code>';
+                return '<div style="max-width: 500px;" class="text-truncate" title="'+data+'">'+data+'</div>';
+
             }
         }
 
@@ -98,7 +99,7 @@ function loadEvents() {
                 },
 
             },
-        "bServerSide": false,
+        "bServerSide": true,
         "bProcessing": true,
         "sAjaxSource": API_BASE_PATH + "/elastic/search/query/" + API_TOKEN_ALT,
         "fnServerData": function (sSource, aoData, fnCallback, oSettings) {
@@ -141,7 +142,7 @@ function loadEvents() {
                 "params": [],
                 type : 'EVENT'
             };
-
+            
             oSettings.jqXHR = $.ajax({
                 "dataType": 'json',
                 "contentType": 'application/json',
@@ -154,7 +155,7 @@ function loadEvents() {
                         let finalData = searchQueryFormatterNew(data)
                         resultData = finalData.data;
                         event_list = resultData.data;;
-                        $(".eventsCount").html(finalData.length)
+                        $(".eventsCount").html(finalData.total)
                     } else {
                         $(".eventsCount").html(0);
                         event_list = [];
@@ -172,7 +173,7 @@ function loadEvents() {
     $(".dataTables_scrollBody").removeAttr("style").css({"min-height":"calc(100vh - 425px)","position":"relative","width":"100%"});
     var detailRows = [];
     $('#eventTable tbody').on('click', '.details-control', function () {
-        $(".eventRow").hide();
+        $(".eventRow").parent().hide();
         var tr = $(this).closest('tr');
         var row = eventTable.row(tr);
         var idx = $.inArray(tr.attr('id'), detailRows);

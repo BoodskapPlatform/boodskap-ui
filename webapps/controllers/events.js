@@ -67,7 +67,8 @@ function loadEvents() {
                 data = data.replace(/</g, "&lt");
                 data = data.replace(/>/g, "&gt");
 
-                return '<code>' + (data) + '</code>';
+                return '<div style="max-width: 500px;" class="text-truncate" title="'+data+'">'+data+'</div>';
+
             }
         },
         {
@@ -85,14 +86,22 @@ function loadEvents() {
 
     ];
 
-    let data = 1000
-    var tableOption = {
+    var queryParams = {
+        query: {
+            "bool": {
+                "must": [],
+                "should":[]
+            }
+        },
+        sort: []
+    };
+    var domainKeyJson = {"match": {"domainKey": DOMAIN_KEY}};    var tableOption = {
         responsive: false,
         autoWidth: false,
         paging: true,
         aoColumns: fields,
         searching: true,
-        aaSorting: [[3, 'desc']],
+        aaSorting: [[0, 'desc']],
         "ordering": true,
         iDisplayLength: 10,
         lengthMenu: [[10, 50, 100], [10, 50, 100]],
@@ -109,35 +118,68 @@ function loadEvents() {
                 },
 
             },
-        "bServerSide": false,
+        "bServerSide": true,
         "bProcessing": true,
-        "sAjaxSource": API_BASE_PATH + "/event/list/" + API_TOKEN_ALT + "/" + data,
+        "sAjaxSource": API_BASE_PATH + "/elastic/search/query/" + API_TOKEN_ALT,
         "fnServerData": function (sSource, aoData, fnCallback, oSettings) {
            
+            queryParams.query['bool']['must'] = [];
+            queryParams.query['bool']['should'] = [];
+            delete queryParams.query['bool']["minimum_should_match"];
 
             var keyName = fields[oSettings.aaSorting[0][0]]
 
             var sortingJson = {};
             sortingJson[keyName['mData']] = {"order": oSettings.aaSorting[0][1]};
+            queryParams.sort = [sortingJson];
 
+            queryParams['size'] = oSettings._iDisplayLength;
+            queryParams['from'] = oSettings._iDisplayStart;
+            var searchText = oSettings.oPreviousSearch.sSearch;
+
+            if (searchText) {
+                queryParams.query['bool']['should'].push({ "wildcard": { "id": "*" + searchText + "*" } });
+                queryParams.query['bool']['should'].push({ "wildcard": { "id": "*" + searchText.toLowerCase() + "*" } });
+                queryParams.query['bool']['should'].push({ "wildcard": { "id": "*" + searchText.toUpperCase() + "*" } });
+                queryParams.query['bool']['should'].push({ "wildcard": { "id": "*" + capitalizeFLetter(searchText) + "*" } })
+                queryParams.query.bool.should.push({
+                    "match_phrase": {
+                        "id": searchText
+                    }
+                })
+
+                queryParams.query['bool']["minimum_should_match"]=1;
+
+            } 
+            queryParams.query['bool']['must'] = [domainKeyJson];
+
+            var ajaxObj = {
+                "method": "GET",
+                "extraPath": "",
+                "query": JSON.stringify(queryParams),
+                "params": [],
+                type : 'EVENT'
+            };
 
 
             oSettings.jqXHR = $.ajax({
-                "type": "GET",
+                "dataType": 'json',
+                "contentType": 'application/json',
+                "type": "POST",
                 "url": sSource,
+                "data": JSON.stringify(ajaxObj),
                 success: function (data) {
-                    if (data.length > 0) {
-                        tableOption['data'] = data;
-                        event_list = data;
-                        $(".eventsCount").html(data.length)
+                    var resultData
+                    if (data.httpCode == 200) {
+                        let finalData = searchQueryFormatterNew(data)
+                        resultData = finalData.data;
+                        event_list = resultData.data;;
+                        $(".eventsCount").html(finalData.total)
                     } else {
-                        $(".eventsCount").html(0)
+                        $(".eventsCount").html(0);
+                        event_list = [];
                     }
-                    let resultData = {
-                        "recordsTotal": event_list.length,
-                        "recordsFiltered": event_list.length,
-                        "data": event_list
-                    }
+                   
                     resultData['draw'] = oSettings.iDraw;
 
                     fnCallback(resultData);
@@ -154,7 +196,7 @@ function loadEvents() {
 
     $('#eventTable tbody').on('click', '.details-control', function () {
 
-        $(".eventRow").hide();
+        $(".eventRow").parent().hide();
         var tr = $(this).closest('tr');
         var row = eventTable.row(tr);
         var idx = $.inArray(tr.attr('id'), detailRows);
@@ -180,144 +222,7 @@ function loadEvents() {
 }
 
 
-// function loadEvents() {
 
-
-//     if (eventTable) {
-//         eventTable.destroy();
-//         $("#eventTable").html("");
-//     }
-
-//     var fields = [
-//         // {
-//         //     sTitle: '',
-//         //     "class": "details-control",
-//         //     "defaultContent": "",
-//         //     orderable: false,
-//         //     sWidth: '5%',
-//         //     mRender: function (data, type, row) {
-//         //         return '<h4 style="text-align: center;color:#666"><i class="icon-caret-right"></i></h4>';
-//         //     }
-//         // },
-//         {
-//             mData: 'id',
-//             sTitle: 'Event Id',
-//             "class": "details-control",
-//             "orderable": true,
-//             sWidth: '10%',
-//         },
-//         {
-//             mData: 'name',
-//             sTitle: 'Event  Name',
-//             "class": "details-control",
-//             "orderable": true,
-//         },
-//         {
-//             mData: 'subject',
-//             sTitle: 'Subject',
-//             "class": "details-control",
-//             orderable: false,
-//         },
-//         {
-//             mData: 'content',
-//             sTitle: 'Content',
-//             "class": "details-control",
-//             orderable: false,
-//             mRender: function (data, type, row) {
-
-//                 data = data.replace(/&/g, "&amp");
-//                 data = data.replace(/</g, "&lt");
-//                 data = data.replace(/>/g, "&gt");
-
-//                 return '<code>' + (data) + '</code>';
-//             }
-//         },
-//         {
-//             mData: 'action',
-//             sTitle: 'Action',
-//             orderable: false,
-//             sWidth: '10%',
-//             mRender: function (data, type, row) {
-
-
-//                 return '<button class="btn bskp-edit-btn mr-2" onclick="openModal(2,' + row["id"] + ')"><img src="images/edit.svg" alt=""></button>' +
-//                     '<button class="btn bskp-trash-btn" onclick="openModal(3,' + row['id'] + ')"><img src="images/trash2.svg" alt=""></button>';
-//             }
-//         }
-
-//     ];
-
-
-//     var tableOption = {
-//         fixedHeader: {
-//             header: true,
-//             headerOffset: -5
-//         },
-//         responsive: true,
-//         paging: true,
-//         searching: true,
-//         dom: '<"bskp-search-left" f> lrtip',
-//         language: {
-//             "emptyTable": "No data available",
-//             "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
-//             "searchPlaceholder": "Search by Event Id",
-//             loadingRecords: '',
-//             paginate: {
-//                 previous: '< Prev',
-//                 next: 'Next >'
-//             }
-//         },
-//         "ordering": true,
-//         iDisplayLength: 10,
-//         lengthMenu: [[10, 50, 100], [10, 50, 100]],
-//         aoColumns: fields,
-//         data: []
-//     };
-
-//     listEventsApi(10000, null, null, function (status, data) {
-//         if (status && data.length > 0) {
-//             tableOption['data'] = data;
-//             event_list = data;
-//             $(".eventsCount").html(data.length)
-//         } else {
-//             $(".eventsCount").html(0)
-//         }
-
-//         eventTable = $("#eventTable").DataTable(tableOption);
-//         $('.dataTables_filter input').attr('maxlength', 100)
-
-//         // Array to track the ids of the details displayed rows
-//         var detailRows = [];
-
-//         $('#eventTable tbody').on('click', '.details-control', function () {
-
-//             $(".eventRow").hide();
-//             var tr = $(this).closest('tr');
-//             var row = eventTable.row(tr);
-//             var idx = $.inArray(tr.attr('id'), detailRows);
-
-//             if (row.child.isShown()) {
-//                 tr.removeClass('details');
-//                 row.child.hide();
-
-//                 // Remove from the 'open' array
-//                 detailRows.splice(idx, 1);
-//             }
-//             else {
-//                 tr.addClass('details');
-//                 row.child(formatRow(row.data())).show();
-
-//                 // Add to the 'open' array
-//                 if (idx === -1) {
-//                     detailRows.push(tr.attr('id'));
-//                 }
-//             }
-//         });
-
-//     })
-
-
-// }
 
 function formatRow(d) {
     cuurent_event_obj = d;
@@ -538,7 +443,9 @@ function addChannel() {
         registerEvent(eventObj.eid, eventObj.channel, eventObj.address, function (status, data) {
             if (status) {
                 successMsg('Event Registered Successfully');
-                loadEvents();
+                setTimeout(() => {
+                    loadEvents();
+                }, 1500);
                 $("#addChannel").modal('hide');
             } else {
                 if(data.responseJSON.message === "ALREADY_REGISTERED"){
@@ -567,7 +474,9 @@ function removeChannel() {
     unregisterEvent(eventObj.eid, eventObj.channel, eventObj.address, function (status, data) {
         if (status) {
             successMsg('Event Un-Registered Successfully');
-            loadEvents();
+            setTimeout(() => {
+                loadEvents();
+            }, 1500);
             $("#deleteChannel").modal('hide');
         } else {
             errorMsg('Error in un-registering event')
@@ -584,16 +493,16 @@ function addEvent() {
     var event_content= $.trim($("#event_content").val());
     
     if(event_id == ""){
-        errorMsgBorder('Event ID cannot be empty','event_id');
+        showFeedback('Event ID is required','event_id','logevent_id');
         return false;
     }else if(event_name == ""){
-        errorMsgBorder('Event Name cannot be empty','event_name');
+        showFeedback('Event Name is required','event_name','logevent_name');
         return false;
     }else if(event_subject == ""){
-        errorMsgBorder('Event Subject cannot be empty','event_subject');
+        showFeedback('Event Subject is required','event_subject','logevent_subject');
         return false;
     } else if(event_content == ""){
-        errorMsgBorder('Content cannot be empty','event_content');
+        showFeedback('Content is required','event_content','logevent_content');
         return false;
     }
     var eventObj = {
@@ -615,7 +524,9 @@ function addEvent() {
             upsertEvent(eventObj, function (status, data) {
                 if (status) {
                     successMsg('Event Created Successfully');
-                    loadEvents();
+                    setTimeout(() => {
+                        loadEvents();
+                    }, 1500);
                     $("#addEvent").modal('hide');
                 } else {
                     errorMsg('Error in Creating Event')
@@ -641,7 +552,9 @@ function updateEvent() {
     upsertEvent(eventObj, function (status, data) {
         if (status) {
             successMsg('Event Updated Successfully');
-            loadEvents();
+            setTimeout(() => {
+                loadEvents();
+            }, 1500);
             $("#addEvent").modal('hide');
         } else {
             errorMsg('Error in Updating Event')
@@ -655,7 +568,9 @@ function proceedDelete() {
     deleteEvent(current_event_id, function (status, data) {
         if (status) {
             successMsg('Event Deleted Successfully');
-            loadEvents();
+            setTimeout(() => {
+                loadEvents();
+            }, 1500);
             $("#deleteModal").modal('hide');
         } else {
             errorMsg('Error in delete')

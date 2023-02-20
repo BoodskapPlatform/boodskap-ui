@@ -178,6 +178,7 @@ function loadAssetList() {
 
 
 function openModal(type, id) {
+    defaultStyle()
     if (type === 1) {
         $("#asset_id").removeAttr('readonly');
         $(".templateAction").html('Add New');
@@ -246,24 +247,25 @@ function linkDevice() {
     }else{
         $("#linkDeviceBtn").html('<i class="fa fa-spinner fa-spin"></i> Processing..').attr('disabled','disabled')
         assetLink(current_asset_id, $("#deviceID").val(), function (status, data) {
-            $('#deviceID').val('')
         if (status) {
             successMsg('Device Linked Successfully');
             loadLinkedDevices(current_asset_id);
         } else {
+            console.log(data.responseJSON.message)
             if(data.responseJSON.message == 'device:'+$("#deviceID").val()+' is already linked'){
                 errorMsg('Device ID already linked')
             }else{
                 errorMsg('Error in Linking Device')
             }
         }
+        $('#deviceID').val('')
         $("#linkDeviceBtn").html('Link Device').attr('disabled',false)
         });
       }
 }
 
-function unlinkDevice() {
-    assetUnLink(current_asset_id, $("#deviceID").val(), function (status, data) {
+function unlinkDevice(id) {
+    assetUnLink(current_asset_id, id, function (status, data) {
         if (status) {
             successMsg('Device UnLinked Successfully');
             loadLinkedDevices(current_asset_id);
@@ -278,13 +280,18 @@ function loadLinkedDevices(id) {
         if (status) {
             device_list = data;
             $("#linkedTable tbody").html("");
-            for (var i = 0; i < device_list.length; i++) {
-                $("#linkedTable tbody").append('<tr>' +
-                    '<td>' + device_list[i].id + '</td>' +
-                    '<td>' + device_list[i].modelId + '</td>' +
-                    '<td>' + device_list[i].version + '</td>' +
-                    '<td><button class="btn bskp-edit-btn  bskp-greyicon mr-2" title="Unlink device" onclick="unlinkDevice(\'' + device_list[i].id + '\')"><em class="icon-unlink"></em></button> </td>' +
-                    '</tr>');
+            if(device_list.length > 0){
+                for (const element of device_list) {
+                    $("#linkedTable tbody").append('<tr>' +
+                        '<td>' + element.id + '</td>' +
+                        '<td>' + element.modelId + '</td>' +
+                        '<td>' + element.version + '</td>' +
+                        '<td><button class="btn bskp-edit-btn  bskp-greyicon mr-2" title="Unlink device" onclick="unlinkDevice(\'' + element.id + '\',\''+id+'\')"><em class="icon-unlink"></em></button> </td>' +
+                        '</tr>');
+                }
+            }else{
+                $("#linkedTable tbody").append('<tr><td colspan=4 class="text-center">No data available </td></tr>')
+
             }
         } else {
             device_list = [];
@@ -299,13 +306,13 @@ function addAsset() {
     var asset_desc = $.trim($("#asset_desc").val());
     
     if(asset_id == ""){
-        errorMsgBorder('Asset ID is required','asset_id');
+        showFeedback('Asset ID is required','asset_id','logasset_id');
         return false;
     }else if(asset_name == ""){
-        errorMsgBorder('Asset Name is required','asset_name');
+        showFeedback('Asset Name is required','asset_name','logasset_name');
         return false;
     } else if(asset_desc == ""){
-        errorMsgBorder('Description is required','asset_desc');
+        showFeedback('Description is required','asset_desc','logasset_desc');
         return false;
     }
     var assetObj = {
@@ -319,7 +326,7 @@ function addAsset() {
     retreiveAsset(assetObj.id, function (status, data) {
         if (status) {
             $(".btnSubmit").removeAttr('disabled');
-            errorMsgBorder('Asset ID already exist', 'asset_id');
+            showFeedback('Asset ID already exist', 'asset_id','logasset_id');
         } else {
             upsertAsset(assetObj, function (status, data) {
                 if (status) {

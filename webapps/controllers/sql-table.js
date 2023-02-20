@@ -200,24 +200,18 @@ function loadSQLTable() {
         iDisplayLength: 10,
         lengthMenu: [[10, 50, 100], [10, 50, 100]],
         dom: '<"bskp-search-left" f> lrtip',
-
         language: {
-            "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
-            "searchPlaceholder": "Search by Table Name",
-            
-
             "emptyTable": "No data available",
-
-
-
+            "zeroRecords": "No data available",
+            "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
+            "searchPlaceholder": "Search Table Name",
             loadingRecords: '',
             paginate: {
-                previous: ' Previous',
-                next: 'Next '
+                previous: '< Prev',
+                next: 'Next >'
             }
         },
-        aoColumns: fields,
-        // "bProcessing": true,
+        "bProcessing": true,
         "bServerSide": true,
         "sAjaxSource": API_BASE_PATH + '/elastic/search/query/' + API_TOKEN_ALT,
         "fnServerData": function (sSource, aoData, fnCallback, oSettings) {
