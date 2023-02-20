@@ -3,7 +3,7 @@
   .bskp-container-frame {
     position: sticky;
 }
-#expireTokenModal .modal-dialog{
+#expireTokenModal .modal-dialog, #AuthToken .modal-dialog{
         max-width: 600px;
     }
 </style>
@@ -47,13 +47,16 @@
         <div class="col-12">
           <div class="btn-group btn-group-justified pull-right bskp-btn-group-align" >
             <a class="btn bskp-refresh-bg" onclick="loadTokenList('all')" title="Refresh"><em class="fa fa-refresh"></em></a>
-          </div>
-           
+          </div>    
+          <a class="btn bskp-btn-shadow bskp-blue-bg pull-right mr-2" onclick="openModal(2)"><img src="images/plus.svg" alt="img" class="bskp-plusvg"> <span class="hidden-xs">Create API Token</span></a>
+
+          
           <div class="form-group pull-right" style="margin-right: 10px;">
+
             <!-- <label>Select Token Type:</label> -->
             <select class="form-control input-sm" id="authTokenTypes" onclick="event.stopPropagation();" onchange="loadTokenList()" style="border-radius: 15px;">
-                <option value="" selected>ALL</option>
-                <option value="API">API</option>
+                <option value="" >ALL</option>
+                <option value="API" selected>API</option>
                 <option value="USER">USER</option>
                 <option value="DEVICE">DEVICE</option>
                 <option value="WEB">WEB</option>
@@ -225,6 +228,32 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btnModal" onclick="loginAs()">Proceed</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div id="AuthToken" class="modal bskp-modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Create API Token</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <image src="images/menu/xicon.svg" class="bg-secondary"  style="border-radius: 13px;padding:3px">
+                    </button>
+            </div>
+            <div class="modal-body">
+                <h5 class="confirmation">Are you sure want to create API token?</h5>
+                <div id="afterCreate" class="">
+                    <h5>API Token Created Successfully.</h5>
+                    <p>Copy your API Token below </p>
+                    <p id="copyAPI"></p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn  button-2 btn-close" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btnModal btn-secondary btn-proceed btnSubmit" onclick="createAPIToken()">Proceed</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
