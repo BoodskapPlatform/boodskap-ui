@@ -21,7 +21,7 @@
     <!-- end breadcrumb -->
     <!-- begin page-header -->
    
-    <div class="page-header bskp-page-topic"><img src="images/menu/events&notifications-bskp.svg" alt="event icon" class="bskp-topic-icon mr-1" > Manage Events
+    <div class="page-header bskp-page-topic"><img src="images/menu/events&notifications-bskp.svg" alt="event icon" class="bskp-topic-icon mr-1" > Events & Notification
         <span class="panel-title ml-3" style="color: #2D2F79;">Total : <strong><span class="eventsCount"></span></strong></span> 
     </div>
     <!-- end page-header -->
@@ -65,15 +65,15 @@
                         <div  class="col-md-6">
                             <div  class="form-group">
                                 <label  class="inputLabel">Event ID *</label>
-                                <input  class="form-control input-sm" placeholder="Enter Event ID" autocomplete="off"  maxlength="100" onkeypress="return onlyNumber(event)" type="text" id="event_id" min="1" required>
-                               <span id="logevent_id"></span>
+                                <input  class="form-control input-sm" placeholder="Enter Event ID" autocomplete="off"  maxlength="10" onkeypress="return onlyNumber(event)" type="text" id="event_id" min="1" required>
+                               <span id="logevent_id" class="alertDiv"></span>
                             </div>
                         </div>
                         <div  class="col-md-6">
                             <div  class="form-group">
                                 <label  class="inputLabel">Event Name *</label>
                                 <input  class="form-control input-sm" placeholder="Enter Event Name" maxlength="100" autocomplete="off" type="text" id="event_name" required>
-                                <span id="logevent_name"></span>
+                                <span id="logevent_name" class="alertDiv"></span>
                             </div>
                         </div>
                     </div>
@@ -82,7 +82,7 @@
                             <div  class="form-group">
                                 <label  class="inputLabel">Subject *</label>
                                 <input  class="form-control input-sm" placeholder="Enter Subject" maxlength="150" autocomplete="off"  type="text" id="event_subject" required>
-                                <span id="logevent_subject"></span>
+                                <span id="logevent_subject" class="alertDiv"></span>
                             </div>
                         </div>
                     </div>
@@ -91,7 +91,7 @@
                             <div  class="form-group">
                                 <label  class="inputLabel">Content *</label>
                                 <textarea  class="form-control input-sm" placeholder="Enter Event Content" maxlength="1000" autocomplete="off" type="text"  id="event_content" style="height: 200px;" required></textarea>
-                                <span id="logevent_content"></span>
+                                <span id="logevent_content" class="alertDiv"></span>
                             </div>
                         </div>
                     </div>
@@ -146,7 +146,7 @@
                         </div>
                         <div  class="col-md-12 eventAddress fcmdevice">
                             <div  class="form-group">
-                                <label  class="inputLabel">Choose FCM Device</label>
+                                <label  class="inputLabel">Choose FCM Device *</label>
                                 <select  class="form-control input-sm" id="n_event_adddress_fcm">
 
                                 </select>
