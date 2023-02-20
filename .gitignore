@@ -46,4 +46,4 @@ conf.js
 webapps/platform-config.js
 yaml/api-dev.yaml
 /.history
-/devops
+devops/
