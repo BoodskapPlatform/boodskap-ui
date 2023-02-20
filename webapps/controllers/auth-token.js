@@ -7,7 +7,7 @@ var dashboardMobileList = [];
 
 $(document).ready(function () {
 
-    loadTokenList('all');
+    loadTokenList('API');
     $("body").removeClass('bg-white');
 
  
@@ -19,12 +19,13 @@ function loadTokenList(type) {
         tokenTable.destroy();
         $("#tokenTable").html("");
     }
-    if(type!="" && typeof(type)!="undefined"){
-        TOKEN_TYPE = "";
-        $("#authTokenTypes option[value='']").prop("selected", true);
-    }else{
-        TOKEN_TYPE = $("#authTokenTypes option:selected").val();
-    }
+    // if(type!="" && typeof(type)!="undefined"){
+    //     TOKEN_TYPE = "";
+    //     $("#authTokenTypes option[value='']").prop("selected", true);
+    // }else{
+    //     TOKEN_TYPE = $("#authTokenTypes option:selected").val();
+    // }
+    TOKEN_TYPE = $("#authTokenTypes option:selected").val();
     
     var fields = [
         {
