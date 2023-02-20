@@ -204,7 +204,7 @@
     <div class="col-md-4">
       <div class="form-group">
         <label class="mb-2">Port <span class="text-danger">*</span></label>
-        <input type="number" id="portNo" maxlength="5" class="form-control input-sm" required />
+        <input type="number" id="portNo" onKeyPress="if(this.value.length==5) return false;" maxlength="5" class="form-control input-sm" required />
       </div>
       <div class="form-group">
         <label class="mb-2">Primary Email <span class="text-danger">*</span></label>
