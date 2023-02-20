@@ -64,7 +64,7 @@ pipeline{
 
       success{
         script{
-         // echo "##################deployment##########################"
+         // echo "################## deployment ##########################"
          build job: 'V5-Boodskap-ui_CD', parameters: [ string(name: 'JOBNAME', value: "${JOB_NAME}"), 
                                                     string(name: 'BUILDNUM', value: "${BUILD_NUMBER}"), 
                                                     string(name: 'BUILDURL', value: "${BUILD_URL}"), 
