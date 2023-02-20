@@ -1754,12 +1754,6 @@ function loadTabbar(id, type) {
 
     let str = '';
     $(".deleteBtn").css('display', 'none');
-    $(".detailsBlock").css('display', 'none')
-    $(".messageFields").css('display', 'none');
-    $(".jobFields").css('display', 'none');
-    $(".defaultFields").css('display', 'none');
-    $(".processBlock").css('display', 'none');
-    $(".inputBlock").css('display', 'none');
 
     toggleHeading(id)
 
@@ -1863,8 +1857,6 @@ function loadTabbar(id, type) {
         else if (type === 9) {
 
             let obj = {};
-            console.log(id);
-            console.log(process_rules_list);
             for (let i = 0; i < process_rules_list.length; i++) {
                 if (id === process_rules_list[i].id) {
                     obj = process_rules_list[i];
@@ -1998,10 +1990,6 @@ function loadTabbar(id, type) {
         }
         $(".ruleType").html('Message Rule');
         $(".ruleName").html(obj.id + ' - <small style="color:#333;font-weight: normal">' + obj.name + '</small>');
-        $(".detailsBlock").css('display', 'block')
-        $(".messageFields").css('display', 'block');
-        $(".defaultFields").css('display', 'block');
-
         $(".exportBtn").attr('onclick', 'exportRule(2)')
         $(".messageFields tbody").html("");
         for (let i = 0; i < obj.fields.length; i++) {
@@ -2022,7 +2010,6 @@ function loadTabbar(id, type) {
                 obj = named_rules_list[i];
             }
         }
-        $(".detailsBlock").css('display', 'block')
         $(".ruleType").html('Named Rule');
         $(".ruleName").html(obj.name);
 
@@ -2039,7 +2026,6 @@ function loadTabbar(id, type) {
                 obj = schedule_rules_list[i];
             }
         }
-        $(".detailsBlock").css('display', 'block')
         $(".ruleType").html('Schedule Rule');
         $(".ruleName").html(obj.id);
 
@@ -2064,7 +2050,6 @@ function loadTabbar(id, type) {
                 obj = binary_rules_list[i];
             }
         }
-        $(".detailsBlock").css('display', 'block')
         $(".ruleType").html('Binary Rule');
         $(".ruleName").html(obj.type);
 
@@ -2080,7 +2065,6 @@ function loadTabbar(id, type) {
                 obj = file_rules_list[i];
             }
         }
-        $(".detailsBlock").css('display', 'block')
         $(".ruleType").html('File Rule');
         $(".ruleName").html(obj.type + (obj.rootPath ? '<br><small>Rooth Path: ' + obj.rootPath + '</small>' : ''));
 
@@ -2099,8 +2083,6 @@ function loadTabbar(id, type) {
 
         loadJobDetails(id, obj);
 
-        $(".detailsBlock").css('display', 'block')
-        $(".jobFields").css('display', 'block')
         $(".ruleType").html('Job Rule');
         $(".ruleName").html(obj.type);
 
@@ -2118,7 +2100,6 @@ function loadTabbar(id, type) {
 
         loadProcessDetails(id, obj);
 
-        $(".processBlock").css('display', 'block')
         $(".ruleType").html('Process Rule');
         $(".ruleName").html(obj.name);
         $(".exportBtn").attr('onclick', 'exportRule(9)')
@@ -2135,8 +2116,6 @@ function loadTabbar(id, type) {
 
         loadSftpDetails(id, obj);
 
-        $(".detailsBlock").css('display', 'block')
-        $(".inputBlock").css('display', 'block')
         $(".ruleType").html('SFTP Rule');
         $(".ruleName").html(obj.name);
 
@@ -2154,8 +2133,6 @@ function loadTabbar(id, type) {
 
         loadMqttDetails(id, obj);
 
-        $(".detailsBlock").css('display', 'block')
-        $(".inputBlock").css('display', 'block')
         $(".ruleType").html('MQTT Rule');
         $(".ruleName").html(obj.name);
 
@@ -2172,9 +2149,8 @@ function loadTabbar(id, type) {
         }
 
         loadUdpDetails(id, obj);
+        rightPanelDetails(".detailsBlock,.inputBlock")
 
-        $(".detailsBlock").css('display', 'block')
-        $(".inputBlock").css('display', 'block')
         $(".ruleType").html('UDP Rule');
         $(".ruleName").html(obj.name);
 
@@ -2192,8 +2168,6 @@ function loadTabbar(id, type) {
 
         loadTcpDetails(id, obj);
 
-        $(".detailsBlock").css('display', 'block')
-        $(".inputBlock").css('display', 'block')
         $(".ruleType").html('TCP Rule');
         $(".ruleName").html(obj.name);
 
@@ -2211,8 +2185,6 @@ function loadTabbar(id, type) {
 
         loadEmailDetails(id, obj);
 
-        $(".detailsBlock").css('display', 'block')
-        $(".inputBlock").css('display', 'block')
         $(".ruleType").html('Email Rule');
         $(".ruleName").html(obj.name);
 
@@ -2230,8 +2202,6 @@ function loadTabbar(id, type) {
 
         loadMicroDetails(id, obj);
 
-        $(".detailsBlock").css('display', 'block')
-        $(".inputBlock").css('display', 'block')
         $(".ruleType").html('Micro API Rule');
         $(".ruleName").html(obj.name);
 
@@ -3022,7 +2992,6 @@ function loadJarClass(id) {
 
 function loadMessageRule(id) {
     $(".simulateBtn").css('display', 'block');
-    toggleHeading(id)
     // mqttCancelSubscribe(CURRENT_ID);
     $("#editorContent").html('<div id="codeEditor"></div>');
     let data = returnObj(id, 1);
@@ -3042,10 +3011,7 @@ function loadMessageRule(id) {
     $(".ruleType").html('Message Rule');
     $(".ruleName").html(obj.id + ' - <small style="color:#333;font-weight: normal">' + obj.name + '</small>');
 
-    $(".detailsBlock").css('display', 'block');
-    $(".messageFields").css('display', 'block');
-    $(".defaultFields").css('display', 'block');
-    $(".jobFields").css('display', 'none');
+  
     $(".deleteBtn").css('display', 'block');
 
     toggleHeading(id)
@@ -3058,10 +3024,8 @@ function loadMessageRule(id) {
 
 
     $(".simulateBtn").attr('onclick', 'openSimulateModal(\'' + id + '\',1)');
+    rightPanelDetails(".detailsBlock,.messageFields,.defaultFields")
 
-    // setTimeout(function () {
-    //     mqttListen();
-    // }, 1000);
 }
 
 function loadNamedRule(id) {
@@ -3084,18 +3048,13 @@ function loadNamedRule(id) {
     $(".ruleType").html('Named Rule');
     $(".ruleName").html(obj.name);
 
-    $(".detailsBlock").css('display', 'block');
-    $(".messageFields").css('display', 'none');
-    $(".jobFields").css('display', 'none');
-    $(".defaultFields").css('display', 'none');
+  
     $(".deleteBtn").css('display', 'block');
 
     $(".simulateBtn").css('display', 'block');
     $(".simulateBtn").attr('onclick', 'openSimulateModal(\'' + id + '\',2)');
     toggleHeading(id)
-    // setTimeout(function () {
-    //     mqttListen();
-    // }, 1000);
+    rightPanelDetails(".detailsBlock")
 }
 
 
@@ -3119,19 +3078,13 @@ function loadBinaryRule(id) {
     $(".ruleType").html('Binary Rule');
     $(".ruleName").html(obj.type);
 
-    $(".detailsBlock").css('display', 'block');
-    $(".messageFields").css('display', 'none');
-    $(".defaultFields").css('display', 'none');
-    $(".jobFields").css('display', 'none');
     $(".deleteBtn").css('display', 'block');
 
     $(".simulateBtn").css('display', 'block');
     $(".simulateBtn").attr('onclick', 'openSimulateModal(\'' + id + '\',3)');
     toggleHeading(id)
 
-    // setTimeout(function () {
-    //     mqttListen();
-    // }, 1000);
+    rightPanelDetails(".detailsBlock")
 }
 
 
@@ -3155,19 +3108,13 @@ function loadFileRule(id) {
     $(".ruleType").html('File Rule');
     $(".ruleName").html(obj.type);
 
-    $(".detailsBlock").css('display', 'block');
-    $(".messageFields").css('display', 'none');
-    $(".defaultFields").css('display', 'none');
-    $(".jobFields").css('display', 'none');
     $(".deleteBtn").css('display', 'block');
 
     $(".simulateBtn").css('display', 'block');
     $(".simulateBtn").attr('onclick', 'openSimulateModal(\'' + id + '\',3)');
     toggleHeading(id)
 
-    // setTimeout(function () {
-    //     mqttListen();
-    // }, 1000);
+    rightPanelDetails(".detailsBlock")
 }
 
 function loadJobRule(id) {
@@ -3187,18 +3134,13 @@ function loadJobRule(id) {
     $(".ruleType").html('Job Rule');
     $(".ruleName").html(data.id);
 
-    $(".detailsBlock").css('display', 'block');
-    $(".messageFields").css('display', 'none');
-    $(".defaultFields").css('display', 'none');
+   
     $(".deleteBtn").css('display', 'block');
-    $(".jobFields").css('display', 'block');
 
     loadJobDetails(id, data)
     toggleHeading(id)
 
-    // setTimeout(function () {
-    //     mqttListen();
-    // }, 1000);
+    rightPanelDetails(".detailsBlock,.jobFields")
 }
 
 function loadSftpRule(id) {
@@ -3218,21 +3160,15 @@ function loadSftpRule(id) {
     $(".ruleType").html('SFTP Rule');
     $(".ruleName").html(data.name);
 
-    $(".detailsBlock").css('display', 'block');
-    $(".messageFields").css('display', 'none');
-    $(".defaultFields").css('display', 'none');
-    $(".jobFields").css('display', 'none');
     $(".deleteBtn").css('display', 'block');
-    $(".inputBlock").css('display', 'block');
 
     loadSftpDetails(id, data)
 
     toggleHeading(id)
 
 
-    // setTimeout(function () {
-    //     mqttListen();
-    // }, 1000);
+    rightPanelDetails(".detailsBlock,.inputBlock")
+
 }
 
 function loadMqttRule(id) {
@@ -3252,15 +3188,11 @@ function loadMqttRule(id) {
     $(".ruleType").html('MQTT Rule');
     $(".ruleName").html(data.name);
 
-    $(".detailsBlock").css('display', 'block');
-    $(".messageFields").css('display', 'none');
-    $(".defaultFields").css('display', 'none');
-    $(".jobFields").css('display', 'none');
     $(".deleteBtn").css('display', 'block');
-    $(".inputBlock").css('display', 'block');
 
     loadMqttDetails(id, data)
     toggleHeading(id)
+    rightPanelDetails(".detailsBlock,.inputBlock")
 
 }
 
@@ -3281,15 +3213,12 @@ function loadUdpRule(id) {
     $(".ruleType").html('UDP Rule');
     $(".ruleName").html(data.name);
 
-    $(".detailsBlock").css('display', 'block');
-    $(".messageFields").css('display', 'none');
-    $(".defaultFields").css('display', 'none');
-    $(".jobFields").css('display', 'none');
+   
     $(".deleteBtn").css('display', 'block');
-    $(".inputBlock").css('display', 'block');
 
     loadUdpDetails(id, data)
     toggleHeading(id)
+    rightPanelDetails(".detailsBlock,.inputBlock")
 
 }
 
@@ -3310,15 +3239,12 @@ function loadTcpRule(id) {
     $(".ruleType").html('TCP Rule');
     $(".ruleName").html(data.name);
 
-    $(".detailsBlock").css('display', 'block');
-    $(".messageFields").css('display', 'none');
-    $(".defaultFields").css('display', 'none');
-    $(".jobFields").css('display', 'none');
+   
     $(".deleteBtn").css('display', 'block');
-    $(".inputBlock").css('display', 'block');
 
     loadTcpDetails(id, data)
     toggleHeading(id)
+    rightPanelDetails(".detailsBlock,.inputBlock")
 
 }
 
@@ -3339,16 +3265,13 @@ function loadEmailRule(id) {
     $(".ruleType").html('EMAIL Rule');
     $(".ruleName").html(data.name);
 
-    $(".detailsBlock").css('display', 'block');
-    $(".messageFields").css('display', 'none');
-    $(".defaultFields").css('display', 'none');
-    $(".jobFields").css('display', 'none');
+   
     $(".deleteBtn").css('display', 'block');
-    $(".inputBlock").css('display', 'block');
 
     loadEmailDetails(id, data)
 
     toggleHeading(id)
+    rightPanelDetails(".detailsBlock,.inputBlock")
 
 }
 
@@ -3369,15 +3292,12 @@ function loadMicroRule(id) {
     $(".ruleType").html('Micro API Rule');
     $(".ruleName").html(data.name);
 
-    $(".detailsBlock").css('display', 'block');
-    $(".messageFields").css('display', 'none');
-    $(".defaultFields").css('display', 'none');
-    $(".jobFields").css('display', 'none');
+  
     $(".deleteBtn").css('display', 'block');
-    $(".inputBlock").css('display', 'block');
 
     loadMicroDetails(id, data)
     toggleHeading(id)
+    rightPanelDetails(".detailsBlock,.inputBlock")
 
 }
 
@@ -3387,7 +3307,6 @@ function loadProcessRule(id) {
     $("#editorContent").html('<div id="codeEditor"></div>');
     let data = returnObj(id, 9);
     $("#codeEditor").html('');
-    console.log(data);
     loadEditor(data.code ? data.code : '', 'processTab_' + id);
 
     CURRENT_ID = id;
@@ -3398,16 +3317,13 @@ function loadProcessRule(id) {
     $(".ruleType").html('Process Rule');
     $(".ruleName").html(data.id);
 
-    $(".detailsBlock").css('display', 'block');
-    $(".messageFields").css('display', 'none');
-    $(".defaultFields").css('display', 'none');
+   
     $(".deleteBtn").css('display', 'block');
-    $(".jobFields").css('display', 'none');
-    $(".processBlock").css('display', 'block');
 
     loadProcessDetails(id, data)
 
     toggleHeading(id)
+    rightPanelDetails(".detailsBlock,.processBlock")
 
     // setTimeout(function () {
     //     mqttListen();
@@ -3433,18 +3349,13 @@ function loadScheduleRule(id) {
     $(".ruleType").html('Schedule Rule');
     $(".ruleName").html(obj.id);
 
-    $(".detailsBlock").css('display', 'block');
     $(".deleteBtn").css('display', 'block');
-    $(".messageFields").css('display', 'none');
-    $(".defaultFields").css('display', 'none');
-    $(".jobFields").css('display', 'none');
+    
 
     exportRule(4)
     toggleHeading(id)
 
-    // setTimeout(function () {
-    //     mqttListen();
-    // }, 1000);
+    rightPanelDetails(".detailsBlock")
 }
 
 let editorLine = {};
@@ -4039,7 +3950,6 @@ let CRON_JOB = null;
 
 function openModal(e) {
     let id = e ? e : $("#rulesType").val() * 1
-    console.log(e);
     if (id === 1) {
 
         MSG_FIELD_COUNT = 0;
@@ -5032,8 +4942,16 @@ function addMessageField() {
     MSG_FIELD_COUNT++;
 }
 
+function removemsgErr() {
+    $("#msgIdErr").html("")
+}
+
 function addMessageRule() {
 
+    if ($("#msg_id").val().length < 3) {
+        $("#msgIdErr").html("Message Id must be greater than two digit")
+        return
+    }
     let flag = false;
 
     let fields = [];
@@ -8109,3 +8027,10 @@ function toggleHeading(id) {
     $(".rulesListli").removeClass("rules-list-active");
     $(".rule_" + id).addClass("rules-list-active")
 }
+
+function rightPanelDetails(clsName) {
+    $(".detailsBlock,.processBlock,.inputBlock,.jobFields,.messageFields,.defaultFields").css('display', 'none')
+    if (clsName) $(clsName).css('display','block')
+}
+
+rightPanelDetails(".detailsBlock")
