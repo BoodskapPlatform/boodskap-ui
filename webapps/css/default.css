@@ -311,6 +311,7 @@ div::-webkit-scrollbar-thumb {
 
 .modal-header .modal-title, .modal-header .close{
     color: black;
+    outline: none;
 }
 
 .pagination>li>a {

@@ -369,7 +369,7 @@ color: #1a1a1a !important;
 
 .bskp-container-frame {
     background: white;
-    border-radius: 10px;
+    /* border-radius: 10px; */
     border: 1px solid rgb(193 193 193 / 74%);
     box-shadow: 0px 1px 3px 1px #d0cfcf9c !important;
     margin: 0px 25px;
@@ -1046,6 +1046,22 @@ margin-bottom: 10px  !important;
     mask: url(images/menu/Key.svg) no-repeat center / contain ;
     -webkit-mask: url(images/menu/Key.svg) no-repeat center / contain;
  }
+ .bskp-Dimg38{
+    mask: url(images/bell.svg) no-repeat center / contain ;
+    -webkit-mask: url(images/bell.svg) no-repeat center / contain;
+ }
+ .bskp-Dimg39{
+    mask: url(images/menu/sql-table.svg) no-repeat center / contain ;
+    -webkit-mask: url(images/menu/sql-table.svg) no-repeat center / contain;
+ }
+ .bskp-Dimg40{
+    mask: url(images/menu/dsql-console.svg) no-repeat center / contain ;
+    -webkit-mask: url(images/menu/dsql-console.svg) no-repeat center / contain;
+ }
+ .bskp-Dimg41{
+    mask: url(images/menu/messages.svg) no-repeat center / contain ;
+    -webkit-mask: url(images/menu/messages.svg) no-repeat center / contain;
+ }
  /* Home-page Icons ends */
 
  /* Mega-menu start */
@@ -1235,14 +1251,14 @@ input[type=file]{
 .bskp-submenu2 li {
     line-height: 30px;
     border: 1px solid #e2e2e2;
-    border-radius: 10px 10px 0px 0px;
+    /* border-radius: 10px 10px 0px 0px; */
     padding: 3px 15px;
     background-color: #fff;
 }
 
 .bskp-submenu2 li.active {
     background-color: #2d2f79 !important;
-    border-radius: 10px 10px 0px 0px;
+    border-radius: 0px !important;
     font-weight: 600;
     color: white;
 }
@@ -1356,4 +1372,10 @@ vertical-align: middle;
      text-align: center; 
      width: 24px;
      margin: auto;    
+}
+.btn-bskp:hover{
+    color: #fff !important;
+}
+table.table-bordered.dataTable th, table.table-bordered.dataTable td{
+    vertical-align: middle;
 }

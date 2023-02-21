@@ -17,7 +17,7 @@ if ($.trim($('#isPublic').val()) === 'true') {
 var DASHBOARD_LIST = [];
 var CURRENT_DASHBOARD = {};
 var CURRENT_DASHBOARD_ID = null;
-var LINKED_DOMAIN = USER_OBJ.linkedDomains ? USER_OBJ.linkedDomains : [];
+//var LINKED_DOMAINS = LINKED_DOMAINS ? LINKED_DOMAINS : []; ///USER_OBJ.linkedDomains ? USER_OBJ.linkedDomains : [];
 var DEFAULT_DOMAIN = {
     apiKey: USER_OBJ.apiKey,
     domainKey: USER_OBJ.domainKey,
@@ -98,10 +98,10 @@ $(document).ready(function () {
 
 
             $(".domainList").html("");
-            if (LINKED_DOMAIN && LINKED_DOMAIN.length > 0) {
-                for (var i = 0; i < LINKED_DOMAIN.length; i++) {
-                    $(".domainList").append('<li><a href="javascript:void(0)" onclick="loadDomain(\'' + LINKED_DOMAIN[i].domainKey + '\')" ><i class="icon-globe"></i> ' +
-                        '<span class="">' + LINKED_DOMAIN[i].label + '</span></a></li>');
+            if (LINKED_DOMAINS && LINKED_DOMAINS.length > 0) {
+                for (var i = 0; i < LINKED_DOMAINS.length; i++) {
+                    $(".domainList").append('<li><a href="javascript:void(0)" onclick="loadDomain(\'' + LINKED_DOMAINS[i].domainKey + '\')" ><i class="icon-globe"></i> ' +
+                        '<span class="">' + LINKED_DOMAINS[i].label + '</span></a></li>');
                 }
                 $(".domainList").append('<li role="separator" class="divider"></li>' +
                     '<li><a href="javascript:void(0)" onclick=loadDomain("default")><i class="icon-globe"></i> My Domain ' +
@@ -154,10 +154,10 @@ $(document).ready(function () {
 
 
             $(".domainList").html("");
-            if (LINKED_DOMAIN && LINKED_DOMAIN.length > 0) {
-                for (var i = 0; i < LINKED_DOMAIN.length; i++) {
-                    $(".domainList").append('<li><a href="javascript:void(0)" onclick="loadDomain(\'' + LINKED_DOMAIN[i].domainKey + '\')" ><i class="icon-globe"></i> ' +
-                        '<span class="">' + LINKED_DOMAIN[i].label + '</span></a></li>');
+            if (LINKED_DOMAINS && LINKED_DOMAINS.length > 0) {
+                for (var i = 0; i < LINKED_DOMAINS.length; i++) {
+                    $(".domainList").append('<li><a href="javascript:void(0)" onclick="loadDomain(\'' + LINKED_DOMAINS[i].domainKey + '\')" ><i class="icon-globe"></i> ' +
+                        '<span class="">' + LINKED_DOMAINS[i].label + '</span></a></li>');
                 }
                 $(".domainList").append('<li role="separator" class="divider"></li>' +
                     '<li><a href="javascript:void(0)" onclick=loadDomain("default")><i class="icon-globe"></i> My Domain ' +
@@ -198,9 +198,9 @@ function loadDomain(id) {
             API_KEY = USER_OBJ.apiKey;
             CURRENT_DOMAIN = DEFAULT_DOMAIN;
         } else {
-            for (var i = 0; i < LINKED_DOMAIN.length; i++) {
-                if (id === LINKED_DOMAIN[i].domainKey) {
-                    CURRENT_DOMAIN = LINKED_DOMAIN[i];
+            for (var i = 0; i < LINKED_DOMAINS.length; i++) {
+                if (id === LINKED_DOMAINS[i].domainKey) {
+                    CURRENT_DOMAIN = LINKED_DOMAINS[i];
                 }
             }
 

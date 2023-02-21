@@ -399,3 +399,12 @@ table.dataTable span.column_highlight {
   background-color: #fff;
   border-color: #dee2e6 #dee2e6 #fff;
 }
+.page-header{
+  color: hsl(0deg 0% 25%);
+  margin-left: 6px;
+  font-weight: 700;
+  font-size: 20px;
+}
+.bskp-table-layout{
+  padding: 15px !important;
+}

@@ -2,7 +2,7 @@
 <link rel="stylesheet" media="screen" type="text/css" href="libraries/colorpicker/spectrum.css" />
 
 <link href="css/select2.min.css" rel=stylesheet>
-<link href="css/rules-engine.css" rel=stylesheet>
+<link href="css/rules-engine.css?ver=1" rel=stylesheet>
 <link href="css/Aimara.css" rel=stylesheet>
 <link href="css/jsCronUI.css" rel=stylesheet>
 <link href="css/multiple-select.css" rel=stylesheet>
@@ -372,7 +372,7 @@
                                 </div>
                                 <div id="collapseOne" class="collapse show" data-parent="#accordion" style="">
                                     <div class="card-body">
-                                        <table class="table msg-def-table">
+                                        <table class="table msg-def-table mb-0">
                                             <tbody>
                                             <tr>
                                                 <td>Name</td>
@@ -400,7 +400,7 @@
                                             </tr>
                                             </tbody>
                                         </table>
-                                        <div style="text-align: center;margin-bottom:10px;">
+                                        <div class="w-50" style="text-align: center;margin: 10px auto;">
                                             <button class="btn btn-block btn-sm btn-danger deleteBtn"
                                                     style="display: none;" onclick="openDeleteModal()"><i
                                                     class="fa fa-trash"></i> Delete
@@ -837,6 +837,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn button-2" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btnModal" onclick="proceedDelete()">Proceed</button>
+                <input type="hidden" class="viewId" value=""/>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -856,7 +857,7 @@
                         <div class="col-md-10">
                             <div class="form-group">
                                 <label class="inputLabel">Process Name *</label>
-                                <input class="form-control input-sm" placeholder=""
+                                <input class="form-control input-sm" placeholder="" maxlength="100"
                                        type="text" id="processName" required onkeyup="changeId(this.value)">
                                 <small>Process ID: <strong id="processId"></strong></small>
                             </div>
@@ -905,7 +906,7 @@
                                         <tbody class="outputBody">
                                         <tr>
                                             <td>
-                                                <input required type="text" class="form-control output_key"  placeholder="Key Name" />
+                                                <input required type="text" class="form-control output_key" maxlength="100" placeholder="Key Name" />
                                             </td>
                                             <td>
                                                 <select class="form-control output_value" required>
@@ -943,18 +944,18 @@
                         </div>
                         <div class="col-md-6">
                             <label class="inputLabel">Group</label>
-                            <input class="form-control input-sm" placeholder=""
+                            <input class="form-control input-sm" placeholder="" maxlength="100"
                                    type="text" id="pGroup">
                         </div>
                         <div class="col-md-6">
                             <label class="inputLabel">Tags</label>
-                            <input class="form-control input-sm" placeholder=""
+                            <input class="form-control input-sm" placeholder="" maxlength="100"
                                    type="text" id="pTags">
                             <small>Note: comma separated value</small>
                         </div>
                         <div class="col-md-12">
                             <label class="inputLabel">Description</label>
-                            <textarea class="form-control input-sm"  id="description"></textarea>
+                            <textarea class="form-control input-sm"  id="description"  maxlength="5000"></textarea>
                         </div>
                     </div>
                 </div>

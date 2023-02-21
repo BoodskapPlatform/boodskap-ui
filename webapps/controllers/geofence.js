@@ -711,6 +711,7 @@ function loadDeviceGeofenceList() {
             mData: 'name',
             sTitle: 'Geofence Name',
             orderable: false,
+            sWidth: '25%',
             mRender: function(data, type, row) {
 
                 return '<span onclick="singleGeoSnapshot(\'' + encodeURIComponent(JSON.stringify(row)) + '\')" style="cursor: pointer;">' + data + ' <i class="icon-eye"></i><br>' +
@@ -721,6 +722,7 @@ function loadDeviceGeofenceList() {
         {
             mData: 'geoType',
             sTitle: 'Type',
+            sWidth: '10%',
             orderable: false,
             mRender: function(data, type, row) {
 
@@ -763,7 +765,7 @@ function loadDeviceGeofenceList() {
             mData: 'createdAt',
             sTitle: 'Created Time',
             orderable: true,
-            sWidth: '5%',
+            sWidth: '15%',
             mRender: function(data, type, row) {
                 return data ? moment(data).format('MM/DD/YYYY hh:mm a') : '-';
             }
@@ -774,7 +776,7 @@ function loadDeviceGeofenceList() {
             orderable: false,
             sWidth: '10%',
             mRender: function(data, type, row) {
-                return '<div style="white-space: nowrap;"><button class="btn btn-xs btn-default" onclick="openModal(3,\'' + row['name'] + '\')"><i class="icon-trash-o"></i> Delete</button>' +
+                return '<div style="white-space: nowrap;"><button class="btn bskp-trash-btn" onclick="openModal(3,\'' + row['name'] + '\')"><img src="images/delete.svg" alt=""> </button>' +
                     '</div>';
             }
         }
@@ -795,10 +797,6 @@ function loadDeviceGeofenceList() {
 
 
     var tableOption = {
-        fixedHeader: {
-            header: true,
-            headerOffset: -5
-        },
         responsive: true,
         paging: true,
         searching: true,
@@ -806,12 +804,22 @@ function loadDeviceGeofenceList() {
             [3, 'desc']
         ],
         "ordering": true,
-        pagingType: 'simple',
         iDisplayLength: 5,
         lengthMenu: [
             [5, 10, 50, 100],
             [5, 10, 50, 100]
         ],
+        dom: '<"bskp-search-left" f> lrtip',
+        language: {
+            "emptyTable": "No data available",
+            "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
+            "searchPlaceholder": "Search by Geofence Name",
+            loadingRecords: '',
+            paginate: {
+                previous: '< Prev',
+                next: 'Next >'
+            }
+        },
         aoColumns: fields,
         "bProcessing": true,
         "bServerSide": true,
@@ -1715,31 +1723,30 @@ function geofenceMapManagement() {
 };
 
 function deleteAGeofence() {
-    console.log("***********************");
-    swal({
-        title: "Confirmation",
-        text: "Do you want to Delete this Geofence?",
-        type: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#F62459",
-        confirmButtonText: "Yes, Delete!",
-        cancelButtonText: "No, Edit",
-        closeOnConfirm: false,
-        closeOnCancel: false
+    // swal({
+    //     title: "Confirmation",
+    //     text: "Do you want to Delete this Geofence?",
+    //     type: "warning",
+    //     showCancelButton: true,
+    //     confirmButtonColor: "#F62459",
+    //     confirmButtonText: "Yes, Delete!",
+    //     cancelButtonText: "No, Edit",
+    //     closeOnConfirm: false,
+    //     closeOnCancel: false
 
-    }).then(function(result) {
+    // }).then(function(result) {
 
-        if (result.value) {
+    //     if (result.value) {
 
+    // API_BASE_PATH + "/geofence/delete/" + API_TOKEN_ALT + "/" + USER_GEOFENCE + "/" + current_geofence_id,
             $.ajax({
-                url: API_BASE_PATH + "/geofence/delete/" + API_TOKEN_ALT + "/" + USER_GEOFENCE + "/" + current_geofence_id,
+                url: API_BASE_PATH + "/geofence/delete/" + API_TOKEN_ALT + "/" + current_geofence_id,
                 // data:  JSON.stringify(data),
                 // contentType: "application/json",
                 type: 'DELETE',
                 success: function(res) {
                     if (res) {
-
-                        swal("Deleted!", "Geofence has been Deleted Successfully.", "success");
+                        successMsg('Geofence Deleted Successfully');
                         // getGeofenceList();
                         loadGeofenceList(null, null);
                         setTimeout(function() {
@@ -1757,10 +1764,10 @@ function deleteAGeofence() {
                 }
             });
 
-        } else {
-            swal("Error", "Back to the list", "info");
-        }
-    })
+    //     } else {
+    //         swal("Error", "Back to the list", "info");
+    //     }
+    // })
 
 }
 

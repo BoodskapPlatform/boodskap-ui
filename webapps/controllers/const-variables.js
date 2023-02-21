@@ -134,6 +134,9 @@ var DEVICE_PROPERTY_NAME = {
 };
 
 var USER_OBJ = Cookies.get('user_details');
+
+var LINKED_DOMAINS = Cookies.get('linked_domains') ? JSON.parse(Cookies.get('linked_domains')) : [];
+
 var PRIVACY_POLICY = "privacy.policy";
 var PROFILE_PICTURE_PROPERTY = "user.picture";
 var DOMAIN_BRANDING_PROPERTY = "domain.logobranding";

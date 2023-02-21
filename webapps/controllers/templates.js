@@ -241,7 +241,7 @@ function addTemplate() {
 
         }
         else if($("#template_name").val()==""){
-            $("#template_error").text("Name is required !")
+            $("#template_error").text("Please Enter the Name !");
             $("#template_name").css({"border-color":"red"})
     
             setTimeout(function(){

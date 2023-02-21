@@ -74,6 +74,7 @@ function loadFiles(flag) {
             $(".loadingButton").hide();
             tCount+=file_list.length;
             if(file_list.length > 0){
+                
                 $(".loadMore").show();
                 for (var i = 0; i < file_list.length; i++) {
                     $(".fileList").append(renderHtml(file_list[i]));
@@ -128,10 +129,10 @@ function renderHtml(obj) {
     var fileType = '';
 
     if (obj.isPublic) {
-        srcPath = API_BASE_PATH + '/files/public/download/' + obj.id;
+        srcPath = API_BASE_PATH + '/files/public/download/' + obj.id+'?'+new Date().getTime();
         fileType = '<span class="label label-success" title="Public - Open to the World"><i class="icon-unlock"></i></span>'
     } else {
-        srcPath = API_BASE_PATH + '/files/download/' + USER_OBJ.token + '/' + obj.id;
+        srcPath = API_BASE_PATH + '/files/download/' + USER_OBJ.token + '/' + obj.id+'?'+new Date().getTime();
         fileType = '<span class="label label-danger" title="Private"><i class="icon-lock2"></i></span>'
     }
 
@@ -205,6 +206,7 @@ function openModal(type, id) {
 
         $("#uploadFile").prop('required',true);
 
+        $("#uploadBtn").html("Upload File");
 
         $(".fileAction").html('Add');
         $(".imgBlock").html('')
@@ -216,6 +218,8 @@ function openModal(type, id) {
     else if (type === 2) {
 
         $(".fileAction").html('Update');
+        $("#uploadBtn").html("Update File");
+        // $('#uploadFile').attr('placeholder','No file chosen');
         var obj = {};
         current_file_id = id;
         $(".imgBlock").html('<img class="imgFile" style="width: 75px;height:75px" />')
@@ -231,9 +235,9 @@ function openModal(type, id) {
         var srcPath = '';
 
         if (obj.isPublic) {
-            srcPath = API_BASE_PATH + '/files/public/download/' + obj.id;
+            srcPath = API_BASE_PATH + '/files/public/download/' + obj.id+'?'+new Date().getTime();
         } else {
-            srcPath = API_BASE_PATH + '/files/download/' + USER_OBJ.token + '/' + obj.id;
+            srcPath = API_BASE_PATH + '/files/download/' + USER_OBJ.token + '/' + obj.id+'?'+new Date().getTime();
         }
 
         $(".imgFile").attr('src',srcPath)
@@ -241,7 +245,7 @@ function openModal(type, id) {
         $("#uploadFile").removeAttr('required')
 
         $("#file_tags").val(obj.tags);
-        $("#file_desc").val(obj.description);
+        $("#file_desc").val(obj.description+'?'+new Date().getTime());
         $("#file_type").val(obj.isPublic.toString());
         $("#addFile").modal('show');
         $("#addFile form").attr('onsubmit', 'updateFile()')
@@ -269,6 +273,7 @@ function updateFile() {
 
     $(".btnSubmit").attr('disabled', 'disabled');
     uploadFile();
+    
 }
 
 
@@ -333,6 +338,7 @@ function uploadFile() {
 
     var fileInput = document.getElementById("uploadFile");
 
+
     var files = fileInput.files;
 
     if (files.length === 0) {
@@ -352,16 +358,17 @@ function uploadFile() {
                     setTimeout(function () {
                         loadFiles();
                     }, 500)
-                    successMsg('Successfully updated')
-
+                    successMsg('Successfully updated');
                 }else{
                     errorMsg('Error in file update');
+                    $(".btnSubmit").removeAttr('disabled','disabled');
                     return false;
                 }
             })
 
         }else{
             errorMsg('File not found. select a file to start upload');
+            $("#uploadBtn").removeAttr("disabled","disable")
             return false;
         }
 
@@ -375,3 +382,32 @@ function uploadFile() {
 
 
 }
+
+function fade(){
+
+    if ( $( "#modalFade" ).is( ".panel-expand" ) ) {
+        $(".platformBody").fadeTo(1000, 0.9);
+        $("#header").css("display","none");
+     
+    }
+
+    else if ( $( "#modalFade" ).not( ".panel-expand" ) ) {
+        $("#header").css("display", "block");
+     
+    }
+
+}
+
+function expand(){
+
+    if ( $( "#modalFade" ).is( ".panel-expand" ) ) {
+        $("#header").css("display","block");
+     
+    }
+
+    else if ( $( "#modalFade" ).not( ".panel-expand" ) ) {
+        $("#header").css("display", "none");
+     
+    }
+}
+

@@ -32,9 +32,9 @@ $(document).ready(function () {
         $(".apiToken").attr('data-clipboard-text',USER_OBJ.token);
 
         $(".linked_domains").html("");
-        if(USER_OBJ.linkedDomains) {
-            for (var i = 0; i < USER_OBJ.linkedDomains.length; i++) {
-                $(".linked_domains").append('<label class="label label-default" onclick="openLinkedDomain(\''+USER_OBJ.linkedDomains[i].domainKey+'\')">' + USER_OBJ.linkedDomains[i].label + '</label><br>')
+        if(LINKED_DOMAINS) {
+            for (var i = 0; i < LINKED_DOMAINS.length; i++) {
+                $(".linked_domains").append('<label class="label label-default" onclick="openLinkedDomain(\''+LINKED_DOMAINS[i].domainKey+'\')">' + LINKED_DOMAINS[i].label + '</label><br>')
             }
         }
         recentUpdate();
@@ -630,7 +630,7 @@ function recentUpdate() {
         url:
             API_BASE_PATH +
             "/domain/property/get/" +
-            API_TOKEN +
+            API_TOKEN_ALT +
             "/" +
             USER_OBJ.user.email,
         contentType: "application/json",
