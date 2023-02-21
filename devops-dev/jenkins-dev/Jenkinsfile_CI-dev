@@ -1,0 +1,78 @@
+def count = 0
+pipeline{ 
+    agent any
+    // parameters {    // If we enable parameterized triggered plugin in pipeline config dont need to give parameter here because parameter is static so cant change outside.
+    //     string(name: 'To_Address', defaultValue: 'subosand@boodskap.io,dineshbabu.pc@boodskap.io', description: 'sender')
+    //     string(name: 'CC_Address', defaultValue: 'subosand@boodskap.io', description: 'CC')
+    // }
+      options{          
+                       //retry(3)
+                      buildDiscarder(logRotator(numToKeepStr:'10'))   // last 10 build log only display.
+                      disableConcurrentBuilds()  // it will disable the concurrent builds.
+                      timeout(time: 25, unit: 'MINUTES') // build timeout aftrer 30 minutes.
+                      timestamps() // show time in output console 
+             } 
+        stages{ 
+           stage("Docker Build & Push"){  //build block
+             steps{
+            script{ 
+               echo "----------------BUILD START-----------------"
+                 sh """ 
+                 ansible-playbook $WORKSPACE/devops-dev/ansible-dev/deployment-dev.yml -i $WORKSPACE/devops-dev/ansible-dev/inventory-dev.yml
+                 """
+               echo "Build process done"
+                 
+              }
+            }
+          }
+  //          stage("SonarQube Analysis") {
+  //         steps{
+  //           script{
+  //        def scannerHome = tool 'SonarQube';
+  //         withSonarQubeEnv() {
+  //         sh "${scannerHome}/bin/sonar-scanner"
+  //           }
+  //         }
+         
+  //   }
+  // }
+        }
+    post{
+      always{
+        script{
+          if(count==0){
+           echo "##################Email Notification for CI job##########################"
+          build job: 'sendemail', parameters: [ string(name: 'JOBNAME', value: "${JOB_NAME}"), 
+                                                    string(name: 'BUILDNUM', value: "${BUILD_NUMBER}"), 
+                                                    string(name: 'BUILDURL', value: "${BUILD_URL}"), 
+                                                    string(name: 'BUILDSTATUS', value: "${currentBuild.result}"),
+                                                    string(name: 'To_Address', value: "${To_Address}"),
+                                                    string(name: 'CC_Address', value: "${CC_Address}")
+                                              ]
+            count++  
+          }
+         // echo "##################deployment##########################"
+        //  build job: 'V5-Boodskap-ui_CD', parameters: [ string(name: 'JOBNAME', value: "${JOB_NAME}"), 
+        //                                             string(name: 'BUILDNUM', value: "${BUILD_NUMBER}"), 
+        //                                             string(name: 'BUILDURL', value: "${BUILD_URL}"), 
+        //                                             string(name: 'BUILDSTATUS', value: "${currentBuild.result}"),
+        //                                             string(name: 'To_Address', value: "${To_Address}"),
+        //                                             string(name: 'CC_Address', value: "${CC_Address}"),
+        //                                           ]
+            }
+          }
+
+      success{
+        script{
+         // echo "################## deployment ##########################"
+         build job: 'Boodskap-ui-test-CD', parameters: [ string(name: 'JOBNAME', value: "${JOB_NAME}"), 
+                                                    string(name: 'BUILDNUM', value: "${BUILD_NUMBER}"), 
+                                                    string(name: 'BUILDURL', value: "${BUILD_URL}"), 
+                                                    string(name: 'BUILDSTATUS', value: "${currentBuild.result}"),
+                                                    string(name: 'To_Address', value: "${To_Address}"),
+                                                    string(name: 'CC_Address', value: "${CC_Address}"),
+                                                  ]
+            }
+          }
+      }    
+}
