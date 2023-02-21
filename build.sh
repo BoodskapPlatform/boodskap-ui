@@ -3,7 +3,8 @@
 node build.js
 # Parse current version number
 JSON_FILE="package.json"
-version=$(cat $HOME/build/v5-boodskap-ui/dev/version.txt)
+
+version=$(cat $HOME/build/v5-boodskap-ui/$env/version.txt)
 echo "version no...................$version"
 # Split version number into major, minor, and patch components
 IFS='.' read -r -a version_components <<< "$version"
