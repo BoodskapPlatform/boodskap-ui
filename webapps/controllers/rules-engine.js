@@ -6157,104 +6157,55 @@ function openSimulateModal(id, type) {
                 current_msg_obj = message_spec_list[i]
             }
         }
+        $(".simulatorModal").append(str);
 
-        var queryParams = {
-            "method": "GET",
-            "extraPath": "",
-            "query": "{\"query\":{\"bool\":{\"must\":[{\"match\":{\"domainKey\":\"" + DOMAIN_KEY + "\"}}],\"should\":[]}},\"sort\":[{\"reportedStamp\":{\"order\":\"desc\"}}],\"aggs\":{\"total_count\":{\"value_count\":{\"field\":\"reportedStamp\"}}},\"size\":100,\"from\":0}",
-            "params": [],
-            "type": "DEVICE"
-        }
+      
 
-        async.waterfall([
-            async function (cbk) {
-                listAuthToken("DEVICE", function (status, data) {
-                    if (status) {
-                        cbk(null, data);
-                    } else {
-                        cbk(null, data);
-                    }
-                });
+        fetchDeviceList(id, function (status, data) {
+            simulator[id] = current_msg_obj;
 
-            },
-            async function (deviceData, mcbk) {
-                searchDevice(queryParams, function (status, data) {
-                    if (status) {
-                        var resultData = searchQueryFormatterNew(data).data;
-                        if (resultData.data.length === 0) {
-                            errorMsg('No device list found!');
-                            mcbk(null, null);
-                        } else {
-                            $("#simulatorDeviceList_" + id).html("");
-                            var deviceOptionUI = "";
-                            resultData.data.forEach(e => {
-                                if (e.name != null) {
-                                    deviceData.forEach(element => {
-                                        if (element.entity == e.id) {
-                                            deviceOptionUI += "<option value=" + e.id + " token=" + element.token + ">" + e.name + "</option>";
-                                        }
-                                    });
 
-                                }
-                            });
-                            $("#simulatorDeviceList_" + id).append(deviceOptionUI);
-                            mcbk(null, null);
+            if (!simulatorModal[id]) {
+
+                $(".msgFieldBlock_" + id).html('');
+
+                for (let i = 0; i < current_msg_obj.fields.length; i++) {
+                    $(".msgFieldBlock_" + id).append(renderHtml(id, i, current_msg_obj.fields[i]))
+                }
+                simulatorModal[id] = $("#simulatorModal_" + id).dialog({
+                    resizable: true,
+                    open: function () {
+                        let closeBtn = $('.ui-dialog-titlebar-close');
+                        closeBtn.html('X');
+                    },
+                    // minWidth: 200,
+                    // maxWidth: 600,
+                    // minHeight: 200,
+                    // maxHeight: 450,
+                    // width: 450,
+                    // height: 300,
+                    modal: false,
+                    closeText: "x",
+                    close: function (event, ui) {
+                        closeSimulator(id);
+                    },
+
+                    title: "Simulate -" + id + ' [' + current_msg_obj.name + ']',
+
+                    /*buttons: {
+                        Close: function() {
+                            $( this ).dialog( "close" );
+                            simulatorModal[id] = null;
+                            $("#simulatorModal_"+id).remove();
                         }
-                    } else {
-                        errorMsg('Error in fetching device list!')
-                        mcbk(null, null);
-                    }
+    
+    
+                    }*/
                 });
 
-
             }
-        ]);
-
-
-        simulator[id] = current_msg_obj;
-
-
-        if (!simulatorModal[id]) {
-
-            $(".simulatorModal").append(str);
-
-            $(".msgFieldBlock_" + id).html('');
-
-            for (let i = 0; i < current_msg_obj.fields.length; i++) {
-                $(".msgFieldBlock_" + id).append(renderHtml(id, i, current_msg_obj.fields[i]))
-            }
-            simulatorModal[id] = $("#simulatorModal_" + id).dialog({
-                resizable: true,
-                open: function () {
-                    let closeBtn = $('.ui-dialog-titlebar-close');
-                    closeBtn.html('X');
-                },
-                // minWidth: 200,
-                // maxWidth: 600,
-                // minHeight: 200,
-                // maxHeight: 450,
-                // width: 450,
-                // height: 300,
-                modal: false,
-                closeText: "x",
-                close: function (event, ui) {
-                    closeSimulator(id);
-                },
-
-                title: "Simulate -" + id + ' [' + current_msg_obj.name + ']',
-
-                /*buttons: {
-                    Close: function() {
-                        $( this ).dialog( "close" );
-                        simulatorModal[id] = null;
-                        $("#simulatorModal_"+id).remove();
-                    }
-
-
-                }*/
-            });
-
-        }
+        })
+    
 
     }
     else if (type === 2) {
@@ -6330,11 +6281,15 @@ function openSimulateModal(id, type) {
 
         let str = '<div id="simulatorModal_' + id + '" class="w-100">' +
             '<div data-role="body">\n' +
+            '<div class="row"><div class="col-md-12"><div class="form-group">' +
+            '<label class="inputLabel">Select Device</label>' +
+            '<select id="simulatorDeviceList_' + id + '" class="form-control input-sm col-12"><option>No Devices Found</option></select>' +
+            '</div></div></div>' +
             '<div class="row>' +
             '<div class="col-md-12">' +
             '<p class="mb-0"><label>Upload Binary File</label></p>' +
-            '<input type="file" class="form-control pb-3 mb-2" style="" id="simulatorInput_' + id + '"/></div>' +
-            '</div>' +
+            '<input type="file" class="form-control pb-3 mb-2" style="" id="simulatorInput_' + id + '"/>' +
+            '</div></div>' +
             '<div class="row">' +
             '<div class="col-md-12">' +
             '<button class="btn btn-sm btn-success pull-right btn_' + id + '" onclick="simulateMessage(\'' + id + '\',' + type + ')">Upload File</button>' +
@@ -6351,46 +6306,47 @@ function openSimulateModal(id, type) {
                 current_binaryrule_obj = binary_rules_list[i]
             }
         }
+        $(".simulatorModal").append(str);
 
         simulator[id] = current_binaryrule_obj;
+        
+        fetchDeviceList(id, function (status, data) {
+            if (!simulatorModal[id]) {
 
 
-        if (!simulatorModal[id]) {
+                simulatorModal[id] = $("#simulatorModal_" + id).dialog({
+                    resizable: true,
+                    open: function () {
+                        let closeBtn = $('.ui-dialog-titlebar-close');
+                        closeBtn.html('X');
+                    },
+                    // minWidth: 200,
+                    // maxWidth: 600,
+                    // minHeight: 200,
+                    // maxHeight: 450,
+                    // width: 450,
+                    // height: 300,
+                    modal: false,
+                    closeText: "x",
+                    close: function (event, ui) {
+                        closeSimulator(id);
+                    },
 
-            $(".simulatorModal").append(str);
+                    title: 'Simulate - ' + current_binaryrule_obj.type,
 
-            simulatorModal[id] = $("#simulatorModal_" + id).dialog({
-                resizable: true,
-                open: function () {
-                    let closeBtn = $('.ui-dialog-titlebar-close');
-                    closeBtn.html('X');
-                },
-                // minWidth: 200,
-                // maxWidth: 600,
-                // minHeight: 200,
-                // maxHeight: 450,
-                // width: 450,
-                // height: 300,
-                modal: false,
-                closeText: "x",
-                close: function (event, ui) {
-                    closeSimulator(id);
-                },
+                    /*buttons: {
+                        Close: function() {
+                            $( this ).dialog( "close" );
+                            simulatorModal[id] = null;
+                            $("#simulatorModal_"+id).remove();
+                        }
+    
+    
+                    }*/
+                });
 
-                title: 'Simulate - ' + current_binaryrule_obj.type,
-
-                /*buttons: {
-                    Close: function() {
-                        $( this ).dialog( "close" );
-                        simulatorModal[id] = null;
-                        $("#simulatorModal_"+id).remove();
-                    }
-
-
-                }*/
-            });
-
-        }
+            }
+        })
     }
     else if (type === 4) {
 
@@ -6463,6 +6419,62 @@ function openSimulateModal(id, type) {
 
 
 
+}
+
+
+function fetchDeviceList(id, fbk) {
+
+    var queryParams = {
+        "method": "GET",
+        "extraPath": "",
+        "query": "{\"query\":{\"bool\":{\"must\":[{\"match\":{\"domainKey\":\"" + DOMAIN_KEY + "\"}}],\"should\":[]}},\"sort\":[{\"reportedStamp\":{\"order\":\"desc\"}}],\"aggs\":{\"total_count\":{\"value_count\":{\"field\":\"reportedStamp\"}}},\"size\":100,\"from\":0}",
+        "params": [],
+        "type": "DEVICE"
+    }
+
+    async.waterfall([
+        async function (cbk) {
+            listAuthToken("DEVICE", function (status, data) {
+                if (status) {
+                    cbk(null, data);
+                } else {
+                    cbk(null, data);
+                }
+            });
+
+        },
+        async function (deviceData, mcbk) {
+            searchDevice(queryParams, function (status, data) {
+                if (status) {
+                    var resultData = searchQueryFormatterNew(data).data;
+                    if (resultData.data.length === 0) {
+                        errorMsg('No device list found!');
+                        mcbk(null, null);
+                        fbk(true, null)
+                        return
+                    } 
+                        $("#simulatorDeviceList_" + id).html("");
+                        var deviceOptionUI = "";
+                        resultData.data.forEach(e => {
+                            if (e.name != null) {
+                                deviceData.forEach(element => {
+                                    if (element.entity == e.id) {
+                                        deviceOptionUI += "<option value=" + e.id + " token=" + element.token + ">" + e.name + "</option>";
+                                    }
+                                });
+                            }
+                        });
+                        $("#simulatorDeviceList_" + id).append(deviceOptionUI);
+                        mcbk(null, null);
+                        fbk(true, null)
+                    
+                } else {
+                    errorMsg('Error in fetching device list!')
+                    mcbk(null, null);
+                }
+            });
+        }
+    ]);
 }
 
 function simulateMessage(id, type) {
@@ -6578,9 +6590,13 @@ function uploadBinaryFile(file, id) {
             }
         }
     };
-    xhr.open('POST', API_BASE_PATH + '/push/bin/file/' + DOMAIN_KEY + '/' + API_KEY + "/SIMULATOR/WEB/1.0/" + id, true);
+    // xhr.open('POST', API_BASE_PATH + '/push/bin/file/' + DOMAIN_KEY + '/' + API_KEY + "/SIMULATOR/WEB/1.0/" + id, true);
+    xhr.open('POST', API_BASE_PATH + '/push/file/' + id);
     let formData = new FormData();
+    let devToken = $("#simulatorDeviceList_" + id + " option:selected").attr("token");
+
     formData.append("binfile", file, file.name);
+    xhr.setRequestHeader('token', devToken);
     xhr.send(formData);
 }
 
@@ -6601,9 +6617,11 @@ function uploadFileRule(file, id) {
             }
         }
     };
-    xhr.open('POST', API_BASE_PATH + '/push/file/' + DOMAIN_KEY + '/' + API_KEY + "/SIMULATOR/WEB/1.0/" + id, true);
+    // xhr.open('POST', API_BASE_PATH + '/push/file/' + DOMAIN_KEY + '/' + API_KEY + "/SIMULATOR/WEB/1.0/" + id, true);
+    xhr.open('POST', API_BASE_PATH + '/push/file/rule/' + id);
     let formData = new FormData();
     formData.append("binfile", file, file.name);
+    xhr.setRequestHeader('token', API_TOKEN);
     xhr.send(formData);
 }
 
