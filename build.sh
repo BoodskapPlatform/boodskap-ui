@@ -3,8 +3,10 @@
 node build.js
 # Parse current version number
 JSON_FILE="package.json"
-
-version=$(cat $HOME/build/v5-boodskap-ui/$env/version.txt)
+myEnv=$(node -e "console.log(require('./conf.js').devops.env)")
+echo "$myEnv.............myEnv"
+#version=2.1.1
+version=$(cat $HOME/build/v5-boodskap-ui/$myEnv/version.txt)
 echo "version no...................$version"
 # Split version number into major, minor, and patch components
 IFS='.' read -r -a version_components <<< "$version"
@@ -27,10 +29,9 @@ else
 fi
 
 # Update version number in version.txt
-echo "$major.$minor.$patch" > $HOME/build/v5-boodskap-ui/dev/version.txt
+echo "$major.$minor.$patch" > $HOME/build/v5-boodskap-ui/$myEnv/version.txt
 jq ".version = \"$major.$minor.$patch\"" "$JSON_FILE" > tmp.json
 mv tmp.json "$JSON_FILE"
 lversion="$major.$minor.$patch"
 # Print new version number
-docker build -t boodskapiot/ui-dev:$lversion . -f Dockerfile
-
+docker build -t boodskapiot/ui-$myEnv:$lversion . -f Dockerfile
