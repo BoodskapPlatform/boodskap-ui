@@ -729,8 +729,8 @@ function showFeedbackAlert(text,id,alertId) {
 }
 
 function defaultStyle(id) {
-    $("input, select textarea").removeClass('error-input-box')
-    $("input, select textarea").removeClass('error-box')
+    $("input, select, textarea").removeClass('error-input-box')
+    $("input, select, textarea").removeClass('error-box')
     $("#" + id).hide();
     $('.alertDiv').html('')
 }
@@ -773,4 +773,9 @@ function showSelectFeedback(text,id,alertId){
         }
 
     })  
+}
+
+function onlyNumber(e) {
+    const keyCode = e.keyCode == 0 ? e.charCode : e.keyCode;
+    return (keyCode >= 48 && keyCode <= 57);
 }

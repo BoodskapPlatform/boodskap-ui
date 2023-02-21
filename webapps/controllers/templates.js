@@ -93,7 +93,7 @@ function loadTemplates() {
         dom: '<"bskp-search-left" f> lrtip',
         language: {
             "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
-         "searchPlaceholder": "Search by Template Name",
+         "searchPlaceholder": "Search here",
          "zeroRecords": "No data available",
        
             loadingRecords: '',
@@ -241,7 +241,7 @@ function addTemplate() {
 
         }
         else if($("#template_name").val()==""){
-            $("#template_error").text("Name is required !")
+            $("#template_error").text("Please Enter the Name !");
             $("#template_name").css({"border-color":"red"})
     
             setTimeout(function(){

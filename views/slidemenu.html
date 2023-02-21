@@ -77,13 +77,13 @@
         <li class="has-sub sideMain recordDefMenu dbquery">
             <a href="<%= basepath %>/db-table">
                 <img src="images/menu/db-table.svg" alt="">
-                <span>DB Table</span>
+                <span>DB Tables</span>
             </a>
         </li>
         <li class="has-sub sideMain recordDefMenu sqlquery">
             <a href="<%= basepath %>/sql-table">
                 <img src="images/menu/sql-table.svg" alt="">
-                <span>SQL Table</span>
+                <span>SQL Tables</span>
             </a>
         </li>
         <li class="has-sub sideMain scriptMenu">
@@ -113,7 +113,7 @@
         <li class="has-sub sideMain eventMenu">
             <a href="<%= basepath %>/templates">
                 <img src="images/menu/templates-bskp.svg" alt="">
-                <span>Plaform Templates</span>
+                <span>Platform Templates</span>
             </a>
         </li>
 
@@ -178,15 +178,15 @@
         </li>
 
         <li class="has-sub sideMain tokenHeader">
-            <a href="javascript:void(0);">
-                <b class="caret"></b>
+            <a href="<%= basepath %>/token-management">
+                <!-- <b class="caret"></b> -->
                 <i class="icon-key2"></i>
                 <span>Token Management</span>
             </a>
-            <ul class="sub-menu">
-                <li class="sideSub tokenMenu"><a href="<%= basepath %>/token-management">Manage Tokens</a></li>
+            <!-- <ul class="sub-menu">
+                <li class="sideSub tokenMenu"><a href="<%= basepath %>/token-management">Manage Tokens</a></li> -->
                 <!--<li class="sideSub userRoleMenu"><a href="<%= basepath %>/user-roles">Manage User Roles</a></li>-->
-            </ul>
+            <!-- </ul>y -->
         </li>
 
         <li class="has-sub sideMain deviceHeader" >
@@ -212,14 +212,14 @@
             </ul>
         </li>
         <li class="has-sub sideMain assetHeader">
-            <a href="javascript:;">
-                <b class="caret"></b>
+            <a href="<%= basepath %>/asset-management">
+                <!-- <b class="caret"></b> -->
                 <img src="images/menu/assets-management-bskp.svg" alt="">
                 <span>Asset Management</span>
             </a>
-            <ul class="sub-menu">
-                <li class="sideSub assetMenu"><a href="<%= basepath %>/asset-management">Mange Assets</a></li>
-            </ul>
+            <!-- <ul class="sub-menu">
+                <li class="sideSub assetMenu"><a href="<%= basepath %>/asset-management">Manage Assets</a></li>
+            </ul> -->
         </li>
         <li class="has-sub sideMain firmwareHeader">
             <a href="javascript:;">
@@ -228,7 +228,7 @@
                 <span>Firmware Management</span>
             </a>
             <ul class="sub-menu">
-                <li class="sideSub firmwareMenu"><a href="<%= basepath %>/firmware-management">Mange Firmware</a></li>
+                <li class="sideSub firmwareMenu"><a href="<%= basepath %>/firmware-management">Manage Firmware</a></li>
                <!--&lt;!&ndash; <li class="sideSub otadeviceMenu"><a href="<%= basepath %>/ota-device-batches">OTA Device Batches</a></li>-->
                 <li class="sideSub otalMenu"><a href="<%= basepath %>/firmware/ota-upgrade">OTA Upgrade</a></li>
             </ul>
@@ -288,7 +288,7 @@
         <li class="has-sub sideMain marketMenu">
             <a href="<%= basepath %>/messages">
                 <img src="images/menu/messages.svg" alt="">
-                <span>Messages</span>
+                <span>Raw Messages</span>
             </a>
         </li>
         <li class="has-sub sideMain marketMenu">

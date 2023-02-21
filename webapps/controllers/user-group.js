@@ -253,6 +253,7 @@ function formatRow(d, cbk) {
 
 function loadUserGroupMembers(id) {
 
+    $("#userGroupList_" + id).html('<div class="w-100" style="padding:5px 0px;"><div class="d-flex mx-auto" style="padding: 10px 20px;background-color: #F2F3F4;width: 10%;"><i class="fa fa-spinner fa-spin"></i><p class="pl-2 m-0">Processing</p></div><div></div></div>');
     listDomainUserGroupUsers(id, 1000, function (status, resdata) {
         var bodyStr = ''
         if (status && resdata.length > 0) {
@@ -262,7 +263,7 @@ function loadUserGroupMembers(id) {
                 // console.log(data)
                 bodyStr = bodyStr + '<div class="col-md-3" style="margin-top: 10px;">' +
                     '<label style="display: block;text-align: left"><input type="checkbox" class="ch_' + id + '" name="ch_' + id + '[]" value="' + data['email'] + '"/> ' + (data.firstName + ' ' + data.lastName) + '</label>' +
-                    '<small>' + data.email + '</small>' +
+                    '<small class="added-emails">' + data.email + '</small>' +
                     '</div>';
             }
 
@@ -273,9 +274,9 @@ function loadUserGroupMembers(id) {
         $(".group_" + id).html(' <div class="btn-group btn-group-justified left-right">' +
             '<a class="btn btn-default btn-xs"  onclick="openUserModal(1,\'' + id + '\')"><i class="fa fa-plus-square"></i> <span class="hidden-xs">Add User</span></a>' +
             '<a class="btn btn-default btn-xs"  onclick="openUserModal(2,\'' + id + '\')"><i class="icon-trash4"></i> <span class="hidden-xs">Delete</span></a>' +
-            '<a class="btn btn-default btn-xs"  onclick="loadUserGroupMembers(\'' + id + '\')"><i class="fa fa-refresh"></i></a>' +
+            '<a class="btn btn-default btn-xs"  onclick="loadUserGroupMembers(\'' + id + '\')" title="Refresh"><i class="fa fa-refresh"></i></a>' +
             '</div><hr style="clear:both">' +
-            '<div class="row" style="clear: both;max-height: 300px;overflow: auto;overflow-x: hidden">' + bodyStr + '</div>');
+            '<div id="userGroupList_'+id+'" class="row" style="clear: both;max-height: 300px;overflow: auto;overflow-x: hidden">' + bodyStr + '</div>');
 
 
     })
@@ -325,12 +326,18 @@ function openModal(type, id) {
     }
 }
 
+var addedMemListArr = [];
 function openUserModal(type, gid) {
     user_group_id = gid;
     if (type === 1) {
+        addedMemListArr=[];
         selected_user = [];
         $(".userList").html('');
         loadUsersList();
+
+        $(".group_"+gid+" .added-emails").each(function(){
+            addedMemListArr.push($(this).text());
+        })
     } else {
         selected_user = [];
         $(".removeUserCount").html(0);
@@ -340,12 +347,14 @@ function openUserModal(type, gid) {
                 selected_user.push(inputElements[i].value);
             }
         }
-        if(selected_user.length===1){
-            $(".removeUserCount").html(selected_user.length);
+        $(".removeUserCount").html(selected_user.length);
+        if(selected_user.length===0){
+            errorMsg('Atleast one user should be selected');
+            return false;
+        }else if(selected_user.length===1){
             $(".userText").html("user")
         }
         else{
-            $(".removeUserCount").html(selected_user.length);
             $(".userText").html("users")
         }
      
@@ -436,12 +445,18 @@ function loadUsersList() {
 
         userTable = $("#userTable").DataTable(tableOption);
         $("#addUserModal").modal('show');
+        $("#userTable tr").css("cursor","pointer");
 
         $('#userTable tbody').on('click', 'tr', function () {
-            $(this).toggleClass('selected');
+            var data = $(this);
+            data.toggleClass('selected');
             selected_user = userTable.rows('.selected').data();
             $(".selectedCount").html(userTable.rows('.selected').data().length);
-
+            var clickData = userTable.rows(data).data()[0];
+            if(addedMemListArr.includes(clickData.email) == true){
+                data.toggleClass('selected');
+                errorMsg("User Already Selected");
+            }
         });
     })
 

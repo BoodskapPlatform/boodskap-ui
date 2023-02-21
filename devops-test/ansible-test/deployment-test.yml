@@ -78,4 +78,4 @@
        args:
          chdir: /home/ubuntu/cluster/ui
        register: deploy_container_output
-     - debug: msg="{{ deploy_container_output.stdout }}" 
+     - debug: msg="{{ deploy_container_output.stdout }}"

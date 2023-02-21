@@ -48,3 +48,6 @@ code{
     font-weight: 600;
     
 }
+#deleteModal .modal-dialog{
+    max-width: 600px;
+}

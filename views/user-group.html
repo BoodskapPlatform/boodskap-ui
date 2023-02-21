@@ -2,11 +2,17 @@
     .details-control{
         cursor: pointer;
     }
+    #addUserGroup .modal-dialog{
+        margin-top: 10%;
+    }
+    #deleteModal .modal-dialog{
+        margin-top: 13%;
+    }
 </style>
 <div class="row-fluid">
     <ul class="nav submenu" style="">
         <li class=""><a href="<%= basepath %>/home"><i class="fa fa-home"></i> </a></li>
-        <li class=""><a href="<%= basepath %>/dashboard">Dashboard</a></li>
+        <!-- <li class=""><a href="<%= basepath %>/dashboard">Dashboard</a></li> -->
         <li class=""><a href="<%= basepath %>/user-management">Manage Users</a></li>
         <li class="active"><a href="<%= basepath %>/user-group">Users Group</a></li>
         <!--<li><a href="<%= basepath %>/user-roles">Manage User Roles</a></li>-->
@@ -16,8 +22,8 @@
     <!-- begin breadcrumb -->
     <ol class="breadcrumb pull-right">
         <li class="breadcrumb-item"><a href="<%= basepath %>/home">Home</a></li>
-        <li class="breadcrumb-item"><a href="<%= basepath %>/user-management">User Management</a></li>
-        <li class="breadcrumb-item active">Users Group</li>
+        <!-- <li class="breadcrumb-item"><a href="<%= basepath %>/user-management">User Management</a></li> -->
+        <li class="breadcrumb-item active"><u>Users Group</u></li>
     </ol>
     <!-- end breadcrumb -->
     <!-- begin page-header -->

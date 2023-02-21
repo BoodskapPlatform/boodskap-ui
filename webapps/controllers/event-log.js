@@ -467,7 +467,7 @@ var logFields = {
                 mData: 'message',
                 sTitle: 'Response',
                 orderable: false,
-                sWidth:'60%',
+                sWidth:'50%',
                 mRender: function (data, type, row) {
 
                     if(data) {
@@ -568,6 +568,7 @@ function loadLogs() {
                 },
 
             },
+        "bProcessing": true,
         "bServerSide": true,
         "sAjaxSource": API_BASE_PATH + '/elastic/search/query/' + API_TOKEN_ALT,
         "fnServerData": function (sSource, aoData, fnCallback, oSettings) {

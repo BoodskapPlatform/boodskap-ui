@@ -21,8 +21,8 @@
         <div>
             <ol class="breadcrumb pull-right bskp-align-icon">
                 <li class="breadcrumb-item"><a href="<%= basepath %>/home">Home</a></li>
-                <li class="breadcrumb-item"><a href="<%= basepath %>/sql-table"></a>DSQL Table</a> </li>
-                <li class="breadcrumb-item active">Create Table</li>
+                <!-- <li class="breadcrumb-item"><a href="<%= basepath %>/sql-table"></a>DSQL Table</a> </li> -->
+                <li class="breadcrumb-item active"><u>DSQL Table</u></li>
                 <div class="ml-4">
                     <a href="javascript:;" class="btn btn-sm btn-icon btn-circle  bskp-icon-bg"
                         data-click="panel-expand" title="Expand">
@@ -39,7 +39,7 @@
         <div class="page-header bskp-page-topic"><img src="images/menu/dsql.svg" class="bskp-topic-icon sqlicon mr-1">
             DSQL
             Table
-            <span class="panel-title ml-3 total-table">Total Table : <b><span class="tableCount"></span></b></span>
+            <span class="panel-title ml-3 total-table">Total : <b><span class="tableCount"></span></b></span>
         </div>
 
         <div class="panel-body" style="background-color: #eeeeee00;padding-bottom: 30px">
@@ -56,7 +56,7 @@
                                 <a class="btn bskp-radius-btn" id="importMsg" title="Import" onclick="importTable()"><img
                                     src="images/menu/upload.svg" alt=""> </a>
                             
-                        <a class="btn bskp-refresh-bg  refreshbutton" title="Refresh" data-click="panel-reload"
+                        <a class="btn bskp-refresh-bg  refreshbutton" title="Refresh" 
                             onclick="loadSQLTable()"><img class="refresh-button"src="images/menu/refresh-button.png" alt=""></a>
                     </div>
 

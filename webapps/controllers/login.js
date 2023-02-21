@@ -306,6 +306,10 @@ function forgetPassword() {
     });
 }
 
+function captchClicked() {
+    $("#logcaptchaFeedback").html("")
+}
+
 function toggleBox(){
 
     if($("#password").attr('type') === 'password'){

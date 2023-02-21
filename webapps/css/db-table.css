@@ -91,3 +91,6 @@ ol li{
   .text-area{
     font-size: 14px;
   }
+  #deleteModal .modal-dialog{
+    max-width: 600px;
+}
