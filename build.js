@@ -52,7 +52,7 @@ async.series({
                 port: Number(getProperty('server.port'))
             },
             devops: {
-                env: getProperty('devops.env')
+                env: getProperty('server.devopsenv')
             },
             basepath : BASE_PATH,
             protocol : getProperty('server.ssl') ? 'https' : 'http',
