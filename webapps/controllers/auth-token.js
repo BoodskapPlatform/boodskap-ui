@@ -150,6 +150,8 @@ function openModal(type, id) {
     }else if(type == 2){
         $('#afterCreate').addClass('d-none')
         $('.confirmation').removeClass('d-none')
+        $('#closeBtn').html('Close')
+        $('#proceedBtn').removeClass('d-none')
         $("#AuthToken").modal({
             backdrop: 'static',
             keyboard: false
@@ -337,7 +339,8 @@ function createAPIToken(){
         if (status) {
             $('.confirmation').addClass('d-none')
             $('#afterCreate').removeClass('d-none')
-          
+            $('#proceedBtn').addClass('d-none')
+            $('#closeBtn').html('Ok')
             var tkey = new ClipboardJS('.apiToken'+data.token,{ 
                 container: document.getElementById('AuthToken')
         });

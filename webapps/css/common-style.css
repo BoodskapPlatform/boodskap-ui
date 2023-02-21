@@ -23,7 +23,13 @@
     text-overflow:ellipsis;
     white-space:nowrap
 }
-  
+.border-radius-0{
+    border-radius: 0;
+}
+.font-bold{
+    font-weight: bold;
+}
+
 @media (max-width: 679px) {
     .w-sm-100{
         width: 100% !important;
