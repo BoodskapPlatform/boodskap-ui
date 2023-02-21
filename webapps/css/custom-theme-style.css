@@ -1382,3 +1382,6 @@ table.table-bordered.dataTable th, table.table-bordered.dataTable td{
 .gap-20{
     gap: 20px;
 }
+.close-alert-btn:focus{
+    outline: none;
+}
