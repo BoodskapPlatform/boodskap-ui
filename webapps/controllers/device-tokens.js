@@ -119,14 +119,6 @@ function loadTokenList() {
         });
 }
 
-function setCopyToken(row_id){
-
-    var tkey = new ClipboardJS('.apiToken'+row_id);
-    tkey.on('success', function (e) {
-        successMsg('Token Copied Successfully')
-    });
-}
-
 function openModal(type, id) {
     if (type === 1) {   //Expire Token Confirmation
         current_token_id = id;

@@ -512,6 +512,14 @@ font-size: 36px;
     background: url('images/details_close.png') no-repeat center center;
 }
 
+table.table td.details-control {
+    background: url('images/details_open.png') no-repeat center center;
+    cursor: pointer;
+}
+table.table tr.shown td.details-control {
+    background: url('images/details_close.png') no-repeat center center;
+}
+
 
 .domain-select-list{
     max-height: 55vh;
