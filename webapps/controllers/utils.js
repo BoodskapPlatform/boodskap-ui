@@ -779,3 +779,14 @@ function onlyNumber(e) {
     const keyCode = e.keyCode == 0 ? e.charCode : e.keyCode;
     return (keyCode >= 48 && keyCode <= 57);
 }
+
+function warningMsg(msg){
+    let alertMsg = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    `+msg+` Go to buy here <a href="https://devbilling.boodskap.io/" target="_blank">upgrade</a>
+    <button type="button" class="close close-alert-btn mt-1" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>`
+  $("#warningsnackbar").addClass('show');
+  $('#warningsnackbar').html(alertMsg)
+}

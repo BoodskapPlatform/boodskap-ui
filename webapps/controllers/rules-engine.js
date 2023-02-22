@@ -3959,8 +3959,12 @@ function openModal(e) {
         // $("#msg_id").attr('min', USER_OBJ.domain.startId)
         // $("#msg_id").attr('max', USER_OBJ.domain.startId + ID_RANGE_COUNT)
         $(".msgFieldBody").html("");
-        $("#addMessageRule").modal('show');
-
+        if(LicenseDetails.maxMessageSpecs <= message_rules_list.length){
+            warningMsg('Your plan have '+LicenseDetails.maxMessageSpecs+' message rule.')
+            return
+        }else{
+            $("#addMessageRule").modal('show');
+        }
         addMessageField();
     } else if (id === 2) {
         $("#addNamedRule form")[0].reset();
