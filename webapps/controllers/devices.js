@@ -21,6 +21,14 @@ function loadDeviceList() {
 
     var fields = [
         {
+            sTitle: 'Details',
+            "className": 'details-control',
+            "orderable": false,
+            sWidth: '5%',
+            "data": null,
+            "defaultContent": ''
+        },
+        {
             mData: 'id',
             sTitle: 'Device ID',
             sWidth: '10%',
@@ -119,7 +127,7 @@ function loadDeviceList() {
             responsive: true,
             paging: true,
             searching: true,
-            aaSorting: [[6, 'desc']],
+            aaSorting: [[7, 'desc']],
             "ordering": true,
             scrollY: '100px',
             scrollCollapse: true,
@@ -204,11 +212,26 @@ function loadDeviceList() {
                         var resultData = resData.data;
                         device_list =resultData.data;     
                         resultData['draw'] = oSettings.iDraw;
-
                         // $(".deviceCount").html(resData.aggregations.total_count.value);
                         $(".deviceCount").html(resData.total);
 
                         fnCallback(resultData);
+                    }
+                });
+
+                $('#deviceTable tbody').on('click', 'td.details-control', function () {
+                    var tr = $(this).closest('tr');
+                    var row = deviceTable.row(tr);
+
+                    if (row.child.isShown()) {
+                        // This row is already open - close it
+                        row.child.hide();
+                        tr.removeClass('shown');
+                    } else {
+                        var obj = row.data();
+                       
+                        getTokenList(obj.id, row,tr)
+
                     }
                 });
             }
@@ -219,6 +242,33 @@ function loadDeviceList() {
     $('.dataTables_filter input').attr('maxlength', 100)
     $(".dataTables_scrollBody").removeAttr("style").css({"min-height":"calc(100vh - 425px)","position":"relative","width":"100%","border-bottom":"0px"});
 
+}
+function getTokenList(deviceId, row, tr) {
+    const params = '?type=DEVICE&entity=' + deviceId
+    ajaxCall('/auth/token/list', 'GET', params, function (status, data) {
+        if (status) {
+            let tokenOuterDiv = ""
+            let tokenDiv = ""
+            if (data.length > 0) {  
+                let eachToken = ""
+                data.forEach(element => {
+                    eachToken += `<li class="mb-2">` + element.token + `<a href="javascript:void(0)" class="copy-tag apiToken`+element.token+`" title="Click here to copy the token" data-clipboard-text="` + element.token +`"><i class="pl-1 icon-copy2"></i></a> </li>`
+                });
+                tokenDiv = `<p>List of tokens active for this device</p>
+                <ul>`+ eachToken +`</ul>`
+
+            } else {
+                tokenDiv = "No token is active for this device"
+            }
+           
+            tokenOuterDiv = `<div class="token-div">`+tokenDiv+`</div>`
+            row.child(tokenOuterDiv).show();
+            tr.addClass('shown');
+        } else {
+            errorMsg('Something Went wrong')
+
+        }
+    })
 }
 
 

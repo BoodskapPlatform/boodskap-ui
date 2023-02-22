@@ -453,6 +453,27 @@ function loadGoogleAnalytics() {
     ga('send', 'pageview');
 }
 
+function ajaxCall(url, type, params,abk) {
+    $.ajax({
+        url: API_BASE_PATH + url+params,
+        type,
+        success: function (data) {
+            abk(true, data)
+        },
+        error: function (e) {
+            abk(false,null)
+        }
+    });
+}
+
+
+function setCopyToken(row_id, msg) {
+
+    var tkey = new ClipboardJS('.apiToken' + row_id);
+    tkey.on('success', function (e) {
+        successMsg(msg ?? 'Token Copied Successfully')
+    });
+}
 
 function loadStatistics() {
     // $(".webVersion").html(WEB_VERSION)
