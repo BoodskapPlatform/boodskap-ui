@@ -208,7 +208,7 @@ function linkDomainCall() {
 
     
 
-    if(aKey == existAKey || dKey == existDKeys){
+    if(aKey == existAKey || dKey == existDKey){
         errorMsg('Self-domain cannot be linked');
     }else{
         var obj = {
