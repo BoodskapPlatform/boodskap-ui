@@ -86,7 +86,7 @@ function loadDeviceModelList() {
             responsive: true,
             paging: true,
             searching: true,
-            aaSorting: [[2, 'desc']],
+            aaSorting: [[0, 'desc']],
             "ordering": true,
             scrollY: '100px',
             scrollCollapse: true,
