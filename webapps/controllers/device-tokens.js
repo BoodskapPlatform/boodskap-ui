@@ -32,7 +32,8 @@ function loadTokenList() {
         },
         {
             mData: 'type',
-            sTitle: 'Token Type'
+            sTitle: 'Token Type',
+            orderable: false,
         },
         {
             mData: 'entity',
@@ -40,7 +41,8 @@ function loadTokenList() {
         },
         {
             mData: 'mode',
-            sTitle: 'Mode'
+            sTitle: 'Mode',
+            orderable: false,
         },
         {
             mData: 'accesses',
@@ -91,7 +93,7 @@ function loadTokenList() {
                     next: 'Next >'
                 }
             },
-            aaSorting: [[3, 'desc']],
+            aaSorting: [[2, 'desc']],
             aoColumns: fields,
             data: []
         };
