@@ -359,10 +359,16 @@ function openModal(type,id) {
         $(".new-model").removeClass('d-none');
         $(".new_device_model").val('');
         $("#device_desc").val("");
-        $("#addDevice").modal({
-            backdrop: 'static',
-            keyboard: false
-        });
+        if(LicenseDetails.devices <= device_list.length){
+            warningMsg('Your plan have '+LicenseDetails.devices+' devices.')
+            return
+        }else{
+            $("#addDevice").modal({
+                backdrop: 'static',
+                keyboard: false
+            });
+        }
+       
         $("#device_id").removeAttr('readonly');
         $("#device_model").removeAttr('readonly');
         $(".templateAction").html('Add');

@@ -182,8 +182,12 @@ function proceedPrivacy() {
             Cookies.set(PRIVACY_POLICY, "true");
             $("#privacyModal").modal('hide');
             checkDomainName();
-        } else {
-            errorMsg(data.message)
+        } else {console.log(data)   
+            if(data.code == "ACCESS_DENIED"){
+                warningMsg(data.message)
+            }else{
+                errorMsg(data.message)
+            }
         }
     })
 

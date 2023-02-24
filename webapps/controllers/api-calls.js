@@ -189,7 +189,9 @@ function getDomainProperty(name, cbk) {
         },
         error: function (e) {
             //called when there is an error
-            //console.log(e.message);
+            if(e.status == 401){
+                warningMsg(e.responseJSON.message)
+            }
             cbk(false, null);
         }
     });

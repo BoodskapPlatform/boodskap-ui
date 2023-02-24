@@ -628,3 +628,8 @@ table.table tr.shown td.details-control {
     -webkit-animation: fadein 0.5s;
     animation: fadein 0.5s;
 }
+.text-warning{
+    font-weight: bold;
+    text-decoration: underline;
+    color: #7b4e0e !important;
+}
