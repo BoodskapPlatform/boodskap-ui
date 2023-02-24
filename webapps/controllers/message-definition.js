@@ -193,13 +193,17 @@ function openModal() {
     $("#msg_desc").css('height','90px');
     // $("#msg_id").attr('min', USER_OBJ.domain.startId)
     // $("#msg_id").attr('max', USER_OBJ.domain.startId + ID_RANGE_COUNT)
-
-    $("#addMessageRule").modal({
-        backdrop: 'static',
-        keyboard: false
+    if(LicenseDetails.maxMessageSpecs <= message_list.length){
+        warningMsg('Your plan have '+LicenseDetails.maxMessageSpecs+' message specification.')
+        return
+    }else{
+        $("#addMessageRule").modal({
+            backdrop: 'static',
+            keyboard: false
+        }
+        ,'show');
     }
-    ,'show'
-    );
+  
     
     $(".msgFieldBody").html("");
 

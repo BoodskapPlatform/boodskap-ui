@@ -3959,8 +3959,12 @@ function openModal(e) {
         // $("#msg_id").attr('min', USER_OBJ.domain.startId)
         // $("#msg_id").attr('max', USER_OBJ.domain.startId + ID_RANGE_COUNT)
         $(".msgFieldBody").html("");
-        $("#addMessageRule").modal('show');
-
+        if(LicenseDetails.maxMessageSpecs <= message_rules_list.length){
+            warningMsg('Your plan have '+LicenseDetails.maxMessageSpecs+' message rule.')
+            return
+        }else{
+            $("#addMessageRule").modal('show');
+        }
         addMessageField();
     } else if (id === 2) {
         $("#addNamedRule form")[0].reset();
@@ -4942,14 +4946,10 @@ function addMessageField() {
     MSG_FIELD_COUNT++;
 }
 
-function removemsgErr() {
-    $("#msgIdErr").html("")
-}
-
 function addMessageRule() {
 
     if ($("#msg_id").val().length < 3) {
-        $("#msgIdErr").html("Message Id must be greater than two digit")
+        errorMsg('Message ID minimum 3 digits required')
         return
     }
     let flag = false;
@@ -6313,7 +6313,6 @@ function openSimulateModal(id, type) {
         fetchDeviceList(id, function (status, data) {
             if (!simulatorModal[id]) {
 
-
                 simulatorModal[id] = $("#simulatorModal_" + id).dialog({
                     resizable: true,
                     open: function () {
@@ -6352,6 +6351,10 @@ function openSimulateModal(id, type) {
 
         let str = '<div id="simulatorModal_' + id + '" class="w-100">' +
             '<div data-role="body">\n' +
+            '<div class="row"><div class="col-md-12"><div class="form-group">' +
+            '<label class="inputLabel">Select Device</label>' +
+            '<select id="simulatorDeviceList_' + id + '" class="form-control input-sm col-12"><option>No Devices Found</option></select>' +
+            '</div></div></div>' +
             '<div class="row>' +
             '<div class="col-md-12">' +
             '<p class="mb-0"><label>Upload File File</label></p>' +
@@ -6375,44 +6378,44 @@ function openSimulateModal(id, type) {
         }
 
         simulator[id] = current_filerule_obj;
+        $(".simulatorModal").append(str);
 
+        fetchDeviceList(id, function (status, data) {
+            if (!simulatorModal[id]) {
 
-        if (!simulatorModal[id]) {
+                simulatorModal[id] = $("#simulatorModal_" + id).dialog({
+                    resizable: true,
+                    open: function () {
+                        let closeBtn = $('.ui-dialog-titlebar-close');
+                        closeBtn.html('X');
+                    },
+                    // minWidth: 200,
+                    // maxWidth: 600,
+                    // minHeight: 200,
+                    // maxHeight: 450,
+                    // width: 450,
+                    // height: 300,
+                    modal: false,
+                    closeText: "x",
+                    close: function (event, ui) {
+                        closeSimulator(id);
+                    },
 
-            $(".simulatorModal").append(str);
+                    title: 'Simulate - ' + current_filerule_obj.type,
 
-            simulatorModal[id] = $("#simulatorModal_" + id).dialog({
-                resizable: true,
-                open: function () {
-                    let closeBtn = $('.ui-dialog-titlebar-close');
-                    closeBtn.html('X');
-                },
-                // minWidth: 200,
-                // maxWidth: 600,
-                // minHeight: 200,
-                // maxHeight: 450,
-                // width: 450,
-                // height: 300,
-                modal: false,
-                closeText: "x",
-                close: function (event, ui) {
-                    closeSimulator(id);
-                },
+                    /*buttons: {
+                        Close: function() {
+                            $( this ).dialog( "close" );
+                            simulatorModal[id] = null;
+                            $("#simulatorModal_"+id).remove();
+                        }
+    
+    
+                    }*/
+                });
 
-                title: 'Simulate - ' + current_filerule_obj.type,
-
-                /*buttons: {
-                    Close: function() {
-                        $( this ).dialog( "close" );
-                        simulatorModal[id] = null;
-                        $("#simulatorModal_"+id).remove();
-                    }
-
-
-                }*/
-            });
-
-        }
+            }
+        })
     }
 
 
@@ -6595,7 +6598,7 @@ function uploadBinaryFile(file, id) {
     let formData = new FormData();
     let devToken = $("#simulatorDeviceList_" + id + " option:selected").attr("token");
 
-    formData.append("binfile", file, file.name);
+    formData.append("file", file, file.name);
     xhr.setRequestHeader('token', devToken);
     xhr.send(formData);
 }
@@ -6620,8 +6623,10 @@ function uploadFileRule(file, id) {
     // xhr.open('POST', API_BASE_PATH + '/push/file/' + DOMAIN_KEY + '/' + API_KEY + "/SIMULATOR/WEB/1.0/" + id, true);
     xhr.open('POST', API_BASE_PATH + '/push/file/rule/' + id);
     let formData = new FormData();
-    formData.append("binfile", file, file.name);
-    xhr.setRequestHeader('token', API_TOKEN);
+    formData.append("file", file, file.name);
+    let devToken = $("#simulatorDeviceList_" + id + " option:selected").attr("token");
+
+    xhr.setRequestHeader('token', devToken);
     xhr.send(formData);
 }
 

@@ -512,6 +512,19 @@ font-size: 36px;
     background: url('images/details_close.png') no-repeat center center;
 }
 
+table.table td.details-control {
+    background: url('images/details_open.png') no-repeat center center;
+    cursor: pointer;
+}
+table.table tr.shown td.details-control {
+    background: url('images/details_close.png') no-repeat center center;
+}
+.details-expand{
+    cursor: pointer;
+}
+.sorting_disabled{
+    cursor: default;
+}
 
 .domain-select-list{
     max-height: 55vh;
@@ -595,4 +608,33 @@ font-size: 36px;
 }
 .breadcrumb-item.active{
     font-size: 12px;
+}
+
+#warningsnackbar {
+    visibility: hidden; /* Hidden by default. Visible on click */
+    color: #fff; /* White text color */
+    border-radius: 2px; /* Rounded borders */
+    padding: 16px; /* Padding */
+    position: fixed; /* Sit on top of the screen */
+    z-index: 999999999999; /* Add a z-index if needed */
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    max-width: 540px; /* Center the snackbar */
+    top: 100px; /* 30px from the bottom */
+    height: 50px;
+}
+
+#warningsnackbar.show {
+    visibility: visible; /* Show the snackbar */
+
+    /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+    However, delay the fade out process for 2.5 seconds */
+    -webkit-animation: fadein 0.5s;
+    animation: fadein 0.5s;
+}
+.text-warning{
+    font-weight: bold;
+    text-decoration: underline;
+    color: #7b4e0e !important;
 }

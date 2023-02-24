@@ -37,6 +37,7 @@ $(document).ready(function () {
                 $(".linked_domains").append('<label class="label label-default" onclick="openLinkedDomain(\'' + LINKED_DOMAINS[i].domainKey + '\')">' + LINKED_DOMAINS[i].label + '</label><br>')
             }
         }
+        $('.help-url').attr('href',HELP_URL)
         recentUpdate();
 
         loadUserProfilePicture();
@@ -48,6 +49,7 @@ $(document).ready(function () {
         checkDomainSQLAccess();
         checkDomainDBAccess();
         getDevToken();
+        checkLicense()
 
     }
 
@@ -181,8 +183,12 @@ function proceedPrivacy() {
             Cookies.set(PRIVACY_POLICY, "true");
             $("#privacyModal").modal('hide');
             checkDomainName();
-        } else {
-            errorMsg(data.message)
+        } else {console.log(data)   
+            if(data.code == "ACCESS_DENIED"){
+                warningMsg(data.message)
+            }else{
+                errorMsg(data.message)
+            }
         }
     })
 
@@ -1012,3 +1018,65 @@ function refresh() {
     $(".Homemore .dropR").removeClass("bskp-angleR");
 }
 
+function checkLicense(){
+    getDomainLicense(function(status, data){
+        if(status){
+            LicenseDetails = data
+            let plan = "N/A";
+            let plan_img ='images/plans/free-plan.png'
+            switch (data.plan) {
+                case 1:
+                    plan = "Free" 
+                    break;
+              case 2:
+                    plan = "Beginner" 
+                    plan_img = 'images/plans/beginner-plan.png'
+                    break;
+              case 3:
+                    plan = "Basic" 
+                    plan_img = 'images/plans/basic-plan.png'
+                    break;
+              case 4:
+                    plan = "Preferred" 
+                    plan_img = 'images/plans/preferred-plan.png'
+                    break;
+             case 5:
+                    plan = "Professional" 
+                    plan_img = 'images/plans/professional-plan.png'
+                    break;
+                default:
+                    break;
+            }
+            data.plan == 0 ? $("#userPlan").html("<span>Plan : </span><span class='pl-1 text-muted'>N/A</span>") : $("#userPlan").text("Plan : "+plan);
+            $(".acc-id").text(data.accountId);
+            $(".plan-id").text(data.planId);
+            $(".acc-id-copy").attr("data-clipboard-text",data.accountId);
+            $(".plan-id-copy").attr("data-clipboard-text",data.planId);
+
+            if(data.apiHits < 500){
+                $('#notificationCount').html(`<span class="label">1</span>`)
+                $('#planDetails').html(`
+                <div class="alert alert-warning  d-flex justify-content-between align-items-center" role="alert">
+                <div id="" class="mb-0"><i class="fa fa-exclamation-triangle " aria-hidden="true"></i>
+                Your <img src="`+plan_img+`" height="20" alt="free-plan"> <span class="font-bold ">`+ plan + ` plan</span>
+                 have only  ` + data.apiHits + ` API Calls remaining. <a> Upgrade your plan</a>
+                 <a href="https://devbilling.boodskap.io/" target="_blank" class="btn btn-warning "><i class="fa fa-shopping-cart" aria-hidden="true"></i> Upgrade</a>
+                 </div>
+                <div class="close-alert">
+                <button type="button" class="close close-alert-btn" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+                </div>
+                </div>
+                `)
+                $('.header-style').css('box-shadow','none')
+            }else{
+                 $("#planDetails").html("");
+            }
+
+        }else{
+            $("#planDetails").html("");
+            $("#userPlan").html("<span>Plan : </span><span class='pl-1 text-muted'>N/A</span>");
+        }
+    });
+}

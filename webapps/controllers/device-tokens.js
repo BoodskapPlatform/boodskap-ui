@@ -1,7 +1,6 @@
 var tokenTable = null;
 var token_list = [];
 var current_token_id = null;
-var TOKEN_TYPE = "";
 var dashboardList = [];
 var dashboardMobileList = [];
 
@@ -13,7 +12,6 @@ $(document).ready(function () {
 
 function loadTokenList() {
 
-    TOKEN_TYPE = $("#authTokenTypes").val();
     if (tokenTable) {
         tokenTable.destroy();
         $("#tokenTable").html("");
@@ -34,7 +32,8 @@ function loadTokenList() {
         },
         {
             mData: 'type',
-            sTitle: 'Token Type'
+            sTitle: 'Token Type',
+            orderable: false,
         },
         {
             mData: 'entity',
@@ -42,7 +41,8 @@ function loadTokenList() {
         },
         {
             mData: 'mode',
-            sTitle: 'Mode'
+            sTitle: 'Mode',
+            orderable: false,
         },
         {
             mData: 'accesses',
@@ -93,12 +93,12 @@ function loadTokenList() {
                     next: 'Next >'
                 }
             },
-            aaSorting: [[3, 'desc']],
+            aaSorting: [[2, 'desc']],
             aoColumns: fields,
             data: []
         };
     
-        listAuthToken(TOKEN_TYPE, function (status, data) {
+        listAuthToken("DEVICE", function (status, data) {
             if (status && data.length > 0) {
                 tableOption['data'] = data;
                 token_list = data;
@@ -117,14 +117,6 @@ function loadTokenList() {
                 $("#tokenTable_filter").show();
             }, 1000);
         });
-}
-
-function setCopyToken(row_id){
-
-    var tkey = new ClipboardJS('.apiToken'+row_id);
-    tkey.on('success', function (e) {
-        successMsg('Token Copied Successfully')
-    });
 }
 
 function openModal(type, id) {
