@@ -149,8 +149,8 @@ function renderHtml(obj) {
 
 
     if (obj.domainKey === DOMAIN_KEY) {
-        actStr = `<a class="btn btn-default btn-xs" title="Edit" onclick="openModal(2,'` + obj.id + `')" style="background-color:white;font-size:15px;padding-top:7px;margin-top: 1px;margin-right: 0px;font-size: 17px;border: none;border-left: 1px solid #d3d3d380;border-radius: 0px;"><img id="edit-img" style="filter: brightness(0.8);" src="../webapps/images/edit_icon.svg" alt=""></a>
-        <a class="btn btn-default btn-xs" title="Delete" onclick="openModal(3,'` + obj.id + `')" style="background-color:white;font-size:15px;padding-top:9px;margin-top: 0px;margin-left: 10px;font-size: 18px;border: none;border-left: 1px solid #d3d3d380;border-radius: 0px;"><img id="delete-img" style="width: 29px;height: 30px;margin-top: -1px;filter: brightness(0.8);" src="../webapps/images/Delete2.svg" alt="">
+        actStr = `<a class="btn btn-default btn-xs" title="Edit" onclick="openModal(2,'` + obj.id + `')" style="background-color:white;font-size:15px;padding-top:7px;margin-top: 1px;margin-right: 0px;font-size: 17px;border: none;border-left: 1px solid #d3d3d380;border-radius: 0px;"><img id="edit-img" style="filter: brightness(0.8);" src="images/edit_icon.svg" alt=""></a>
+        <a class="btn btn-default btn-xs" title="Delete" onclick="openModal(3,'` + obj.id + `')" style="background-color:white;font-size:15px;padding-top:9px;margin-top: 0px;margin-left: 10px;font-size: 18px;border: none;border-left: 1px solid #d3d3d380;border-radius: 0px;"><img id="delete-img" style="width: 29px;height: 30px;margin-top: -1px;filter: brightness(0.8);" src="images/Delete2.svg" alt="">
         </a>`;
     }
 
@@ -176,8 +176,8 @@ function renderHtml(obj) {
                 </div>
               
               <p class="btn-group btn-group-justified `+ obj.id + ` " style="top:89%;left:24%;position:absolute;" id="action-buttons">
-              <a class="btn btn-default btn-xs" id="download-btn" title="Download" onclick="downloadFile('` + obj.id + `')" data-clipboard-text="` + srcPath + `" style="font-size:15px;background-color:white;border: none;font-size: 16px;padding-right: 9px;margin-top: 6px;"><img id="download-img" style="width: 27px;height: 27px;filter: brightness(0.5);" src="../webapps/images/Download2.svg" alt=""></a> 
-               <a class="btn btn-default btn-xs cpyBtn" id="copy-btn" title="Copy Link" data-clipboard-text="`+ srcPath + `" style="font-size:15px;background-color:white;margin-right: 8px;font-size: 18px;border: none;border-left: 1px solid #d3d3d380;border-radius: 0px;padding-left: 9px;margin-top: 6px;"><img id="copy-img" style="width: 27px;height: 27px;filter: brightness(0.5);" src="../webapps/images/Copy.svg" alt=""></a>
+              <a class="btn btn-default btn-xs" id="download-btn" title="Download" onclick="downloadFile('` + obj.id + `')" data-clipboard-text="` + srcPath + `" style="font-size:15px;background-color:white;border: none;font-size: 16px;padding-right: 9px;margin-top: 6px;"><img id="download-img" style="width: 27px;height: 27px;filter: brightness(0.5);" src="images/Download2.svg" alt=""></a> 
+               <a class="btn btn-default btn-xs cpyBtn" id="copy-btn" title="Copy Link" data-clipboard-text="`+ srcPath + `" style="font-size:15px;background-color:white;margin-right: 8px;font-size: 18px;border: none;border-left: 1px solid #d3d3d380;border-radius: 0px;padding-left: 9px;margin-top: 6px;"><img id="copy-img" style="width: 27px;height: 27px;filter: brightness(0.5);" src="images/Copy.svg" alt=""></a>
              `+ actStr + `
           </p>
             </div>
