@@ -197,33 +197,49 @@ function openLinkedDomain(key) {
 
 
 function linkDomainCall() {
-    var obj = {
-        apiKey: $.trim($("#apiKey").val()),
-        domainKey: $.trim($("#domainKey").val()),
-        label: $.trim($("#labelText").val())
-    };
-    $("#linkDomain").attr("disabled",true).prepend("<i class='fa fa-spinner fa-spin px-1' aria-hidden='true'></i>");
 
-    linkDomain(obj, function (status, data) {
-        if (status) {
-            // if(!USER_OBJ.linkedDomains){
-            //     USER_OBJ["linkedDomains"] = [];
-            // }
-            //USER_OBJ["linkedDomains"].push(data);
-            LINKED_DOMAINS.push(data);
-            Cookies.set('linked_domains', LINKED_DOMAINS);
-            
-            USER_OBJ.linkedDomains = [];
-            Cookies.set('user_details', USER_OBJ);
-            domainList();
-            $("#linkModal form")[0].reset();
-            successMsg('Domain Linked Successfully!')
-        } else {
-            errorMsg('Error in Linking Domain (or) Domain Not Exist');
-            $("#linkDomain").attr("disabled",false);
-        }
-        $("#linkDomain").find(".fa-spinner").remove();
-    })
+    let aKey = $.trim($("#apiKey").val());
+    let dKey = $.trim($("#domainKey").val());
+    let lab = $.trim($("#labelText").val());
+
+    let existAKey = $.trim($(".api_key").text());
+    let existDKey = $.trim($(".domain_key").text());
+    
+
+    
+
+    if(aKey == existAKey || dKey == existDKey){
+        errorMsg('Self-domain cannot be linked');
+    }else{
+        var obj = {
+            apiKey: aKey,
+            domainKey: dKey,
+            label: lab
+        };
+
+        $("#linkDomain").attr("disabled",true).prepend("<i class='fa fa-spinner fa-spin px-1' aria-hidden='true'></i>");
+
+        linkDomain(obj, function (status, data) {
+            if (status) {
+                // if(!USER_OBJ.linkedDomains){
+                //     USER_OBJ["linkedDomains"] = [];
+                // }
+                //USER_OBJ["linkedDomains"].push(data);
+                LINKED_DOMAINS.push(data);
+                Cookies.set('linked_domains', LINKED_DOMAINS);
+                
+                USER_OBJ.linkedDomains = [];
+                Cookies.set('user_details', USER_OBJ);
+                domainList();
+                $("#linkModal form")[0].reset();
+                successMsg('Domain Linked Successfully!')
+            } else {
+                errorMsg('Error in Linking Domain (or) Domain Not Exist');
+                $("#linkDomain").attr("disabled",false);
+            }
+            $("#linkDomain").find(".fa-spinner").remove();
+        })
+    }    
 }
 
 function unlinkDomainCall(id) {

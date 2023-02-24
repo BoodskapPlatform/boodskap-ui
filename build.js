@@ -51,6 +51,9 @@ async.series({
             web: {
                 port: Number(getProperty('server.port'))
             },
+            devops: {
+                env: getProperty('devops.env')
+            },
             basepath : BASE_PATH,
             protocol : getProperty('server.ssl') ? 'https' : 'http',
             api: getProperty('boodskap.api'),

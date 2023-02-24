@@ -1,7 +1,6 @@
 var tokenTable = null;
 var token_list = [];
 var current_token_id = null;
-var TOKEN_TYPE = "";
 var dashboardList = [];
 var dashboardMobileList = [];
 
@@ -13,7 +12,6 @@ $(document).ready(function () {
 
 function loadTokenList() {
 
-    TOKEN_TYPE = $("#authTokenTypes").val();
     if (tokenTable) {
         tokenTable.destroy();
         $("#tokenTable").html("");
@@ -72,7 +70,7 @@ function loadTokenList() {
 
         var tableOption = {
             fixedHeader: {
-                header: true,
+                header: false,
                 headerOffset: -5
             },
             responsive: true,
@@ -86,18 +84,19 @@ function loadTokenList() {
                 "emptyTable": "No data available",
                 "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
                 "zeroRecords": "No data available",
-                "searchPlaceholder": "Search by Device Id",
+                "searchPlaceholder": "Search here",
                 loadingRecords: '',
                 paginate: {
                     previous: '< Prev',
                     next: 'Next >'
                 }
             },
+            aaSorting: [[3, 'desc']],
             aoColumns: fields,
             data: []
         };
     
-        listAuthToken(TOKEN_TYPE, function (status, data) {
+        listAuthToken("DEVICE", function (status, data) {
             if (status && data.length > 0) {
                 tableOption['data'] = data;
                 token_list = data;
@@ -116,14 +115,6 @@ function loadTokenList() {
                 $("#tokenTable_filter").show();
             }, 1000);
         });
-}
-
-function setCopyToken(row_id){
-
-    var tkey = new ClipboardJS('.apiToken'+row_id);
-    tkey.on('success', function (e) {
-        successMsg('Token Copied Successfully')
-    });
 }
 
 function openModal(type, id) {

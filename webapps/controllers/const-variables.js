@@ -200,7 +200,7 @@ var MOBILE_DEFAULT_THEME = {
 var SQL_QUERY = ['SELECT', 'INSERT', 'UPDATE', 'MERGE'];
 var RESERVED_FIELDS = ["id","domainkey","deviceid","deliveredstamp","receivedstamp","ipaddress","port","dmdl","fwver","nodeid","nodeuid","channel"];
 var DATABASE_KEYWORDS = ["add","allow","alter","and","any","apply","asc","authorize","batch","begin","by","columnfamily","create","delete","desc","drop","each_quorum","from","full","grant","if","in","index","inet","infinity","insert","into","keyspace","keyspaces","limit","local_one","local_quorum","modify","nan","norecursive","not","of","on","one","order","password","primary","quorum","rename","revoke","schema","select","set","table","three","to","token","truncate","two","unlogged","update","use","using","where","with"];
-
+var LicenseDetails;
 var TEMPLATES = {
     'LIST_MSG' : 'list_msgs',
     'COUNT_MSG' : 'count_msgs',

@@ -453,6 +453,27 @@ function loadGoogleAnalytics() {
     ga('send', 'pageview');
 }
 
+function ajaxCall(url, type, params,abk) {
+    $.ajax({
+        url: API_BASE_PATH + url+params,
+        type,
+        success: function (data) {
+            abk(true, data)
+        },
+        error: function (e) {
+            abk(false,null)
+        }
+    });
+}
+
+
+function setCopyToken(row_id, msg) {
+
+    var tkey = new ClipboardJS('.apiToken' + row_id);
+    tkey.on('success', function (e) {
+        successMsg(msg ?? 'Token Copied Successfully')
+    });
+}
 
 function loadStatistics() {
     // $(".webVersion").html(WEB_VERSION)
@@ -729,8 +750,8 @@ function showFeedbackAlert(text,id,alertId) {
 }
 
 function defaultStyle(id) {
-    $("input, select textarea").removeClass('error-input-box')
-    $("input, select textarea").removeClass('error-box')
+    $("input, select, textarea").removeClass('error-input-box')
+    $("input, select, textarea").removeClass('error-box')
     $("#" + id).hide();
     $('.alertDiv').html('')
 }
@@ -773,4 +794,20 @@ function showSelectFeedback(text,id,alertId){
         }
 
     })  
+}
+
+function onlyNumber(e) {
+    const keyCode = e.keyCode == 0 ? e.charCode : e.keyCode;
+    return (keyCode >= 48 && keyCode <= 57);
+}
+
+function warningMsg(msg){
+    let alertMsg = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    `+msg+` Go to buy here <a href="https://devbilling.boodskap.io/" class="text-warning" target="_blank">upgrade</a>
+    <button type="button" class="close close-alert-btn mt-1" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>`
+  $("#warningsnackbar").addClass('show');
+  $('#warningsnackbar').html(alertMsg)
 }
