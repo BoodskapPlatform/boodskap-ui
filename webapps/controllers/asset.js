@@ -8,6 +8,7 @@ $(document).ready(function () {
     loadAssetList();
     $('.dataTables_filter input').attr('maxlength', 50);
     $("body").removeClass('bg-white');
+    $('.help-url').attr('href',HELP_URL+"upsertasset");
 
 });
 

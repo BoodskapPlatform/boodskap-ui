@@ -55,18 +55,31 @@ var mapHgt;
 $(document).ready(function() {
 
     $("#geoMap").css('height', $(window).height() - 150);
-    $(".geoListBody").css('height', $(window).height() - 195);
+    $(".geoListBody").css('height', $(window).height() - 225);
     $("body").removeClass('bg-white');
 
+    $('.help-url').attr('href',HELP_URL+"upsertgeofence");
 
     $("#geoType").on('change', function(e) {
         mapTools(e.target.value);
     });
 
+    
 
     loadGoogleApiKey();
 
 });
+
+function expand(){
+    if ($("#cardExpand").is(".panel-expand")) {
+        $("#cardExpand").addClass('mt-2');
+        console.log( $(window).height() - 195)
+    }
+    else if ($("#cardExpand").not('.panel-expand')) {
+        $("#cardExpand").removeClass('mt-2');
+
+    }
+}
 
 
 function loadGoogleApiKey() {

@@ -10,6 +10,7 @@ var current_event_address = null;
 $(document).ready(function () {
 
     loadEvents();
+    $('.help-url').attr('href',HELP_URL+"upsertevent");
 
     $("body").removeClass('bg-white');
 
