@@ -7,6 +7,7 @@ $(document).ready(function () {
 
     loadDBPool();
     $("body").removeClass('bg-white');
+    $('.help-url').attr('href',HELP_URL+"sql");
 
 });
 

@@ -1539,7 +1539,7 @@ function upsertUser(data, cbk) {
         error: function (e) {
             //called when there is an error
             //console.log(e.message);
-            cbk(false, e);
+            cbk(false, e.responseJSON);
         }
     });
 }
@@ -3346,7 +3346,7 @@ function retrieveDomainUserGroup(gid, cbk) {
         error: function (e) {
             //called when there is an error
             //console.log(e.message);
-            cbk(false, e);
+            cbk(false, e.responseJSON);
         }
     });
 }

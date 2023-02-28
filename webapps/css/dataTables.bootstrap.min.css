@@ -75,6 +75,7 @@ div.dataTables_wrapper div.dataTables_processing {
     text-align: center;
     padding: 1em 0;
     background-color: #EAF1F6;
+    z-index: 2;
 }
 
 table.dataTable thead>tr>th.sorting_asc,

@@ -9,6 +9,8 @@ $(document).ready(function () {
 
     $("body").removeClass('bg-white');
 
+    $('.help-url').attr('href',HELP_URL+"upsertuser");
+
 });
 
 function loadUsersList() {
@@ -374,7 +376,17 @@ function addUser() {
                     }, 700)
                     $("#addUser").modal('hide');
                 } else {
-                    errorMsg('Error in Creating User')
+                    if(typeof(data)!="undefined"){
+                        if(data.message){
+                            var errmessage = data.message.replaceAll("_"," ")
+                            errorMsg(errmessage);
+                        }else{
+                            errorMsg('Error in Creating User')
+                        }
+                    }else{
+                        errorMsg('Error in Creating User')
+                    }
+
                 }
                 $(".btnSubmit").removeAttr('disabled');
             })
