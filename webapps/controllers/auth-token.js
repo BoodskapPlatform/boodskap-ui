@@ -9,8 +9,8 @@ $(document).ready(function () {
 
     loadTokenList('API');
     $("body").removeClass('bg-white');
+    $('.help-url').attr('href',HELP_URL+"pushauthtoken");
 
- 
 });
 
 function loadTokenList(type) {

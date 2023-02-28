@@ -9,6 +9,7 @@ $(document).ready(function () {
     loadresultEditor('');
 
     loadConnectionpool()
+    $('.help-url').attr('href',HELP_URL+"executedbquery");
 
 });   
 

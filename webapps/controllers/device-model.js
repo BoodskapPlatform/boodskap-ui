@@ -8,7 +8,7 @@ $(document).ready(function () {
     loadDeviceModelList();
 
     $("body").removeClass('bg-white');
-
+    $('.help-url').attr('href',HELP_URL+"listdevices");
 });
 
 function loadDeviceModelList() {
