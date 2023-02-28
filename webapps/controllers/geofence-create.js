@@ -64,7 +64,8 @@ $(document).ready(function () {
        $('.value-box').val("")
     });
 
-    console.log($("#geoCreateType").val());
+    $('.help-url').attr('href',HELP_URL+"upsertgeofence");
+
 
     $("#geofenceCreateType option[value=" + $("#geoCreateType").val()+"]").attr("selected","selected") ;
 

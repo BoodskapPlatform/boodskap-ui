@@ -58,6 +58,7 @@ $(document).ready(function() {
     $(".geoListBody").css('height', $(window).height() - 225);
     $("body").removeClass('bg-white');
 
+    $('.help-url').attr('href',HELP_URL+"upsertgeofence");
 
     $("#geoType").on('change', function(e) {
         mapTools(e.target.value);
