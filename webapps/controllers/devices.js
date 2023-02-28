@@ -9,7 +9,7 @@ var tokenTable = null
 $(document).ready(function () {
     loadDeviceList();
     $("body").removeClass('bg-white');
-
+    $('.help-url').attr('href',HELP_URL+"listdevices");
 });
 
 function loadDeviceList() {

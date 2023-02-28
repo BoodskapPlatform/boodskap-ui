@@ -11,7 +11,7 @@ $(document).ready(function () {
     loadresultEditor('');
     loadSqlQuery();
     loadSQLTable();
-
+    $('.help-url').attr('href',HELP_URL+"executesqlquery");
 });
 
 function loadSqlQuery() {

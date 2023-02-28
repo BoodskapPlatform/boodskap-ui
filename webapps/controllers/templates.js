@@ -11,7 +11,7 @@ $(document).ready(function () {
     }
     loadTemplates();
 
-
+    $('.help-url').attr('href',HELP_URL+"listtemplates");
 
     $("body").removeClass('bg-white');
 
