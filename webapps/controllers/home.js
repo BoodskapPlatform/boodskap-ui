@@ -205,11 +205,20 @@ function linkDomainCall() {
     let existAKey = $.trim($(".api_key").text());
     let existDKey = $.trim($(".domain_key").text());
     
+    let find_duplicate = false
 
-    
+    if (LINKED_DOMAINS.length > 0) {
+        LINKED_DOMAINS.forEach(element => {
+            if (element.domainKey === dKey) {
+                find_duplicate = true;
+            }
+        });
+    }
 
     if(aKey == existAKey || dKey == existDKey){
         errorMsg('Self-domain cannot be linked');
+    }else if(find_duplicate){
+        errorMsg('Target Domain Key already linked');
     }else{
         var obj = {
             apiKey: aKey,
