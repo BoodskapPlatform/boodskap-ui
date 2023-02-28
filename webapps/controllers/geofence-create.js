@@ -221,7 +221,7 @@ function upsertEntityGeofence(){
     geoInputObj['name'] = geofenceObj.name ? geofenceObj.name :"";
     geoInputObj['geoType'] = geofenceObj.geoType;
     geoInputObj['label'] = geofenceObj.label;
-    geoInputObj['description'] = geofenceObj.description;
+    geoInputObj['description'] = geofenceObj.description.trim();
     geoInputObj['coordinates'] = JSON.stringify(geoInputObj.coordinates);
     geoInputObj['createdAt'] = new Date().getTime();
     geoInputObj['entityId'] = guid();
@@ -331,7 +331,7 @@ function upsertEntityGeofence(){
                 });
 
             } else if (result.dismiss === Swal.DismissReason.cancel) {
-                Swal("Error", "Now You Can Edit", "info");
+                Swal("Edit", "Now You Can Edit", "info");
             }
         });
 

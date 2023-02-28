@@ -3039,7 +3039,7 @@ if (typeof window !== 'undefined' && window.Sweetalert2){  window.swal = window.
 "      border: 0;\n" +
 "      border-radius: 0.25em;\n" +
 "      background: initial;\n" +
-"      background-color: #3085d6;\n" +
+"      background-color: #2D2F79;\n" +
 "      color: #fff;\n" +
 "      font-size: 1.0625em; }\n" +
 "    .swal2-popup .swal2-styled.swal2-cancel {\n" +
@@ -3272,8 +3272,8 @@ if (typeof window !== 'undefined' && window.Sweetalert2){  window.swal = window.
 "    border-color: #facea8;\n" +
 "    color: #f8bb86; }\n" +
 "  .swal2-icon.swal2-info {\n" +
-"    border-color: #9de0f6;\n" +
-"    color: #3fc3ee; }\n" +
+"    border-color: #787ab9;\n" +
+"    color: #2D2F79; }\n" +
 "  .swal2-icon.swal2-question {\n" +
 "    border-color: #c9dae1;\n" +
 "    color: #87adbd; }\n" +

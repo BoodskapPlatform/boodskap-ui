@@ -234,11 +234,7 @@ function loadMessages(id) {
     };
 
     var tableOption = {
-        fixedHeader: {
-            header: true,
-            headerOffset: -5
-        },
-        responsive: true,
+        responsive: false,
         paging: true,
         searching: true,
         "ordering": true,
