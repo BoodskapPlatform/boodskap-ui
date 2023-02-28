@@ -21,6 +21,7 @@ $(document).ready(function () {
     loadMessageDef();
     loadqueryEditor();
     loadresultEditor('');
+    $('.help-url').attr('href',HELP_URL+"elastic-search");
 
 });
 

@@ -10,7 +10,7 @@ $(document).ready(function () {
    loadMessageDef();
     $('body').removeClass('bg-white');
    
-  
+    $('.help-url').attr('href',HELP_URL+"upsertmessagedefinition");
     //document.getElementById('importFile').addEventListener('change', getImportFile)
 });
 

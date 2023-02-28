@@ -17,6 +17,8 @@ $(document).ready(function () {
     document.getElementById('importFile')
         .addEventListener('change', getImportFile)
 
+    $('.help-url').attr('href',HELP_URL+"sql");
+
 });
 
 
