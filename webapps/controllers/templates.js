@@ -79,7 +79,7 @@ function loadTemplates() {
 
     var tableOption = {
         fixedHeader: {
-            header: true,
+            header: false,
             headerOffset: -5
         },
         responsive: false,
