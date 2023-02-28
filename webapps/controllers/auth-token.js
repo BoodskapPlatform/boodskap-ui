@@ -30,8 +30,8 @@ function loadTokenList(type) {
     var fields = [
         {
             mData: 'token',
-            orderable: false,
             sTitle: 'Token',
+            orderable: false,
             mRender: function (data, type, row) {
                 setCopyToken(data);
                 return  '<i class="icon-key2 pr-1" style="color: #666666;"></i> '+data+' <a href="javascript:void(0)" class="apiToken'+data+'" style="text-decoration: none;color: #363636;" title="Click here to copy the token" data-clipboard-text="'+data+'">' +
@@ -76,16 +76,14 @@ function loadTokenList(type) {
     ];
 
     var tableOption = {
-        fixedHeader: {
-            header: true,
-            headerOffset: -5
-        },
+        
         responsive: true,
         paging: true,
         searching: true,
         "ordering": true,
         scrollY: '100px',
         scrollCollapse: true,
+        aaSorting: [[1 , 'desc']],
         iDisplayLength: 10,
         lengthMenu: [[10, 50, 100], [10, 50, 100]],
         dom: '<"bskp-search-left" f> lrtip',
@@ -117,7 +115,7 @@ function loadTokenList(type) {
         tokenTable = $("#tokenTable").DataTable(tableOption);
         $("#tokenTable_filter").hide();
         $('.dataTables_filter input').attr('maxlength', 100);
-        if(type!="all"){
+        if(TOKEN_TYPE != "API"){
             $("#tokenTable_filter").show();
         }else{
             setTimeout(() => {

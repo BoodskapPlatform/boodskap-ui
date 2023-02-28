@@ -436,6 +436,9 @@ function listProcessRules(query,type, cbk) {
             url: API_BASE_PATH + "/elastic/search/query/" + API_TOKEN_ALT,
             data: JSON.stringify(data),
             contentType: "application/json",
+            "headers": {
+                "TOKEN": API_TOKEN
+            },
             type: 'POST',
             success: function (data) {
                 //called when successful

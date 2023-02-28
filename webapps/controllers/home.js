@@ -345,7 +345,7 @@ function loadDomains() {
             mRender: function (data, type, row) {
                 var str = '<button class="btn bskp-edit-btn mr-2 loginas-btn" title="Login" onclick="loginAs(\'' + row['domainKey'] + '\',\'' + row['email'] + '\')">' +
                     '<em class="icon-sign-in"></em></button> <button class="btn bskp-trash-btn" title="Delete" onclick="deleteDomain(\'' + row['domainKey'] + '\',\'' + row['email'] + '\')">' +
-                '<img src="images/trash2.svg" alt=""></button>'
+                '<img src="images/delete.svg" alt=""></button>'
                 return row['domainKey'] ? str : '-';
             }
         }
@@ -1057,25 +1057,25 @@ function register(){
         lastName: lastname
     };
 
-    // registerCall(data,function (status, data) {
-    //     closeLoading();
-    //     $("#submitButton").removeAttr('disabled');
-    //     if(status){
-    //         if(data.message === 'USER_EXISTS') {
-    //             errorMsg('Email ID already exists!')
-    //         }else{
-    //             successMsg('Domain Created Successfully!')
-    //             $('#createDomain').modal('hide');
-    //         }
-    //     }else{
-    //         if(data.message === 'USER_EXISTS'){
-    //             errorMsg('Email ID already exists!')
-    //         }else{
-    //             errorMsg('Something went wrong!')
-    //         }
+    registerCall(data,function (status, data) {
+        closeLoading();
+        $("#submitButton").removeAttr('disabled');
+        if(status){
+            if(data.message === 'USER_EXISTS') {
+                errorMsg('Email ID already exists!')
+            }else{
+                successMsg('Domain Created Successfully!')
+                $('#createDomain').modal('hide');
+            }
+        }else{
+            if(data.message === 'USER_EXISTS'){
+                errorMsg('Email ID already exists!')
+            }else{
+                errorMsg('Something went wrong!')
+            }
 
-    //     }
-    // })
+        }
+    })
 }
 
 function deleteDomain(dkey) {

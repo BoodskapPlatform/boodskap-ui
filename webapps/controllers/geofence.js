@@ -714,7 +714,7 @@ function loadDeviceGeofenceList() {
             sWidth: '25%',
             mRender: function(data, type, row) {
 
-                return '<span onclick="singleGeoSnapshot(\'' + encodeURIComponent(JSON.stringify(row)) + '\')" style="cursor: pointer;">' + data + ' <i class="icon-eye"></i><br>' +
+                return '<span  onclick="singleGeoSnapshot(\'' + encodeURIComponent(JSON.stringify(row)) + '\')" style="cursor: pointer;">' + data + ' <i class="icon-eye" title="View"></i><br>' +
                     '<small class="text-grey">' + (row['name'] ? '' + row['description'] : '') + '</small>' +
                     '</span>';
             }
@@ -776,7 +776,7 @@ function loadDeviceGeofenceList() {
             orderable: false,
             sWidth: '10%',
             mRender: function(data, type, row) {
-                return '<div style="white-space: nowrap;"><button class="btn bskp-trash-btn" onclick="openModal(3,\'' + row['name'] + '\')"><img src="images/delete.svg" alt=""> </button>' +
+                return '<div style="white-space: nowrap;"><button class="btn bskp-trash-btn" title="Delete" onclick="openModal(3,\'' + row['name'] + '\')"><img src="images/delete.svg" alt=""> </button>' +
                     '</div>';
             }
         }
