@@ -32,6 +32,7 @@ function loadDeviceList() {
         {
             mData: 'id',
             sTitle: 'Device ID',
+            "orderable": false,
             sWidth: '10%',
             mRender: function (data, type, row) {
 
@@ -41,6 +42,7 @@ function loadDeviceList() {
         {
             mData: 'modelId',
             sTitle: 'Device Model',
+            "orderable": false,
             sWidth: '10%',
             mRender: function (data, type, row) {
                 return data ? data : '-';
@@ -49,6 +51,7 @@ function loadDeviceList() {
         {
             mData: 'version',
             sTitle: 'Version',
+            "orderable": false,
             sWidth: '5%',
             mRender: function (data, type, row) {
                 return data ? data : '-';
@@ -57,6 +60,7 @@ function loadDeviceList() {
         {
             mData: 'channel',
             sTitle: 'Channel',
+            "orderable": false,
             sWidth: '5%',
             mRender: function (data, type, row) {
                 return data ? data : '-';
@@ -65,6 +69,7 @@ function loadDeviceList() {
         {
             mData: 'nodeId',
             sTitle: 'Node ID',
+            "orderable": false,
             sWidth: '7%',
             orderable: false,
             mRender: function (data, type, row) {
@@ -82,6 +87,7 @@ function loadDeviceList() {
         {
             mData: 'registeredStamp',
             sTitle: 'Created Time',
+            "orderable": false,
             sWidth: '12%',
             mRender: function (data, type, row) {
                 return moment(data).format('MM/DD/YYYY hh:mm a')
@@ -127,7 +133,7 @@ function loadDeviceList() {
             responsive: true,
             paging: true,
             searching: true,
-            aaSorting: [[7, 'desc']],
+            aaSorting: [[6, 'desc']],
             "ordering": true,
             scrollY: '100px',
             scrollCollapse: true,

@@ -81,29 +81,26 @@ function loadUserGroup() {
 
 
     var tableOption = {
-        fixedHeader: {
-            header: true,
-            headerOffset: -5
-        },
-        "language": {
+        responsive: true,
+        paging: true,
+        searching: true,
+        aaSorting: [[0, 'desc']],
+        "ordering": true,
+        scrollY: '100px',
+        scrollCollapse: true,
+        iDisplayLength: 10,
+        lengthMenu: [[10, 50, 100], [10, 50, 100]],
+        dom: '<"bskp-search-left" f> lrtip',
+        language: {
             "emptyTable": "No data available",
-            "zeroRecords": "No data available",
             "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
             "searchPlaceholder": "Search here",
             loadingRecords: '',
             paginate: {
                 previous: '< Prev',
                 next: 'Next >'
-            },
-            "processing": '<i class="fa fa-spinner fa-spin"></i> Processing'
+            }
         },
-        responsive: true,
-        paging: true,
-        searching: true,
-        aaSorting: [[0, 'desc']],
-        "ordering": true,
-        iDisplayLength: 10,
-        lengthMenu: [[10, 50, 100], [10, 50, 100]],
         aoColumns: fields,
         "bProcessing": true,
         "bServerSide": true,
