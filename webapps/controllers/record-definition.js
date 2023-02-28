@@ -14,6 +14,9 @@ $(document).ready(function () {
     $('body').removeClass('bg-white')
    document.getElementById('importFile')
         .addEventListener('change', getImportFile)
+
+    $('.help-url').attr('href',HELP_URL+"upsertrecorddefinition");
+
 });
 
 

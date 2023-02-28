@@ -14,6 +14,8 @@ $(document).ready(function () {
 
     $("body").removeClass('bg-white');
 
+    $('.help-url').attr('href',HELP_URL+"upsertuser");
+
 });
 
 
@@ -30,7 +32,7 @@ function loadUserGroup() {
     var fields = [
         {
             mData: 'id',
-            sTitle: 'Id',
+            sTitle: 'Group Id',
             "class": "details-control",
             "orderable": true,
             sWidth: '10%',
@@ -38,19 +40,19 @@ function loadUserGroup() {
         {
             mData: 'name',
             sTitle: 'Name',
-            "class": "details-control",
+            //"class": "details-control",
             "orderable": false,
         },
         {
             mData: 'email',
             sTitle: 'Email',
-            "class": "details-control",
+           // "class": "details-control",
             orderable: false,
         },
         {
             mData: 'primaryPhone',
             sTitle: 'Mobile No',
-            "class": "details-control",
+            //"class": "details-control",
             orderable: false
         },
         {
@@ -59,8 +61,8 @@ function loadUserGroup() {
             orderable: false,
             mRender: function (data, type, row) {
 
-                return '<button class="btn btn-sm btn-icon btn-default" onclick="openModal(2,' + row["id"] + ')"><i class="icon-edit2"></i></button>' +
-                    '<button class="btn btn-sm btn-icon btn-default" onclick="openModal(3,' + row['id'] + ')"><i class="icon-trash-o"></i></button>';
+                return '<button class="btn btn-sm btn-icon btn-default" onclick="openModal(2,' + row["id"] + ')" title="Edit"><i class="icon-edit2"></i></button>' +
+                    '<button class="btn btn-sm btn-icon btn-default" onclick="openModal(3,' + row['id'] + ')" title="Delete"><i class="icon-trash-o"></i></button>';
             }
         }
 
@@ -203,12 +205,12 @@ function loadUserGroup() {
 
     userGroupTable = $("#userGroupTable").DataTable(tableOption);
 
-
+    $(".dataTables_scrollBody").removeAttr("style").css({"min-height":"calc(100vh - 425px)","position":"relative","width":"100%"});
     var detailRows = [];
 
     $('#userGroupTable tbody').on('click', '.details-control', function () {
 
-        $(".eventRow").remove();
+        //$(".eventRow").remove();
         var tr = $(this).closest('tr');
         var row = userGroupTable.row(tr);
         var idx = $.inArray(tr.attr('id'), detailRows);
@@ -220,6 +222,7 @@ function loadUserGroup() {
 
             // Remove from the 'open' array
             detailRows.splice(idx, 1);
+            tr.removeClass('shown');
         }
         else {
             tr.addClass('details');
@@ -232,6 +235,7 @@ function loadUserGroup() {
             if (idx === -1) {
                 detailRows.push(tr.attr('id'));
             }
+            tr.addClass('shown');
         }
     });
 
@@ -448,14 +452,18 @@ function loadUsersList() {
             var data = $(this);
             data.toggleClass('selected');
             selected_user = userTable.rows('.selected').data();
-            $(".selectedCount").html(userTable.rows('.selected').data().length);
             var clickData = userTable.rows(data).data()[0];
             if(addedMemListArr.includes(clickData.email) == true){
                 data.toggleClass('selected');
                 errorMsg("User Already Selected");
             }
+            setTimeout(() => {
+                $(".selectedCount").html(userTable.rows('.selected').data().length);
+            }, 100);
         });
+        
     })
+    
 
 
 }
@@ -542,7 +550,17 @@ function addUserGroup() {
                     successMsg('User Group Created Successfully');
                     $("#addUserGroup").modal('hide');   
                 } else {
-                    errorMsg('Error in Creating User Group')
+                    if(typeof(data)!="undefined"){
+                        if(data.message){
+                            var errmessage = data.message.replaceAll("_"," ")
+                            errorMsg(errmessage);
+                        }else{
+                            errorMsg('Error in Creating User Group')
+                        }
+                    }else{
+                        errorMsg('Error in Creating User Group')
+                    }
+                    
                 }
                 $(".btnSubmit").removeAttr('disabled');
             })
@@ -568,7 +586,9 @@ function updateUserGroup() {
     upsertDomainUserGroup(groupObj, function (status, data) {
         if (status) {
             successMsg('User Group Updated Successfully');
-            loadUserGroup();
+            setTimeout(() => {
+                loadUserGroup();
+            }, 1000);
             $("#addUserGroup").modal('hide');
         } else {
             errorMsg('Error in Updating User Group')

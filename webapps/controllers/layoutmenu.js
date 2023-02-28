@@ -37,7 +37,7 @@ $(document).ready(function () {
                 $(".linked_domains").append('<label class="label label-default" onclick="openLinkedDomain(\'' + LINKED_DOMAINS[i].domainKey + '\')">' + LINKED_DOMAINS[i].label + '</label><br>')
             }
         }
-        $('.help-url').attr('href',HELP_URL)
+        
         recentUpdate();
 
         loadUserProfilePicture();
