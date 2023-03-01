@@ -1022,7 +1022,7 @@ function checkLicense(){
     getDomainLicense(function(status, data){
         if(status){
             LicenseDetails = data
-            let plan = "N/A";
+            let plan = "Free";
             let plan_img ='images/plans/free-plan.png'
             switch (data.plan) {
                 case 1:
@@ -1047,7 +1047,7 @@ function checkLicense(){
                 default:
                     break;
             }
-            data.plan == 0 ? $("#userPlan").html("<span>Plan : </span><span class='pl-1 text-muted'>N/A</span>") : $("#userPlan").text("Plan : "+plan);
+            data.plan == 0 ? $("#userPlan").html("<span>Plan : </span><span class='pl-1 text-muted'>Free</span>") : $("#userPlan").text("Plan : "+plan);
             $(".acc-id").text(data.accountId);
             $(".plan-id").text(data.planId);
             $(".acc-id-copy").attr("data-clipboard-text",data.accountId);
