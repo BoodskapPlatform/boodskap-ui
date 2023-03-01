@@ -8,7 +8,7 @@ $(document).ready(function () {
     loadDeviceModelList();
 
     $("body").removeClass('bg-white');
-
+    $('.help-url').attr('href',HELP_URL+"listdevices");
 });
 
 function loadDeviceModelList() {
@@ -86,7 +86,7 @@ function loadDeviceModelList() {
             responsive: true,
             paging: true,
             searching: true,
-            aaSorting: [[0, 'desc']],
+            aaSorting: [[3, 'desc']],
             "ordering": true,
             scrollY: '100px',
             scrollCollapse: true,

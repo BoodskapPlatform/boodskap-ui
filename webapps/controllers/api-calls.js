@@ -436,6 +436,9 @@ function listProcessRules(query,type, cbk) {
             url: API_BASE_PATH + "/elastic/search/query/" + API_TOKEN_ALT,
             data: JSON.stringify(data),
             contentType: "application/json",
+            "headers": {
+                "TOKEN": API_TOKEN
+            },
             type: 'POST',
             success: function (data) {
                 //called when successful
@@ -1536,7 +1539,7 @@ function upsertUser(data, cbk) {
         error: function (e) {
             //called when there is an error
             //console.log(e.message);
-            cbk(false, e);
+            cbk(false, e.responseJSON);
         }
     });
 }
@@ -3343,7 +3346,7 @@ function retrieveDomainUserGroup(gid, cbk) {
         error: function (e) {
             //called when there is an error
             //console.log(e.message);
-            cbk(false, e);
+            cbk(false, e.responseJSON);
         }
     });
 }

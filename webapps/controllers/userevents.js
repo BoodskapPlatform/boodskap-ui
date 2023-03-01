@@ -10,6 +10,7 @@ var current_event_address = null;
 $(document).ready(function () {
 
     loadEvents();
+    $('.help-url').attr('href',HELP_URL+"registerevent");
 
     $("body").removeClass('bg-white');
 
@@ -82,8 +83,8 @@ function loadEvents() {
         aoColumns: fields,
         searchable: true,
         "ordering": true,
-        scrollY: '100px',
-        scrollCollapse: true,
+        // scrollY: '100px',
+        // scrollCollapse: true,
         iDisplayLength: 10,
         lengthMenu: [[10, 50, 100], [10, 50, 100]],
                        dom: '<"bskp-search-left" f> lrtip',

@@ -138,13 +138,12 @@ function loadMessages(id) {
 
     msgFields = _.union(msgFields,DEFAULT_FIELDS);
 
-
-    for(var i=0;i<msgFields.length;i++){
-        if(msgFields[i].dataType === 'TIMESTAMP'){
-            if(msgFields[i].name !== 'deliveredstamp') {
+    for(const element of msgFields){
+        if(element.dataType === 'TIMESTAMP'){
+            if(element.name !== 'deliveredstamp') {
                 fields.push({
-                    mData: msgFields[i].name,
-                    sTitle: msgFields[i].name.toUpperCase(),
+                    mData: element.name,
+                    sTitle: element.name.toUpperCase(),
                     mRender: function (data, type, row) {
                         return moment(data).format('MM/DD/YYYY hh:mm:ss a')
                     },
@@ -152,14 +151,16 @@ function loadMessages(id) {
                 })
             }
         }else{
+            if(element.name != "nodeuid"){
             fields.push({
-                mData: msgFields[i].name,
-                sTitle: msgFields[i].name.toUpperCase(),
+                mData: element.name,
+                sTitle: element.name.toUpperCase(),
                 orderable: false,
                 mRender: function (data, type, row) {
                     return data ? data : '-';
                 },
             })
+        }
         }
 
     }
@@ -234,14 +235,11 @@ function loadMessages(id) {
     };
 
     var tableOption = {
-        fixedHeader: {
-            header: true,
-            headerOffset: -5
-        },
-        responsive: true,
+        responsive: false,
         paging: true,
         searching: true,
         "ordering": true,
+        autoWidth:false,
         dom: '<"bskp-search-left" f> lrtip',
         language: {
             "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
@@ -465,7 +463,6 @@ function buildChartData() {
 
     var chartData = [];
 
-    console.log(yearBucket)
 
     if(filterBy === 'YEAR') {
 
@@ -523,7 +520,6 @@ function buildChartData() {
 
                         var disText = moment(dayBucket[k].key+'/'+monthBucket[j].key + '/'+yearBucket[i].key +' '+hourBucket[l].key+":00","DD/MM/YYYY HH:mm")
 
-                        console.log(new Date(disText))
 
                         chartData.push({key: dayBucket[k].key+'/'+monthBucket[j].key + '/'+yearBucket[i].key +' '+hourBucket[l].key+":00", value: hourBucket[l]['doc_count']})
                     }

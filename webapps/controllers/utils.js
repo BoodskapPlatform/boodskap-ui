@@ -321,9 +321,11 @@ function openNav() {
     if ($("#mySidenav").hasClass('barwidth')) {
         $(".barmenu").html('<i class="icon-bars"></i>')
         $("#mySidenav").removeClass('barwidth')
+        $('body').css('overflow','auto')
     } else {
         $(".barmenu").html('<i class="icon-close2"></i>')
         $("#mySidenav").addClass('barwidth')
+        $('body').css('overflow','hidden')
     }
 
 
@@ -372,12 +374,14 @@ $(document).ready(function () {
         if ($("#mySidenav").hasClass('barwidth')) {
             $(".barmenu").html('<i class="icon-bars"></i>')
             $("#mySidenav").removeClass('barwidth')
+            $('body').css('overflow','auto')
         }
     });
     $('.container').click(function (e) {
         if ($("#mySidenav").hasClass('barwidth')) {
             $(".barmenu").html('<i class="icon-bars"></i>')
             $("#mySidenav").removeClass('barwidth')
+            $('body').css('overflow','auto')
         }
     });
 

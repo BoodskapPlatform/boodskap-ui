@@ -11,7 +11,7 @@ $(document).ready(function () {
     }
     loadTemplates();
 
-
+    $('.help-url').attr('href',HELP_URL+"listtemplates");
 
     $("body").removeClass('bg-white');
 
@@ -79,7 +79,7 @@ function loadTemplates() {
 
     var tableOption = {
         fixedHeader: {
-            header: true,
+            header: false,
             headerOffset: -5
         },
         responsive: false,
@@ -309,13 +309,17 @@ function uploadFile(file, system){
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
     if (xhr.readyState === 4) {
-
+        var statusText = xhr.statusText;
         if (xhr.status === 200) {
             $("#uploadTemplate").modal('hide');
             loadTemplates()
             successMsg('New Template uploaded successfully!');
         } else {
-            errorMsg('Error in template upload!');
+            if(statusText == "Expectation Failed"){
+                errorMsg('Please mention all required fields!');
+            }else{
+                errorMsg('Error in template upload!');
+            }    
         }
         $("#uploadBtn").html('Upload Template');
     }
