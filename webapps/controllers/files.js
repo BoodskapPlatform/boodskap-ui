@@ -10,6 +10,7 @@ var tCount = 0;
 var bulkId = [];
 var getId = [];
 var deleteId = [];
+var privateFile = [];
 
 $(document).ready(function () {
     $(".loadMore").hide();
@@ -38,21 +39,51 @@ function loadFiles(fileType) {
     delete queryParams.query['bool']["minimum_should_match"];
 
     if (searchText) {
-
         queryParams.query['bool']['should'].push({ "wildcard": { "description": "*" + searchText.toLowerCase() + "*" } })
         queryParams.query['bool']['should'].push({ "wildcard": { "mediaType": "*" + searchText.toLowerCase() + "*" } })
         queryParams.query['bool']['should'].push({ "wildcard": { "tags": "*" + searchText.toLowerCase() + "*" } })
         queryParams.query['bool']["minimum_should_match"] = 1;
 
+        // queryParams.query['bool']['should'].push({ "wildcard": { "description": "*" + searchText + "*" } });
+        //         queryParams.query['bool']['should'].push({ "wildcard": { "description": "*" + searchText.toLowerCase() + "*" } });
+        //         queryParams.query['bool']['should'].push({ "wildcard": { "description": "*" + searchText.toUpperCase() + "*" } });
+        //         queryParams.query['bool']['should'].push({ "wildcard": { "description": "*" + capitalizeFLetter(searchText) + "*" } })
+        //         queryParams.query.bool.should.push({
+        //             "match_phrase": {
+        //                 "description": searchText
+        //             }
+        //         })
+
+        //         queryParams.query['bool']['should'].push({ "wildcard": { "mediaType": "*" + searchText + "*" } });
+        //         queryParams.query['bool']['should'].push({ "wildcard": { "mediaType": "*" + searchText.toLowerCase() + "*" } });
+        //         queryParams.query['bool']['should'].push({ "wildcard": { "mediaType": "*" + searchText.toUpperCase() + "*" } });
+        //         queryParams.query['bool']['should'].push({ "wildcard": { "mediaType": "*" + capitalizeFLetter(searchText) + "*" } })
+        //         queryParams.query.bool.should.push({
+        //             "match_phrase": {
+        //                 "mediaType": searchText
+        //             }
+        //         })
+
+        //         queryParams.query['bool']['should'].push({ "wildcard": { "tags": "*" + searchText + "*" } });
+        //         queryParams.query['bool']['should'].push({ "wildcard": { "tags": "*" + searchText.toLowerCase() + "*" } });
+        //         queryParams.query['bool']['should'].push({ "wildcard": { "tags": "*" + searchText.toUpperCase() + "*" } });
+        //         queryParams.query['bool']['should'].push({ "wildcard": { "tags": "*" + capitalizeFLetter(searchText) + "*" } })
+        //         queryParams.query.bool.should.push({
+        //             "match_phrase": {
+        //                 "tags": searchText
+        //             }
+        //         })
     }
+
     if (fileType) {
 
-        var fileData = fileType.toString();
-        var fileTypeJson = { "match": { "isPublic": fileData } };
+        // var fileData = fileType.toString();
+        var fileTypeJson = { "match": { "isPublic": (fileType === 'true' ? true : false) } };
+        // var fileTypePrivate = { "match": { "isPublic": "false" } };
 
         queryParams.query['bool']['must'].push(fileTypeJson);
 
-        // if(fileType === 'false'){
+        // if(fileData === 'false'){
         queryParams.query['bool']['must'].push(domainKeyJson);
         // }
 
@@ -65,6 +96,7 @@ function loadFiles(fileType) {
     var searchQuery = {
         "method": 'GET',
         "extraPath": "",
+        "type":"FILE_PUBLIC",
         "query": JSON.stringify(queryParams),
         "params": []
     };
@@ -74,10 +106,12 @@ function loadFiles(fileType) {
             var resultData = QueryFormatter(res).data;
             totalCount = resultData.recordsTotal;
             file_list = resultData['data'];
+ 
             file_list.forEach((datas) => {
                 var ids = datas._id;
                 getId.push(ids);
             })
+
             $(".filesCount").html(resultData.recordsFiltered)
             // $(".filesCount").html( file_list.length)
             $(".loadingButton").hide();
@@ -85,6 +119,7 @@ function loadFiles(fileType) {
             if (file_list.length > 0) {
 
                 $(".loadMore").show();
+                $(".fileList").html('');
                 for (var i = 0; i < file_list.length; i++) {
                     $(".fileList").append(renderHtml(file_list[i]));
                 }
@@ -157,25 +192,48 @@ function renderHtml(obj) {
     var imgTag = '';
 
     if (obj.mediaType && obj.mediaType.split('/')[0] !== 'image') {
-        imgTag = '<i class="icon-file-text-o" style="font-size: 2rem;"></i><p>' + obj.description + '</p>'
+
+    let title = obj.description;
+    let sName;
+    let splitTitle = title.split(".");
+    let fName = splitTitle[0];
+    let lName = splitTitle[1];
+    let file = lName.toUpperCase();
+
+        imgTag = '<i class="icon-file-text-o" style="font-size: 2rem;position: absolute;top: 40%;left: 45%;"></i><p id="obj-desc" style="margin-top: 34%;font-size:16px;margin-right:8px">' + file + '</p>'
     } else {
-        imgTag = '<img class="img-fluid" src="' + srcPath + '" title="' + (obj.tags ? obj.tags : '') + '" style="margin-top:25px;padding-top: 25px;padding-right: 10px;" />'
+        
+        imgTag = '<img data-enlargable class="img-fluid" id="" onclick="getFullSize(this.src)" src="' + srcPath + '" title="' + (obj.tags ? obj.tags : '') + '" style="margin-top:25px;padding-top: 25px;padding-right: 10px;height:150px" />'
     }
 
     var mediaTag = obj.mediaType ? '<small class="' + obj.id + ' hide" style="position: absolute;left:10px;bottom: 0px;background-color: #3333339c;color: #fff;">' + obj.mediaType + '</small>' : '';
 
+    let title = obj.description;
+    let sName;
+    let splitTitle = title.split(".");
+    let fName = splitTitle[0];
+    let lName = splitTitle[1];
+
+    if(fName.length > 15){
+      var subName =  fName.substring(0, 20);
+        sName = subName;
+    }
+    else{
+        sName = fName;
+    }
+    let fileName = sName + "." + lName;
+
 
     var str = `
             <div class="col-sm-12 col-md-6 col-lg-3" style="margin-top:15px;margin-bottom: 35px;" id="card-data">
-                <span id="img-name" style = "font-size:18px;margin-top:5px;margin-left:32px;padding-top: 12px;font-weight: 600;color:black;">`+ obj.description + `</span> <label class="container"><input id="check-box" onchange="checkboxes('` + obj.id + `',this)" type="checkbox"><span class="checkmark"></span>
-              </label>
-                <div class="colBase" onclick="toggleBtn(1,'`+ obj.id + `')" style="height: 106%;border-radius: 15px;box-shadow: 0px 0px 3px 3px #ededed;">
+                <span id="img-name" title=`+ obj.description +` style = "font-size:18px;margin-top:5px;margin-left:32px;font-weight: 600;color:black;">`+ fileName + `</span> <input id="check-box" onchange="checkboxes('` + obj.id + `',this)" style="position: absolute;right: 9%;top: 12%;height: 17px;width: 17px;" type="checkbox">
+                <div class="colBase" onclick="toggleBtn(1,'`+ obj.id + `')" style="height: 113%;border-radius: 15px;box-shadow: 0px 0px 3px 3px #ededed;">
                         `+ fileType + `
                        `+ imgTag + `
 
                 </div>
               
-              <p class="btn-group btn-group-justified `+ obj.id + ` " style="top:89%;left:24%;position:absolute;" id="action-buttons">
+              <p class="btn-group btn-group-justified `+ obj.id + ` " style="top:86%;left:24%;position:absolute;" id="action-buttons">
               <a class="btn btn-default btn-xs" id="download-btn" title="Download" onclick="downloadFile('` + obj.id + `')" data-clipboard-text="` + srcPath + `" style="font-size:15px;background-color:white;border: none;font-size: 16px;padding-right: 9px;margin-top: 6px;"><img id="download-img" style="width: 27px;height: 27px;filter: brightness(0.5);" src="images/Download2.svg" alt=""></a> 
                <a class="btn btn-default btn-xs cpyBtn" id="copy-btn" title="Copy Link" data-clipboard-text="`+ srcPath + `" style="font-size:15px;background-color:white;margin-right: 8px;font-size: 18px;border: none;border-left: 1px solid #d3d3d380;border-radius: 0px;padding-left: 9px;margin-top: 6px;"><img id="copy-img" style="width: 27px;height: 27px;filter: brightness(0.5);" src="images/Copy.svg" alt=""></a>
              `+ actStr + `
@@ -363,6 +421,7 @@ function uploadFileData(file) {
                     loadFiles();
                 }, 500)
                 successMsg('File uploaded successfully!');
+                $("#uploadFile").val('');
                 loadFiles();
             } else {
                 errorMsg('Error in file upload!');
@@ -398,6 +457,18 @@ function uploadFile() {
 
     var files = fileInput.files;
 
+    var uploadFileType = files[0].name.split(".");
+    var myFileType = uploadFileType[1];
+
+    var sizes =  document.getElementById('uploadFile').files[0].size;
+    var sizeInKB = sizes/1024;
+
+  if(myFileType == 'gif'|| 'png'||'jpg'||'jpeg'||'doc'||'pdf'||'xlsx'||'json'||'webp'||'svg'){
+    if(sizeInKB > 1024){
+        errorMsg('Please Choose file less than 1 MB');
+        return false
+    }
+    else{
     if (files.length === 0) {
 
         if (current_file_obj && current_file_obj.id) {
@@ -435,9 +506,48 @@ function uploadFile() {
         $(".btnSubmit").html('<i class="icon-spinner icon-spin"></i> Uploading in progress');
 
     }
+}
 
+  }
+  else{
+    if (files.length === 0) {
 
+        if (current_file_obj && current_file_obj.id) {
+            $(".btnSubmit").attr('disabled', 'disabled');
 
+            var obj = {
+                ispublic: $("#file_type").val() === "true" ? true : false,
+                tags: $("#file_tags").val(),
+                description: $("#file_desc").val()
+            };
+
+            updateFileInfo(current_file_id, obj, function (status, data) {
+                if (status) {
+                    $("#addFile").modal('hide');
+                    setTimeout(function () {
+                        loadFiles();
+                    }, 500)
+                    successMsg('Successfully updated');
+                } else {
+                    errorMsg('Error in file update');
+                    $(".btnSubmit").removeAttr('disabled', 'disabled');
+                    return false;
+                }
+            })
+
+        } else {
+            errorMsg('File not found. select a file to start upload');
+            $("#uploadBtn").removeAttr("disabled", "disable")
+            return false;
+        }
+
+    } else {
+        uploadFileData(files[0]);
+        $(".btnSubmit").attr('disabled', 'disabled');
+        $(".btnSubmit").html('<i class="icon-spinner icon-spin"></i> Uploading in progress');
+
+    }
+  }
 }
 
 function fade() {
@@ -454,13 +564,14 @@ function fade() {
 function expand() {
     if ($("#modalExpand").is(".panel-expand")) {
         $("#header").css("display", "block");
+        $('html').css('overflow', 'visible');
         $("#modalExpand").css('border-radius', '25px');
         $("#breadcrumb").css("display", "block");
         $(".panel-inverse").css("border", "1px solid #2c2f7980");
     }
     else if ($("#modalExpand").not('.panel-expand')) {
         $("#header").css("display", "none");
-        // $(".panel-body").css("padding","15px");
+        $('html').css('overflow', 'hidden');
         $("#modalExpand").css('border-radius', '0px');
         $("#modalExpand").css("border", "1px solid #2c2f7980");
         $("#breadcrumb").css("display", "none");
@@ -470,17 +581,17 @@ function expand() {
 
 function checkboxes(objid, obj) {
 
-
     // $(obj).parent().parent().children(".colBase").css("border","1px solid #2C2F79");
     // $(obj).parent().parent().children().children("#delete-img").css({ "filter": "invert(13%) sepia(94%) saturate(7466%) hue-rotate(0deg) brightness(94%) contrast(115%)"});
-
-
-
 
     if (document.querySelectorAll('input[type="checkbox"]:checked').length > 0) {
         $("#selected-files").css("display", "block");
         $("#checked-count").html(document.querySelectorAll('input[type="checkbox"]:checked').length);
-        $(obj).parent().parent().children(".colBase").css("border", "1px solid #2C2F79");
+        $(obj).parent().children(".colBase").css("border", "1px solid #167EE6");
+        $(obj).parent().children().children().children("#download-img").css("filter", "invert(165%) sepia(124%) saturate(1176%) hue-rotate(562deg) brightness(85%) contrast(159%)");
+        $(obj).parent().children().children().children("#copy-img").css("filter", "invert(165%) sepia(124%) saturate(1176%) hue-rotate(562deg) brightness(85%) contrast(159%)");
+        $(obj).parent().children().children().children("#edit-img").css("filter", "invert(100%) sepia(100%) saturate(1176%) hue-rotate(575deg) brightness(122%) contrast(159%)");
+        $(obj).parent().children().children().children("#delete-img").css("filter", "invert(13%) sepia(94%) saturate(7466%) hue-rotate(0deg) brightness(94%) contrast(115%)");
 
         if (bulkId.includes(objid)) {
             bulkId.pop(objid);
@@ -493,38 +604,34 @@ function checkboxes(objid, obj) {
     else {
         bulkId = [];
         $("#selected-files").css("display", "none");
-        $(obj).parent().parent().children(".colBase").css("border", "none");
+        $(obj).parent().children(".colBase").css("border", "none");
+        $(obj).parent().children().children().children("#download-img").css("filter", "brightness(0.5)");
+        $(obj).parent().children().children().children("#copy-img").css("filter", "brightness(0.5)");
+        $(obj).parent().children().children().children("#edit-img").css("filter", "brightness(0.8)");
+        $(obj).parent().children().children().children("#delete-img").css("filter", "brightness(0.8)");
     }
 
 
 }
 
 function selectAll(event) {
+    
+    var classValue = event.target.attributes.class.value;
 
-    var t = event.target.attributes.class.value;
-    if (t == "") {
+    if (classValue == "") {
         event.target.attributes.class.value = "active"
   
-          $(".colBase").css("border","1px solid #2C2F79");
-      var elements = document.querySelectorAll('input[type="checkbox"]');
-  
-      for(var i=0; i<elements.length; i++){  
-          if(elements[i].type=='checkbox')  
-          elements[i].checked=true;  
-      }  
-      var number = parseInt(document.querySelectorAll('input[type="checkbox"]:checked').length);
-      var numbers = number - 1;
-      $("#checked-count").html(numbers);
-  
-       if(document.querySelectorAll('input[type="checkbox"]:checked').length > 1){
+          $(".colBase").css("border","1px solid #167EE6");
+
+          $('[id="check-box"]').attr('checked', 'checked');
+          $("#checked-count").html(document.querySelectorAll('input[type="checkbox"]:checked').length);
           $("#selected-files").css("display","block");
           $("#select-all").css("border","1px solid #61629A");
-       }
-       else if(document.querySelectorAll('input[type="checkbox"]:checked').length < 2){
-          $("#selected-files").css("display","none");
-          $("#select-all").css("border","none");
-       }
-  
+          $('[id="download-img"]').css("filter", "invert(165%) sepia(124%) saturate(1176%) hue-rotate(562deg) brightness(85%) contrast(159%)");
+          $('[id="copy-img"]').css("filter", "invert(165%) sepia(124%) saturate(1176%) hue-rotate(562deg) brightness(85%) contrast(159%)");
+          $('[id="edit-img"]').css("filter", "invert(100%) sepia(100%) saturate(1176%) hue-rotate(575deg) brightness(122%) contrast(159%)");
+          $('[id="delete-img"]').css("filter", "invert(13%) sepia(94%) saturate(7466%) hue-rotate(0deg) brightness(94%) contrast(115%)");
+
        getId.forEach((id)=>{
           deleteId.push(id);
        })
@@ -536,12 +643,13 @@ function selectAll(event) {
      $("#selected-files").css("display","none");
         $("#select-all").css("border","none");
         $(".colBase").css("border","");
-        var elements = document.querySelectorAll('input[type="checkbox"]');
-  
-        for(var i=0; i<elements.length; i++){  
-            if(elements[i].type=='checkbox')  
-            elements[i].checked=false;  
-        } 
+        $('[id="download-img"]').css("filter", "brightness(0.5)");
+        $('[id="copy-img"]').css("filter", "brightness(0.5)");
+        $('[id="edit-img"]').css("filter", "brightness(0.8)");
+        $('[id="delete-img"]').css("filter", "brightness(0.8)");
+
+        $('[id="check-box"]').removeAttr('checked');
+        $("#checked-count").html(document.querySelectorAll('input[type="checkbox"]:checked').length);
         
     }
 }
@@ -549,7 +657,6 @@ function selectAll(event) {
 function listView() {
 
     $('[id="action-buttons"]').removeAttr('style');
-    $('[class="container"]').removeAttr('style');
     $("#grid-btn").css({ "background-color": "white", "color": "black", "border": "none" });
     $("#list-btn").css({ "background-color": "#2C2F79", "color": "white" });
     $("#grid-img").css("filter", "brightness(0.5)");
@@ -567,10 +674,10 @@ function listView() {
 
     $('[id="check-box"]').css({
         "float": "left",
-        "width": "20px",
-        "height": "20px",
-        "margin-top": "41px",
-        "margin-right": "0px",
+        "left":"1%",
+        "width": "17px",
+        "height": "17px",
+        "top": "40%",
         "margin-left": "16px",
     });
     $('[id="img-name"]').css({
@@ -595,32 +702,30 @@ function listView() {
         "width": "24px",
         "height": "20px",
         "padding": "1px",
-        "padding-right": "4px"
+        "padding-right": "7px",
+        "padding-left": "2px",
     })
     $('[id="list-img"]').css({
         "width": "24px",
         "height": "20px",
         "padding": "1px",
-        "padding-right": "4px",
+        "padding-right": "7px",
+        "padding-left": "2px",
         "filter": "invert(100%) sepia(100%) saturate(0%) hue-rotate(282deg) brightness(142%) contrast(102%)",
     })
-    $('[class="container"]').css({
-        "display": "block",
-        "position": "absolute",
-        // "cursor": "pointer",
-        // "-webkit-user-select": "none",
-        // "-moz-user-select": "none",
-        // "-ms-user-select": "none",
-        "user-select": "none",
-        "top": "22%",
-        "left": "2%"
+    $('[class="icon-file-text-o"]').css({
+        "top": "20%",
+        "left": "7%"
     })
-    // $('[class="colBase"]').css({"height":"65%"})
+    $('[id="obj-desc"]').css({
+        "margin-top": "3.5%",
+        "margin-right": "86%"
+    })
 }
 
 function gridView() {
 
-    loadFiles();
+    // loadFiles();
     event.preventDefault();
     $("#grid-btn").css({ "background-color": "#2C2F79", "color": "white" });
     $("#list-btn").css({ "background-color": "white", "color": "black", "border": "none" });
@@ -633,44 +738,45 @@ function gridView() {
 
     $('[id="card-data"]').removeClass("col-12");
     $('[id="card-data"]').addClass("col-sm-12 col-md-6 col-lg-3");
+    $('[id="card-data"]').css({"margin-top": "15px","margin-bottom": "35px","height": "186px"})
+    $('[id="check-box"]').removeAttr('style');
+    $('[class="img-fluid"]').removeAttr('style');
 
     $('[id="check-box"]').css({
-        "float": "right",
-        "width": "20px",
-        "height": "20px",
-        "margin-top": "10px",
-        "margin-right": "20px"
+        "position": "absolute","right": "9%", "top": "12%","height": "17px", "width": "17px"
     });
 
     $('[id="img-name"]').css({
-        "font-size": "18px",
-        "margin-top": "5px",
-        "margin-left": "25px",
-        "padding-top": "12px",
+        "font-size":"18px","margin-top":"5px","margin-left":"32px","font-weight": "600","color":"black"
     });
 
     $('[class="img-fluid"]').css({
-        "margin-top": "25px",
-        // "width": "100px",
-        // "margin-right": "50%",
+        "margin-top":"25px","padding-top": "25px","padding-right": "10px","height":"150px"
     });
 
     $('[id="action-buttons"]').css({
-        "margin-top": "-37px",
-        "margin-left": "95px",
+        "top":"86%","left":"24%","position":"absolute"
     })
     $("#grid-img").css({
         "width": "24px",
         "height": "20px",
-        "padding": "1px",
-        "padding-right": "4px",
         "filter": "invert(100%) sepia(100%) saturate(0%) hue-rotate(282deg) brightness(142%) contrast(102%)",
+        "padding": "1px",
+        "padding-right": "7px",
+        "padding-left": "2px"
     })
     $("#list-img").css({
         "width": "24px",
         "height": "20px",
         "padding": "1px",
-        "padding-right": "4px"
+        "padding-right": "7px",
+        "padding-left": "2px",
+    })
+    $('[class="icon-file-text-o"]').css({
+        "font-size": "2rem","position": "absolute","top": "40%","left": "45%"
+    })
+    $('[id="obj-desc"]').css({
+        "margin-top": "34%","font-size":"16px","margin-right":"8px"
     })
 
 }
@@ -701,13 +807,18 @@ function color(param) {
     }
 }
 
-// function deleteAll(){
-//     current_file_id = id;
-//     for (var i = 0; i < file_list.length; i++) {
-//         if (id === file_list[i]._id) {
-//             current_file_obj = file_list[i];
-//         }
-//     }
+function getFullSize(obj){
 
-//     $("#deleteModal").modal('show');
-// }
+        $('<div><span style="font-size: 42px;margin-top: 5px;margin-right: 4px;color: white;font-weight: bolder;" class="close">&times;</span>').css({
+            background: 'RGBA(0,0,0,.5) url('+obj+') no-repeat center',
+            backgroundSize: '600px 600px',
+            width:'100%', height:'100%',
+            position:'fixed',
+            zIndex:'10000',
+            top:'0', left:'0',
+            cursor: 'zoom-out'
+        }).click(function(){
+            $(this).remove();
+        }).appendTo('body');
+
+}
