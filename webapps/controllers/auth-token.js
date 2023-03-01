@@ -31,7 +31,6 @@ function loadTokenList(type) {
         {
             mData: 'token',
             sTitle: 'Token',
-            orderable: false,
             mRender: function (data, type, row) {
                 setCopyToken(data);
                 return  '<i class="icon-key2 pr-1" style="color: #666666;"></i> '+data+' <a href="javascript:void(0)" class="apiToken'+data+'" style="text-decoration: none;color: #363636;" title="Click here to copy the token" data-clipboard-text="'+data+'">' +
@@ -49,7 +48,8 @@ function loadTokenList(type) {
         },
         {
             mData: 'mode',
-            sTitle: 'Mode'
+            sTitle: 'Mode',
+            orderable: false,
         },
         {
             mData: 'accesses',
@@ -83,7 +83,7 @@ function loadTokenList(type) {
         "ordering": true,
         scrollY: '100px',
         scrollCollapse: true,
-        aaSorting: [[1 , 'desc']],
+        aaSorting: [[0 , 'desc']],
         iDisplayLength: 10,
         lengthMenu: [[10, 50, 100], [10, 50, 100]],
         dom: '<"bskp-search-left" f> lrtip',

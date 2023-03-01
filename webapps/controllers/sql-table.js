@@ -593,7 +593,9 @@ function addSQLTable() {
     createSQLTable(msgObj, ignore, function (status, data) {
         if (status) {
             successMsg('Table Created Successfully');
-            loadSQLTable();
+            setTimeout(() => {
+                loadSQLTable();
+            }, 1000);
             $("#addSQLTable").modal('hide');
         } else {
             errorMsg('Error in Creating Table')
