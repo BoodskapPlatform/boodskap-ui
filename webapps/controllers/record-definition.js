@@ -93,6 +93,7 @@ function loadRecordDef() {
                 next: 'Next >'
             }
         },
+        aaSorting: [[0, 'desc']],
         lengthMenu: [[10, 50, 100], [10, 50, 100]],
         aoColumns: fields,
         data: []

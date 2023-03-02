@@ -9,22 +9,23 @@ var device_list = []
 $(document).ready(function () {
 
     loadDeviceModels();
-    loadFirmwareList();
+    //loadFirmwareList();
 
 
     $("body").removeClass('bg-white');
+    $('.help-url').attr('href',HELP_URL+"uploadfirmware");
 
 });
 
 
 function loadDeviceModels() {
     $("#deviceModel").html('');
-    $("#deviceModel").html('<option value=""></option>');
+    $("#deviceModel").html('<option value="">All</option>');
 
     getDeviceModel(1000, function (status, data) {
         if (status && data.length > 0) {
             $("#f_device_model").html('');
-            $("#f_device_model").html('<option></option>');
+            $("#f_device_model").html('<option>Select Model</option>');
 
             for (var i = 0; i < data.length; i++) {
                 $("#deviceModel").append('<option value="' + data[i].id + '">' + data[i].id + ' | ' + data[i].version + '</option>')
@@ -53,6 +54,7 @@ function loadFirmwareList() {
     var fields = [
         {
             mData: 'fileName',
+            orderable: false,
             sTitle: 'File Name',
             mRender: function (data, type, row) {
                 return data +
@@ -62,14 +64,22 @@ function loadFirmwareList() {
         },
         {
             mData: 'version',
+            orderable: false,
             sTitle: 'Version'
         },
         {
+            mData: 'deviceModel',
+            orderable: false,
+            sTitle: 'Device Model'
+        },
+        {
             mData: 'contentType',
+            orderable: false,
             sTitle: 'Content Type'
         },
         {
             mData: 'description',
+            orderable: false,
             sTitle: 'Description'
         },
         {
@@ -87,30 +97,38 @@ function loadFirmwareList() {
             sWidth: '10%',
             mRender: function (data, type, row) {
                 return '' +
-                    '<button class="btn bskp-edit-btn mr-2" onclick="openModal(3,\'' + row["_id"] + '\')"><img src="images/menu/download.svg" class="downloadimg" alt=""></button>' +
-                    '<button class="btn bskp-trash-btn" onclick="openModal(4,\'' + row['_id'] + '\')"><img src="images/delete.svg" alt=""></button>';
+                    '<button class="btn bskp-edit-btn mr-2" onclick="openModal(3,\'' + row["_id"] + '\')" title="Download"><img src="images/menu/download.svg" class="downloadimg" alt=""></button>' +
+                    '<button class="btn bskp-trash-btn" onclick="openModal(4,\'' + row['_id'] + '\')" title="Delete"><img src="images/delete.svg" alt=""></button>';
             }
 
         }
 
     ];
 
-    var tableOption = {
-        fixedHeader: {
-            header: true,
-            headerOffset: -5
-        },
+  
+    /* var tableOption = {
         responsive: true,
-        aaSorting: [[4, 'desc']],
         paging: true,
         searching: true,
+        dom: '<"bskp-search-left" f> lrtip',
+        language: {
+            "emptyTable": "No data available",
+            "zeroRecords": "No data available",
+            "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
+            "searchPlaceholder": "Search here",
+            loadingRecords: '',
+            paginate: {
+                previous: '< Prev',
+                next: 'Next >'
+            }
+        },
         "ordering": true,
+        aaSorting: [[0, 'desc']],
         iDisplayLength: 10,
-        scrollY: '100px',
-        scrollCollapse: true,
         lengthMenu: [[10, 50, 100], [10, 50, 100]],
         aoColumns: fields,
-    };
+        data: []
+    }; */
 
 
     var domainKeyJson = { "match": { "domainKey": DOMAIN_KEY } };
@@ -126,34 +144,28 @@ function loadFirmwareList() {
     };
 
     var tableOption = {
-        fixedHeader: {
-            header: true,
-            headerOffset: -5
-        },
         responsive: true,
         paging: true,
-        aaSorting: [[4, 'desc']],
         searching: true,
+        aaSorting: [[5, 'desc']],
         "ordering": true,
-        iDisplayLength: 10,
         scrollY: '100px',
         scrollCollapse: true,
+        iDisplayLength: 10,
         lengthMenu: [[10, 50, 100], [10, 50, 100]],
         dom: '<"bskp-search-left" f> lrtip',
         language: {
-            "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
-            "searchPlaceholder": "Search By File Name",
             "emptyTable": "No data available",
-
-
+            "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
+            "searchPlaceholder": "Search here",
             loadingRecords: '',
             paginate: {
-                previous: 'Previous',
-                next: 'Next'
+                previous: '< Prev',
+                next: 'Next >'
             }
         },
         aoColumns: fields,
-        // "bProcessing": true,
+        "bProcessing": true,
 
         "bServerSide": true,
         "sAjaxSource": API_BASE_PATH + '/elastic/search/query/' + API_TOKEN_ALT,
@@ -462,7 +474,7 @@ function addFirmware() {
     }
     else{}
     if ($("#firmware_version").val() === "") {
-        $("#firmware-version-span").text("Please enter the Firmare Version")
+        $("#firmware-version-span").text("Please enter the Firmware Version")
         $("#firmware_version").css('border-color', 'red')
 
         setTimeout(function () {
@@ -506,7 +518,7 @@ function uploadFile(file) {
 
                 setTimeout(function () {
                     loadFirmwareList();
-                }, 500)
+                }, 1000)
                 successMsg('New Firmware added successfully!');
             } else {
                 errorMsg('Error in firmware upload!');
@@ -657,7 +669,16 @@ function uploadDevice() {
             }, 3000);
             checkCommandStatus(data['corrId'], 2);
         } else {
-            errorMsg('Error in downloading config');
+            if(typeof(data)!="undefined"){
+                if(data.message){
+                    var errmessage = data.message.replaceAll("_"," ");
+                    errorMsg(errmessage);
+                }else{
+                    errorMsg('Error in downloading config');
+                }
+            }else{
+                errorMsg('Error in downloading config');
+            }
         }
     })
 }
