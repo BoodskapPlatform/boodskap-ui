@@ -74,10 +74,6 @@ function loadMessageDef() {
 
 
     var tableOption = {
-        fixedHeader: {
-            header: true,
-            headerOffset: -5
-        },
         responsive: true,
         paging: true,
         searching: true,
@@ -95,6 +91,7 @@ function loadMessageDef() {
         },
         "ordering": true,
         iDisplayLength: 10,
+        aaSorting: [[0, 'desc']],
         lengthMenu: [[10, 50, 100], [10, 50, 100]],
         aoColumns: fields,
         data: []

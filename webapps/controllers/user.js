@@ -120,6 +120,7 @@ function loadUsersList() {
         scrollY: '100px',
         scrollCollapse: true,
         iDisplayLength: 10,
+        "processing": true,
         lengthMenu: [[10, 50, 100], [10, 50, 100]],
         dom: '<"bskp-search-left" f> lrtip',
         language: {
