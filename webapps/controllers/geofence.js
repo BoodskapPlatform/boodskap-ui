@@ -341,7 +341,7 @@ function loadGeofenceList() {
             mRender: function(data, type, row) {
 
                 return '<span onclick="singleGeoSnapshot(\'' + encodeURIComponent(JSON.stringify(row)) + '\')" style="cursor: pointer;">' + data + ' <i class="icon-eye"></i><br>' +
-                    '<small class="text-grey">' + (row['name'] ? '' + row['description'] : '') + '</small>' +
+                    '<small style="max-width: 5;" class="text-grey text-truncate"  title="'+(row['name'] ? '' + row['description'] : '')+'">' + (row['name'] ? '' + row['description'] : '') + '</small>' +
                     '</span>';
             }
         },
@@ -535,7 +535,7 @@ function loadAssetGeofenceList() {
             mRender: function(data, type, row) {
 
                 return '<span onclick="singleGeoSnapshot(\'' + encodeURIComponent(JSON.stringify(row)) + '\')" style="cursor: pointer;">' + data + ' <i class="icon-eye"></i><br>' +
-                    '<small class="text-grey">' + (row['name'] ? '' + row['description'] : '') + '</small>' +
+                    '<small style="max-width: 5;" class="text-grey text-truncate" title="'+(row['name'] ? '' + row['description'] : '')+'">' + (row['name'] ? '' + row['description'] : '') + '</small>' +
                     '</span>';
             }
         },
@@ -728,7 +728,7 @@ function loadDeviceGeofenceList() {
             mRender: function(data, type, row) {
 
                 return '<span  onclick="singleGeoSnapshot(\'' + encodeURIComponent(JSON.stringify(row)) + '\')" style="cursor: pointer;">' + data + ' <i class="icon-eye" title="View"></i><br>' +
-                    '<small class="text-grey">' + (row['name'] ? '' + row['description'] : '') + '</small>' +
+                    '<p style="max-width: 150px;" class="text-grey text-truncate" title="'+(row['name'] ? '' + row['description'] : '')+'">' + (row['name'] ? '' + row['description'] : '') + '</p>' +
                     '</span>';
             }
         },

@@ -1,20 +1,8 @@
 <link rel="stylesheet" href="css/files.css">
 <div class="container mt-3 platformBody" style="    padding: 50px; padding-top: 14px;">
-    <!-- begin breadcrumb -->
-    <!-- <ol class="breadcrumb pull-right">
-        <li class="breadcrumb-item"><a href="<%= basepath %>/home">Home</a></li>
-        <li class="breadcrumb-item active">File Storage</li>
-    </ol> -->
-    <!-- end breadcrumb -->
-    <!-- begin page-header -->
-    <!-- <h1 class="page-header">File Storage</h1> -->
-    <!-- end page-header -->
 
-    <!-- begin panel -->
     <div id="modalExpand" class="panel panel-inverse" style="border-radius: 17px; border:1px solid #2c2f7980;">
-        <div class="panel-heading"
-            >
-            <!-- <img src="../webapps/images/new folder.png" alt="folder" style="display: inline-block;width: 25px;margin-left: 10px;margin-bottom: 8px;">   -->
+        <div class="panel-heading">
             <div class="bskp-Dbg bskp-Dimg12"></div>
             <h1 class="page-header">File Storage</h1>
 
@@ -28,15 +16,17 @@
             <div class="panel-heading-btn" >
 
                 <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-default" data-click="panel-expand" onclick="expand()" style="background-color: #EAF2F9;width: 25px; height: 25px; padding-top: 1px;"><i class="fa fa-expand" title="Expand"></i></a>
-                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-warning" title="Help" style="background-color: #cee2f2;;    width: 25px;height: 25px;padding-top: 1px;color: black;"><i class="icon-help"></i></a>
+                <a href="https://developer.boodskap.io/docs" class="btn btn-sm btn-icon btn-circle btn-warning" title="Help" style="background-color: #cee2f2;;    width: 25px;height: 25px;padding-top: 1px;color: black;"><i class="icon-help"></i></a>
                 <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-success" data-click="panel-reload"onclick="loadFiles()" style="background-color: #90A1B7;width: 25px;height: 25px;padding-top: 1px;"><i class="fa fa-refresh" title="Refresh"></i></a>
 
 
             </div>
 
             <div id="breadcrumb" >
-                <a href="<%= basepath %>/home" style="text-decoration: none;color: #000;font-size: 16px;">Home</a> <span style="color: black;font-size: 16px;">/</span> <span style="color: black;font-size: 16px;">File Storage</span>
-
+                <ol class="breadcrumb pull-right bskp-align-icon">
+                <li class="breadcrumb-item"><a href="https://v5dev.boodskap.io/console/home">Home</a></li>
+                <li class="breadcrumb-item active"><u>File Storage</u></li>
+            </ol>
             </div>
 
 
@@ -55,16 +45,10 @@
             
                 <div class="row" style="border-bottom: 2px solid #eee;padding-top: 7px;padding-bottom: 5px;">
             <form action="javascript:void(0)" onsubmit="loadFiles()"></form>
-                    <!-- <div class="col-lg-1 col-md-1" style="text-align: center">
-                        <div class="form-group">
-                            <label>Total Files</label>
-                            <h3 class="filesCount"></h3>
-                        </div>
-                    </div> -->
                     <div class="col-sm-12 col-lg-3 col-md-4">
                         <div class="form-group" style="position: relative;">
-                            <i class="fa fa-search" aria-hidden="true"style="position: absolute;top: 12px;left: 34px;font-size: 13px;"></i> 
-                            <input class="form-control form-control-lg" id="searchText" placeholder="search here .." onKeyPress="loadFiles()" >
+                            <i class="fa fa-search" aria-hidden="true"style="position: absolute;top: 11px;left: 34px;font-size: 12px;color:darkgrey;"></i> 
+                            <input class="form-control form-control-lg" id="searchText" placeholder="search here .." onkeyup="loadFiles()" >
 
                         </div>
                     </div>
@@ -74,15 +58,15 @@
                     </div>
             </form>
                     <div class="col-lg-2 col-md-4 col-sm-12"  id="fileType" onchange="loadFiles()">
-                        <button onclick="loadFiles(false);color('all');" id="all-btn" >ALL</button>
-                        <button onclick="loadFiles(true);color('public');" id="public-btn" >Public</button>
-                        <button onclick="loadFiles(false);color('private');" id="private-btn" >Private</button>
+                        <button onclick="loadFiles('');color('all');" id="all-btn" >ALL</button>
+                        <button onclick="loadFiles('true');color('public');" id="public-btn" >Public</button>
+                        <button onclick="loadFiles('false');color('private');" id="private-btn" >Private</button>
                     </div>
 
                     <div class="col-sm-12 col-md-2 col-lg-1">
                         <div id="views" >
-                           <button onclick="gridView()" id="grid-btn" ><img id="grid-img"  src="images/Grid.svg" alt=""></button>
-                           <button onclick="listView()" id="list-btn" ><img id="list-img"  src="images/List.svg" alt=""></button>
+                           <button onclick="gridView()" title="Grid View" id="grid-btn" ><img id="grid-img"  src="images/Grid.svg" alt=""></button>
+                           <button onclick="listView()" title="List View" id="list-btn" ><img id="list-img"  src="images/List.svg" alt=""></button>
                         </div>
                     </div>
 
@@ -134,7 +118,7 @@
                 <h5>Are you sure want to delete this image</b>?</h5>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default close-btn" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btnModal" onclick="proceedDelete()">Proceed</button>
             </div>
         </div><!-- /.modal-content -->
@@ -196,7 +180,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default btn-border" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-default btn-border close-btn" data-dismiss="modal">Close</button>
                     <button type="submit" id="uploadBtn" class="btn btnModal btnSubmit">Upload File</button>
                 </div>
             </form>
@@ -204,5 +188,4 @@
     </div>
 </div>
 
-<!-- <input type="checkbox" name="checkboxes" id="check-box" onchange="checkboxes('`+ obj.id + `')" style="float: right;width: 20px;height: 20px;margin-top:24px;margin-right:30px;"><span class="checkmark"></span> -->
               

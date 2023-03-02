@@ -241,23 +241,28 @@ top: 12px;
 }
 .page-header{
     display: inline-block;
-    padding-top: 2px;
-    margin-left: 3.7%;
-    font-size: 23px;
+    /* padding-top: 2px; */
+    margin-left: 4%;
+    /* font-size: 23px;
     margin-top: 4px;
-    color:#404040;
+    color:#404040; */
+    font-size: 20px;
+    font-weight: 600;
+    color: #3e3e3e;
+    padding: 5px 0px;
+    margin-top: 2px;
 }
 #file-counts{
     display: inline-block;
-     text-align: center
+     /* text-align: center */
 }
 #filecount-label{
     color: #2C2F79;
-    font-weight: bold;
+    /* font-weight: bold; */
 }
 .filesCount{
     display: inline-block;
-    font-size: 16px;
+    font-size: 14px;
     color: #2C2F79;
     font-weight: bold;
 }
@@ -269,9 +274,20 @@ top: 12px;
 #breadcrumb{
     display: inline-block; 
     float: right;
-    margin-right: 3%;
-    padding-top: 12px;
+    /* margin-right: 3%; */
     font-weight: 100;
+}
+.breadcrumb>li a {
+    color: #525252;
+    font-size: 14px;
+}
+.breadcrumb-item.active {
+    font-size: 13px;
+}
+.bskp-align-icon {
+    align-items: center;
+    margin: 7px 30px 0px 0px;
+    font-size: 12px;
 }
 .panel-body{
     background-color: #FEFEFE;
@@ -283,12 +299,13 @@ top: 12px;
      overflow-x: hidden;
 }
 #searchText{
-    height: 36px;
+    height: 32px;
     font-style: revert;
     background-color: #F6F9FE;
     padding-left: 33px;
     margin-left: 6%;
     border-radius: 13px;
+        font-weight: 600;
 }
 #fileType{
     display: flex;
@@ -299,7 +316,7 @@ top: 12px;
 #all-btn{
     border: none;
     background-color: #2C2F79;
-    font-size: 18px;    
+    font-size: 16px;    
     height: 33px;
     width: 53px;
     color: white;
@@ -309,7 +326,7 @@ top: 12px;
 #public-btn{
     border: none;
     background-color: white;
-    font-size: 18px;
+    font-size: 16px;
     height: 33px;
      width: 64px;
      border-radius: 8px;
@@ -318,7 +335,7 @@ top: 12px;
 #private-btn{
     border: none;
     background-color: white;
-    font-size: 18px;
+    font-size: 16px;
     height: 33px; 
     width: 70px;
     border-radius: 8px;
@@ -337,29 +354,33 @@ top: 12px;
     border-radius: 8px;
     cursor: pointer;
     border: 1px solid #2C2F79;
-    width: 34px;
+    width: 42px;
     height: 33px;
+    padding-left: 10px;
 }
 #grid-img{
     width: 24px;
     height: 20px;
     filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(282deg) brightness(142%) contrast(102%);
     padding: 1px;
-    padding-right: 4px;
+    padding-right: 7px;
+    padding-left: 2px;
 }
 #list-btn{
     background-color: white;
     border: none;
     cursor: pointer;
     border-radius: 8px;
-    width: 34px;
+    width: 42px;
     height: 33px;
+    padding-left: 10px;
 }
 #list-img{
     width: 24px;
     height: 20px;
     padding: 1px;
-    padding-right: 4px;
+    padding-right: 7px;
+    padding-left: 2px;
 }
 #file-upload{
     margin-right: 20px;
@@ -371,6 +392,7 @@ top: 12px;
     margin-top: 5px;
     border-radius: 10px;
     margin-left: 46px;
+    font-size: 14px;
 }
 #upload-img{
     width: 26px;
@@ -388,7 +410,7 @@ top: 12px;
     height: 35px;
     border-radius: 9px;
     cursor: pointer;
-    box-shadow: 0px 0px 3px 3px #ededed;
+    box-shadow: 0px 0px 2px 2px #e5e9f1 !important;
     margin-left: 7px;
 }
 #selected-files{
@@ -400,7 +422,23 @@ top: 12px;
     padding: 10px;
     display: none;
     margin-right: 8px;
+    box-shadow: 0px 0px 2px 2px #e5e9f1 !important;
 }
 .panel.panel-expand>.panel-heading+div {
     margin-top: 63px;
+}
+#deleteModal{
+    margin-top: 10%;
+}
+
+.close-btn{
+    background-color: white;
+    color: #2D2F79;
+    border: 1px solid #2d2f79 !important;
+    box-shadow: 0px 0px 2px 2px #e5e9f1 !important; 
+}
+
+.close-btn:hover{
+    background-color: #2D2F79;
+    color: white;
 }
