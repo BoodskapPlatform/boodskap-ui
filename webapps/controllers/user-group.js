@@ -32,7 +32,7 @@ function loadUserGroup() {
     var fields = [
         {
             mData: 'id',
-            sTitle: 'Group Id',
+            sTitle: 'Group ID',
             "class": "details-control",
             "orderable": true,
             sWidth: '10%',

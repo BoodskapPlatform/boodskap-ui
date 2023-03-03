@@ -303,7 +303,9 @@ function addPool() {
             upsertMongoDBPool(tempObj, function (status, data) {
                 if (status) {
                     successMsg('Mongo DB Connection Pool Created Successfully');
-                    loadDBPool();
+                    setTimeout(() => {
+                        loadDBPool();
+                    }, 1000);
                     $("#addPool").modal('hide');
                 } else {
                     errorMsg('Error in Creating Mongo DB Connection Pool')
@@ -330,7 +332,9 @@ function updatePool() {
     upsertMongoDBPool(tempObj, function (status, data) {
         if (status) {
             successMsg('Mongo DB Connection Pool Updated Successfully');
-            loadDBPool();
+            setTimeout(() => {
+                loadDBPool();
+            }, 1000);
             $("#addPool").modal('hide');
         } else {
             errorMsg('Error in Updating DB Connection Pool')
