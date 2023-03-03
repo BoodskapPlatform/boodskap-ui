@@ -3,7 +3,7 @@
 
     <div id="modalExpand" class="panel panel-inverse" style="border-radius: 17px; border:1px solid #2c2f7980;">
         <div class="panel-heading">
-            <div class="bskp-Dbg bskp-Dimg12"></div>
+            <div class="bskp-Dbg bskp-Dimg12" id="file-img"></div>
             <h1 class="page-header">File Storage</h1>
 
             <div id="file-counts" class="col-lg-2 col-md-2">
@@ -16,14 +16,14 @@
             <div class="panel-heading-btn" >
 
                 <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-default" data-click="panel-expand" onclick="expand()" style="background-color: #EAF2F9;width: 25px; height: 25px; padding-top: 1px;"><i class="fa fa-expand" title="Expand"></i></a>
-                <a href="https://developer.boodskap.io/docs" class="btn btn-sm btn-icon btn-circle btn-warning" title="Help" style="background-color: #cee2f2;;    width: 25px;height: 25px;padding-top: 1px;color: black;"><i class="icon-help"></i></a>
+                <a href="https://developer.boodskap.io/docs" class="btn btn-sm btn-icon btn-circle btn-warning" title="Help" target="_blank" style="background-color: #cee2f2;;    width: 25px;height: 25px;padding-top: 1px;color: black;"><i class="icon-help"></i></a>
                 <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-success" data-click="panel-reload"onclick="loadFiles()" style="background-color: #90A1B7;width: 25px;height: 25px;padding-top: 1px;"><i class="fa fa-refresh" title="Refresh"></i></a>
 
 
             </div>
 
             <div id="breadcrumb" >
-                <ol class="breadcrumb pull-right bskp-align-icon">
+                <ol class="breadcrumb pull-right bskp-align-icon" style="font-weight: 400;">
                 <li class="breadcrumb-item"><a href="https://v5dev.boodskap.io/console/home">Home</a></li>
                 <li class="breadcrumb-item active"><u>File Storage</u></li>
             </ol>
@@ -115,7 +115,7 @@
                         aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
-                <h5>Are you sure want to delete this image</b>?</h5>
+                <h5>Are you sure want to delete this file</b>?</h5>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default close-btn" data-dismiss="modal">Close</button>

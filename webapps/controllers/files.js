@@ -22,6 +22,12 @@ $(document).ready(function () {
 function loadFiles(fileType) {
     var searchText = $("#searchText").val();
 
+    $("#grid-btn").css({ "background-color": "#2C2F79", "color": "white" });
+    $("#list-btn").css({ "background-color": "white", "color": "black", "border": "none" });
+    $("#grid-img").css("filter", "brightness(4.5)");
+    $("#list-img").removeAttr("style", "filter");
+    getId = [];
+    getId = [];
 
     var queryParams = {
         query: {
@@ -44,35 +50,6 @@ function loadFiles(fileType) {
         queryParams.query['bool']['should'].push({ "wildcard": { "tags": "*" + searchText.toLowerCase() + "*" } })
         queryParams.query['bool']["minimum_should_match"] = 1;
 
-        // queryParams.query['bool']['should'].push({ "wildcard": { "description": "*" + searchText + "*" } });
-        //         queryParams.query['bool']['should'].push({ "wildcard": { "description": "*" + searchText.toLowerCase() + "*" } });
-        //         queryParams.query['bool']['should'].push({ "wildcard": { "description": "*" + searchText.toUpperCase() + "*" } });
-        //         queryParams.query['bool']['should'].push({ "wildcard": { "description": "*" + capitalizeFLetter(searchText) + "*" } })
-        //         queryParams.query.bool.should.push({
-        //             "match_phrase": {
-        //                 "description": searchText
-        //             }
-        //         })
-
-        //         queryParams.query['bool']['should'].push({ "wildcard": { "mediaType": "*" + searchText + "*" } });
-        //         queryParams.query['bool']['should'].push({ "wildcard": { "mediaType": "*" + searchText.toLowerCase() + "*" } });
-        //         queryParams.query['bool']['should'].push({ "wildcard": { "mediaType": "*" + searchText.toUpperCase() + "*" } });
-        //         queryParams.query['bool']['should'].push({ "wildcard": { "mediaType": "*" + capitalizeFLetter(searchText) + "*" } })
-        //         queryParams.query.bool.should.push({
-        //             "match_phrase": {
-        //                 "mediaType": searchText
-        //             }
-        //         })
-
-        //         queryParams.query['bool']['should'].push({ "wildcard": { "tags": "*" + searchText + "*" } });
-        //         queryParams.query['bool']['should'].push({ "wildcard": { "tags": "*" + searchText.toLowerCase() + "*" } });
-        //         queryParams.query['bool']['should'].push({ "wildcard": { "tags": "*" + searchText.toUpperCase() + "*" } });
-        //         queryParams.query['bool']['should'].push({ "wildcard": { "tags": "*" + capitalizeFLetter(searchText) + "*" } })
-        //         queryParams.query.bool.should.push({
-        //             "match_phrase": {
-        //                 "tags": searchText
-        //             }
-        //         })
     }
 
     if (fileType) {
@@ -172,6 +149,7 @@ function renderHtml(obj) {
     var srcPath = '';
     var fileType = '';
 
+
     if (obj.isPublic) {
         srcPath = API_BASE_PATH + '/files/public/download/' + obj.id + '?' + new Date().getTime();
         // fileType = '<span class="label label-success" title="Public - Open to the World"><i class="icon-unlock"></i></span>'
@@ -184,7 +162,7 @@ function renderHtml(obj) {
 
 
     if (obj.domainKey === DOMAIN_KEY) {
-        actStr = `<a class="btn btn-default btn-xs" title="Edit" onclick="openModal(2,'` + obj.id + `')" style="background-color:white;font-size:15px;padding-top:7px;margin-top: 1px;margin-right: 0px;font-size: 17px;border: none;border-left: 1px solid #d3d3d380;border-radius: 0px;"><img id="edit-img" style="filter: brightness(0.8);" src="images/edit_icon.svg" alt=""></a>
+        actStr = `<a class="btn btn-default btn-xs" title="Edit" onclick="openModal(2,'` + obj.id + `','` + obj.mediaType +`')" style="background-color:white;font-size:15px;padding-top:7px;margin-top: 1px;margin-right: 0px;font-size: 17px;border: none;border-left: 1px solid #d3d3d380;border-radius: 0px;"><img id="edit-img" style="filter: brightness(0.8);" src="images/edit_icon.svg" alt=""></a>
         <a class="btn btn-default btn-xs" title="Delete" onclick="openModal(3,'` + obj.id + `')" style="background-color:white;font-size:15px;padding-top:9px;margin-top: 0px;margin-left: 10px;font-size: 18px;border: none;border-left: 1px solid #d3d3d380;border-radius: 0px;"><img id="delete-img" style="width: 29px;height: 30px;margin-top: -1px;filter: brightness(0.8);" src="images/Delete2.svg" alt="">
         </a>`;
     }
@@ -200,10 +178,10 @@ function renderHtml(obj) {
     let lName = splitTitle[1];
     let file = lName.toUpperCase();
 
-        imgTag = '<i class="icon-file-text-o" style="font-size: 2rem;position: absolute;top: 40%;left: 45%;"></i><p id="obj-desc" style="margin-top: 34%;font-size:16px;margin-right:8px">' + file + '</p>'
+        imgTag = '<i class="icon-file-text-o" style="font-size: 2rem;position: absolute;top: 37%;left: 45%;"></i><p id="obj-desc" style="margin-top: 36%;font-size:16px;margin-right:0px">' + file + '</p>'
     } else {
         
-        imgTag = '<img data-enlargable class="img-fluid" id="" onclick="getFullSize(this.src)" src="' + srcPath + '" title="' + (obj.tags ? obj.tags : '') + '" style="margin-top:25px;padding-top: 25px;padding-right: 10px;height:150px" />'
+        imgTag = '<img data-enlargable class="img-fluid" id="" onclick="getFullSize(this.src)" src="' + srcPath + '" title="' + (obj.tags ? obj.tags : '') + '" style="margin-top:25px;padding-top: 25px;padding-right: 10px;height:150px;cursor:pointer;" />'
     }
 
     var mediaTag = obj.mediaType ? '<small class="' + obj.id + ' hide" style="position: absolute;left:10px;bottom: 0px;background-color: #3333339c;color: #fff;">' + obj.mediaType + '</small>' : '';
@@ -215,7 +193,7 @@ function renderHtml(obj) {
     let lName = splitTitle[1];
 
     if(fName.length > 15){
-      var subName =  fName.substring(0, 20);
+      var subName =  fName.substring(0, 15);
         sName = subName;
     }
     else{
@@ -270,7 +248,7 @@ function toggleBtn(type, id) {
 
 }
 
-function openModal(type, id) {
+function openModal(type, id, mediaType) {
     current_file_obj = {};
     if (type === 1) {
 
@@ -288,13 +266,24 @@ function openModal(type, id) {
 
     }
     else if (type === 2) {
-
+        
+        console.log(mediaType);
+        var fileTypeModal = mediaType.split("/");
+        var getType = fileTypeModal[0];
+        console.log(getType);
+        
         $(".fileAction").html('Update');
         $("#uploadBtn").html("Update File");
         // $('#uploadFile').attr('placeholder','No file chosen');
         var obj = {};
         current_file_id = id;
-        $(".imgBlock").html('<img class="imgFile" style="width: 75px;height:75px" />')
+
+        if(getType == "image"){
+             $(".imgBlock").html('<img class="imgFile"  style="width: 75px;height:75px" />')
+        }
+        else{
+            $(".imgBlock").html('<i class="icon-file-text-o" style="font-size: 55px;"></i>');
+        }
 
         for (var i = 0; i < file_list.length; i++) {
             if (id === file_list[i].id) {
@@ -318,10 +307,19 @@ function openModal(type, id) {
 
 
         $("#file_tags").val(obj.tags);
-        $("#file_desc").val(obj.description + '?' + new Date().getTime());
+        // $("#file_desc").val(obj.description + '?' + new Date().getTime());
+        $("#file_desc").val(obj.description);
+        console.log(obj);
         $("#file_type").val(obj.isPublic.toString());
         $("#addFile").modal('show');
-        $("#addFile form").attr('onsubmit', 'updateFile()')
+        $("#addFile form").attr('onsubmit', 'updateFile()');
+
+        // var fileInput = document.getElementById("uploadFile");
+        // var files = fileInput.files;
+
+        // if(files.length == 0){
+        //     errorMsg("File not found. select a file to start upload");
+        // }
 
     }
     else if (type === 3) {
@@ -339,15 +337,34 @@ function openModal(type, id) {
 
 
 function addFile() {
+
+    var fileInput = document.getElementById("uploadFile");
+    var files = fileInput.files;
+    console.log(files.length);
+
+    if(files.length == 0){
+        errorMsg('File not found. select a file to start upload');
+    }
+    else{
     uploadFile();
     loadFiles();
+    }
 }
 
 
 function updateFile() {
 
-    $(".btnSubmit").attr('disabled', 'disabled');
-    uploadFile();
+    var fileInput = document.getElementById("uploadFile");
+    var files = fileInput.files;
+
+    if(files.length == 0){
+        errorMsg('Please choose a file to Update');
+    }
+    else{
+        uploadFile();
+    }
+    // $(".btnSubmit").attr('disabled', 'disabled');
+    
 
 }
 
@@ -367,7 +384,8 @@ function proceedDelete() {
             }
         })
     }
-    else if (bulkId.length > 0) {
+    else if (deleteId.length == 0 && bulkId.length > 0) {
+        console.log(bulkId);
         bulkId.forEach((data) => {
             deleteFile(data, current_file_obj.isPublic, function (status, data) {
                 if (status) {
@@ -387,6 +405,7 @@ function proceedDelete() {
 
     }
     else {
+        console.log(deleteId);
         deleteId.forEach((datas) => {
             deleteFile(datas, current_file_obj.isPublic, function (status, data) {
                 if (status) {
@@ -395,14 +414,22 @@ function proceedDelete() {
                         loadFiles();
                     }, 1000)
                     $("#deleteModal").modal('hide');
+                    $("#checked-count").html(document.querySelectorAll('input[type="checkbox"]:checked').length);
+                    $("#selected-files").css("display", "none");
+                    $("#select-all").css("border", "none");
+                    $("#select-all").removeClass("active");
+                    deleteId.length = 0;
+                    bulkId.length = 0;
+                    getId.length = 0;
+
+                    console.log(deleteId);
+                    
                 } else {
                     errorMsg('Error in delete')
                 }
             })
         })
-        $("#checked-count").html(document.querySelectorAll('input[type="checkbox"]:checked').length);
-        $("#selected-files").css("display", "none");
-        $("#select-all").css("border", "none");
+
     }
 }
 
@@ -581,8 +608,6 @@ function expand() {
 
 function checkboxes(objid, obj) {
 
-    // $(obj).parent().parent().children(".colBase").css("border","1px solid #2C2F79");
-    // $(obj).parent().parent().children().children("#delete-img").css({ "filter": "invert(13%) sepia(94%) saturate(7466%) hue-rotate(0deg) brightness(94%) contrast(115%)"});
 
     if (document.querySelectorAll('input[type="checkbox"]:checked').length > 0) {
         $("#selected-files").css("display", "block");
@@ -595,46 +620,64 @@ function checkboxes(objid, obj) {
 
         if (bulkId.includes(objid)) {
             bulkId.pop(objid);
+            console.log(bulkId);
         }
         else {
             bulkId.push(objid);
+            console.log(bulkId);
         }
 
+        var del = deleteId;
+        const index = del.indexOf(objid);
+            if (index > -1) { 
+            del.splice(index, 1); 
+            deleteId = del;
+            console.log(deleteId);
+        }
     }
     else {
-        bulkId = [];
-        $("#selected-files").css("display", "none");
-        $(obj).parent().children(".colBase").css("border", "none");
-        $(obj).parent().children().children().children("#download-img").css("filter", "brightness(0.5)");
-        $(obj).parent().children().children().children("#copy-img").css("filter", "brightness(0.5)");
-        $(obj).parent().children().children().children("#edit-img").css("filter", "brightness(0.8)");
-        $(obj).parent().children().children().children("#delete-img").css("filter", "brightness(0.8)");
+             bulkId = [];
+            $("#selected-files").css("display", "none");
+            $("#select-all").css({"border":"none","text-decoration": "none"});
+            $("#select-all").removeClass("active");
+            $(".colBase").css("border","");
+            $('[id="download-img"]').css("filter", "brightness(0.5)");
+            $('[id="copy-img"]').css("filter", "brightness(0.5)");
+            $('[id="edit-img"]').css("filter", "brightness(0.8)");
+            $('[id="delete-img"]').css("filter", "brightness(0.8)");
+            loadFiles();
     }
 
 
 }
 
 function selectAll(event) {
-    
     var classValue = event.target.attributes.class.value;
 
+    deleteId = [];
+    bulkId = [];
+
+    console.log(getId);
+    console.log(deleteId);
+    console.log(bulkId);
+    
     if (classValue == "") {
         event.target.attributes.class.value = "active"
+        
+            $(".colBase").css("border","1px solid #167EE6");
+            $('[id="check-box"]').attr('checked', 'checked');
+            $("#checked-count").html(document.querySelectorAll('input[type="checkbox"]:checked').length);
+            $("#selected-files").css("display","block");
+            $("#select-all").css("border","1px solid #61629A");
+            $('[id="download-img"]').css("filter", "invert(165%) sepia(124%) saturate(1176%) hue-rotate(562deg) brightness(85%) contrast(159%)");
+            $('[id="copy-img"]').css("filter", "invert(165%) sepia(124%) saturate(1176%) hue-rotate(562deg) brightness(85%) contrast(159%)");
+            $('[id="edit-img"]').css("filter", "invert(100%) sepia(100%) saturate(1176%) hue-rotate(575deg) brightness(122%) contrast(159%)");
+            $('[id="delete-img"]').css("filter", "invert(13%) sepia(94%) saturate(7466%) hue-rotate(0deg) brightness(94%) contrast(115%)");
   
-          $(".colBase").css("border","1px solid #167EE6");
-
-          $('[id="check-box"]').attr('checked', 'checked');
-          $("#checked-count").html(document.querySelectorAll('input[type="checkbox"]:checked').length);
-          $("#selected-files").css("display","block");
-          $("#select-all").css("border","1px solid #61629A");
-          $('[id="download-img"]').css("filter", "invert(165%) sepia(124%) saturate(1176%) hue-rotate(562deg) brightness(85%) contrast(159%)");
-          $('[id="copy-img"]').css("filter", "invert(165%) sepia(124%) saturate(1176%) hue-rotate(562deg) brightness(85%) contrast(159%)");
-          $('[id="edit-img"]').css("filter", "invert(100%) sepia(100%) saturate(1176%) hue-rotate(575deg) brightness(122%) contrast(159%)");
-          $('[id="delete-img"]').css("filter", "invert(13%) sepia(94%) saturate(7466%) hue-rotate(0deg) brightness(94%) contrast(115%)");
-
-       getId.forEach((id)=>{
-          deleteId.push(id);
-       })
+         getId.forEach((id)=>{
+            deleteId.push(id);
+            console.log(deleteId);
+         })         
         
     }
     else {
@@ -642,16 +685,25 @@ function selectAll(event) {
 
      $("#selected-files").css("display","none");
         $("#select-all").css("border","none");
-        $(".colBase").css("border","");
+        $('[class="colBase"]').css("border","");
         $('[id="download-img"]').css("filter", "brightness(0.5)");
         $('[id="copy-img"]').css("filter", "brightness(0.5)");
         $('[id="edit-img"]').css("filter", "brightness(0.8)");
         $('[id="delete-img"]').css("filter", "brightness(0.8)");
-
         $('[id="check-box"]').removeAttr('checked');
         $("#checked-count").html(document.querySelectorAll('input[type="checkbox"]:checked').length);
-        
+        deleteId.splice(0, deleteId.length);    
     }
+
+    // if(document.querySelectorAll('input[type="checkbox"]:checked').length == 0){
+    //     console.log(document.querySelectorAll('input[type="checkbox"]:checked').length);
+    //     $("#select-all").css("border","none");
+    //     $(".colBase").css("border","");
+    //     $('[id="download-img"]').css("filter", "brightness(0.5)");
+    //     $('[id="copy-img"]').css("filter", "brightness(0.5)");
+    //     $('[id="edit-img"]').css("filter", "brightness(0.8)");
+    //     $('[id="delete-img"]').css("filter", "brightness(0.8)");
+    // }
 }
 
 function listView() {
@@ -758,7 +810,7 @@ function gridView() {
         "top":"86%","left":"24%","position":"absolute"
     })
     $("#grid-img").css({
-        "width": "24px",
+        "width": "23px",
         "height": "20px",
         "filter": "invert(100%) sepia(100%) saturate(0%) hue-rotate(282deg) brightness(142%) contrast(102%)",
         "padding": "1px",
@@ -766,7 +818,7 @@ function gridView() {
         "padding-left": "2px"
     })
     $("#list-img").css({
-        "width": "24px",
+        "width": "23px",
         "height": "20px",
         "padding": "1px",
         "padding-right": "7px",
@@ -776,7 +828,7 @@ function gridView() {
         "font-size": "2rem","position": "absolute","top": "40%","left": "45%"
     })
     $('[id="obj-desc"]').css({
-        "margin-top": "34%","font-size":"16px","margin-right":"8px"
+        "margin-top": "38%","font-size":"16px","margin-right":"0px"
     })
 
 }
