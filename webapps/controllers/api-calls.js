@@ -330,6 +330,9 @@ function listMessageRules(pageSize, direction, mid, cbk) {
         url: API_BASE_PATH + "/rules/list/" + API_TOKEN_ALT + "/" + pageSize,
         data: data,
         type: 'GET',
+        "headers": {
+            "TOKEN": API_TOKEN
+        },
         success: function (data) {
             //called when successful
             cbk(true, data);
@@ -521,6 +524,9 @@ function listInputRules(type,cbk) {
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
+        "headers": {
+            "TOKEN": API_TOKEN
+        },
         success: function (data) {
             //called when successful
             cbk(true, data);
@@ -548,6 +554,9 @@ function listMessageSpec(pageSize, direction, mid, cbk) {
         url: API_BASE_PATH + "/mspec/list/" + API_TOKEN_ALT + "/" + pageSize,
         data: data,
         type: 'GET',
+        "headers": {
+            "TOKEN": API_TOKEN
+        },
         success: function (data) {
             //called when successful
             cbk(true, data);
@@ -598,6 +607,9 @@ function getDomainrule(cbk) {
         url: API_BASE_PATH + "/drules/get/" + API_TOKEN_ALT,
         data: data,
         type: 'GET',
+        "headers": {
+            "TOKEN": API_TOKEN
+        },
         success: function (data) {
             //called when successful
             cbk(true, data);
@@ -1398,7 +1410,7 @@ function deleteRecordDef(data, cbk) {
 
 function deleteMessagRule(data, cbk) {
 
-
+    console.log(data);
     $.ajax({
         url: API_BASE_PATH + "/rules/delete/" + API_TOKEN_ALT + '/' + data,
         // data:  JSON.stringify(data),
@@ -2471,6 +2483,9 @@ function searchByAbortQuery(id, type, data, cbk) {
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
+        "headers": {
+            "TOKEN": API_TOKEN
+        },
         success: function (data) {
             //called when successful
             cbk(true, data);
@@ -2494,6 +2509,9 @@ function searchByQuery(id, type, data, cbk) {
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
+        "headers": {
+            "TOKEN": API_TOKEN
+        },
         success: function (data) {
             //called when successful
             cbk(true, data);
@@ -2578,6 +2596,9 @@ function searchDevice(data, cbk) {
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
+        "headers": {
+            "TOKEN": API_TOKEN
+        },
         success: function (data) {
             //called when successful
             cbk(true, data);
