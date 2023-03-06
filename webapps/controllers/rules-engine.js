@@ -1610,7 +1610,7 @@ function loadTabbar(id, type) {
     $(".deleteBtn").css('display', 'none');
     if (_.indexOf(tabbar_list, id) < 0) {
         
-        let obj = {};
+        let name=""
         const $editorBar = $(".editorBar")
         switch (type) { // navbar
 
@@ -1657,53 +1657,95 @@ function loadTabbar(id, type) {
                 break;
 
             case 9:
+                for (const iterator of process_rules_list) {
+                    if (id === iterator.id) {
+                        name = iterator.name;
+                        break
+                    }
+                }
                 $editorBar.append('<li role="presentation" data-ruleType="' + type + '" class="processTab tabbar processTab_' + id + '"  >' +
-                    '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadProcessRule(\'' + id + '\')>' + obj.name + ' ' +
+                    '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadProcessRule(\'' + id + '\')>' + name + ' ' +
                     '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',9,this,event)" title="close"><i class="fa fa-close"></i></span></a>' +
                     '</li>')
                 break;
 
             case 10:
+                for (const iterator of sftp_rules_list) {
+                    if (id === iterator.id) {
+                        name = iterator.name;
+                        break
+                    }
+                }
                 $editorBar.append('<li role="presentation" data-ruleType="' + type + '" class="sftpTab tabbar sftpTab_' + id + '"  >' +
-                    '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadSftpRule(\'' + id + '\')>' + obj.name + ' ' +
+                    '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadSftpRule(\'' + id + '\')>' + name + ' ' +
                     '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',10,this,event)" title="close"><i class="fa fa-close"></i></span></a>' +
                     '</li>')
                 $(".sftpTab_" + id).addClass('active');
                 break;
 
             case 11:
+                for (const iterator of mqtt_rules_list) {
+                    if (id === iterator.id) {
+                        name = iterator.name;
+                        break
+                    }
+                }
                 $editorBar.append('<li role="presentation" data-ruleType="' + type + '" class="mqttTab tabbar mqttTab_' + id + '"  >' +
-                    '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadMqttRule(\'' + id + '\')>' + obj.name + ' ' +
+                    '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadMqttRule(\'' + id + '\')>' + name + ' ' +
                     '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',11,this,event)" title="close"><i class="fa fa-close"></i></span></a>' +
                     '</li>')
 
                 break;
 
             case 12:
+                for (const iterator of udp_rules_list) {
+                    if (id === iterator.id) {
+                        name = iterator.name;
+                        break
+                    }
+                }
                 $editorBar.append('<li role="presentation" data-ruleType="' + type + '" class="udpTab tabbar udpTab_' + id + '"  >' +
-                    '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadUdpRule(\'' + id + '\')>' + obj.name + ' ' +
+                    '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadUdpRule(\'' + id + '\')>' + name + ' ' +
                     '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',12,this,event)" title="close"><i class="fa fa-close"></i></span></a>' +
                     '</li>')
                 break;
 
             case 13:
+                for (const iterator of tcp_rules_list) {
+                    if (id === iterator.id) {
+                        name = iterator.name;
+                        break
+                    }
+                }
                 $editorBar.append('<li role="presentation" data-ruleType="' + type + '" class="tcpTab tabbar tcpTab_' + id + '"  >' +
-                    '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadTcpRule(\'' + id + '\')>' + obj.name + ' ' +
+                    '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadTcpRule(\'' + id + '\')>' + name + ' ' +
                     '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',13,this,event)" title="close"><i class="fa fa-close"></i></span></a>' +
                     '</li>')
                 break;
 
             case 14:
+                for (const iterator of email_rules_list) {
+                    if (id === iterator.id) {
+                        name = iterator.name;
+                        break
+                    }
+                }
                 $editorBar.append('<li role="presentation" data-ruleType="' + type + '" class="emailTab tabbar emailTab_' + id + '"  >' +
-                    '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadEmailRule(\'' + id + '\')>' + obj.name + ' ' +
+                    '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadEmailRule(\'' + id + '\')>' + name + ' ' +
                     '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',14,this,event)" title="close"><i class="fa fa-close"></i></span></a>' +
                     '</li>')
                
                 break;
 
             case 15:
+                for (const iterator of micro_rules_list) {
+                    if (id === iterator.name) {
+                        name = iterator.name;
+                        break
+                    }
+                }
                 $editorBar.append('<li role="presentation" data-ruleType="' + type + '" class="microTab tabbar microTab_' + id + '"  >' +
-                    '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadMicroRule(\'' + obj.name + '\')>' + obj.name + ' ' +
+                    '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadMicroRule(\'' + name + '\')>' + name + ' ' +
                     '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',15,this,event)" title="close"><i class="fa fa-close"></i></span></a>' +
                     '</li>')
                 
@@ -1716,6 +1758,7 @@ function loadTabbar(id, type) {
     $(".editorBar li.tabbar").removeClass('active')
     $(".ruleLanguage").html('GROOVY')
 
+    let obj = {};
 
     switch (type) {
 
@@ -1817,14 +1860,13 @@ function loadTabbar(id, type) {
             $(".ruleName").html(obj.name);
             $(".exportBtn").attr('onclick', 'exportRule(9)')
 
-
             break;
 
         case 10:
             $(".sftpTab_" + id).addClass('active');
 
             for (const iterator of sftp_rules_list) {
-                if (id === iterator.type) {
+                if (id === iterator.id) {
                     obj = iterator;
                     break
                 }
@@ -1838,14 +1880,13 @@ function loadTabbar(id, type) {
 
             $(".exportBtn").attr('onclick', 'exportRule(10)')
 
-
             break;
 
         case 11:
             $(".mqttTab_" + id).addClass('active');
 
             for (const iterator of mqtt_rules_list) {
-                if (id === iterator.type) {
+                if (id === iterator.id) {
                     obj = iterator;
                     break
                 }
@@ -1862,7 +1903,7 @@ function loadTabbar(id, type) {
         case 12:
             $(".udpTab_" + id).addClass('active');
             for (const iterator of udp_rules_list) {
-                if (id === iterator.type) {
+                if (id === iterator.id) {
                     obj = iterator;
                     break
                 }
@@ -1875,14 +1916,13 @@ function loadTabbar(id, type) {
             $(".ruleName").html(obj.name);
             $(".exportBtn").attr('onclick', 'exportRule(12)')
 
-
             break;
 
         case 13:
             $(".tcpTab_" + id).addClass('active');
 
             for (const iterator of tcp_rules_list) {
-                if (id === iterator.type) {
+                if (id === iterator.id) {
                     obj = iterator;
                     break
                 }
@@ -1894,14 +1934,13 @@ function loadTabbar(id, type) {
             $(".ruleName").html(obj.name);
             $(".exportBtn").attr('onclick', 'exportRule(13)')
 
-
             break;
 
         case 14:
             $(".emailTab_" + id).addClass('active');
 
             for (const iterator of email_rules_list) {
-                if (id === iterator.type) {
+                if (id === iterator.id) {
                     obj = iterator;
                     break
                 }
@@ -1913,14 +1952,13 @@ function loadTabbar(id, type) {
             $(".ruleName").html(obj.name);
             $(".exportBtn").attr('onclick', 'exportRule(14)');
 
-
             break;
 
         case 15:
             $(".microTab_" + id).addClass('active');
 
             for (const iterator of micro_rules_list) {
-                if (id === iterator.type) {
+                if (id === iterator.name) {
                     obj = iterator;
                     break
                 }
@@ -1931,7 +1969,6 @@ function loadTabbar(id, type) {
             $(".ruleType").html('Micro API Rule');
             $(".ruleName").html(obj.name);
             $(".exportBtn").attr('onclick', 'exportRule(15)')
-
 
             break;
     }
@@ -5724,7 +5761,7 @@ function openSimulateModal(id, type) {
             $(".simulatorModal").append(str);
 
             for (const iterator of binary_rules_list) {
-                if (Number(id) === iterator['type']) {
+                if (id === iterator['type']) {
                     current_binaryrule_obj = iterator
                     break
                 }
@@ -5783,7 +5820,7 @@ function openSimulateModal(id, type) {
 
             for (const iterator of file_rules_list) {
                 if (id === iterator['type']) {
-                    current_binaryrule_obj = iterator
+                    current_filerule_obj = iterator
                     break
                 }
             }
