@@ -22,6 +22,23 @@ $(document).ready(function () {
 function loadFiles(fileType) {
     var searchText = $("#searchText").val();
 
+    if (fileType == 'false') {
+        $("#private-btn").css({ "background-color": "#2C2F79", "color": "white" });
+        $("#all-btn").css({ "background-color": "white", "color": "black" });
+        $("#public-btn").css({ "background-color": "white", "color": "black" });
+    }
+    else if (fileType == 'true') {
+        $("#public-btn").css({ "background-color": "#2C2F79", "color": "white" });
+        $("#all-btn").css({ "background-color": "white", "color": "black" });
+        $("#private-btn").css({ "background-color": "white", "color": "black" });
+    }
+    else {
+
+        $("#all-btn").css({ "background-color": "#2C2F79", "color": "white" });
+        $("#public-btn").css({ "background-color": "white", "color": "black" });
+        $("#private-btn").css({ "background-color": "white", "color": "black" });
+    }
+
     $("#grid-btn").css({ "background-color": "#2C2F79", "color": "white" });
     $("#list-btn").css({ "background-color": "white", "color": "black", "border": "none" });
     $("#grid-img").css("filter", "brightness(4.5)");
@@ -172,12 +189,24 @@ function renderHtml(obj) {
 
     if (obj.mediaType && obj.mediaType.split('/')[0] !== 'image') {
 
-    let title = obj.description;
-    let sName;
-    let splitTitle = title.split(".");
-    let fName = splitTitle[0];
-    let lName = splitTitle.splice(-1);
-    let upperCase = lName.toString();
+    // let title = obj.description;
+    // let sName;
+    // let splitTitle = title.split(".");
+    // let fName = splitTitle[0];
+    let lName = obj.mediaType;
+    let lastName = lName.split("/");
+    let getFileType = lastName[1];
+    let appendFileType;
+
+    if(getFileType.includes(".")){
+      let  string = getFileType.split(".").splice(-1);
+      appendFileType = string;
+    }
+    else{
+        appendFileType = getFileType;
+    }
+
+    let upperCase = appendFileType.toString();
     let file = upperCase.toUpperCase();
 
         imgTag = '<i class="icon-file-text-o" style="font-size: 2rem;position: absolute;top: 37%;left: 45%;"></i><p id="obj-desc" style="margin-top: 36%;font-size:16px;margin-right:0px">' + file + '</p>'
@@ -192,16 +221,28 @@ function renderHtml(obj) {
     let sName;
     let splitTitle = title.split(".");
     let fName = splitTitle[0];
-    let lName = splitTitle.splice(-1);
+    let lName = obj.mediaType;
+    let lastName = lName.split("/");
+    let getFileType = lastName[1];
+    let appendFileType;
+
+    if(getFileType.includes(".")){
+      let  string = getFileType.split(".").splice(-1);
+      appendFileType = string;
+    }
+    else{
+
+        appendFileType = getFileType;
+    }
 
     if(fName.length > 15){
-      var subName =  fName.substring(0, 15);
+      var subName =  fName.substring(0, 12);
         sName = subName;
     }
     else{
         sName = fName;
     }
-    let fileName = sName + "." + lName;
+    let fileName = sName + "." + appendFileType;
 
 
     var str = `
@@ -813,23 +854,6 @@ function downloadFile(id, type) {
     
 }
 
-function color(param) {
-    if (param == 'all') {
-        $("#all-btn").css({ "background-color": "#2C2F79", "color": "white" });
-        $("#public-btn").css({ "background-color": "white", "color": "black" });
-        $("#private-btn").css({ "background-color": "white", "color": "black" });
-    }
-    else if (param == 'public') {
-        $("#public-btn").css({ "background-color": "#2C2F79", "color": "white" });
-        $("#all-btn").css({ "background-color": "white", "color": "black" });
-        $("#private-btn").css({ "background-color": "white", "color": "black" });
-    }
-    else {
-        $("#private-btn").css({ "background-color": "#2C2F79", "color": "white" });
-        $("#all-btn").css({ "background-color": "white", "color": "black" });
-        $("#public-btn").css({ "background-color": "white", "color": "black" });
-    }
-}
 
 function getFullSize(obj){
 
