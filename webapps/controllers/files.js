@@ -22,12 +22,30 @@ $(document).ready(function () {
 function loadFiles(fileType) {
     var searchText = $("#searchText").val();
 
+    if (fileType == 'false') {
+        $("#private-btn").css({ "background-color": "#2C2F79", "color": "white" });
+        $("#all-btn").css({ "background-color": "white", "color": "black" });
+        $("#public-btn").css({ "background-color": "white", "color": "black" });
+    }
+    else if (fileType == 'true') {
+        $("#public-btn").css({ "background-color": "#2C2F79", "color": "white" });
+        $("#all-btn").css({ "background-color": "white", "color": "black" });
+        $("#private-btn").css({ "background-color": "white", "color": "black" });
+    }
+    else {
+
+        $("#all-btn").css({ "background-color": "#2C2F79", "color": "white" });
+        $("#public-btn").css({ "background-color": "white", "color": "black" });
+        $("#private-btn").css({ "background-color": "white", "color": "black" });
+    }
+
     $("#grid-btn").css({ "background-color": "#2C2F79", "color": "white" });
     $("#list-btn").css({ "background-color": "white", "color": "black", "border": "none" });
     $("#grid-img").css("filter", "brightness(4.5)");
     $("#list-img").removeAttr("style", "filter");
     getId = [];
-    getId = [];
+    deleteId = [];
+    bulkId = [];
 
     var queryParams = {
         query: {
@@ -171,12 +189,25 @@ function renderHtml(obj) {
 
     if (obj.mediaType && obj.mediaType.split('/')[0] !== 'image') {
 
-    let title = obj.description;
-    let sName;
-    let splitTitle = title.split(".");
-    let fName = splitTitle[0];
-    let lName = splitTitle[1];
-    let file = lName.toUpperCase();
+    // let title = obj.description;
+    // let sName;
+    // let splitTitle = title.split(".");
+    // let fName = splitTitle[0];
+    let lName = obj.mediaType;
+    let lastName = lName.split("/");
+    let getFileType = lastName[1];
+    let appendFileType;
+
+    if(getFileType.includes(".")){
+      let  string = getFileType.split(".").splice(-1);
+      appendFileType = string;
+    }
+    else{
+        appendFileType = getFileType;
+    }
+
+    let upperCase = appendFileType.toString();
+    let file = upperCase.toUpperCase();
 
         imgTag = '<i class="icon-file-text-o" style="font-size: 2rem;position: absolute;top: 37%;left: 45%;"></i><p id="obj-desc" style="margin-top: 36%;font-size:16px;margin-right:0px">' + file + '</p>'
     } else {
@@ -190,16 +221,28 @@ function renderHtml(obj) {
     let sName;
     let splitTitle = title.split(".");
     let fName = splitTitle[0];
-    let lName = splitTitle[1];
+    let lName = obj.mediaType;
+    let lastName = lName.split("/");
+    let getFileType = lastName[1];
+    let appendFileType;
+
+    if(getFileType.includes(".")){
+      let  string = getFileType.split(".").splice(-1);
+      appendFileType = string;
+    }
+    else{
+
+        appendFileType = getFileType;
+    }
 
     if(fName.length > 15){
-      var subName =  fName.substring(0, 15);
+      var subName =  fName.substring(0, 12);
         sName = subName;
     }
     else{
         sName = fName;
     }
-    let fileName = sName + "." + lName;
+    let fileName = sName + "." + appendFileType;
 
 
     var str = `
@@ -212,7 +255,7 @@ function renderHtml(obj) {
                 </div>
               
               <p class="btn-group btn-group-justified `+ obj.id + ` " style="top:86%;left:24%;position:absolute;" id="action-buttons">
-              <a class="btn btn-default btn-xs" id="download-btn" title="Download" onclick="downloadFile('` + obj.id + `')" data-clipboard-text="` + srcPath + `" style="font-size:15px;background-color:white;border: none;font-size: 16px;padding-right: 9px;margin-top: 6px;"><img id="download-img" style="width: 27px;height: 27px;filter: brightness(0.5);" src="images/Download2.svg" alt=""></a> 
+              <a class="btn btn-default btn-xs" id="download-btn" title="Download" onclick="downloadFile('` + obj.id + `','`+ obj.isPublic +`')" data-clipboard-text="` + srcPath + `" style="font-size:15px;background-color:white;border: none;font-size: 16px;padding-right: 9px;margin-top: 6px;"><img id="download-img" style="width: 27px;height: 27px;filter: brightness(0.5);" src="images/Download2.svg" alt=""></a> 
                <a class="btn btn-default btn-xs cpyBtn" id="copy-btn" title="Copy Link" data-clipboard-text="`+ srcPath + `" style="font-size:15px;background-color:white;margin-right: 8px;font-size: 18px;border: none;border-left: 1px solid #d3d3d380;border-radius: 0px;padding-left: 9px;margin-top: 6px;"><img id="copy-img" style="width: 27px;height: 27px;filter: brightness(0.5);" src="images/Copy.svg" alt=""></a>
              `+ actStr + `
           </p>
@@ -267,14 +310,12 @@ function openModal(type, id, mediaType) {
     }
     else if (type === 2) {
         
-        console.log(mediaType);
         var fileTypeModal = mediaType.split("/");
         var getType = fileTypeModal[0];
-        console.log(getType);
         
         $(".fileAction").html('Update');
         $("#uploadBtn").html("Update File");
-        // $('#uploadFile').attr('placeholder','No file chosen');
+
         var obj = {};
         current_file_id = id;
 
@@ -309,17 +350,11 @@ function openModal(type, id, mediaType) {
         $("#file_tags").val(obj.tags);
         // $("#file_desc").val(obj.description + '?' + new Date().getTime());
         $("#file_desc").val(obj.description);
-        console.log(obj);
         $("#file_type").val(obj.isPublic.toString());
         $("#addFile").modal('show');
         $("#addFile form").attr('onsubmit', 'updateFile()');
 
-        // var fileInput = document.getElementById("uploadFile");
-        // var files = fileInput.files;
 
-        // if(files.length == 0){
-        //     errorMsg("File not found. select a file to start upload");
-        // }
 
     }
     else if (type === 3) {
@@ -340,7 +375,6 @@ function addFile() {
 
     var fileInput = document.getElementById("uploadFile");
     var files = fileInput.files;
-    console.log(files.length);
 
     if(files.length == 0){
         errorMsg('File not found. select a file to start upload');
@@ -385,7 +419,6 @@ function proceedDelete() {
         })
     }
     else if (deleteId.length == 0 && bulkId.length > 0) {
-        console.log(bulkId);
         bulkId.forEach((data) => {
             deleteFile(data, current_file_obj.isPublic, function (status, data) {
                 if (status) {
@@ -405,7 +438,6 @@ function proceedDelete() {
 
     }
     else {
-        console.log(deleteId);
         deleteId.forEach((datas) => {
             deleteFile(datas, current_file_obj.isPublic, function (status, data) {
                 if (status) {
@@ -418,11 +450,6 @@ function proceedDelete() {
                     $("#selected-files").css("display", "none");
                     $("#select-all").css("border", "none");
                     $("#select-all").removeClass("active");
-                    deleteId.length = 0;
-                    bulkId.length = 0;
-                    getId.length = 0;
-
-                    console.log(deleteId);
                     
                 } else {
                     errorMsg('Error in delete')
@@ -620,11 +647,9 @@ function checkboxes(objid, obj) {
 
         if (bulkId.includes(objid)) {
             bulkId.pop(objid);
-            console.log(bulkId);
         }
         else {
             bulkId.push(objid);
-            console.log(bulkId);
         }
 
         var del = deleteId;
@@ -632,7 +657,6 @@ function checkboxes(objid, obj) {
             if (index > -1) { 
             del.splice(index, 1); 
             deleteId = del;
-            console.log(deleteId);
         }
     }
     else {
@@ -657,9 +681,7 @@ function selectAll(event) {
     deleteId = [];
     bulkId = [];
 
-    console.log(getId);
-    console.log(deleteId);
-    console.log(bulkId);
+    let uniqueChars = [...new Set(getId)];
     
     if (classValue == "") {
         event.target.attributes.class.value = "active"
@@ -674,9 +696,8 @@ function selectAll(event) {
             $('[id="edit-img"]').css("filter", "invert(100%) sepia(100%) saturate(1176%) hue-rotate(575deg) brightness(122%) contrast(159%)");
             $('[id="delete-img"]').css("filter", "invert(13%) sepia(94%) saturate(7466%) hue-rotate(0deg) brightness(94%) contrast(115%)");
   
-         getId.forEach((id)=>{
+            uniqueChars.forEach((id)=>{
             deleteId.push(id);
-            console.log(deleteId);
          })         
         
     }
@@ -695,15 +716,6 @@ function selectAll(event) {
         deleteId.splice(0, deleteId.length);    
     }
 
-    // if(document.querySelectorAll('input[type="checkbox"]:checked').length == 0){
-    //     console.log(document.querySelectorAll('input[type="checkbox"]:checked').length);
-    //     $("#select-all").css("border","none");
-    //     $(".colBase").css("border","");
-    //     $('[id="download-img"]').css("filter", "brightness(0.5)");
-    //     $('[id="copy-img"]').css("filter", "brightness(0.5)");
-    //     $('[id="edit-img"]').css("filter", "brightness(0.8)");
-    //     $('[id="delete-img"]').css("filter", "brightness(0.8)");
-    // }
 }
 
 function listView() {
@@ -777,7 +789,6 @@ function listView() {
 
 function gridView() {
 
-    // loadFiles();
     event.preventDefault();
     $("#grid-btn").css({ "background-color": "#2C2F79", "color": "white" });
     $("#list-btn").css({ "background-color": "white", "color": "black", "border": "none" });
@@ -833,31 +844,16 @@ function gridView() {
 
 }
 
-function downloadFile(id) {
+function downloadFile(id, type) {
 
     var x = $('[id="download-btn"]').attr({
         target: '_blank',
-        href: API_BASE_PATH + '/files/download/' + USER_OBJ.token + '/' + id
-    });
+        href: API_BASE_PATH + '/files/download/' + USER_OBJ.token + '/' + id + '?' + 'ispublic=' + type
+        
+    })
+    
 }
 
-function color(param) {
-    if (param == 'all') {
-        $("#all-btn").css({ "background-color": "#2C2F79", "color": "white" });
-        $("#public-btn").css({ "background-color": "white", "color": "black" });
-        $("#private-btn").css({ "background-color": "white", "color": "black" });
-    }
-    else if (param == 'public') {
-        $("#public-btn").css({ "background-color": "#2C2F79", "color": "white" });
-        $("#all-btn").css({ "background-color": "white", "color": "black" });
-        $("#private-btn").css({ "background-color": "white", "color": "black" });
-    }
-    else {
-        $("#private-btn").css({ "background-color": "#2C2F79", "color": "white" });
-        $("#all-btn").css({ "background-color": "white", "color": "black" });
-        $("#public-btn").css({ "background-color": "white", "color": "black" });
-    }
-}
 
 function getFullSize(obj){
 
