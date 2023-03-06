@@ -101,7 +101,7 @@ function loadFiles(fileType) {
             var resultData = QueryFormatter(res).data;
             totalCount = resultData.recordsTotal;
             file_list = resultData['data'];
- 
+
             file_list.forEach((datas) => {
                 var ids = datas._id;
                 getId.push(ids);
@@ -417,6 +417,8 @@ function proceedDelete() {
                 errorMsg('Error in delete')
             }
         })
+        $("#checked-count").html(document.querySelectorAll('input[type="checkbox"]:checked').length);
+        $("#selected-files").css("display", "none");
     }
     else if (deleteId.length == 0 && bulkId.length > 0) {
         bulkId.forEach((data) => {
@@ -510,6 +512,7 @@ function uploadFile() {
 
 
     var files = fileInput.files;
+
 
     var uploadFileType = files[0].name.split(".");
     var myFileType = uploadFileType[1];
@@ -845,9 +848,8 @@ function gridView() {
 }
 
 function downloadFile(id, type) {
-
     var x = $('[id="download-btn"]').attr({
-        target: '_blank',
+        //target: '_blank',
         href: API_BASE_PATH + '/files/download/' + USER_OBJ.token + '/' + id + '?' + 'ispublic=' + type
         
     })
