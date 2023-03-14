@@ -133,46 +133,12 @@ $(document).ready(function () {
     document.getElementById('importFile')
         .addEventListener('change', getImportFile)
 
-    setTimeout(function () {
-        $(".loaderBlock").remove();
         $(".mainwindow").css('display', 'block');
         docLayout = $('.mainwindow').layout({
             applyDefaultStyles: true,
             north: {
                 resizable: true
             },
-            // south: {
-            //     size: 200,
-            //     resizable: true
-            //     // size: true
-            //     //	CALLBACK TESTING...
-            //     // ,	onhide_start:			function () { return confirm("START South pane hide \n\n onhide_start callback \n\n Allow pane to hide?"); }
-            //     // ,	onhide_end:				function () { alert("END South pane hide \n\n onhide_end callback"); }
-            //     // ,	onshow_start:			function () { return confirm("START South pane show \n\n onshow_start callback \n\n Allow pane to show?"); }
-            //     // ,	onshow_end:				function () { alert("END South pane show \n\n onshow_end callback"); }
-            //     // ,	onopen_start:			function () { return confirm("START South pane open \n\n onopen_start callback \n\n Allow pane to open?"); }
-            //     // ,	onopen_end:				function () { alert("END South pane open \n\n onopen_end callback"); }
-            //     , onclose_start: function () {
-            //     }
-            //     , onclose_end: function () {
-            //         setTimeout(function () {
-            //             $('#codeEditor').height(($(".ui-layout-center").height() - 40) + 'px');
-            //
-            //             codeEditor.resize();
-            //         }, 500);
-            //
-            //         $(".consoleBox").height(($(".bottomBar").height()-20) + 'px')
-            //
-            //     }
-            //     , onresize_end: function () {
-            //         setTimeout(function () {
-            //             $('#codeEditor').height(($(".ui-layout-center").height() - 40) + 'px');
-            //             codeEditor.resize();
-            //         }, 500);
-            //         $(".consoleBox").height(($(".bottomBar").height()-20) + 'px')
-            //     }
-            //
-            // },
             east: {
                 resizable: true,
                 size: 250,
@@ -198,29 +164,14 @@ $(document).ready(function () {
             loadRules(1);
         }
 
-        // preLoading('Loading Editor')
-        setTimeout(function () {
             $(".listHeight").css('height', $(".leftSide").height() - 150)
             loadDomainCode();
-            // closePreLoading();
-            $(".loaderBlock").css('display', 'none');
+            $(".loaderBlock").remove();
             $(".classFolder").css('height', $(".rightSide").height() - 150)
 
             loadCodeType();
 
-            ///allDeviceList();
 
-        }, 500);
-
-
-
-
-    }, 100);
-
-    // $(".bottomBar").draggable({
-    //     containment: "#rulesBlock"
-    //
-    // })
     $(window).resize(function () {
         $(".mainwindow").css('min-height', $(window).height() - 90 + 'px');
         setTimeout(() => {
@@ -247,17 +198,10 @@ function mqttListen() {
 
         mqtt_client.onMessageArrived = function (message) {
 
-            // console.log(new Date + ' | MQTT Message Received :', message);
 
             let parsedData = JSON.parse(message.payloadString);
             let topicName = message.destinationName;
 
-            let nodeClass = new Date().getTime();
-            let color = 'default';
-
-            // console.log('Log Enabled :',$(".allLogs").is(":checked"))
-            // console.log('parsedData :',parsedData)
-            // console.log(CURRENT_TYPE ,"====",topicName);
 
             if ($(".allLogs").is(":checked")) {
 
@@ -277,68 +221,51 @@ function mqttListen() {
                 mqttMicroRule(topicName, parsedData);
 
             } else {
-                if (CURRENT_TYPE === 0) {
-                    mqttDomainRule(topicName, parsedData);
-
-                } else if (CURRENT_TYPE === 1) {
-                    mqttMesageRule(topicName, parsedData);
+                switch (CURRENT_TYPE) {
+                    case 0:
+                        mqttDomainRule(topicName, parsedData);
+                        break;
+                    case 1:
+                        mqttMesageRule(topicName, parsedData);
+                        break;
+                    case 2:
+                        mqttNamedRule(topicName, parsedData);
+                        break;
+                    case 3:
+                        mqttScheduleRule(topicName, parsedData);
+                        break;
+                    case 6:
+                        mqttBinaryRule(topicName, parsedData);
+                        break;
+                    case 7:
+                        mqttJobRule(topicName, parsedData);
+                        break;
+                    case 8:
+                        mqttFileRule(topicName, parsedData);
+                        break;
+                    case 9:
+                        mqttProcessRule(topicName, parsedData);
+                        break;
+                    case 10:
+                        mqttSftpRule(topicName, parsedData);
+                        break;
+                    case 11:
+                        mqttMqttRule(topicName, parsedData);
+                        break;
+                    case 12:
+                        mqttUdpRule(topicName, parsedData);
+                        break;
+                    case 13:
+                        mqttTcpRule(topicName, parsedData);
+                        break;
+                    case 14:
+                        mqttEmailRule(topicName, parsedData);
+                        break;
+                    case 15:
+                        mqttMicroRule(topicName, parsedData);
+                        break;
                 }
-                else if (CURRENT_TYPE === 2) {
-                    mqttNamedRule(topicName, parsedData);
-                }
-                else if (CURRENT_TYPE === 3) {
-                    mqttScheduleRule(topicName, parsedData);
-                }
-                else if (CURRENT_TYPE === 6) {
-                    mqttBinaryRule(topicName, parsedData);
-                }
-                else if (CURRENT_TYPE === 7) {
-                    mqttJobRule(topicName, parsedData);
-                }
-                else if (CURRENT_TYPE === 8) {
-                    mqttFileRule(topicName, parsedData);
-                }
-                else if (CURRENT_TYPE === 9) {
-                    mqttProcessRule(topicName, parsedData);
-                }
-                else if (CURRENT_TYPE === 10) {
-                    mqttSftpRule(topicName, parsedData);
-                }
-                else if (CURRENT_TYPE === 11) {
-                    mqttMqttRule(topicName, parsedData);
-                }
-                else if (CURRENT_TYPE === 12) {
-                    mqttUdpRule(topicName, parsedData);
-                }
-                else if (CURRENT_TYPE === 13) {
-                    mqttTcpRule(topicName, parsedData);
-                }
-                else if (CURRENT_TYPE === 14) {
-                    mqttEmailRule(topicName, parsedData);
-                }
-                else if (CURRENT_TYPE === 15) {
-                    mqttMicroRule(topicName, parsedData);
-                }
-
             }
-
-
-            /*if(topicName.includes("/log/incoming")){
-
-                let mId = parsedData.mid;
-
-                // console.log("Parsed Data =>",parsedData)
-
-                $(".deviceHtml").append("<div class='" + nodeClass + "' style='font-size: 12px;'>" +
-                    "<span class='label label-success'" +
-                    "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>"+parsedData.mid+"</span>  " +
-                    "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " +
-                    "<span style='white-space: pre-wrap;padding-left: 10px;'>"+parsedData.did+"</span></div>");
-
-                $('.consoleBox').animate({
-                    scrollTop: $(".deviceHtml").height()
-                }, 1000);
-            }*/
 
 
         };
@@ -350,7 +277,6 @@ function mqttDomainRule(topicName, parsedData) {
     let nodeClass = new Date().getTime();
     let color = 'default';
 
-    // console.log("DOMAIN =>", topicName)
 
     if (topicName.includes("/log/drule")) {
 
@@ -393,7 +319,6 @@ function mqttMesageRule(topicName, parsedData) {
     let nodeClass = new Date().getTime();
     let color = 'default';
 
-    // console.log("MESSAGE =>", topicName)
 
     if (topicName.includes("/log/mrule")) {
 
@@ -436,7 +361,6 @@ function mqttNamedRule(topicName, parsedData) {
     let nodeClass = new Date().getTime();
     let color = 'default';
 
-    // console.log("NAMED =>", topicName)
 
     if (topicName.includes("/log/nrule")) {
 
@@ -478,7 +402,6 @@ function mqttFileRule(topicName, parsedData) {
     let nodeClass = new Date().getTime();
     let color = 'default';
 
-    // console.log("NAMED =>", topicName)
 
     if (topicName.includes("/log/frule")) {
 
@@ -520,7 +443,6 @@ function mqttScheduleRule(topicName, parsedData) {
     let nodeClass = new Date().getTime();
     let color = 'default';
 
-    // console.log("SCHEDULE =>", topicName)
 
     if (topicName.includes("/log/srule")) {
 
@@ -563,7 +485,6 @@ function mqttBinaryRule(topicName, parsedData) {
     let nodeClass = new Date().getTime();
     let color = 'default';
 
-    // console.log("BINARY =>", topicName)
 
     if (topicName.includes("/log/brule")) {
 
@@ -976,54 +897,50 @@ function clearLogs() {
 
 function loadRules(id) {
     id = id * 1;
-    // $(".messageTab").remove();
-    // $(".scheduleTab").remove();
-    // $(".namedTab").remove();
     $(".pOption").css('display', 'none')
     $(".detailsBlock").css('display', 'block')
-    if (id === 1) {
-        loadMessageRulesList();
-    } else if (id === 2) {
-        loadNamedRulesList();
-    } else if (id === 3) {
-        loadScheduleRulesList();
-    } else if (id === 4) {
-        $(".detailsBlock").css('display', 'none')
-        loadGroovyClasses();
-    } else if (id === 5) {
-        $(".detailsBlock").css('display', 'none')
-        loadJarClasses();
-    } else if (id === 6) {
-        // $(".detailsBlock").css('display', 'none')
-        loadBinaryRulesList();
-    }
-    else if (id === 7) {
-        loadJobRulesList();
-    }
-    else if (id === 8) {
-        loadFileRulesList();
-    }
-    else if (id === 9) {
-        $(".pOption").css('display', 'block')
-        loadProcessRulesList();
-    }
-    else if (id === 10) {
-        loadSftpRulesList();
-    }
-    else if (id === 11) {
-        loadMqttRulesList();
-    }
-    else if (id === 12) {
-        loadUdpRulesList();
-    }
-    else if (id === 13) {
-        loadTcpRulesList();
-    }
-    else if (id === 14) {
-        loadEmailRulesList();
-    }
-    else if (id === 15) {
-        loadMicroRulesList();
+
+    switch (id) {
+        case 1:
+            loadMessageRulesList();
+            break;
+        case 2:
+            loadNamedRulesList();
+            break;
+        case 3:
+            loadScheduleRulesList();
+            break;
+        case 6:
+            loadBinaryRulesList();
+            break;
+        case 7:
+            loadJobRulesList();
+            break;
+        case 8:
+            loadFileRulesList();
+            break;
+        case 9:
+            loadProcessRulesList();
+            $(".pOption").css('display', 'block')
+            break;
+        case 10:
+            loadSftpRulesList();
+            break;
+        case 11:
+            loadMqttRulesList();
+            break;
+        case 12:
+            loadUdpRulesList();
+            break;
+        case 13:
+            loadTcpRulesList();
+            break;
+        case 14:
+            loadEmailRulesList();
+            break;
+        case 15:
+            loadMicroRulesList();
+            break;
     }
 }
 
@@ -1045,18 +962,17 @@ function searchFunction() {
     }
 }
 
-function loadMessageSpecList() {
+function loadMessageRulesList(lbk) {
+    $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
+    listMessageRules(rules_page_size, rules_direction, rules_id, function (status, data) {
+        if (status) {
+            message_rules_list = data;
+        }
+    })
+
     listMessageSpec(rules_page_size, null, null, function (status, data) {
-        $(".rulesList").html("");
-
-        $(".rulesList").append('<li class="" onclick="loadMessageRulesList()" title="click here to reload"  style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
+        $(".rulesList").html('<li class="" onclick="loadMessageRulesList()" title="click here to reload"  style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
             '<img src="images/folder.png" /> <b> Message Rules</b> <span class="loaderSpin"></span></li>');
-
-        $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
-
-        setTimeout(function () {
-            $(".loaderSpin").html('');
-        }, 1000);
 
         $('[data-toggle="tooltip"]').tooltip()
 
@@ -1086,45 +1002,31 @@ function loadMessageSpecList() {
                 $(".rulesList").append(str);
 
             }
-        } else {
 
+            if (lbk) lbk(true)
+        } else {
+            message_spec_list = []
+            if (lbk) lbk(false)
             errorMsg('No Messages Defined so far!')
-
         }
+        $(".loaderSpin").html('');
+
+        
     })
-}
 
-function loadMessageRulesList() {
-    listMessageRules(rules_page_size, rules_direction, rules_id, function (status, data) {
-        if (status) {
-
-            message_rules_list = data;
-
-            loadMessageSpecList();
-
-        } else {
-            loadMessageSpecList();
-        }
-    })
 }
 
 
-function loadNamedRulesList() {
+function loadNamedRulesList(lbk) {
+    $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
     listNamedRules(rules_page_size, null, null, function (status, data) {
-        $(".rulesList").html("");
-
-        $(".rulesList").append('<li class="" onclick="loadNamedRulesList()" title="click here to reload" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
+        $(".rulesList").html('<li class="" onclick="loadNamedRulesList()" title="click here to reload" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
             '<img src="images/folder.png" /> <b> Named Rules</b> <span class="loaderSpin"></span></li>');
 
-        $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
-
-        setTimeout(function () {
-            $(".loaderSpin").html('');
-        }, 1000);
 
         $('[data-toggle="tooltip"]').tooltip()
 
-        if (status && data.length > 0) {
+        if (status) {
             named_rules_list = data;
 
             for (let i = 0; i < data.length; i++) {
@@ -1135,24 +1037,25 @@ function loadNamedRulesList() {
 
             }
         } else {
+            named_rules_list = []
             errorMsg('No Named Rules Found!')
         }
+
+        if (lbk) lbk(true)
+        $(".loaderSpin").html('');
+
     })
 }
 
 
-function loadBinaryRulesList() {
+function loadBinaryRulesList(lbk) {
+    $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
     listBinaryRules(rules_page_size, null, null, function (status, data) {
-        $(".rulesList").html("");
 
-        $(".rulesList").append('<li class="" onclick="loadBinaryRulesList()" title="click here to reload" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
+        $(".rulesList").html('<li class="" onclick="loadBinaryRulesList()" title="click here to reload" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
             '<img src="images/folder.png" /> <b> Binary Rules</b> <span class="loaderSpin"></span></li>');
 
-        $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
 
-        setTimeout(function () {
-            $(".loaderSpin").html('');
-        }, 1000);
 
         $('[data-toggle="tooltip"]').tooltip()
 
@@ -1167,24 +1070,23 @@ function loadBinaryRulesList() {
 
             }
         } else {
+            binary_rules_list = []
             errorMsg('No Binary Rules Found!')
         }
+        if(lbk) lbk(true)
+        $(".loaderSpin").html('');
+
     })
 }
 
 
-function loadFileRulesList() {
+function loadFileRulesList(lbk) {
+    $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
     listFileRules(rules_page_size, null, null, function (status, data) {
-        $(".rulesList").html("");
 
-        $(".rulesList").append('<li class="" onclick="loadBinaryRulesList()" title="click here to reload" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
+        $(".rulesList").html('<li class="" onclick="loadBinaryRulesList()" title="click here to reload" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
             '<img src="images/folder.png" /> <b> File Rules</b> <span class="loaderSpin"></span></li>');
 
-        $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
-
-        setTimeout(function () {
-            $(".loaderSpin").html('');
-        }, 1000);
 
         $('[data-toggle="tooltip"]').tooltip()
 
@@ -1199,8 +1101,12 @@ function loadFileRulesList() {
 
             }
         } else {
+            file_rules_list = []
             errorMsg('No File Rules Found!')
         }
+        if(lbk) lbk(true)
+        $(".loaderSpin").html('');
+
     })
 }
 
@@ -1255,6 +1161,8 @@ function loadProcessRulesListAggs() {
 }
 
 function loadProcessRulesList(lbk) {
+    $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
+
     let query = {
         query: {
             bool: {
@@ -1312,17 +1220,12 @@ function loadProcessRulesList(lbk) {
         Cookies.set('pfTag', '')
     }
 
-    $(".rulesList").html("");
     listProcessRules(query, pType, function (status, data) {
 
         $(".rulesList").html('<li class="" onclick="loadProcessRulesList()" title="click here to reload" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
             '<img src="images/folder.png" /> <b> Process Rules</b> <span class="loaderSpin"></span></li>');
 
-        $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
 
-        setTimeout(function () {
-            $(".loaderSpin").html('');
-        }, 1000);
 
         $('[data-toggle="tooltip"]').tooltip()
 
@@ -1330,12 +1233,8 @@ function loadProcessRulesList(lbk) {
 
             let resultData = QueryFormatter(data);
             data = resultData.data.data;
-            
             process_rules_list = data;
-            if (lbk)
-                lbk()
-            // console.log(process_rules_list);
-
+           
             for (let i = 0; i < data.length; i++) {
 
                 let str = '<li class="rulesListli rule_' + data[i].id + '" data-id="' + data[i].id + '" onclick="loadTabbar(\'' + data[i].id + '\',9)">' +
@@ -1343,27 +1242,26 @@ function loadProcessRulesList(lbk) {
                 $(".rulesList").append(str);
 
             }
-
+            if (lbk) lbk()
 
         } else {
+            process_rules_list =[]
             errorMsg('No Process Rules Found!')
         }
+        $(".loaderSpin").html('');
+
     })
 }
 
 
-function loadJobRulesList() {
-    listJobRules(function (status, data) {
-        $(".rulesList").html("");
+function loadJobRulesList(lbk) {
+    $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
 
-        $(".rulesList").append('<li class="" onclick="loadJobRulesList()" title="click here to reload" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
+    listJobRules(function (status, data) {
+
+        $(".rulesList").html('<li class="" onclick="loadJobRulesList()" title="click here to reload" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
             '<img src="images/folder.png" /> <b> Job Rules</b> <span class="loaderSpin"></span></li>');
 
-        $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
-
-        setTimeout(function () {
-            $(".loaderSpin").html('');
-        }, 1000);
 
         $('[data-toggle="tooltip"]').tooltip()
 
@@ -1378,28 +1276,26 @@ function loadJobRulesList() {
 
             }
         } else {
+            job_rules_list = []
             errorMsg('No Job Rules Found!')
         }
+        if(lbk) lbk(true)
+        $(".loaderSpin").html('');
     })
 }
 
-function loadSftpRulesList() {
-    listInputRules("SFTP_INPUT", function (status, data) {
-        $(".rulesList").html("");
+function loadSftpRulesList(lbk) {
+    $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
 
-        $(".rulesList").append('<li class="" onclick="loadSftpRulesList()" title="click here to reload" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
+    listInputRules("SFTP_INPUT", function (status, data) {
+        $(".rulesList").html('<li class="" onclick="loadSftpRulesList()" title="click here to reload" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
             '<img src="images/folder.png" /> <b> SFTP Rules</b> <span class="loaderSpin"></span></li>');
 
-        $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
 
-        setTimeout(function () {
-            $(".loaderSpin").html('');
-        }, 1000);
-
+      
         $('[data-toggle="tooltip"]').tooltip()
 
         if (status) {
-
 
             let resultData = QueryFormatter(data);
 
@@ -1415,23 +1311,24 @@ function loadSftpRulesList() {
 
             }
         } else {
+            sftp_rules_list = []
             errorMsg('No SFTP Rules Found!')
         }
+        if(lbk) lbk(true)
+        $(".loaderSpin").html('');
+
     })
 }
-function loadMqttRulesList() {
-    listInputRules("MQTT_INPUT", function (status, data) {
-        $(".rulesList").html("");
+function loadMqttRulesList(lbk) {
+    $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
 
-        $(".rulesList").append('<li class="" onclick="loadMqttRulesList()" title="click here to reload" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
+    listInputRules("MQTT_INPUT", function (status, data) {
+
+        $(".rulesList").html('<li class="" onclick="loadMqttRulesList()" title="click here to reload" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
             '<img src="images/folder.png" /> <b> MQTT Rules</b> <span class="loaderSpin"></span></li>');
 
-        $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
 
-        setTimeout(function () {
-            $(".loaderSpin").html('');
-        }, 1000);
-
+     
         $('[data-toggle="tooltip"]').tooltip()
 
         if (status) {
@@ -1450,23 +1347,24 @@ function loadMqttRulesList() {
 
             }
         } else {
+            mqtt_rules_list = []
             errorMsg('No MQTT Rules Found!')
         }
+        if (lbk) lbk(true)
+        $(".loaderSpin").html('');
+
     })
 }
-function loadUdpRulesList() {
-    listInputRules("UDP_INPUT", function (status, data) {
-        $(".rulesList").html("");
+function loadUdpRulesList(lbk) {
+    $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
 
-        $(".rulesList").append('<li class="" onclick="loadUdpRulesList()" title="click here to reload" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
+    listInputRules("UDP_INPUT", function (status, data) {
+
+        $(".rulesList").html('<li class="" onclick="loadUdpRulesList()" title="click here to reload" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
             '<img src="images/folder.png" /> <b> UDP Rules</b> <span class="loaderSpin"></span></li>');
 
-        $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
 
-        setTimeout(function () {
-            $(".loaderSpin").html('');
-        }, 1000);
-
+        
         $('[data-toggle="tooltip"]').tooltip()
 
         if (status) {
@@ -1484,22 +1382,22 @@ function loadUdpRulesList() {
 
             }
         } else {
+            udp_rules_list = []
             errorMsg('No UDP Rules Found!')
         }
+        if (lbk) lbk(true)
+        $(".loaderSpin").html('');
+
     })
 }
-function loadTcpRulesList() {
-    listInputRules("TCP_INPUT", function (status, data) {
-        $(".rulesList").html("");
+function loadTcpRulesList(lbk) {
+    $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
 
-        $(".rulesList").append('<li class="" onclick="loadTcpRulesList()" title="click here to reload" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
+    listInputRules("TCP_INPUT", function (status, data) {
+
+        $(".rulesList").html('<li class="" onclick="loadTcpRulesList()" title="click here to reload" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
             '<img src="images/folder.png" /> <b> TCP Rules</b> <span class="loaderSpin"></span></li>');
 
-        $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
-
-        setTimeout(function () {
-            $(".loaderSpin").html('');
-        }, 1000);
 
         $('[data-toggle="tooltip"]').tooltip()
 
@@ -1518,22 +1416,22 @@ function loadTcpRulesList() {
 
             }
         } else {
+            tcp_rules_list = []
             errorMsg('No TCP Rules Found!')
         }
+        if (lbk) lbk(true)
+        $(".loaderSpin").html('');
+
     })
 }
-function loadEmailRulesList() {
-    listInputRules("EMAIL_INPUT", function (status, data) {
-        $(".rulesList").html("");
+function loadEmailRulesList(lbk) {
+    $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
 
-        $(".rulesList").append('<li class="" onclick="loadTcpRulesList()" title="click here to reload" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
+    listInputRules("EMAIL_INPUT", function (status, data) {
+
+        $(".rulesList").html('<li class="" onclick="loadTcpRulesList()" title="click here to reload" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
             '<img src="images/folder.png" /> <b> EMAIL Rules</b> <span class="loaderSpin"></span></li>');
 
-        $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
-
-        setTimeout(function () {
-            $(".loaderSpin").html('');
-        }, 1000);
 
         $('[data-toggle="tooltip"]').tooltip()
 
@@ -1552,24 +1450,25 @@ function loadEmailRulesList() {
 
             }
         } else {
+            email_rules_list = []
             errorMsg('No EMAIL Rules Found!')
         }
+        if (lbk) lbk(true)
+        $(".loaderSpin").html('');
+
     })
 }
 
-function loadMicroRulesList() {
-    listInputRules("MICRO_API", function (status, data) {
-        $(".rulesList").html("");
+function loadMicroRulesList(lbk) {
+    $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
 
-        $(".rulesList").append('<li class="" onclick="loadTcpRulesList()" title="click here to reload" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
+    listInputRules("MICRO_API", function (status, data) {
+
+        $(".rulesList").html('<li class="" onclick="loadTcpRulesList()" title="click here to reload" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
             '<img src="images/folder.png" /> <b> Micro API Rules</b> <span class="loaderSpin"></span></li>');
 
-        $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
 
-        setTimeout(function () {
-            $(".loaderSpin").html('');
-        }, 1000);
-
+        
         $('[data-toggle="tooltip"]').tooltip()
 
         if (status) {
@@ -1587,23 +1486,22 @@ function loadMicroRulesList() {
 
             }
         } else {
+            micro_rules_list = []
             errorMsg('No Micro API Rules Found!')
         }
+        if (lbk) lbk(true)
+        $(".loaderSpin").html('');
     })
 }
 
-function loadScheduleRulesList() {
-    listScheduleRules(rules_page_size, null, null, function (status, data) {
-        $(".rulesList").html("");
+function loadScheduleRulesList(lbk) {
+    $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
 
-        $(".rulesList").append('<li class="" title="click here to reload" onclick="loadScheduleRulesList()" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
+    listScheduleRules(rules_page_size, null, null, function (status, data) {
+
+        $(".rulesList").html('<li class="" title="click here to reload" onclick="loadScheduleRulesList()" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
             '<img src="images/folder.png" /> <b> Schedule Rules</b> <span class="loaderSpin"></span></li>');
 
-        $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
-
-        setTimeout(function () {
-            $(".loaderSpin").html('');
-        }, 1000);
 
         $('[data-toggle="tooltip"]').tooltip()
 
@@ -1620,52 +1518,13 @@ function loadScheduleRulesList() {
 
             }
         } else {
+            schedule_rules_list = []
             errorMsg('No Schedule Messages Found!')
         }
+        if (lbk) lbk(true)
+        $(".loaderSpin").html('');
+
     })
-
-}
-
-function loadGroovyClasses() {
-    $(".rulesList").html("");
-
-    $(".rulesList").append('<li class="" title="click here to reload" onclick="loadGroovyClasses()" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
-        '<img src="images/folder.png" /> <b> Groovy Class</b> <span class="loaderSpin"></span></li>');
-
-    $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
-
-    setTimeout(function () {
-        $(".loaderSpin").html('');
-    }, 1000);
-
-
-    let data = groovy_class_list;
-    for (let i = 0; i < groovy_class_list.length; i++) {
-        let str = '<li class="rulesListli rule_' + data[i]._id + '" data-id="' + data[i]._id + '" onclick="loadTabbar(\'' + data[i]._id + '\',4)">' +
-            '<img src="images/code.png" /> <b>' + data[i].packageName + '</b></li>';
-        $(".rulesList").append(str);
-    }
-
-}
-
-function loadJarClasses() {
-    $(".rulesList").html("");
-
-    $(".rulesList").append('<li class="" title="click here to reload" onclick="loadJarClasses()" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
-        '<img src="images/folder.png" /> <b> JAR Class</b> <span class="loaderSpin"></span></li>');
-
-    $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
-
-    setTimeout(function () {
-        $(".loaderSpin").html('');
-    }, 1000);
-
-    let data = groovy_class_list;
-    for (let i = 0; i < jar_class_list.length; i++) {
-        let str = '<li class="rulesListli rule_' + data[i]._id + '" data-id="' + data[i]._id + '" onclick="loadTabbar(\'' + data[i]._id + '\',4)">' +
-            '<img src="images/code.png" /> <b>' + data[i].packageName + '</b></li>';
-        $(".rulesList").append(str);
-    }
 
 }
 
@@ -1673,7 +1532,7 @@ function loadHelpTab() {
     $(".helpTab").remove();
     let str = '<li role="presentation" class="helpTab tabbar helpTabBar active" >' +
         '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadHelpTab()><i class="fa fa-question-circle"></i> Help' +
-        '<span style="display: inline-block;margin-left: 20px;cursor: pointer;z-index:1" onclick="deleteHelpTab()" title="close"><i class="fa fa-close"></i></span></a>' +
+        '<span style="display: inline-block;margin-left: 20px;cursor: pointer;z-index:1" onclick="deleteHelpTab(event)" title="close"><i class="fa fa-close"></i></span></a>' +
         '</li>'
 
     $(".domainTab").removeClass('active')
@@ -1698,15 +1557,11 @@ function loadHelpTab() {
 
 }
 
-function deleteHelpTab() {
-    $(".helpTab").removeClass('active')
+function deleteHelpTab(event) {
+    event.stopPropagation()
+    $(".helpTab").remove();
     $(".domainTab").addClass('active')
-
-    setTimeout(function () {
-        $(".helpTab").remove();
-        $(".domainTab").addClass('active')
-        loadDomainRule()
-    }, 200);
+    loadDomainRule()
 }
 
 function loadHelpDetails() {
@@ -1726,7 +1581,7 @@ function loadHelpDetails() {
           
     </div>    
     <div class="col-md-9">
-        <div class="row helpContent" style="">
+        <div class="row helpContent" >
             <div class="col-md-12 mt-2">
                 <form autoComplete="off">
                     <input type="text" class="form-control" placeholder="Search contexts by name"
@@ -1751,465 +1606,373 @@ function loadHelpDetails() {
 }
 
 function loadTabbar(id, type) {
-
-    let str = '';
-    $(".deleteBtn").css('display', 'none');
-
     toggleHeading(id)
-
+    $(".deleteBtn").css('display', 'none');
     if (_.indexOf(tabbar_list, id) < 0) {
-        if (type === 1) {
+        
+        let name=""
+        const $editorBar = $(".editorBar")
+        switch (type) { // navbar
 
-            str = '<li role="presentation" data-ruleType="' + type + '" class="messageTab tabbar messageTab_' + id + '" >' +
-                '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadMessageRule(' + id + ')>' + id + ' ' +
-                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(' + id + ',1,this)" title="close"><i class="fa fa-close"></i></span></a>' +
-                '</li>';
+            case 1:
+                $editorBar.append('<li role="presentation" data-ruleType="' + type + '" class="messageTab tabbar messageTab_' + id + '" >' +
+                    '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadMessageRule(' + id + ')>' + id + ' ' +
+                    '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(' + id + ',1,this,event)" title="close"><i class="fa fa-close"></i></span></a>' +
+                    '</li>')
+                break;
 
-        }
-        else if (type === 2) {
-            str = '<li role="presentation" data-ruleType="' + type + '" class="namedTab tabbar namedTab_' + id + '"  >' +
-                '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadNamedRule(\'' + id + '\')>' + id + ' ' +
-                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',2,this)" title="close"><i class="fa fa-close"></i></span></a>' +
-                '</li>';
-        }
-        else if (type === 3) {
-            str = '<li role="presentation" data-ruleType="' + type + '" class="scheduleTab tabbar scheduleTab_' + id + '"  >' +
-                '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadScheduleRule(' + id + ')>' + id + ' ' +
-                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(' + id + ',3,this)" title="close"><i class="fa fa-close"></i></span></a>' +
-                '</li>';
-        }
-        else if (type === 4) {
+            case 2:
+                $editorBar.append('<li role="presentation" data-ruleType="' + type + '" class="namedTab tabbar namedTab_' + id + '"  >' +
+                    '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadNamedRule(\'' + id + '\')>' + id + ' ' +
+                    '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',2,this,event)" title="close"><i class="fa fa-close"></i></span></a>' +
+                    '</li>')
+                break;
 
-            let obj = {};
-            for (let i = 0; i < groovy_class_list.length; i++) {
-                for (let j = 0; j < groovy_class_list[i].classes.length; j++) {
-                    if (id === groovy_class_list[i].classes[j]._id) {
-                        obj = groovy_class_list[i].classes[j];
+            case 3:
+                $editorBar.append('<li role="presentation" data-ruleType="' + type + '" class="scheduleTab tabbar scheduleTab_' + id + '"  >' +
+                    '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadScheduleRule(' + id + ')>' + id + ' ' +
+                    '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(' + id + ',3,this,event)" title="close"><i class="fa fa-close"></i></span></a>' +
+                    '</li>')
+                break;
+
+            case 6:
+                $editorBar.append('<li role="presentation" data-ruleType="' + type + '" class="binaryTab tabbar binaryTab_' + id + '"  >' +
+                    '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadBinaryRule(\'' + id + '\')>' + id + ' ' +
+                    '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',6,this,event)" title="close"><i class="fa fa-close"></i></span></a>' +
+                    '</li>')
+                break;
+
+            case 7:
+                $editorBar.append('<li role="presentation" data-ruleType="' + type + '" class="jobTab tabbar jobTab_' + id + '"  >' +
+                    '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadJobRule(\'' + id + '\')>' + id + ' ' +
+                    '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',7,this,event)" title="close"><i class="fa fa-close"></i></span></a>' +
+                    '</li>')
+                break;
+
+            case 8:
+                $editorBar.append('<li role="presentation" data-ruleType="' + type + '" class="fileTab tabbar fileTab_' + id + '"  >' +
+                    '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadFileRule(\'' + id + '\')>' + id + ' ' +
+                    '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',8,this,event)" title="close"><i class="fa fa-close"></i></span></a>' +
+                    '</li>')
+                break;
+
+            case 9:
+                for (const iterator of process_rules_list) {
+                    if (id === iterator.id) {
+                        name = iterator.name;
+                        break
                     }
                 }
-            }
+                $editorBar.append('<li role="presentation" data-ruleType="' + type + '" class="processTab tabbar processTab_' + id + '"  >' +
+                    '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadProcessRule(\'' + id + '\')>' + name + ' ' +
+                    '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',9,this,event)" title="close"><i class="fa fa-close"></i></span></a>' +
+                    '</li>')
+                break;
 
-            str = '<li role="presentation" data-ruleType="' + type + '" class="groovyTab tabbar groovyTab_' + id + '"  >' +
-                '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadGroovyClass(\'' + id + '\')>' + obj.name + ' ' +
-                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',4,this)" title="close"><i class="fa fa-close"></i></span></a>' +
-                '</li>';
-        }
-        else if (type === 5) {
-
-            let obj = {};
-            for (let i = 0; i < jar_class_list.length; i++) {
-                if (id === jar_class_list[i]._id) {
-                    obj = jar_class_list[i];
+            case 10:
+                for (const iterator of sftp_rules_list) {
+                    if (id === iterator.id) {
+                        name = iterator.name;
+                        break
+                    }
                 }
-            }
+                $editorBar.append('<li role="presentation" data-ruleType="' + type + '" class="sftpTab tabbar sftpTab_' + id + '"  >' +
+                    '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadSftpRule(\'' + id + '\')>' + name + ' ' +
+                    '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',10,this,event)" title="close"><i class="fa fa-close"></i></span></a>' +
+                    '</li>')
+                $(".sftpTab_" + id).addClass('active');
+                break;
 
-            str = '<li role="presentation" data-ruleType="' + type + '" class="jarTab tabbar jarTab_' + id + '"  >' +
-                '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadJarClass(\'' + id + '\')>' + obj.packageName + ' ' +
-                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',5,this)" title="close"><i class="fa fa-close"></i></span></a>' +
-                '</li>';
-        }
-
-        else if (type === 6) {
-
-            let obj = {};
-            for (let i = 0; i < binary_rules_list.length; i++) {
-                if (id === binary_rules_list[i].type) {
-                    obj = binary_rules_list[i];
+            case 11:
+                for (const iterator of mqtt_rules_list) {
+                    if (id === iterator.id) {
+                        name = iterator.name;
+                        break
+                    }
                 }
-            }
+                $editorBar.append('<li role="presentation" data-ruleType="' + type + '" class="mqttTab tabbar mqttTab_' + id + '"  >' +
+                    '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadMqttRule(\'' + id + '\')>' + name + ' ' +
+                    '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',11,this,event)" title="close"><i class="fa fa-close"></i></span></a>' +
+                    '</li>')
 
-            str = '<li role="presentation" data-ruleType="' + type + '" class="binaryTab tabbar binaryTab_' + id + '"  >' +
-                '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadBinaryRule(\'' + id + '\')>' + obj.type + ' ' +
-                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',6,this)" title="close"><i class="fa fa-close"></i></span></a>' +
-                '</li>';
-        }
+                break;
 
-        else if (type === 7) {
-
-            let obj = {};
-            for (let i = 0; i < job_rules_list.length; i++) {
-                if (id === job_rules_list[i].id) {
-                    obj = job_rules_list[i];
+            case 12:
+                for (const iterator of udp_rules_list) {
+                    if (id === iterator.id) {
+                        name = iterator.name;
+                        break
+                    }
                 }
-            }
+                $editorBar.append('<li role="presentation" data-ruleType="' + type + '" class="udpTab tabbar udpTab_' + id + '"  >' +
+                    '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadUdpRule(\'' + id + '\')>' + name + ' ' +
+                    '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',12,this,event)" title="close"><i class="fa fa-close"></i></span></a>' +
+                    '</li>')
+                break;
 
-            str = '<li role="presentation" data-ruleType="' + type + '" class="jobTab tabbar jobTab_' + id + '"  >' +
-                '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadJobRule(\'' + id + '\')>' + obj.id + ' ' +
-                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',7,this)" title="close"><i class="fa fa-close"></i></span></a>' +
-                '</li>';
-        }
-
-        else if (type === 8) {
-
-            let obj = {};
-            for (let i = 0; i < file_rules_list.length; i++) {
-                if (id === file_rules_list[i].type) {
-                    obj = file_rules_list[i];
+            case 13:
+                for (const iterator of tcp_rules_list) {
+                    if (id === iterator.id) {
+                        name = iterator.name;
+                        break
+                    }
                 }
-            }
+                $editorBar.append('<li role="presentation" data-ruleType="' + type + '" class="tcpTab tabbar tcpTab_' + id + '"  >' +
+                    '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadTcpRule(\'' + id + '\')>' + name + ' ' +
+                    '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',13,this,event)" title="close"><i class="fa fa-close"></i></span></a>' +
+                    '</li>')
+                break;
 
-            str = '<li role="presentation" data-ruleType="' + type + '" class="fileTab tabbar fileTab_' + id + '"  >' +
-                '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadFileRule(\'' + id + '\')>' + obj.type + ' ' +
-                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',8,this)" title="close"><i class="fa fa-close"></i></span></a>' +
-                '</li>';
-        }
-
-        else if (type === 9) {
-
-            let obj = {};
-            for (let i = 0; i < process_rules_list.length; i++) {
-                if (id === process_rules_list[i].id) {
-                    obj = process_rules_list[i];
+            case 14:
+                for (const iterator of email_rules_list) {
+                    if (id === iterator.id) {
+                        name = iterator.name;
+                        break
+                    }
                 }
-            }
+                $editorBar.append('<li role="presentation" data-ruleType="' + type + '" class="emailTab tabbar emailTab_' + id + '"  >' +
+                    '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadEmailRule(\'' + id + '\')>' + name + ' ' +
+                    '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',14,this,event)" title="close"><i class="fa fa-close"></i></span></a>' +
+                    '</li>')
+               
+                break;
 
-            str = '<li role="presentation" data-ruleType="' + type + '" class="processTab tabbar processTab_' + id + '"  >' +
-                '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadProcessRule(\'' + id + '\')>' + obj.name + ' ' +
-                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',9,this)" title="close"><i class="fa fa-close"></i></span></a>' +
-                '</li>';
-        }
-        else if (type === 10) {
-
-            let obj = {};
-            for (let i = 0; i < sftp_rules_list.length; i++) {
-                if (id === sftp_rules_list[i].id) {
-                    obj = sftp_rules_list[i];
+            case 15:
+                for (const iterator of micro_rules_list) {
+                    if (id === iterator.name) {
+                        name = iterator.name;
+                        break
+                    }
                 }
-            }
-
-            str = '<li role="presentation" data-ruleType="' + type + '" class="sftpTab tabbar sftpTab_' + id + '"  >' +
-                '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadSftpRule(\'' + id + '\')>' + obj.name + ' ' +
-                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',10,this)" title="close"><i class="fa fa-close"></i></span></a>' +
-                '</li>';
-        }
-        else if (type === 11) {
-
-            let obj = {};
-            for (let i = 0; i < mqtt_rules_list.length; i++) {
-                if (id === mqtt_rules_list[i].id) {
-                    obj = mqtt_rules_list[i];
-                }
-            }
-
-            str = '<li role="presentation" data-ruleType="' + type + '" class="mqttTab tabbar mqttTab_' + id + '"  >' +
-                '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadMqttRule(\'' + id + '\')>' + obj.name + ' ' +
-                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',11,this)" title="close"><i class="fa fa-close"></i></span></a>' +
-                '</li>';
-        }
-        else if (type === 12) {
-
-            let obj = {};
-            for (let i = 0; i < udp_rules_list.length; i++) {
-                if (id === udp_rules_list[i].id) {
-                    obj = udp_rules_list[i];
-                }
-            }
-
-            str = '<li role="presentation" data-ruleType="' + type + '" class="udpTab tabbar udpTab_' + id + '"  >' +
-                '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadUdpRule(\'' + id + '\')>' + obj.name + ' ' +
-                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',12,this)" title="close"><i class="fa fa-close"></i></span></a>' +
-                '</li>';
-        }
-        else if (type === 13) {
-
-            let obj = {};
-            for (let i = 0; i < tcp_rules_list.length; i++) {
-                if (id === tcp_rules_list[i].id) {
-                    obj = tcp_rules_list[i];
-                }
-            }
-
-            str = '<li role="presentation" data-ruleType="' + type + '" class="tcpTab tabbar tcpTab_' + id + '"  >' +
-                '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadTcpRule(\'' + id + '\')>' + obj.name + ' ' +
-                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',13,this)" title="close"><i class="fa fa-close"></i></span></a>' +
-                '</li>';
-        }
-        else if (type === 14) {
-
-            let obj = {};
-            for (let i = 0; i < email_rules_list.length; i++) {
-                if (id === email_rules_list[i].id) {
-                    obj = email_rules_list[i];
-                }
-            }
-
-            str = '<li role="presentation" data-ruleType="' + type + '" class="emailTab tabbar emailTab_' + id + '"  >' +
-                '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadEmailRule(\'' + id + '\')>' + obj.name + ' ' +
-                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',14,this)" title="close"><i class="fa fa-close"></i></span></a>' +
-                '</li>';
-        }
-        else if (type === 15) {
-
-            let obj = {};
-            for (let i = 0; i < micro_rules_list.length; i++) {
-                if (id === micro_rules_list[i].name) {
-                    obj = micro_rules_list[i];
-                }
-            }
-
-            str = '<li role="presentation" data-ruleType="' + type + '" class="microTab tabbar microTab_' + id + '"  >' +
-                '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadMicroRule(\'' + obj.name + '\')>' + obj.name + ' ' +
-                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',15,this)" title="close"><i class="fa fa-close"></i></span></a>' +
-                '</li>';
+                $editorBar.append('<li role="presentation" data-ruleType="' + type + '" class="microTab tabbar microTab_' + id + '"  >' +
+                    '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadMicroRule(\'' + name + '\')>' + name + ' ' +
+                    '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',15,this,event)" title="close"><i class="fa fa-close"></i></span></a>' +
+                    '</li>')
+                
+                break;
         }
 
         tabbar_list.push(id);
-        $(".editorBar").append(str);
-
     }
     $(".domainTab").removeClass('active')
-    $(".messageTab").removeClass('active')
-    $(".namedTab").removeClass('active')
-    $(".binaryTab").removeClass('active')
-    $(".scheduleTab").removeClass('active');
-    $(".groovyTab").removeClass('active');
-    $(".jobTab").removeClass('active');
-    $(".jarTab").removeClass('active');
-    $(".fileTab").removeClass('active');
-    $(".processTab").removeClass('active');
-    $(".sftpTab").removeClass('active');
-    $(".udpTab").removeClass('active');
-    $(".mqttTab").removeClass('active');
-    $(".tcpTab").removeClass('active');
-    $(".emailTab").removeClass('active');
-    $(".microTab").removeClass('active');
+    $(".editorBar li.tabbar").removeClass('active')
+    $(".ruleLanguage").html('GROOVY')
 
     let obj = {};
 
-    if (type === 1) {
-        loadMessageRule(id);
-        $(".messageTab_" + id).addClass('active');
+    switch (type) {
 
-
-
-        for (let i = 0; i < message_spec_list.length; i++) {
-
-            if (id === message_spec_list[i].id) {
-                obj = message_spec_list[i];
+        case 1:
+            loadMessageRule(id);
+            $(".messageTab_" + id).addClass('active');
+            for (const iterator of message_spec_list) {
+                if (id === iterator.id) {
+                    obj = iterator;
+                    break
+                }
             }
-        }
-        $(".ruleType").html('Message Rule');
-        $(".ruleName").html(obj.id + ' - <small style="color:#333;font-weight: normal">' + obj.name + '</small>');
-        $(".exportBtn").attr('onclick', 'exportRule(2)')
-        $(".messageFields tbody").html("");
-        for (let i = 0; i < obj.fields.length; i++) {
-            $(".messageFields tbody").append('<tr><td>' + obj.fields[i].name + '</td><td><label class="label label-default">' + obj.fields[i].dataType + '</label></td></tr>')
-        }
 
 
-        $(".simulateBtn").attr('onclick', 'checkSimulateDevices(\'' + id + '\',1)');
-
-
-    }
-    else if (type === 2) {
-        loadNamedRule(id);
-        $(".namedTab_" + id).addClass('active');
-
-        for (let i = 0; i < named_rules_list.length; i++) {
-            if (id === named_rules_list[i].name) {
-                obj = named_rules_list[i];
+            $(".ruleType").html('Message Rule');
+            $(".ruleName").html(id + ' - <small style="color:#333;font-weight: normal">' + obj.name + '</small>');
+            $(".exportBtn").attr('onclick', 'exportRule(2)')
+            $(".messageFields tbody").html("");
+            for (let i = 0; i < obj.fields.length; i++) {
+                $(".messageFields tbody").append('<tr><td>' + obj.fields[i].name + '</td><td><label class="label label-default">' + obj.fields[i].dataType + '</label></td></tr>')
             }
-        }
-        $(".ruleType").html('Named Rule');
-        $(".ruleName").html(obj.name);
+            $(".simulateBtn").attr('onclick', 'checkSimulateDevices(\'' + id + '\',1)');
+            break;
 
-        $(".exportBtn").attr('onclick', 'exportRule(3)')
+        case 2:
+            loadNamedRule(id);
+            $(".namedTab_" + id).addClass('active');
+            $(".ruleType").html('Named Rule');
+            $(".ruleName").html(id);
+            $(".exportBtn").attr('onclick', 'exportRule(3)')
+            $(".simulateBtn").attr('onclick', 'openSimulateModal(\'' + id + '\',2)');
+            break;
 
-        $(".simulateBtn").attr('onclick', 'openSimulateModal(\'' + id + '\',2)');
-    }
-    else if (type === 3) {
-        loadScheduleRule(id);
-        $(".scheduleTab_" + id).addClass('active');
+        case 3:
+            loadScheduleRule(id);
+            $(".scheduleTab_" + id).addClass('active');
+            $(".ruleType").html('Schedule Rule');
+            $(".ruleName").html(id);
+            $(".exportBtn").attr('onclick', 'exportRule(4)')
+            break;
 
-        for (let i = 0; i < schedule_rules_list.length; i++) {
-            if (id === schedule_rules_list[i].id) {
-                obj = schedule_rules_list[i];
+        case 6:
+            loadBinaryRule(id);
+            $(".binaryTab_" + id).addClass('active');
+            $(".ruleType").html('Binary Rule');
+            $(".ruleName").html(id);
+            $(".exportBtn").attr('onclick', 'exportRule(6)')
+            $(".simulateBtn").attr('onclick', 'openSimulateModal(\'' + id + '\',3)');
+            break;
+
+        case 7:
+            $(".jobTab_" + id).addClass('active');
+            for (const iterator of job_rules_list) {
+                if (id === iterator.id) {
+                    obj = iterator;
+                    break
+                }
             }
-        }
-        $(".ruleType").html('Schedule Rule');
-        $(".ruleName").html(obj.id);
+            loadJobRule(id);
+            loadJobDetails(id, obj);
 
-        $(".exportBtn").attr('onclick', 'exportRule(4)')
-    }
-    else if (type === 4) {
-        loadGroovyClass(id);
-        $(".groovyTab_" + id).addClass('active');
-        $(".detailsBlock").css('display', 'none')
-    }
-    else if (type === 5) {
-        loadJarClass(id);
-        $(".jarTab_" + id).addClass('active');
-        $(".detailsBlock").css('display', 'none')
-    }
-    else if (type === 6) {
-        loadBinaryRule(id);
-        $(".binaryTab_" + id).addClass('active');
+            $(".ruleType").html('Job Rule');
+            $(".ruleName").html(obj.type);
 
-        for (let i = 0; i < binary_rules_list.length; i++) {
-            if (id === binary_rules_list[i].type) {
-                obj = binary_rules_list[i];
+            $(".exportBtn").attr('onclick', 'exportRule(7)')
+
+            break;
+
+        case 8:
+            for (const iterator of file_rules_list) {
+                if (id === iterator.type) {
+                    obj = iterator;
+                    break
+                }
             }
-        }
-        $(".ruleType").html('Binary Rule');
-        $(".ruleName").html(obj.type);
+            loadFileRule(id);
+            $(".fileTab_" + id).addClass('active');
+            $(".ruleType").html('File Rule');
+            $(".ruleName").html(id + (obj.rootPath ? '<br><small>Rooth Path: ' + obj.rootPath + '</small>' : ''));
 
-        $(".exportBtn").attr('onclick', 'exportRule(6)')
-        $(".simulateBtn").attr('onclick', 'openSimulateModal(\'' + id + '\',3)');
-    }
-    else if (type === 8) {
-        loadFileRule(id);
-        $(".fileTab_" + id).addClass('active');
+            $(".exportBtn").attr('onclick', 'exportRule(8)')
+            $(".simulateBtn").attr('onclick', 'openSimulateModal(\'' + id + '\',4)');
 
-        for (let i = 0; i < file_rules_list.length; i++) {
-            if (id === file_rules_list[i].type) {
-                obj = file_rules_list[i];
+            break;
+
+        case 9:
+            $(".processTab_" + id).addClass('active');
+
+            for (const iterator of process_rules_list) {
+                if (id === iterator.id) {
+                    obj = iterator;
+                    break
+                }
             }
-        }
-        $(".ruleType").html('File Rule');
-        $(".ruleName").html(obj.type + (obj.rootPath ? '<br><small>Rooth Path: ' + obj.rootPath + '</small>' : ''));
 
-        $(".exportBtn").attr('onclick', 'exportRule(8)')
-        $(".simulateBtn").attr('onclick', 'openSimulateModal(\'' + id + '\',4)');
-    }
-    else if (type === 7) {
-        loadJobRule(id);
-        $(".jobTab_" + id).addClass('active');
+            loadProcessRule(id);
+            loadProcessDetails(id, obj);
+            $(".ruleType").html('Process Rule');
+            $(".ruleName").html(obj.name);
+            $(".exportBtn").attr('onclick', 'exportRule(9)')
 
-        for (let i = 0; i < job_rules_list.length; i++) {
-            if (id === job_rules_list[i].id) {
-                obj = job_rules_list[i];
+            break;
+
+        case 10:
+            $(".sftpTab_" + id).addClass('active');
+
+            for (const iterator of sftp_rules_list) {
+                if (id === iterator.id) {
+                    obj = iterator;
+                    break
+                }
             }
-        }
 
-        loadJobDetails(id, obj);
+            loadSftpRule(id);
+            loadSftpDetails(id, obj);
 
-        $(".ruleType").html('Job Rule');
-        $(".ruleName").html(obj.type);
+            $(".ruleType").html('SFTP Rule');
+            $(".ruleName").html(obj.name);
 
-        $(".exportBtn").attr('onclick', 'exportRule(7)')
-    }
-    else if (type === 9) {
-        loadProcessRule(id);
-        $(".processTab_" + id).addClass('active');
+            $(".exportBtn").attr('onclick', 'exportRule(10)')
 
-        for (let i = 0; i < process_rules_list.length; i++) {
-            if (id === process_rules_list[i].id) {
-                obj = process_rules_list[i];
+            break;
+
+        case 11:
+            $(".mqttTab_" + id).addClass('active');
+
+            for (const iterator of mqtt_rules_list) {
+                if (id === iterator.id) {
+                    obj = iterator;
+                    break
+                }
             }
-        }
 
-        loadProcessDetails(id, obj);
+            loadMqttRule(id);
+            loadMqttDetails(id, obj);
+            $(".ruleType").html('MQTT Rule');
+            $(".ruleName").html(obj.name);
+            $(".exportBtn").attr('onclick', 'exportRule(11)')
 
-        $(".ruleType").html('Process Rule');
-        $(".ruleName").html(obj.name);
-        $(".exportBtn").attr('onclick', 'exportRule(9)')
-    }
-    else if (type === 10) {
-        loadSftpRule(id);
-        $(".sftpTab_" + id).addClass('active');
+            break;
 
-        for (let i = 0; i < sftp_rules_list.length; i++) {
-            if (id === sftp_rules_list[i].id) {
-                obj = sftp_rules_list[i];
+        case 12:
+            $(".udpTab_" + id).addClass('active');
+            for (const iterator of udp_rules_list) {
+                if (id === iterator.id) {
+                    obj = iterator;
+                    break
+                }
             }
-        }
 
-        loadSftpDetails(id, obj);
+            loadUdpRule(id);
+            loadUdpDetails(id, obj);
+            rightPanelDetails(".detailsBlock,.inputBlock")
+            $(".ruleType").html('UDP Rule');
+            $(".ruleName").html(obj.name);
+            $(".exportBtn").attr('onclick', 'exportRule(12)')
 
-        $(".ruleType").html('SFTP Rule');
-        $(".ruleName").html(obj.name);
+            break;
 
-        $(".exportBtn").attr('onclick', 'exportRule(10)')
-    }
-    else if (type === 11) {
-        loadMqttRule(id);
-        $(".mqttTab_" + id).addClass('active');
+        case 13:
+            $(".tcpTab_" + id).addClass('active');
 
-        for (let i = 0; i < mqtt_rules_list.length; i++) {
-            if (id === mqtt_rules_list[i].id) {
-                obj = mqtt_rules_list[i];
+            for (const iterator of tcp_rules_list) {
+                if (id === iterator.id) {
+                    obj = iterator;
+                    break
+                }
             }
-        }
 
-        loadMqttDetails(id, obj);
+            loadTcpRule(id);
+            loadTcpDetails(id, obj);
+            $(".ruleType").html('TCP Rule');
+            $(".ruleName").html(obj.name);
+            $(".exportBtn").attr('onclick', 'exportRule(13)')
 
-        $(".ruleType").html('MQTT Rule');
-        $(".ruleName").html(obj.name);
+            break;
 
-        $(".exportBtn").attr('onclick', 'exportRule(11)')
-    }
-    else if (type === 12) {
-        loadUdpRule(id);
-        $(".udpTab_" + id).addClass('active');
+        case 14:
+            $(".emailTab_" + id).addClass('active');
 
-        for (let i = 0; i < udp_rules_list.length; i++) {
-            if (id === udp_rules_list[i].id) {
-                obj = udp_rules_list[i];
+            for (const iterator of email_rules_list) {
+                if (id === iterator.id) {
+                    obj = iterator;
+                    break
+                }
             }
-        }
 
-        loadUdpDetails(id, obj);
-        rightPanelDetails(".detailsBlock,.inputBlock")
+            loadEmailRule(id);
+            loadEmailDetails(id, obj);
+            $(".ruleType").html('Email Rule');
+            $(".ruleName").html(obj.name);
+            $(".exportBtn").attr('onclick', 'exportRule(14)');
 
-        $(".ruleType").html('UDP Rule');
-        $(".ruleName").html(obj.name);
+            break;
 
-        $(".exportBtn").attr('onclick', 'exportRule(12)')
-    }
-    else if (type === 13) {
-        loadTcpRule(id);
-        $(".tcpTab_" + id).addClass('active');
+        case 15:
+            $(".microTab_" + id).addClass('active');
 
-        for (let i = 0; i < tcp_rules_list.length; i++) {
-            if (id === tcp_rules_list[i].id) {
-                obj = tcp_rules_list[i];
+            for (const iterator of micro_rules_list) {
+                if (id === iterator.name) {
+                    obj = iterator;
+                    break
+                }
             }
-        }
 
-        loadTcpDetails(id, obj);
+            loadMicroRule(id);
+            loadMicroDetails(id, obj);
+            $(".ruleType").html('Micro API Rule');
+            $(".ruleName").html(obj.name);
+            $(".exportBtn").attr('onclick', 'exportRule(15)')
 
-        $(".ruleType").html('TCP Rule');
-        $(".ruleName").html(obj.name);
-
-        $(".exportBtn").attr('onclick', 'exportRule(13)')
+            break;
     }
-    else if (type === 14) {
-        loadEmailRule(id);
-        $(".emailTab_" + id).addClass('active');
-
-        for (let i = 0; i < email_rules_list.length; i++) {
-            if (id === email_rules_list[i].id) {
-                obj = email_rules_list[i];
-            }
-        }
-
-        loadEmailDetails(id, obj);
-
-        $(".ruleType").html('Email Rule');
-        $(".ruleName").html(obj.name);
-
-        $(".exportBtn").attr('onclick', 'exportRule(14)');
-    }
-    else if (type === 15) {
-        loadMicroRule(id);
-        $(".microTab_" + id).addClass('active');
-
-        for (let i = 0; i < micro_rules_list.length; i++) {
-            if (id === micro_rules_list[i].name) {
-                obj = micro_rules_list[i];
-            }
-        }
-
-        loadMicroDetails(id, obj);
-
-        $(".ruleType").html('Micro API Rule');
-        $(".ruleName").html(obj.name);
-
-        $(".exportBtn").attr('onclick', 'exportRule(15)')
-    }
-
-
-    $(".ruleLanguage").html('GROOVY')
+    
     $('[data-toggle="tooltip"]').tooltip()
 
 }
@@ -2570,40 +2333,28 @@ function executeInputAction(id, action, type) {
     inputActions(type, id, action, function (status, data) {
         if (status) {
             successMsg('Successfully executed')
-            if (type === 'SFTP') {
-                setTimeout(function () {
+
+            switch (type) {
+                case "SFTP":
                     loadSftpRulesList();
                     getInputRunning('SFTP', id);
-                }, 500)
-
-            }
-            if (type === 'MQTT') {
-                setTimeout(function () {
+                    break;
+                case "MQTT":
                     loadMqttRulesList();
                     getInputRunning('MQTT', id);
-                }, 500)
-
-            }
-            if (type === 'UDP') {
-                setTimeout(function () {
+                    break;
+                case "UDP":
                     loadUdpRulesList();
                     getInputRunning('UDP', id);
-                }, 500)
-
-            }
-            if (type === 'TCP') {
-                setTimeout(function () {
+                    break;
+                case "TCP":
                     loadTcpRulesList();
                     getInputRunning('TCP', id);
-                }, 500)
-
-            }
-            if (type === 'EMAIL') {
-                setTimeout(function () {
+                    break;
+                case "EMAIL":
                     loadEmailRulesList();
                     getInputRunning('EMAIL', id);
-                }, 500)
-
+                    break;
             }
 
         } else {
@@ -2683,7 +2434,8 @@ function executeAction(id, executeAction) {
 }
 
 
-function deleteTab(id, type, obj) {
+function deleteTab(id, type, obj, event) {
+    if (event) event.stopPropagation()
     var prevmenu = "";;
     var splitValue = "";
     if (typeof (obj) == "undefined") {
@@ -2697,45 +2449,46 @@ function deleteTab(id, type, obj) {
         splitValue = prevmenu.split(" ")[2];
     }
     $(".rulesListli").removeClass("rules-list-active");
-    if (type === 1) {
-        $(".messageTab_" + id).remove();
-    } else if (type === 2) {
-        $(".namedTab_" + id).remove();
-    } else if (type === 3) {
-        $(".scheduleTab_" + id).remove();
-    } else if (type === 4) {
-        $(".groovyTab_" + id).remove();
-    } else if (type === 5) {
-        $(".jarTab_" + id).remove();
-    } else if (type === 6) {
-        $(".binaryTab_" + id).remove();
-    }
-    else if (type === 7) {
-        $(".jobTab_" + id).remove();
-    }
-    else if (type === 8) {
-        $(".fileTab_" + id).remove();
-    }
-    else if (type === 9) {
-        $(".processTab_" + id).remove();
-    }
-    else if (type === 10) {
-        $(".sftpTab_" + id).remove();
-    }
-    else if (type === 11) {
-        $(".mqttTab_" + id).remove();
-    }
-    else if (type === 12) {
-        $(".udpTab_" + id).remove();
-    }
-    else if (type === 13) {
-        $(".tcpTab_" + id).remove();
-    }
-    else if (type === 14) {
-        $(".emailTab_" + id).remove();
-    }
-    else if (type === 15) {
-        $(".microTab_" + id).remove();
+    switch (type) {
+        case 1:
+            $(".messageTab_" + id).remove();
+            break;
+        case 2:
+            $(".namedTab_" + id).remove();
+            break;
+        case 3:
+            $(".scheduleTab_" + id).remove();
+            break;
+        case 6:
+            $(".binaryTab_" + id).remove();
+            break;
+        case 7:
+            $(".jobTab_" + id).remove();
+            break;
+        case 8:
+            $(".fileTab_" + id).remove();
+            break;
+        case 9:
+            $(".processTab_" + id).remove();
+            break;
+        case 10:
+            $(".sftpTab_" + id).remove();
+            break;
+        case 11:
+            $(".mqttTab_" + id).remove();
+            break;
+        case 12:
+            $(".udpTab_" + id).remove();
+            break;
+        case 13:
+            $(".tcpTab_" + id).remove();
+            break;
+        case 14:
+            $(".emailTab_" + id).remove();
+            break;
+        case 15:
+            $(".microTab_" + id).remove();
+            break;
     }
 
     let temp = [];
@@ -2747,7 +2500,6 @@ function deleteTab(id, type, obj) {
     }
 
     tabbar_list = temp;
-    setTimeout(function () {
         $(".messageTab").removeClass('active')
         $(".namedTab").removeClass('active')
         $(".scheduleTab").removeClass('active')
@@ -2766,14 +2518,6 @@ function deleteTab(id, type, obj) {
         $(".domainTab").removeClass('active')
         $("." + splitValue).addClass('active')
         $("." + splitValue).children("a").trigger("click");
-        ///loadDomainRule();
-        // $("#codeEditor").remove();
-        // $("#editorContent").html('<div id="codeEditor"></div>');
-        // $("#codeEditor").html('');
-        // loadEditor("");
-    }, 200);
-
-
 }
 
 function loadDomainCode() {
@@ -2799,97 +2543,99 @@ function loadDomainCode() {
 }
 
 function returnObj(id, type) {
-    let data = null;
-    if (type === 1) {
-        for (let i = 0; i < message_rules_list.length; i++) {
-            if (id === message_rules_list[i].messageId) {
-                return message_rules_list[i];
+    switch (type) {
+        case 1:
+            for (let i = 0; i < message_rules_list.length; i++) {
+                if (id === message_rules_list[i].messageId) {
+                    return message_rules_list[i];
+                }
             }
-        }
-    }
-    else if (type === 2) {
-        for (let i = 0; i < named_rules_list.length; i++) {
-            if (id === named_rules_list[i].name) {
-                return named_rules_list[i];
+            break;
+        case 2:
+            for (let i = 0; i < named_rules_list.length; i++) {
+                if (id === named_rules_list[i].name) {
+                    return named_rules_list[i];
+                }
             }
-        }
-    }
-    else if (type === 3) {
-        for (let i = 0; i < schedule_rules_list.length; i++) {
-            if (id === schedule_rules_list[i].id) {
-                return schedule_rules_list[i];
+            break;
+        case 3:
+            for (let i = 0; i < schedule_rules_list.length; i++) {
+                if (id === schedule_rules_list[i].id) {
+                    return schedule_rules_list[i];
+                }
             }
-        }
-    }
-    else if (type === 6) {
-        for (let i = 0; i < binary_rules_list.length; i++) {
-            if (id === binary_rules_list[i].type) {
-                return binary_rules_list[i];
+            break;
+
+        case 6:
+            for (let i = 0; i < binary_rules_list.length; i++) {
+                if (id === binary_rules_list[i].type) {
+                    return binary_rules_list[i];
+                }
             }
-        }
-    }
-    else if (type === 7) {
-        for (let i = 0; i < job_rules_list.length; i++) {
-            if (id === job_rules_list[i].id) {
-                return job_rules_list[i];
+            break;
+        case 7:
+            for (let i = 0; i < job_rules_list.length; i++) {
+                if (id === job_rules_list[i].id) {
+                    return job_rules_list[i];
+                }
             }
-        }
-    }
-    else if (type === 8) {
-        for (let i = 0; i < file_rules_list.length; i++) {
-            if (id === file_rules_list[i].type) {
-                return file_rules_list[i];
+            break;
+        case 8:
+            for (let i = 0; i < file_rules_list.length; i++) {
+                if (id === file_rules_list[i].type) {
+                    return file_rules_list[i];
+                }
             }
-        }
-    }
-    else if (type === 9) {
-        for (let i = 0; i < process_rules_list.length; i++) {
-            if (id === process_rules_list[i].id) {
-                return process_rules_list[i];
+            break;
+        case 9:
+            for (let i = 0; i < process_rules_list.length; i++) {
+                if (id === process_rules_list[i].id) {
+                    return process_rules_list[i];
+                }
             }
-        }
-    }
-    else if (type === 10) {
-        for (let i = 0; i < sftp_rules_list.length; i++) {
-            if (id === sftp_rules_list[i].id) {
-                return sftp_rules_list[i];
+            break;
+        case 10:
+            for (let i = 0; i < sftp_rules_list.length; i++) {
+                if (id === sftp_rules_list[i].id) {
+                    return sftp_rules_list[i];
+                }
             }
-        }
-    }
-    else if (type === 11) {
-        for (let i = 0; i < mqtt_rules_list.length; i++) {
-            if (id === mqtt_rules_list[i].id) {
-                return mqtt_rules_list[i];
+            break;
+        case 11:
+            for (let i = 0; i < mqtt_rules_list.length; i++) {
+                if (id === mqtt_rules_list[i].id) {
+                    return mqtt_rules_list[i];
+                }
             }
-        }
-    }
-    else if (type === 12) {
-        for (let i = 0; i < udp_rules_list.length; i++) {
-            if (id === udp_rules_list[i].id) {
-                return udp_rules_list[i];
+            break;
+        case 12:
+            for (let i = 0; i < udp_rules_list.length; i++) {
+                if (id === udp_rules_list[i].id) {
+                    return udp_rules_list[i];
+                }
             }
-        }
-    }
-    else if (type === 13) {
-        for (let i = 0; i < tcp_rules_list.length; i++) {
-            if (id === tcp_rules_list[i].id) {
-                return tcp_rules_list[i];
+            break;
+        case 13:
+            for (let i = 0; i < tcp_rules_list.length; i++) {
+                if (id === tcp_rules_list[i].id) {
+                    return tcp_rules_list[i];
+                }
             }
-        }
-    }
-    else if (type === 14) {
-        for (let i = 0; i < email_rules_list.length; i++) {
-            if (id === email_rules_list[i].id) {
-                return email_rules_list[i];
+            break;
+        case 14:
+            for (let i = 0; i < email_rules_list.length; i++) {
+                if (id === email_rules_list[i].id) {
+                    return email_rules_list[i];
+                }
             }
-        }
-    }
-    else if (type === 15) {
-        for (let i = 0; i < micro_rules_list.length; i++) {
-            if (id === micro_rules_list[i].name) {
-                return micro_rules_list[i];
+            break;
+        case 15:
+            for (let i = 0; i < micro_rules_list.length; i++) {
+                if (id === micro_rules_list[i].name) {
+                    return micro_rules_list[i];
+                }
             }
-        }
+            break;
     }
 
 }
@@ -2928,73 +2674,13 @@ function loadDomainRule() {
     $(".defaultFields").css('display', 'none');
     $(".deleteBtn").css('display', 'none');
 
-    // setTimeout(function () {
-    //     mqttListen();
-    // }, 1000);
-
-}
-
-function loadGroovyClass(id) {
-    // mqttCancelSubscribe();
-
-    $("#editorContent").html('<div id="codeEditor"></div>');
-    $("#codeEditor").html('');
-
-    let obj = {};
-    for (let i = 0; i < groovy_class_list.length; i++) {
-        if (id === groovy_class_list[i]._id) {
-            obj = groovy_class_list[i];
-        }
-    }
-
-    loadEditor(obj.code, 'groovyTab_' + id);
-    CURRENT_ID = id;
-    CURRENT_TYPE = 4;
-
-
-    $(".detailsBlock").css('display', 'none');
-    $(".messageFields").css('display', 'none');
-    $(".jobFields").css('display', 'none');
-    $(".defaultFields").css('display', 'none');
-    $(".deleteBtn").css('display', 'none');
-
-
-
-}
-
-function loadJarClass(id) {
-    // mqttCancelSubscribe();
-
-    $("#editorContent").html('<div id="codeEditor"></div>');
-    $("#codeEditor").html('');
-
-    let obj = {};
-    for (let i = 0; i < jar_class_list.length; i++) {
-        if (id === jar_class_list[i]._id) {
-            obj = jar_class_list[i];
-        }
-    }
-
-    loadEditor(obj.code, 'jarTab_' + id);
-    CURRENT_ID = id;
-    CURRENT_TYPE = 5;
-
-
-    $(".detailsBlock").css('display', 'none');
-    $(".messageFields").css('display', 'none');
-    $(".jobFields").css('display', 'none');
-    $(".defaultFields").css('display', 'none');
-    $(".deleteBtn").css('display', 'none');
-
-
-
 }
 
 function loadMessageRule(id) {
     $(".simulateBtn").css('display', 'block');
     // mqttCancelSubscribe(CURRENT_ID);
     $("#editorContent").html('<div id="codeEditor"></div>');
-    let data = returnObj(id, 1);
+    const data = returnObj(id, 1);
     $("#codeEditor").html('');
     loadEditor(data ? data.code : '', 'messageTab_' + id);
     CURRENT_ID = id;
@@ -3011,7 +2697,6 @@ function loadMessageRule(id) {
     $(".ruleType").html('Message Rule');
     $(".ruleName").html(obj.id + ' - <small style="color:#333;font-weight: normal">' + obj.name + '</small>');
 
-  
     $(".deleteBtn").css('display', 'block');
 
     toggleHeading(id)
@@ -3325,9 +3010,7 @@ function loadProcessRule(id) {
     toggleHeading(id)
     rightPanelDetails(".detailsBlock,.processBlock")
 
-    // setTimeout(function () {
-    //     mqttListen();
-    // }, 1000);
+    
 }
 
 function loadScheduleRule(id) {
@@ -3361,7 +3044,6 @@ function loadScheduleRule(id) {
 let editorLine = {};
 
 async function loadEditor(code, tabid) {
-
     editorChange = false;
 
     if (codeEditor) {
@@ -3373,10 +3055,7 @@ async function loadEditor(code, tabid) {
     codeEditor = ace.edit("codeEditor");
 
 
-    // codeEditor.setTheme("ace/theme/monokai");
-    // codeEditor.setTheme("ace/theme/solarized_light");
     codeEditor.setTheme("ace/theme/eclipse");
-    // codeEditor.setTheme("ace/theme/tomorrow_night");
     codeEditor.session.setMode("ace/mode/groovy");
     codeEditor.getSession().setUseWrapMode(true);
     codeEditor.setShowPrintMargin(false);
@@ -3405,15 +3084,6 @@ async function loadEditor(code, tabid) {
 
     });
 
-    // let langTools = ace.require("ace/ext/language_tools");
-    //
-    // // codeEditor.setOptions({
-    // //     enableBasicAutocompletion: true,
-    // //     enableSnippets: true,
-    // //     enableLiveAutocompletion: true,
-    // // });
-    // langTools.setCompleters([langTools.snippetCompleter])
-
     let codeFormat = '';
 
     if (code) {
@@ -3426,7 +3096,6 @@ async function loadEditor(code, tabid) {
         codeEditor.setValue(codeFormat);
     }
 
-    // code ? codeEditor.setValue(code) : codeEditor.setValue(codeFormat);
     codeEditor.clearSelection();
 
     codeEditor.focus();
@@ -3601,18 +3270,6 @@ async function loadEditor(code, tabid) {
         }
     });
 
-    // codeEditor.commands.addCommand({
-    //     name: 'contextSearch',
-    //     bindKey: {
-    //         win: 'Ctrl-Space',
-    //         mac: 'Ctrl-Space',
-    //         sender: 'editor|cli'
-    //     },
-    //     exec: function (env, args, request) {
-    //         $("#context").css('display','block')
-    //     }
-    // });
-
     codeEditor.commands.addCommand({
         name: 'saveFile',
         bindKey: {
@@ -3622,510 +3279,418 @@ async function loadEditor(code, tabid) {
         },
         exec: function (env, args, request) {
 
-            // console.log(codeEditor.getSession().getValue())
-
             let consoleText = codeEditor.getSession().getValue();
-
-            if (CURRENT_TYPE === 0) {
-
-                let data = {
-                    lang: 'GROOVY',
-                    code: consoleText
-                }
-
-                updateDomainRuleCode(data, function (status, data) {
-                    if (status) {
-                        successMsg('Successfully saved!');
-                        domain_rule_obj = data;
-                    } else {
-                        errorMsg('Error in saving!')
-                    }
-                })
-
-            } else if (CURRENT_TYPE === 1) {
-
-
-                let data = {
-                    lang: 'GROOVY',
-                    code: consoleText,
-                    messageId: CURRENT_ID
-                }
-                updateMessageRuleCode(data, function (status, data) {
-                    if (status) {
-                        successMsg('Successfully saved!');
-                        loadMessageRulesList();
-                    } else {
-                        errorMsg('Error in saving!')
-                    }
-                })
-
-            } else if (CURRENT_TYPE === 2) {
-
-                let data = {
-                    lang: 'GROOVY',
-                    code: consoleText,
-                    name: CURRENT_ID
-                }
-                updateNamedRuleCode(data, function (status, data) {
-                    if (status) {
-                        successMsg('Successfully saved!');
-                        loadNamedRulesList();
-                    } else {
-                        errorMsg('Error in saving!')
-                    }
-                })
-
-            } else if (CURRENT_TYPE === 3) {
-
-                let obj = returnObj(CURRENT_ID, 3);
-
-                let data = {
-                    lang: 'GROOVY',
-                    code: consoleText,
-                    id: CURRENT_ID,
-                    pattern: obj.pattern
-                }
-                updateScheduleRuleCode(data, function (status, data) {
-                    if (status) {
-                        successMsg('Successfully saved!');
-                        loadScheduleRulesList();
-                    } else {
-                        errorMsg('Error in saving!')
-                    }
-                })
+            let obj = {}
+            let data = {
+                lang: 'GROOVY',
+                code: consoleText
             }
-            else if (CURRENT_TYPE === 6) {
+            switch (CURRENT_TYPE) {
+                case 0:
+                    updateDomainRuleCode(data, function (status, data) {
+                        if (status) {
+                            successMsg('Successfully saved!');
+                            domain_rule_obj = data;
+                        } else {
+                            errorMsg('Error in saving!')
+                        }
+                    })
+                    break;
 
-                let obj = returnObj(CURRENT_ID, 6);
+                case 1:
+                    data["messageId"] = CURRENT_ID
 
-                let data = {
-                    lang: 'GROOVY',
-                    code: consoleText,
-                    type: CURRENT_ID,
-                }
-                updateBinaryRuleCode(data, function (status, data) {
-                    if (status) {
-                        successMsg('Successfully saved!');
-                        loadBinaryRulesList();
-                    } else {
-                        errorMsg('Error in saving!')
+                    updateMessageRuleCode(data, function (status, data) {
+                        if (status) {
+                            successMsg('Successfully saved!');
+                            loadMessageRulesList();
+                        } else {
+                            errorMsg('Error in saving!')
+                        }
+                    })
+
+                    break;
+
+                case 2:
+                    data["name"] = CURRENT_ID
+
+                    updateNamedRuleCode(data, function (status, data) {
+                        if (status) {
+                            successMsg('Successfully saved!');
+                            loadNamedRulesList();
+                        } else {
+                            errorMsg('Error in saving!')
+                        }
+                    })
+
+                    break;
+                case 3:
+                    obj = returnObj(CURRENT_ID, 3);
+
+                    data['id'] = CURRENT_ID,
+                    data['pattern'] = obj.pattern
+                    updateScheduleRuleCode(data, function (status, data) {
+                        if (status) {
+                            successMsg('Successfully saved!');
+                            loadScheduleRulesList();
+                        } else {
+                            errorMsg('Error in saving!')
+                        }
+                    })
+                    break;
+                case 6:
+                    data["type"] = CURRENT_ID
+
+                    updateBinaryRuleCode(data, function (status, data) {
+                        if (status) {
+                            successMsg('Successfully saved!');
+                            loadBinaryRulesList();
+                        } else {
+                            errorMsg('Error in saving!')
+                        }
+                    })
+                    break;
+                case 7:
+
+                    obj = returnObj(CURRENT_ID, 7);
+
+                    let dataJobObj = {
+                        "domainKey": DOMAIN_KEY,
+                        "id": CURRENT_ID,
+                        "name": "",
+                        "jobType": obj.jobType,
+                        "jobState": obj.jobState,
+                        "jobLanguage": obj.jobLanguage,
+                        "code": consoleText,
+                        "instances": obj.instances,
+                        "startOnBoot": obj.startOnBoot,
+                        "systemJob": obj.systemJob,
+                        "resartOnChange": obj.resartOnChange,
                     }
-                })
-            }
-            else if (CURRENT_TYPE === 8) {
-
-                let obj = returnObj(CURRENT_ID, 8);
-
-                let data = {
-                    lang: 'GROOVY',
-                    code: consoleText,
-                    type: CURRENT_ID,
-                }
-                updateFileRuleCode(data, function (status, data) {
-                    if (status) {
-                        successMsg('Successfully saved!');
-                        loadFileRulesList();
-                    } else {
-                        errorMsg('Error in saving!')
-                    }
-                })
-            }
-            else if (CURRENT_TYPE === 7) {
-
-                let obj = returnObj(CURRENT_ID, 7);
-
-                let data = {
-                    "domainKey": DOMAIN_KEY,
-                    "id": CURRENT_ID,
-                    "name": "",
-                    "jobType": obj.jobType,
-                    "jobState": obj.jobState,
-                    "jobLanguage": obj.jobLanguage,
-                    "code": consoleText,
-                    "instances": obj.instances,
-                    "startOnBoot": obj.startOnBoot,
-                    "systemJob": obj.systemJob,
-                    "resartOnChange": obj.resartOnChange,
-                }
-                updateJobRuleCode(data, function (status, data) {
-                    if (status) {
-                        successMsg('Successfully saved!');
-                        loadJobRulesList();
-                        setTimeout(function () {
+                    updateJobRuleCode(dataJobObj, function (status, data) {
+                        if (status) {
+                            successMsg('Successfully saved!');
+                            loadJobRulesList();
                             loadJobDetails(CURRENT_ID, obj)
-                        }, 500)
-                    } else {
-                        errorMsg('Error in saving!')
-                    }
-                })
-            }
-            else if (CURRENT_TYPE === 9) {
+                        } else {
+                            errorMsg('Error in saving!')
+                        }
+                    })
+                    break;
+                case 8:
 
-                let obj = returnObj(CURRENT_ID, 9);
+                    data["type"] = CURRENT_ID
+                    updateFileRuleCode(data, function (status, data) {
+                        if (status) {
+                            successMsg('Successfully saved!');
+                            loadFileRulesList();
+                        } else {
+                            errorMsg('Error in saving!')
+                        }
+                    })
+                    break;
 
-                obj['code'] = consoleText;
+                case 9:
 
-                delete obj._id;
+                    obj = returnObj(CURRENT_ID, 9);
+                    obj['code'] = consoleText;
 
-                updateProcessRuleCode(obj, function (status, data) {
-                    if (status) {
-                        successMsg('Successfully saved!');
-                        loadProcessRulesList();
-                        setTimeout(function () {
+                    delete obj._id;
+
+                    updateProcessRuleCode(obj, function (status, data) {
+                        if (status) {
+                            successMsg('Successfully saved!');
+                            loadProcessRulesList();
                             loadProcessDetails(CURRENT_ID, obj)
-                        }, 500)
-                    } else {
-                        errorMsg('Error in saving!')
-                    }
-                })
-            }
-            else if (CURRENT_TYPE === 10) {
+                        } else {
+                            errorMsg('Error in saving!')
+                        }
+                    })
+                    break;
+                case 10:
 
-                let obj = returnObj(CURRENT_ID, 10);
+                    obj = returnObj(CURRENT_ID, 10);
+                    obj['code'] = consoleText;
+                    delete obj._id;
 
-                obj['code'] = consoleText;
-                delete obj._id;
-
-                updateInputRuleCode('SFTP', obj, function (status, data) {
-                    if (status) {
-                        successMsg('Successfully saved!');
-                        // loadSftpRulesList();
-                        setTimeout(function () {
-                            // loadTabbar(dataObj.id, 10);
+                    updateInputRuleCode('SFTP', obj, function (status, data) {
+                        if (status) {
+                            successMsg('Successfully saved!');
                             loadSftpRulesList();
-                            setTimeout(function () {
-                                loadSftpDetails(CURRENT_ID, obj)
-                            }, 500)
-                        }, 500)
-                    } else {
-                        errorMsg('Error in saving!')
-                    }
-                })
-            }
+                            loadSftpDetails(CURRENT_ID, obj)
 
-            else if (CURRENT_TYPE === 11) {
+                        } else {
+                            errorMsg('Error in saving!')
+                        }
+                    })
+                    break;
+                case 11:
 
-                let obj = returnObj(CURRENT_ID, 11);
+                    obj = returnObj(CURRENT_ID, 11);
+                    obj['code'] = consoleText;
+                    delete obj._id;
 
-                obj['code'] = consoleText;
-                delete obj._id;
-
-                updateInputRuleCode('MQTT', obj, function (status, data) {
-                    if (status) {
-                        successMsg('Successfully saved!');
-                        // loadSftpRulesList();
-                        setTimeout(function () {
-                            // loadTabbar(dataObj.id, 10);
+                    updateInputRuleCode('MQTT', obj, function (status, data) {
+                        if (status) {
+                            successMsg('Successfully saved!');
                             loadMqttRulesList();
-                            setTimeout(function () {
-                                loadMqttDetails(CURRENT_ID, obj)
-                            }, 500)
-                        }, 500)
-                    } else {
-                        errorMsg('Error in saving!')
-                    }
-                })
-            }
-            else if (CURRENT_TYPE === 12) {
+                            loadMqttDetails(CURRENT_ID, obj)
+                        } else {
+                            errorMsg('Error in saving!')
+                        }
+                    })
+                    break;
+                case 12:
 
-                let obj = returnObj(CURRENT_ID, 12);
+                    obj = returnObj(CURRENT_ID, 12);
+                    obj['code'] = consoleText;
+                    delete obj._id;
 
-                obj['code'] = consoleText;
-                delete obj._id;
-
-                updateInputRuleCode('UDP', obj, function (status, data) {
-                    if (status) {
-                        successMsg('Successfully saved!');
-                        // loadSftpRulesList();
-                        setTimeout(function () {
-                            // loadTabbar(dataObj.id, 10);
+                    updateInputRuleCode('UDP', obj, function (status, data) {
+                        if (status) {
+                            successMsg('Successfully saved!');
                             loadUdpRulesList();
-                            setTimeout(function () {
-                                loadUdpDetails(CURRENT_ID, obj)
-                            }, 500)
-                        }, 500)
-                    } else {
-                        errorMsg('Error in saving!')
-                    }
-                })
-            }
-            else if (CURRENT_TYPE === 13) {
+                            loadUdpDetails(CURRENT_ID, obj)
 
-                let obj = returnObj(CURRENT_ID, 13);
+                        } else {
+                            errorMsg('Error in saving!')
+                        }
+                    })
+                    break;
+                case 13:
 
-                obj['code'] = consoleText;
-                delete obj._id;
+                    obj = returnObj(CURRENT_ID, 13);
+                    obj['code'] = consoleText;
+                    delete obj._id;
 
-                updateInputRuleCode('TCP', obj, function (status, data) {
-                    if (status) {
-                        successMsg('Successfully saved!');
-                        // loadSftpRulesList();
-                        setTimeout(function () {
-                            // loadTabbar(dataObj.id, 10);
+                    updateInputRuleCode('TCP', obj, function (status, data) {
+                        if (status) {
+                            successMsg('Successfully saved!');
                             loadTcpRulesList();
-                            setTimeout(function () {
-                                loadTcpDetails(CURRENT_ID, obj)
-                            }, 500)
-                        }, 500)
-                    } else {
-                        errorMsg('Error in saving!')
-                    }
-                })
-            }
-            else if (CURRENT_TYPE === 14) {
+                            loadTcpDetails(CURRENT_ID, obj)
 
-                let obj = returnObj(CURRENT_ID, 14);
+                        } else {
+                            errorMsg('Error in saving!')
+                        }
+                    })
+                    break;
+                case 14:
 
-                obj['code'] = consoleText;
-                delete obj._id;
+                    obj = returnObj(CURRENT_ID, 14);
+                    obj['code'] = consoleText;
+                    delete obj._id;
 
-                updateInputRuleCode('EMAIL', obj, function (status, data) {
-                    if (status) {
-                        successMsg('Successfully saved!');
-                        // loadSftpRulesList();
-                        setTimeout(function () {
-                            // loadTabbar(dataObj.id, 10);
+                    updateInputRuleCode('EMAIL', obj, function (status, data) {
+                        if (status) {
+                            successMsg('Successfully saved!');
                             loadEmailRulesList();
-                            setTimeout(function () {
-                                loadEmailDetails(CURRENT_ID, obj)
-                            }, 500)
+                            loadEmailDetails(CURRENT_ID, obj)
 
-                        }, 500)
+                        } else {
+                            errorMsg('Error in saving!')
+                        }
+                    })
+                    break;
+                case 15:
 
-                    } else {
-                        errorMsg('Error in saving!')
+                    obj = returnObj(CURRENT_ID, 15);
+
+                    let dataMicroObj = {
+                        name: obj.name,
+                        code: consoleText,
+                        authType: obj.authType,
+                        apiKey: obj.apiKey ? obj.apiKey : null,
+                        props: obj.props,
                     }
-                })
-            }
-            else if (CURRENT_TYPE === 15) {
-
-                let obj = returnObj(CURRENT_ID, 15);
-
-
-                let dataObj = {
-                    name: obj.name,
-                    code: consoleText,
-                    authType: obj.authType,
-                    apiKey: obj.apiKey ? obj.apiKey : null,
-                    props: obj.props,
-                }
-                updateMicroRuleCode(dataObj, function (status, data) {
-                    if (status) {
-                        successMsg('Successfully saved!');
-                        // loadSftpRulesList();
-                        setTimeout(function () {
-                            // loadTabbar(dataObj.id, 10);
+                    updateMicroRuleCode(dataMicroObj, function (status, data) {
+                        if (status) {
+                            successMsg('Successfully saved!');
                             loadMicroRulesList();
+                            loadMicroDetails(CURRENT_ID, obj)
 
-                            setTimeout(function () {
-                                loadMicroDetails(CURRENT_ID, obj)
-                            }, 500)
-
-                        }, 500)
-                    } else {
-                        errorMsg('Error in saving!')
-                    }
-                })
+                        } else {
+                            errorMsg('Error in saving!')
+                        }
+                    })
+                    break;
             }
         }
     });
 }
 
 
-function resizeEditor() {
-    // if(!editorToggle){
-    //
-    //     $('#codeEditor').height(($(".ui-layout-center").height() - 40) + 'px');
-    // }else{
-    //     $('#codeEditor').height(($(".ui-layout-center").height() - 40) + 'px');
-    // }
-    // setTimeout(function () {
-    //     codeEditor.resize();
-    // },1000)
-
-}
-
 let MSG_FIELD_COUNT = 0;
 let CRON_JOB = null;
 
 function openModal(e) {
     let id = e ? e : $("#rulesType").val() * 1
-    if (id === 1) {
+    switch (id) {
+        case 1:
 
-        MSG_FIELD_COUNT = 0;
+            MSG_FIELD_COUNT = 0;
 
-        $("#addMessageRule form")[0].reset();
+            $("#addMessageRule form")[0].reset();
 
-        // $("#msg_id").attr('min', USER_OBJ.domain.startId)
-        // $("#msg_id").attr('max', USER_OBJ.domain.startId + ID_RANGE_COUNT)
-        $(".msgFieldBody").html("");
-        if(LicenseDetails.maxMessageSpecs <= message_rules_list.length){
-            warningMsg('Your plan have '+LicenseDetails.maxMessageSpecs+' message rule.')
-            return
-        }else{
-            $("#addMessageRule").modal('show');
-        }
-        addMessageField();
-    } else if (id === 2) {
-        $("#addNamedRule form")[0].reset();
-        $("#addNamedRule").modal('show');
-    } else if (id === 3) {
+            $(".msgFieldBody").html("");
+            if (LicenseDetails.maxMessageSpecs <= message_spec_list.length) {
+                warningMsg('Your plan have ' + LicenseDetails.maxMessageSpecs + ' message rule.')
+                return
+            } else {
+                $("#addMessageRule").modal('show');
+            }
+            addMessageField();
+            break;
+        case 2:
+            $("#addNamedRule form")[0].reset();
+            $("#addNamedRule").modal('show');
+            break;
+        case 3:
 
-        // if(ADMIN_ACCESS) {
-        $("#addScheduleRule form")[0].reset();
-        $('#pattren_desc').html("");
-        // $("#sch_id").attr('min', USER_OBJ.domain.startId)
-        // $("#sch_id").attr('max', USER_OBJ.domain.startId + ID_RANGE_COUNT)
-        $("#addScheduleRule").modal('show');
-        // }else{
-        //     errorMsg('Access Denied!')
-        // }
-    } else if (id === 4) {
-        $("#addGroovyClass").modal('show');
-    } else if (id === 5) {
-        $("#addJarClass").modal('show');
-    } else if (id === 6) {
-        $("#addBinaryRule form")[0].reset();
-        $("#addBinaryRule").modal('show');
-    } else if (id === 8) {
-        $("#addFileRule form")[0].reset();
-        $("#addFileRule").modal('show');
-    }
-    else if (id === 9) {
-        $(".tempAction").html('Add');
-        $("#processName").removeAttr('disabled')
+            $("#addScheduleRule form")[0].reset();
+            $('#pattren_desc').html("");
+            $("#addScheduleRule").modal('show');
+            break;
+        case 6:
+            $("#addBinaryRule form")[0].reset();
+            $("#addBinaryRule").modal('show');
+            break;
+        case 7:
 
-        $("#addProcessRule form")[0].reset();
+            if (ADMIN_ACCESS) {
+                $(".systemTemplate").css('display', 'block')
+                $("#job_system").val('1')
+            } else {
+                $(".systemTemplate").css('display', 'none')
+                $("#job_system").val('0')
+            }
+            $(".jAction").html('Add');
+            $("#job_rule").removeAttr('disabled')
 
-        $("#processId").html('')
-        uploadImage = 'images/generate_claim.svg';
-        $(".process_img").attr('src', uploadImage);
-        $("#processColor").spectrum({
-            showPaletteOnly: true,
-            togglePaletteOnly: true,
-            togglePaletteMoreText: 'more',
-            togglePaletteLessText: 'less',
-            showInput: true,
-            color: 'blanchedalmond',
-            palette: [
-                ["#000", "#444", "#666", "#999", "#ccc", "#eee", "#f3f3f3", "#fff"],
-                ["#f00", "#f90", "#ff0", "#0f0", "#0ff", "#00f", "#90f", "#f0f"],
-                ["#f4cccc", "#fce5cd", "#fff2cc", "#d9ead3", "#d0e0e3", "#cfe2f3", "#d9d2e9", "#ead1dc"],
-                ["#ea9999", "#f9cb9c", "#ffe599", "#b6d7a8", "#a2c4c9", "#9fc5e8", "#b4a7d6", "#d5a6bd"],
-                ["#e06666", "#f6b26b", "#ffd966", "#93c47d", "#76a5af", "#6fa8dc", "#8e7cc3", "#c27ba0"],
-                ["#c00", "#e69138", "#f1c232", "#6aa84f", "#45818e", "#3d85c6", "#674ea7", "#a64d79"],
-                ["#900", "#b45f06", "#bf9000", "#38761d", "#134f5c", "#0b5394", "#351c75", "#741b47"],
-                ["#600", "#783f04", "#7f6000", "#274e13", "#0c343d", "#073763", "#20124d", "#4c1130"]
-            ]
-        });
-        $("#processColor").spectrum("set", '#ccc');
+            $("#addJobRule form").attr("onsubmit", "addJobRule()");
+            $("#addJobRule form")[0].reset();
+            $("#addJobRule").modal('show');
+            checkJobInstance()
+            break;
+        case 8:
+            $("#addFileRule form")[0].reset();
+            $("#addFileRule").modal('show');
+            break;
+        case 9:
+            $(".tempAction").html('Add');
+            $("#processName").removeAttr('disabled')
 
-        $("#addProcessRule form").attr('onsubmit', 'addProcessRule()')
+            $("#addProcessRule form")[0].reset();
 
-        $("#addProcessRule").modal('show');
-    }
-    else if (id === 7) {
+            $("#processId").html('')
+            uploadImage = 'images/generate_claim.svg';
+            $(".process_img").attr('src', uploadImage);
+            $("#processColor").spectrum({
+                showPaletteOnly: true,
+                togglePaletteOnly: true,
+                togglePaletteMoreText: 'more',
+                togglePaletteLessText: 'less',
+                showInput: true,
+                color: 'blanchedalmond',
+                palette: [
+                    ["#000", "#444", "#666", "#999", "#ccc", "#eee", "#f3f3f3", "#fff"],
+                    ["#f00", "#f90", "#ff0", "#0f0", "#0ff", "#00f", "#90f", "#f0f"],
+                    ["#f4cccc", "#fce5cd", "#fff2cc", "#d9ead3", "#d0e0e3", "#cfe2f3", "#d9d2e9", "#ead1dc"],
+                    ["#ea9999", "#f9cb9c", "#ffe599", "#b6d7a8", "#a2c4c9", "#9fc5e8", "#b4a7d6", "#d5a6bd"],
+                    ["#e06666", "#f6b26b", "#ffd966", "#93c47d", "#76a5af", "#6fa8dc", "#8e7cc3", "#c27ba0"],
+                    ["#c00", "#e69138", "#f1c232", "#6aa84f", "#45818e", "#3d85c6", "#674ea7", "#a64d79"],
+                    ["#900", "#b45f06", "#bf9000", "#38761d", "#134f5c", "#0b5394", "#351c75", "#741b47"],
+                    ["#600", "#783f04", "#7f6000", "#274e13", "#0c343d", "#073763", "#20124d", "#4c1130"]
+                ]
+            });
+            $("#processColor").spectrum("set", '#ccc');
 
-        if (ADMIN_ACCESS) {
-            $(".systemTemplate").css('display', 'block')
-            $("#job_system").val('1')
-        } else {
-            $(".systemTemplate").css('display', 'none')
-            $("#job_system").val('0')
-        }
-        $(".jAction").html('Add');
-        $("#job_rule").removeAttr('disabled')
+            $("#addProcessRule form").attr('onsubmit', 'addProcessRule()')
 
-        $("#addJobRule form").attr("onsubmit", "addJobRule()");
-        $("#addJobRule form")[0].reset();
-        $("#addJobRule").modal('show');
-        checkJobInstance()
-    }
-    else if (id === 10) {
+            $("#addProcessRule").modal('show');
+            break;
+        case 10:
 
-        $("#sftp_name").removeAttr('disabled')
+            $("#sftp_name").removeAttr('disabled')
 
-        $(".sftp_privateKeyFilePath").css('display', 'none')
-        $(".sftp_publicKeyFilePath").css('display', 'none')
-        $("#sftp_privateKeyFilePath").removeAttr('required')
+            $(".sftp_privateKeyFilePath").css('display', 'none')
+            $(".sftp_publicKeyFilePath").css('display', 'none')
+            $("#sftp_privateKeyFilePath").removeAttr('required')
 
-        $("#addSftpInputRule form").attr("onsubmit", "addSftpRule()");
-        $("#addSftpInputRule form")[0].reset();
+            $("#addSftpInputRule form").attr("onsubmit", "addSftpRule()");
+            $("#addSftpInputRule form")[0].reset();
 
-        $("#sftp_connectTimeOut").val(30000)
-        $("#sftp_listRecursive").val(-1)
-        $("#sftp_pollInterval").val(30000)
-        $(".configBody").html('')
-        // addConfigBody();
-        $("#addSftpInputRule").modal('show');
+            $("#sftp_connectTimeOut").val(30000)
+            $("#sftp_listRecursive").val(-1)
+            $("#sftp_pollInterval").val(30000)
+            $(".configBody").html('')
+            $("#addSftpInputRule").modal('show');
 
 
 
-    }
-    else if (id === 11) {
+            break;
+        case 11:
 
-        $("#mqtt_name").removeAttr('disabled')
-        $(".mqtt_ssl_block").css('display', 'none')
-        $(".mqtt_ssl").css('display', 'none')
+            $("#mqtt_name").removeAttr('disabled')
+            $(".mqtt_ssl_block").css('display', 'none')
+            $(".mqtt_ssl").css('display', 'none')
 
-        $(".configBody").html('')
-        $(".mqttBody").html('')
-        // addConfigBody();
+            $(".configBody").html('')
+            $(".mqttBody").html('')
 
-        $("#addMqttInputRule form").attr("onsubmit", "addMqttRule()");
-        $("#addMqttInputRule form")[0].reset();
-        $("#addMqttInputRule").modal('show');
+            $("#addMqttInputRule form").attr("onsubmit", "addMqttRule()");
+            $("#addMqttInputRule form")[0].reset();
+            $("#addMqttInputRule").modal('show');
 
-    }
-    else if (id === 12) {
+            break;
+        case 12:
 
-        $("#udp_name").removeAttr('disabled')
+            $("#udp_name").removeAttr('disabled')
 
-        $(".configBody").html('')
-        // addConfigBody();
-        $("#addUdpInputRule form").attr("onsubmit", "addUdpRule()");
-        $("#addUdpInputRule form")[0].reset();
-        $("#addUdpInputRule").modal('show');
+            $(".configBody").html('')
+            $("#addUdpInputRule form").attr("onsubmit", "addUdpRule()");
+            $("#addUdpInputRule form")[0].reset();
+            $("#addUdpInputRule").modal('show');
 
-    }
-    else if (id === 13) {
+            break;
+        case 13:
 
-        $("#tcp_name").removeAttr('disabled')
+            $("#tcp_name").removeAttr('disabled')
 
-        $(".configBody").html('')
-        // addConfigBody();
-        $(".tcp_ssl_block").css('display', 'none')
-        $(".tcp_ssl").css('display', 'none')
-        $("#addTcpInputRule form").attr("onsubmit", "addTcpRule()");
-        $("#addTcpInputRule form")[0].reset();
-        $("#addTcpInputRule").modal('show');
+            $(".configBody").html('')
+            $(".tcp_ssl_block").css('display', 'none')
+            $(".tcp_ssl").css('display', 'none')
+            $("#addTcpInputRule form").attr("onsubmit", "addTcpRule()");
+            $("#addTcpInputRule form")[0].reset();
+            $("#addTcpInputRule").modal('show');
 
-    }
-    else if (id === 14) {
+            break;
+        case 14:
 
-        $("#email_name").removeAttr('disabled')
+            $("#email_name").removeAttr('disabled')
 
-        $(".configBody").html('')
-        $(".folderBody").html('')
+            $(".configBody").html('')
+            $(".folderBody").html('')
 
-        $("#addEmailInputRule form").attr("onsubmit", "addEmailRule()");
-        $("#addEmailInputRule form")[0].reset();
-        $("#addEmailInputRule").modal('show');
+            $("#addEmailInputRule form").attr("onsubmit", "addEmailRule()");
+            $("#addEmailInputRule form")[0].reset();
+            $("#addEmailInputRule").modal('show');
 
-    }
-    else if (id === 15) {
+            break;
+        case 15:
 
-        $("#addMicroRule form")[0].reset();
-        $("#micro_id").removeAttr('disabled')
+            $("#addMicroRule form")[0].reset();
+            $("#micro_id").removeAttr('disabled')
 
-        $("#methodGet").prop('checked', true)
-        $("#methodPost").prop('checked', true)
-        $("#methodDelete").prop('checked', true)
-        $("#methodPut").prop('checked', true)
-        $("#methodUpload").prop('checked', true)
+            $("#methodGet").prop('checked', true)
+            $("#methodPost").prop('checked', true)
+            $("#methodDelete").prop('checked', true)
+            $("#methodPut").prop('checked', true)
+            $("#methodUpload").prop('checked', true)
 
-        $(".micro_apiKey").css('display', 'none')
-        $("#addMicroRule").modal('show');
+            $(".micro_apiKey").css('display', 'none')
+            $("#addMicroRule").modal('show');
+
+            break;
 
     }
 }
@@ -4174,23 +3739,27 @@ function editJobModal() {
 }
 
 function editInputModal() {
-    if (CURRENT_TYPE == 10) {
-        editSftpModal()
-    }
-    else if (CURRENT_TYPE == 11) {
-        editMqttModal()
-    }
-    else if (CURRENT_TYPE == 12) {
-        editUdpModal()
-    }
-    else if (CURRENT_TYPE == 13) {
-        editTcpModal()
-    }
-    else if (CURRENT_TYPE == 14) {
-        editEmailModal()
-    }
-    else if (CURRENT_TYPE == 15) {
-        editMicroModal()
+
+    switch (CURRENT_TYPE) {
+        case 10:
+        editSftpModal()    
+            break;
+        case 11:
+        editMqttModal()    
+            break;
+        case 12:
+        editUdpModal()    
+            break;
+        case 13:
+        editTcpModal()    
+            break;
+        case 14:
+        editEmailModal()    
+            break;
+        case 15:
+        editMicroModal()    
+            break;
+    
     }
 }
 
@@ -4616,63 +4185,72 @@ function editMicroModal() {
 function openDeleteModal() {
 
     if (CURRENT_TYPE > 0) {
-        if (CURRENT_TYPE === 1) {
-            $(".delete_rule_name").html('Message');
-            $(".delete_rule_id").html(CURRENT_ID);
-            $(".viewId").val("messageTab_" + CURRENT_ID);
-        } else if (CURRENT_TYPE === 2) {
-            $(".delete_rule_name").html('Named');
-            $(".delete_rule_id").html(CURRENT_ID);
-            $(".viewId").val("namedTab_" + CURRENT_ID);
-        } else if (CURRENT_TYPE === 3) {
-            $(".delete_rule_name").html('Schedule');
-            $(".delete_rule_id").html(CURRENT_ID);
-            $(".viewId").val("scheduleTab_" + CURRENT_ID);
-        }
-        else if (CURRENT_TYPE === 6) {
-            $(".delete_rule_name").html('Binary');
-            $(".delete_rule_id").html(CURRENT_ID);
-            $(".viewId").val("binaryTab_" + CURRENT_ID);
-        }
-        else if (CURRENT_TYPE === 8) {
-            $(".delete_rule_name").html('File');
-            $(".delete_rule_id").html(CURRENT_ID);
-            $(".viewId").val("fileTab_" + CURRENT_ID);
-        }
-        else if (CURRENT_TYPE === 7) {
-            $(".delete_rule_name").html('Job');
-            $(".delete_rule_id").html(CURRENT_ID);
-            $(".viewId").val("jobTab_" + CURRENT_ID);
-        }
-        else if (CURRENT_TYPE === 9) {
-            $(".delete_rule_name").html('Process');
-            $(".delete_rule_id").html(CURRENT_ID);
-            $(".viewId").val("processTab_" + CURRENT_ID);
-        }
-        else if (CURRENT_TYPE === 10) {
-            $(".delete_rule_name").html('SFTP');
-            $(".delete_rule_id").html(CURRENT_ID);
-            $(".viewId").val("sftpTab_" + CURRENT_ID);
-        } else if (CURRENT_TYPE === 11) {
-            $(".delete_rule_name").html('MQTT');
-            $(".delete_rule_id").html(CURRENT_ID);
-            $(".viewId").val("mqttTab_" + CURRENT_ID);
-        } else if (CURRENT_TYPE === 12) {
-            $(".delete_rule_name").html('UDP');
-            $(".delete_rule_id").html(CURRENT_ID);
-            $(".viewId").val("udpTab_" + CURRENT_ID);
-        } else if (CURRENT_TYPE === 13) {
-            $(".delete_rule_name").html('TCP');
-            $(".delete_rule_id").html(CURRENT_ID);
-            $(".viewId").val("tcpTab_" + CURRENT_ID);
-        } else if (CURRENT_TYPE === 14) {
-            $(".delete_rule_name").html('EMAIL');
-            $(".delete_rule_id").html(CURRENT_ID);
-            $(".viewId").val("emailTab_" + CURRENT_ID);
-        } else if (CURRENT_TYPE === 15) {
-            $(".delete_rule_name").html('Micro API');
-            $(".delete_rule_id").html(CURRENT_ID);
-            $(".viewId").val("microTab_" + CURRENT_ID);
+        switch (CURRENT_TYPE) {
+            case 1:
+                $(".delete_rule_name").html('Message');
+                $(".delete_rule_id").html(CURRENT_ID);
+                $(".viewId").val("messageTab_" + CURRENT_ID);
+                break;
+            case 2:
+                $(".delete_rule_name").html('Named');
+                $(".delete_rule_id").html(CURRENT_ID);
+                $(".viewId").val("namedTab_" + CURRENT_ID);
+                break;
+            case 3:
+                $(".delete_rule_name").html('Schedule');
+                $(".delete_rule_id").html(CURRENT_ID);
+                $(".viewId").val("scheduleTab_" + CURRENT_ID);
+                break;
+            case 6:
+                $(".delete_rule_name").html('Binary');
+                $(".delete_rule_id").html(CURRENT_ID);
+                $(".viewId").val("binaryTab_" + CURRENT_ID);
+                break;
+            case 7:
+                $(".delete_rule_name").html('Job');
+                $(".delete_rule_id").html(CURRENT_ID);
+                $(".viewId").val("jobTab_" + CURRENT_ID);
+                break;
+            case 8:
+                $(".delete_rule_name").html('File');
+                $(".delete_rule_id").html(CURRENT_ID);
+                $(".viewId").val("fileTab_" + CURRENT_ID);
+                break;
+            case 9:
+                $(".delete_rule_name").html('Process');
+                $(".delete_rule_id").html(CURRENT_ID);
+                $(".viewId").val("processTab_" + CURRENT_ID);
+                break;
+            case 10:
+                $(".delete_rule_name").html('SFTP');
+                $(".delete_rule_id").html(CURRENT_ID);
+                $(".viewId").val("sftpTab_" + CURRENT_ID);
+                break;
+            case 11:
+                $(".delete_rule_name").html('MQTT');
+                $(".delete_rule_id").html(CURRENT_ID);
+                $(".viewId").val("mqttTab_" + CURRENT_ID);
+                break;
+            case 12:
+                $(".delete_rule_name").html('UDP');
+                $(".delete_rule_id").html(CURRENT_ID);
+                $(".viewId").val("udpTab_" + CURRENT_ID);
+                break;
+            case 13:
+                $(".delete_rule_name").html('TCP');
+                $(".delete_rule_id").html(CURRENT_ID);
+                $(".viewId").val("tcpTab_" + CURRENT_ID);
+                break;
+            case 14:
+                $(".delete_rule_name").html('EMAIL');
+                $(".delete_rule_id").html(CURRENT_ID);
+                $(".viewId").val("emailTab_" + CURRENT_ID);
+                break;
+            case 15:
+                $(".delete_rule_name").html('Micro API');
+                $(".delete_rule_id").html(CURRENT_ID);
+                $(".viewId").val("microTab_" + CURRENT_ID);
+                break;
         }
         $("#deleteModal").modal('show');
     } else {
@@ -4694,210 +4272,171 @@ function openModalClasses() {
 
 
 function proceedDelete() {
-    if (CURRENT_TYPE === 1) {
-        deleteMessageDef(CURRENT_ID, function (status, data) {
-            if (status) {
-                deleteTab(CURRENT_ID, CURRENT_TYPE);
-                deleteMessagRule(CURRENT_ID, function (status, data) {
+    switch (CURRENT_TYPE) {
+        case 1:
+            deleteMessageDef(CURRENT_ID, function (status, data) {
+                if (status) {
+                    deleteMessagRule(CURRENT_ID, function (status, data) {
+                        deleteTab(CURRENT_ID, CURRENT_TYPE);
+                            successMsg('Successfully deleted');
+                            loadMessageRulesList();
+                            $("#deleteModal").modal('hide');
+                    });
+
+                } else {
+                    errorMsg('Error in delete')
+                }
+            })
+            break;
+        case 2:
+            deleteNamedRule(CURRENT_ID, function (status, data) {
+                if (status) {
+                    deleteTab(CURRENT_ID, CURRENT_TYPE);
                     successMsg('Successfully deleted');
-                });
-                setTimeout(function () {
-                    loadMessageRulesList();
-                }, 500)
-
-                $("#deleteModal").modal('hide');
-            } else {
-                errorMsg('Error in delete')
-            }
-        })
-    } else if (CURRENT_TYPE === 2) {
-
-        deleteNamedRule(CURRENT_ID, function (status, data) {
-            if (status) {
-                deleteTab(CURRENT_ID, CURRENT_TYPE);
-                successMsg('Successfully deleted');
-                setTimeout(function () {
                     loadNamedRulesList();
-                }, 500)
 
-                $("#deleteModal").modal('hide');
-            } else {
-                errorMsg('Error in delete')
-            }
-        })
-
-    } else if (CURRENT_TYPE === 3) {
-
-        deleteScheduleRule(CURRENT_ID, function (status, data) {
-            if (status) {
-                deleteTab(CURRENT_ID, CURRENT_TYPE);
-                successMsg('Successfully deleted');
-
-                setTimeout(function () {
+                    $("#deleteModal").modal('hide');
+                } else {
+                    errorMsg('Error in delete')
+                }
+            })
+            break;
+        case 3:
+            deleteScheduleRule(CURRENT_ID, function (status, data) {
+                if (status) {
+                    deleteTab(CURRENT_ID, CURRENT_TYPE);
+                    successMsg('Successfully deleted');
                     loadScheduleRulesList();
-                }, 500)
-                $("#deleteModal").modal('hide');
-            } else {
-                errorMsg('Error in delete')
-            }
-        })
-    } else if (CURRENT_TYPE === 6) {
-
-        deleteBinaryRule(CURRENT_ID, function (status, data) {
-            if (status) {
-                deleteTab(CURRENT_ID, CURRENT_TYPE);
-                successMsg('Successfully deleted');
-
-                setTimeout(function () {
+                    $("#deleteModal").modal('hide');
+                } else {
+                    errorMsg('Error in delete')
+                }
+            })
+            break;
+        case 6:
+            deleteBinaryRule(CURRENT_ID, function (status, data) {
+                if (status) {
+                    deleteTab(CURRENT_ID, CURRENT_TYPE);
+                    successMsg('Successfully deleted');
                     loadBinaryRulesList();
-                }, 500)
-                $("#deleteModal").modal('hide');
-            } else {
-                errorMsg('Error in delete')
-            }
-        })
-    }
-    else if (CURRENT_TYPE === 8) {
-
-        deleteFileRule(CURRENT_ID, function (status, data) {
-            if (status) {
-                deleteTab(CURRENT_ID, CURRENT_TYPE);
-                successMsg('Successfully deleted');
-                setTimeout(function () {
-                    loadFileRulesList();
-                }, 500)
-
-                $("#deleteModal").modal('hide');
-            } else {
-                errorMsg('Error in delete')
-            }
-        })
-    }
-    else if (CURRENT_TYPE === 7) {
-
-        deleteJobRule(CURRENT_ID, function (status, data) {
-            if (status) {
-                deleteTab(CURRENT_ID, CURRENT_TYPE);
-                successMsg('Successfully deleted');
-
-                setTimeout(function () {
+                    $("#deleteModal").modal('hide');
+                } else {
+                    errorMsg('Error in delete')
+                }
+            })
+            break;
+        case 7:
+            deleteJobRule(CURRENT_ID, function (status, data) {
+                if (status) {
+                    deleteTab(CURRENT_ID, CURRENT_TYPE);
+                    successMsg('Successfully deleted');
                     loadJobRulesList();
-                }, 500)
-                $("#deleteModal").modal('hide');
-            } else {
-                errorMsg('Error in delete')
-            }
-        })
-    }
-    else if (CURRENT_TYPE === 9) {
-
-        deleteProcessRule(CURRENT_ID, function (status, data) {
-            if (status) {
-                deleteTab(CURRENT_ID, CURRENT_TYPE);
-                successMsg('Successfully deleted');
-
-                setTimeout(function () {
+                    $("#deleteModal").modal('hide');
+                } else {
+                    errorMsg('Error in delete')
+                }
+            })
+            break;
+        case 8:
+            deleteFileRule(CURRENT_ID, function (status, data) {
+                if (status) {
+                    deleteTab(CURRENT_ID, CURRENT_TYPE);
+                    successMsg('Successfully deleted');
+                    loadFileRulesList();
+                    $("#deleteModal").modal('hide');
+                } else {
+                    errorMsg('Error in delete')
+                }
+            })
+            break;
+        case 9:
+            deleteProcessRule(CURRENT_ID, function (status, data) {
+                if (status) {
+                    deleteTab(CURRENT_ID, CURRENT_TYPE);
+                    successMsg('Successfully deleted');
                     Cookies.set('pfGroup', '')
                     loadProcessRulesListAggs();
                     loadProcessRulesList();
-                }, 500)
-                $("#deleteModal").modal('hide');
-            } else {
-                errorMsg('Error in delete')
-            }
-        })
-    }
-    else if (CURRENT_TYPE === 10) {
-
-        deleteInputRule('SFTP', CURRENT_ID, function (status, data) {
-            if (status) {
-                deleteTab(CURRENT_ID, CURRENT_TYPE);
-                successMsg('Successfully deleted');
-
-                setTimeout(function () {
+                    $("#deleteModal").modal('hide');
+                } else {
+                    errorMsg('Error in delete')
+                }
+            })
+            break;
+        case 10:
+            deleteInputRule('SFTP', CURRENT_ID, function (status, data) {
+                if (status) {
+                    deleteTab(CURRENT_ID, CURRENT_TYPE);
+                    successMsg('Successfully deleted');
                     loadSftpRulesList();
-                }, 500)
-                $("#deleteModal").modal('hide');
-            } else {
-                errorMsg('Error in delete')
-            }
-        })
-    } else if (CURRENT_TYPE === 11) {
-
-        deleteInputRule('MQTT', CURRENT_ID, function (status, data) {
-            if (status) {
-                deleteTab(CURRENT_ID, CURRENT_TYPE);
-                successMsg('Successfully deleted');
-
-                setTimeout(function () {
+                    $("#deleteModal").modal('hide');
+                } else {
+                    errorMsg('Error in delete')
+                }
+            })
+            break;
+        case 11:
+            deleteInputRule('MQTT', CURRENT_ID, function (status, data) {
+                if (status) {
+                    deleteTab(CURRENT_ID, CURRENT_TYPE);
+                    successMsg('Successfully deleted');
                     loadMqttRulesList();
-                }, 500)
-                $("#deleteModal").modal('hide');
-            } else {
-                errorMsg('Error in delete')
-            }
-        })
-    } else if (CURRENT_TYPE === 12) {
-
-        deleteInputRule('UDP', CURRENT_ID, function (status, data) {
-            if (status) {
-                deleteTab(CURRENT_ID, CURRENT_TYPE);
-                successMsg('Successfully deleted');
-
-                setTimeout(function () {
+                    $("#deleteModal").modal('hide');
+                } else {
+                    errorMsg('Error in delete')
+                }
+            })
+            break;
+        case 12:
+            deleteInputRule('UDP', CURRENT_ID, function (status, data) {
+                if (status) {
+                    deleteTab(CURRENT_ID, CURRENT_TYPE);
+                    successMsg('Successfully deleted');
                     loadUdpRulesList();
-                }, 500)
-                $("#deleteModal").modal('hide');
-            } else {
-                errorMsg('Error in delete')
-            }
-        })
-    } else if (CURRENT_TYPE === 13) {
-
-        deleteInputRule('TCP', CURRENT_ID, function (status, data) {
-            if (status) {
-                deleteTab(CURRENT_ID, CURRENT_TYPE);
-                successMsg('Successfully deleted');
-
-                setTimeout(function () {
+                    $("#deleteModal").modal('hide');
+                } else {
+                    errorMsg('Error in delete')
+                }
+            })
+            break;
+        case 13:
+            deleteInputRule('TCP', CURRENT_ID, function (status, data) {
+                if (status) {
+                    deleteTab(CURRENT_ID, CURRENT_TYPE);
+                    successMsg('Successfully deleted');
                     loadTcpRulesList();
-                }, 500)
-                $("#deleteModal").modal('hide');
-            } else {
-                errorMsg('Error in delete')
-            }
-        })
-    } else if (CURRENT_TYPE === 14) {
-
-        deleteInputRule('EMAIL', CURRENT_ID, function (status, data) {
-            if (status) {
-                deleteTab(CURRENT_ID, CURRENT_TYPE);
-                successMsg('Successfully deleted');
-
-                setTimeout(function () {
+                    $("#deleteModal").modal('hide');
+                } else {
+                    errorMsg('Error in delete')
+                }
+            })
+            break;
+        case 14:
+            deleteInputRule('EMAIL', CURRENT_ID, function (status, data) {
+                if (status) {
+                    deleteTab(CURRENT_ID, CURRENT_TYPE);
+                    successMsg('Successfully deleted');
                     loadEmailRulesList();
-                }, 500)
-                $("#deleteModal").modal('hide');
-            } else {
-                errorMsg('Error in delete')
-            }
-        })
-    } else if (CURRENT_TYPE === 15) {
-
-        deleteMicroRule(CURRENT_ID, function (status, data) {
-            if (status) {
-                deleteTab(CURRENT_ID, CURRENT_TYPE);
-                successMsg('Successfully deleted');
-
-                setTimeout(function () {
+                    $("#deleteModal").modal('hide');
+                } else {
+                    errorMsg('Error in delete')
+                }
+            })
+            break;
+        case 15:
+            deleteMicroRule(CURRENT_ID, function (status, data) {
+                if (status) {
+                    deleteTab(CURRENT_ID, CURRENT_TYPE);
+                    successMsg('Successfully deleted');
                     loadMicroRulesList();
-                }, 500)
-                $("#deleteModal").modal('hide');
-            } else {
-                errorMsg('Error in delete')
-            }
-        })
+                    $("#deleteModal").modal('hide');
+                } else {
+                    errorMsg('Error in delete')
+                }
+            })
+            break;
     }
+   
 }
 
 
@@ -4952,7 +4491,6 @@ function addMessageRule() {
         errorMsg('Message ID minimum 3 digits required')
         return
     }
-    let flag = false;
 
     let fields = [];
 
@@ -5005,12 +4543,12 @@ function addMessageRule() {
             createUpdateMessageDef(msgObj, function (status, data) {
                 if (status) {
                     successMsg('Message Defined Successfully');
-                    loadMessageRulesList();
-                    setTimeout(function () {
-                        loadTabbar(msgObj.id, 1);
-                    }, 500);
-
-                    $("#addMessageRule").modal('hide');
+                    loadMessageRulesList(function (status) {
+                        if (status) {
+                            loadTabbar(msgObj.id, 1);
+                            $("#addMessageRule").modal('hide');
+                        }
+                    });
                 } else {
                     errorMsg('Error in Define Message')
                 }
@@ -5042,12 +4580,10 @@ function addNamedRule() {
     updateNamedRuleCode(dataObj, function (status, data) {
         if (status) {
             successMsg('Successfully saved!');
-            loadNamedRulesList();
-            setTimeout(function () {
+            loadNamedRulesList(function () {
                 loadTabbar(dataObj.name, 2);
-            }, 500)
-
-            $("#addNamedRule").modal('hide');
+                $("#addNamedRule").modal('hide');
+            });
         } else {
             errorMsg('Error in saving!')
         }
@@ -5065,12 +4601,10 @@ function addBinaryRule() {
     updateBinaryRuleCode(dataObj, function (status, data) {
         if (status) {
             successMsg('Successfully saved!');
-            loadBinaryRulesList();
-            setTimeout(function () {
+            loadBinaryRulesList(function () {
                 loadTabbar(dataObj.type, 6);
-            }, 500)
-
-            $("#addBinaryRule").modal('hide');
+                $("#addBinaryRule").modal('hide');
+            })
         } else {
             errorMsg('Error in saving!')
         }
@@ -5087,12 +4621,10 @@ function addFileRule() {
     updateFileRuleCode(dataObj, function (status, data) {
         if (status) {
             successMsg('Successfully saved!');
-            loadFileRulesList();
-            setTimeout(function () {
+            loadFileRulesList(function () {
                 loadTabbar(dataObj.type, 8);
-            }, 500)
-
-            $("#addFileRule").modal('hide');
+                $("#addFileRule").modal('hide');
+            })
         } else {
             errorMsg('Error in saving!')
         }
@@ -5176,16 +4708,11 @@ function addProcessRule() {
         if (status) {
             successMsg('Successfully saved!');
             Cookies.set('pfGroup', '')
-            setTimeout(() => {
-                loadProcessRulesList(function () {
-                        loadTabbar(data.id, 9);
-                });
-                loadProcessRulesListAggs();
-
-            }, 1000);
-
-
-            $("#addProcessRule").modal('hide');
+            loadProcessRulesList(function () {
+                loadProcessRulesListAggs()
+                loadTabbar(data.id, 9);
+                $("#addProcessRule").modal('hide');
+            });
         } else {
             errorMsg('Error in saving!')
         }
@@ -5280,12 +4807,11 @@ function updateProcessRule(id) {
         $(".pBtn").html('Save Changes')
         if (status) {
             successMsg('Successfully saved!');
-            loadProcessRulesList();
-            setTimeout(function () {
+            loadProcessRulesList(function () {
                 loadTabbar(data.id, 9);
-            }, 500)
+                $("#addProcessRule").modal('hide');
+            })
 
-            $("#addProcessRule").modal('hide');
         } else {
             errorMsg('Error in saving!')
         }
@@ -5311,12 +4837,11 @@ function addJobRule(code) {
     updateJobRuleCode(dataObj, function (status, data) {
         if (status) {
             successMsg('Successfully saved!');
-            loadJobRulesList();
-            setTimeout(function () {
+            loadJobRulesList(function () {
                 loadTabbar(dataObj.id, 7);
-            }, 500)
+                $("#addJobRule").modal('hide');
+            })
 
-            $("#addJobRule").modal('hide');
         } else {
             errorMsg('Error in saving!')
         }
@@ -5380,17 +4905,13 @@ function addSftpRule(code) {
         if (status) {
             successMsg('Successfully saved!');
 
-            setTimeout(function () {
-                loadSftpRulesList();
-                setTimeout(function () {
+                loadSftpRulesList(function () {
                     if (code) {
                         loadTabbar(dataObj.id, 10);
                     }
-                }, 500)
-            }, 1000)
+                    $("#addSftpInputRule").modal('hide');
+                })
 
-
-            $("#addSftpInputRule").modal('hide');
         } else {
             errorMsg('Error in saving!')
         }
@@ -5477,19 +4998,14 @@ function addMqttRule(code) {
         if (status) {
             successMsg('Successfully saved!');
 
-
-
-            setTimeout(function () {
-                loadMqttRulesList();
-                setTimeout(function () {
+                loadMqttRulesList(function () {
                     if (code) {
                         loadTabbar(dataObj.id, 11);
                     }
-                }, 500)
-            }, 1000)
+                    $("#addMqttInputRule").modal('hide');
+                })
 
 
-            $("#addMqttInputRule").modal('hide');
         } else {
             errorMsg('Error in saving!')
         }
@@ -5551,18 +5067,13 @@ function addUdpRule(code) {
     updateInputRuleCode('UDP', dataObj, function (status, data) {
         if (status) {
             successMsg('Successfully saved!');
-
-
-            setTimeout(function () {
-                loadUdpRulesList();
-                setTimeout(function () {
+                loadUdpRulesList(function () {
                     if (code) {
                         loadTabbar(dataObj.id, 12);
                     }
-                }, 500)
-            }, 1000)
+                    $("#addUdpInputRule").modal('hide');
+                })
 
-            $("#addUdpInputRule").modal('hide');
         } else {
             errorMsg('Error in saving!')
         }
@@ -5636,17 +5147,14 @@ function addTcpRule(code) {
     updateInputRuleCode('TCP', dataObj, function (status, data) {
         if (status) {
             successMsg('Successfully saved!');
-            setTimeout(function () {
-                loadTcpRulesList();
-                setTimeout(function () {
+                loadTcpRulesList(function () {
                     if (code) {
                         loadTabbar(dataObj.id, 13);
                     }
-                }, 500)
-            }, 1000)
+                    $("#addTcpInputRule").modal('hide');
+                })
 
 
-            $("#addTcpInputRule").modal('hide');
         } else {
             errorMsg('Error in saving!')
         }
@@ -5744,16 +5252,12 @@ function addEmailRule(code) {
     updateInputRuleCode('EMAIL', dataObj, function (status, data) {
         if (status) {
             successMsg('Successfully saved!');
-            setTimeout(function () {
-                loadEmailRulesList();
-                setTimeout(function () {
+                loadEmailRulesList(function () {
                     if (code) {
                         loadTabbar(dataObj.id, 14);
                     }
-                }, 500)
-            }, 1000)
-
-            $("#addEmailInputRule").modal('hide');
+                    $("#addEmailInputRule").modal('hide');
+                })
         } else {
             errorMsg('Error in saving!')
         }
@@ -5812,22 +5316,12 @@ def myApiMethod(def args) {
     updateMicroRuleCode(dataObj, function (status, data) {
         if (status) {
             successMsg('Successfully saved!');
-
-            setTimeout(function () {
-                loadMicroRulesList();
-
-                setTimeout(function () {
-                    if (code) {
-                        loadTabbar(dataObj.id, 15);
-                    }
-                }, 500)
-            }, 1000)
-
-            $("#addMicroRule").modal('hide');
-            // setTimeout(function () {
-            //     loadTabbar(dataObj.name, 15);
-            // },1000)
-
+            loadMicroRulesList(function () {
+                if (code) {
+                    loadTabbar(dataObj.id, 15);
+                }
+                $("#addMicroRule").modal('hide');
+            })
         } else {
             errorMsg('Error in saving!')
         }
@@ -5857,12 +5351,11 @@ function addScheduleRule() {
     updateScheduleRuleCode(dataObj, function (status, data) {
         if (status) {
             successMsg('Successfully saved!');
-            loadScheduleRulesList();
-            setTimeout(function () {
+            loadScheduleRulesList(function () {
                 loadTabbar(dataObj.id, 3);
-            }, 500)
+                $("#addScheduleRule").modal('hide');
+            })
 
-            $("#addScheduleRule").modal('hide');
         } else {
             errorMsg('Error in saving!')
         }
@@ -6108,14 +5601,13 @@ function loadCodeType() {
                     resList.push({ domainKey: obj[i].domainKey, packageName: dpList[i], classes: classes, _id: guid() });
 
                 }
-                // console.log(resList)
                 groovy_class_list = resList;
 
 
-                $(".classFolder").html('<div id="groovy_tree" style=""></div>');
+                $(".classFolder").html('<div id="groovy_tree" ></div>');
                 loadGroovyTreeMenu(resList);
             } else {
-                $(".classFolder").html('<div id="jar_tree" style=""></div>');
+                $(".classFolder").html('<div id="jar_tree" ></div>');
                 loadJarTreeMenu(dataList);
             }
         } else {
@@ -6130,298 +5622,234 @@ function loadCodeType() {
 
 
 function openSimulateModal(id, type) {
+    let str=""
+    switch (type) {
+        case 1:
+            str = '<div id="simulatorModal_' + id + '" class="w-100">' +
+                '<div data-role="body">\n' +
+                '<div class="row"><div class="col-md-12"><div class="form-group">' +
+                '<label class="inputLabel">Select Device</label>' +
+                '<select id="simulatorDeviceList_' + id + '" class="form-control input-sm col-12"><option>No Devices Found</option></select>' +
+                '</div></div></div>' +
+                '<div class="row msgFieldBlock_' + id + '"></div>' +
+                '<div class="row">' +
+                '<div class="col-md-12">' +
+                '<button class="btn btn-sm btn-success pull-right btn_' + id + '" onclick="simulateMessage(\'' + id + '\',' + type + ')">Send Message</button>' +
+                '<button class="btn btn-sm btn-default pull-right" onclick="closeSimulator(\'' + id + '\')" style="margin-right: 10px;">Close</button>' +
+                '</div> ' +
+                '<div class="col-md-12" style="clear:both;max-height: 200px;">' +//overflow: auto;overflow-x: hidden
+                '<code class="code_' + id + '" ></code>' +
+                '</div>' +
+                '</div></div>' +
+                '</div>'
+            
+            $(".simulatorModal").append(str);
 
-    if (type === 1) {
-
-        let str = '<div id="simulatorModal_' + id + '" class="w-100">' +
-            '<div data-role="body">\n' +
-            '<div class="row"><div class="col-md-12"><div class="form-group">' +
-            '<label class="inputLabel">Select Device</label>' +
-            '<select id="simulatorDeviceList_' + id + '" class="form-control input-sm col-12"><option>No Devices Found</option></select>' +
-            '</div></div></div>' +
-            '<div class="row msgFieldBlock_' + id + '"></div>' +
-            '<div class="row">' +
-            '<div class="col-md-12">' +
-            '<button class="btn btn-sm btn-success pull-right btn_' + id + '" onclick="simulateMessage(\'' + id + '\',' + type + ')">Send Message</button>' +
-            '<button class="btn btn-sm btn-default pull-right" onclick="closeSimulator(\'' + id + '\')" style="margin-right: 10px;">Close</button>' +
-            '</div> ' +
-            '<div class="col-md-12" style="clear:both;max-height: 200px;">' +//overflow: auto;overflow-x: hidden
-            '<code class="code_' + id + '" ></code>' +
-            '</div>' +
-            '</div></div>' +
-            '</div>'
-
-
-        for (let i = 0; i < message_spec_list.length; i++) {
-            if (Number(id) === message_spec_list[i]['id']) {
-                current_msg_obj = message_spec_list[i]
+            for (const iterator of message_spec_list) {
+                if (Number(id) === iterator['id']) {
+                    current_msg_obj = iterator
+                    break
+                }
             }
-        }
-        $(".simulatorModal").append(str);
 
-      
+            fetchDeviceList(id, function (status, data) {
+                simulator[id] = current_msg_obj;
+                if (!simulatorModal[id]) {
 
-        fetchDeviceList(id, function (status, data) {
-            simulator[id] = current_msg_obj;
+                    $(".msgFieldBlock_" + id).html('');
+
+                    for (let i = 0; i < current_msg_obj.fields.length; i++) {
+                        $(".msgFieldBlock_" + id).append(renderHtml(id, i, current_msg_obj.fields[i]))
+                    }
+                    simulatorModal[id] = $("#simulatorModal_" + id).dialog({
+                        resizable: true,
+                        open: function () {
+                            let closeBtn = $('.ui-dialog-titlebar-close');
+                            closeBtn.html('X');
+                        },
+                        modal: false,
+                        closeText: "x",
+                        close: function (event, ui) {
+                            closeSimulator(id);
+                        },
+
+                        title: "Simulate -" + id + ' [' + current_msg_obj.name + ']',
+                    });
+
+                }
+            })
+
+            break;
+    
+        case 2:
+            let placeholder = '{\n"key":"value",\n"key":"value",\n"key":"value",\n"key":"value"\n}';
+
+            str = '<div id="simulatorModal_' + id + '" class="w-100">' +
+                '<div data-role="body">\n' +
+                '<div class="row>' +
+                '<div class="col-md-12">' +
+                '<p class="mb-0">Named Rule Arguments - <small>JSON value</small></p><textarea class="form-control form-control-sm mb-2" style="width:100%;height:200px" id="simulatorInput_' + id + '"' +
+                "placeholder='" + placeholder + "'></textarea></div>" +
+                '</div>' +
+                '<div class="row">' +
+                '<div class="col-md-12">' +
+                '<button class="btn btn-sm btn-success pull-right btn_' + id + '" onclick="simulateMessage(\'' + id + '\',' + type + ')">Invoke NamedRule</button>' +
+                '<button class="btn btn-sm btn-default pull-right" onclick="closeSimulator(\'' + id + '\')" style="margin-right: 10px;">Close</button>' +
+                '</div> ' +
+                '<div class="col-md-12" style="clear:both;max-height: 200px;">' +//overflow: auto;overflow-x: hidden
+                '<code class="code_' + id + '" ></code>' +
+                '</div>' +
+                '</div></div>' +
+                '</div>'
+            
+            for (const iterator of named_rules_list) {
+                if (id === iterator['name']) {
+                    current_namedrule_obj = iterator
+                    break
+                }
+            }
+
+            simulator[id] = current_namedrule_obj;
 
 
             if (!simulatorModal[id]) {
 
-                $(".msgFieldBlock_" + id).html('');
+                $(".simulatorModal").append(str);
 
-                for (let i = 0; i < current_msg_obj.fields.length; i++) {
-                    $(".msgFieldBlock_" + id).append(renderHtml(id, i, current_msg_obj.fields[i]))
-                }
                 simulatorModal[id] = $("#simulatorModal_" + id).dialog({
                     resizable: true,
                     open: function () {
                         let closeBtn = $('.ui-dialog-titlebar-close');
                         closeBtn.html('X');
                     },
-                    // minWidth: 200,
-                    // maxWidth: 600,
-                    // minHeight: 200,
-                    // maxHeight: 450,
-                    // width: 450,
-                    // height: 300,
                     modal: false,
                     closeText: "x",
                     close: function (event, ui) {
                         closeSimulator(id);
                     },
 
-                    title: "Simulate -" + id + ' [' + current_msg_obj.name + ']',
-
-                    /*buttons: {
-                        Close: function() {
-                            $( this ).dialog( "close" );
-                            simulatorModal[id] = null;
-                            $("#simulatorModal_"+id).remove();
-                        }
-    
-    
-                    }*/
+                    title: 'Simulate - ' + current_namedrule_obj.name,
                 });
 
             }
-        })
+
+            break;
     
-
-    }
-    else if (type === 2) {
-
-        let placeholder = '{\n"key":"value",\n"key":"value",\n"key":"value",\n"key":"value"\n}';
-
-        let str = '<div id="simulatorModal_' + id + '" class="w-100">' +
-            '<div data-role="body">\n' +
-            '<div class="row>' +
-            '<div class="col-md-12">' +
-            '<p class="mb-0">Named Rule Arguments - <small>JSON value</small></p><textarea class="form-control form-control-sm mb-2" style="width:100%;height:200px" id="simulatorInput_' + id + '"' +
-            "placeholder='" + placeholder + "'></textarea></div>" +
-            '</div>' +
-            '<div class="row">' +
-            '<div class="col-md-12">' +
-            '<button class="btn btn-sm btn-success pull-right btn_' + id + '" onclick="simulateMessage(\'' + id + '\',' + type + ')">Invoke NamedRule</button>' +
-            '<button class="btn btn-sm btn-default pull-right" onclick="closeSimulator(\'' + id + '\')" style="margin-right: 10px;">Close</button>' +
-            '</div> ' +
-            '<div class="col-md-12" style="clear:both;max-height: 200px;">' +//overflow: auto;overflow-x: hidden
-            '<code class="code_' + id + '" ></code>' +
-            '</div>' +
-            '</div></div>' +
-            '</div>'
-
-        for (let i = 0; i < named_rules_list.length; i++) {
-            if (id === named_rules_list[i]['name']) {
-                current_namedrule_obj = named_rules_list[i]
-            }
-        }
-
-        simulator[id] = current_namedrule_obj;
-
-
-        if (!simulatorModal[id]) {
+        case 3:
+            str = '<div id="simulatorModal_' + id + '" class="w-100">' +
+                '<div data-role="body">\n' +
+                '<div class="row"><div class="col-md-12"><div class="form-group">' +
+                '<label class="inputLabel">Select Device</label>' +
+                '<select id="simulatorDeviceList_' + id + '" class="form-control input-sm col-12"><option>No Devices Found</option></select>' +
+                '</div></div></div>' +
+                '<div class="row>' +
+                '<div class="col-md-12">' +
+                '<p class="mb-0"><label>Upload Binary File</label></p>' +
+                '<input type="file" class="form-control pb-3 mb-2"  id="simulatorInput_' + id + '"/>' +
+                '</div></div>' +
+                '<div class="row">' +
+                '<div class="col-md-12">' +
+                '<button class="btn btn-sm btn-success pull-right btn_' + id + '" onclick="simulateMessage(\'' + id + '\',' + type + ')">Upload File</button>' +
+                '<button class="btn btn-sm btn-default pull-right" onclick="closeSimulator(\'' + id + '\')" style="margin-right: 10px;">Close</button>' +
+                '</div> ' +
+                '<div class="col-md-12" style="clear:both;max-height: 200px;">' +//overflow: auto;overflow-x: hidden
+                '<code class="code_' + id + '" ></code>' +
+                '</div>' +
+                '</div></div>' +
+                '</div>'
 
             $(".simulatorModal").append(str);
 
-            simulatorModal[id] = $("#simulatorModal_" + id).dialog({
-                resizable: true,
-                open: function () {
-                    let closeBtn = $('.ui-dialog-titlebar-close');
-                    closeBtn.html('X');
-                },
-                // minWidth: 200,
-                // maxWidth: 600,
-                // minHeight: 200,
-                // maxHeight: 450,
-                // width: 450,
-                // height: 300,
-                modal: false,
-                closeText: "x",
-                close: function (event, ui) {
-                    closeSimulator(id);
-                },
-
-                title: 'Simulate - ' + current_namedrule_obj.name,
-
-                /*buttons: {
-                    Close: function() {
-                        $( this ).dialog( "close" );
-                        simulatorModal[id] = null;
-                        $("#simulatorModal_"+id).remove();
-                    }
+            for (const iterator of binary_rules_list) {
+                if (id === iterator['type']) {
+                    current_binaryrule_obj = iterator
+                    break
+                }
+            }
 
 
-                }*/
-            });
+            simulator[id] = current_binaryrule_obj;
 
-        }
+            fetchDeviceList(id, function (status, data) {
+                if (!simulatorModal[id]) {
 
+                    simulatorModal[id] = $("#simulatorModal_" + id).dialog({
+                        resizable: true,
+                        open: function () {
+                            let closeBtn = $('.ui-dialog-titlebar-close');
+                            closeBtn.html('X');
+                        },
+                       
+                        modal: false,
+                        closeText: "x",
+                        close: function (event, ui) {
+                            closeSimulator(id);
+                        },
+
+                        title: 'Simulate - ' + current_binaryrule_obj.type,
+
+                    });
+
+                }
+            })
+            break;
+    
+        case 4:
+            str = '<div id="simulatorModal_' + id + '" class="w-100">' +
+                '<div data-role="body">\n' +
+                '<div class="row"><div class="col-md-12"><div class="form-group">' +
+                '<label class="inputLabel">Select Device</label>' +
+                '<select id="simulatorDeviceList_' + id + '" class="form-control input-sm col-12"><option>No Devices Found</option></select>' +
+                '</div></div></div>' +
+                '<div class="row>' +
+                '<div class="col-md-12">' +
+                '<p class="mb-0"><label>Upload File File</label></p>' +
+                '<input type="file" class="form-control pb-3 mb-2"  id="simulatorInput_' + id + '"/></div>' +
+                '</div>' +
+                '<div class="row">' +
+                '<div class="col-md-12">' +
+                '<button class="btn btn-sm btn-success pull-right btn_' + id + '" onclick="simulateMessage(\'' + id + '\',' + type + ')">Upload File</button>' +
+                '<button class="btn btn-sm btn-default pull-right" onclick="closeSimulator(\'' + id + '\')" style="margin-right: 10px;">Close</button>' +
+                '</div> ' +
+                '<div class="col-md-12" style="clear:both;max-height: 200px;">' +//overflow: auto;overflow-x: hidden
+                '<code class="code_' + id + '" ></code>' +
+                '</div>' +
+                '</div></div>' +
+                '</div>'
+            $(".simulatorModal").append(str);
+
+            for (const iterator of file_rules_list) {
+                if (id === iterator['type']) {
+                    current_filerule_obj = iterator
+                    break
+                }
+            }
+
+            simulator[id] = current_filerule_obj;
+
+            fetchDeviceList(id, function (status, data) {
+                if (!simulatorModal[id]) {
+
+                    simulatorModal[id] = $("#simulatorModal_" + id).dialog({
+                        resizable: true,
+                        open: function () {
+                            let closeBtn = $('.ui-dialog-titlebar-close');
+                            closeBtn.html('X');
+                        },
+                       
+                        modal: false,
+                        closeText: "x",
+                        close: function (event, ui) {
+                            closeSimulator(id);
+                        },
+
+                        title: 'Simulate - ' + current_filerule_obj.type,
+
+                    });
+                }
+            })
+            break;
     }
-    else if (type === 3) {
-
-        let str = '<div id="simulatorModal_' + id + '" class="w-100">' +
-            '<div data-role="body">\n' +
-            '<div class="row"><div class="col-md-12"><div class="form-group">' +
-            '<label class="inputLabel">Select Device</label>' +
-            '<select id="simulatorDeviceList_' + id + '" class="form-control input-sm col-12"><option>No Devices Found</option></select>' +
-            '</div></div></div>' +
-            '<div class="row>' +
-            '<div class="col-md-12">' +
-            '<p class="mb-0"><label>Upload Binary File</label></p>' +
-            '<input type="file" class="form-control pb-3 mb-2" style="" id="simulatorInput_' + id + '"/>' +
-            '</div></div>' +
-            '<div class="row">' +
-            '<div class="col-md-12">' +
-            '<button class="btn btn-sm btn-success pull-right btn_' + id + '" onclick="simulateMessage(\'' + id + '\',' + type + ')">Upload File</button>' +
-            '<button class="btn btn-sm btn-default pull-right" onclick="closeSimulator(\'' + id + '\')" style="margin-right: 10px;">Close</button>' +
-            '</div> ' +
-            '<div class="col-md-12" style="clear:both;max-height: 200px;">' +//overflow: auto;overflow-x: hidden
-            '<code class="code_' + id + '" ></code>' +
-            '</div>' +
-            '</div></div>' +
-            '</div>'
-
-        for (let i = 0; i < binary_rules_list.length; i++) {
-            if (id === binary_rules_list[i]['type']) {
-                current_binaryrule_obj = binary_rules_list[i]
-            }
-        }
-        $(".simulatorModal").append(str);
-
-        simulator[id] = current_binaryrule_obj;
-        
-        fetchDeviceList(id, function (status, data) {
-            if (!simulatorModal[id]) {
-
-                simulatorModal[id] = $("#simulatorModal_" + id).dialog({
-                    resizable: true,
-                    open: function () {
-                        let closeBtn = $('.ui-dialog-titlebar-close');
-                        closeBtn.html('X');
-                    },
-                    // minWidth: 200,
-                    // maxWidth: 600,
-                    // minHeight: 200,
-                    // maxHeight: 450,
-                    // width: 450,
-                    // height: 300,
-                    modal: false,
-                    closeText: "x",
-                    close: function (event, ui) {
-                        closeSimulator(id);
-                    },
-
-                    title: 'Simulate - ' + current_binaryrule_obj.type,
-
-                    /*buttons: {
-                        Close: function() {
-                            $( this ).dialog( "close" );
-                            simulatorModal[id] = null;
-                            $("#simulatorModal_"+id).remove();
-                        }
-    
-    
-                    }*/
-                });
-
-            }
-        })
-    }
-    else if (type === 4) {
-
-        let str = '<div id="simulatorModal_' + id + '" class="w-100">' +
-            '<div data-role="body">\n' +
-            '<div class="row"><div class="col-md-12"><div class="form-group">' +
-            '<label class="inputLabel">Select Device</label>' +
-            '<select id="simulatorDeviceList_' + id + '" class="form-control input-sm col-12"><option>No Devices Found</option></select>' +
-            '</div></div></div>' +
-            '<div class="row>' +
-            '<div class="col-md-12">' +
-            '<p class="mb-0"><label>Upload File File</label></p>' +
-            '<input type="file" class="form-control pb-3 mb-2" style="" id="simulatorInput_' + id + '"/></div>' +
-            '</div>' +
-            '<div class="row">' +
-            '<div class="col-md-12">' +
-            '<button class="btn btn-sm btn-success pull-right btn_' + id + '" onclick="simulateMessage(\'' + id + '\',' + type + ')">Upload File</button>' +
-            '<button class="btn btn-sm btn-default pull-right" onclick="closeSimulator(\'' + id + '\')" style="margin-right: 10px;">Close</button>' +
-            '</div> ' +
-            '<div class="col-md-12" style="clear:both;max-height: 200px;">' +//overflow: auto;overflow-x: hidden
-            '<code class="code_' + id + '" ></code>' +
-            '</div>' +
-            '</div></div>' +
-            '</div>'
-
-        for (let i = 0; i < file_rules_list.length; i++) {
-            if (id === file_rules_list[i]['type']) {
-                current_filerule_obj = file_rules_list[i]
-            }
-        }
-
-        simulator[id] = current_filerule_obj;
-        $(".simulatorModal").append(str);
-
-        fetchDeviceList(id, function (status, data) {
-            if (!simulatorModal[id]) {
-
-                simulatorModal[id] = $("#simulatorModal_" + id).dialog({
-                    resizable: true,
-                    open: function () {
-                        let closeBtn = $('.ui-dialog-titlebar-close');
-                        closeBtn.html('X');
-                    },
-                    // minWidth: 200,
-                    // maxWidth: 600,
-                    // minHeight: 200,
-                    // maxHeight: 450,
-                    // width: 450,
-                    // height: 300,
-                    modal: false,
-                    closeText: "x",
-                    close: function (event, ui) {
-                        closeSimulator(id);
-                    },
-
-                    title: 'Simulate - ' + current_filerule_obj.type,
-
-                    /*buttons: {
-                        Close: function() {
-                            $( this ).dialog( "close" );
-                            simulatorModal[id] = null;
-                            $("#simulatorModal_"+id).remove();
-                        }
-    
-    
-                    }*/
-                });
-
-            }
-        })
-    }
-
-
-
-
-
 }
 
 
@@ -6680,166 +6108,169 @@ function renderHtml(id, index, obj) {
     return str;
 }
 
-function sendTestMsg() {
-
-}
-
 function exportRule(type) {
 
     let consoleText = codeEditor.getSession().getValue();
 
     let data = {};
     let rule_name = '';
+    let obj ={}
+    switch (type) {
 
-    if (type === 1) {
-        console.log('Domain Rule...!');
-        rule_name = 'domain-rule';
-        data = {
-            lang: 'GROOVY',
-            code: consoleText
-        }
+        case 1:
+            console.log('Domain Rule...!');
+            rule_name = 'domain-rule';
+            data = {
+                lang: 'GROOVY',
+                code: consoleText
+            }
 
+            break;
 
-    } else if (type === 2) {
-        console.log('Message Rule...!');
-        rule_name = 'message-rule-' + CURRENT_ID;
-        data = {
-            lang: 'GROOVY',
-            code: consoleText,
-            messageId: CURRENT_ID
-        }
-
-
-    } else if (type === 3) {
-        console.log('Named Rule...!');
-        rule_name = 'named-rule-' + CURRENT_ID;
-        data = {
-            lang: 'GROOVY',
-            code: consoleText,
-            name: CURRENT_ID
-        }
+        case 2:
+            console.log('Message Rule...!');
+            rule_name = 'message-rule-' + CURRENT_ID;
+            data = {
+                lang: 'GROOVY',
+                code: consoleText,
+                messageId: CURRENT_ID
+            }
 
 
-    } else if (type === 4) {
-        console.log('Schedule Rule...!');
-        rule_name = 'schedule-rule-' + CURRENT_ID;
-        let obj = returnObj(CURRENT_ID, 3);
+            break;
+        case 3:
+            console.log('Named Rule...!');
+            rule_name = 'named-rule-' + CURRENT_ID;
+            data = {
+                lang: 'GROOVY',
+                code: consoleText,
+                name: CURRENT_ID
+            }
 
-        data = {
-            lang: 'GROOVY',
-            code: consoleText,
-            id: CURRENT_ID,
-            pattern: obj.pattern
-        }
 
+            break;
+        case 4:
+            console.log('Schedule Rule...!');
+            rule_name = 'schedule-rule-' + CURRENT_ID;
+            obj = returnObj(CURRENT_ID, 3);
+
+            data = {
+                lang: 'GROOVY',
+                code: consoleText,
+                id: CURRENT_ID,
+                pattern: obj.pattern
+            }
+
+            break;
+        case 6:
+            console.log('Binary Rule...!');
+            rule_name = 'binary-rule-' + CURRENT_ID;
+
+            data = {
+                lang: 'GROOVY',
+                code: consoleText,
+                type: CURRENT_ID,
+            }
+
+            break;
+        case 7:
+            console.log('Job Rule...!');
+            rule_name = 'job-rule-' + CURRENT_ID;
+            obj = returnObj(CURRENT_ID, 7);
+
+            data = {
+                "domainKey": DOMAIN_KEY,
+                "id": CURRENT_ID,
+                "name": "",
+                "jobType": obj.jobType,
+                "jobState": obj.jobState,
+                "jobLanguage": obj.jobLanguage,
+                "code": consoleText,
+                "instances": obj.instances,
+                "startOnBoot": obj.startOnBoot,
+                "systemJob": obj.systemJob,
+                "resartOnChange": obj.resartOnChange,
+            }
+
+            break;
+        case 8:
+            console.log('File Rule...!');
+            rule_name = 'file-rule-' + CURRENT_ID;
+            obj = returnObj(CURRENT_ID, 8);
+
+            data = {
+                lang: 'GROOVY',
+                code: consoleText,
+                type: CURRENT_ID,
+                rootPath: obj.rootPath ? obj.rootPath : '',
+            }
+
+            break;
+        case 9:
+            console.log('Process Rule...!');
+            rule_name = 'process-rule-' + CURRENT_ID;
+            obj = returnObj(CURRENT_ID, 9);
+
+            delete obj._id;
+            obj['code'] = consoleText;
+
+            data = obj;
+
+            break;
+     
+        case 10:
+            console.log('SFTP Rule...!');
+            rule_name = 'sftp-rule-' + CURRENT_ID;
+            obj = returnObj(CURRENT_ID, 10);
+            delete obj._id;
+
+            data = obj;
+            break;
+        case 11:
+            console.log('MQTT Rule...!');
+            rule_name = 'mqtt-rule-' + CURRENT_ID;
+            obj = returnObj(CURRENT_ID, 11);
+            delete obj._id;
+
+            data = obj;
+            break;
+        case 12:
+            console.log('UDP Rule...!');
+            rule_name = 'udp-rule-' + CURRENT_ID;
+            obj = returnObj(CURRENT_ID, 12);
+            delete obj._id;
+
+            data = obj;
+            break;
+        case 13:
+            console.log('TCP Rule...!');
+            rule_name = 'tcp-rule-' + CURRENT_ID;
+            obj = returnObj(CURRENT_ID, 13);
+            delete obj._id;
+            data = obj;
+
+            break;
+        case 14:
+            console.log('EMAIL Rule...!');
+            rule_name = 'email-rule-' + CURRENT_ID;
+            obj = returnObj(CURRENT_ID, 14);
+            delete obj._id;
+
+            data = obj;
+
+
+            break;
+        case 15:
+            console.log('Micro API Rule...!');
+            rule_name = 'micro-rule-' + CURRENT_ID;
+            obj = returnObj(CURRENT_ID, 15);
+            delete obj._id;
+
+            data = obj;
+
+            break;
     }
 
-    else if (type === 6) {
-        console.log('Binary Rule...!');
-        rule_name = 'binary-rule-' + CURRENT_ID;
-        let obj = returnObj(CURRENT_ID, 6);
-
-        data = {
-            lang: 'GROOVY',
-            code: consoleText,
-            type: CURRENT_ID,
-        }
-
-    }
-
-    else if (type === 8) {
-        console.log('File Rule...!');
-        rule_name = 'file-rule-' + CURRENT_ID;
-        let obj = returnObj(CURRENT_ID, 8);
-
-        data = {
-            lang: 'GROOVY',
-            code: consoleText,
-            type: CURRENT_ID,
-            rootPath: obj.rootPath ? obj.rootPath : '',
-        }
-
-    }
-    else if (type === 9) {
-        console.log('Process Rule...!');
-        rule_name = 'process-rule-' + CURRENT_ID;
-        let obj = returnObj(CURRENT_ID, 9);
-
-        delete obj._id;
-        obj['code'] = consoleText;
-
-        data = obj;
-
-    }
-
-    else if (type === 7) {
-        console.log('Job Rule...!');
-        rule_name = 'job-rule-' + CURRENT_ID;
-        let obj = returnObj(CURRENT_ID, 7);
-
-        data = {
-            "domainKey": DOMAIN_KEY,
-            "id": CURRENT_ID,
-            "name": "",
-            "jobType": obj.jobType,
-            "jobState": obj.jobState,
-            "jobLanguage": obj.jobLanguage,
-            "code": consoleText,
-            "instances": obj.instances,
-            "startOnBoot": obj.startOnBoot,
-            "systemJob": obj.systemJob,
-            "resartOnChange": obj.resartOnChange,
-        }
-
-    }
-    else if (type === 10) {
-        console.log('SFTP Rule...!');
-        rule_name = 'sftp-rule-' + CURRENT_ID;
-        let obj = returnObj(CURRENT_ID, 10);
-        delete obj._id;
-
-        data = obj;
-    }
-    else if (type === 11) {
-        console.log('MQTT Rule...!');
-        rule_name = 'mqtt-rule-' + CURRENT_ID;
-        let obj = returnObj(CURRENT_ID, 11);
-        delete obj._id;
-
-        data = obj;
-    } else if (type === 12) {
-        console.log('UDP Rule...!');
-        rule_name = 'udp-rule-' + CURRENT_ID;
-        let obj = returnObj(CURRENT_ID, 12);
-        delete obj._id;
-
-        data = obj;
-    } else if (type === 13) {
-        console.log('TCP Rule...!');
-        rule_name = 'tcp-rule-' + CURRENT_ID;
-        let obj = returnObj(CURRENT_ID, 13);
-        delete obj._id;
-        data = obj;
-
-    } else if (type === 14) {
-        console.log('EMAIL Rule...!');
-        rule_name = 'email-rule-' + CURRENT_ID;
-        let obj = returnObj(CURRENT_ID, 14);
-        delete obj._id;
-
-        data = obj;
-
-
-    } else if (type === 15) {
-        console.log('Micro API Rule...!');
-        rule_name = 'micro-rule-' + CURRENT_ID;
-        let obj = returnObj(CURRENT_ID, 15);
-        delete obj._id;
-
-        data = obj;
-
-
-    }
 
     let dObj = {
         type: type,
@@ -6867,260 +6298,218 @@ function uploadRuleModal() {
 
 function uploadRuleType(type, data) {
 
-    if (type === 1) {
 
-        updateDomainRuleCode(data, function (status, resdata) {
-            if (status) {
-                successMsg('Domain Rule Successfully Uploaded!');
-                domain_rule_obj = data;
-                loadDomainCode();
-                $("#importModal").modal('hide');
-            } else {
-                errorMsg('Error in saving!')
-            }
-
-        })
-
-    } else if (type === 2) {
-
-        updateMessageRuleCode(data, function (status, resdata) {
-            if (status) {
-                successMsg('Message Rule Successfully Uploaded!');
-                loadMessageRulesList();
-                setTimeout(function () {
-                    loadTabbar(data.messageId, 1)
+    switch (type) {
+        case 1:
+            updateDomainRuleCode(data, function (status, resdata) {
+                if (status) {
+                    successMsg('Domain Rule Successfully Uploaded!');
+                    domain_rule_obj = data;
+                    loadDomainCode();
                     $("#importModal").modal('hide');
-                }, 1000)
+                } else {
+                    errorMsg('Error in saving!')
+                }
 
-            } else {
-                errorMsg('Error in saving!')
-            }
-
-        })
-
-    } else if (type === 3) {
-
-        updateNamedRuleCode(data, function (status, resdata) {
-            if (status) {
-                successMsg('Named Rule Successfully Uploaded!');
-                loadNamedRulesList();
-
-                setTimeout(function () {
-                    loadTabbar(data.name, 2)
+            })
+            break;
+    
+        case 2:
+            updateMessageRuleCode(data, function (status, resdata) {
+                if (status) {
+                    loadMessageRulesList(function (status) {
+                        if (status) {
+                            successMsg('Message Rule Successfully Uploaded!');
+                            loadTabbar(data.messageId, 1)
+                            $("#importModal").modal('hide');
+                        }
+                    });
+                } else {
+                    errorMsg('Error in saving!')
                     $("#importModal").modal('hide');
-                }, 1000)
-            } else {
-                errorMsg('Error in saving!')
-            }
-            $("#importModal").modal('hide');
-        })
+                }
 
-    } else if (type === 4) {
+            })
+            break;
+        
+        case 3:
+            updateNamedRuleCode(data, function (status, resdata) {
+                if (status) {
+                    loadNamedRulesList(function () {
+                        successMsg('Named Rule Successfully Uploaded!');
+                        loadTabbar(data.name, 2)
+                        $("#importModal").modal('hide');
+                    });
 
-        updateScheduleRuleCode(data, function (status, resdata) {
-            if (status) {
-                successMsg('Schedule Rule Successfully Uploaded!');
-                loadScheduleRulesList();
-                setTimeout(function () {
-                    loadTabbar(data.id, 3)
+                } else {
+                    errorMsg('Error in saving!')
                     $("#importModal").modal('hide');
-                }, 1000)
+                }
+            })
+            break;
+        
+        case 4:
+            updateScheduleRuleCode(data, function (status, resdata) {
+                if (status) {
+                    loadScheduleRulesList(function () {
+                        successMsg('Schedule Rule Successfully Uploaded!');
+                        loadTabbar(data.id, 3)
+                        $("#importModal").modal('hide');
+                    });
+                } else {
+                    errorMsg('Error in saving!')
+                    $("#importModal").modal('hide');
+                }
+            })
+            break;
+        
+        case 6:
+            updateBinaryRuleCode(data, function (status, resdata) {
+                if (status) {
+                    loadBinaryRulesList(function () {
+                        successMsg('Binary Rule Successfully Uploaded!');
+                        loadTabbar(data.type, 6)
+                        $("#importModal").modal('hide');
+                    });
+                } else {
+                    errorMsg('Error in saving!')
+                    $("#importModal").modal('hide');
+                }
+            })
+            break;
+        case 7:
+            updateJobRuleCode(data, function (status, resdata) {
+                if (status) {
+                    loadJobRulesList(function () {
+                        successMsg('Job Rule Successfully Uploaded!');
+                        loadTabbar(data.id, 7)
+                        $("#importModal").modal('hide');
+                    });
 
-            } else {
-                errorMsg('Error in saving!')
-            }
-            $("#importModal").modal('hide');
-        })
+                } else {
+                    errorMsg('Error in saving!')
+                    $("#importModal").modal('hide');
+                }
+            })
+            break;
+        case 8:
+            updateFileRuleCode(data, function (status, resdata) {
+                if (status) {
+                    loadFileRulesList(function () {
+                        successMsg('File Rule Successfully Uploaded!');
+                        loadTabbar(data.type, 8)
+                        $("#importModal").modal('hide');
+                    });
+                } else {
+                    errorMsg('Error in saving!')
+                    $("#importModal").modal('hide');
+                }
+            })
+            break;
+        case 9:
+            updateProcessRuleCode(data, function (status, resdata) {
+                if (status) {
+                    loadProcessRulesList(function () {
+                        successMsg('Process Rule Successfully Uploaded!');
+                        loadTabbar(data.type, 9)
+                        $("#importModal").modal('hide');
+                    });
+
+                } else {
+                    errorMsg('Error in saving!')
+                    $("#importModal").modal('hide');
+                }
+            })
+            break;
+        case 10:
+            updateInputRuleCode('SFTP', data, function (status, resdata) {
+                if (status) {
+                    loadSftpRulesList(function () {
+                        successMsg('SFTP Rule Successfully Uploaded!');
+                        loadTabbar(data.id, 10)
+                        $("#importModal").modal('hide');
+                    });
+                } else {
+                    errorMsg('Error in saving!')
+                    $("#importModal").modal('hide');
+                }
+            })
+            break;
+        case 11:
+            updateInputRuleCode('MQTT', data, function (status, resdata) {
+                if (status) {
+                    loadMqttRulesList(function () {
+                        successMsg('MQTT Rule Successfully Uploaded!');
+                        loadTabbar(data.id, 11)
+                        $("#importModal").modal('hide');
+                    });
+
+                } else {
+                    errorMsg('Error in saving!')
+                    $("#importModal").modal('hide');
+                }
+            })
+            break;
+        case 12:
+            updateInputRuleCode('UDP', data, function (status, resdata) {
+                if (status) {
+                    loadUdpRulesList(function () {
+                        successMsg('UDP Rule Successfully Uploaded!');
+                        loadTabbar(data.id, 12)
+                        $("#importModal").modal('hide');
+                    });
+
+                } else {
+                    errorMsg('Error in saving!')
+                    $("#importModal").modal('hide');
+                }
+            })
+            break;
+        case 13:
+            updateInputRuleCode('TCP', data, function (status, resdata) {
+                if (status) {
+                    loadTcpRulesList(function () {
+                        successMsg('TCP Rule Successfully Uploaded!');
+                        loadTabbar(data.id, 13)
+                        $("#importModal").modal('hide');
+                    });
+
+                } else {
+                    errorMsg('Error in saving!')
+                    $("#importModal").modal('hide');
+                }
+            })
+            break;
+        case 14:
+            updateInputRuleCode('EMAIL', data, function (status, resdata) {
+                if (status) {
+                    loadEmailRulesList(function () {
+                        successMsg('EMAIL Rule Successfully Uploaded!');
+                        loadTabbar(data.id, 14)
+                        $("#importModal").modal('hide');
+                    });
+
+                } else {
+                    errorMsg('Error in saving!')
+                    $("#importModal").modal('hide');
+                }
+            })
+            break;
+        case 15:
+            updateMicroRuleCode(data, function (status, resdata) {
+                if (status) {
+                    loadMicroRulesList(function () {
+                        successMsg('Micro API Rule Successfully Uploaded!');
+                        loadTabbar(data.name, 5)
+                        $("#importModal").modal('hide');
+                    });
+                } else {
+                    errorMsg('Error in saving!')
+                    $("#importModal").modal('hide');
+                }
+            })
+            break;
     }
-    else if (type === 6) {
-
-        updateBinaryRuleCode(data, function (status, resdata) {
-            if (status) {
-                successMsg('Binary Rule Successfully Uploaded!');
-                loadBinaryRulesList();
-                setTimeout(function () {
-                    loadTabbar(data.type, 6)
-                    $("#importModal").modal('hide');
-                }, 1000)
-
-            } else {
-                errorMsg('Error in saving!')
-            }
-            $("#importModal").modal('hide');
-        })
-    }
-    else if (type === 8) {
-
-        updateFileRuleCode(data, function (status, resdata) {
-            if (status) {
-                successMsg('File Rule Successfully Uploaded!');
-                loadFileRulesList();
-                setTimeout(function () {
-                    loadTabbar(data.type, 8)
-                    $("#importModal").modal('hide');
-                }, 1000)
-
-            } else {
-                errorMsg('Error in saving!')
-            }
-            $("#importModal").modal('hide');
-        })
-    }
-    else if (type === 9) {
-
-        updateProcessRuleCode(data, function (status, resdata) {
-            if (status) {
-                successMsg('Process Rule Successfully Uploaded!');
-                loadProcessRulesList();
-                setTimeout(function () {
-                    loadTabbar(data.type, 9)
-                    $("#importModal").modal('hide');
-                }, 1000)
-
-            } else {
-                errorMsg('Error in saving!')
-            }
-            $("#importModal").modal('hide');
-        })
-    }
-    else if (type === 7) {
-
-        updateJobRuleCode(data, function (status, resdata) {
-            if (status) {
-                successMsg('Job Rule Successfully Uploaded!');
-                loadJobRulesList()();
-                setTimeout(function () {
-                    loadTabbar(data.id, 7)
-                    $("#importModal").modal('hide');
-                }, 1000)
-
-            } else {
-                errorMsg('Error in saving!')
-            }
-            $("#importModal").modal('hide');
-        })
-    }
-    else if (type === 10) {
-
-        updateInputRuleCode('SFTP', data, function (status, resdata) {
-            if (status) {
-                successMsg('SFTP Rule Successfully Uploaded!');
-
-                setTimeout(function () {
-                    loadSftpRulesList();
-                    $("#importModal").modal('hide');
-                }, 500)
-                setTimeout(function () {
-                    loadTabbar(data.id, 10)
-                }, 250)
-
-            } else {
-                errorMsg('Error in saving!')
-            }
-            $("#importModal").modal('hide');
-        })
-    } else if (type === 11) {
-
-        updateInputRuleCode('MQTT', data, function (status, resdata) {
-            if (status) {
-                successMsg('MQTT Rule Successfully Uploaded!');
-
-                setTimeout(function () {
-                    loadMqttRulesList();
-                    // loadTabbar(data.id,10)
-                    $("#importModal").modal('hide');
-                }, 500)
-                setTimeout(function () {
-                    loadTabbar(data.id, 11)
-                }, 250)
-
-            } else {
-                errorMsg('Error in saving!')
-            }
-            $("#importModal").modal('hide');
-        })
-    } else if (type === 12) {
-
-        updateInputRuleCode('UDP', data, function (status, resdata) {
-            if (status) {
-                successMsg('UDP Rule Successfully Uploaded!');
-
-                setTimeout(function () {
-                    loadUdpRulesList();
-                    // loadTabbar(data.id,10)
-                    $("#importModal").modal('hide');
-                }, 500)
-                setTimeout(function () {
-                    loadTabbar(data.id, 12)
-                }, 250)
-
-            } else {
-                errorMsg('Error in saving!')
-            }
-            $("#importModal").modal('hide');
-        })
-    } else if (type === 13) {
-
-        updateInputRuleCode('TCP', data, function (status, resdata) {
-            if (status) {
-                successMsg('TCP Rule Successfully Uploaded!');
-
-                setTimeout(function () {
-                    loadTcpRulesList();
-                    // loadTabbar(data.id,10)
-                    $("#importModal").modal('hide');
-                }, 500)
-                setTimeout(function () {
-                    loadTabbar(data.id, 13)
-                }, 250)
-
-            } else {
-                errorMsg('Error in saving!')
-            }
-            $("#importModal").modal('hide');
-        })
-    } else if (type === 14) {
-
-        updateInputRuleCode('EMAIL', data, function (status, resdata) {
-            if (status) {
-                successMsg('EMAIL Rule Successfully Uploaded!');
-
-                setTimeout(function () {
-                    loadEmailRulesList();
-                    // loadTabbar(data.id,10)
-                    $("#importModal").modal('hide');
-                }, 500)
-                setTimeout(function () {
-                    loadTabbar(data.id, 14)
-                }, 250)
-
-            } else {
-                errorMsg('Error in saving!')
-            }
-            $("#importModal").modal('hide');
-        })
-    }
-    else if (type === 15) {
-
-        updateMicroRuleCode(data, function (status, resdata) {
-            if (status) {
-                successMsg('Micro API Rule Successfully Uploaded!');
-
-                setTimeout(function () {
-                    loadMicroRulesList();
-                    // loadTabbar(data.id,10)
-                    $("#importModal").modal('hide');
-                }, 500)
-                setTimeout(function () {
-                    loadTabbar(data.name, 5)
-                }, 250)
-            } else {
-                errorMsg('Error in saving!')
-            }
-            $("#importModal").modal('hide');
-        })
-    }
-
 }
 
 
@@ -7269,7 +6658,7 @@ function renderContext(search, id) {
         let val = context_list[i];
 
         $(".cBody").append('<li class="ml-1 mr-1 ' + (id == val.name ? 'helpHighlight' : '') + '" style="border: 1px solid #eee;padding: 10px 15px">' +
-            '<a class="text-dark" style="" href="javascript:void(0)" onclick="renderContext(\'' + '' + '\',\'' + val.name + '\')">' + val.name + '</a></li>')
+            '<a class="text-dark"  href="javascript:void(0)" onclick="renderContext(\'' + '' + '\',\'' + val.name + '\')">' + val.name + '</a></li>')
 
         let str = '';
 

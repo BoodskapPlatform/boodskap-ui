@@ -8,7 +8,7 @@ $(document).ready(function () {
     loadTemplates();
 
     $("body").removeClass('bg-white');
-
+    $('.help-url').attr('href',HELP_URL+"executemultidbtemplates");
 });
 
 

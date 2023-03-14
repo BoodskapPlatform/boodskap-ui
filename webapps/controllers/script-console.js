@@ -577,6 +577,10 @@ function executeScriptCommand() {
             }
 
         });
+        var ui = '<div style="position: absolute;right: 30px;cursor: pointer;z-index:2;">'+
+                '<button class="btn btn-sm btn-icon btn-default" onclick="toggleFullscreen(\'consoleBox\')" title="Toggle Screen" fdprocessedid="69746"><i class="icon-maximize"></i></button>'+
+            '</div>'
+        $("#consoleBox").prepend(ui);
     }
 
 }

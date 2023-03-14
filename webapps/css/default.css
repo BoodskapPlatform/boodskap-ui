@@ -519,7 +519,12 @@ table.table td.details-control {
 table.table tr.shown td.details-control {
     background: url('images/details_close.png') no-repeat center center;
 }
-
+.details-expand{
+    cursor: pointer;
+}
+.sorting_disabled{
+    cursor: default;
+}
 
 .domain-select-list{
     max-height: 55vh;

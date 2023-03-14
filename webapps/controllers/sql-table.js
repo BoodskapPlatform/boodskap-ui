@@ -17,6 +17,8 @@ $(document).ready(function () {
     document.getElementById('importFile')
         .addEventListener('change', getImportFile)
 
+    $('.help-url').attr('href',HELP_URL+"sql");
+
 });
 
 
@@ -591,7 +593,9 @@ function addSQLTable() {
     createSQLTable(msgObj, ignore, function (status, data) {
         if (status) {
             successMsg('Table Created Successfully');
-            loadSQLTable();
+            setTimeout(() => {
+                loadSQLTable();
+            }, 1000);
             $("#addSQLTable").modal('hide');
         } else {
             errorMsg('Error in Creating Table')

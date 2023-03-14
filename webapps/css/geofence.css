@@ -408,3 +408,6 @@ table.dataTable span.column_highlight {
 .bskp-table-layout{
   padding: 15px !important;
 }
+.bskp-search-left input{
+  width: 260px !important;
+}

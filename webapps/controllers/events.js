@@ -10,6 +10,7 @@ var current_event_address = null;
 $(document).ready(function () {
 
     loadEvents();
+    $('.help-url').attr('href',HELP_URL+"upsertevent");
 
     $("body").removeClass('bg-white');
 
@@ -29,7 +30,7 @@ function loadEvents() {
     var fields = [
         // {
         //     sTitle: '',
-        //     "class": "details-control",
+        //     "class": "details-expand",
         //     "defaultContent": "",
         //     orderable: false,
         //     sWidth: '5%',
@@ -40,26 +41,26 @@ function loadEvents() {
         {
             mData: 'id',
             sTitle: 'Event ID',
-            "class": "details-control",
+            "class": "details-expand",
             "orderable": true,
             sWidth: '10%',
         },
         {
             mData: 'name',
             sTitle: 'Event  Name',
-            "class": "details-control",
-            "orderable": true,
+            "class": "details-expand",
+            "orderable": false,
         },
         {
             mData: 'subject',
             sTitle: 'Subject',
-            "class": "details-control",
+            "class": "details-expand",
             orderable: false,
         },
         {
             mData: 'content',
             sTitle: 'Content',
-            "class": "details-control",
+            "class": "details-expand",
             orderable: false,
             mRender: function (data, type, row) {
 
@@ -194,7 +195,7 @@ function loadEvents() {
     // Array to track the ids of the details displayed rows
     var detailRows = [];
 
-    $('#eventTable tbody').on('click', '.details-control', function () {
+    $('#eventTable tbody').on('click', '.details-expand', function () {
 
         $(".eventRow").parent().hide();
         var tr = $(this).closest('tr');

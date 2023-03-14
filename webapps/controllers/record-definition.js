@@ -14,6 +14,9 @@ $(document).ready(function () {
     $('body').removeClass('bg-white')
    document.getElementById('importFile')
         .addEventListener('change', getImportFile)
+
+    $('.help-url').attr('href',HELP_URL+"upsertrecorddefinition");
+
 });
 
 
@@ -90,6 +93,7 @@ function loadRecordDef() {
                 next: 'Next >'
             }
         },
+        aaSorting: [[0, 'desc']],
         lengthMenu: [[10, 50, 100], [10, 50, 100]],
         aoColumns: fields,
         data: []

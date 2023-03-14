@@ -1,61 +1,36 @@
-<style>
-    .fileList .colBase{
-        margin-top: 10px;
-    }
-    .fileList div div {
-        height: 100px;border: 1px solid #eee;text-align: center;padding: 5px;box-shadow: -3px 3px 8px #eee;
-    }
+<link rel="stylesheet" href="css/files.css">
+<div class="container mt-3 platformBody" style="    padding: 50px; padding-top: 14px;">
 
-    .fileList span{
-        position: absolute;
-        left:0px;
-        top:0px;
-    }
-
-    .fileList img {
-        max-width: 75%;
-        max-height: 75%;
-    }
-
-    .fileList img:hover {
-        max-width: 100%;
-        max-height: 100%;
-        cursor: pointer;
-    }
-    .modal-header .close{
-        outline: none !important;
-    }
-    .active{
-        text-decoration: underline;
-    }
-    .panel.panel-loading .panel-body .panel-loader {
-    opacity: 1 !important;
-}
-</style>
-<div class="container mt-3 platformBody">
-    <!-- begin breadcrumb -->
-    <ol class="breadcrumb pull-right">
-        <li class="breadcrumb-item"><a href="<%= basepath %>/home">Home</a></li>
-        <li class="breadcrumb-item active">File Storage</li>
-    </ol>
-    <!-- end breadcrumb -->
-    <!-- begin page-header -->
-    <h1 class="page-header">File Storage</h1>
-    <!-- end page-header -->
-
-    <!-- begin panel -->
-    <div id="modalExpand" class="panel panel-inverse">
+    <div id="modalExpand" class="panel panel-inverse" style="border-radius: 17px; border:1px solid #2c2f7980;">
         <div class="panel-heading">
-            <div class="panel-heading-btn">
-                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-default" data-click="panel-expand" onclick="expand()"><i
-                        class="fa fa-expand" title="Expand"></i></a>
-                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-success" data-click="panel-reload"
-                   onclick="loadFiles()"><i class="fa fa-redo" title="Refresh"></i></a>
-                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-warning" title="Help"><i
-                        class="icon-help"></i></a>
+            <div class="bskp-Dbg bskp-Dimg12" id="file-img"></div>
+            <h1 class="page-header">File Storage</h1>
+
+            <div id="file-counts" class="col-lg-2 col-md-2">
+                <div class="form-group">
+                    <label id="filecount-label" >Total Files: </label>
+                    <h3 class="filesCount" ></h3>
+                </div>
+            </div>
+
+            <div class="panel-heading-btn" >
+
+                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-default" data-click="panel-expand" onclick="expand()" style="background-color: #EAF2F9;width: 25px; height: 25px; padding-top: 1px;"><i class="fa fa-expand" title="Expand"></i></a>
+                <a href="https://developer.boodskap.io/docs" class="btn btn-sm btn-icon btn-circle btn-warning" title="Help" target="_blank" style="background-color: #cee2f2;;    width: 25px;height: 25px;padding-top: 1px;color: black;"><i class="icon-help"></i></a>
+                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-success" data-click="panel-reload"onclick="loadFiles()" style="background-color: #90A1B7;width: 25px;height: 25px;padding-top: 1px;"><i class="fa fa-refresh" title="Refresh"></i></a>
+
 
             </div>
-            <h4 class="panel-title">
+
+            <div id="breadcrumb" >
+                <ol class="breadcrumb pull-right bskp-align-icon" style="font-weight: 400;">
+                <li class="breadcrumb-item"><a href="https://v5dev.boodskap.io/console/home">Home</a></li>
+                <li class="breadcrumb-item active"><u>File Storage</u></li>
+            </ol>
+            </div>
+
+
+             <!-- <h4 class="panel-title">
 
                 <select class="input-sm" id="fileType" onchange="loadFiles()">
                     <option value="">Choose File Type</option>
@@ -63,37 +38,53 @@
                     <option value="false">Private</option>
                 </select>
 
-              </h4>
+            </h4>  -->
+            
         </div>
-        <div class="panel-body" style="background-color: #eeeeee00;border: 1px solid #eee;padding-bottom:30px;">
-            <form action="javascript:void(0)" onsubmit="loadFiles()">
-            <div class="row" style="border-bottom: 1px dashed #eee;">
-                <div class="col-lg-1 col-md-1" style="text-align: center">
-                    <div class="form-group">
-                       <label>Total Files</label>
-                        <h3 class="filesCount"></h3>
+        <div class="panel-body" >
+            
+                <div class="row" style="border-bottom: 2px solid #eee;padding-top: 7px;padding-bottom: 5px;">
+            <form action="javascript:void(0)" onsubmit="loadFiles()"></form>
+                    <div class="col-sm-12 col-lg-3 col-md-4">
+                        <div class="form-group" style="position: relative;">
+                            <i class="fa fa-search" aria-hidden="true"style="position: absolute;top: 11px;left: 34px;font-size: 12px;color:darkgrey;"></i> 
+                            <input class="form-control form-control-lg" id="searchText" placeholder="search here .." onkeyup="loadFiles()" >
+
+                        </div>
                     </div>
-                </div>
-                <div class="col-lg-7 col-md-7">
-                    <div class="form-group">
-                        <input class="form-control form-control-lg" id="searchText" placeholder="Search by keywords">
-
+                    <div class="col-lg-3  col-md-1">
+                        <!-- <button type="submit" class="btn btn-block btn-default btn-lg"><i class="icon-search"></i>
+                            Search</button> -->
                     </div>
-                </div>
-                <div class="col-lg-2  col-md-2">
-                    <button type="submit" class="btn btn-block btn-default btn-lg"><i class="icon-search"></i> Search</button>
-                </div>
-
-
-                <div class="col-lg-2  col-md-2">
-                    <button class="btn btn-default btn-block btn-lg" onclick="openModal(1);fade()" style="margin-right: 20px;"><i class="icon-upload4"></i> Upload File</button>
-
-                </div>
-            </div>
             </form>
+                    <div class="col-lg-2 col-md-4 col-sm-12"  id="fileType" onchange="loadFiles()">
+                        <button onclick="loadFiles('')" id="all-btn" >ALL</button>
+                        <button onclick="loadFiles('true')" id="public-btn" >Public</button>
+                        <button onclick="loadFiles('false')" id="private-btn" >Private</button>
+                    </div>
 
-            <div class="row fileList" style="clear: both">
+                    <div class="col-sm-12 col-md-2 col-lg-1">
+                        <div id="views" >
+                           <button onclick="gridView()" title="Grid View" id="grid-btn" ><img id="grid-img"  src="images/Grid.svg" alt=""></button>
+                           <button onclick="listView()" title="List View" id="list-btn" ><img id="list-img"  src="images/List.svg" alt=""></button>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2  col-md-2" style="text-align: -webkit-center;">
+                        <button class="btn btn-default btn-block btn-lg" onclick="openModal(1);fade()" id="file-upload"><img id="upload-img"  src="images/upload.svg" alt=""> Upload File</button>
+                    </div>
+                </div>
+            
+
+            <div class="col-12" style="padding-top: 25px;padding-bottom: 15px;">
+                <button onclick="selectAll(event)" id="select-all" class="">Select All</button>
+                <span id="selected-files" ><i class="fa fa-check-circle" aria-hidden="true" style="color: green;font-size: 15px;"></i> <span id="checked-count"></span> File Selected  <i class="fa fa-trash-o" id="" onclick="openModal(3)" aria-hidden="true" style="font-size: 15px;color: red;cursor: pointer;"></i></span>
             </div>
+
+
+            <div class="row fileList" style="clear: both;margin-left: 7px;width: 99%;">
+            </div>
+
             <div class="row mt-3 loadMore">
                 <div class="col-md-12">
                     <button class="btn btn-block btn-default btn-lg loadMoreButton" onclick="loadMorePage()">Load More</button>
@@ -120,13 +111,14 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Delete File</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
-                <h5>Are you sure want to delete this image</b>?</h5>
+                <h5>Are you sure want to delete this file</b>?</h5>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default close-btn" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btnModal" onclick="proceedDelete()">Proceed</button>
             </div>
         </div><!-- /.modal-content -->
@@ -134,17 +126,16 @@
 </div><!-- /.modal -->
 
 
-<div id="addFile" class="modal fade" tabindex="-1" role="dialog" style="">
+<div id="addFile" class="modal fade" tabindex="-1" role="dialog" >
     <div class="modal-dialog" role="document" id="modalElement">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title"><i class="icon-file-picture-o"></i> <span class="fileAction"></span> File</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
 
             <form action="javascript:void(0)" name="fileForm" enctype="multipart/form-data" onsubmit="addFile()"
-                  novalidate autocomplete="off">
+                novalidate autocomplete="off">
 
                 <div class="modal-body" style="padding-top:0px">
 
@@ -173,7 +164,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>Tags</label>
-                                <input class="form-control input-sm" id="file_tags" maxlength="100" required/>
+                                <input class="form-control input-sm" id="file_tags" maxlength="100" required />
                                 <small>comma separated</small>
                             </div>
                         </div>
@@ -189,7 +180,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default btn-border" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-default btn-border close-btn" data-dismiss="modal">Close</button>
                     <button type="submit" id="uploadBtn" class="btn btnModal btnSubmit">Upload File</button>
                 </div>
             </form>
@@ -197,3 +188,4 @@
     </div>
 </div>
 
+              

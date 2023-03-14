@@ -330,6 +330,9 @@ function listMessageRules(pageSize, direction, mid, cbk) {
         url: API_BASE_PATH + "/rules/list/" + API_TOKEN_ALT + "/" + pageSize,
         data: data,
         type: 'GET',
+        "headers": {
+            "TOKEN": API_TOKEN
+        },
         success: function (data) {
             //called when successful
             cbk(true, data);
@@ -436,6 +439,9 @@ function listProcessRules(query,type, cbk) {
             url: API_BASE_PATH + "/elastic/search/query/" + API_TOKEN_ALT,
             data: JSON.stringify(data),
             contentType: "application/json",
+            "headers": {
+                "TOKEN": API_TOKEN
+            },
             type: 'POST',
             success: function (data) {
                 //called when successful
@@ -518,6 +524,9 @@ function listInputRules(type,cbk) {
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
+        "headers": {
+            "TOKEN": API_TOKEN
+        },
         success: function (data) {
             //called when successful
             cbk(true, data);
@@ -545,6 +554,9 @@ function listMessageSpec(pageSize, direction, mid, cbk) {
         url: API_BASE_PATH + "/mspec/list/" + API_TOKEN_ALT + "/" + pageSize,
         data: data,
         type: 'GET',
+        "headers": {
+            "TOKEN": API_TOKEN
+        },
         success: function (data) {
             //called when successful
             cbk(true, data);
@@ -595,6 +607,9 @@ function getDomainrule(cbk) {
         url: API_BASE_PATH + "/drules/get/" + API_TOKEN_ALT,
         data: data,
         type: 'GET',
+        "headers": {
+            "TOKEN": API_TOKEN
+        },
         success: function (data) {
             //called when successful
             cbk(true, data);
@@ -1395,7 +1410,7 @@ function deleteRecordDef(data, cbk) {
 
 function deleteMessagRule(data, cbk) {
 
-
+    console.log(data);
     $.ajax({
         url: API_BASE_PATH + "/rules/delete/" + API_TOKEN_ALT + '/' + data,
         // data:  JSON.stringify(data),
@@ -1536,7 +1551,7 @@ function upsertUser(data, cbk) {
         error: function (e) {
             //called when there is an error
             //console.log(e.message);
-            cbk(false, e);
+            cbk(false, e.responseJSON);
         }
     });
 }
@@ -2468,6 +2483,9 @@ function searchByAbortQuery(id, type, data, cbk) {
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
+        "headers": {
+            "TOKEN": API_TOKEN
+        },
         success: function (data) {
             //called when successful
             cbk(true, data);
@@ -2491,6 +2509,9 @@ function searchByQuery(id, type, data, cbk) {
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
+        "headers": {
+            "TOKEN": API_TOKEN
+        },
         success: function (data) {
             //called when successful
             cbk(true, data);
@@ -2575,6 +2596,9 @@ function searchDevice(data, cbk) {
         data: JSON.stringify(data),
         contentType: "application/json",
         type: 'POST',
+        "headers": {
+            "TOKEN": API_TOKEN
+        },
         success: function (data) {
             //called when successful
             cbk(true, data);
@@ -3343,7 +3367,7 @@ function retrieveDomainUserGroup(gid, cbk) {
         error: function (e) {
             //called when there is an error
             //console.log(e.message);
-            cbk(false, e);
+            cbk(false, e.responseJSON);
         }
     });
 }

@@ -10,6 +10,7 @@ var current_event_address = null;
 $(document).ready(function () {
 
     loadEvents();
+    $('.help-url').attr('href',HELP_URL+"registerevent");
 
     $("body").removeClass('bg-white');
 
@@ -30,26 +31,26 @@ function loadEvents() {
         {
             mData: 'id',
             sTitle: 'Event ID',
-            "class": "details-control",
+            "class": "details-expand",
             "orderable": true,
             sWidth: '10%',
         },
         {
             mData: 'name',
             sTitle: 'Event  Name',
-            "class": "details-control",
-            "orderable": true,
+            "class": "details-expand",
+            "orderable": false,
         },
         {
             mData: 'subject',
             sTitle: 'Subject',
-            "class": "details-control",
+            "class": "details-expand",
             orderable: false,
         },
         {
             mData: 'content',
             sTitle: 'Content',
-            "class": "details-control",
+            "class": "details-expand",
             orderable: false,
             mRender: function (data, type, row) {
 
@@ -82,8 +83,8 @@ function loadEvents() {
         aoColumns: fields,
         searchable: true,
         "ordering": true,
-        scrollY: '100px',
-        scrollCollapse: true,
+        // scrollY: '100px',
+        // scrollCollapse: true,
         iDisplayLength: 10,
         lengthMenu: [[10, 50, 100], [10, 50, 100]],
                        dom: '<"bskp-search-left" f> lrtip',
@@ -172,7 +173,7 @@ function loadEvents() {
     eventTable = $("#eventTable").DataTable(tableOption);
     $(".dataTables_scrollBody").removeAttr("style").css({"min-height":"calc(100vh - 425px)","position":"relative","width":"100%"});
     var detailRows = [];
-    $('#eventTable tbody').on('click', '.details-control', function () {
+    $('#eventTable tbody').on('click', '.details-expand', function () {
         $(".eventRow").parent().hide();
         var tr = $(this).closest('tr');
         var row = eventTable.row(tr);

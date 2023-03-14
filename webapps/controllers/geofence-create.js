@@ -64,11 +64,12 @@ $(document).ready(function () {
        $('.value-box').val("")
     });
 
-    console.log($("#geoCreateType").val());
+    $('.help-url').attr('href',HELP_URL+"upsertgeofence");
+
 
     $("#geofenceCreateType option[value=" + $("#geoCreateType").val()+"]").attr("selected","selected") ;
 
-
+    getGeofenceList()
     /*setTimeout(function () {
         openSlider();
     },1000);*/
@@ -221,7 +222,7 @@ function upsertEntityGeofence(){
     geoInputObj['name'] = geofenceObj.name ? geofenceObj.name :"";
     geoInputObj['geoType'] = geofenceObj.geoType;
     geoInputObj['label'] = geofenceObj.label;
-    geoInputObj['description'] = geofenceObj.description;
+    geoInputObj['description'] = geofenceObj.description.trim();
     geoInputObj['coordinates'] = JSON.stringify(geoInputObj.coordinates);
     geoInputObj['createdAt'] = new Date().getTime();
     geoInputObj['entityId'] = guid();
@@ -230,8 +231,15 @@ function upsertEntityGeofence(){
     geoInputObj['geometries']['type'] = geoInputObj.geoType;
     geoInputObj['geometries']['coordinates'] = geoInputObj.coordinates;
     geoInputObj['geometries'] = JSON.stringify(geoInputObj.geometries);
-
     
+    let find_duplicate = false
+    if (geodata.length > 0) {
+        geodata.forEach(element => {
+            if (element.name === geoInputObj.name) {
+                find_duplicate = true;
+            }
+        });
+    }
 
    if(!geofenceObj.name){
         showFeedbackAlert('Geofence name is required','name','nameAlert');
@@ -243,6 +251,8 @@ function upsertEntityGeofence(){
         showFeedbackAlert('Label is required','label','labelAlert');
 
 
+    }else if(find_duplicate){
+        showFeedbackAlert('Geofence name already exists','name','nameAlert');
     } else{
 
         if(geofenceObj.geoType === 'POINT'){
@@ -331,7 +341,7 @@ function upsertEntityGeofence(){
                 });
 
             } else if (result.dismiss === Swal.DismissReason.cancel) {
-                Swal("Error", "Now You Can Edit", "info");
+                Swal("Edit", "Now You Can Edit", "info");
             }
         });
 
@@ -943,7 +953,9 @@ function proceedDelete() {
     deleteEntityGeofence(current_geofence_id,function (status, data) {
         if (status) {
             successMsg('Geofence Deleted Successfully');
-            loadGeofenceList();
+            setTimeout(() => {
+                 loadGeofenceList();
+            }, 1500);
             $("#deleteModal").modal('hide');
         } else {
             errorMsg('Error in delete')
@@ -1237,19 +1249,35 @@ function  loadNxtMsg() {
 
 
 function getGeofenceList(){
-
-    var pageSize = 100;
-
+    var queryParams = {
+        query: {
+            "bool": {
+                "must": [
+                    { "match": { "domainKey": DOMAIN_KEY, } }
+                ]
+            }
+        },
+        sort: [{ "createdAt": { "order": "desc" } }]
+    };
+    var ajaxObj = {
+        "method": "GET",
+        "extraPath": "",
+        "query": JSON.stringify(queryParams),
+        "params": [],
+        type: 'GEOFENCE'
+    };
+    
     $.ajax({
-        url: API_BASE_PATH + "/geofence/list/" + API_TOKEN_ALT + "/" + pageSize,
-        data: data,
-        type: 'GET',
+        url: API_BASE_PATH + '/elastic/search/query/' + API_TOKEN_ALT,
+        "dataType": 'json',
+        "contentType": 'application/json',
+        "type": "POST",
+        "data": JSON.stringify(ajaxObj),
         success: function (data) {
 
-            geodata = res;
-            geofenceMapManagement();
-            google.maps.event.trigger(geoMapio, 'resize'); // Refresh Map
-            restoreRecord();
+            var fullObj = searchQueryFormatterNew(data);
+            geodata = fullObj.data.data;
+
         },
         error: function (e) {
             console.log(e.message);
@@ -1595,6 +1623,7 @@ function mapPreview(){
     });
 
     infowindow.open(map, newGeoMarker);
+    enableFn('map-preview')
 
     if(geofenceObj.geoType == "POINT"){
 

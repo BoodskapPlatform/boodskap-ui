@@ -8,6 +8,7 @@ $(document).ready(function () {
     loadAssetList();
     $('.dataTables_filter input').attr('maxlength', 50);
     $("body").removeClass('bg-white');
+    $('.help-url').attr('href',HELP_URL+"upsertasset");
 
 });
 
@@ -43,6 +44,15 @@ function loadAssetList() {
             sTitle: 'Description',
             sWidth: '35%',
             orderable: false,
+            mRender: function (data, type, row) {
+
+                data = data.replace(/&/g, "&amp");
+                data = data.replace(/</g, "&lt");
+                data = data.replace(/>/g, "&gt");
+
+                return '<div style="max-width: 500px;" class="text-truncate" title="'+data+'">'+data+'</div>';
+
+            }
         },
         {
             mData: 'registeredStamp',

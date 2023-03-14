@@ -8,6 +8,7 @@ $(document).ready(function () {
     }
     
     loadLogs();
+    $('.help-url').attr('href',HELP_URL+"getdevicemessage");
 
     $("body").removeClass('bg-white');
 

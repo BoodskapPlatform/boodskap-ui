@@ -966,7 +966,8 @@ function chartTemplateLoader(){
                 { value: (active_plan_obj.details.api_hits - current_plan_usage.apiHits), name: 'Remaining' },
                 { value: current_plan_usage.apiHits, name: 'Used' }
             ],
-            subTitle : current_plan_usage.apiHits+`/ <i class='fa fa-cogs'></i> `+active_plan_obj.details.api_hits,
+            subTitle: current_plan_usage.apiHits + `/ <i class='fa fa-cogs'></i> ` + active_plan_obj.details.api_hits,
+            title: "Api Hits"
         },
         {
             chartId : 'dataPointsCountChart',
@@ -975,34 +976,40 @@ function chartTemplateLoader(){
                 { value: (active_plan_obj.details.data_points - current_plan_usage.dataPoints), name: 'Remaining' },
                 { value: current_plan_usage.dataPoints, name: 'Used' }
               ],
-              subTitle : current_plan_usage.dataPoints+`/ <i class='fa fa-database'></i> `+active_plan_obj.details.data_points
+            subTitle: current_plan_usage.dataPoints + `/ <i class='fa fa-database'></i> ` + active_plan_obj.details.data_points,
+            title: "Data Points"
         },
         {
             chartId : 'domainsCountChart',
             chartTitle : ((active_plan_obj.details.tenants - current_plan_usage.domains) < 1) ? `<i class='fa fa-circle' style="color:red"></i>` : `<i class='fa fa-circle' style="color:#4caf50"></i>`+` Domains`,
             chartData : [
                 { value: (active_plan_obj.details.tenants - current_plan_usage.domains), name: 'Remaining' },
-                { value: current_plan_usage.dataPoints, name: 'Used' }
+                { value: current_plan_usage.domains, name: 'Used' }
               ],
-              subTitle : current_plan_usage.domains+`/ <i class='fa fa-globe'></i> `+active_plan_obj.details.tenants
+            subTitle: current_plan_usage.domains + `/ <i class='fa fa-globe'></i> ` + active_plan_obj.details.tenants,
+            title: "Domains"
         },
         {
             chartId : 'devicesCountChart',
-            chartTitle : ((active_plan_obj.details.devices - current_plan_usage.devices) < 1) ? `<i class='fa fa-circle' style="color:red"></i>` : `<i class='fa fa-circle' style="color:#4caf50"></i>`+` Devices`,
+            chartTitle: ((active_plan_obj.details.devices - current_plan_usage.devices) < 1) ? `<i class='fa fa-circle' style="color:red"></i> Devices` : `<i class='fa fa-circle' style="color:#4caf50"></i>`+` Devices`,
             chartData : [
                 { value: (active_plan_obj.details.devices - current_plan_usage.devices), name: 'Remaining' },
-                { value: current_plan_usage.dataPoints, name: 'Used' }
+                { value: current_plan_usage.devices, name: 'Used' }
               ],
-              subTitle : current_plan_usage.devices+`/ <i class='fa fa-hdd'></i> `+active_plan_obj.details.devices
+            subTitle: current_plan_usage.devices + `/ <i class='fa fa-hdd'></i> ` + active_plan_obj.details.devices,
+            title: "Devices"
+
         },
         {
             chartId : 'connectedDevicesCountChart',
             chartTitle : ((active_plan_obj.details.connected_devices - current_plan_usage.connectedDevices) < 1) ? `<i class='fa fa-circle' style="color:red"></i> ` : `<i class='fa fa-circle' style="color:#4caf50"></i>`+` Connected Devices`,
             chartData : [
                 { value: (active_plan_obj.details.connected_devices - current_plan_usage.connectedDevices), name: 'Remaining' },
-                { value: current_plan_usage.dataPoints, name: 'Used' }
+                { value: current_plan_usage.connectedDevices, name: 'Used' }
               ],
-              subTitle : current_plan_usage.connectedDevices+`/ <i class='fa fa-wifi'></i> `+active_plan_obj.details.connected_devices
+            subTitle: current_plan_usage.connectedDevices + `/ <i class='fa fa-wifi'></i> ` + active_plan_obj.details.connected_devices,
+            title: "Connected Devices"
+
         }
     ];
 
@@ -1049,7 +1056,7 @@ function renderUsageCharts(chartObj, planUsage){
             },
             series: [
               {
-                name: 'API Hits',
+                name: chartObj.title,
                 type: 'pie',
                 color: ["#4caf50","#cccccc"],
                 radius: ['62%', '80%'],
@@ -1070,7 +1077,7 @@ function renderUsageCharts(chartObj, planUsage){
                         show: true,
                     },
                     position: 'center',
-                    formatter: function(data) {
+                    formatter: function (data) {
                         var percentage = (data.value / total * 100).toFixed(1);
                         return '\n{boldValue|' + percentage + '%}'+ '\n\n' +data.name;
                     },
