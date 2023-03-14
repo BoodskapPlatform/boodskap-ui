@@ -646,3 +646,7 @@ label {
   font-size: 12px;
   margin-bottom: 10px;
 }
+
+input::placeholder{
+  color: #bbbbbb !important;
+}

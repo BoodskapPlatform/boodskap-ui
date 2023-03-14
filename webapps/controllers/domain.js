@@ -3,6 +3,7 @@ var selectedId = null;
 let dom_lic_obj = null;
 let active_plan_obj = null;
 let elastic_config_obj = null;
+let all_host_list=[];
 
 $(document).ready(function () {
     $("body").removeClass('bg-white');
@@ -711,18 +712,15 @@ function proceedSave() {
         domainObj["password"] = $("#elasticAuthPwd").val();
         domainObj["hosts"] = [];
     
-        for(let i=0;i<=all_host_list.length;i++){
-            let id = i+1;
+        for(let i=0;i<all_host_list.length;i++){
+            let id = all_host_list[i];
             let hostObj = {
-                "host" : $("#elasticAuthHost_"+all_host_list[id]).val(),
-                "port" : $("#elasticAuthPort_"+all_host_list[id]).val(),
-                "protocol" : $("#elasticAuthProtocol_"+all_host_list[id]).val()
+                "host" : $("#elasticAuthHost_"+id).val(),
+                "port" : $("#elasticAuthPort_"+id).val(),
+                "protocol" : $("#elasticAuthProtocol_"+id).val()
             }
             domainObj.hosts.push(hostObj);
         }
-    
-        console.log("domainObj-----------------");
-        console.log(domainObj);
 
         var data = {
             name: ELASTIC_CONFIG_PROPERTY,
@@ -732,35 +730,38 @@ function proceedSave() {
         upsertDomainProperty(data, function (status, data) {
             if (status) {
                 successMsg('Successfully updated')
-                $("#domainModal").modal('hide')
+                $("#domainModal").modal('hide');
             } else {
                 errorMsg('Error in elastic config update')
             }
+
+            $(".btnModal").attr('disabled',false);
         }) 
     }
 
     $(".btnModal").attr('disabled',true);
 }
 
-
 function getElasticConfig() {
-    console.log("getElasticConfig API------------------")
     getDomainProperty(ELASTIC_CONFIG_PROPERTY, function (status, data) {
-        console.log(status)
-        console.log(data)
         if (status) {
-
             elastic_config_obj = JSON.parse(data.value);
-            $("#elasticConfigCheck").val(elastic_config_obj.authenticate);
+            $('#elasticConfigCheck').prop('checked', elastic_config_obj.authenticate);
             $("#elasticAuthUser").val(elastic_config_obj.user);
             $("#elasticAuthPwd").val(elastic_config_obj.password);
 
             let hostList = elastic_config_obj.hosts;
-            $("#addMoreHostForm").html("")
-            for(let i=0;i<hostList.length;i++){
-                renderHostList(hostList[i], i)
+            $("#addMoreHostForm").html("");
+            if(hostList.length > 0){
+                all_host_list = [];
+                for(let i=0;i<hostList.length;i++){
+                    let id = guid();
+                    all_host_list.push(id);
+                    renderHostList(hostList[i], id);
+                }
+            }else{
+                addMoreHost();
             }
-
         } else {
             elastic_config_obj = null;
         }
@@ -769,7 +770,7 @@ function getElasticConfig() {
 
 function renderHostList(hostObj, id){
 
-    const addHtml = `<div class="row m-5 add-more-host">
+    const addHtml = `<div class="row m-5 add-more-host" id="addMoreHost_${id}">
             <div class="form-group">
                 <label class="mb-2" for="elasticAuthProtocol_${id}">Protocol</label>
                 <select class="form-control input-sm" id="elasticAuthProtocol_${id}">
@@ -784,10 +785,8 @@ function renderHostList(hostObj, id){
             </div>
             
             <div class="form-group" style="margin-left:10px;">
-                <label class="mb-2" for="elasticAuthPort_${id}">Password <span class="text-danger">*</span>
-                    <a href="javascript:void(0)" style="color:#333" onclick="toggleBox(`+'elasticAuthPort_'+id+`',`+this+`)" class="btn btn-icon btn-xs">
-                    <i class="icon-eye4"></i>
-                </a> </label>
+                <label class="mb-2" for="elasticAuthPort_${id}">Port <span class="text-danger">*</span>
+                    </label>
                 <input type="text" id="elasticAuthPort_${id}" maxlength="100" class="form-control input-sm" required autocomplete="off" placeholder="9200" />
             </div>
 
@@ -795,7 +794,7 @@ function renderHostList(hostObj, id){
                 <i class="fas fa-plus-circle" style="font-size: 20px; "></i>
             </a>
 
-            <a href="javascript:void(0);" href="javascript:void(0);" onclick="removeHost('`+id+`')" style="margin-top: 32px; margin-left: 10px;text-decoration: none;">
+            <a href="javascript:void(0);" class="host-remove-btn" href="javascript:void(0);" onclick="removeHost('`+id+`')" style="margin-top: 32px; margin-left: 10px;text-decoration: none;">
                 <i class="fas fa-minus-circle" style="font-size: 20px; "></i>
             </a>
         </div>`;
@@ -805,9 +804,13 @@ function renderHostList(hostObj, id){
         $("#elasticAuthProtocol_"+id).val(hostObj.protocol ? hostObj.protocol : "");
         $("#elasticAuthHost_"+id).val(hostObj.host ? hostObj.host : "");
         $("#elasticAuthPort_"+id).val(hostObj.port ? hostObj.port :"");
-}
 
-let all_host_list=[];
+        if(all_host_list.length == 1){
+            $(".host-remove-btn").hide();
+        }else{
+            $(".host-remove-btn").show();
+        }
+}
 
 function addMoreHost(){
 
@@ -828,33 +831,33 @@ function addMoreHost(){
                         </div>
                         
                         <div class="form-group" style="margin-left:10px;">
-                            <label class="mb-2" for="elasticAuthPort_${id}">Password <span class="text-danger">*</span>
-                                <a href="javascript:void(0)" style="color:#333" onclick="toggleBox(`+'elasticAuthPort_'+id+`',`+this+`)" class="btn btn-icon btn-xs">
-                                <i class="icon-eye4"></i>
-                            </a> </label>
+                            <label class="mb-2" for="elasticAuthPort_${id}">Port <span class="text-danger">*</span>
+                               </label>
                             <input type="text" id="elasticAuthPort_${id}" maxlength="100" class="form-control input-sm" required autocomplete="off" placeholder="9200" />
                         </div>
 
-                        <a href="javascript:void(0);" href="javascript:void(0);" onclick="addMoreHost('`+id+`')" style="margin-top: 32px; margin-left: 20px;text-decoration: none;">
+                        <a href="javascript:void(0);" onclick="addMoreHost('`+id+`')" style="margin-top: 32px; margin-left: 20px;text-decoration: none;">
                             <i class="fas fa-plus-circle" style="font-size: 20px; "></i>
                         </a>
 
-                        <a class="host-remove-btn" href="javascript:void(0);" href="javascript:void(0);" onclick="removeHost('`+id+`')" style="margin-top: 32px; margin-left: 10px;text-decoration: none;">
+                        <a class="host-remove-btn" href="javascript:void(0);" onclick="removeHost('`+id+`')" style="margin-top: 32px; margin-left: 10px;text-decoration: none;">
                             <i class="fas fa-minus-circle" style="font-size: 20px; "></i>
                         </a>
                     </div>`;
 
     all_host_list.push(id);
     $("#addMoreHostForm").append(addHtml);
+    $(".host-remove-btn").show();
 }
 
 function removeHost(id){
     $("#addMoreHost_"+id).remove();
+     all_host_list = all_host_list.filter(value => value !== id);
 
-    if($(".add-more-host").length == 1){
+    if(all_host_list.length == 1){
         $(".host-remove-btn").hide();
     }else{
-        $(".host-remove-btn").show()
+        $(".host-remove-btn").show();
     }
 }
 

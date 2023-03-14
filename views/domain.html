@@ -22,9 +22,10 @@
                   </div>
                   <div class="domain-list" onclick="openModal('elastic-config',this)">
                     <label>
-                      <i class="icon-dollar"></i> Elastic Config </label>
+                      <img src="images/elastic-search.svg" style="height: 16px; margin-top: -4px;" />
+                       Elastic Config </label>
                     <br>
-                    <small>Configure</small>
+                    <small>Configure Authentication</small>
                   </div>
                   <!-- <div class="domain-list" onclick="openModal('theme-layout',this)">
                     <label>
@@ -193,9 +194,6 @@
               <a href="javascript:void(0)" style="color:#333" onclick="toggleBox('elasticAuthPwd',this)" class="btn btn-icon btn-xs">
               <i class="icon-eye4"></i>
             </a> 
-            <a href="javascript:void(0)" class="elasticAuthPwd" style="text-decoration: none" title="Click here to copy Email Password">
-                <i class="icon-copy2"></i>
-              </a>
             </label>
             <input type="password" id="elasticAuthPwd" maxlength="100" class="form-control input-sm" required autocomplete="off" />
           </div>
@@ -207,42 +205,10 @@
   <hr>
   <section>
     <form onsubmit="saveElasticConfig()">
-      <div id="addMoreHostForm">
-        <div class="row m-5 add-more-host">
+      <div id="addMoreHostForm"></div>
 
-          <div class="form-group">
-            <label class="mb-2" for="elasticAuthProtocol_1">Protocol</label>
-            <select class="form-control input-sm" id="elasticAuthProtocol_1">
-              <option value="https">https://</option>
-              <option value="http">http://</option>
-            </select>
-          </div>
-
-          <div class="form-group" style="margin-left:10px;">
-            <label class="mb-2" for="elasticAuthHost_1">Host <span class="text-danger">*</span></label>
-            <input type="text" id="elasticAuthHost_1" maxlength="100" class="form-control input-sm" required autocomplete="off" placeholder="0.0.0.0" />
-          </div>
-          
-          <div class="form-group" style="margin-left:10px;">
-            <label class="mb-2" for="elasticAuthPort_1">Port <span class="text-danger">*</span>
-              <a href="javascript:void(0)" style="color:#333" onclick="toggleBox('elasticAuthPort_1',this)" class="btn btn-icon btn-xs">
-              <i class="icon-eye4"></i>
-            </a> 
-           <!--  <a href="javascript:void(0)" class="elasticAuthPwd" style="text-decoration: none" title="Click here to copy Email Password">
-                <i class="icon-copy2"></i>
-              </a> -->
-            </label>
-            <input type="text" id="elasticAuthPort_1" maxlength="100" class="form-control input-sm" required autocomplete="off" placeholder="9200"  />
-          </div>
-
-          <a href="javascript:void(0);" onclick="addMoreHost()" style="margin-top: 32px; margin-left: 20px;text-decoration: none;">
-            <i class="fas fa-plus-circle" style="font-size: 20px; "></i>
-          </a>
-        </div>
-      </div>
-
-      <div class="text-right mt-5">
-        <button type="submit" class="btn btn-proceed btnModal">
+      <div class="text-left mt-3 mb-3">
+        <button type="submit" class="btn btn-proceed btnModal" style="margin-left: 420px;">
           <i class="icon-save"></i> Save </button>
       </div>
     </form>
