@@ -57,7 +57,8 @@ async.series({
             basepath : BASE_PATH,
             protocol : getProperty('server.ssl') ? 'https' : 'http',
             api: getProperty('boodskap.api'),
-            development: getProperty("env.development")
+            development: getProperty("env.development"),
+            billing_api: getProperty("boodskap.billing_api")
         };
 
         let txt = 'module.exports = ' + JSON.stringify(server_config);

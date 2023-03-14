@@ -1048,7 +1048,7 @@ function renderPlanCard(obj){
             </span>
        </span>
        <span>
-          <button type="button" class="btn btn-primary upgrade-btn `+plan_name+`-plan-btn"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Upgrade</button>
+          <button onclick="gotoBilling()" type="button" class="btn btn-primary upgrade-btn `+plan_name+`-plan-btn"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Upgrade</button>
        </span>
       </div>
       <ol class="plan-items p-0 plan-features">
@@ -1252,3 +1252,24 @@ function renderUsageCharts(chartObj, planUsage){
           resolve();
     });
 }
+
+
+function gotoBilling(){
+    var pathapi = $("#billingApi").val();
+    $.ajax({
+        url: pathapi,
+        data: JSON.stringify(USER_OBJ),
+        contentType: "application/json",
+        type: 'POST',
+        success: function (res) {
+            
+        },
+        error: function (e) {
+            
+        }
+    });
+}
+
+/* getProperty = (pty) => {
+    return prop.get(pty);
+} */
