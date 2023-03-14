@@ -297,7 +297,7 @@ Routes.prototype.init = function () {
         res.render('userDomain.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, response : '', buildVersion: self.app.conf.buildVersion});
     });
     self.router.get('/domain', roleCheck, function (req, res) {
-        res.render('domain.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
+        res.render('domain.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, buildVersion: self.app.conf.buildVersion, billapi: self.app.conf.bill_api});
     });
     self.router.get('/home', roleCheck, function (req, res) {
         res.render('home.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
