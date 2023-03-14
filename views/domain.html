@@ -19,11 +19,11 @@
                     <br>
                     <small>Current Plan details</small>
                   </div>
-                  <div class="domain-list" onclick="openModal('billing-overview',this)">
+                  <div class="domain-list" onclick="openModal('elastic-config',this)">
                     <label>
-                      <i class="icon-dollar"></i> Billing Overview </label>
+                      <i class="icon-dollar"></i> Elastic Config </label>
                     <br>
-                    <small>Billing & Invoice</small>
+                    <small>Configure</small>
                   </div>
                   <!-- <div class="domain-list" onclick="openModal('theme-layout',this)">
                     <label>
@@ -228,44 +228,90 @@
   </div>
 </script>
 
-<script type="text/html" id="twilioGateway">
+<script type="text/html" class="active" id="elasticConfig">
   <div class="row ml-2">
     <div class="col-md-4">
       <div class="form-group">
-        <label class="mb-2">SID <span class="text-danger">*</span></label>
-        <input type="text" id="sid" class="form-control input-sm" maxlength="100" required autocomplete="off" />
+        <label class="mb-2">Host <span class="text-danger">*</span></label>
+        <input type="text" id="hostName" maxlength="100" class="form-control input-sm" required autocomplete="off" />
       </div>
-    </div>
-    <div class="col-md-4">
       <div class="form-group">
-        <label class="mb-2">Token <span class="text-danger">*</span><a href="javascript:void(0)" style="color:#333" onclick="toggleBox('token',this)" class="btn btn-icon btn-xs">
-            <i class="icon-eye4"></i>
-          </a>
-          <a href="javascript:void(0)" class="tokenKey" style="text-decoration: none" title="Click here to copy Twilio Token">
+        <label class="mb-2">Password <span class="text-danger">*</span><a href="javascript:void(0)" style="color:#333" onclick="toggleBox('epassword',this)" class="btn btn-icon btn-xs">
+          <i class="icon-eye4"></i>
+        </a> <a href="javascript:void(0)" class="emailpwd" style="text-decoration: none" title="Click here to copy Email Password">
             <i class="icon-copy2"></i>
           </a>
         </label>
-        <input type="password" id="token" maxlength="100" class="form-control input-sm" required autocomplete="off" />
+        <input type="password" id="epassword" maxlength="100" class="form-control input-sm" required autocomplete="off" />
+      </div>
+      <div class="form-group row">
+        <div class="col-md-2 d-flex">
+          <label>Host</label>
+          <input class="mr-2 ml-2" type="checkbox" id="ssl" value="true" />
+        </div>
+        <div class="col-md-2 d-flex">
+          <label>TLS</label>
+          <input class="mr-2 ml-2" type="checkbox" id="tls" value="true" />
+        </div>
+        <div class="col-md-2 d-flex">
+          <label>Debug</label>
+          <input class="mr-2 ml-2" type="checkbox" id="debug" value="true" />
+        </div>
       </div>
     </div>
     <div class="col-md-4">
       <div class="form-group">
-        <label class="mb-2">Primary Phone <span class="text-danger">*</span></label>
-        <input type="text" id="primaryPhone" class="form-control input-sm" maxlength="100" required />
+        <label class="mb-2">Port <span class="text-danger">*</span></label>
+        <input type="number" id="portNo" onKeyPress="if(this.value.length==5) return false;" maxlength="5" class="form-control input-sm" required />
+      </div>
+      <div class="form-group">
+        <label class="mb-2">Primary Email <span class="text-danger">*</span></label>
+        <input type="email" id="primaryEmail" maxlength="100" class="form-control input-sm" required />
       </div>
     </div>
-  </div>
-  <div class="row ml-2">
-    <div class="col-md-12">
-      <div class="form-group d-flex">
-        <label class="mr-2">Debug</label>
-        <br>
-        <input type="checkbox" id="debug" value="true" />
+    <div class="col-md-4">
+      <div class="form-group">
+        <label class="mb-2">Username <span class="text-danger">*</span></label>
+        <input type="email" id="euserName" maxlength="100" class="form-control input-sm" required autocomplete="off" />
       </div>
-      <div class="text-right">
+      <div class="form-group">
+        <label class="mb-2">Bounce Email <span class="text-danger">*</span></label>
+        <input type="email" id="bounceEmail" maxlength="100" class="form-control input-sm" required />
+      </div>
+      <div class="text-right mt-5">
         <button type="submit" class="btn btn-proceed btnModal">
           <i class="icon-save"></i> Save </button>
       </div>
+    </div>
+  </div>
+</script>
+
+
+<script type="text/html" id="twilioGateway">
+  <div class="row">
+    <div class="col-12">
+
+      <section>
+        <h5>Host</h5>
+        <div class="row">
+          <div class="col-12">
+            <div class="form-group d-flex">
+              <label class="mr-2">Do you want to authendicate your Elasticsearch?</label>
+              <br>
+              <input type="checkbox" id="debug" value="true" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <hr>
+      <section>
+        <h5>Host</h5>
+        <form>
+            
+        </form>
+      </section>
+
     </div>
   </div>
 </script>

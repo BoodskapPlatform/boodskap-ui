@@ -138,7 +138,20 @@ function getDomainBranding() {
 
         })
     }
+}
 
+function getElasticConfig() {
+
+    getGlobalProperty(ELASTIC_CONFIG_PROPERTY, function (status, data) {
+        if (status) {
+            var elasticConf = data.data;
+           
+        } else {
+            $(".domain_logo_m").attr('src', "/images/boodskap-logo.png");
+        }
+        //  $("#domainModal").modal('show');
+
+    });
 }
 
 function getGoogleMapApiKey() {
@@ -372,6 +385,12 @@ function openModal(block,$dom) {
             loadTemplate = $("#licenseStatus").html();
             title = 'License Status';
             getLicenseDetails();
+            break;
+
+        case 'elastic-config' :
+            loadTemplate = $("#elasticConfig").html();
+            title = 'Elastic Config';
+            getElasticConfig();
             break;
 
         case 'billing-overview' :
