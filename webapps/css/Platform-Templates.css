@@ -143,16 +143,13 @@
   .ace-monokai .ace_marker-layer .ace_selection{
     background-color: #b5d5ff;
   }
-
+  #deleteModal .modal-dialog{
+    max-width: 600px;
+}
 .panel.panel-loading .panel-body .panel-loader {
-  opacity: 1;
+  opacity: 1 !important;
 
 }
-
-.mandatory-key{
-  color: red !important;
-}
-
-#deleteModal .modal-dialog {
-  max-width: 600px;
+#mandatory-key{
+  color: red;
 }

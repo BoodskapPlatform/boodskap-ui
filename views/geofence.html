@@ -8,7 +8,7 @@
             <!-- begin breadcrumb -->
             <ol class="breadcrumb pull-right">
                 <li class="breadcrumb-item"><a href="<%= basepath %>/home">Home</a></li>
-                <li class="breadcrumb-item active">Geofence Management</li>
+                <li class="breadcrumb-item active"><u>Geofence Management</u></li>
             </ol>
             <!-- end breadcrumb -->
             <!-- begin page-header -->
@@ -19,18 +19,22 @@
             <!-- begin panel -->
 
 
-            <div class="panel panel-inverse bskp-container-frame mx-0 mt-2">
+            <div class="panel panel-inverse bskp-container-frame mx-0 mt-2" id="cardExpand">
                 <div class="page-header bskp-page-topic d-flex justify-content-between align-items-center m-0">
                     <h4 class="panel-title">Total Geofence: <b><span class="geofenceCount"></span></b></h4>
                     <div class="panel-heading-btn">
-                        <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg" data-click="panel-expand"><i class="fa fa-expand"></i></a>
-                        <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg"  onclick="loadGeofence()"><i class="fa fa-redo"></i></a>
-                        <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg" title="Help"><i class="icon-help"></i></a>
+                        <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg" onclick="expand()" data-click="panel-expand" title="Expand"><i class="fa fa-expand"></i></a>
+                        <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg"  onclick="loadGeofence()" title="Refresh"><i class="fa fa-redo"></i></a>
+                        <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg help-url" target="_blank" title="Help"><i class="icon-help"></i></a>
 
                     </div>
                 </div>
-                <div class="panel-body geoListBody bskp-table-layout p-15" style="background-color: #eeeeee00;border: 1px solid #eee;overflow: auto;overflow-x: hidden">
+                <div class="panel-body  bskp-table-layout p-15" style="background-color: #eeeeee00;border: 1px solid #eee;overflow: auto;overflow-x: hidden">
+                    <div class="geoListBody">
+                        <table class="table table-bordered bskp-table responsive no-wrap" aria-describedby="" id="geofenceTable"  cellspacing="0" width="100%">
 
+                        </table>
+                    </div>
                     <!-- <div class="form-group">
                         <label>Choose Geofence Type</label>
                         <select class="form-control input-sm" id="geoType" onchange="loadGeofence()">
@@ -40,9 +44,7 @@
                         </select>
                     </div> -->
 
-                    <table class="table table-bordered bskp-table responsive no-wrap" aria-describedby="" id="geofenceTable"  cellspacing="0" width="100%">
-
-                    </table>
+                  
 
 
                 </div>

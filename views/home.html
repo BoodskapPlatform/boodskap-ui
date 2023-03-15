@@ -27,8 +27,11 @@
 .bskp-modal tbody>tr:first-child>td {
     padding: 10px 15px !important;
 }
-
+#createDomain .modal-dialog{
+    width: 500px;
+}
 </style>
+<div id="planDetails"></div>
 
 <div class="container mt-3 platformBody">
     <!-- begin breadcrumb -->
@@ -138,7 +141,7 @@
                                     <div class="bskp-icon-frame">
                                         <div class="bskp-Dbg bskp-Dimg39"> </div>
                                     </div>
-                                    <p class="mt-2"><label class="cardtitle">SQL Table</label></p>
+                                    <p class="mt-2"><label class="cardtitle">SQL Tables</label></p>
                                 </div>
                             </a>    
                         </div>
@@ -216,7 +219,7 @@
                             </a>    
                         </div>
                         <div class="w-25 w-sm-100 w-md-50 px-2 homecard hmessages" ><!-- onclick="loadMenu(22)" -->
-                            <a href="<%= basepath %>/files" onclick="clickRecent('File Storage','file_storage',22,12)">
+                            <a href="<%= basepath %>/files" onclick="clickRecent('File Storage','files',22,12)">
                                 <div class="card modules bskp-home-modules"><!-- onclick="clickRecent('File Storage','file_storage',22,12)" -->
                                     <div class="bskp-icon-frame">
                                         <div class="bskp-Dbg bskp-Dimg12"> </div>
@@ -278,16 +281,16 @@
                             </a>    
                         </div>
 
-                        <div class="w-25 w-sm-100 w-md-50 px-2 homecard messageshome" ><!-- onclick="loadMenu(30)" ccccccccccccccccccccccc -->
-                            <a href="<%= basepath %>/messages" onclick="clickRecent('Messages','messages',55,41)">
-                                <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('DB Query Console','db-query-console',30,16)" -->
-                                    <div class="bskp-icon-frame">
+                        <!-- <div class="w-25 w-sm-100 w-md-50 px-2 homecard messageshome" >onclick="loadMenu(30)" ccccccccccccccccccccccc -->
+                            <!-- <a href="<%= basepath %>/messages" onclick="clickRecent('Messages','messages',55,41)"> -->
+                                <!-- <div class="card modules bskp-home-modules" >onclick="clickRecent('DB Query Console','db-query-console',30,16)" -->
+                                    <!-- <div class="bskp-icon-frame">
                                         <div class="bskp-Dbg bskp-Dimg41"> </div>
                                     </div>
                                     <p class="mt-2"><label class="cardtitle">Messages</label></p>
                                 </div>
                             </a>    
-                        </div>
+                        </div> -->
 
                         <div class="w-25 w-sm-100 w-md-50 px-2 homecard hassets" ><!-- onclick="loadMenu(14)" -->
                             <a href="<%= basepath %>/asset-management" onclick="clickRecent('Asset Management','asset-management',14,17)">
@@ -545,7 +548,7 @@
                                 <div class="panel-title d-flex justify-content-between">
                                     <div class="col-6 p-0 text-wrap"><img src="images/globe.svg" class="pl-1" height="16" alt=""> <span> Domain Details</span></div>
                                     <div class="col-6 p-0">
-                                        <a href="javascript:;" onclick="startTour()" class="pull-right btn btn-sm btn-icon btn-circle bskp-icon-bg bskp-bord-icon bskp-headbtn"  title="Help"><i class="icon-help"></i></a>
+                                        <!-- <a href="javascript:;" onclick="startTour()" class="pull-right btn btn-sm btn-icon btn-circle bskp-icon-bg bskp-bord-icon bskp-headbtn"  title="Help"><i class="icon-help"></i></a> -->
                                         <a href="<%= basepath %>/domain"  class="pull-right btn btn-sm btn-icon btn-circle bskp-headbtn bskp-icon-bg bskp-bord-icon mr-1"  title="Domain Settings"><i class="fa fa-cog"></i></a>
                                         <a href="javascript:void(0)" onclick="openLinkModal()" class="pull-right mr-1 btn btn-sm btn-icon btn-circle bskp-icon-bg bskp-bord-icon bskp-headbtn"  title="Link Domain"><i class="fa fa-link"></i></a>
                                     </div>    
@@ -634,12 +637,12 @@
                                 </ul>
                               
                                 
-                                <!-- <% if(userRole.toLowerCase() === 'admin'){ %>
+                                <% if(userRole.toLowerCase() === 'admin'){ %>
                                 <div style="text-align: center" class="adminAccess">
                                     <button class="btn btn-bskp w-xs-100 btn-proceed mt-3" onclick="createDomain()"><i class="fa fa-globe"></i> Create New Domain</button>
                                     <br><small>Only visible to platform ADMIN</small>
                                 </div>
-                                <% }  %> -->
+                                <% }  %>
                                 <!-- <ul class="nav">
                                      <li class="col-lg-6"><label>Linked Domains </label>
                                      </li>
@@ -1335,7 +1338,7 @@
 </script>
 
 <div id="createDomain" class="modal bskp-modal fade" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document" >
+    <div class="modal-dialog modal-" role="document" >
         <div class="modal-content" style="">
             <div class="modal-header">
                 <h4 class="modal-title"><i class="fa fa-globe"></i> Create Domain</h4>

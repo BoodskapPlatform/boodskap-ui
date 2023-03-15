@@ -111,3 +111,16 @@ ol li{
 .platformBody{
     padding-bottom: 50px !important;
 }
+#deleteModal .modal-dialog{
+    max-width: 600px !important;
+}
+.copy-tag{
+    margin-left: 8px;
+}
+.copy-tag:hover{
+    text-decoration: none;
+}
+.token-div{
+    overflow-y:auto;
+    max-height: 170px;
+}

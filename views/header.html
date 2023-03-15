@@ -106,7 +106,7 @@
             <a href="javascript:;" data-toggle="dropdown"  style="padding: 5px;" class="dropdown-toggle f-s-14 bskp-frame-shadow">
                 <!-- <i class="fa fa-bell"></i> -->
                 <img src="images/bell.svg" class="bskp-w-18px" alt="">
-                <!--<span class="label">5</span>-->
+                <span class="" id="notificationCount"></span>
             </a>
             <ul class="dropdown-menu media-list dropdown-menu-right hide">
                 <li class="dropdown-header">NOTIFICATIONS (5)</li>
@@ -243,14 +243,14 @@
                                             <span>Application Logs</span>
                                         </a>
                                     <li class="has-sub sideMain assetHeader">
-                                        <a href="javascript:;" style="color: #2d2f79;">
-                                            <b class="caret"></b>
+                                        <a href="<%= basepath %>/asset-management" style="color: #2d2f79;">
+                                            <!-- <b class="caret"></b> -->
                                             <img src="images/menu/assets-management-bskp.svg" alt="">
                                             <span>Asset Management</span>
                                         </a>
-                                        <ul class="sub-menu">
+                                        <!-- <ul class="sub-menu">
                                             <li class="sideSub assetMenu"><a href="<%= basepath %>/asset-management" style="color: #2d2f79;">Manage Assets</a></li>
-                                        </ul>
+                                        </ul> -->
                                     </li>
                                     <!-- <li class="has-sub sideMain marketMenu">
                                         <a href="<%= basepath %>/marketplace" style="color: #2d2f79;">
@@ -373,7 +373,7 @@
                                 <li class="has-sub sideMain marketMenu">
                                     <a href="<%= basepath %>/messages" style="color: #2d2f79;">
                                         <img src="images/menu/messages.svg" alt="">
-                                        <span>Messages</span>
+                                        <span>Raw Messages</span>
                                     </a>
                                 </li>
                                 <!-- <li class="has-sub sideMain mobMenu">
@@ -385,7 +385,7 @@
                                 <li class="has-sub sideMain eventMenu">
                                     <a href="<%= basepath %>/templates" style="color: #2d2f79;">
                                         <img src="images/menu/templates-bskp.svg" alt="">
-                                        <span>Plaform Templates</span>
+                                        <span>Platform Templates</span>
                                     </a>
                                 </li>
                                 <li class="has-sub sideMain eventMenu">
@@ -428,25 +428,25 @@
                                 <li class="has-sub sideMain scriptMenu">
                                     <a href="<%= basepath %>/db-query-console" style="color: #2d2f79;">
                                         <img src="images/menu/db-query.svg" alt="">
-                                        <span>DB Query</span>
+                                        <span>DB Query Console</span>
                                     </a>
                                 </li>
                                 <li class="has-sub sideMain scriptMenu">
                                     <a href="<%= basepath %>/sql-table" style="color: #2d2f79;">
                                         <img src="images/menu/sql-table.svg" alt="">
-                                        <span>SQL Table</span>
+                                        <span>SQL Tables</span>
                                     </a>
                                 </li>
                                 <li class="has-sub sideMain tokenHeader">
-                                    <a href="javascript:void(0);" style="color: #2d2f79;">
-                                        <b class="caret"></b>
+                                    <a href="<%= basepath %>/token-management" style="color: #2d2f79;">
+                                        <!-- <b class="caret"></b> -->
                                         <i class="icon-key2"></i>
                                         <span>Token Management</span>
                                     </a>
-                                    <ul class="sub-menu">
-                                        <li class="sideSub tokenMenu"><a href="<%= basepath %>/token-management" style="color: #2d2f79;">Manage Tokens</a></li>
+                                    <!-- <ul class="sub-menu"> -->
+                                        <!-- <li class="sideSub tokenMenu"><a href="<%= basepath %>/token-management" style="color: #2d2f79;">Manage Tokens</a></li> -->
                                         <!--<li class="sideSub userRoleMenu"><a href="<%= basepath %>/user-roles">Manage User Roles</a></li>-->
-                                    </ul>
+                                    <!-- </ul> -->
                                 </li>
                                 <li class="has-sub sideMain userHeader">
                                     <a href="javascript:;" style="color: #2d2f79;">
@@ -876,7 +876,7 @@
                                     <div class="bskp-icon-frame">
                                         <div class="bskp-Dbg bskp-Dimg39"> </div>
                                     </div>
-                                    <p class="mt-2"><label class="cardtitle">SQL Table</label></p>
+                                    <p class="mt-2"><label class="cardtitle">SQL Tables</label></p>
                                 </div>
                             </a>    
                         </div>

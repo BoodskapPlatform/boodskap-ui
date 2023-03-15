@@ -32,8 +32,8 @@
 .bskp-submenu2 li {
     line-height: 30px;
     padding: 3px 15px;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
+/*     border-top-left-radius: 8px;
+    border-top-right-radius: 8px; */
 
     /* border-right: 1px solid #e8e8e8; */
     background-color: #fff;
@@ -188,4 +188,4 @@ bottom:12px;
 }
 #deleteModal .modal-dialog{
     max-width: 600px;
-  }
+}

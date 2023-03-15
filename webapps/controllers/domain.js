@@ -2,6 +2,8 @@ var logoPathId = '';
 var selectedId = null;
 let dom_lic_obj = null;
 let active_plan_obj = null;
+let elastic_config_obj = null;
+let all_host_list=[];
 
 $(document).ready(function () {
     $("body").removeClass('bg-white');
@@ -138,7 +140,6 @@ function getDomainBranding() {
 
         })
     }
-
 }
 
 function getGoogleMapApiKey() {
@@ -374,6 +375,12 @@ function openModal(block,$dom) {
             getLicenseDetails();
             break;
 
+        case 'elastic-config' :
+            loadTemplate = $("#elasticConfig").html();
+            title = 'Elastic Config';
+            getElasticConfig();
+            break;
+
         case 'billing-overview' :
             title = 'Billing Overview';
             loadTemplate = $("#billingOverview").html();
@@ -589,7 +596,6 @@ function proceedSave() {
             name: DOMAIN_THEME_PROPERTY,
             value: JSON.stringify(obj)
         };
-
         upsertDomainProperty(data, function (status, data) {
             if (status) {
                 successMsg('Successfully updated')
@@ -697,11 +703,178 @@ function proceedSave() {
         })
 
 
+    } else if (selectedId === 'elastic-config') {
+
+        let domainObj = {};
+
+        domainObj["authenticate"] = Boolean($("#elasticConfigCheck:checked").val());
+        domainObj["user"] = $("#elasticAuthUser").val();
+        domainObj["password"] = $("#elasticAuthPwd").val();
+        domainObj["hosts"] = [];
+    
+        for(let i=0;i<all_host_list.length;i++){
+            let id = all_host_list[i];
+            let hostObj = {
+                "host" : $("#elasticAuthHost_"+id).val(),
+                "port" : $("#elasticAuthPort_"+id).val(),
+                "protocol" : $("#elasticAuthProtocol_"+id).val()
+            }
+            domainObj.hosts.push(hostObj);
+        }
+
+        var data = {
+            name: ELASTIC_CONFIG_PROPERTY,
+            value: JSON.stringify(domainObj)
+        };
+
+        upsertDomainProperty(data, function (status, data) {
+            if (status) {
+                successMsg('Successfully updated')
+                $("#domainModal").modal('hide');
+            } else {
+                errorMsg('Error in elastic config update')
+            }
+
+            $(".btnModal").attr('disabled',false);
+        }) 
     }
 
     $(".btnModal").attr('disabled',true);
 }
 
+function getElasticConfig() {
+    getDomainProperty(ELASTIC_CONFIG_PROPERTY, function (status, data) {
+        if (status) {
+            elastic_config_obj = JSON.parse(data.value);
+            $('#elasticConfigCheck').prop('checked', elastic_config_obj.authenticate);
+            $("#elasticAuthUser").val(elastic_config_obj.user);
+            $("#elasticAuthPwd").val(elastic_config_obj.password);
+
+            let hostList = elastic_config_obj.hosts;
+            $("#addMoreHostForm").html("");
+            if(hostList.length > 0){
+                all_host_list = [];
+                for(let i=0;i<hostList.length;i++){
+                    let id = guid();
+                    all_host_list.push(id);
+                    renderHostList(hostList[i], id);
+                }
+            }else{
+                addMoreHost();
+            }
+
+            switchElasticAuth();
+        } else {
+            elastic_config_obj = null;
+            addMoreHost();
+
+            switchElasticAuth();
+        }
+    });
+}
+
+function switchElasticAuth(){
+
+    let flag = Boolean($("#elasticConfigCheck:checked").val());
+    if(flag){
+        $("#elasticConfigAuthView").show();
+    }else{
+        $("#elasticConfigAuthView").hide();
+    }
+}
+
+function renderHostList(hostObj, id){
+
+    const addHtml = `<div class="row m-5 add-more-host" id="addMoreHost_${id}">
+            <div class="form-group">
+                <label class="mb-2" for="elasticAuthProtocol_${id}">Protocol</label>
+                <select class="form-control input-sm" id="elasticAuthProtocol_${id}">
+                    <option value="https">https://</option>
+                    <option value="http">http://</option>
+                </select>
+            </div>
+
+            <div class="form-group" style="margin-left:10px;">
+                <label class="mb-2" for="elasticAuthHost_${id}">Host <span class="text-danger">*</span></label>
+                <input type="text" id="elasticAuthHost_${id}" maxlength="100" class="form-control input-sm" required autocomplete="off" placeholder="0.0.0.0"  />
+            </div>
+            
+            <div class="form-group" style="margin-left:10px;">
+                <label class="mb-2" for="elasticAuthPort_${id}">Port <span class="text-danger">*</span>
+                    </label>
+                <input type="text" id="elasticAuthPort_${id}" maxlength="100" class="form-control input-sm" required autocomplete="off" placeholder="9200" />
+            </div>
+
+            <a href="javascript:void(0);" href="javascript:void(0);" onclick="addMoreHost('`+id+`')" style="margin-top: 32px; margin-left: 20px;text-decoration: none;">
+                <i class="fas fa-plus-circle" style="font-size: 20px; "></i>
+            </a>
+
+            <a href="javascript:void(0);" class="host-remove-btn" href="javascript:void(0);" onclick="removeHost('`+id+`')" style="margin-top: 32px; margin-left: 10px;text-decoration: none;">
+                <i class="fas fa-minus-circle" style="font-size: 20px; "></i>
+            </a>
+        </div>`;
+
+        $("#addMoreHostForm").append(addHtml);
+
+        $("#elasticAuthProtocol_"+id).val(hostObj.protocol ? hostObj.protocol : "");
+        $("#elasticAuthHost_"+id).val(hostObj.host ? hostObj.host : "");
+        $("#elasticAuthPort_"+id).val(hostObj.port ? hostObj.port :"");
+
+        if(all_host_list.length == 1){
+            $(".host-remove-btn").hide();
+        }else{
+            $(".host-remove-btn").show();
+        }
+}
+
+function addMoreHost(){
+
+    let id= guid();
+    // let id= $(".add-more-host").length + 1;
+    const addHtml = `<div class="row m-5 add-more-host" id="addMoreHost_${id}">
+                        <div class="form-group">
+                            <label class="mb-2" for="elasticAuthProtocol_${id}">Protocol</label>
+                            <select class="form-control input-sm" id="elasticAuthProtocol_${id}">
+                                <option selected value="https">https://</option>
+                                <option value="http">http://</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group" style="margin-left:10px;">
+                            <label class="mb-2" for="elasticAuthHost_${id}">Host <span class="text-danger">*</span></label>
+                            <input type="text" id="elasticAuthHost_${id}" maxlength="100" class="form-control input-sm" required autocomplete="off" placeholder="0.0.0.0"  />
+                        </div>
+                        
+                        <div class="form-group" style="margin-left:10px;">
+                            <label class="mb-2" for="elasticAuthPort_${id}">Port <span class="text-danger">*</span>
+                               </label>
+                            <input type="text" id="elasticAuthPort_${id}" maxlength="100" class="form-control input-sm" required autocomplete="off" placeholder="9200" />
+                        </div>
+
+                        <a href="javascript:void(0);" onclick="addMoreHost('`+id+`')" style="margin-top: 32px; margin-left: 20px;text-decoration: none;">
+                            <i class="fas fa-plus-circle" style="font-size: 20px; "></i>
+                        </a>
+
+                        <a class="host-remove-btn" href="javascript:void(0);" onclick="removeHost('`+id+`')" style="margin-top: 32px; margin-left: 10px;text-decoration: none;">
+                            <i class="fas fa-minus-circle" style="font-size: 20px; "></i>
+                        </a>
+                    </div>`;
+
+    all_host_list.push(id);
+    $("#addMoreHostForm").append(addHtml);
+    $(".host-remove-btn").show();
+}
+
+function removeHost(id){
+    $("#addMoreHost_"+id).remove();
+     all_host_list = all_host_list.filter(value => value !== id);
+
+    if(all_host_list.length == 1){
+        $(".host-remove-btn").hide();
+    }else{
+        $(".host-remove-btn").show();
+    }
+}
 
 function uploadFile(file) {
 
@@ -893,7 +1066,7 @@ function renderPlanCard(obj){
             </span>
        </span>
        <span>
-          <button type="button" class="btn btn-primary upgrade-btn `+plan_name+`-plan-btn"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Upgrade</button>
+          <button onclick="gotoBilling()" type="button" class="btn btn-primary upgrade-btn `+plan_name+`-plan-btn"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Upgrade</button>
        </span>
       </div>
       <ol class="plan-items p-0 plan-features">
@@ -948,7 +1121,8 @@ function chartTemplateLoader(){
                 { value: (active_plan_obj.details.api_hits - current_plan_usage.apiHits), name: 'Remaining' },
                 { value: current_plan_usage.apiHits, name: 'Used' }
             ],
-            subTitle : current_plan_usage.apiHits+`/ <i class='fa fa-cogs'></i> `+active_plan_obj.details.api_hits,
+            subTitle: current_plan_usage.apiHits + `/ <i class='fa fa-cogs'></i> ` + active_plan_obj.details.api_hits,
+            title: "Api Hits"
         },
         {
             chartId : 'dataPointsCountChart',
@@ -957,34 +1131,40 @@ function chartTemplateLoader(){
                 { value: (active_plan_obj.details.data_points - current_plan_usage.dataPoints), name: 'Remaining' },
                 { value: current_plan_usage.dataPoints, name: 'Used' }
               ],
-              subTitle : current_plan_usage.dataPoints+`/ <i class='fa fa-database'></i> `+active_plan_obj.details.data_points
+            subTitle: current_plan_usage.dataPoints + `/ <i class='fa fa-database'></i> ` + active_plan_obj.details.data_points,
+            title: "Data Points"
         },
         {
             chartId : 'domainsCountChart',
             chartTitle : ((active_plan_obj.details.tenants - current_plan_usage.domains) < 1) ? `<i class='fa fa-circle' style="color:red"></i>` : `<i class='fa fa-circle' style="color:#4caf50"></i>`+` Domains`,
             chartData : [
                 { value: (active_plan_obj.details.tenants - current_plan_usage.domains), name: 'Remaining' },
-                { value: current_plan_usage.dataPoints, name: 'Used' }
+                { value: current_plan_usage.domains, name: 'Used' }
               ],
-              subTitle : current_plan_usage.domains+`/ <i class='fa fa-globe'></i> `+active_plan_obj.details.tenants
+            subTitle: current_plan_usage.domains + `/ <i class='fa fa-globe'></i> ` + active_plan_obj.details.tenants,
+            title: "Domains"
         },
         {
             chartId : 'devicesCountChart',
-            chartTitle : ((active_plan_obj.details.devices - current_plan_usage.devices) < 1) ? `<i class='fa fa-circle' style="color:red"></i>` : `<i class='fa fa-circle' style="color:#4caf50"></i>`+` Devices`,
+            chartTitle: ((active_plan_obj.details.devices - current_plan_usage.devices) < 1) ? `<i class='fa fa-circle' style="color:red"></i> Devices` : `<i class='fa fa-circle' style="color:#4caf50"></i>`+` Devices`,
             chartData : [
                 { value: (active_plan_obj.details.devices - current_plan_usage.devices), name: 'Remaining' },
-                { value: current_plan_usage.dataPoints, name: 'Used' }
+                { value: current_plan_usage.devices, name: 'Used' }
               ],
-              subTitle : current_plan_usage.devices+`/ <i class='fa fa-hdd'></i> `+active_plan_obj.details.devices
+            subTitle: current_plan_usage.devices + `/ <i class='fa fa-hdd'></i> ` + active_plan_obj.details.devices,
+            title: "Devices"
+
         },
         {
             chartId : 'connectedDevicesCountChart',
             chartTitle : ((active_plan_obj.details.connected_devices - current_plan_usage.connectedDevices) < 1) ? `<i class='fa fa-circle' style="color:red"></i> ` : `<i class='fa fa-circle' style="color:#4caf50"></i>`+` Connected Devices`,
             chartData : [
                 { value: (active_plan_obj.details.connected_devices - current_plan_usage.connectedDevices), name: 'Remaining' },
-                { value: current_plan_usage.dataPoints, name: 'Used' }
+                { value: current_plan_usage.connectedDevices, name: 'Used' }
               ],
-              subTitle : current_plan_usage.connectedDevices+`/ <i class='fa fa-wifi'></i> `+active_plan_obj.details.connected_devices
+            subTitle: current_plan_usage.connectedDevices + `/ <i class='fa fa-wifi'></i> ` + active_plan_obj.details.connected_devices,
+            title: "Connected Devices"
+
         }
     ];
 
@@ -1031,7 +1211,7 @@ function renderUsageCharts(chartObj, planUsage){
             },
             series: [
               {
-                name: 'API Hits',
+                name: chartObj.title,
                 type: 'pie',
                 color: ["#4caf50","#cccccc"],
                 radius: ['62%', '80%'],
@@ -1052,7 +1232,7 @@ function renderUsageCharts(chartObj, planUsage){
                         show: true,
                     },
                     position: 'center',
-                    formatter: function(data) {
+                    formatter: function (data) {
                         var percentage = (data.value / total * 100).toFixed(1);
                         return '\n{boldValue|' + percentage + '%}'+ '\n\n' +data.name;
                     },
@@ -1090,3 +1270,24 @@ function renderUsageCharts(chartObj, planUsage){
           resolve();
     });
 }
+
+
+function gotoBilling(){
+    var pathapi = $("#billingApi").val();
+    $.ajax({
+        url: pathapi,
+        data: JSON.stringify(USER_OBJ),
+        contentType: "application/json",
+        type: 'POST',
+        success: function (res) {
+            
+        },
+        error: function (e) {
+            
+        }
+    });
+}
+
+/* getProperty = (pty) => {
+    return prop.get(pty);
+} */

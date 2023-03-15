@@ -14,6 +14,8 @@ $(document).ready(function () {
 
     $("body").removeClass('bg-white');
 
+    $('.help-url').attr('href',HELP_URL+"upsertuser");
+
 });
 
 
@@ -30,7 +32,7 @@ function loadUserGroup() {
     var fields = [
         {
             mData: 'id',
-            sTitle: 'Id',
+            sTitle: 'Group ID',
             "class": "details-control",
             "orderable": true,
             sWidth: '10%',
@@ -38,19 +40,19 @@ function loadUserGroup() {
         {
             mData: 'name',
             sTitle: 'Name',
-            "class": "details-control",
+            //"class": "details-control",
             "orderable": false,
         },
         {
             mData: 'email',
             sTitle: 'Email',
-            "class": "details-control",
+           // "class": "details-control",
             orderable: false,
         },
         {
             mData: 'primaryPhone',
             sTitle: 'Mobile No',
-            "class": "details-control",
+            //"class": "details-control",
             orderable: false
         },
         {
@@ -59,8 +61,8 @@ function loadUserGroup() {
             orderable: false,
             mRender: function (data, type, row) {
 
-                return '<button class="btn btn-sm btn-icon btn-default" onclick="openModal(2,' + row["id"] + ')"><i class="icon-edit2"></i></button>' +
-                    '<button class="btn btn-sm btn-icon btn-default" onclick="openModal(3,' + row['id'] + ')"><i class="icon-trash-o"></i></button>';
+                return '<button class="btn btn-sm btn-icon btn-default" onclick="openModal(2,' + row["id"] + ')" title="Edit"><i class="icon-edit2"></i></button>' +
+                    '<button class="btn btn-sm btn-icon btn-default" onclick="openModal(3,' + row['id'] + ')" title="Delete"><i class="icon-trash-o"></i></button>';
             }
         }
 
@@ -81,29 +83,26 @@ function loadUserGroup() {
 
 
     var tableOption = {
-        fixedHeader: {
-            header: true,
-            headerOffset: -5
-        },
-        "language": {
+        responsive: true,
+        paging: true,
+        searching: true,
+        aaSorting: [[0, 'desc']],
+        "ordering": true,
+        scrollY: '100px',
+        scrollCollapse: true,
+        iDisplayLength: 10,
+        lengthMenu: [[10, 50, 100], [10, 50, 100]],
+        dom: '<"bskp-search-left" f> lrtip',
+        language: {
             "emptyTable": "No data available",
-            "zeroRecords": "No data available",
             "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
             "searchPlaceholder": "Search here",
             loadingRecords: '',
             paginate: {
                 previous: '< Prev',
                 next: 'Next >'
-            },
-            "processing": '<i class="fa fa-spinner fa-spin"></i> Processing'
+            }
         },
-        responsive: true,
-        paging: true,
-        searching: true,
-        aaSorting: [[0, 'desc']],
-        "ordering": true,
-        iDisplayLength: 10,
-        lengthMenu: [[10, 50, 100], [10, 50, 100]],
         aoColumns: fields,
         "bProcessing": true,
         "bServerSide": true,
@@ -206,12 +205,12 @@ function loadUserGroup() {
 
     userGroupTable = $("#userGroupTable").DataTable(tableOption);
 
-
+    $(".dataTables_scrollBody").removeAttr("style").css({"min-height":"calc(100vh - 425px)","position":"relative","width":"100%"});
     var detailRows = [];
 
     $('#userGroupTable tbody').on('click', '.details-control', function () {
 
-        $(".eventRow").remove();
+        //$(".eventRow").remove();
         var tr = $(this).closest('tr');
         var row = userGroupTable.row(tr);
         var idx = $.inArray(tr.attr('id'), detailRows);
@@ -223,6 +222,7 @@ function loadUserGroup() {
 
             // Remove from the 'open' array
             detailRows.splice(idx, 1);
+            tr.removeClass('shown');
         }
         else {
             tr.addClass('details');
@@ -235,6 +235,7 @@ function loadUserGroup() {
             if (idx === -1) {
                 detailRows.push(tr.attr('id'));
             }
+            tr.addClass('shown');
         }
     });
 
@@ -253,6 +254,7 @@ function formatRow(d, cbk) {
 
 function loadUserGroupMembers(id) {
 
+    $("#userGroupList_" + id).html('<div class="w-100" style="padding:5px 0px;"><div class="d-flex mx-auto" style="padding: 10px 20px;background-color: #F2F3F4;width: 10%;"><i class="fa fa-spinner fa-spin"></i><p class="pl-2 m-0">Processing</p></div><div></div></div>');
     listDomainUserGroupUsers(id, 1000, function (status, resdata) {
         var bodyStr = ''
         if (status && resdata.length > 0) {
@@ -262,7 +264,7 @@ function loadUserGroupMembers(id) {
                 // console.log(data)
                 bodyStr = bodyStr + '<div class="col-md-3" style="margin-top: 10px;">' +
                     '<label style="display: block;text-align: left"><input type="checkbox" class="ch_' + id + '" name="ch_' + id + '[]" value="' + data['email'] + '"/> ' + (data.firstName + ' ' + data.lastName) + '</label>' +
-                    '<small>' + data.email + '</small>' +
+                    '<small class="added-emails">' + data.email + '</small>' +
                     '</div>';
             }
 
@@ -273,9 +275,9 @@ function loadUserGroupMembers(id) {
         $(".group_" + id).html(' <div class="btn-group btn-group-justified left-right">' +
             '<a class="btn btn-default btn-xs"  onclick="openUserModal(1,\'' + id + '\')"><i class="fa fa-plus-square"></i> <span class="hidden-xs">Add User</span></a>' +
             '<a class="btn btn-default btn-xs"  onclick="openUserModal(2,\'' + id + '\')"><i class="icon-trash4"></i> <span class="hidden-xs">Delete</span></a>' +
-            '<a class="btn btn-default btn-xs"  onclick="loadUserGroupMembers(\'' + id + '\')"><i class="fa fa-refresh"></i></a>' +
+            '<a class="btn btn-default btn-xs"  onclick="loadUserGroupMembers(\'' + id + '\')" title="Refresh"><i class="fa fa-refresh"></i></a>' +
             '</div><hr style="clear:both">' +
-            '<div class="row" style="clear: both;max-height: 300px;overflow: auto;overflow-x: hidden">' + bodyStr + '</div>');
+            '<div id="userGroupList_'+id+'" class="row" style="clear: both;max-height: 300px;overflow: auto;overflow-x: hidden">' + bodyStr + '</div>');
 
 
     })
@@ -325,12 +327,18 @@ function openModal(type, id) {
     }
 }
 
+var addedMemListArr = [];
 function openUserModal(type, gid) {
     user_group_id = gid;
     if (type === 1) {
+        addedMemListArr=[];
         selected_user = [];
         $(".userList").html('');
         loadUsersList();
+
+        $(".group_"+gid+" .added-emails").each(function(){
+            addedMemListArr.push($(this).text());
+        })
     } else {
         selected_user = [];
         $(".removeUserCount").html(0);
@@ -340,12 +348,14 @@ function openUserModal(type, gid) {
                 selected_user.push(inputElements[i].value);
             }
         }
-        if(selected_user.length===1){
-            $(".removeUserCount").html(selected_user.length);
+        $(".removeUserCount").html(selected_user.length);
+        if(selected_user.length===0){
+            errorMsg('Atleast one user should be selected');
+            return false;
+        }else if(selected_user.length===1){
             $(".userText").html("user")
         }
         else{
-            $(".removeUserCount").html(selected_user.length);
             $(".userText").html("users")
         }
      
@@ -436,14 +446,24 @@ function loadUsersList() {
 
         userTable = $("#userTable").DataTable(tableOption);
         $("#addUserModal").modal('show');
+        $("#userTable tr").css("cursor","pointer");
 
         $('#userTable tbody').on('click', 'tr', function () {
-            $(this).toggleClass('selected');
+            var data = $(this);
+            data.toggleClass('selected');
             selected_user = userTable.rows('.selected').data();
-            $(".selectedCount").html(userTable.rows('.selected').data().length);
-
+            var clickData = userTable.rows(data).data()[0];
+            if(addedMemListArr.includes(clickData.email) == true){
+                data.toggleClass('selected');
+                errorMsg("User Already Selected");
+            }
+            setTimeout(() => {
+                $(".selectedCount").html(userTable.rows('.selected').data().length);
+            }, 100);
         });
+        
     })
+    
 
 
 }
@@ -530,7 +550,17 @@ function addUserGroup() {
                     successMsg('User Group Created Successfully');
                     $("#addUserGroup").modal('hide');   
                 } else {
-                    errorMsg('Error in Creating User Group')
+                    if(typeof(data)!="undefined"){
+                        if(data.message){
+                            var errmessage = data.message.replaceAll("_"," ")
+                            errorMsg(errmessage);
+                        }else{
+                            errorMsg('Error in Creating User Group')
+                        }
+                    }else{
+                        errorMsg('Error in Creating User Group')
+                    }
+                    
                 }
                 $(".btnSubmit").removeAttr('disabled');
             })
@@ -556,7 +586,9 @@ function updateUserGroup() {
     upsertDomainUserGroup(groupObj, function (status, data) {
         if (status) {
             successMsg('User Group Updated Successfully');
-            loadUserGroup();
+            setTimeout(() => {
+                loadUserGroup();
+            }, 1000);
             $("#addUserGroup").modal('hide');
         } else {
             errorMsg('Error in Updating User Group')

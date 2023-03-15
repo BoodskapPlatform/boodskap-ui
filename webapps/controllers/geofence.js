@@ -55,18 +55,31 @@ var mapHgt;
 $(document).ready(function() {
 
     $("#geoMap").css('height', $(window).height() - 150);
-    $(".geoListBody").css('height', $(window).height() - 195);
+    $(".geoListBody").css('height', $(window).height() - 225);
     $("body").removeClass('bg-white');
 
+    $('.help-url').attr('href',HELP_URL+"upsertgeofence");
 
     $("#geoType").on('change', function(e) {
         mapTools(e.target.value);
     });
 
+    
 
     loadGoogleApiKey();
 
 });
+
+function expand(){
+    if ($("#cardExpand").is(".panel-expand")) {
+        $("#cardExpand").addClass('mt-2');
+        console.log( $(window).height() - 195)
+    }
+    else if ($("#cardExpand").not('.panel-expand')) {
+        $("#cardExpand").removeClass('mt-2');
+
+    }
+}
 
 
 function loadGoogleApiKey() {
@@ -328,7 +341,7 @@ function loadGeofenceList() {
             mRender: function(data, type, row) {
 
                 return '<span onclick="singleGeoSnapshot(\'' + encodeURIComponent(JSON.stringify(row)) + '\')" style="cursor: pointer;">' + data + ' <i class="icon-eye"></i><br>' +
-                    '<small class="text-grey">' + (row['name'] ? '' + row['description'] : '') + '</small>' +
+                    '<small style="max-width: 5;" class="text-grey text-truncate"  title="'+(row['name'] ? '' + row['description'] : '')+'">' + (row['name'] ? '' + row['description'] : '') + '</small>' +
                     '</span>';
             }
         },
@@ -522,7 +535,7 @@ function loadAssetGeofenceList() {
             mRender: function(data, type, row) {
 
                 return '<span onclick="singleGeoSnapshot(\'' + encodeURIComponent(JSON.stringify(row)) + '\')" style="cursor: pointer;">' + data + ' <i class="icon-eye"></i><br>' +
-                    '<small class="text-grey">' + (row['name'] ? '' + row['description'] : '') + '</small>' +
+                    '<small style="max-width: 5;" class="text-grey text-truncate" title="'+(row['name'] ? '' + row['description'] : '')+'">' + (row['name'] ? '' + row['description'] : '') + '</small>' +
                     '</span>';
             }
         },
@@ -714,8 +727,8 @@ function loadDeviceGeofenceList() {
             sWidth: '25%',
             mRender: function(data, type, row) {
 
-                return '<span onclick="singleGeoSnapshot(\'' + encodeURIComponent(JSON.stringify(row)) + '\')" style="cursor: pointer;">' + data + ' <i class="icon-eye"></i><br>' +
-                    '<small class="text-grey">' + (row['name'] ? '' + row['description'] : '') + '</small>' +
+                return '<span  onclick="singleGeoSnapshot(\'' + encodeURIComponent(JSON.stringify(row)) + '\')" style="cursor: pointer;">' + data + ' <i class="icon-eye" title="View"></i><br>' +
+                    '<p style="max-width: 150px;" class="text-grey text-truncate" title="'+(row['name'] ? '' + row['description'] : '')+'">' + (row['name'] ? '' + row['description'] : '') + '</p>' +
                     '</span>';
             }
         },
@@ -776,7 +789,7 @@ function loadDeviceGeofenceList() {
             orderable: false,
             sWidth: '10%',
             mRender: function(data, type, row) {
-                return '<div style="white-space: nowrap;"><button class="btn bskp-trash-btn" onclick="openModal(3,\'' + row['name'] + '\')"><img src="images/delete.svg" alt=""> </button>' +
+                return '<div style="white-space: nowrap;"><button class="btn bskp-trash-btn" title="Delete" onclick="openModal(3,\'' + row['name'] + '\')"><img src="images/delete.svg" alt=""> </button>' +
                     '</div>';
             }
         }

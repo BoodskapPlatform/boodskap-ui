@@ -9,6 +9,8 @@ $(document).ready(function () {
 
     $("body").removeClass('bg-white');
 
+    $('.help-url').attr('href',HELP_URL+"upsertuser");
+
 });
 
 function loadUsersList() {
@@ -20,14 +22,7 @@ function loadUsersList() {
     }
 
     var fields = [
-        {
-            sTitle: 'Details',
-            "className": 'details-control',
-            "orderable": false,
-            sWidth: '5%',
-            "data": null,
-            "defaultContent": ''
-        },
+        
         {
             mData: 'fullname',
             sTitle: 'Full Name',
@@ -117,27 +112,27 @@ function loadUsersList() {
     };
 
     var tableOption = {
-        "language": {
+        responsive: true,
+        paging: true,
+        searching: true,
+        aaSorting: [[4, 'desc']],
+        "ordering": true,
+        scrollY: '100px',
+        scrollCollapse: true,
+        iDisplayLength: 10,
+        "processing": true,
+        lengthMenu: [[10, 50, 100], [10, 50, 100]],
+        dom: '<"bskp-search-left" f> lrtip',
+        language: {
             "emptyTable": "No data available",
-            "zeroRecords": "No data available",
             "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
             "searchPlaceholder": "Search here",
             loadingRecords: '',
             paginate: {
                 previous: '< Prev',
                 next: 'Next >'
-            },
-            "processing": '<i class="fa fa-spinner fa-spin"></i> Processing'
+            }
         },
-        responsive: true,
-        paging: true,
-        searching: true,
-        scrollY: '100px',
-        scrollCollapse: true,
-        aaSorting: [[5, 'desc']],
-        "ordering": true,
-        iDisplayLength: 10,
-        lengthMenu: [[10, 50, 100], [10, 50, 100]],
         aoColumns: fields,
         
         "bProcessing": true,
@@ -257,25 +252,32 @@ function loadUsersList() {
     };
 
     userTable = $("#userTable").DataTable(tableOption);
+    $('.dataTables_filter input').attr('maxlength', 100)
+    $("#userTable_filter").hide();
+
+    setTimeout(() => {
+        $('.dataTables_filter input').attr('maxlength', 100).attr("autocomplete","off").attr("type","text").val("");
+        $("#userTable_filter").show();
+    }, 1000);
     $(".dataTables_scrollBody").removeAttr("style").css({"min-height":"calc(100vh - 425px)","position":"relative","width":"100%"});
 
-    $('#userTable tbody').on('click', 'td.details-control', function () {
-        var tr = $(this).closest('tr');
-        var row = userTable.row(tr);
+    // $('#userTable tbody').on('click', 'td.details-control', function () {
+    //     var tr = $(this).closest('tr');
+    //     var row = userTable.row(tr);
 
-        if (row.child.isShown()) {
-            // This row is already open - close it
-            row.child.hide();
-            tr.removeClass('shown');
-        } else {
-            var obj = row.data();
-            row.child(format(obj)).show();
-            tr.addClass('shown');
-            loadUserProperties(obj)
-            loadUserMobileProperties(obj)
+    //     if (row.child.isShown()) {
+    //         // This row is already open - close it
+    //         row.child.hide();
+    //         tr.removeClass('shown');
+    //     } else {
+    //         var obj = row.data();
+    //         row.child(format(obj)).show();
+    //         tr.addClass('shown');
+    //         loadUserProperties(obj)
+    //         loadUserMobileProperties(obj)
 
-        }
-    });
+    //     }
+    // });
 
 }
 
@@ -375,7 +377,17 @@ function addUser() {
                     }, 700)
                     $("#addUser").modal('hide');
                 } else {
-                    errorMsg('Error in Creating User')
+                    if(typeof(data)!="undefined"){
+                        if(data.message){
+                            var errmessage = data.message.replaceAll("_"," ")
+                            errorMsg(errmessage);
+                        }else{
+                            errorMsg('Error in Creating User')
+                        }
+                    }else{
+                        errorMsg('Error in Creating User')
+                    }
+
                 }
                 $(".btnSubmit").removeAttr('disabled');
             })
@@ -475,7 +487,17 @@ function loginAs() {
             }
 
         } else {
-            errorMsg('Erron in login!')
+            if(typeof(data)!="undefined"){
+                if(data.message){
+                    var errmessage = data.message.replaceAll("_"," ")
+                    errorMsg(errmessage);
+                }else{
+                    errorMsg('Erron in login!')
+                }
+            }else{
+                errorMsg('Erron in login!')
+            }
+            
         }
     })
 

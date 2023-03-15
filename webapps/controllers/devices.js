@@ -3,12 +3,13 @@ var device_list = [];
 var device_model_list = [];
 var current_device_id = {};
 var cmdTimer = {};
+var tokenTable = null
 
 
 $(document).ready(function () {
     loadDeviceList();
     $("body").removeClass('bg-white');
-
+    $('.help-url').attr('href',HELP_URL+"listdevices");
 });
 
 function loadDeviceList() {
@@ -21,8 +22,17 @@ function loadDeviceList() {
 
     var fields = [
         {
+            sTitle: 'Details',
+            "className": 'details-control',
+            "orderable": false,
+            sWidth: '5%',
+            "data": null,
+            "defaultContent": ''
+        },
+        {
             mData: 'id',
             sTitle: 'Device ID',
+            "orderable": false,
             sWidth: '10%',
             mRender: function (data, type, row) {
 
@@ -32,6 +42,7 @@ function loadDeviceList() {
         {
             mData: 'modelId',
             sTitle: 'Device Model',
+            "orderable": false,
             sWidth: '10%',
             mRender: function (data, type, row) {
                 return data ? data : '-';
@@ -40,6 +51,7 @@ function loadDeviceList() {
         {
             mData: 'version',
             sTitle: 'Version',
+            "orderable": false,
             sWidth: '5%',
             mRender: function (data, type, row) {
                 return data ? data : '-';
@@ -48,6 +60,7 @@ function loadDeviceList() {
         {
             mData: 'channel',
             sTitle: 'Channel',
+            "orderable": false,
             sWidth: '5%',
             mRender: function (data, type, row) {
                 return data ? data : '-';
@@ -55,7 +68,8 @@ function loadDeviceList() {
         },
         {
             mData: 'nodeId',
-            sTitle: 'Node Id',
+            sTitle: 'Node ID',
+            "orderable": false,
             sWidth: '7%',
             orderable: false,
             mRender: function (data, type, row) {
@@ -73,6 +87,7 @@ function loadDeviceList() {
         {
             mData: 'registeredStamp',
             sTitle: 'Created Time',
+            "orderable": false,
             sWidth: '12%',
             mRender: function (data, type, row) {
                 return moment(data).format('MM/DD/YYYY hh:mm a')
@@ -95,7 +110,6 @@ function loadDeviceList() {
 
 
     var domainKeyJson = {"match": {"domainKey": DOMAIN_KEY}};
-    var defaultSorting = [{"reportedStamp": {"order": "desc"}}];
 
     var queryParams = {
         query: {
@@ -129,7 +143,7 @@ function loadDeviceList() {
             language: {
                 "emptyTable": "No data available",
                 "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
-                "searchPlaceholder": "Search by Device ID",
+                "searchPlaceholder": "Search here",
                 loadingRecords: '',
                 paginate: {
                     previous: '< Prev',
@@ -159,10 +173,25 @@ function loadDeviceList() {
 
                 if (searchText) {
 
-                    queryParams.query['bool']['should'].push({"wildcard" : { "id" : "*"+searchText.toLowerCase()+"*" }})
-                    queryParams.query['bool']['should'].push({"wildcard" : { "modelId" : "*"+searchText.toLowerCase()+"*" }})
-                    queryParams.query['bool']['should'].push({"wildcard" : { "version" : "*"+searchText.toLowerCase()+"*" }})
-                    queryParams.query['bool']['should'].push({"wildcard" : { "channel" : "*"+searchText.toLowerCase()+"*" }})
+
+                    queryParams.query['bool']['should'].push({ "wildcard": { "id": "*" + searchText.toLowerCase() + "*" } });
+                    queryParams.query['bool']['should'].push({ "wildcard": { "id": "*" + searchText.toUpperCase() + "*" } });
+                    queryParams.query['bool']['should'].push({ "wildcard": { "id": "*" + capitalizeFLetter(searchText) + "*" } })
+                    queryParams.query.bool.should.push({
+                        "match_phrase": {
+                            "id": searchText
+                        }
+                    })
+
+                    queryParams.query['bool']['should'].push({ "wildcard": { "modelId": "*" + searchText.toLowerCase() + "*" } });
+                    queryParams.query['bool']['should'].push({ "wildcard": { "modelId": "*" + searchText.toUpperCase() + "*" } });
+                    queryParams.query['bool']['should'].push({ "wildcard": { "modelId": "*" + capitalizeFLetter(searchText) + "*" } })
+                    queryParams.query.bool.should.push({
+                        "match_phrase": {
+                            "modelId": searchText
+                        }
+                    })
+
                     queryParams.query['bool']["minimum_should_match"]=1;
 
                 }
@@ -189,11 +218,28 @@ function loadDeviceList() {
                         var resultData = resData.data;
                         device_list =resultData.data;     
                         resultData['draw'] = oSettings.iDraw;
-
                         // $(".deviceCount").html(resData.aggregations.total_count.value);
                         $(".deviceCount").html(resData.total);
 
                         fnCallback(resultData);
+                    }
+                });
+
+                $('#deviceTable tbody').on('click', 'td.details-control', function () {
+                    var tr = $(this).closest('tr');
+                    var row = deviceTable.row(tr);
+                    var obj = row.data();
+                    let tableDiv = `<table class="table table-bordered no-wrap" id="deviceTokens_` + obj.id + `" cellspacing="0" width="100%"></table>`
+
+                    if (row.child.isShown()) {
+                        // This row is already open - close it
+                        row.child.hide();
+                        tr.removeClass('shown');
+                    } else {
+                        row.child(tableDiv).show();
+                        getTokenList(obj.id)
+                        tr.addClass('shown');
+
                     }
                 });
             }
@@ -204,6 +250,79 @@ function loadDeviceList() {
     $('.dataTables_filter input').attr('maxlength', 100)
     $(".dataTables_scrollBody").removeAttr("style").css({"min-height":"calc(100vh - 425px)","position":"relative","width":"100%","border-bottom":"0px"});
 
+}
+function getTokenList(deviceId) {
+    if (tokenTable) {
+        tokenTable.destroy()
+    }
+
+    var fields = [
+        {
+            mData: 'token',
+            sTitle: 'Token',
+            sWidth: '10%',
+            mRender: function (data, type, row) {
+                setCopyToken(data);
+                return data + `<a href="javascript:void(0)" class="copy-tag apiToken` + data + `" title="Click here to copy the token" data-clipboard-text="` + data +`"><i class="pl-1 icon-copy2"></i></a> </li>`
+            }
+        },
+        {
+            mData: 'expire',
+            sTitle: 'Status',
+            sWidth: '10%',
+            mRender: function (data, type, row) {
+                return data ? "Inactive" : 'Active';
+            }
+        },
+        {
+            mData: 'updatedStamp',
+            sTitle: 'Last Updated Time',
+            sWidth: '12%',
+            mRender: function (data, type, row) {
+                return data ? moment(data).format('MM/DD/YYYY hh:mm a') : '-';
+            }
+        },
+        {
+            mData: 'registeredStamp',
+            sTitle: 'Created Time',
+            sWidth: '12%',
+            mRender: function (data, type, row) {
+                return moment(data).format('MM/DD/YYYY hh:mm a')
+            }
+        }
+    ];
+
+    var tableOption = {
+        fixedHeader: {
+            header: false,
+            headerOffset: -5
+        },
+        responsive: true,
+        "ordering": true,
+        language: {
+            "emptyTable": "No data available",
+            "zeroRecords": "No data available",
+            "searchPlaceholder": "Search here",
+            loadingRecords: '',
+        },
+        aaSorting: [[2, 'desc']],
+        dom: 'rt',
+        aoColumns: fields,
+        "bProcessing": true,
+        data: []
+    };
+    
+    const params = '?type=DEVICE&entity=' + deviceId
+    ajaxCall('/auth/token/list', 'GET', params, function (status, data) {
+        if (status) {
+            if (data.length > 0) {  
+                tableOption['data'] = data;
+            }
+            tokenTable = $('#deviceTokens_' + deviceId).DataTable(tableOption);
+        } else {
+            errorMsg('Something Went wrong')
+        }
+    })
 }
 
 
@@ -250,7 +369,7 @@ function searchQueryFormatter(data) {
 
 }
 
-function loadDeviceModels(check) {
+function loadDeviceModels(check,lbk) {
     $("#device_model").html("");
     let devmodel;
     getDeviceModel(1000,function (status, data) {
@@ -280,6 +399,8 @@ function loadDeviceModels(check) {
         }else{
             device_model_list = [];
         }
+        if (lbk)
+            lbk()
     })
 }
 
@@ -294,10 +415,16 @@ function openModal(type,id) {
         $(".new-model").removeClass('d-none');
         $(".new_device_model").val('');
         $("#device_desc").val("");
-        $("#addDevice").modal({
-            backdrop: 'static',
-            keyboard: false
-        });
+        if(LicenseDetails.devices <= device_list.length){
+            warningMsg('Your plan have '+LicenseDetails.devices+' devices.')
+            return
+        }else{
+            $("#addDevice").modal({
+                backdrop: 'static',
+                keyboard: false
+            });
+        }
+       
         $("#device_id").removeAttr('readonly');
         $("#device_model").removeAttr('readonly');
         $(".templateAction").html('Add');
@@ -318,29 +445,24 @@ function openModal(type,id) {
         $(".new-model").addClass('d-none');
         $("#device_model").removeAttr('disabled');
         $("#device_desc").removeAttr('readonly');
-        $("#device_id").attr('readonly','readonly');
-        loadDeviceModels('update');
+        $("#device_id").attr('readonly', 'readonly');
+        $("#device_id").val(obj.id);
+        $("#device_name").val(obj.name);
+        $("#addDevice form").prepend('<div id="loadProcessing" class="position-absolute" style="padding: 10px 30px;background-color: #eff2f4;z-index: 1;top: 2%;left: 40%;"><i class="fa fa-spinner fa-spin "></i> <span class="">Processing...</span></div>');
         $(".templateAction").html('Update');
-        
-     
         $("#addDevice").modal({
             backdrop: 'static',
             keyboard: false
         });
+        $("#addDevice").modal('show');
 
-        $("#addDevice form").prepend('<div id="loadProcessing" class="position-absolute" style="padding: 10px 30px;background-color: #eff2f4;z-index: 1;top: 2%;left: 40%;"><i class="fa fa-spinner fa-spin "></i> <span class="">Processing...</span></div>');
-        
-        setTimeout(() => {
-            $("#device_id").val(obj.id);
-            $("#device_name").val(obj.name);
+        loadDeviceModels('update', function (status, data) {
             $("#device_model").val(obj.modelId).change();
             $("#device_version").val(obj.version);
             $("#device_desc").val(obj.description);
-            $("#addDevice").modal('show');
-            $("#addDevice form").attr('onsubmit','updateDevice()');
+            $("#addDevice form").attr('onsubmit', 'updateDevice()');
             $("#loadProcessing").remove();
-        }, 500);
-        
+        });
         
     }else if (type === 3) {
         current_device_id = id;

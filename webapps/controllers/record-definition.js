@@ -14,6 +14,9 @@ $(document).ready(function () {
     $('body').removeClass('bg-white')
    document.getElementById('importFile')
         .addEventListener('change', getImportFile)
+
+    $('.help-url').attr('href',HELP_URL+"upsertrecorddefinition");
+
 });
 
 
@@ -90,6 +93,7 @@ function loadRecordDef() {
                 next: 'Next >'
             }
         },
+        aaSorting: [[0, 'desc']],
         lengthMenu: [[10, 50, 100], [10, 50, 100]],
         aoColumns: fields,
         data: []
@@ -174,11 +178,16 @@ function openModal() {
     $("#msg_desc").css('height','90px');
     // $("#msg_id").attr('min',USER_OBJ.domain.startId)
     // $("#msg_id").attr('max',USER_OBJ.domain.startId+ID_RANGE_COUNT)
-
-    $("#addMessageRule").modal({
-        backdrop: 'static',
-        keyboard: false
-    });
+    if(LicenseDetails.maxRecordSpecs <= message_list.length){
+        warningMsg('Your plan have '+LicenseDetails.maxMessageSpecs+' record specification.')
+        return
+    }else{
+        $("#addMessageRule").modal({
+            backdrop: 'static',
+            keyboard: false
+        });
+    }
+   
     $(".msgFieldBody").html("");
     addMessageField();
     $("#addMessageRule form").attr("onsubmit","addMessageRule()")

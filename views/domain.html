@@ -1,6 +1,7 @@
 <link rel="stylesheet" href="css/bootstrap-colorpicker.min.css" />
 <link rel="stylesheet" href="css/domain-settings.css" />
 
+<input id="billingApi" type="hidden" value="<%= billapi %>"/>
 <div class="mt-2 platformBody domainPage container-fluid">
   <div class="panel panel-inverse">
     <div class="panel-body" style="padding-bottom:30px">
@@ -19,11 +20,12 @@
                     <br>
                     <small>Current Plan details</small>
                   </div>
-                  <div class="domain-list" onclick="openModal('billing-overview',this)">
+                  <div class="domain-list" onclick="openModal('elastic-config',this)">
                     <label>
-                      <i class="icon-dollar"></i> Billing Overview </label>
+                      <img src="images/elastic-search.svg" style="height: 16px; margin-top: -4px;" />
+                       Elastic Config </label>
                     <br>
-                    <small>Billing & Invoice</small>
+                    <small>Configure Authentication</small>
                   </div>
                   <!-- <div class="domain-list" onclick="openModal('theme-layout',this)">
                     <label>
@@ -170,22 +172,67 @@
   <p>N/A</p>
 </script>
 
+<script type="text/html" class="active" id="elasticConfig">
+  <section>
+    <h5 style="border-bottom: 1px solid #dddddd; padding-bottom: 10px;">Elastic Authentication</h5>
+    <div class="row">
+      <div class="col-12">
+        <div class="form-group d-flex">
+          <input type="checkbox" id="elasticConfigCheck" value="true" onclick="switchElasticAuth()" /> 
+          <label class="mr-2" for="elasticConfigCheck" style="margin-left:5px;color: #666666;font-weight: normal;">
+            Do you want to authenticate your Elasticsearch?
+          </label>
+        </div>
+
+        <div class="form-group row m-5" id="elasticConfigAuthView" style="display:none;">
+          <div class="form-group">
+            <label class="mb-2" for="elasticAuthUser">User<span class="text-danger">*</span></label>
+            <input type="text" id="elasticAuthUser" maxlength="100" class="form-control input-sm" required autocomplete="off" tabindex="1" />
+          </div>
+          <div class="form-group" style="margin-left:10px;">
+            <label class="mb-2" for="elasticAuthPwd">Password <span class="text-danger">*</span>
+              <a href="javascript:void(0)" style="color:#333" onclick="toggleBox('elasticAuthPwd',this)" class="btn btn-icon btn-xs">
+              <i class="icon-eye4"></i>
+            </a> 
+            </label>
+            <input type="password" id="elasticAuthPwd" maxlength="100" class="form-control input-sm" required autocomplete="new-password" tabindex="2" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr>
+  <section>
+    <form onsubmit="saveElasticConfig()">
+      <div id="addMoreHostForm"></div>
+
+      <div class="text-left mt-3 mb-3">
+        <button type="submit" class="btn btn-proceed btnModal" style="margin-left: 420px;">
+          <i class="icon-save"></i> Save </button>
+      </div>
+    </form>
+  </section>
+</script>
+
 <script type="text/html" class="active" id="emailGateway">
   <div class="row ml-2">
     <div class="col-md-4">
       <div class="form-group">
-        <label class="mb-2">Host</label>
-        <input type="text" id="hostName" class="form-control input-sm" required autocomplete="off" />
+        <label class="mb-2">Host <span class="text-danger">*</span></label>
+        <input type="text" id="hostName" maxlength="100" class="form-control input-sm" required autocomplete="off" />
       </div>
       <div class="form-group">
-        <label class="mb-2">Password <a href="javascript:void(0)" class="emailpwd" style="text-decoration: none" title="Click here to copy Email Password">
+        <label class="mb-2">Password <span class="text-danger">*</span><a href="javascript:void(0)" style="color:#333" onclick="toggleBox('epassword',this)" class="btn btn-icon btn-xs">
+          <i class="icon-eye4"></i>
+        </a> <a href="javascript:void(0)" class="emailpwd" style="text-decoration: none" title="Click here to copy Email Password">
             <i class="icon-copy2"></i>
           </a>
         </label>
-        <input type="password" id="epassword" class="form-control input-sm" required autocomplete="off" />
+        <input type="password" id="epassword" maxlength="100" class="form-control input-sm" required autocomplete="off" />
       </div>
       <div class="form-group row">
-        <div class="col-md-3 d-flex">
+        <div class="col-md-2 d-flex">
           <label>Host</label>
           <input class="mr-2 ml-2" type="checkbox" id="ssl" value="true" />
         </div>
@@ -201,22 +248,22 @@
     </div>
     <div class="col-md-4">
       <div class="form-group">
-        <label class="mb-2">Port</label>
-        <input type="number" id="portNo" class="form-control input-sm" required />
+        <label class="mb-2">Port <span class="text-danger">*</span></label>
+        <input type="number" id="portNo" onKeyPress="if(this.value.length==5) return false;" maxlength="5" class="form-control input-sm" required />
       </div>
       <div class="form-group">
-        <label class="mb-2">Primary Email</label>
-        <input type="email" id="primaryEmail" class="form-control input-sm" required />
+        <label class="mb-2">Primary Email <span class="text-danger">*</span></label>
+        <input type="email" id="primaryEmail" maxlength="100" class="form-control input-sm" required />
       </div>
     </div>
     <div class="col-md-4">
       <div class="form-group">
-        <label class="mb-2">Username</label>
-        <input type="email" id="euserName" class="form-control input-sm" required autocomplete="off" />
+        <label class="mb-2">Username <span class="text-danger">*</span></label>
+        <input type="email" id="euserName" maxlength="100" class="form-control input-sm" required autocomplete="off" />
       </div>
       <div class="form-group">
-        <label class="mb-2">Bounce Email</label>
-        <input type="email" id="bounceEmail" class="form-control input-sm" required />
+        <label class="mb-2">Bounce Email <span class="text-danger">*</span></label>
+        <input type="email" id="bounceEmail" maxlength="100" class="form-control input-sm" required />
       </div>
       <div class="text-right mt-5">
         <button type="submit" class="btn btn-proceed btnModal">
@@ -226,30 +273,31 @@
   </div>
 </script>
 
+
 <script type="text/html" id="twilioGateway">
   <div class="row ml-2">
     <div class="col-md-4">
       <div class="form-group">
-        <label class="mb-2">SID</label>
-        <input type="text" id="sid" class="form-control input-sm" required autocomplete="off" />
+        <label class="mb-2">SID <span class="text-danger">*</span></label>
+        <input type="text" id="sid" class="form-control input-sm" maxlength="100" required autocomplete="off" />
       </div>
     </div>
     <div class="col-md-4">
       <div class="form-group">
-        <label class="mb-2">Token <a href="javascript:void(0)" style="color:#333" onclick="toggleBox('token',this)" class="btn btn-icon btn-xs">
+        <label class="mb-2">Token <span class="text-danger">*</span><a href="javascript:void(0)" style="color:#333" onclick="toggleBox('token',this)" class="btn btn-icon btn-xs">
             <i class="icon-eye4"></i>
           </a>
           <a href="javascript:void(0)" class="tokenKey" style="text-decoration: none" title="Click here to copy Twilio Token">
             <i class="icon-copy2"></i>
           </a>
         </label>
-        <input type="password" id="token" class="form-control input-sm" required autocomplete="off" />
+        <input type="password" id="token" maxlength="100" class="form-control input-sm" required autocomplete="off" />
       </div>
     </div>
     <div class="col-md-4">
       <div class="form-group">
-        <label class="mb-2">Primary Phone</label>
-        <input type="text" id="primaryPhone" class="form-control input-sm" required />
+        <label class="mb-2">Primary Phone <span class="text-danger">*</span></label>
+        <input type="text" id="primaryPhone" class="form-control input-sm" maxlength="100" required />
       </div>
     </div>
   </div>

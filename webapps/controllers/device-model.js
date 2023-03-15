@@ -8,7 +8,7 @@ $(document).ready(function () {
     loadDeviceModelList();
 
     $("body").removeClass('bg-white');
-
+    $('.help-url').attr('href',HELP_URL+"listdevices");
 });
 
 function loadDeviceModelList() {
@@ -21,7 +21,7 @@ function loadDeviceModelList() {
     var fields = [
         {
             mData: 'id',
-            sTitle: 'Model Id',
+            sTitle: 'Model ID',
             orderable: true,
         },
         {
@@ -62,51 +62,130 @@ function loadDeviceModelList() {
 
     ];
 
+    var domainKeyJson = {"match": {"domainKey": DOMAIN_KEY}};
+    var defaultSorting = [{"reportedStamp": {"order": "desc"}}];
+    var queryParams = {
+        query: {
+            "bool": {
+                "must": [],
+                "should" : []
+            }
+        },
+        sort: [],
+        "aggs":{
+            "total_count": {
+                "value_count": {
+                    "field": "reportedStamp"
+                }
+            },
+        }
+    };
 
 
     var tableOption = {
-        fixedHeader: {
-            header: true,
-            headerOffset: -5
-        },
-        responsive: true,
-        paging: true,
-        searching: true,
-        dom: '<"bskp-search-left" f> lrtip',
-        language: {
-            "emptyTable": "No data available",
-            "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
-            "searchPlaceholder": "Search by Model ID",
-            loadingRecords: '',
-            paginate: {
-                previous: '< Prev',
-                next: 'Next >'
-            }
-        },
-        aaSorting: [[3, 'desc']],
-        "ordering": true,
-        iDisplayLength: 10,
-        lengthMenu: [[10, 50, 100], [10, 50, 100]],
-        aoColumns: fields,
-        data : []
-    };
+            responsive: true,
+            paging: true,
+            searching: true,
+            aaSorting: [[3, 'desc']],
+            "ordering": true,
+            scrollY: '100px',
+            scrollCollapse: true,
+            iDisplayLength: 10,
+            lengthMenu: [[10, 50, 100], [10, 50, 100]],
+            dom: '<"bskp-search-left" f> lrtip',
+            language: {
+                "emptyTable": "No data available",
+                "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
+                "searchPlaceholder": "Search here",
+                loadingRecords: '',
+                paginate: {
+                    previous: '< Prev',
+                    next: 'Next >'
+                }
+            },
+            aoColumns: fields,
+            "bProcessing": true,
+            "bServerSide": true,
+            "sAjaxSource": API_BASE_PATH + '/elastic/search/query/' + API_TOKEN_ALT,
+            "fnServerData": function (sSource, aoData, fnCallback, oSettings) {
 
-    getDeviceModel(1000,function (status, data) {
-        if(status && data.length > 0){
-            tableOption['data'] = data;
-            device_model_list = data;
-            $(".deviceModelCount").html(data.length)
-        }else{
-            $(".deviceModelCount").html(0)
-        }
+                queryParams.query['bool']['must'] = [];
+                queryParams.query['bool']['should'] = [];
+                delete queryParams.query['bool']["minimum_should_match"];
+
+                /* var keyName = fields[oSettings.aaSorting[0][0]]
+console.log(fields[oSettings.aaSorting]);
+                var sortingJson = {};
+                sortingJson[keyName['mData']] = {"order": oSettings.aaSorting[0][1]};
+                queryParams.sort = [sortingJson]; */
+
+                queryParams['size'] = oSettings._iDisplayLength;
+                queryParams['from'] = oSettings._iDisplayStart;
+
+                var searchText = oSettings.oPreviousSearch.sSearch;
+
+                if (searchText) {
+
+
+                    queryParams.query['bool']['should'].push({ "wildcard": { "id": "*" + searchText.toLowerCase() + "*" } });
+                    queryParams.query['bool']['should'].push({ "wildcard": { "id": "*" + searchText.toUpperCase() + "*" } });
+                    queryParams.query['bool']['should'].push({ "wildcard": { "id": "*" + capitalizeFLetter(searchText) + "*" } })
+                    queryParams.query.bool.should.push({
+                        "match_phrase": {
+                            "id": searchText
+                        }
+                    })
+
+                    queryParams.query['bool']['should'].push({ "wildcard": { "version": "*" + searchText.toLowerCase() + "*" } });
+                    queryParams.query['bool']['should'].push({ "wildcard": { "version": "*" + searchText.toUpperCase() + "*" } });
+                    queryParams.query['bool']['should'].push({ "wildcard": { "version": "*" + capitalizeFLetter(searchText) + "*" } })
+                    queryParams.query.bool.should.push({
+                        "match_phrase": {
+                            "version": searchText
+                        }
+                    })
+
+                    queryParams.query['bool']["minimum_should_match"]=1;
+
+                }
+                    queryParams.query['bool']['must'] = [domainKeyJson];
+                
+                var ajaxObj = {
+                    "method": "GET",
+                    "extraPath": "",
+                    "query": JSON.stringify(queryParams),
+                    "params": [],
+                    type : 'DEVICE_MODEL'
+                };
+
+                oSettings.jqXHR = $.ajax({
+                    "dataType": 'json',
+                    "contentType": 'application/json',
+                    "type": "POST",
+                    "url": sSource,
+                    "data": JSON.stringify(ajaxObj),
+                    success: function (data) {
+                        var resData = searchQueryFormatterNew(data);
+                        var resultData = resData.data;
+                        device_model_list =resultData.data;     
+                        resultData['draw'] = oSettings.iDraw;
+
+                        // $(".deviceCount").html(resData.aggregations.total_count.value);
+                        $(".deviceCount").html(resData.total);
+
+                        fnCallback(resultData);
+                    },
+                    error: function(e){
+                        //console.log("e------------->",e);
+                    } 
+                });
+            }
+
+        };
 
         deviceModelTable = $("#deviceModelTable").DataTable(tableOption);
-        $('.dataTables_filter input').attr('maxlength', 100)
-    })
-
-
-
-
+        $('.dataTables_filter input').attr('maxlength', 100);
+        $(".dataTables_scrollBody").removeAttr("style").css({"min-height":"calc(100vh - 425px)","position":"relative","width":"100%","border-bottom":"0px"});
 
 }
 

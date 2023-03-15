@@ -8,6 +8,7 @@ $(document).ready(function () {
     loadAssetList();
     $('.dataTables_filter input').attr('maxlength', 50);
     $("body").removeClass('bg-white');
+    $('.help-url').attr('href',HELP_URL+"upsertasset");
 
 });
 
@@ -36,13 +37,22 @@ function loadAssetList() {
             mData: 'name',
             sTitle: 'Asset Name',
             sWidth: '20%',
-            orderable: true,
+            orderable: false,
         },
         {
             mData: 'description',
             sTitle: 'Description',
             sWidth: '35%',
             orderable: false,
+            mRender: function (data, type, row) {
+
+                data = data.replace(/&/g, "&amp");
+                data = data.replace(/</g, "&lt");
+                data = data.replace(/>/g, "&gt");
+
+                return '<div style="max-width: 500px;" class="text-truncate" title="'+data+'">'+data+'</div>';
+
+            }
         },
         {
             mData: 'registeredStamp',
@@ -67,23 +77,33 @@ function loadAssetList() {
 
     ];
 
-    let data = 1000
-    var tableOption = {
+    var queryParams = {
+        query: {
+            "bool": {
+                "must": [],
+                "should":[]
+            }
+        },
+        sort: []
+    };
+    var domainKeyJson = {"match": {"domainKey": DOMAIN_KEY}};
+
+        var tableOption = {
         responsive: false,
         autoWidth: false,
         paging: true,
-        aoColumns: fields,
-        searching: true,
         aaSorting: [[3, 'desc']],
+        aoColumns: fields,
+        searchable: true,
         "ordering": true,
-        scrollY: '100px',
+        // scrollY: '100px',
         scrollCollapse: true,
         iDisplayLength: 10,
         lengthMenu: [[10, 50, 100], [10, 50, 100]],
                        dom: '<"bskp-search-left" f> lrtip',
             language: {
                 "sSearch": '<i class="fa fa-search" aria-hidden="true"></i> ',
-             "searchPlaceholder": "Search by Asset ID",
+             "searchPlaceholder": "Search Asset ID",
              "zeroRecords": "No data available",
              "emptyTable":"No data available",
                 loadingRecords: '',
@@ -95,33 +115,64 @@ function loadAssetList() {
             },
         "bServerSide": true,
         "bProcessing": true,
-        "sAjaxSource": API_BASE_PATH + "/asset/list/" + API_TOKEN_ALT + '/' + data,
+        "sAjaxSource": API_BASE_PATH + "/elastic/search/query/" + API_TOKEN_ALT ,
         "fnServerData": function (sSource, aoData, fnCallback, oSettings) {
            
+            queryParams.query['bool']['must'] = [];
+            queryParams.query['bool']['should'] = [];
+            delete queryParams.query['bool']["minimum_should_match"];
 
             var keyName = fields[oSettings.aaSorting[0][0]]
 
             var sortingJson = {};
             sortingJson[keyName['mData']] = {"order": oSettings.aaSorting[0][1]};
+            queryParams.sort = [sortingJson];
 
+            queryParams['size'] = oSettings._iDisplayLength;
+            queryParams['from'] = oSettings._iDisplayStart;
+            var searchText = oSettings.oPreviousSearch.sSearch;
 
+            if (searchText) {
+                queryParams.query['bool']['should'].push({ "wildcard": { "id": "*" + searchText + "*" } });
+                queryParams.query['bool']['should'].push({ "wildcard": { "id": "*" + searchText.toLowerCase() + "*" } });
+                queryParams.query['bool']['should'].push({ "wildcard": { "id": "*" + searchText.toUpperCase() + "*" } });
+                queryParams.query['bool']['should'].push({ "wildcard": { "id": "*" + capitalizeFLetter(searchText) + "*" } })
+                queryParams.query.bool.should.push({
+                    "match_phrase": {
+                        "id": searchText
+                    }
+                })
 
+                queryParams.query['bool']["minimum_should_match"]=1;
+
+            } 
+            queryParams.query['bool']['must'] = [domainKeyJson];
+
+            var ajaxObj = {
+                "method": "GET",
+                "extraPath": "",
+                "query": JSON.stringify(queryParams),
+                "params": [],
+                type : 'ASSET'
+            };
             oSettings.jqXHR = $.ajax({
-                "type": "GET",
+                "dataType": 'json',
+                "contentType": 'application/json',
+                "type": "POST",
                 "url": sSource,
+                "data": JSON.stringify(ajaxObj),
                 success: function (data) {
-                    if (data.length > 0) {
-                        $(".assetCount").html(data.length)
-                        asset_list = data;
+                    let resultData
+                    if (data.httpCode == 200) {
+                    let finalData = searchQueryFormatterNew(data)
+                     resultData = finalData.data;
+                        $(".assetCount").html(finalData.total)
+                        asset_list = resultData.data;
                     } else {
                         $(".assetCount").html(0);
                         asset_list = [];
                     }
-                    let resultData = {
-                        "recordsTotal": asset_list.length,
-                        "recordsFiltered": asset_list.length,
-                        "data": asset_list
-                    }
+                   
                     resultData['draw'] = oSettings.iDraw;
 
                     fnCallback(resultData);
@@ -132,27 +183,12 @@ function loadAssetList() {
     };
     assetTable = $("#assetTable").DataTable(tableOption);
     $('.dataTables_filter input').attr('maxlength', 100);
-    $(".dataTables_scrollBody").removeAttr("style").css({"min-height":"calc(100vh - 425px)","position":"relative","width":"100%"});
-
-    // getAssetList(1000, function (status, data) {
-    //     if (status && data.length > 0) {
-    //         tableOption['data'] = data;
-    //         $(".assetCount").html(data.length)
-    //         asset_list = data;
-    //     } else {
-    //         $(".assetCount").html(0);
-    //         asset_list = [];
-    //     }
-
-    //     assetTable = $("#assetTable").DataTable(tableOption);
-    //     $('.dataTables_filter input').attr('maxlength', 100)
-    // })
-
-
+    // $(".dataTables_scrollBody").removeAttr("style").css({"min-height":"calc(100vh - 425px)","position":"relative","width":"100%"});
 }
 
 
 function openModal(type, id) {
+    defaultStyle()
     if (type === 1) {
         $("#asset_id").removeAttr('readonly');
         $(".templateAction").html('Add New');
@@ -171,9 +207,9 @@ function openModal(type, id) {
         var obj = {};
         current_asset_id = id;
 
-        for (var i = 0; i < asset_list.length; i++) {
-            if (id === asset_list[i].id) {
-                obj = asset_list[i];
+        for (const element of asset_list) {
+            if (id === element.id) {
+                obj = element;
             }
         }
         $("#asset_id").attr('readonly', 'readonly');
@@ -201,6 +237,7 @@ function openModal(type, id) {
     } else if (type === 4) {
         current_asset_id = id;
         $(".assetId").html(id);
+        $('#deviceID').val('')
         loadDeviceList();
         loadLinkedDevices(id);
         $("#linkModal").modal({
@@ -216,7 +253,7 @@ function openModal(type, id) {
 
 function linkDevice() {
     if(!$("#deviceID").val()){
-        errorMsgBorder('Device Id cannot be empty','dropdownMenu1')
+        errorMsgBorder('Device ID is required','dropdownMenu1')
     }else{
         $("#linkDeviceBtn").html('<i class="fa fa-spinner fa-spin"></i> Processing..').attr('disabled','disabled')
         assetLink(current_asset_id, $("#deviceID").val(), function (status, data) {
@@ -224,15 +261,21 @@ function linkDevice() {
             successMsg('Device Linked Successfully');
             loadLinkedDevices(current_asset_id);
         } else {
-            errorMsg('Error in Linking Device')
+            console.log(data.responseJSON.message)
+            if(data.responseJSON.message == 'device:'+$("#deviceID").val()+' is already linked'){
+                errorMsg('Device ID already linked')
+            }else{
+                errorMsg('Error in Linking Device')
+            }
         }
+        $('#deviceID').val('')
         $("#linkDeviceBtn").html('Link Device').attr('disabled',false)
         });
       }
 }
 
-function unlinkDevice() {
-    assetUnLink(current_asset_id, $("#deviceID").val(), function (status, data) {
+function unlinkDevice(id) {
+    assetUnLink(current_asset_id, id, function (status, data) {
         if (status) {
             successMsg('Device UnLinked Successfully');
             loadLinkedDevices(current_asset_id);
@@ -247,13 +290,18 @@ function loadLinkedDevices(id) {
         if (status) {
             device_list = data;
             $("#linkedTable tbody").html("");
-            for (var i = 0; i < device_list.length; i++) {
-                $("#linkedTable tbody").append('<tr>' +
-                    '<td>' + device_list[i].id + '</td>' +
-                    '<td>' + device_list[i].modelId + '</td>' +
-                    '<td>' + device_list[i].version + '</td>' +
-                    '<td><button class="btn bskp-edit-btn  bskp-greyicon mr-2" onclick="unlinkDevice(\'' + device_list[i].id + '\')"><em class="icon-unlink"></em></button> </td>' +
-                    '</tr>');
+            if(device_list.length > 0){
+                for (const element of device_list) {
+                    $("#linkedTable tbody").append('<tr>' +
+                        '<td>' + element.id + '</td>' +
+                        '<td>' + element.modelId + '</td>' +
+                        '<td>' + element.version + '</td>' +
+                        '<td><button class="btn bskp-edit-btn  bskp-greyicon mr-2" title="Unlink device" onclick="unlinkDevice(\'' + element.id + '\',\''+id+'\')"><em class="icon-unlink"></em></button> </td>' +
+                        '</tr>');
+                }
+            }else{
+                $("#linkedTable tbody").append('<tr><td colspan=4 class="text-center">No data available </td></tr>')
+
             }
         } else {
             device_list = [];
@@ -268,13 +316,13 @@ function addAsset() {
     var asset_desc = $.trim($("#asset_desc").val());
     
     if(asset_id == ""){
-        errorMsgBorder('Asset ID is required','asset_id');
+        showFeedback('Asset ID is required','asset_id','logasset_id');
         return false;
     }else if(asset_name == ""){
-        errorMsgBorder('Asset Name is required','asset_name');
+        showFeedback('Asset Name is required','asset_name','logasset_name');
         return false;
     } else if(asset_desc == ""){
-        errorMsgBorder('Description is required','asset_desc');
+        showFeedback('Description is required','asset_desc','logasset_desc');
         return false;
     }
     var assetObj = {
@@ -288,12 +336,14 @@ function addAsset() {
     retreiveAsset(assetObj.id, function (status, data) {
         if (status) {
             $(".btnSubmit").removeAttr('disabled');
-            errorMsgBorder('Asset ID already exist', 'asset_id');
+            showFeedback('Asset ID already exist', 'asset_id','logasset_id');
         } else {
             upsertAsset(assetObj, function (status, data) {
                 if (status) {
                     successMsg('Asset Created Successfully');
-                    loadAssetList();
+                    setTimeout(() => {
+                     loadAssetList();
+                    }, 1500);
                     $("#addAsset").modal('hide');
                 } else {
                     errorMsg('Error in Creating Asset')
@@ -445,43 +495,4 @@ function setDeviceId(id) {
     $("#deviceID").val(id)
 }
 
-function searchQueryFormatter(data) {
 
-    var resultObj = {
-        total: 0,
-        data: {},
-        aggregations: {}
-    }
-
-    if (data.httpCode === 200) {
-
-        var arrayData = JSON.parse(data.result);
-
-        var totalRecords = arrayData.hits.total ? arrayData.hits.total.value : 0;
-        var records = arrayData.hits.hits;
-
-        var aggregations = arrayData.aggregations ? arrayData.aggregations : {};
-
-
-        for (var i = 0; i < records.length; i++) {
-            records[i]['_source']['_id'] = records[i]['_id'];
-        }
-
-        resultObj = {
-            "total": totalRecords,
-            "data": {
-                "recordsTotal": totalRecords,
-                "recordsFiltered": totalRecords,
-                "data": _.pluck(records, '_source')
-            },
-            aggregations: aggregations
-        }
-
-        return resultObj;
-
-    } else {
-
-        return resultObj;
-    }
-
-}

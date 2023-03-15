@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100" height="100" viewBox="0 0 100 100">
+  <defs>
+    <clipPath id="clip-Edit">
+      <rect width="100" height="100"/>
+    </clipPath>
+  </defs>
+  <g id="Edit" clip-path="url(#clip-Edit)">
+    <g id="edit-2" data-name="edit" transform="translate(4.015 3.015)">
+      <path id="Path_6136" data-name="Path 6136" d="M44.031,4H11.34A9.34,9.34,0,0,0,2,13.34V78.723a9.34,9.34,0,0,0,9.34,9.34H76.723a9.34,9.34,0,0,0,9.34-9.34V46.031" transform="translate(-2 5.907)" fill="none" stroke="#90a1b7" stroke-linecap="round" stroke-linejoin="round" stroke-width="5"/>
+      <path id="Path_6137" data-name="Path 6137" d="M57.037,4.78a9.907,9.907,0,0,1,14.01,14.01L26.681,63.157,8,67.827l4.67-18.681Z" transform="translate(20.021 -1.879)" fill="none" stroke="#90a1b7" stroke-linecap="round" stroke-linejoin="round" stroke-width="5"/>
+    </g>
+  </g>
+</svg>

@@ -60,22 +60,22 @@ let logLevels = {
 };
 
 let rule_types = {
-    "domain" : "domain_rule.groovy",
-    "1" : "message_rule.groovy",
-    "2" : "named_rule.groovy",
-    "3" : "scheduled_rule.groovy",
-    "4" : "groovy_class.groovy",
-    "5" : "jar_class.groovy",
-    "6" : "binary_rule.groovy",
-    "7" : "job_rule.groovy",
-    "8" : "file_rule.groovy",
-    "9" : "process_rule.groovy",
-    "10" : "sftp_rule.groovy",
-    "11" : "mqtt_rule.groovy",
-    "12" : "udp.groovy",
-    "13" : "tcp_rule.groovy",
-    "14" : "email_rule.groovy",
-    "15" : "micro_api_rule.groovy",
+    "domain": "domain_rule.groovy",
+    "1": "message_rule.groovy",
+    "2": "named_rule.groovy",
+    "3": "scheduled_rule.groovy",
+    "4": "groovy_class.groovy",
+    "5": "jar_class.groovy",
+    "6": "binary_rule.groovy",
+    "7": "job_rule.groovy",
+    "8": "file_rule.groovy",
+    "9": "process_rule.groovy",
+    "10": "sftp_rule.groovy",
+    "11": "mqtt_rule.groovy",
+    "12": "udp_rule.groovy",
+    "13": "tcp_rule.groovy",
+    "14": "email_rule.groovy",
+    "15": "micro_api_rule.groovy",
 };
 
 let docLayout = null;
@@ -88,8 +88,8 @@ $(".mainwindow").css('min-height', $(window).height() - 90 + 'px');
 
 $(document).ready(function () {
     loadContextList()
-    $(".contextBody").css('height',$(window).height()-350)
-    $(".elasticBody").css('height',$(window).height()-250)
+    $(".contextBody").css('height', $(window).height() - 350)
+    $(".elasticBody").css('height', $(window).height() - 250)
 
     $('#helpModal .modal-dialog').draggable({
         handle: "#helpModal .modal-header"
@@ -97,11 +97,11 @@ $(document).ready(function () {
 
     $('#pfTag').val(Cookies.get('pfTag') ? Cookies.get('pfTag') : '')
 
-    if(USER_OBJ.globalAccess){
+    if (USER_OBJ.globalAccess) {
         $("#pType").append('<option value="GLOBAL">Global</option>')
     }
 
-    if(USER_OBJ.systemAccess){
+    if (USER_OBJ.systemAccess) {
         $("#pType").append('<option value="SYSTEM">System</option>')
     }
 
@@ -111,68 +111,34 @@ $(document).ready(function () {
 
     mqttConnect();
 
-    if(Cookies.get('fatal')){
+    if (Cookies.get('fatal')) {
         $(".fatal").prop("checked", Cookies.get('fatal') === 'true' ? true : false)
     }
-    if(Cookies.get('error')){
+    if (Cookies.get('error')) {
         $(".error").prop("checked", Cookies.get('error') === 'true' ? true : false)
     }
-    if(Cookies.get('warn')){
+    if (Cookies.get('warn')) {
         $(".warn").prop("checked", Cookies.get('warn') === 'true' ? true : false)
     }
-    if(Cookies.get('info')){
+    if (Cookies.get('info')) {
         $(".info").prop("checked", Cookies.get('info') === 'true' ? true : false)
     }
-    if(Cookies.get('debug')){
+    if (Cookies.get('debug')) {
         $(".debug").prop("checked", Cookies.get('debug') === 'true' ? true : false)
     }
-    if(Cookies.get('trace')){
+    if (Cookies.get('trace')) {
         $(".trace").prop("checked", Cookies.get('trace') === 'true' ? true : false)
     }
 
     document.getElementById('importFile')
         .addEventListener('change', getImportFile)
 
-    setTimeout(function () {
-        $(".loaderBlock").remove();
         $(".mainwindow").css('display', 'block');
         docLayout = $('.mainwindow').layout({
             applyDefaultStyles: true,
             north: {
                 resizable: true
             },
-            // south: {
-            //     size: 200,
-            //     resizable: true
-            //     // size: true
-            //     //	CALLBACK TESTING...
-            //     // ,	onhide_start:			function () { return confirm("START South pane hide \n\n onhide_start callback \n\n Allow pane to hide?"); }
-            //     // ,	onhide_end:				function () { alert("END South pane hide \n\n onhide_end callback"); }
-            //     // ,	onshow_start:			function () { return confirm("START South pane show \n\n onshow_start callback \n\n Allow pane to show?"); }
-            //     // ,	onshow_end:				function () { alert("END South pane show \n\n onshow_end callback"); }
-            //     // ,	onopen_start:			function () { return confirm("START South pane open \n\n onopen_start callback \n\n Allow pane to open?"); }
-            //     // ,	onopen_end:				function () { alert("END South pane open \n\n onopen_end callback"); }
-            //     , onclose_start: function () {
-            //     }
-            //     , onclose_end: function () {
-            //         setTimeout(function () {
-            //             $('#codeEditor').height(($(".ui-layout-center").height() - 40) + 'px');
-            //
-            //             codeEditor.resize();
-            //         }, 500);
-            //
-            //         $(".consoleBox").height(($(".bottomBar").height()-20) + 'px')
-            //
-            //     }
-            //     , onresize_end: function () {
-            //         setTimeout(function () {
-            //             $('#codeEditor').height(($(".ui-layout-center").height() - 40) + 'px');
-            //             codeEditor.resize();
-            //         }, 500);
-            //         $(".consoleBox").height(($(".bottomBar").height()-20) + 'px')
-            //     }
-            //
-            // },
             east: {
                 resizable: true,
                 size: 250,
@@ -191,37 +157,28 @@ $(document).ready(function () {
             .bindButton('#btnMax', 'toggle', 'east');
         //initial load functions
 
-        if(qs('ruletype')){
+        if (qs('ruletype')) {
             $("#rulesType").val(2);
             loadRules(2);
-        }else{
+        } else {
             loadRules(1);
         }
 
-        // preLoading('Loading Editor')
-        setTimeout(function () {
             $(".listHeight").css('height', $(".leftSide").height() - 150)
             loadDomainCode();
-            // closePreLoading();
-            $(".loaderBlock").css('display', 'none');
+            $(".loaderBlock").remove();
             $(".classFolder").css('height', $(".rightSide").height() - 150)
 
             loadCodeType();
 
-            ///allDeviceList();
 
-        }, 500);
-
-
-
-
-    }, 100);
-
-    // $(".bottomBar").draggable({
-    //     containment: "#rulesBlock"
-    //
-    // })
-
+    $(window).resize(function () {
+        $(".mainwindow").css('min-height', $(window).height() - 90 + 'px');
+        setTimeout(() => {
+            $('#codeEditor').height(($(".ui-layout-center").height() - 40) + 'px');
+        }, 250);
+    });
+    
 });
 
 function mqttListen() {
@@ -234,24 +191,17 @@ function mqttListen() {
 
         mqttSubscribe("/global/#", 0);
 
-        if(ADMIN_ACCESS){
+        if (ADMIN_ACCESS) {
             mqttSubscribe("/system/#", 0);
         }
 
 
         mqtt_client.onMessageArrived = function (message) {
 
-            // console.log(new Date + ' | MQTT Message Received :', message);
 
             let parsedData = JSON.parse(message.payloadString);
             let topicName = message.destinationName;
 
-            let nodeClass = new Date().getTime();
-            let color = 'default';
-
-            // console.log('Log Enabled :',$(".allLogs").is(":checked"))
-            // console.log('parsedData :',parsedData)
-            // console.log(CURRENT_TYPE ,"====",topicName);
 
             if ($(".allLogs").is(":checked")) {
 
@@ -271,68 +221,51 @@ function mqttListen() {
                 mqttMicroRule(topicName, parsedData);
 
             } else {
-                if (CURRENT_TYPE === 0) {
-                    mqttDomainRule(topicName, parsedData);
-
-                } else if (CURRENT_TYPE === 1) {
-                    mqttMesageRule(topicName, parsedData);
+                switch (CURRENT_TYPE) {
+                    case 0:
+                        mqttDomainRule(topicName, parsedData);
+                        break;
+                    case 1:
+                        mqttMesageRule(topicName, parsedData);
+                        break;
+                    case 2:
+                        mqttNamedRule(topicName, parsedData);
+                        break;
+                    case 3:
+                        mqttScheduleRule(topicName, parsedData);
+                        break;
+                    case 6:
+                        mqttBinaryRule(topicName, parsedData);
+                        break;
+                    case 7:
+                        mqttJobRule(topicName, parsedData);
+                        break;
+                    case 8:
+                        mqttFileRule(topicName, parsedData);
+                        break;
+                    case 9:
+                        mqttProcessRule(topicName, parsedData);
+                        break;
+                    case 10:
+                        mqttSftpRule(topicName, parsedData);
+                        break;
+                    case 11:
+                        mqttMqttRule(topicName, parsedData);
+                        break;
+                    case 12:
+                        mqttUdpRule(topicName, parsedData);
+                        break;
+                    case 13:
+                        mqttTcpRule(topicName, parsedData);
+                        break;
+                    case 14:
+                        mqttEmailRule(topicName, parsedData);
+                        break;
+                    case 15:
+                        mqttMicroRule(topicName, parsedData);
+                        break;
                 }
-                else if (CURRENT_TYPE === 2) {
-                    mqttNamedRule(topicName, parsedData);
-                }
-                else if (CURRENT_TYPE === 3) {
-                    mqttScheduleRule(topicName, parsedData);
-                }
-                else if (CURRENT_TYPE === 6) {
-                    mqttBinaryRule(topicName, parsedData);
-                }
-                else if (CURRENT_TYPE === 7) {
-                    mqttJobRule(topicName, parsedData);
-                }
-                else if (CURRENT_TYPE === 8) {
-                    mqttFileRule(topicName, parsedData);
-                }
-                else if (CURRENT_TYPE === 9) {
-                    mqttProcessRule(topicName, parsedData);
-                }
-                else if (CURRENT_TYPE === 10) {
-                    mqttSftpRule(topicName, parsedData);
-                }
-                else if (CURRENT_TYPE === 11) {
-                    mqttMqttRule(topicName, parsedData);
-                }
-                else if (CURRENT_TYPE === 12) {
-                    mqttUdpRule(topicName, parsedData);
-                }
-                else if (CURRENT_TYPE === 13) {
-                    mqttTcpRule(topicName, parsedData);
-                }
-                else if (CURRENT_TYPE === 14) {
-                    mqttEmailRule(topicName, parsedData);
-                }
-                else if (CURRENT_TYPE === 15) {
-                    mqttMicroRule(topicName, parsedData);
-                }
-
             }
-
-
-            /*if(topicName.includes("/log/incoming")){
-
-                let mId = parsedData.mid;
-
-                // console.log("Parsed Data =>",parsedData)
-
-                $(".deviceHtml").append("<div class='" + nodeClass + "' style='font-size: 12px;'>" +
-                    "<span class='label label-success'" +
-                    "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>"+parsedData.mid+"</span>  " +
-                    "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " +
-                    "<span style='white-space: pre-wrap;padding-left: 10px;'>"+parsedData.did+"</span></div>");
-
-                $('.consoleBox').animate({
-                    scrollTop: $(".deviceHtml").height()
-                }, 1000);
-            }*/
 
 
         };
@@ -344,7 +277,6 @@ function mqttDomainRule(topicName, parsedData) {
     let nodeClass = new Date().getTime();
     let color = 'default';
 
-    // console.log("DOMAIN =>", topicName)
 
     if (topicName.includes("/log/drule")) {
 
@@ -354,23 +286,23 @@ function mqttDomainRule(topicName, parsedData) {
 
 
 
-            if($("."+level.toLowerCase()).is(":checked")) {
+            if ($("." + level.toLowerCase()).is(":checked")) {
 
                 let fields = '';
 
-                if($(".node").is(":checked")){
-                    fields+= ' ['+parsedData.node+'] '
+                if ($(".node").is(":checked")) {
+                    fields += ' [' + parsedData.node + '] '
                 }
-                if($(".session").is(":checked")){
-                    fields+= ' ['+parsedData.session+'] '
+                if ($(".session").is(":checked")) {
+                    fields += ' [' + parsedData.session + '] '
                 }
                 let rName = topicName.split("/")[3];
-                $(".loggerHtml").append("<div title='Domain Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
+                $(".loggerHtml").append("<div title='Domain Rule: " + rName + "' class='" + nodeClass + "' style='font-size: 12px;'>" +
                     "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
                     "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
-                    "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> "+
-                    "<span>[Domain Rule: "+rName+"]</span>"+
-                    fields+
+                    "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " +
+                    "<span>[Domain Rule: " + rName + "]</span>" +
+                    fields +
                     "<span style='white-space: pre-wrap;padding-left: 10px;'>" + parsedData.data + "</span></div>");
             }
 
@@ -387,7 +319,6 @@ function mqttMesageRule(topicName, parsedData) {
     let nodeClass = new Date().getTime();
     let color = 'default';
 
-    // console.log("MESSAGE =>", topicName)
 
     if (topicName.includes("/log/mrule")) {
 
@@ -395,24 +326,24 @@ function mqttMesageRule(topicName, parsedData) {
 
             let level = parsedData.level;
 
-            if($("."+level.toLowerCase()).is(":checked")) {
+            if ($("." + level.toLowerCase()).is(":checked")) {
 
                 let fields = '';
 
-                if($(".node").is(":checked")){
-                    fields+= ' ['+parsedData.node+'] '
+                if ($(".node").is(":checked")) {
+                    fields += ' [' + parsedData.node + '] '
                 }
-                if($(".session").is(":checked")){
-                    fields+= ' ['+parsedData.session+'] '
+                if ($(".session").is(":checked")) {
+                    fields += ' [' + parsedData.session + '] '
                 }
 
                 let rName = getLastItem(topicName);
 
-                $(".loggerHtml").append("<div title='Message Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
+                $(".loggerHtml").append("<div title='Message Rule: " + rName + "' class='" + nodeClass + "' style='font-size: 12px;'>" +
                     "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
                     "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
-                    "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> "+
-                    "<span>[Message Rule: "+rName+"]</span>"+
+                    "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " +
+                    "<span>[Message Rule: " + rName + "]</span>" +
                     fields +
                     "<span style='white-space: pre-wrap;padding-left: 10px;'>" + parsedData.data + "</span></div>");
             }
@@ -430,7 +361,6 @@ function mqttNamedRule(topicName, parsedData) {
     let nodeClass = new Date().getTime();
     let color = 'default';
 
-    // console.log("NAMED =>", topicName)
 
     if (topicName.includes("/log/nrule")) {
 
@@ -438,24 +368,24 @@ function mqttNamedRule(topicName, parsedData) {
 
             let level = parsedData.level;
 
-            if($("."+level.toLowerCase()).is(":checked")) {
+            if ($("." + level.toLowerCase()).is(":checked")) {
 
                 let fields = '';
 
-                if($(".node").is(":checked")){
-                    fields+= ' ['+parsedData.node+'] '
+                if ($(".node").is(":checked")) {
+                    fields += ' [' + parsedData.node + '] '
                 }
-                if($(".session").is(":checked")){
-                    fields+= ' ['+parsedData.session+'] '
+                if ($(".session").is(":checked")) {
+                    fields += ' [' + parsedData.session + '] '
                 }
 
                 let rName = getLastItem(topicName);
 
-                $(".loggerHtml").append("<div title='Named Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
+                $(".loggerHtml").append("<div title='Named Rule: " + rName + "' class='" + nodeClass + "' style='font-size: 12px;'>" +
                     "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
                     "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
                     "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " +
-                    "<span>[Named Rule: "+rName+"]</span>"+ fields +
+                    "<span>[Named Rule: " + rName + "]</span>" + fields +
                     "<span style='white-space: pre-wrap;padding-left: 10px;'>" + parsedData.data + "</span></div>");
             }
 
@@ -472,7 +402,6 @@ function mqttFileRule(topicName, parsedData) {
     let nodeClass = new Date().getTime();
     let color = 'default';
 
-    // console.log("NAMED =>", topicName)
 
     if (topicName.includes("/log/frule")) {
 
@@ -480,24 +409,24 @@ function mqttFileRule(topicName, parsedData) {
 
             let level = parsedData.level;
 
-            if($("."+level.toLowerCase()).is(":checked")) {
+            if ($("." + level.toLowerCase()).is(":checked")) {
 
                 let fields = '';
 
-                if($(".node").is(":checked")){
-                    fields+= ' ['+parsedData.node+'] '
+                if ($(".node").is(":checked")) {
+                    fields += ' [' + parsedData.node + '] '
                 }
-                if($(".session").is(":checked")){
-                    fields+= ' ['+parsedData.session+'] '
+                if ($(".session").is(":checked")) {
+                    fields += ' [' + parsedData.session + '] '
                 }
 
                 let rName = getLastItem(topicName);
 
-                $(".loggerHtml").append("<div title='File Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
+                $(".loggerHtml").append("<div title='File Rule: " + rName + "' class='" + nodeClass + "' style='font-size: 12px;'>" +
                     "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
                     "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
                     "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " +
-                    "<span>[File Rule: "+rName+"]</span>"+fields +
+                    "<span>[File Rule: " + rName + "]</span>" + fields +
                     "<span style='white-space: pre-wrap;padding-left: 10px;'>" + parsedData.data + "</span></div>");
             }
 
@@ -514,7 +443,6 @@ function mqttScheduleRule(topicName, parsedData) {
     let nodeClass = new Date().getTime();
     let color = 'default';
 
-    // console.log("SCHEDULE =>", topicName)
 
     if (topicName.includes("/log/srule")) {
 
@@ -522,24 +450,24 @@ function mqttScheduleRule(topicName, parsedData) {
 
             let level = parsedData.level;
 
-            if($("."+level.toLowerCase()).is(":checked")) {
+            if ($("." + level.toLowerCase()).is(":checked")) {
 
                 let fields = '';
 
-                if($(".node").is(":checked")){
-                    fields+= ' ['+parsedData.node+'] '
+                if ($(".node").is(":checked")) {
+                    fields += ' [' + parsedData.node + '] '
                 }
-                if($(".session").is(":checked")){
-                    fields+= ' ['+parsedData.session+'] '
+                if ($(".session").is(":checked")) {
+                    fields += ' [' + parsedData.session + '] '
                 }
 
                 let rName = getLastItem(topicName);
 
-                $(".loggerHtml").append("<div title='Schedule Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
+                $(".loggerHtml").append("<div title='Schedule Rule: " + rName + "' class='" + nodeClass + "' style='font-size: 12px;'>" +
                     "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
                     "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
                     "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " +
-                    "<span>[Schedule Rule: "+rName+"]</span>"+fields +
+                    "<span>[Schedule Rule: " + rName + "]</span>" + fields +
                     "<span style='white-space: pre-wrap;padding-left: 10px;'>" + parsedData.data + "</span></div>");
             }
 
@@ -557,31 +485,30 @@ function mqttBinaryRule(topicName, parsedData) {
     let nodeClass = new Date().getTime();
     let color = 'default';
 
-    // console.log("BINARY =>", topicName)
 
     if (topicName.includes("/log/brule")) {
 
         if (parsedData.data !== '__ALL_DONE__') {
             let level = parsedData.level;
 
-            if($("."+level.toLowerCase()).is(":checked")) {
+            if ($("." + level.toLowerCase()).is(":checked")) {
 
                 let fields = '';
 
-                if($(".node").is(":checked")){
-                    fields+= ' ['+parsedData.node+'] '
+                if ($(".node").is(":checked")) {
+                    fields += ' [' + parsedData.node + '] '
                 }
-                if($(".session").is(":checked")){
-                    fields+= ' ['+parsedData.session+'] '
+                if ($(".session").is(":checked")) {
+                    fields += ' [' + parsedData.session + '] '
                 }
 
                 let rName = getLastItem(topicName);
 
-                $(".loggerHtml").append("<div title='Binary Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
+                $(".loggerHtml").append("<div title='Binary Rule: " + rName + "' class='" + nodeClass + "' style='font-size: 12px;'>" +
                     "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
                     "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
                     "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " +
-                    "<span>[Binary Rule: "+rName+"]</span>"+fields +
+                    "<span>[Binary Rule: " + rName + "]</span>" + fields +
                     "<span style='white-space: pre-wrap;padding-left: 10px;'>" + parsedData.data + "</span></div>");
             }
 
@@ -605,23 +532,23 @@ function mqttProcessRule(topicName, parsedData) {
         if (parsedData.data !== '__ALL_DONE__') {
             let level = parsedData.level;
 
-            if($("."+level.toLowerCase()).is(":checked")) {
+            if ($("." + level.toLowerCase()).is(":checked")) {
 
                 let fields = '';
 
-                if($(".node").is(":checked")){
-                    fields+= ' ['+parsedData.node+'] '
+                if ($(".node").is(":checked")) {
+                    fields += ' [' + parsedData.node + '] '
                 }
-                if($(".session").is(":checked")){
-                    fields+= ' ['+parsedData.session+'] '
+                if ($(".session").is(":checked")) {
+                    fields += ' [' + parsedData.session + '] '
                 }
 
                 let rName = getLastItem(topicName);
-                $(".loggerHtml").append("<div title='Process Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
+                $(".loggerHtml").append("<div title='Process Rule: " + rName + "' class='" + nodeClass + "' style='font-size: 12px;'>" +
                     "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
                     "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
                     "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " +
-                    "<span>[Process Rule: "+rName+"]</span>"+fields +
+                    "<span>[Process Rule: " + rName + "]</span>" + fields +
                     "<span style='white-space: pre-wrap;padding-left: 10px;'>" + parsedData.data + "</span></div>");
             }
 
@@ -645,24 +572,24 @@ function mqttJobRule(topicName, parsedData) {
         if (parsedData.data !== '__ALL_DONE__') {
             let level = parsedData.level;
 
-            if($("."+level.toLowerCase()).is(":checked")) {
+            if ($("." + level.toLowerCase()).is(":checked")) {
 
                 let fields = '';
 
-                if($(".node").is(":checked")){
-                    fields+= ' ['+parsedData.node+'] '
+                if ($(".node").is(":checked")) {
+                    fields += ' [' + parsedData.node + '] '
                 }
-                if($(".session").is(":checked")){
-                    fields+= ' ['+parsedData.session+'] '
+                if ($(".session").is(":checked")) {
+                    fields += ' [' + parsedData.session + '] '
                 }
 
                 let rName = getLastItem(topicName);
 
-                $(".loggerHtml").append("<div title='Job Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
+                $(".loggerHtml").append("<div title='Job Rule: " + rName + "' class='" + nodeClass + "' style='font-size: 12px;'>" +
                     "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
                     "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
                     "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " +
-                    "<span>[Job Rule: "+rName+"]</span>"+fields +
+                    "<span>[Job Rule: " + rName + "]</span>" + fields +
                     "<span style='white-space: pre-wrap;padding-left: 10px;'>" + parsedData.data + "</span></div>");
             }
 
@@ -687,24 +614,24 @@ function mqttSftpRule(topicName, parsedData) {
         if (parsedData.data !== '__ALL_DONE__') {
             let level = parsedData.level;
 
-            if($("."+level.toLowerCase()).is(":checked")) {
+            if ($("." + level.toLowerCase()).is(":checked")) {
 
                 let fields = '';
 
-                if($(".node").is(":checked")){
-                    fields+= ' ['+parsedData.node+'] '
+                if ($(".node").is(":checked")) {
+                    fields += ' [' + parsedData.node + '] '
                 }
-                if($(".session").is(":checked")){
-                    fields+= ' ['+parsedData.session+'] '
+                if ($(".session").is(":checked")) {
+                    fields += ' [' + parsedData.session + '] '
                 }
 
                 let rName = getLastItem(topicName);
 
-                $(".loggerHtml").append("<div title='SFTP Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
+                $(".loggerHtml").append("<div title='SFTP Rule: " + rName + "' class='" + nodeClass + "' style='font-size: 12px;'>" +
                     "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
                     "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
                     "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " +
-                    "<span>[SFTP Rule: "+rName+"]</span>"+fields +
+                    "<span>[SFTP Rule: " + rName + "]</span>" + fields +
                     "<span style='white-space: pre-wrap;padding-left: 10px;'>" + parsedData.data + "</span></div>");
             }
 
@@ -728,24 +655,24 @@ function mqttMqttRule(topicName, parsedData) {
         if (parsedData.data !== '__ALL_DONE__') {
             let level = parsedData.level;
 
-            if($("."+level.toLowerCase()).is(":checked")) {
+            if ($("." + level.toLowerCase()).is(":checked")) {
 
                 let fields = '';
 
-                if($(".node").is(":checked")){
-                    fields+= ' ['+parsedData.node+'] '
+                if ($(".node").is(":checked")) {
+                    fields += ' [' + parsedData.node + '] '
                 }
-                if($(".session").is(":checked")){
-                    fields+= ' ['+parsedData.session+'] '
+                if ($(".session").is(":checked")) {
+                    fields += ' [' + parsedData.session + '] '
                 }
 
                 let rName = getLastItem(topicName);
 
-                $(".loggerHtml").append("<div title='MQTT Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
+                $(".loggerHtml").append("<div title='MQTT Rule: " + rName + "' class='" + nodeClass + "' style='font-size: 12px;'>" +
                     "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
                     "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
                     "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " +
-                    "<span>[MQTT Rule: "+rName+"]</span>"+fields +
+                    "<span>[MQTT Rule: " + rName + "]</span>" + fields +
                     "<span style='white-space: pre-wrap;padding-left: 10px;'>" + parsedData.data + "</span></div>");
             }
 
@@ -768,24 +695,24 @@ function mqttUdpRule(topicName, parsedData) {
         if (parsedData.data !== '__ALL_DONE__') {
             let level = parsedData.level;
 
-            if($("."+level.toLowerCase()).is(":checked")) {
+            if ($("." + level.toLowerCase()).is(":checked")) {
 
                 let fields = '';
 
-                if($(".node").is(":checked")){
-                    fields+= ' ['+parsedData.node+'] '
+                if ($(".node").is(":checked")) {
+                    fields += ' [' + parsedData.node + '] '
                 }
-                if($(".session").is(":checked")){
-                    fields+= ' ['+parsedData.session+'] '
+                if ($(".session").is(":checked")) {
+                    fields += ' [' + parsedData.session + '] '
                 }
 
                 let rName = getLastItem(topicName);
 
-                $(".loggerHtml").append("<div title='UDP Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
+                $(".loggerHtml").append("<div title='UDP Rule: " + rName + "' class='" + nodeClass + "' style='font-size: 12px;'>" +
                     "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
                     "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
                     "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " +
-                    "<span>[UDP Rule: "+rName+"]</span>"+fields +
+                    "<span>[UDP Rule: " + rName + "]</span>" + fields +
                     "<span style='white-space: pre-wrap;padding-left: 10px;'>" + parsedData.data + "</span></div>");
             }
 
@@ -809,24 +736,24 @@ function mqttTcpRule(topicName, parsedData) {
         if (parsedData.data !== '__ALL_DONE__') {
             let level = parsedData.level;
 
-            if($("."+level.toLowerCase()).is(":checked")) {
+            if ($("." + level.toLowerCase()).is(":checked")) {
 
                 let fields = '';
 
-                if($(".node").is(":checked")){
-                    fields+= ' ['+parsedData.node+'] '
+                if ($(".node").is(":checked")) {
+                    fields += ' [' + parsedData.node + '] '
                 }
-                if($(".session").is(":checked")){
-                    fields+= ' ['+parsedData.session+'] '
+                if ($(".session").is(":checked")) {
+                    fields += ' [' + parsedData.session + '] '
                 }
 
                 let rName = getLastItem(topicName);
 
-                $(".loggerHtml").append("<div title='TCP Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
+                $(".loggerHtml").append("<div title='TCP Rule: " + rName + "' class='" + nodeClass + "' style='font-size: 12px;'>" +
                     "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
                     "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
                     "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " +
-                    "<span>[UDP Rule: "+rName+"]</span>"+fields +
+                    "<span>[UDP Rule: " + rName + "]</span>" + fields +
                     "<span style='white-space: pre-wrap;padding-left: 10px;'>" + parsedData.data + "</span></div>");
             }
 
@@ -850,24 +777,24 @@ function mqttEmailRule(topicName, parsedData) {
         if (parsedData.data !== '__ALL_DONE__') {
             let level = parsedData.level;
 
-            if($("."+level.toLowerCase()).is(":checked")) {
+            if ($("." + level.toLowerCase()).is(":checked")) {
 
                 let fields = '';
 
-                if($(".node").is(":checked")){
-                    fields+= ' ['+parsedData.node+'] '
+                if ($(".node").is(":checked")) {
+                    fields += ' [' + parsedData.node + '] '
                 }
-                if($(".session").is(":checked")){
-                    fields+= ' ['+parsedData.session+'] '
+                if ($(".session").is(":checked")) {
+                    fields += ' [' + parsedData.session + '] '
                 }
 
                 let rName = getLastItem(topicName);
 
-                $(".loggerHtml").append("<div title='Email Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
+                $(".loggerHtml").append("<div title='Email Rule: " + rName + "' class='" + nodeClass + "' style='font-size: 12px;'>" +
                     "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
                     "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
                     "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " +
-                    "<span>[Email Rule: "+rName+"]</span>"+fields +
+                    "<span>[Email Rule: " + rName + "]</span>" + fields +
                     "<span style='white-space: pre-wrap;padding-left: 10px;'>" + parsedData.data + "</span></div>");
             }
 
@@ -891,24 +818,24 @@ function mqttMicroRule(topicName, parsedData) {
         if (parsedData.data !== '__ALL_DONE__') {
             let level = parsedData.level;
 
-            if($("."+level.toLowerCase()).is(":checked")) {
+            if ($("." + level.toLowerCase()).is(":checked")) {
 
                 let fields = '';
 
-                if($(".node").is(":checked")){
-                    fields+= ' ['+parsedData.node+'] '
+                if ($(".node").is(":checked")) {
+                    fields += ' [' + parsedData.node + '] '
                 }
-                if($(".session").is(":checked")){
-                    fields+= ' ['+parsedData.session+'] '
+                if ($(".session").is(":checked")) {
+                    fields += ' [' + parsedData.session + '] '
                 }
 
                 let rName = getLastItem(topicName);
 
-                $(".loggerHtml").append("<div title='Micro Rule: "+rName+"' class='" + nodeClass + "' style='font-size: 12px;'>" +
+                $(".loggerHtml").append("<div title='Micro Rule: " + rName + "' class='" + nodeClass + "' style='font-size: 12px;'>" +
                     "<span class='label label-" + (parsedData.level ? logLevels[parsedData.level] : color) + "' " +
                     "style='display: inline-block;margin: 5px 0px;text-transform: uppercase;'>" + parsedData.level + "</span>  " +
                     "<b style='color: #9e9e9e8a'>" + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + "</b> " +
-                    "<span>[Micro API Rule: "+rName+"]</span>"+fields +
+                    "<span>[Micro API Rule: " + rName + "]</span>" + fields +
                     "<span style='white-space: pre-wrap;padding-left: 10px;'>" + parsedData.data + "</span></div>");
             }
 
@@ -931,7 +858,7 @@ function mqttCancelSubscribe(id) {
     try {
 
         mqttUnsubscribe("/" + USER_OBJ.domainKey + "/log/#");
-        if(ADMIN_ACCESS){
+        if (ADMIN_ACCESS) {
             mqttUnsubscribe("/system/#");
         }
         mqttUnsubscribe("/global/#");
@@ -970,54 +897,50 @@ function clearLogs() {
 
 function loadRules(id) {
     id = id * 1;
-    // $(".messageTab").remove();
-    // $(".scheduleTab").remove();
-    // $(".namedTab").remove();
-    $(".pOption").css('display','none')
+    $(".pOption").css('display', 'none')
     $(".detailsBlock").css('display', 'block')
-    if (id === 1) {
-        loadMessageRulesList();
-    } else if (id === 2) {
-        loadNamedRulesList();
-    } else if (id === 3) {
-        loadScheduleRulesList();
-    } else if (id === 4) {
-        $(".detailsBlock").css('display', 'none')
-        loadGroovyClasses();
-    } else if (id === 5) {
-        $(".detailsBlock").css('display', 'none')
-        loadJarClasses();
-    } else if (id === 6) {
-        // $(".detailsBlock").css('display', 'none')
-        loadBinaryRulesList();
-    }
-    else if (id === 7) {
-        loadJobRulesList();
-    }
-    else if (id === 8) {
-        loadFileRulesList();
-    }
-    else if (id === 9) {
-        $(".pOption").css('display','block')
-        loadProcessRulesList();
-    }
-    else if (id === 10) {
-        loadSftpRulesList();
-    }
-    else if (id === 11) {
-        loadMqttRulesList();
-    }
-    else if (id === 12) {
-        loadUdpRulesList();
-    }
-    else if (id === 13) {
-        loadTcpRulesList();
-    }
-    else if (id === 14) {
-        loadEmailRulesList();
-    }
-    else if (id === 15) {
-        loadMicroRulesList();
+
+    switch (id) {
+        case 1:
+            loadMessageRulesList();
+            break;
+        case 2:
+            loadNamedRulesList();
+            break;
+        case 3:
+            loadScheduleRulesList();
+            break;
+        case 6:
+            loadBinaryRulesList();
+            break;
+        case 7:
+            loadJobRulesList();
+            break;
+        case 8:
+            loadFileRulesList();
+            break;
+        case 9:
+            loadProcessRulesList();
+            $(".pOption").css('display', 'block')
+            break;
+        case 10:
+            loadSftpRulesList();
+            break;
+        case 11:
+            loadMqttRulesList();
+            break;
+        case 12:
+            loadUdpRulesList();
+            break;
+        case 13:
+            loadTcpRulesList();
+            break;
+        case 14:
+            loadEmailRulesList();
+            break;
+        case 15:
+            loadMicroRulesList();
+            break;
     }
 }
 
@@ -1039,18 +962,17 @@ function searchFunction() {
     }
 }
 
-function loadMessageSpecList() {
+function loadMessageRulesList(lbk) {
+    $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
+    listMessageRules(rules_page_size, rules_direction, rules_id, function (status, data) {
+        if (status) {
+            message_rules_list = data;
+        }
+    })
+
     listMessageSpec(rules_page_size, null, null, function (status, data) {
-        $(".rulesList").html("");
-
-        $(".rulesList").append('<li class="" onclick="loadMessageRulesList()" title="click here to reload"  style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
+        $(".rulesList").html('<li class="" onclick="loadMessageRulesList()" title="click here to reload"  style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
             '<img src="images/folder.png" /> <b> Message Rules</b> <span class="loaderSpin"></span></li>');
-
-        $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
-
-        setTimeout(function () {
-            $(".loaderSpin").html('');
-        }, 1000);
 
         $('[data-toggle="tooltip"]').tooltip()
 
@@ -1070,8 +992,8 @@ function loadMessageSpecList() {
                     }
                 }
 
-                if(flag){
-                    let obj = {domainKey: null, lang: "GROOVY", code: "", messageId: data[i].id, messageName: ''};
+                if (flag) {
+                    let obj = { domainKey: null, lang: "GROOVY", code: "", messageId: data[i].id, messageName: '' };
                     message_rules_list.push(obj);
                 }
 
@@ -1080,45 +1002,31 @@ function loadMessageSpecList() {
                 $(".rulesList").append(str);
 
             }
-        } else {
 
+            if (lbk) lbk(true)
+        } else {
+            message_spec_list = []
+            if (lbk) lbk(false)
             errorMsg('No Messages Defined so far!')
-
         }
+        $(".loaderSpin").html('');
+
+        
     })
-}
 
-function loadMessageRulesList() {
-    listMessageRules(rules_page_size, rules_direction, rules_id, function (status, data) {
-        if (status) {
-
-            message_rules_list = data;
-
-            loadMessageSpecList();
-
-        } else {
-            loadMessageSpecList();
-        }
-    })
 }
 
 
-function loadNamedRulesList() {
+function loadNamedRulesList(lbk) {
+    $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
     listNamedRules(rules_page_size, null, null, function (status, data) {
-        $(".rulesList").html("");
-
-        $(".rulesList").append('<li class="" onclick="loadNamedRulesList()" title="click here to reload" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
+        $(".rulesList").html('<li class="" onclick="loadNamedRulesList()" title="click here to reload" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
             '<img src="images/folder.png" /> <b> Named Rules</b> <span class="loaderSpin"></span></li>');
 
-        $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
-
-        setTimeout(function () {
-            $(".loaderSpin").html('');
-        }, 1000);
 
         $('[data-toggle="tooltip"]').tooltip()
 
-        if (status && data.length > 0) {
+        if (status) {
             named_rules_list = data;
 
             for (let i = 0; i < data.length; i++) {
@@ -1129,24 +1037,25 @@ function loadNamedRulesList() {
 
             }
         } else {
+            named_rules_list = []
             errorMsg('No Named Rules Found!')
         }
+
+        if (lbk) lbk(true)
+        $(".loaderSpin").html('');
+
     })
 }
 
 
-function loadBinaryRulesList() {
+function loadBinaryRulesList(lbk) {
+    $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
     listBinaryRules(rules_page_size, null, null, function (status, data) {
-        $(".rulesList").html("");
 
-        $(".rulesList").append('<li class="" onclick="loadBinaryRulesList()" title="click here to reload" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
+        $(".rulesList").html('<li class="" onclick="loadBinaryRulesList()" title="click here to reload" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
             '<img src="images/folder.png" /> <b> Binary Rules</b> <span class="loaderSpin"></span></li>');
 
-        $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
 
-        setTimeout(function () {
-            $(".loaderSpin").html('');
-        }, 1000);
 
         $('[data-toggle="tooltip"]').tooltip()
 
@@ -1161,24 +1070,23 @@ function loadBinaryRulesList() {
 
             }
         } else {
+            binary_rules_list = []
             errorMsg('No Binary Rules Found!')
         }
+        if(lbk) lbk(true)
+        $(".loaderSpin").html('');
+
     })
 }
 
 
-function loadFileRulesList() {
+function loadFileRulesList(lbk) {
+    $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
     listFileRules(rules_page_size, null, null, function (status, data) {
-        $(".rulesList").html("");
 
-        $(".rulesList").append('<li class="" onclick="loadBinaryRulesList()" title="click here to reload" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
+        $(".rulesList").html('<li class="" onclick="loadBinaryRulesList()" title="click here to reload" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
             '<img src="images/folder.png" /> <b> File Rules</b> <span class="loaderSpin"></span></li>');
 
-        $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
-
-        setTimeout(function () {
-            $(".loaderSpin").html('');
-        }, 1000);
 
         $('[data-toggle="tooltip"]').tooltip()
 
@@ -1193,42 +1101,45 @@ function loadFileRulesList() {
 
             }
         } else {
+            file_rules_list = []
             errorMsg('No File Rules Found!')
         }
+        if(lbk) lbk(true)
+        $(".loaderSpin").html('');
+
     })
 }
 
-function loadProcessRulesListAggs(){
+function loadProcessRulesListAggs() {
 
     let query = {
-        query:{
-            bool : {
-                must:[{match:{domainKey:DOMAIN_KEY}}],
-                should:[]
+        query: {
+            bool: {
+                must: [{ match: { domainKey: DOMAIN_KEY } }],
+                should: []
             }
         },
-        from:0,
-        size:0,
-        aggs:{
-            group:{
-                terms:{
-                    field:'group',
-                    size:1000
+        from: 0,
+        size: 9999,
+        aggs: {
+            group: {
+                terms: {
+                    field: 'group',
+                    size: 1000
                 }
             }
         }
     }
     let pType = 'PROCESS';
 
-    if($("#pType").val() === 'GLOBAL'){
+    if ($("#pType").val() === 'GLOBAL') {
         pType = 'GLOBAL_PROCESS';
     }
-    if($("#pType").val() === 'SYSTEM'){
+    if ($("#pType").val() === 'SYSTEM') {
         pType = 'SYSTEM_PROCESS';
     }
-
-    listProcessRules(query,pType, function (status, data) {
-        if(status) {
+    listProcessRules(query, pType, function (status, data) {
+        if (status) {
 
             let resultData = QueryFormatter(data);
 
@@ -1236,7 +1147,7 @@ function loadProcessRulesListAggs(){
             let aggs = resultData.aggregations.group.buckets;
 
             for (let i = 0; i < aggs.length; i++) {
-                if(aggs[i].key){
+                if (aggs[i].key) {
                     $("#pfGroup").append('<option value="' + aggs[i].key + '">' + aggs[i].key + ' (' + aggs[i].doc_count + ')</option>')
                 }
 
@@ -1249,45 +1160,47 @@ function loadProcessRulesListAggs(){
     });
 }
 
-function loadProcessRulesList() {
+function loadProcessRulesList(lbk) {
+    $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
+
     let query = {
-        query:{
-            bool : {
-                must:[{match:{domainKey:DOMAIN_KEY}}],
-                should:[]
+        query: {
+            bool: {
+                must: [{ match: { domainKey: DOMAIN_KEY } }],
+                should: []
             }
         },
-        from:0,
-        size:9999,
-        aggs:{
-            group:{
-                terms:{
-                    field:'group',
-                    size:1000
+        from: 0,
+        size: 9999,
+        aggs: {
+            group: {
+                terms: {
+                    field: 'group',
+                    size: 1000
                 }
             }
         }
     }
     let pType = 'PROCESS';
 
-    if($("#pType").val() === 'GLOBAL'){
+    if ($("#pType").val() === 'GLOBAL') {
         pType = 'GLOBAL_PROCESS';
         query['query'] = {}
     }
-    if($("#pType").val() === 'SYSTEM'){
+    if ($("#pType").val() === 'SYSTEM') {
         pType = 'SYSTEM_PROCESS';
         query['query'] = {}
     }
-    if($("#pfGroup").val()){
-        Cookies.set('pfGroup',$('#pfGroup').val())
+    if ($("#pfGroup").val()) {
+        Cookies.set('pfGroup', $('#pfGroup').val())
         query.query['bool']['must'].push({ "match": { "group": $('#pfGroup').val() } });
 
-    }else{
-        Cookies.set('pfGroup','')
+    } else {
+        Cookies.set('pfGroup', '')
     }
 
-    if($('#pfTag').val()){
-        Cookies.set('pfTag',$('#pfTag').val())
+    if ($('#pfTag').val()) {
+        Cookies.set('pfTag', $('#pfTag').val())
         query.query['bool']['should'].push({ "wildcard": { "tags": "*" + $('#pfTag').val() + "*" } });
         query.query['bool']['should'].push({ "wildcard": { "tags": "*" + $('#pfTag').val().toLowerCase() + "*" } });
         query.query['bool']['should'].push({ "wildcard": { "tags": "*" + $('#pfTag').val().toUpperCase() + "*" } });
@@ -1303,32 +1216,25 @@ function loadProcessRulesList() {
             }
         })
         query.query['bool']["minimum_should_match"] = 1;
-    }else{
-        Cookies.set('pfTag','')
+    } else {
+        Cookies.set('pfTag', '')
     }
 
-    $(".rulesList").html("");
-    listProcessRules(query,pType, function (status, data) {
+    listProcessRules(query, pType, function (status, data) {
 
         $(".rulesList").html('<li class="" onclick="loadProcessRulesList()" title="click here to reload" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
             '<img src="images/folder.png" /> <b> Process Rules</b> <span class="loaderSpin"></span></li>');
 
-        $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
 
-        setTimeout(function () {
-            $(".loaderSpin").html('');
-        }, 1000);
 
         $('[data-toggle="tooltip"]').tooltip()
 
-        if(status){
+        if (status) {
 
             let resultData = QueryFormatter(data);
-
             data = resultData.data.data;
-
             process_rules_list = data;
-
+           
             for (let i = 0; i < data.length; i++) {
 
                 let str = '<li class="rulesListli rule_' + data[i].id + '" data-id="' + data[i].id + '" onclick="loadTabbar(\'' + data[i].id + '\',9)">' +
@@ -1336,27 +1242,26 @@ function loadProcessRulesList() {
                 $(".rulesList").append(str);
 
             }
-
+            if (lbk) lbk()
 
         } else {
+            process_rules_list =[]
             errorMsg('No Process Rules Found!')
         }
+        $(".loaderSpin").html('');
+
     })
 }
 
 
-function loadJobRulesList() {
-    listJobRules(function (status, data) {
-        $(".rulesList").html("");
+function loadJobRulesList(lbk) {
+    $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
 
-        $(".rulesList").append('<li class="" onclick="loadJobRulesList()" title="click here to reload" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
+    listJobRules(function (status, data) {
+
+        $(".rulesList").html('<li class="" onclick="loadJobRulesList()" title="click here to reload" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
             '<img src="images/folder.png" /> <b> Job Rules</b> <span class="loaderSpin"></span></li>');
 
-        $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
-
-        setTimeout(function () {
-            $(".loaderSpin").html('');
-        }, 1000);
 
         $('[data-toggle="tooltip"]').tooltip()
 
@@ -1371,28 +1276,26 @@ function loadJobRulesList() {
 
             }
         } else {
+            job_rules_list = []
             errorMsg('No Job Rules Found!')
         }
+        if(lbk) lbk(true)
+        $(".loaderSpin").html('');
     })
 }
 
-function loadSftpRulesList() {
-    listInputRules("SFTP_INPUT",function (status, data) {
-        $(".rulesList").html("");
+function loadSftpRulesList(lbk) {
+    $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
 
-        $(".rulesList").append('<li class="" onclick="loadSftpRulesList()" title="click here to reload" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
+    listInputRules("SFTP_INPUT", function (status, data) {
+        $(".rulesList").html('<li class="" onclick="loadSftpRulesList()" title="click here to reload" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
             '<img src="images/folder.png" /> <b> SFTP Rules</b> <span class="loaderSpin"></span></li>');
 
-        $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
 
-        setTimeout(function () {
-            $(".loaderSpin").html('');
-        }, 1000);
-
+      
         $('[data-toggle="tooltip"]').tooltip()
 
         if (status) {
-
 
             let resultData = QueryFormatter(data);
 
@@ -1408,23 +1311,24 @@ function loadSftpRulesList() {
 
             }
         } else {
+            sftp_rules_list = []
             errorMsg('No SFTP Rules Found!')
         }
+        if(lbk) lbk(true)
+        $(".loaderSpin").html('');
+
     })
 }
-function loadMqttRulesList() {
-    listInputRules("MQTT_INPUT",function (status, data) {
-        $(".rulesList").html("");
+function loadMqttRulesList(lbk) {
+    $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
 
-        $(".rulesList").append('<li class="" onclick="loadMqttRulesList()" title="click here to reload" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
+    listInputRules("MQTT_INPUT", function (status, data) {
+
+        $(".rulesList").html('<li class="" onclick="loadMqttRulesList()" title="click here to reload" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
             '<img src="images/folder.png" /> <b> MQTT Rules</b> <span class="loaderSpin"></span></li>');
 
-        $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
 
-        setTimeout(function () {
-            $(".loaderSpin").html('');
-        }, 1000);
-
+     
         $('[data-toggle="tooltip"]').tooltip()
 
         if (status) {
@@ -1443,23 +1347,24 @@ function loadMqttRulesList() {
 
             }
         } else {
+            mqtt_rules_list = []
             errorMsg('No MQTT Rules Found!')
         }
+        if (lbk) lbk(true)
+        $(".loaderSpin").html('');
+
     })
 }
-function loadUdpRulesList() {
-    listInputRules("UDP_INPUT",function (status, data) {
-        $(".rulesList").html("");
+function loadUdpRulesList(lbk) {
+    $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
 
-        $(".rulesList").append('<li class="" onclick="loadUdpRulesList()" title="click here to reload" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
+    listInputRules("UDP_INPUT", function (status, data) {
+
+        $(".rulesList").html('<li class="" onclick="loadUdpRulesList()" title="click here to reload" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
             '<img src="images/folder.png" /> <b> UDP Rules</b> <span class="loaderSpin"></span></li>');
 
-        $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
 
-        setTimeout(function () {
-            $(".loaderSpin").html('');
-        }, 1000);
-
+        
         $('[data-toggle="tooltip"]').tooltip()
 
         if (status) {
@@ -1477,22 +1382,22 @@ function loadUdpRulesList() {
 
             }
         } else {
+            udp_rules_list = []
             errorMsg('No UDP Rules Found!')
         }
+        if (lbk) lbk(true)
+        $(".loaderSpin").html('');
+
     })
 }
-function loadTcpRulesList() {
-    listInputRules("TCP_INPUT",function (status, data) {
-        $(".rulesList").html("");
+function loadTcpRulesList(lbk) {
+    $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
 
-        $(".rulesList").append('<li class="" onclick="loadTcpRulesList()" title="click here to reload" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
+    listInputRules("TCP_INPUT", function (status, data) {
+
+        $(".rulesList").html('<li class="" onclick="loadTcpRulesList()" title="click here to reload" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
             '<img src="images/folder.png" /> <b> TCP Rules</b> <span class="loaderSpin"></span></li>');
 
-        $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
-
-        setTimeout(function () {
-            $(".loaderSpin").html('');
-        }, 1000);
 
         $('[data-toggle="tooltip"]').tooltip()
 
@@ -1511,22 +1416,22 @@ function loadTcpRulesList() {
 
             }
         } else {
+            tcp_rules_list = []
             errorMsg('No TCP Rules Found!')
         }
+        if (lbk) lbk(true)
+        $(".loaderSpin").html('');
+
     })
 }
-function loadEmailRulesList() {
-    listInputRules("EMAIL_INPUT",function (status, data) {
-        $(".rulesList").html("");
+function loadEmailRulesList(lbk) {
+    $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
 
-        $(".rulesList").append('<li class="" onclick="loadTcpRulesList()" title="click here to reload" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
+    listInputRules("EMAIL_INPUT", function (status, data) {
+
+        $(".rulesList").html('<li class="" onclick="loadTcpRulesList()" title="click here to reload" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
             '<img src="images/folder.png" /> <b> EMAIL Rules</b> <span class="loaderSpin"></span></li>');
 
-        $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
-
-        setTimeout(function () {
-            $(".loaderSpin").html('');
-        }, 1000);
 
         $('[data-toggle="tooltip"]').tooltip()
 
@@ -1545,24 +1450,25 @@ function loadEmailRulesList() {
 
             }
         } else {
+            email_rules_list = []
             errorMsg('No EMAIL Rules Found!')
         }
+        if (lbk) lbk(true)
+        $(".loaderSpin").html('');
+
     })
 }
 
-function loadMicroRulesList() {
-    listInputRules("MICRO_API",function (status, data) {
-        $(".rulesList").html("");
+function loadMicroRulesList(lbk) {
+    $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
 
-        $(".rulesList").append('<li class="" onclick="loadTcpRulesList()" title="click here to reload" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
+    listInputRules("MICRO_API", function (status, data) {
+
+        $(".rulesList").html('<li class="" onclick="loadTcpRulesList()" title="click here to reload" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
             '<img src="images/folder.png" /> <b> Micro API Rules</b> <span class="loaderSpin"></span></li>');
 
-        $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
 
-        setTimeout(function () {
-            $(".loaderSpin").html('');
-        }, 1000);
-
+        
         $('[data-toggle="tooltip"]').tooltip()
 
         if (status) {
@@ -1580,23 +1486,22 @@ function loadMicroRulesList() {
 
             }
         } else {
+            micro_rules_list = []
             errorMsg('No Micro API Rules Found!')
         }
+        if (lbk) lbk(true)
+        $(".loaderSpin").html('');
     })
 }
 
-function loadScheduleRulesList() {
-    listScheduleRules(rules_page_size, null, null, function (status, data) {
-        $(".rulesList").html("");
+function loadScheduleRulesList(lbk) {
+    $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
 
-        $(".rulesList").append('<li class="" title="click here to reload" onclick="loadScheduleRulesList()" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
+    listScheduleRules(rules_page_size, null, null, function (status, data) {
+
+        $(".rulesList").html('<li class="" title="click here to reload" onclick="loadScheduleRulesList()" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
             '<img src="images/folder.png" /> <b> Schedule Rules</b> <span class="loaderSpin"></span></li>');
 
-        $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
-
-        setTimeout(function () {
-            $(".loaderSpin").html('');
-        }, 1000);
 
         $('[data-toggle="tooltip"]').tooltip()
 
@@ -1613,60 +1518,21 @@ function loadScheduleRulesList() {
 
             }
         } else {
+            schedule_rules_list = []
             errorMsg('No Schedule Messages Found!')
         }
+        if (lbk) lbk(true)
+        $(".loaderSpin").html('');
+
     })
 
 }
 
-function loadGroovyClasses() {
-    $(".rulesList").html("");
-
-    $(".rulesList").append('<li class="" title="click here to reload" onclick="loadGroovyClasses()" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
-        '<img src="images/folder.png" /> <b> Groovy Class</b> <span class="loaderSpin"></span></li>');
-
-    $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
-
-    setTimeout(function () {
-        $(".loaderSpin").html('');
-    }, 1000);
-
-
-    let data = groovy_class_list;
-    for (let i = 0; i < groovy_class_list.length; i++) {
-        let str = '<li class="rulesListli rule_' + data[i]._id + '" data-id="' + data[i]._id + '" onclick="loadTabbar(\'' + data[i]._id + '\',4)">' +
-            '<img src="images/code.png" /> <b>' + data[i].packageName + '</b></li>';
-        $(".rulesList").append(str);
-    }
-
-}
-
-function loadJarClasses() {
-    $(".rulesList").html("");
-
-    $(".rulesList").append('<li class="" title="click here to reload" onclick="loadJarClasses()" style="color:#333; padding: 5px;cursor:pointer;border-bottom: 1px dotted #ccc;">' +
-        '<img src="images/folder.png" /> <b> JAR Class</b> <span class="loaderSpin"></span></li>');
-
-    $(".loaderSpin").html('<i class="fa fa-spinner fa-spin"></i>');
-
-    setTimeout(function () {
-        $(".loaderSpin").html('');
-    }, 1000);
-
-    let data = groovy_class_list;
-    for (let i = 0; i < jar_class_list.length; i++) {
-        let str = '<li class="rulesListli rule_' + data[i]._id + '" data-id="' + data[i]._id + '" onclick="loadTabbar(\'' + data[i]._id + '\',4)">' +
-            '<img src="images/code.png" /> <b>' + data[i].packageName + '</b></li>';
-        $(".rulesList").append(str);
-    }
-
-}
-
-function loadHelpTab(){
+function loadHelpTab() {
     $(".helpTab").remove();
     let str = '<li role="presentation" class="helpTab tabbar helpTabBar active" >' +
         '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadHelpTab()><i class="fa fa-question-circle"></i> Help' +
-        '<span style="display: inline-block;margin-left: 20px;cursor: pointer;z-index:1" onclick="deleteHelpTab()" title="close"><i class="fa fa-close"></i></span></a>' +
+        '<span style="display: inline-block;margin-left: 20px;cursor: pointer;z-index:1" onclick="deleteHelpTab(event)" title="close"><i class="fa fa-close"></i></span></a>' +
         '</li>'
 
     $(".domainTab").removeClass('active')
@@ -1691,18 +1557,14 @@ function loadHelpTab(){
 
 }
 
-function deleteHelpTab(){
-    $(".helpTab").removeClass('active')
+function deleteHelpTab(event) {
+    event.stopPropagation()
+    $(".helpTab").remove();
     $(".domainTab").addClass('active')
-
-    setTimeout(function () {
-        $(".helpTab").remove();
-        $(".domainTab").addClass('active')
-        loadDomainRule()
-    }, 200);
+    loadDomainRule()
 }
 
-function loadHelpDetails(){
+function loadHelpDetails() {
     $("#editorContent").html('<div id="codeEditor" style="overflow: hidden;background-color: #fff"></div>');
 
     $('#codeEditor').height(($(".ui-layout-center").height() - 40) + 'px');
@@ -1719,7 +1581,7 @@ function loadHelpDetails(){
           
     </div>    
     <div class="col-md-9">
-        <div class="row helpContent" style="">
+        <div class="row helpContent" >
             <div class="col-md-12 mt-2">
                 <form autoComplete="off">
                     <input type="text" class="form-control" placeholder="Search contexts by name"
@@ -1737,785 +1599,664 @@ function loadHelpDetails(){
     `
 
     $("#codeEditor").html(str);
-    $(".contextBody").css('height',$("#codeEditor").height()-80)
-    $(".contextContent").css('height',$("#codeEditor").height()-50)
+    $(".contextBody").css('height', $("#codeEditor").height() - 80)
+    $(".contextContent").css('height', $("#codeEditor").height() - 50)
 
     renderContext();
 }
 
 function loadTabbar(id, type) {
-
-    let str = '';
+    toggleHeading(id)
     $(".deleteBtn").css('display', 'none');
-    $(".detailsBlock").css('display', 'none')
-    $(".messageFields").css('display', 'none');
-    $(".jobFields").css('display', 'none');
-    $(".defaultFields").css('display', 'none');
-    $(".processBlock").css('display', 'none');
-    $(".inputBlock").css('display', 'none');
-
-    $(".rulesListli").removeClass("rules-list-active");
-    $(".rule_"+id).addClass("rules-list-active")
-
     if (_.indexOf(tabbar_list, id) < 0) {
-        if (type === 1) {
+        
+        let name=""
+        const $editorBar = $(".editorBar")
+        switch (type) { // navbar
 
-            str = '<li role="presentation" data-ruleType="' + type + '" class="messageTab tabbar messageTab_' + id + '" >' +
-                '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadMessageRule(' + id + ')>' + id + ' ' +
-                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(' + id + ',1,this)" title="close"><i class="fa fa-close"></i></span></a>' +
-                '</li>';
+            case 1:
+                $editorBar.append('<li role="presentation" data-ruleType="' + type + '" class="messageTab tabbar messageTab_' + id + '" >' +
+                    '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadMessageRule(' + id + ')>' + id + ' ' +
+                    '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(' + id + ',1,this,event)" title="close"><i class="fa fa-close"></i></span></a>' +
+                    '</li>')
+                break;
 
-        }
-        else if (type === 2) {
-            str = '<li role="presentation" data-ruleType="' + type + '" class="namedTab tabbar namedTab_' + id + '"  >' +
-                '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadNamedRule(\'' + id + '\')>' + id + ' ' +
-                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',2,this)" title="close"><i class="fa fa-close"></i></span></a>' +
-                '</li>';
-        }
-        else if (type === 3) {
-            str = '<li role="presentation" data-ruleType="' + type + '" class="scheduleTab tabbar scheduleTab_' + id + '"  >' +
-                '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadScheduleRule(' + id + ')>' + id + ' ' +
-                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(' + id + ',3,this)" title="close"><i class="fa fa-close"></i></span></a>' +
-                '</li>';
-        }
-        else if (type === 4) {
+            case 2:
+                $editorBar.append('<li role="presentation" data-ruleType="' + type + '" class="namedTab tabbar namedTab_' + id + '"  >' +
+                    '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadNamedRule(\'' + id + '\')>' + id + ' ' +
+                    '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',2,this,event)" title="close"><i class="fa fa-close"></i></span></a>' +
+                    '</li>')
+                break;
 
-            let obj = {};
-            for (let i = 0; i < groovy_class_list.length; i++) {
-                for (let j = 0; j < groovy_class_list[i].classes.length; j++) {
-                    if (id === groovy_class_list[i].classes[j]._id) {
-                        obj = groovy_class_list[i].classes[j];
+            case 3:
+                $editorBar.append('<li role="presentation" data-ruleType="' + type + '" class="scheduleTab tabbar scheduleTab_' + id + '"  >' +
+                    '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadScheduleRule(' + id + ')>' + id + ' ' +
+                    '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(' + id + ',3,this,event)" title="close"><i class="fa fa-close"></i></span></a>' +
+                    '</li>')
+                break;
+
+            case 6:
+                $editorBar.append('<li role="presentation" data-ruleType="' + type + '" class="binaryTab tabbar binaryTab_' + id + '"  >' +
+                    '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadBinaryRule(\'' + id + '\')>' + id + ' ' +
+                    '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',6,this,event)" title="close"><i class="fa fa-close"></i></span></a>' +
+                    '</li>')
+                break;
+
+            case 7:
+                $editorBar.append('<li role="presentation" data-ruleType="' + type + '" class="jobTab tabbar jobTab_' + id + '"  >' +
+                    '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadJobRule(\'' + id + '\')>' + id + ' ' +
+                    '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',7,this,event)" title="close"><i class="fa fa-close"></i></span></a>' +
+                    '</li>')
+                break;
+
+            case 8:
+                $editorBar.append('<li role="presentation" data-ruleType="' + type + '" class="fileTab tabbar fileTab_' + id + '"  >' +
+                    '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadFileRule(\'' + id + '\')>' + id + ' ' +
+                    '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',8,this,event)" title="close"><i class="fa fa-close"></i></span></a>' +
+                    '</li>')
+                break;
+
+            case 9:
+                for (const iterator of process_rules_list) {
+                    if (id === iterator.id) {
+                        name = iterator.name;
+                        break
                     }
                 }
-            }
+                $editorBar.append('<li role="presentation" data-ruleType="' + type + '" class="processTab tabbar processTab_' + id + '"  >' +
+                    '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadProcessRule(\'' + id + '\')>' + name + ' ' +
+                    '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',9,this,event)" title="close"><i class="fa fa-close"></i></span></a>' +
+                    '</li>')
+                break;
 
-            str = '<li role="presentation" data-ruleType="' + type + '" class="groovyTab tabbar groovyTab_' + id + '"  >' +
-                '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadGroovyClass(\'' + id + '\')>' + obj.name + ' ' +
-                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',4,this)" title="close"><i class="fa fa-close"></i></span></a>' +
-                '</li>';
-        }
-        else if (type === 5) {
-
-            let obj = {};
-            for (let i = 0; i < jar_class_list.length; i++) {
-                if (id === jar_class_list[i]._id) {
-                    obj = jar_class_list[i];
+            case 10:
+                for (const iterator of sftp_rules_list) {
+                    if (id === iterator.id) {
+                        name = iterator.name;
+                        break
+                    }
                 }
-            }
+                $editorBar.append('<li role="presentation" data-ruleType="' + type + '" class="sftpTab tabbar sftpTab_' + id + '"  >' +
+                    '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadSftpRule(\'' + id + '\')>' + name + ' ' +
+                    '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',10,this,event)" title="close"><i class="fa fa-close"></i></span></a>' +
+                    '</li>')
+                $(".sftpTab_" + id).addClass('active');
+                break;
 
-            str = '<li role="presentation" data-ruleType="' + type + '" class="jarTab tabbar jarTab_' + id + '"  >' +
-                '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadJarClass(\'' + id + '\')>' + obj.packageName + ' ' +
-                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',5,this)" title="close"><i class="fa fa-close"></i></span></a>' +
-                '</li>';
-        }
-
-        else if (type === 6) {
-
-            let obj = {};
-            for (let i = 0; i < binary_rules_list.length; i++) {
-                if (id === binary_rules_list[i].type) {
-                    obj = binary_rules_list[i];
+            case 11:
+                for (const iterator of mqtt_rules_list) {
+                    if (id === iterator.id) {
+                        name = iterator.name;
+                        break
+                    }
                 }
-            }
+                $editorBar.append('<li role="presentation" data-ruleType="' + type + '" class="mqttTab tabbar mqttTab_' + id + '"  >' +
+                    '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadMqttRule(\'' + id + '\')>' + name + ' ' +
+                    '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',11,this,event)" title="close"><i class="fa fa-close"></i></span></a>' +
+                    '</li>')
 
-            str = '<li role="presentation" data-ruleType="' + type + '" class="binaryTab tabbar binaryTab_' + id + '"  >' +
-                '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadBinaryRule(\'' + id + '\')>' + obj.type + ' ' +
-                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',6,this)" title="close"><i class="fa fa-close"></i></span></a>' +
-                '</li>';
-        }
+                break;
 
-        else if (type === 7) {
-
-            let obj = {};
-            for (let i = 0; i < job_rules_list.length; i++) {
-                if (id === job_rules_list[i].id) {
-                    obj = job_rules_list[i];
+            case 12:
+                for (const iterator of udp_rules_list) {
+                    if (id === iterator.id) {
+                        name = iterator.name;
+                        break
+                    }
                 }
-            }
+                $editorBar.append('<li role="presentation" data-ruleType="' + type + '" class="udpTab tabbar udpTab_' + id + '"  >' +
+                    '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadUdpRule(\'' + id + '\')>' + name + ' ' +
+                    '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',12,this,event)" title="close"><i class="fa fa-close"></i></span></a>' +
+                    '</li>')
+                break;
 
-            str = '<li role="presentation" data-ruleType="' + type + '" class="jobTab tabbar jobTab_' + id + '"  >' +
-                '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadJobRule(\'' + id + '\')>' + obj.id + ' ' +
-                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',7,this)" title="close"><i class="fa fa-close"></i></span></a>' +
-                '</li>';
-        }
-
-        else if (type === 8) {
-
-            let obj = {};
-            for (let i = 0; i < file_rules_list.length; i++) {
-                if (id === file_rules_list[i].type) {
-                    obj = file_rules_list[i];
+            case 13:
+                for (const iterator of tcp_rules_list) {
+                    if (id === iterator.id) {
+                        name = iterator.name;
+                        break
+                    }
                 }
-            }
+                $editorBar.append('<li role="presentation" data-ruleType="' + type + '" class="tcpTab tabbar tcpTab_' + id + '"  >' +
+                    '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadTcpRule(\'' + id + '\')>' + name + ' ' +
+                    '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',13,this,event)" title="close"><i class="fa fa-close"></i></span></a>' +
+                    '</li>')
+                break;
 
-            str = '<li role="presentation" data-ruleType="' + type + '" class="fileTab tabbar fileTab_' + id + '"  >' +
-                '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadFileRule(\'' + id + '\')>' + obj.type + ' ' +
-                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',8,this)" title="close"><i class="fa fa-close"></i></span></a>' +
-                '</li>';
-        }
-
-        else if (type === 9) {
-
-            let obj = {};
-            for (let i = 0; i < process_rules_list.length; i++) {
-                if (id === process_rules_list[i].id) {
-                    obj = process_rules_list[i];
+            case 14:
+                for (const iterator of email_rules_list) {
+                    if (id === iterator.id) {
+                        name = iterator.name;
+                        break
+                    }
                 }
-            }
+                $editorBar.append('<li role="presentation" data-ruleType="' + type + '" class="emailTab tabbar emailTab_' + id + '"  >' +
+                    '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadEmailRule(\'' + id + '\')>' + name + ' ' +
+                    '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',14,this,event)" title="close"><i class="fa fa-close"></i></span></a>' +
+                    '</li>')
+               
+                break;
 
-            str = '<li role="presentation" data-ruleType="' + type + '" class="processTab tabbar processTab_' + id + '"  >' +
-                '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadProcessRule(\'' + id + '\')>' + obj.name + ' ' +
-                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',9,this)" title="close"><i class="fa fa-close"></i></span></a>' +
-                '</li>';
-        }
-        else if (type === 10) {
-
-            let obj = {};
-            for (let i = 0; i < sftp_rules_list.length; i++) {
-                if (id === sftp_rules_list[i].id) {
-                    obj = sftp_rules_list[i];
+            case 15:
+                for (const iterator of micro_rules_list) {
+                    if (id === iterator.name) {
+                        name = iterator.name;
+                        break
+                    }
                 }
-            }
-
-            str = '<li role="presentation" data-ruleType="' + type + '" class="sftpTab tabbar sftpTab_' + id + '"  >' +
-                '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadSftpRule(\'' + id + '\')>' + obj.name + ' ' +
-                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',10,this)" title="close"><i class="fa fa-close"></i></span></a>' +
-                '</li>';
-        }
-        else if (type === 11) {
-
-            let obj = {};
-            for (let i = 0; i < mqtt_rules_list.length; i++) {
-                if (id === mqtt_rules_list[i].id) {
-                    obj = mqtt_rules_list[i];
-                }
-            }
-
-            str = '<li role="presentation" data-ruleType="' + type + '" class="mqttTab tabbar mqttTab_' + id + '"  >' +
-                '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadMqttRule(\'' + id + '\')>' + obj.name + ' ' +
-                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',11,this)" title="close"><i class="fa fa-close"></i></span></a>' +
-                '</li>';
-        }
-        else if (type === 12) {
-
-            let obj = {};
-            for (let i = 0; i < udp_rules_list.length; i++) {
-                if (id === udp_rules_list[i].id) {
-                    obj = udp_rules_list[i];
-                }
-            }
-
-            str = '<li role="presentation" data-ruleType="' + type + '" class="udpTab tabbar udpTab_' + id + '"  >' +
-                '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadUdpRule(\'' + id + '\')>' + obj.name + ' ' +
-                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',12,this)" title="close"><i class="fa fa-close"></i></span></a>' +
-                '</li>';
-        }
-        else if (type === 13) {
-
-            let obj = {};
-            for (let i = 0; i < tcp_rules_list.length; i++) {
-                if (id === tcp_rules_list[i].id) {
-                    obj = tcp_rules_list[i];
-                }
-            }
-
-            str = '<li role="presentation" data-ruleType="' + type + '" class="tcpTab tabbar tcpTab_' + id + '"  >' +
-                '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadTcpRule(\'' + id + '\')>' + obj.name + ' ' +
-                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',13,this)" title="close"><i class="fa fa-close"></i></span></a>' +
-                '</li>';
-        }
-        else if (type === 14) {
-
-            let obj = {};
-            for (let i = 0; i < email_rules_list.length; i++) {
-                if (id === email_rules_list[i].id) {
-                    obj = email_rules_list[i];
-                }
-            }
-
-            str = '<li role="presentation" data-ruleType="' + type + '" class="emailTab tabbar emailTab_' + id + '"  >' +
-                '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadEmailRule(\'' + id + '\')>' + obj.name + ' ' +
-                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',14,this)" title="close"><i class="fa fa-close"></i></span></a>' +
-                '</li>';
-        }
-        else if (type === 15) {
-
-            let obj = {};
-            for (let i = 0; i < micro_rules_list.length; i++) {
-                if (id === micro_rules_list[i].name) {
-                    obj = micro_rules_list[i];
-                }
-            }
-
-            str = '<li role="presentation" data-ruleType="' + type + '" class="microTab tabbar microTab_' + id + '"  >' +
-                '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadMicroRule(\'' + obj.name + '\')>' + obj.name + ' ' +
-                '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',15,this)" title="close"><i class="fa fa-close"></i></span></a>' +
-                '</li>';
+                $editorBar.append('<li role="presentation" data-ruleType="' + type + '" class="microTab tabbar microTab_' + id + '"  >' +
+                    '<a href="javascript:void(0)" aria-controls="home" role="tab" data-toggle="tab" onclick=loadMicroRule(\'' + name + '\')>' + name + ' ' +
+                    '<span style="display: inline-block;margin-left: 10px;cursor: pointer" onclick="deleteTab(\'' + id + '\',15,this,event)" title="close"><i class="fa fa-close"></i></span></a>' +
+                    '</li>')
+                
+                break;
         }
 
         tabbar_list.push(id);
-        $(".editorBar").append(str);
-
     }
     $(".domainTab").removeClass('active')
-    $(".messageTab").removeClass('active')
-    $(".namedTab").removeClass('active')
-    $(".binaryTab").removeClass('active')
-    $(".scheduleTab").removeClass('active');
-    $(".groovyTab").removeClass('active');
-    $(".jobTab").removeClass('active');
-    $(".jarTab").removeClass('active');
-    $(".fileTab").removeClass('active');
-    $(".processTab").removeClass('active');
-    $(".sftpTab").removeClass('active');
-    $(".udpTab").removeClass('active');
-    $(".mqttTab").removeClass('active');
-    $(".tcpTab").removeClass('active');
-    $(".emailTab").removeClass('active');
-    $(".microTab").removeClass('active');
+    $(".editorBar li.tabbar").removeClass('active')
+    $(".ruleLanguage").html('GROOVY')
 
     let obj = {};
 
-    if (type === 1) {
-        loadMessageRule(id);
-        $(".messageTab_" + id).addClass('active');
+    switch (type) {
 
-
-
-        for (let i = 0; i < message_spec_list.length; i++) {
-
-            if (id === message_spec_list[i].id) {
-                obj = message_spec_list[i];
+        case 1:
+            loadMessageRule(id);
+            $(".messageTab_" + id).addClass('active');
+            for (const iterator of message_spec_list) {
+                if (id === iterator.id) {
+                    obj = iterator;
+                    break
+                }
             }
-        }
-        $(".ruleType").html('Message Rule');
-        $(".ruleName").html(obj.id + ' - <small style="color:#333;font-weight: normal">' + obj.name + '</small>');
-        $(".detailsBlock").css('display', 'block')
-        $(".messageFields").css('display', 'block');
-        $(".defaultFields").css('display', 'block');
-
-        $(".exportBtn").attr('onclick','exportRule(2)')
-        $(".messageFields tbody").html("");
-        for (let i = 0; i < obj.fields.length; i++) {
-            $(".messageFields tbody").append('<tr><td>' + obj.fields[i].name + '</td><td><label class="label label-default">' + obj.fields[i].dataType + '</label></td></tr>')
-        }
 
 
-        $(".simulateBtn").attr('onclick','checkSimulateDevices(\''+id+'\',1)');
-
-
-    }
-    else if (type === 2) {
-        loadNamedRule(id);
-        $(".namedTab_" + id).addClass('active');
-
-        for (let i = 0; i < named_rules_list.length; i++) {
-            if (id === named_rules_list[i].name) {
-                obj = named_rules_list[i];
+            $(".ruleType").html('Message Rule');
+            $(".ruleName").html(id + ' - <small style="color:#333;font-weight: normal">' + obj.name + '</small>');
+            $(".exportBtn").attr('onclick', 'exportRule(2)')
+            $(".messageFields tbody").html("");
+            for (let i = 0; i < obj.fields.length; i++) {
+                $(".messageFields tbody").append('<tr><td>' + obj.fields[i].name + '</td><td><label class="label label-default">' + obj.fields[i].dataType + '</label></td></tr>')
             }
-        }
-        $(".detailsBlock").css('display', 'block')
-        $(".ruleType").html('Named Rule');
-        $(".ruleName").html(obj.name);
+            $(".simulateBtn").attr('onclick', 'checkSimulateDevices(\'' + id + '\',1)');
+            break;
 
-        $(".exportBtn").attr('onclick','exportRule(3)')
+        case 2:
+            loadNamedRule(id);
+            $(".namedTab_" + id).addClass('active');
+            $(".ruleType").html('Named Rule');
+            $(".ruleName").html(id);
+            $(".exportBtn").attr('onclick', 'exportRule(3)')
+            $(".simulateBtn").attr('onclick', 'openSimulateModal(\'' + id + '\',2)');
+            break;
 
-        $(".simulateBtn").attr('onclick','openSimulateModal(\''+id+'\',2)');
-    }
-    else if (type === 3) {
-        loadScheduleRule(id);
-        $(".scheduleTab_" + id).addClass('active');
+        case 3:
+            loadScheduleRule(id);
+            $(".scheduleTab_" + id).addClass('active');
+            $(".ruleType").html('Schedule Rule');
+            $(".ruleName").html(id);
+            $(".exportBtn").attr('onclick', 'exportRule(4)')
+            break;
 
-        for (let i = 0; i < schedule_rules_list.length; i++) {
-            if (id === schedule_rules_list[i].id) {
-                obj = schedule_rules_list[i];
+        case 6:
+            loadBinaryRule(id);
+            $(".binaryTab_" + id).addClass('active');
+            $(".ruleType").html('Binary Rule');
+            $(".ruleName").html(id);
+            $(".exportBtn").attr('onclick', 'exportRule(6)')
+            $(".simulateBtn").attr('onclick', 'openSimulateModal(\'' + id + '\',3)');
+            break;
+
+        case 7:
+            $(".jobTab_" + id).addClass('active');
+            for (const iterator of job_rules_list) {
+                if (id === iterator.id) {
+                    obj = iterator;
+                    break
+                }
             }
-        }
-        $(".detailsBlock").css('display', 'block')
-        $(".ruleType").html('Schedule Rule');
-        $(".ruleName").html(obj.id);
+            loadJobRule(id);
+            loadJobDetails(id, obj);
 
-        $(".exportBtn").attr('onclick','exportRule(4)')
-    }
-    else if (type === 4) {
-        loadGroovyClass(id);
-        $(".groovyTab_" + id).addClass('active');
-        $(".detailsBlock").css('display', 'none')
-    }
-    else if (type === 5) {
-        loadJarClass(id);
-        $(".jarTab_" + id).addClass('active');
-        $(".detailsBlock").css('display', 'none')
-    }
-    else if (type === 6) {
-        loadBinaryRule(id);
-        $(".binaryTab_" + id).addClass('active');
+            $(".ruleType").html('Job Rule');
+            $(".ruleName").html(obj.type);
 
-        for (let i = 0; i < binary_rules_list.length; i++) {
-            if (id === binary_rules_list[i].type) {
-                obj = binary_rules_list[i];
+            $(".exportBtn").attr('onclick', 'exportRule(7)')
+
+            break;
+
+        case 8:
+            for (const iterator of file_rules_list) {
+                if (id === iterator.type) {
+                    obj = iterator;
+                    break
+                }
             }
-        }
-        $(".detailsBlock").css('display', 'block')
-        $(".ruleType").html('Binary Rule');
-        $(".ruleName").html(obj.type);
+            loadFileRule(id);
+            $(".fileTab_" + id).addClass('active');
+            $(".ruleType").html('File Rule');
+            $(".ruleName").html(id + (obj.rootPath ? '<br><small>Rooth Path: ' + obj.rootPath + '</small>' : ''));
 
-        $(".exportBtn").attr('onclick','exportRule(6)')
-        $(".simulateBtn").attr('onclick','openSimulateModal(\''+id+'\',3)');
-    }
-    else if (type === 8) {
-        loadFileRule(id);
-        $(".fileTab_" + id).addClass('active');
+            $(".exportBtn").attr('onclick', 'exportRule(8)')
+            $(".simulateBtn").attr('onclick', 'openSimulateModal(\'' + id + '\',4)');
 
-        for (let i = 0; i < file_rules_list.length; i++) {
-            if (id === file_rules_list[i].type) {
-                obj = file_rules_list[i];
+            break;
+
+        case 9:
+            $(".processTab_" + id).addClass('active');
+
+            for (const iterator of process_rules_list) {
+                if (id === iterator.id) {
+                    obj = iterator;
+                    break
+                }
             }
-        }
-        $(".detailsBlock").css('display', 'block')
-        $(".ruleType").html('File Rule');
-        $(".ruleName").html(obj.type+(obj.rootPath ? '<br><small>Rooth Path: '+obj.rootPath+'</small>' : ''));
 
-        $(".exportBtn").attr('onclick','exportRule(8)')
-        $(".simulateBtn").attr('onclick','openSimulateModal(\''+id+'\',4)');
-    }
-    else if (type === 7) {
-        loadJobRule(id);
-        $(".jobTab_" + id).addClass('active');
+            loadProcessRule(id);
+            loadProcessDetails(id, obj);
+            $(".ruleType").html('Process Rule');
+            $(".ruleName").html(obj.name);
+            $(".exportBtn").attr('onclick', 'exportRule(9)')
 
-        for (let i = 0; i < job_rules_list.length; i++) {
-            if (id === job_rules_list[i].id) {
-                obj = job_rules_list[i];
+            break;
+
+        case 10:
+            $(".sftpTab_" + id).addClass('active');
+
+            for (const iterator of sftp_rules_list) {
+                if (id === iterator.id) {
+                    obj = iterator;
+                    break
+                }
             }
-        }
 
-        loadJobDetails(id,obj);
+            loadSftpRule(id);
+            loadSftpDetails(id, obj);
 
-        $(".detailsBlock").css('display', 'block')
-        $(".jobFields").css('display', 'block')
-        $(".ruleType").html('Job Rule');
-        $(".ruleName").html(obj.type);
+            $(".ruleType").html('SFTP Rule');
+            $(".ruleName").html(obj.name);
 
-        $(".exportBtn").attr('onclick','exportRule(7)')
-    }
-    else if (type === 9) {
-        loadProcessRule(id);
-        $(".processTab_" + id).addClass('active');
+            $(".exportBtn").attr('onclick', 'exportRule(10)')
 
-        for (let i = 0; i < process_rules_list.length; i++) {
-            if (id === process_rules_list[i].id) {
-                obj = process_rules_list[i];
+            break;
+
+        case 11:
+            $(".mqttTab_" + id).addClass('active');
+
+            for (const iterator of mqtt_rules_list) {
+                if (id === iterator.id) {
+                    obj = iterator;
+                    break
+                }
             }
-        }
 
-        loadProcessDetails(id,obj);
+            loadMqttRule(id);
+            loadMqttDetails(id, obj);
+            $(".ruleType").html('MQTT Rule');
+            $(".ruleName").html(obj.name);
+            $(".exportBtn").attr('onclick', 'exportRule(11)')
 
-        $(".processBlock").css('display', 'block')
-        $(".ruleType").html('Process Rule');
-        $(".ruleName").html(obj.name);
-        $(".exportBtn").attr('onclick','exportRule(9)')
-    }
-    else if (type === 10) {
-        loadSftpRule(id);
-        $(".sftpTab_" + id).addClass('active');
+            break;
 
-        for (let i = 0; i < sftp_rules_list.length; i++) {
-            if (id === sftp_rules_list[i].id) {
-                obj = sftp_rules_list[i];
+        case 12:
+            $(".udpTab_" + id).addClass('active');
+            for (const iterator of udp_rules_list) {
+                if (id === iterator.id) {
+                    obj = iterator;
+                    break
+                }
             }
-        }
 
-        loadSftpDetails(id,obj);
+            loadUdpRule(id);
+            loadUdpDetails(id, obj);
+            rightPanelDetails(".detailsBlock,.inputBlock")
+            $(".ruleType").html('UDP Rule');
+            $(".ruleName").html(obj.name);
+            $(".exportBtn").attr('onclick', 'exportRule(12)')
 
-        $(".detailsBlock").css('display', 'block')
-        $(".inputBlock").css('display', 'block')
-        $(".ruleType").html('SFTP Rule');
-        $(".ruleName").html(obj.name);
+            break;
 
-        $(".exportBtn").attr('onclick','exportRule(10)')
-    }
-    else if (type === 11) {
-        loadMqttRule(id);
-        $(".mqttTab_" + id).addClass('active');
+        case 13:
+            $(".tcpTab_" + id).addClass('active');
 
-        for (let i = 0; i < mqtt_rules_list.length; i++) {
-            if (id === mqtt_rules_list[i].id) {
-                obj = mqtt_rules_list[i];
+            for (const iterator of tcp_rules_list) {
+                if (id === iterator.id) {
+                    obj = iterator;
+                    break
+                }
             }
-        }
 
-        loadMqttDetails(id,obj);
+            loadTcpRule(id);
+            loadTcpDetails(id, obj);
+            $(".ruleType").html('TCP Rule');
+            $(".ruleName").html(obj.name);
+            $(".exportBtn").attr('onclick', 'exportRule(13)')
 
-        $(".detailsBlock").css('display', 'block')
-        $(".inputBlock").css('display', 'block')
-        $(".ruleType").html('MQTT Rule');
-        $(".ruleName").html(obj.name);
+            break;
 
-        $(".exportBtn").attr('onclick','exportRule(11)')
-    }
-    else if (type === 12) {
-        loadUdpRule(id);
-        $(".udpTab_" + id).addClass('active');
+        case 14:
+            $(".emailTab_" + id).addClass('active');
 
-        for (let i = 0; i < udp_rules_list.length; i++) {
-            if (id === udp_rules_list[i].id) {
-                obj = udp_rules_list[i];
+            for (const iterator of email_rules_list) {
+                if (id === iterator.id) {
+                    obj = iterator;
+                    break
+                }
             }
-        }
 
-        loadUdpDetails(id,obj);
+            loadEmailRule(id);
+            loadEmailDetails(id, obj);
+            $(".ruleType").html('Email Rule');
+            $(".ruleName").html(obj.name);
+            $(".exportBtn").attr('onclick', 'exportRule(14)');
 
-        $(".detailsBlock").css('display', 'block')
-        $(".inputBlock").css('display', 'block')
-        $(".ruleType").html('UDP Rule');
-        $(".ruleName").html(obj.name);
+            break;
 
-        $(".exportBtn").attr('onclick','exportRule(12)')
-    }
-    else if (type === 13) {
-        loadTcpRule(id);
-        $(".tcpTab_" + id).addClass('active');
+        case 15:
+            $(".microTab_" + id).addClass('active');
 
-        for (let i = 0; i < tcp_rules_list.length; i++) {
-            if (id === tcp_rules_list[i].id) {
-                obj = tcp_rules_list[i];
+            for (const iterator of micro_rules_list) {
+                if (id === iterator.name) {
+                    obj = iterator;
+                    break
+                }
             }
-        }
 
-        loadTcpDetails(id,obj);
+            loadMicroRule(id);
+            loadMicroDetails(id, obj);
+            $(".ruleType").html('Micro API Rule');
+            $(".ruleName").html(obj.name);
+            $(".exportBtn").attr('onclick', 'exportRule(15)')
 
-        $(".detailsBlock").css('display', 'block')
-        $(".inputBlock").css('display', 'block')
-        $(".ruleType").html('TCP Rule');
-        $(".ruleName").html(obj.name);
-
-        $(".exportBtn").attr('onclick','exportRule(13)')
+            break;
     }
-    else if (type === 14) {
-        loadEmailRule(id);
-        $(".emailTab_" + id).addClass('active');
-
-        for (let i = 0; i < email_rules_list.length; i++) {
-            if (id === email_rules_list[i].id) {
-                obj = email_rules_list[i];
-            }
-        }
-
-        loadEmailDetails(id,obj);
-
-        $(".detailsBlock").css('display', 'block')
-        $(".inputBlock").css('display', 'block')
-        $(".ruleType").html('Email Rule');
-        $(".ruleName").html(obj.name);
-
-        $(".exportBtn").attr('onclick','exportRule(14)');
-    }
-    else if (type === 15) {
-        loadMicroRule(id);
-        $(".microTab_" + id).addClass('active');
-
-        for (let i = 0; i < micro_rules_list.length; i++) {
-            if (id === micro_rules_list[i].name) {
-                obj = micro_rules_list[i];
-            }
-        }
-
-        loadMicroDetails(id,obj);
-
-        $(".detailsBlock").css('display', 'block')
-        $(".inputBlock").css('display', 'block')
-        $(".ruleType").html('Micro API Rule');
-        $(".ruleName").html(obj.name);
-
-        $(".exportBtn").attr('onclick','exportRule(15)')
-    }
-
-
-    $(".ruleLanguage").html('GROOVY')
+    
     $('[data-toggle="tooltip"]').tooltip()
 
 }
 
-function loadProcessDetails(id,obj) {
+function loadProcessDetails(id, obj) {
     let output = '';
     let input = '';
 
-    for(let k in obj.output){
-        output+= '<tr><td>'+k+'</td><td>'+obj.output[k]+'</td></tr>'
+    for (let k in obj.output) {
+        output += '<tr><td>' + k + '</td><td>' + obj.output[k] + '</td></tr>'
     }
-    if(obj.input) {
+    if (obj.input) {
         for (let k in obj.input) {
             input += '<tr><td>' + k + '</td><td>' + obj.input[k] + '</td></tr>'
         }
     }
 
-    $(".pBody").html('<p><strong><br>Process ID <span style="height:12px;width:12px;display:inline-block;background-color: '+obj.properties.color+'"></span></strong>' +
-        '<label style="    width: 100%;">'+id+' </label>' +
-        '<img src="'+obj.properties.logo+'" style="width:48px;height:48px;">'+
+    $(".pBody").html('<p><strong><br>Process ID <span style="height:12px;width:12px;display:inline-block;background-color: ' + obj.properties.color + '"></span></strong>' +
+        '<label style="    width: 100%;">' + id + ' </label>' +
+        '<img src="' + obj.properties.logo + '" style="width:48px;height:48px;">' +
 
         '</p>' +
         '<strong>Output</strong><br>\n' +
-    '<table class="table table-bordered table-striped">' +
-        // '<thead><tr><th>Keyname</th><th>Datatype</th></tr></thead>' +
-        '<tbody>' +output+
-    '</tbody></table>\n' +
-        (input ? '<strong>Input</strong><br>\n' +
         '<table class="table table-bordered table-striped">' +
         // '<thead><tr><th>Keyname</th><th>Datatype</th></tr></thead>' +
-        '<tbody>' +input+
-        '</tbody></table>\n' : '')+
-    '<p>\n' +
-    '<strong>Group</strong><br>\n' +
-    '<label>'+(obj.group ? obj.group : '-')+'</label>\n' +
-    '</p>\n' +
-    '<p>\n' +
-    '<strong>Tags</strong><br>\n' +
-        '<label>'+(obj.tags ? obj.tags : '-')+'</label>\n' +
-    '</p>\n' +
-    '<p>\n' +
-    '<strong>Description</strong><br>\n' +
-        '<label>'+(obj.description ? obj.description : '-')+'</label>\n' +
-    '</p>'+
-    '<p>\n' +
-    '<strong>Updated By</strong><br>\n' +
-    '<label>'+(obj.updatedBy ? obj.updatedBy : '-')+'</label>\n' +
-    '</p>'+
-    '<p>\n' +
-    '<strong>Updated Time</strong><br>\n' +
-    '<label>'+(obj.updatedTime ? moment(obj.updatedTime).format('MM/DD/YYYY hh:mm a') : '-')+'</label>\n' +
-    '</p>'+
-    '<p>\n' +
-    '<strong>Created By</strong><br>\n' +
-        '<label>'+(obj.createdBy ? obj.createdBy : '-')+'</label>\n' +
-    '</p>'+
-    '<p>\n' +
-    '<strong>Created Time</strong><br>\n' +
-    '<label>'+(obj.createdTime ? moment(obj.createdTime).format('MM/DD/YYYY hh:mm a') : '-')+'</label>\n' +
-    '</p>'
+        '<tbody>' + output +
+        '</tbody></table>\n' +
+        (input ? '<strong>Input</strong><br>\n' +
+            '<table class="table table-bordered table-striped">' +
+            // '<thead><tr><th>Keyname</th><th>Datatype</th></tr></thead>' +
+            '<tbody>' + input +
+            '</tbody></table>\n' : '') +
+        '<p>\n' +
+        '<strong>Group</strong><br>\n' +
+        '<label>' + (obj.group ? obj.group : '-') + '</label>\n' +
+        '</p>\n' +
+        '<p>\n' +
+        '<strong>Tags</strong><br>\n' +
+        '<label>' + (obj.tags ? obj.tags : '-') + '</label>\n' +
+        '</p>\n' +
+        '<p>\n' +
+        '<strong>Description</strong><br>\n' +
+        '<label>' + (obj.description ? obj.description : '-') + '</label>\n' +
+        '</p>' +
+        '<p>\n' +
+        '<strong>Updated By</strong><br>\n' +
+        '<label>' + (obj.updatedBy ? obj.updatedBy : '-') + '</label>\n' +
+        '</p>' +
+        '<p>\n' +
+        '<strong>Updated Time</strong><br>\n' +
+        '<label>' + (obj.updatedTime ? moment(obj.updatedTime).format('MM/DD/YYYY hh:mm a') : '-') + '</label>\n' +
+        '</p>' +
+        '<p>\n' +
+        '<strong>Created By</strong><br>\n' +
+        '<label>' + (obj.createdBy ? obj.createdBy : '-') + '</label>\n' +
+        '</p>' +
+        '<p>\n' +
+        '<strong>Created Time</strong><br>\n' +
+        '<label>' + (obj.createdTime ? moment(obj.createdTime).format('MM/DD/YYYY hh:mm a') : '-') + '</label>\n' +
+        '</p>'
     );
 }
 
-function loadSftpDetails(id,obj) {
+function loadSftpDetails(id, obj) {
     $(".inputBlock tbody").html("");
 
-    $(".inputBlock tbody").append('<tr><td>Implementation</td><td>'+(obj.implementation ? obj.implementation : '-')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Instance Type</td><td>'+obj.instanceType+ (obj.instances ? '<br>('+obj.instances+' instances)' : '')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Start at Reboot</td><td>'+(obj.startAtBoot ? 'Yes' : 'No')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Implementation</td><td>' + (obj.implementation ? obj.implementation : '-') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Instance Type</td><td>' + obj.instanceType + (obj.instances ? '<br>(' + obj.instances + ' instances)' : '') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Start at Reboot</td><td>' + (obj.startAtBoot ? 'Yes' : 'No') + '</td></tr>')
     $(".inputBlock tbody").append('<tr><td colspan="1">Instance Action' +
-        '<button style="display:none" class="btn btn-xs stBtn btn-primary" onclick="executeInputAction(\''+id+'\',\''+'START'+'\',\''+'SFTP'+'\')"><i class="fa fa-play"></i> Start</button>'+
-        '<button style="display:none" class="btn btn-xs stpBtn mb-2 btn-danger" onclick="executeInputAction(\''+id+'\',\''+'STOP'+'\',\''+'SFTP'+'\')"><i class="fa fa-stop"></i> Stop</button>'+
-        '<button style="display:none" class="btn btn-xs resBtn btn-warning" onclick="executeInputAction(\''+id+'\',\''+'RESTART'+'\',\''+'SFTP'+'\')"><i class="fa fa-redo"></i> Restart</button>'+
+        '<button style="display:none" class="btn btn-xs stBtn btn-primary" onclick="executeInputAction(\'' + id + '\',\'' + 'START' + '\',\'' + 'SFTP' + '\')"><i class="fa fa-play"></i> Start</button>' +
+        '<button style="display:none" class="btn btn-xs stpBtn mb-2 btn-danger" onclick="executeInputAction(\'' + id + '\',\'' + 'STOP' + '\',\'' + 'SFTP' + '\')"><i class="fa fa-stop"></i> Stop</button>' +
+        '<button style="display:none" class="btn btn-xs resBtn btn-warning" onclick="executeInputAction(\'' + id + '\',\'' + 'RESTART' + '\',\'' + 'SFTP' + '\')"><i class="fa fa-redo"></i> Restart</button>' +
         '</td></tr>')
 
     let configs = ''
-    if(obj.config) {
+    if (obj.config) {
         for (let i = 0; i < obj.config.length; i++) {
-            configs+=obj.config[i].name+':'+obj.config[i].value+"<br>";
+            configs += obj.config[i].name + ':' + obj.config[i].value + "<br>";
         }
     }
 
-    $(".inputBlock tbody").append('<tr><td>Configs</td><td>'+configs+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Properties</td><td>'+(obj.properties ? JSON.stringify(obj.properties) : '')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Configs</td><td>' + configs + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Properties</td><td>' + (obj.properties ? JSON.stringify(obj.properties) : '') + '</td></tr>')
 
-    $(".inputBlock tbody").append('<tr><td>Remote Host</td><td>'+(obj.remoteHost ? obj.remoteHost : '-')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Port</td><td>'+(obj.remotePort ? obj.remotePort : '-')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Username</td><td>'+(obj.userName ? obj.userName : '-')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Password</td><td>'+(obj.password ? obj.password : '-')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Remote Paths</td><td>'+(obj.remotePaths ? obj.remotePaths.join(",") : '-')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Poll Interval</td><td>'+(obj.pollInterval ? obj.pollInterval : '-')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>List Pattern</td><td>'+(obj.listPattern ? obj.listPattern : '-')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>List Dir. Pattern</td><td>'+(obj.listDirPattern ? obj.listDirPattern : '-')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>key Files Built In</td><td>'+(obj.keyFilesBuiltIn ? 'Yes' : 'No')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Connection TimeOut</td><td>'+(obj.connectTimeOut ? obj.connectTimeOut : '-')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>List Recursive</td><td>'+(obj.listRecursive ? obj.listRecursive : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Remote Host</td><td>' + (obj.remoteHost ? obj.remoteHost : '-') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Port</td><td>' + (obj.remotePort ? obj.remotePort : '-') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Username</td><td>' + (obj.userName ? obj.userName : '-') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Password</td><td>' + (obj.password ? obj.password : '-') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Remote Paths</td><td>' + (obj.remotePaths ? obj.remotePaths.join(",") : '-') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Poll Interval</td><td>' + (obj.pollInterval ? obj.pollInterval : '-') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>List Pattern</td><td>' + (obj.listPattern ? obj.listPattern : '-') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>List Dir. Pattern</td><td>' + (obj.listDirPattern ? obj.listDirPattern : '-') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>key Files Built In</td><td>' + (obj.keyFilesBuiltIn ? 'Yes' : 'No') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Connection TimeOut</td><td>' + (obj.connectTimeOut ? obj.connectTimeOut : '-') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>List Recursive</td><td>' + (obj.listRecursive ? obj.listRecursive : '-') + '</td></tr>')
 
-    getInputRunning('SFTP',id);
+    getInputRunning('SFTP', id);
 
 }
 
-function loadMqttDetails(id,obj) {
+function loadMqttDetails(id, obj) {
     $(".inputBlock tbody").html("");
 
-    $(".inputBlock tbody").append('<tr><td>Instance Type</td><td>'+obj.instanceType+ (obj.instances ? '<br>('+obj.instances+' instances)' : '')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Start at Reboot</td><td>'+(obj.startAtBoot ? 'Yes' : 'No')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Instance Type</td><td>' + obj.instanceType + (obj.instances ? '<br>(' + obj.instances + ' instances)' : '') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Start at Reboot</td><td>' + (obj.startAtBoot ? 'Yes' : 'No') + '</td></tr>')
     $(".inputBlock tbody").append('<tr><td colspan="1">Instance Action' +
-        '<button style="display:none" class="btn btn-xs stBtn btn-primary" onclick="executeInputAction(\''+id+'\',\''+'START'+'\',\''+'MQTT'+'\')"><i class="fa fa-play"></i> Start</button>'+
-        '<button style="display:none" class="btn btn-xs stpBtn mb-2 btn-danger" onclick="executeInputAction(\''+id+'\',\''+'STOP'+'\',\''+'MQTT'+'\')"><i class="fa fa-stop"></i> Stop</button>'+
-        '<button style="display:none" class="btn btn-xs resBtn btn-warning" onclick="executeInputAction(\''+id+'\',\''+'RESTART'+'\',\''+'MQTT'+'\')"><i class="fa fa-redo"></i> Restart</button>'+
+        '<button style="display:none" class="btn btn-xs stBtn btn-primary" onclick="executeInputAction(\'' + id + '\',\'' + 'START' + '\',\'' + 'MQTT' + '\')"><i class="fa fa-play"></i> Start</button>' +
+        '<button style="display:none" class="btn btn-xs stpBtn mb-2 btn-danger" onclick="executeInputAction(\'' + id + '\',\'' + 'STOP' + '\',\'' + 'MQTT' + '\')"><i class="fa fa-stop"></i> Stop</button>' +
+        '<button style="display:none" class="btn btn-xs resBtn btn-warning" onclick="executeInputAction(\'' + id + '\',\'' + 'RESTART' + '\',\'' + 'MQTT' + '\')"><i class="fa fa-redo"></i> Restart</button>' +
         '</td></tr>')
     let configs = ''
-    if(obj.config) {
+    if (obj.config) {
         for (let i = 0; i < obj.config.length; i++) {
-            configs+=obj.config[i].name+':'+obj.config[i].value+"<br>";
+            configs += obj.config[i].name + ':' + obj.config[i].value + "<br>";
         }
     }
 
-    $(".inputBlock tbody").append('<tr><td>Configs</td><td>'+configs+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Properties</td><td>'+(obj.properties ? JSON.stringify(obj.properties) : '')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Configs</td><td>' + configs + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Properties</td><td>' + (obj.properties ? JSON.stringify(obj.properties) : '') + '</td></tr>')
 
-    $(".inputBlock tbody").append('<tr><td>Server Urls</td><td>'+(obj.serverUrls ? obj.serverUrls.join(", ") : '-')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Username</td><td>'+(obj.userName ? obj.userName : '-')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Password</td><td style="word-break: break-all;">'+(obj.password ? obj.password : '-')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Client Id</td><td>'+(obj.clientId ? obj.clientId : '-')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Clean Session</td><td>'+(obj.cleanSession ? 'True' : 'False')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Connection TimeOut</td><td>'+(obj.connectTimeOut ? obj.connectTimeOut : '-')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Keep Alive Interval</td><td>'+(obj.keepAliveInterval ? obj.keepAliveInterval : '-')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>MQTT Version</td><td>'+(obj.mqttVersion ? obj.mqttVersion : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Server Urls</td><td>' + (obj.serverUrls ? obj.serverUrls.join(", ") : '-') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Username</td><td>' + (obj.userName ? obj.userName : '-') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Password</td><td style="word-break: break-all;">' + (obj.password ? obj.password : '-') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Client Id</td><td>' + (obj.clientId ? obj.clientId : '-') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Clean Session</td><td>' + (obj.cleanSession ? 'True' : 'False') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Connection TimeOut</td><td>' + (obj.connectTimeOut ? obj.connectTimeOut : '-') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Keep Alive Interval</td><td>' + (obj.keepAliveInterval ? obj.keepAliveInterval : '-') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>MQTT Version</td><td>' + (obj.mqttVersion ? obj.mqttVersion : '-') + '</td></tr>')
 
-    $(".inputBlock tbody").append('<tr><td>SSL</td><td>'+(obj.ssl ? 'True' : 'False')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>SSL Store Build In</td><td>'+(obj.sslStoreBuiltIn ? 'True' : 'False')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>SSL Skip HostName Verification</td><td>'+(obj.sslSkipHostNameVerification ? 'True' : 'False')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>SSL</td><td>' + (obj.ssl ? 'True' : 'False') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>SSL Store Build In</td><td>' + (obj.sslStoreBuiltIn ? 'True' : 'False') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>SSL Skip HostName Verification</td><td>' + (obj.sslSkipHostNameVerification ? 'True' : 'False') + '</td></tr>')
 
 
     let subs = ''
-    if(obj.subscriptions) {
+    if (obj.subscriptions) {
         for (let i = 0; i < obj.subscriptions.length; i++) {
-            subs+="Pattern:"+ obj.subscriptions[i].pattern+', Qos: '+obj.subscriptions[i].qos+"<br>";
+            subs += "Pattern:" + obj.subscriptions[i].pattern + ', Qos: ' + obj.subscriptions[i].qos + "<br>";
         }
     }
 
-    $(".inputBlock tbody").append('<tr><td>Subscriptions</td><td>'+(obj.subs ? obj.subs : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Subscriptions</td><td>' + (obj.subs ? obj.subs : '-') + '</td></tr>')
 
 
-    getInputRunning('MQTT',id);
+    getInputRunning('MQTT', id);
 
 }
 
-function loadUdpDetails(id,obj) {
+function loadUdpDetails(id, obj) {
     $(".inputBlock tbody").html("");
 
-    $(".inputBlock tbody").append('<tr><td>Instance Type</td><td>'+obj.instanceType+ (obj.instances ? '<br>('+obj.instances+' instances)' : '')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Start at Reboot</td><td>'+(obj.startAtBoot ? 'Yes' : 'No')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Instance Type</td><td>' + obj.instanceType + (obj.instances ? '<br>(' + obj.instances + ' instances)' : '') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Start at Reboot</td><td>' + (obj.startAtBoot ? 'Yes' : 'No') + '</td></tr>')
     $(".inputBlock tbody").append('<tr><td colspan="1">Instance Action' +
-        '<button style="display:none" class="btn btn-xs stBtn btn-primary" onclick="executeInputAction(\''+id+'\',\''+'START'+'\',\''+'UDP'+'\')"><i class="fa fa-play"></i> Start</button>'+
-        '<button style="display:none" class="btn btn-xs stpBtn mb-2 btn-danger" onclick="executeInputAction(\''+id+'\',\''+'STOP'+'\',\''+'UDP'+'\')"><i class="fa fa-stop"></i> Stop</button>'+
-        '<button style="display:none" class="btn btn-xs resBtn btn-warning" onclick="executeInputAction(\''+id+'\',\''+'RESTART'+'\',\''+'UDP'+'\')"><i class="fa fa-redo"></i> Restart</button>'+
+        '<button style="display:none" class="btn btn-xs stBtn btn-primary" onclick="executeInputAction(\'' + id + '\',\'' + 'START' + '\',\'' + 'UDP' + '\')"><i class="fa fa-play"></i> Start</button>' +
+        '<button style="display:none" class="btn btn-xs stpBtn mb-2 btn-danger" onclick="executeInputAction(\'' + id + '\',\'' + 'STOP' + '\',\'' + 'UDP' + '\')"><i class="fa fa-stop"></i> Stop</button>' +
+        '<button style="display:none" class="btn btn-xs resBtn btn-warning" onclick="executeInputAction(\'' + id + '\',\'' + 'RESTART' + '\',\'' + 'UDP' + '\')"><i class="fa fa-redo"></i> Restart</button>' +
         '</td></tr>')
     let configs = ''
-    if(obj.config) {
+    if (obj.config) {
         for (let i = 0; i < obj.config.length; i++) {
-            configs+=obj.config[i].name+':'+obj.config[i].value+"<br>";
+            configs += obj.config[i].name + ':' + obj.config[i].value + "<br>";
         }
     }
 
-    $(".inputBlock tbody").append('<tr><td>Configs</td><td>'+configs+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Properties</td><td>'+(obj.properties ? JSON.stringify(obj.properties) : '')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Configs</td><td>' + configs + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Properties</td><td>' + (obj.properties ? JSON.stringify(obj.properties) : '') + '</td></tr>')
 
 
-    $(".inputBlock tbody").append('<tr><td>Listen Host</td><td>'+(obj.listenHost ? obj.listenHost : '-')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Listen Port</td><td>'+(obj.listenPort ? obj.listenPort : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Listen Host</td><td>' + (obj.listenHost ? obj.listenHost : '-') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Listen Port</td><td>' + (obj.listenPort ? obj.listenPort : '-') + '</td></tr>')
 
 
 
-    $(".inputBlock tbody").append('<tr><td>Receive BufferSize</td><td>'+(obj.receiveBufferSize ? obj.receiveBufferSize : '-')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Send BufferSize</td><td>'+(obj.sendBufferSize ? obj.sendBufferSize : '-')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>So Timeout</td><td>'+(obj.soTimeout ? obj.soTimeout : '-')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>TTL</td><td>'+(obj.timeToLive ? obj.timeToLive : '-')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Traffice Class</td><td>'+(obj.trafficeClass ? obj.trafficeClass : '-')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Reuse Address</td><td>'+(obj.reuseAddress ? 'Yes' : 'No')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Multicast</td><td>'+(obj.multicast ? 'Yes' : 'No')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Multicast Group</td><td>'+(obj.multicastGroup ? obj.multicastGroup : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Receive BufferSize</td><td>' + (obj.receiveBufferSize ? obj.receiveBufferSize : '-') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Send BufferSize</td><td>' + (obj.sendBufferSize ? obj.sendBufferSize : '-') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>So Timeout</td><td>' + (obj.soTimeout ? obj.soTimeout : '-') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>TTL</td><td>' + (obj.timeToLive ? obj.timeToLive : '-') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Traffice Class</td><td>' + (obj.trafficeClass ? obj.trafficeClass : '-') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Reuse Address</td><td>' + (obj.reuseAddress ? 'Yes' : 'No') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Multicast</td><td>' + (obj.multicast ? 'Yes' : 'No') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Multicast Group</td><td>' + (obj.multicastGroup ? obj.multicastGroup : '-') + '</td></tr>')
 
 
-    getInputRunning('UDP',id);
+    getInputRunning('UDP', id);
 
 }
 
-function loadTcpDetails(id,obj) {
+function loadTcpDetails(id, obj) {
     $(".inputBlock tbody").html("");
 
-    $(".inputBlock tbody").append('<tr><td>Instance Type</td><td>'+obj.instanceType+ (obj.instances ? '<br>('+obj.instances+' instances)' : '')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Start at Reboot</td><td>'+(obj.startAtBoot ? 'Yes' : 'No')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Instance Type</td><td>' + obj.instanceType + (obj.instances ? '<br>(' + obj.instances + ' instances)' : '') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Start at Reboot</td><td>' + (obj.startAtBoot ? 'Yes' : 'No') + '</td></tr>')
     $(".inputBlock tbody").append('<tr><td colspan="1">Instance Action' +
-        '<button style="display:none" class="btn btn-xs stBtn btn-primary" onclick="executeInputAction(\''+id+'\',\''+'START'+'\',\''+'TCP'+'\')"><i class="fa fa-play"></i> Start</button>'+
-        '<button style="display:none" class="btn btn-xs stpBtn mb-2 btn-danger" onclick="executeInputAction(\''+id+'\',\''+'STOP'+'\',\''+'TCP'+'\')"><i class="fa fa-stop"></i> Stop</button>'+
-        '<button style="display:none" class="btn btn-xs resBtn btn-warning" onclick="executeInputAction(\''+id+'\',\''+'RESTART'+'\',\''+'TCP'+'\')"><i class="fa fa-redo"></i> Restart</button>'+
+        '<button style="display:none" class="btn btn-xs stBtn btn-primary" onclick="executeInputAction(\'' + id + '\',\'' + 'START' + '\',\'' + 'TCP' + '\')"><i class="fa fa-play"></i> Start</button>' +
+        '<button style="display:none" class="btn btn-xs stpBtn mb-2 btn-danger" onclick="executeInputAction(\'' + id + '\',\'' + 'STOP' + '\',\'' + 'TCP' + '\')"><i class="fa fa-stop"></i> Stop</button>' +
+        '<button style="display:none" class="btn btn-xs resBtn btn-warning" onclick="executeInputAction(\'' + id + '\',\'' + 'RESTART' + '\',\'' + 'TCP' + '\')"><i class="fa fa-redo"></i> Restart</button>' +
         '</td></tr>')
     let configs = ''
-    if(obj.config) {
+    if (obj.config) {
         for (let i = 0; i < obj.config.length; i++) {
-            configs+=obj.config[i].name+':'+obj.config[i].value+"<br>";
+            configs += obj.config[i].name + ':' + obj.config[i].value + "<br>";
         }
     }
 
 
-    $(".inputBlock tbody").append('<tr><td>Configs</td><td>'+configs+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Properties</td><td>'+(obj.properties ? JSON.stringify(obj.properties) : '')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Configs</td><td>' + configs + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Properties</td><td>' + (obj.properties ? JSON.stringify(obj.properties) : '') + '</td></tr>')
 
-    $(".inputBlock tbody").append('<tr><td>Listen Host</td><td>'+(obj.listenHost ? obj.listenHost : '-')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Listen Port</td><td>'+(obj.listenPort ? obj.listenPort : '-')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>SSL</td><td>'+(obj.ssl ? 'True' : 'False')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>SSL Store Build In</td><td>'+(obj.sslStoreBuiltIn ? 'True' : 'False')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Listen Host</td><td>' + (obj.listenHost ? obj.listenHost : '-') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Listen Port</td><td>' + (obj.listenPort ? obj.listenPort : '-') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>SSL</td><td>' + (obj.ssl ? 'True' : 'False') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>SSL Store Build In</td><td>' + (obj.sslStoreBuiltIn ? 'True' : 'False') + '</td></tr>')
 
-    $(".inputBlock tbody").append('<tr><td>TLS Version</td><td>'+(obj.tlsVersion ? obj.tlsVersion : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>TLS Version</td><td>' + (obj.tlsVersion ? obj.tlsVersion : '-') + '</td></tr>')
 
-    $(".inputBlock tbody").append('<tr><td>Keep Alive</td><td>'+(obj.keepAlive ? 'True' : 'False')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>So Linger On</td><td>'+(obj.soLingerOn ? 'True' : 'False')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>So Timeout</td><td>'+(obj.soTimeout ? obj.soTimeout : '-')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>So Linger</td><td>'+(obj.soLinger ? obj.soLinger : '-')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>OOB Line</td><td>'+(obj.oobLine ? 'True' : 'False')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Receive BufferSize</td><td>'+(obj.receiveBufferSize ? obj.receiveBufferSize : '-')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Send BufferSize</td><td>'+(obj.sendBufferSize ? obj.sendBufferSize : '-')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>TCP No Delay</td><td>'+(obj.tcpNoDelay ? 'True' : 'False')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Traffice Class</td><td>'+(obj.trafficeClass ? obj.trafficeClass : '-')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Reuse Address</td><td>'+(obj.reuseAddress ? 'True' : 'False')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Execute</td><td>'+(obj.execute ? obj.execute : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Keep Alive</td><td>' + (obj.keepAlive ? 'True' : 'False') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>So Linger On</td><td>' + (obj.soLingerOn ? 'True' : 'False') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>So Timeout</td><td>' + (obj.soTimeout ? obj.soTimeout : '-') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>So Linger</td><td>' + (obj.soLinger ? obj.soLinger : '-') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>OOB Line</td><td>' + (obj.oobLine ? 'True' : 'False') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Receive BufferSize</td><td>' + (obj.receiveBufferSize ? obj.receiveBufferSize : '-') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Send BufferSize</td><td>' + (obj.sendBufferSize ? obj.sendBufferSize : '-') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>TCP No Delay</td><td>' + (obj.tcpNoDelay ? 'True' : 'False') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Traffice Class</td><td>' + (obj.trafficeClass ? obj.trafficeClass : '-') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Reuse Address</td><td>' + (obj.reuseAddress ? 'True' : 'False') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Execute</td><td>' + (obj.execute ? obj.execute : '-') + '</td></tr>')
 
-    $(".inputBlock tbody").append('<tr><td>Execute Partial Buffered</td><td>'+(obj.executePartialBuffered ? 'True' : 'False')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Fixed BufferSize</td><td>'+(obj.fixedBufferSize ? obj.fixedBufferSize : '-')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Read Timeout</td><td>'+(obj.readTimeout ? obj.readTimeout : '-')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Close OnRead Timeout</td><td>'+(obj.closeOnReadTimeout ? 'True' : 'False')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Delimeter</td><td>'+(obj.delimiter ? obj.delimiter : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Execute Partial Buffered</td><td>' + (obj.executePartialBuffered ? 'True' : 'False') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Fixed BufferSize</td><td>' + (obj.fixedBufferSize ? obj.fixedBufferSize : '-') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Read Timeout</td><td>' + (obj.readTimeout ? obj.readTimeout : '-') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Close OnRead Timeout</td><td>' + (obj.closeOnReadTimeout ? 'True' : 'False') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Delimeter</td><td>' + (obj.delimiter ? obj.delimiter : '-') + '</td></tr>')
 
-    getInputRunning('TCP',id);
+    getInputRunning('TCP', id);
 
 }
 
-function loadEmailDetails(id,obj) {
+function loadEmailDetails(id, obj) {
     $(".inputBlock tbody").html("");
 
-    $(".inputBlock tbody").append('<tr><td>Instance Type</td><td>'+obj.instanceType+ (obj.instances ? '<br>('+obj.instances+' instances)' : '')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Start at Reboot</td><td>'+(obj.startAtBoot ? 'Yes' : 'No')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Instance Type</td><td>' + obj.instanceType + (obj.instances ? '<br>(' + obj.instances + ' instances)' : '') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Start at Reboot</td><td>' + (obj.startAtBoot ? 'Yes' : 'No') + '</td></tr>')
     $(".inputBlock tbody").append('<tr><td colspan="1">Instance Action' +
-        '<button style="display:none" class="btn btn-xs stBtn btn-primary" onclick="executeInputAction(\''+id+'\',\''+'START'+'\',\''+'EMAIL'+'\')"><i class="fa fa-play"></i> Start</button>'+
-        '<button style="display:none" class="btn btn-xs stpBtn mb-2 btn-danger" onclick="executeInputAction(\''+id+'\',\''+'STOP'+'\',\''+'EMAIL'+'\')"><i class="fa fa-stop"></i> Stop</button>'+
-        '<button style="display:none" class="btn btn-xs resBtn btn-warning" onclick="executeInputAction(\''+id+'\',\''+'RESTART'+'\',\''+'EMAIL'+'\')"><i class="fa fa-redo"></i> Restart</button>'+
+        '<button style="display:none" class="btn btn-xs stBtn btn-primary" onclick="executeInputAction(\'' + id + '\',\'' + 'START' + '\',\'' + 'EMAIL' + '\')"><i class="fa fa-play"></i> Start</button>' +
+        '<button style="display:none" class="btn btn-xs stpBtn mb-2 btn-danger" onclick="executeInputAction(\'' + id + '\',\'' + 'STOP' + '\',\'' + 'EMAIL' + '\')"><i class="fa fa-stop"></i> Stop</button>' +
+        '<button style="display:none" class="btn btn-xs resBtn btn-warning" onclick="executeInputAction(\'' + id + '\',\'' + 'RESTART' + '\',\'' + 'EMAIL' + '\')"><i class="fa fa-redo"></i> Restart</button>' +
         '</td></tr>')
     let configs = ''
-    if(obj.config) {
+    if (obj.config) {
         for (let i = 0; i < obj.config.length; i++) {
-            configs+=obj.config[i].name+' : '+obj.config[i].value+"<br>";
+            configs += obj.config[i].name + ' : ' + obj.config[i].value + "<br>";
         }
     }
 
 
-    $(".inputBlock tbody").append('<tr><td>Configs</td><td>'+configs+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Properties</td><td>'+(obj.properties ? JSON.stringify(obj.properties) : '')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Configs</td><td>' + configs + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Properties</td><td>' + (obj.properties ? JSON.stringify(obj.properties) : '') + '</td></tr>')
 
-    $(".inputBlock tbody").append('<tr><td>Type</td><td>'+(obj.type ? obj.type : '-')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Secured</td><td>'+(obj.secured ? 'True' : 'False')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Implicit</td><td>'+(obj.implicit ? 'True' : 'False')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Protocol</td><td>'+(obj.protocol ? obj.protocol : '-')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Remote Host</td><td>'+(obj.remoteHost ? obj.remoteHost : '-')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Remote Port</td><td>'+(obj.remotePort ? obj.remotePort : '-')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Local Port</td><td>'+(obj.localPort ? obj.localPort : '-')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Connect Timeout</td><td>'+(obj.connectTimeout ? obj.connectTimeout : '-')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Read Timeout</td><td>'+(obj.readTimeout ? obj.readTimeout : '-')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Keep Alive</td><td>'+(obj.keepAlive ? 'True' : 'False')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>TCP No Delay</td><td>'+(obj.tcpNoDelay ? 'True' : 'False')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Username</td><td>'+(obj.userName ? obj.userName : '-')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Password</td><td style="word-break: break-all;">'+(obj.password ? obj.password : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Type</td><td>' + (obj.type ? obj.type : '-') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Secured</td><td>' + (obj.secured ? 'True' : 'False') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Implicit</td><td>' + (obj.implicit ? 'True' : 'False') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Protocol</td><td>' + (obj.protocol ? obj.protocol : '-') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Remote Host</td><td>' + (obj.remoteHost ? obj.remoteHost : '-') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Remote Port</td><td>' + (obj.remotePort ? obj.remotePort : '-') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Local Port</td><td>' + (obj.localPort ? obj.localPort : '-') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Connect Timeout</td><td>' + (obj.connectTimeout ? obj.connectTimeout : '-') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Read Timeout</td><td>' + (obj.readTimeout ? obj.readTimeout : '-') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Keep Alive</td><td>' + (obj.keepAlive ? 'True' : 'False') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>TCP No Delay</td><td>' + (obj.tcpNoDelay ? 'True' : 'False') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Username</td><td>' + (obj.userName ? obj.userName : '-') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Password</td><td style="word-break: break-all;">' + (obj.password ? obj.password : '-') + '</td></tr>')
 
     //
-    $(".inputBlock tbody").append('<tr><td>Subject Patterns</td><td>'+(obj.subjectPatterns ? obj.subjectPatterns.join(",") : '-')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Allowed Content <br>Types</td><td>'+(obj.allowedContentTypes ? obj.allowedContentTypes.join(",") : '-')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Allowed Attachment<br> File Extensions</td><td>'+(obj.allowedAttachmentFileExtensions ? obj.allowedContentTypes.join(",") : '-')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>Process Only <br>Attachments</td><td>'+(obj.processOnlyAttachments ? 'True' : 'False')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Subject Patterns</td><td>' + (obj.subjectPatterns ? obj.subjectPatterns.join(",") : '-') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Allowed Content <br>Types</td><td>' + (obj.allowedContentTypes ? obj.allowedContentTypes.join(",") : '-') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Allowed Attachment<br> File Extensions</td><td>' + (obj.allowedAttachmentFileExtensions ? obj.allowedContentTypes.join(",") : '-') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Process Only <br>Attachments</td><td>' + (obj.processOnlyAttachments ? 'True' : 'False') + '</td></tr>')
 
     let folders = '<b>Folders</b><table class="table table-bordered">';
-    if(obj.folders) {
+    if (obj.folders) {
         for (let i = 0; i < obj.folders.length; i++) {
-            folders+='<tr>' +
+            folders += '<tr>' +
                 '<td>' +
                 'Name:<br>' +
                 'Mark MessageAfter Processing:<br>' +
@@ -2523,65 +2264,65 @@ function loadEmailDetails(id,obj) {
                 'To MovedFolder:<br>' +
                 '</td>' +
                 '<td>' +
-                obj.folders[i].name+"<br>"+
-                obj.folders[i].markMessageAfterProcessing+"<br>"+
-                obj.folders[i].proccessOnlyFlags+"<br>"+
-                obj.folders[i].toMovedFolder+"<br>"+
+                obj.folders[i].name + "<br>" +
+                obj.folders[i].markMessageAfterProcessing + "<br>" +
+                obj.folders[i].proccessOnlyFlags + "<br>" +
+                obj.folders[i].toMovedFolder + "<br>" +
                 '</td>' +
                 '</tr>'
         }
     }
-    folders+='</table>'
+    folders += '</table>'
 
-    $(".inputBlock tbody").append('<tr><td colspan="2" style="overflow:scroll;word-break: unset;overflow-y: hidden"><div>'+folders+'</div></td></tr>')
+    $(".inputBlock tbody").append('<tr><td colspan="2" style="overflow:scroll;word-break: unset;overflow-y: hidden"><div>' + folders + '</div></td></tr>')
 
-    getInputRunning('EMAIL',id);
+    getInputRunning('EMAIL', id);
 
 }
 
-function loadMicroDetails(id,obj) {
+function loadMicroDetails(id, obj) {
     $(".inputBlock tbody").html("");
-    $(".inputBlock tbody").append('<tr><td>Properties</td><td>'+(obj.properties ? JSON.stringify(obj.properties) : '')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Properties</td><td>' + (obj.properties ? JSON.stringify(obj.properties) : '') + '</td></tr>')
 
-    $(".inputBlock tbody").append('<tr><td>Auth Type</td><td>'+(obj.authType ? obj.authType : '-')+'</td></tr>')
-    $(".inputBlock tbody").append('<tr><td>API Key</td><td>'+(obj.apiKey ? obj.apiKey : '-')+'</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>Auth Type</td><td>' + (obj.authType ? obj.authType : '-') + '</td></tr>')
+    $(".inputBlock tbody").append('<tr><td>API Key</td><td>' + (obj.apiKey ? obj.apiKey : '-') + '</td></tr>')
 
-    $(".inputBlock tbody").append('<tr><td>Method</td><td>'+(obj.allowedMethods ? obj.allowedMethods.split(",") : '-')+'</td></tr>')
-    
-    let str = '<div class="row mt-2">'+
-        '<div class="col-md-8"><label>Method Name</label></div>'+
+    $(".inputBlock tbody").append('<tr><td>Method</td><td>' + (obj.allowedMethods ? obj.allowedMethods.split(",") : '-') + '</td></tr>')
+
+    let str = '<div class="row mt-2">' +
+        '<div class="col-md-8"><label>Method Name</label></div>' +
         '<div class="col-md-4"><label>Action</label></div>';
-    
-    for(let i=0;i<obj.methods.length;i++){
-        str+= '<div class="col-md-8 mb-1"><span>'+obj.methods[i].name+'</span></div>'+
-            '<div class="col-md-4 mb-1"><button class="btn btn-default btn-xs" onclick="openAPIModal(\''+obj.methods[i].name+'\')"><i class="fa fa-play"></i></button></div>'
+
+    for (let i = 0; i < obj.methods.length; i++) {
+        str += '<div class="col-md-8 mb-1"><span>' + obj.methods[i].name + '</span></div>' +
+            '<div class="col-md-4 mb-1"><button class="btn btn-default btn-xs" onclick="openAPIModal(\'' + obj.methods[i].name + '\')"><i class="fa fa-play"></i></button></div>'
     }
-    str+='</div>'
-    
-    
+    str += '</div>'
+
+
     $(".inputBlock tbody").append('<tr><td colspan="2"><button class="btn btn-warning btn-block btn-sm mt-2" onclick="openAPIModal()">Simulate API</button>' +
-        str+'</td></tr>')
+        str + '</td></tr>')
 
 }
 
 
 
-function getInputRunning(type,id) {
+function getInputRunning(type, id) {
 
     id = id ? id : CURRENT_ID;
 
     $(".iCount").html(0);
-    inputActions(type,id,'COUNT', function (status,data) {
-        if(status){
+    inputActions(type, id, 'COUNT', function (status, data) {
+        if (status) {
             $(".iCount").html(data.total);
-            if(data.total > 0){
-                $(".stBtn").css('display','none')
-                $(".stpBtn").css('display','block')
-                $(".resBtn").css('display','block')
-            }else{
-                $(".stBtn").css('display','block')
-                $(".stpBtn").css('display','none')
-                $(".resBtn").css('display','none')
+            if (data.total > 0) {
+                $(".stBtn").css('display', 'none')
+                $(".stpBtn").css('display', 'block')
+                $(".resBtn").css('display', 'block')
+            } else {
+                $(".stBtn").css('display', 'block')
+                $(".stpBtn").css('display', 'none')
+                $(".resBtn").css('display', 'none')
             }
         }
     })
@@ -2589,43 +2330,31 @@ function getInputRunning(type,id) {
 
 function executeInputAction(id, action, type) {
 
-    inputActions(type,id, action, function (status, data) {
+    inputActions(type, id, action, function (status, data) {
         if (status) {
             successMsg('Successfully executed')
-            if(type === 'SFTP'){
-                setTimeout(function(){
+
+            switch (type) {
+                case "SFTP":
                     loadSftpRulesList();
-                    getInputRunning('SFTP',id);
-                },500)
-
-            }
-            if(type === 'MQTT'){
-                setTimeout(function(){
+                    getInputRunning('SFTP', id);
+                    break;
+                case "MQTT":
                     loadMqttRulesList();
-                    getInputRunning('MQTT',id);
-                },500)
-
-            }
-            if(type === 'UDP'){
-                setTimeout(function(){
+                    getInputRunning('MQTT', id);
+                    break;
+                case "UDP":
                     loadUdpRulesList();
-                    getInputRunning('UDP',id);
-                },500)
-
-            }
-            if(type === 'TCP'){
-                setTimeout(function(){
+                    getInputRunning('UDP', id);
+                    break;
+                case "TCP":
                     loadTcpRulesList();
-                    getInputRunning('TCP',id);
-                },500)
-
-            }
-            if(type === 'EMAIL'){
-                setTimeout(function(){
+                    getInputRunning('TCP', id);
+                    break;
+                case "EMAIL":
                     loadEmailRulesList();
-                    getInputRunning('EMAIL',id);
-                },500)
-
+                    getInputRunning('EMAIL', id);
+                    break;
             }
 
         } else {
@@ -2635,25 +2364,25 @@ function executeInputAction(id, action, type) {
 }
 
 
-function loadJobDetails(id,obj) {
+function loadJobDetails(id, obj) {
     $(".jobFields tbody").html("");
-    if(obj.systemJob)
+    if (obj.systemJob)
         $(".jobFields tbody").append('<tr><td>System Job</td><td>Yes</td></tr>')
 
-    $(".jobFields tbody").append('<tr><td>Job Type</td><td>'+obj.jobType+ (obj.instances ? '<br>('+obj.instances+' instances)' : '')+'</td></tr>')
-    $(".jobFields tbody").append('<tr><td>Start on Reboot</td><td>'+(obj.startOnBoot ? 'Yes' : 'No')+'</td></tr>')
-    $(".jobFields tbody").append('<tr><td>Restart on Change</td><td>'+(obj.resartOnChange ? 'Yes' : 'No')+'</td></tr>')
+    $(".jobFields tbody").append('<tr><td>Job Type</td><td>' + obj.jobType + (obj.instances ? '<br>(' + obj.instances + ' instances)' : '') + '</td></tr>')
+    $(".jobFields tbody").append('<tr><td>Start on Reboot</td><td>' + (obj.startOnBoot ? 'Yes' : 'No') + '</td></tr>')
+    $(".jobFields tbody").append('<tr><td>Restart on Change</td><td>' + (obj.resartOnChange ? 'Yes' : 'No') + '</td></tr>')
     $(".jobFields tbody").append('<tr><td>Job State</td>' +
         '<td>' +
-        '<label><input type="radio" name="jobState" value="ENABLED" onclick="updateJobState(\''+id+'\',\''+'ENABLED'+'\')"> Enabled</label><br>' +
-        '<label><input type="radio" name="jobState" value="DISABLED" onclick="updateJobState(\''+id+'\',\''+'DISABLED'+'\')"> Disabled</label>' +
+        '<label><input type="radio" name="jobState" value="ENABLED" onclick="updateJobState(\'' + id + '\',\'' + 'ENABLED' + '\')"> Enabled</label><br>' +
+        '<label><input type="radio" name="jobState" value="DISABLED" onclick="updateJobState(\'' + id + '\',\'' + 'DISABLED' + '\')"> Disabled</label>' +
         '</td></tr>')
     $(".jobFields tbody").append('<tr><td>Job Action</td>' +
         '<td>' +
-        ((obj.jobType === 'SCALABLE' || obj.jobType === 'DISTRIBUTED')  ?
-            '<input class="" style="width: 50px;border:1px solid #ccc;padding: 2px 5px;" type="number" min="1" value="'+(obj.instances ? obj.instances : 1)+'" id="iCount"> ' : '' )+
-        '<button class="btn btn-xs btn-primary mb-2 mt-1" onclick="executeAction(\''+id+'\',\''+'start'+'\')"><i class="fa fa-play"></i> Start</button>'+
-        '<button class="btn btn-xs btn-danger" onclick="executeAction(\''+id+'\',\''+'stop'+'\')"><i class="fa fa-stop"></i> Stop <span class="iCount">0</span> Instances</button>'+
+        ((obj.jobType === 'SCALABLE' || obj.jobType === 'DISTRIBUTED') ?
+            '<input class="" style="width: 50px;border:1px solid #ccc;padding: 2px 5px;" type="number" min="1" value="' + (obj.instances ? obj.instances : 1) + '" id="iCount"> ' : '') +
+        '<button class="btn btn-xs btn-primary mb-2 mt-1" onclick="executeAction(\'' + id + '\',\'' + 'start' + '\')"><i class="fa fa-play"></i> Start</button>' +
+        '<button class="btn btn-xs btn-danger" onclick="executeAction(\'' + id + '\',\'' + 'stop' + '\')"><i class="fa fa-stop"></i> Stop <span class="iCount">0</span> Instances</button>' +
         '</td></tr>')
     $('input[name="jobState"][value="' + obj.jobState + '"]').prop('checked', true);
 
@@ -2661,13 +2390,13 @@ function loadJobDetails(id,obj) {
 
 }
 
-function updateJobState(id,state) {
+function updateJobState(id, state) {
 
     setJobRuleState(id, state, function (status, data) {
-        if(status){
+        if (status) {
             successMsg('Successfully update the job state')
             loadJobRulesList();
-        }else{
+        } else {
             errorMsg("Error in updating job state")
         }
     })
@@ -2678,8 +2407,8 @@ function loadRunningCount(id) {
     id = id ? id : CURRENT_ID;
 
     $(".iCount").html(0);
-    getJobRunningList(id, function (status,data) {
-        if(status){
+    getJobRunningList(id, function (status, data) {
+        if (status) {
             $(".iCount").html(data.length);
         }
     })
@@ -2687,77 +2416,79 @@ function loadRunningCount(id) {
 
 function executeAction(id, executeAction) {
 
-        let count = 0;
+    let count = 0;
 
-        if($("#iCount").val()){
-            count = Number($("#iCount").val())
+    if ($("#iCount").val()) {
+        count = Number($("#iCount").val())
+    }
+
+    performJobAction(id, executeAction, count, function (status, data) {
+        if (status) {
+            successMsg('Successfully job executed')
+            loadJobRulesList();
+            loadRunningCount(id);
+        } else {
+            errorMsg("Error in executing job action")
         }
-
-        performJobAction(id, executeAction,count, function (status, data) {
-            if (status) {
-                successMsg('Successfully job executed')
-                loadJobRulesList();
-                loadRunningCount(id);
-            } else {
-                errorMsg("Error in executing job action")
-            }
-        })
+    })
 }
 
 
-function deleteTab(id, type, obj) {
+function deleteTab(id, type, obj, event) {
+    if (event) event.stopPropagation()
     var prevmenu = "";;
     var splitValue = "";
-    if(typeof (obj) == "undefined"){
-        prevmenu = $("."+$(".viewId").val()).prev().attr("class");
-    }else{
+    if (typeof (obj) == "undefined") {
+        prevmenu = $("." + $(".viewId").val()).prev().attr("class");
+    } else {
         prevmenu = $(obj).parent().parent().prev().attr("class");
     }
-    if(prevmenu == "domainTab"){
+    if (prevmenu == "domainTab") {
         splitValue = prevmenu
-    }else{
+    } else {
         splitValue = prevmenu.split(" ")[2];
     }
     $(".rulesListli").removeClass("rules-list-active");
-    if (type === 1) {
-        $(".messageTab_" + id).remove();
-    } else if (type === 2) {
-        $(".namedTab_" + id).remove();
-    } else if (type === 3) {
-        $(".scheduleTab_" + id).remove();
-    } else if (type === 4) {
-        $(".groovyTab_" + id).remove();
-    } else if (type === 5) {
-        $(".jarTab_" + id).remove();
-    } else if (type === 6) {
-        $(".binaryTab_" + id).remove();
-    }
-    else if (type === 7) {
-        $(".jobTab_" + id).remove();
-    }
-    else if (type === 8) {
-        $(".fileTab_" + id).remove();
-    }
-    else if (type === 9) {
-        $(".processTab_" + id).remove();
-    }
-    else if (type === 10) {
-        $(".sftpTab_" + id).remove();
-    }
-    else if (type === 11) {
-        $(".mqttTab_" + id).remove();
-    }
-    else if (type === 12) {
-        $(".udpTab_" + id).remove();
-    }
-    else if (type === 13) {
-        $(".tcpTab_" + id).remove();
-    }
-    else if (type === 14) {
-        $(".emailTab_" + id).remove();
-    }
-    else if (type === 15) {
-        $(".microTab_" + id).remove();
+    switch (type) {
+        case 1:
+            $(".messageTab_" + id).remove();
+            break;
+        case 2:
+            $(".namedTab_" + id).remove();
+            break;
+        case 3:
+            $(".scheduleTab_" + id).remove();
+            break;
+        case 6:
+            $(".binaryTab_" + id).remove();
+            break;
+        case 7:
+            $(".jobTab_" + id).remove();
+            break;
+        case 8:
+            $(".fileTab_" + id).remove();
+            break;
+        case 9:
+            $(".processTab_" + id).remove();
+            break;
+        case 10:
+            $(".sftpTab_" + id).remove();
+            break;
+        case 11:
+            $(".mqttTab_" + id).remove();
+            break;
+        case 12:
+            $(".udpTab_" + id).remove();
+            break;
+        case 13:
+            $(".tcpTab_" + id).remove();
+            break;
+        case 14:
+            $(".emailTab_" + id).remove();
+            break;
+        case 15:
+            $(".microTab_" + id).remove();
+            break;
     }
 
     let temp = [];
@@ -2769,7 +2500,6 @@ function deleteTab(id, type, obj) {
     }
 
     tabbar_list = temp;
-    setTimeout(function () {
         $(".messageTab").removeClass('active')
         $(".namedTab").removeClass('active')
         $(".scheduleTab").removeClass('active')
@@ -2786,16 +2516,8 @@ function deleteTab(id, type, obj) {
         $(".emailTab").removeClass('active')
         $(".microTab").removeClass('active')
         $(".domainTab").removeClass('active')
-        $("."+splitValue).addClass('active')
-        $("."+splitValue).children("a").trigger("click");
-        ///loadDomainRule();
-        // $("#codeEditor").remove();
-        // $("#editorContent").html('<div id="codeEditor"></div>');
-        // $("#codeEditor").html('');
-        // loadEditor("");
-    }, 200);
-
-
+        $("." + splitValue).addClass('active')
+        $("." + splitValue).children("a").trigger("click");
 }
 
 function loadDomainCode() {
@@ -2821,97 +2543,99 @@ function loadDomainCode() {
 }
 
 function returnObj(id, type) {
-    let data = null;
-    if (type === 1) {
-        for (let i = 0; i < message_rules_list.length; i++) {
-            if (id === message_rules_list[i].messageId) {
-                return message_rules_list[i];
+    switch (type) {
+        case 1:
+            for (let i = 0; i < message_rules_list.length; i++) {
+                if (id === message_rules_list[i].messageId) {
+                    return message_rules_list[i];
+                }
             }
-        }
-    }
-    else if (type === 2) {
-        for (let i = 0; i < named_rules_list.length; i++) {
-            if (id === named_rules_list[i].name) {
-                return named_rules_list[i];
+            break;
+        case 2:
+            for (let i = 0; i < named_rules_list.length; i++) {
+                if (id === named_rules_list[i].name) {
+                    return named_rules_list[i];
+                }
             }
-        }
-    }
-    else if (type === 3) {
-        for (let i = 0; i < schedule_rules_list.length; i++) {
-            if (id === schedule_rules_list[i].id) {
-                return schedule_rules_list[i];
+            break;
+        case 3:
+            for (let i = 0; i < schedule_rules_list.length; i++) {
+                if (id === schedule_rules_list[i].id) {
+                    return schedule_rules_list[i];
+                }
             }
-        }
-    }
-    else if (type === 6) {
-        for (let i = 0; i < binary_rules_list.length; i++) {
-            if (id === binary_rules_list[i].type) {
-                return binary_rules_list[i];
+            break;
+
+        case 6:
+            for (let i = 0; i < binary_rules_list.length; i++) {
+                if (id === binary_rules_list[i].type) {
+                    return binary_rules_list[i];
+                }
             }
-        }
-    }
-    else if (type === 7) {
-        for (let i = 0; i < job_rules_list.length; i++) {
-            if (id === job_rules_list[i].id) {
-                return job_rules_list[i];
+            break;
+        case 7:
+            for (let i = 0; i < job_rules_list.length; i++) {
+                if (id === job_rules_list[i].id) {
+                    return job_rules_list[i];
+                }
             }
-        }
-    }
-    else if (type === 8) {
-        for (let i = 0; i < file_rules_list.length; i++) {
-            if (id === file_rules_list[i].type) {
-                return file_rules_list[i];
+            break;
+        case 8:
+            for (let i = 0; i < file_rules_list.length; i++) {
+                if (id === file_rules_list[i].type) {
+                    return file_rules_list[i];
+                }
             }
-        }
-    }
-    else if (type === 9) {
-        for (let i = 0; i < process_rules_list.length; i++) {
-            if (id === process_rules_list[i].id) {
-                return process_rules_list[i];
+            break;
+        case 9:
+            for (let i = 0; i < process_rules_list.length; i++) {
+                if (id === process_rules_list[i].id) {
+                    return process_rules_list[i];
+                }
             }
-        }
-    }
-    else if (type === 10) {
-        for (let i = 0; i < sftp_rules_list.length; i++) {
-            if (id === sftp_rules_list[i].id) {
-                return sftp_rules_list[i];
+            break;
+        case 10:
+            for (let i = 0; i < sftp_rules_list.length; i++) {
+                if (id === sftp_rules_list[i].id) {
+                    return sftp_rules_list[i];
+                }
             }
-        }
-    }
-    else if (type === 11) {
-        for (let i = 0; i < mqtt_rules_list.length; i++) {
-            if (id === mqtt_rules_list[i].id) {
-                return mqtt_rules_list[i];
+            break;
+        case 11:
+            for (let i = 0; i < mqtt_rules_list.length; i++) {
+                if (id === mqtt_rules_list[i].id) {
+                    return mqtt_rules_list[i];
+                }
             }
-        }
-    }
-    else if (type === 12) {
-        for (let i = 0; i < udp_rules_list.length; i++) {
-            if (id === udp_rules_list[i].id) {
-                return udp_rules_list[i];
+            break;
+        case 12:
+            for (let i = 0; i < udp_rules_list.length; i++) {
+                if (id === udp_rules_list[i].id) {
+                    return udp_rules_list[i];
+                }
             }
-        }
-    }
-    else if (type === 13) {
-        for (let i = 0; i < tcp_rules_list.length; i++) {
-            if (id === tcp_rules_list[i].id) {
-                return tcp_rules_list[i];
+            break;
+        case 13:
+            for (let i = 0; i < tcp_rules_list.length; i++) {
+                if (id === tcp_rules_list[i].id) {
+                    return tcp_rules_list[i];
+                }
             }
-        }
-    }
-    else if (type === 14) {
-        for (let i = 0; i < email_rules_list.length; i++) {
-            if (id === email_rules_list[i].id) {
-                return email_rules_list[i];
+            break;
+        case 14:
+            for (let i = 0; i < email_rules_list.length; i++) {
+                if (id === email_rules_list[i].id) {
+                    return email_rules_list[i];
+                }
             }
-        }
-    }
-    else if (type === 15) {
-        for (let i = 0; i < micro_rules_list.length; i++) {
-            if (id === micro_rules_list[i].name) {
-                return micro_rules_list[i];
+            break;
+        case 15:
+            for (let i = 0; i < micro_rules_list.length; i++) {
+                if (id === micro_rules_list[i].name) {
+                    return micro_rules_list[i];
+                }
             }
-        }
+            break;
     }
 
 }
@@ -2929,7 +2653,7 @@ function loadDomainRule() {
 
     // mqttCancelSubscribe();
 
-    $(".simulateBtn").css('display','none');
+    $(".simulateBtn").css('display', 'none');
     $(".rulesListli").removeClass("rules-list-active");
     $("#editorContent").html('<div id="codeEditor"></div>');
     $("#codeEditor").html('');
@@ -2950,77 +2674,15 @@ function loadDomainRule() {
     $(".defaultFields").css('display', 'none');
     $(".deleteBtn").css('display', 'none');
 
-    // setTimeout(function () {
-    //     mqttListen();
-    // }, 1000);
-
-}
-
-function loadGroovyClass(id) {
-    // mqttCancelSubscribe();
-
-    $("#editorContent").html('<div id="codeEditor"></div>');
-    $("#codeEditor").html('');
-
-    let obj = {};
-    for (let i = 0; i < groovy_class_list.length; i++) {
-        if (id === groovy_class_list[i]._id) {
-            obj = groovy_class_list[i];
-        }
-    }
-
-    loadEditor(obj.code, 'groovyTab_'+id);
-    CURRENT_ID = id;
-    CURRENT_TYPE = 4;
-
-
-    $(".detailsBlock").css('display', 'none');
-    $(".messageFields").css('display', 'none');
-    $(".jobFields").css('display', 'none');
-    $(".defaultFields").css('display', 'none');
-    $(".deleteBtn").css('display', 'none');
-
-
-
-}
-
-function loadJarClass(id) {
-    // mqttCancelSubscribe();
-
-    $("#editorContent").html('<div id="codeEditor"></div>');
-    $("#codeEditor").html('');
-
-    let obj = {};
-    for (let i = 0; i < jar_class_list.length; i++) {
-        if (id === jar_class_list[i]._id) {
-            obj = jar_class_list[i];
-        }
-    }
-
-    loadEditor(obj.code,'jarTab_'+id);
-    CURRENT_ID = id;
-    CURRENT_TYPE = 5;
-
-
-    $(".detailsBlock").css('display', 'none');
-    $(".messageFields").css('display', 'none');
-    $(".jobFields").css('display', 'none');
-    $(".defaultFields").css('display', 'none');
-    $(".deleteBtn").css('display', 'none');
-
-
-
 }
 
 function loadMessageRule(id) {
-    $(".simulateBtn").css('display','block');
-    $(".rulesListli").removeClass("rules-list-active");
-    $(".rule_"+id).addClass("rules-list-active");
+    $(".simulateBtn").css('display', 'block');
     // mqttCancelSubscribe(CURRENT_ID);
     $("#editorContent").html('<div id="codeEditor"></div>');
-    let data = returnObj(id, 1);
+    const data = returnObj(id, 1);
     $("#codeEditor").html('');
-    loadEditor(data ? data.code : '', 'messageTab_'+id);
+    loadEditor(data ? data.code : '', 'messageTab_' + id);
     CURRENT_ID = id;
     CURRENT_TYPE = 1;
 
@@ -3035,11 +2697,9 @@ function loadMessageRule(id) {
     $(".ruleType").html('Message Rule');
     $(".ruleName").html(obj.id + ' - <small style="color:#333;font-weight: normal">' + obj.name + '</small>');
 
-    $(".detailsBlock").css('display', 'block');
-    $(".messageFields").css('display', 'block');
-    $(".defaultFields").css('display', 'block');
-    $(".jobFields").css('display', 'none');
     $(".deleteBtn").css('display', 'block');
+
+    toggleHeading(id)
 
 
     $(".messageFields tbody").html("");
@@ -3048,11 +2708,9 @@ function loadMessageRule(id) {
     }
 
 
-    $(".simulateBtn").attr('onclick','openSimulateModal(\''+id+'\',1)');
+    $(".simulateBtn").attr('onclick', 'openSimulateModal(\'' + id + '\',1)');
+    rightPanelDetails(".detailsBlock,.messageFields,.defaultFields")
 
-    // setTimeout(function () {
-    //     mqttListen();
-    // }, 1000);
 }
 
 function loadNamedRule(id) {
@@ -3060,7 +2718,7 @@ function loadNamedRule(id) {
     $("#editorContent").html('<div id="codeEditor"></div>');
     let data = returnObj(id, 2);
     $("#codeEditor").html('');
-    loadEditor(data ? data.code : '', 'namedTab_'+id);
+    loadEditor(data ? data.code : '', 'namedTab_' + id);
     CURRENT_ID = id;
     CURRENT_TYPE = 2;
 
@@ -3075,18 +2733,13 @@ function loadNamedRule(id) {
     $(".ruleType").html('Named Rule');
     $(".ruleName").html(obj.name);
 
-    $(".detailsBlock").css('display', 'block');
-    $(".messageFields").css('display', 'none');
-    $(".jobFields").css('display', 'none');
-    $(".defaultFields").css('display', 'none');
+  
     $(".deleteBtn").css('display', 'block');
 
     $(".simulateBtn").css('display', 'block');
-    $(".simulateBtn").attr('onclick','openSimulateModal(\''+id+'\',2)');
-
-    // setTimeout(function () {
-    //     mqttListen();
-    // }, 1000);
+    $(".simulateBtn").attr('onclick', 'openSimulateModal(\'' + id + '\',2)');
+    toggleHeading(id)
+    rightPanelDetails(".detailsBlock")
 }
 
 
@@ -3095,7 +2748,7 @@ function loadBinaryRule(id) {
     $("#editorContent").html('<div id="codeEditor"></div>');
     let data = returnObj(id, 6);
     $("#codeEditor").html('');
-    loadEditor(data ? data.code : '', 'binaryTab_'+id);
+    loadEditor(data ? data.code : '', 'binaryTab_' + id);
     CURRENT_ID = id;
     CURRENT_TYPE = 6;
 
@@ -3110,18 +2763,13 @@ function loadBinaryRule(id) {
     $(".ruleType").html('Binary Rule');
     $(".ruleName").html(obj.type);
 
-    $(".detailsBlock").css('display', 'block');
-    $(".messageFields").css('display', 'none');
-    $(".defaultFields").css('display', 'none');
-    $(".jobFields").css('display', 'none');
     $(".deleteBtn").css('display', 'block');
 
     $(".simulateBtn").css('display', 'block');
-    $(".simulateBtn").attr('onclick','openSimulateModal(\''+id+'\',3)');
+    $(".simulateBtn").attr('onclick', 'openSimulateModal(\'' + id + '\',3)');
+    toggleHeading(id)
 
-    // setTimeout(function () {
-    //     mqttListen();
-    // }, 1000);
+    rightPanelDetails(".detailsBlock")
 }
 
 
@@ -3130,7 +2778,7 @@ function loadFileRule(id) {
     $("#editorContent").html('<div id="codeEditor"></div>');
     let data = returnObj(id, 8);
     $("#codeEditor").html('');
-    loadEditor(data ? data.code : '', 'fileTab_'+id);
+    loadEditor(data ? data.code : '', 'fileTab_' + id);
     CURRENT_ID = id;
     CURRENT_TYPE = 8;
 
@@ -3145,18 +2793,13 @@ function loadFileRule(id) {
     $(".ruleType").html('File Rule');
     $(".ruleName").html(obj.type);
 
-    $(".detailsBlock").css('display', 'block');
-    $(".messageFields").css('display', 'none');
-    $(".defaultFields").css('display', 'none');
-    $(".jobFields").css('display', 'none');
     $(".deleteBtn").css('display', 'block');
 
     $(".simulateBtn").css('display', 'block');
-    $(".simulateBtn").attr('onclick','openSimulateModal(\''+id+'\',3)');
+    $(".simulateBtn").attr('onclick', 'openSimulateModal(\'' + id + '\',3)');
+    toggleHeading(id)
 
-    // setTimeout(function () {
-    //     mqttListen();
-    // }, 1000);
+    rightPanelDetails(".detailsBlock")
 }
 
 function loadJobRule(id) {
@@ -3166,28 +2809,23 @@ function loadJobRule(id) {
     let data = returnObj(id, 7);
     $("#codeEditor").html('');
 
-    loadEditor(data.code ? data.code : '', 'jobTab_'+id);
+    loadEditor(data.code ? data.code : '', 'jobTab_' + id);
 
-        CURRENT_ID = id;
-        CURRENT_TYPE = 7;
+    CURRENT_ID = id;
+    CURRENT_TYPE = 7;
 
-        exportRule(7)
+    exportRule(7)
 
-        $(".ruleType").html('Job Rule');
-        $(".ruleName").html(data.id);
+    $(".ruleType").html('Job Rule');
+    $(".ruleName").html(data.id);
 
-        $(".detailsBlock").css('display', 'block');
-        $(".messageFields").css('display', 'none');
-        $(".defaultFields").css('display', 'none');
-        $(".deleteBtn").css('display', 'block');
-    $(".jobFields").css('display', 'block');
+   
+    $(".deleteBtn").css('display', 'block');
 
-    loadJobDetails(id,data)
+    loadJobDetails(id, data)
+    toggleHeading(id)
 
-
-    // setTimeout(function () {
-    //     mqttListen();
-    // }, 1000);
+    rightPanelDetails(".detailsBlock,.jobFields")
 }
 
 function loadSftpRule(id) {
@@ -3197,7 +2835,7 @@ function loadSftpRule(id) {
     let data = returnObj(id, 10);
     $("#codeEditor").html('');
 
-    loadEditor(data.code ? data.code : '', 'sftpTab_'+id);
+    loadEditor(data.code ? data.code : '', 'sftpTab_' + id);
 
     CURRENT_ID = id;
     CURRENT_TYPE = 10;
@@ -3207,19 +2845,15 @@ function loadSftpRule(id) {
     $(".ruleType").html('SFTP Rule');
     $(".ruleName").html(data.name);
 
-    $(".detailsBlock").css('display', 'block');
-    $(".messageFields").css('display', 'none');
-    $(".defaultFields").css('display', 'none');
-    $(".jobFields").css('display', 'none');
     $(".deleteBtn").css('display', 'block');
-    $(".inputBlock").css('display', 'block');
 
-    loadSftpDetails(id,data)
+    loadSftpDetails(id, data)
+
+    toggleHeading(id)
 
 
-    // setTimeout(function () {
-    //     mqttListen();
-    // }, 1000);
+    rightPanelDetails(".detailsBlock,.inputBlock")
+
 }
 
 function loadMqttRule(id) {
@@ -3229,7 +2863,7 @@ function loadMqttRule(id) {
     let data = returnObj(id, 11);
     $("#codeEditor").html('');
 
-    loadEditor(data.code ? data.code : '', 'mqttTab_'+id);
+    loadEditor(data.code ? data.code : '', 'mqttTab_' + id);
 
     CURRENT_ID = id;
     CURRENT_TYPE = 11;
@@ -3239,14 +2873,12 @@ function loadMqttRule(id) {
     $(".ruleType").html('MQTT Rule');
     $(".ruleName").html(data.name);
 
-    $(".detailsBlock").css('display', 'block');
-    $(".messageFields").css('display', 'none');
-    $(".defaultFields").css('display', 'none');
-    $(".jobFields").css('display', 'none');
     $(".deleteBtn").css('display', 'block');
-    $(".inputBlock").css('display', 'block');
 
-    loadMqttDetails(id,data)
+    loadMqttDetails(id, data)
+    toggleHeading(id)
+    rightPanelDetails(".detailsBlock,.inputBlock")
+
 }
 
 function loadUdpRule(id) {
@@ -3256,7 +2888,7 @@ function loadUdpRule(id) {
     let data = returnObj(id, 12);
     $("#codeEditor").html('');
 
-    loadEditor(data.code ? data.code : '', 'udpTab_'+id);
+    loadEditor(data.code ? data.code : '', 'udpTab_' + id);
 
     CURRENT_ID = id;
     CURRENT_TYPE = 12;
@@ -3266,14 +2898,13 @@ function loadUdpRule(id) {
     $(".ruleType").html('UDP Rule');
     $(".ruleName").html(data.name);
 
-    $(".detailsBlock").css('display', 'block');
-    $(".messageFields").css('display', 'none');
-    $(".defaultFields").css('display', 'none');
-    $(".jobFields").css('display', 'none');
+   
     $(".deleteBtn").css('display', 'block');
-    $(".inputBlock").css('display', 'block');
 
-    loadUdpDetails(id,data)
+    loadUdpDetails(id, data)
+    toggleHeading(id)
+    rightPanelDetails(".detailsBlock,.inputBlock")
+
 }
 
 function loadTcpRule(id) {
@@ -3283,7 +2914,7 @@ function loadTcpRule(id) {
     let data = returnObj(id, 13);
     $("#codeEditor").html('');
 
-    loadEditor(data.code ? data.code : '', 'tcpTab_'+id);
+    loadEditor(data.code ? data.code : '', 'tcpTab_' + id);
 
     CURRENT_ID = id;
     CURRENT_TYPE = 13;
@@ -3293,14 +2924,13 @@ function loadTcpRule(id) {
     $(".ruleType").html('TCP Rule');
     $(".ruleName").html(data.name);
 
-    $(".detailsBlock").css('display', 'block');
-    $(".messageFields").css('display', 'none');
-    $(".defaultFields").css('display', 'none');
-    $(".jobFields").css('display', 'none');
+   
     $(".deleteBtn").css('display', 'block');
-    $(".inputBlock").css('display', 'block');
 
-    loadTcpDetails(id,data)
+    loadTcpDetails(id, data)
+    toggleHeading(id)
+    rightPanelDetails(".detailsBlock,.inputBlock")
+
 }
 
 function loadEmailRule(id) {
@@ -3310,7 +2940,7 @@ function loadEmailRule(id) {
     let data = returnObj(id, 14);
     $("#codeEditor").html('');
 
-    loadEditor(data.code ? data.code : '', 'emailTab_'+id);
+    loadEditor(data.code ? data.code : '', 'emailTab_' + id);
 
     CURRENT_ID = id;
     CURRENT_TYPE = 14;
@@ -3320,14 +2950,14 @@ function loadEmailRule(id) {
     $(".ruleType").html('EMAIL Rule');
     $(".ruleName").html(data.name);
 
-    $(".detailsBlock").css('display', 'block');
-    $(".messageFields").css('display', 'none');
-    $(".defaultFields").css('display', 'none');
-    $(".jobFields").css('display', 'none');
+   
     $(".deleteBtn").css('display', 'block');
-    $(".inputBlock").css('display', 'block');
 
-    loadEmailDetails(id,data)
+    loadEmailDetails(id, data)
+
+    toggleHeading(id)
+    rightPanelDetails(".detailsBlock,.inputBlock")
+
 }
 
 function loadMicroRule(id) {
@@ -3337,7 +2967,7 @@ function loadMicroRule(id) {
     let data = returnObj(id, 15);
     $("#codeEditor").html('');
 
-    loadEditor(data.code ? data.code : '', 'microTab_'+id);
+    loadEditor(data.code ? data.code : '', 'microTab_' + id);
 
     CURRENT_ID = id;
     CURRENT_TYPE = 15;
@@ -3347,14 +2977,13 @@ function loadMicroRule(id) {
     $(".ruleType").html('Micro API Rule');
     $(".ruleName").html(data.name);
 
-    $(".detailsBlock").css('display', 'block');
-    $(".messageFields").css('display', 'none');
-    $(".defaultFields").css('display', 'none');
-    $(".jobFields").css('display', 'none');
+  
     $(".deleteBtn").css('display', 'block');
-    $(".inputBlock").css('display', 'block');
 
-    loadMicroDetails(id,data)
+    loadMicroDetails(id, data)
+    toggleHeading(id)
+    rightPanelDetails(".detailsBlock,.inputBlock")
+
 }
 
 function loadProcessRule(id) {
@@ -3363,8 +2992,7 @@ function loadProcessRule(id) {
     $("#editorContent").html('<div id="codeEditor"></div>');
     let data = returnObj(id, 9);
     $("#codeEditor").html('');
-
-    loadEditor(data.code ? data.code : '', 'processTab_'+id);
+    loadEditor(data.code ? data.code : '', 'processTab_' + id);
 
     CURRENT_ID = id;
     CURRENT_TYPE = 9;
@@ -3374,19 +3002,15 @@ function loadProcessRule(id) {
     $(".ruleType").html('Process Rule');
     $(".ruleName").html(data.id);
 
-    $(".detailsBlock").css('display', 'block');
-    $(".messageFields").css('display', 'none');
-    $(".defaultFields").css('display', 'none');
+   
     $(".deleteBtn").css('display', 'block');
-    $(".jobFields").css('display', 'none');
-    $(".processBlock").css('display', 'block');
 
-    loadProcessDetails(id,data)
+    loadProcessDetails(id, data)
 
+    toggleHeading(id)
+    rightPanelDetails(".detailsBlock,.processBlock")
 
-    // setTimeout(function () {
-    //     mqttListen();
-    // }, 1000);
+    
 }
 
 function loadScheduleRule(id) {
@@ -3395,7 +3019,7 @@ function loadScheduleRule(id) {
     $("#editorContent").html('<div id="codeEditor"></div>');
     let data = returnObj(id, 3);
     $("#codeEditor").html('');
-    loadEditor(data ? data.code : '', 'scheduleTab_'+id);
+    loadEditor(data ? data.code : '', 'scheduleTab_' + id);
     CURRENT_ID = id;
     CURRENT_TYPE = 3;
 
@@ -3408,23 +3032,18 @@ function loadScheduleRule(id) {
     $(".ruleType").html('Schedule Rule');
     $(".ruleName").html(obj.id);
 
-    $(".detailsBlock").css('display', 'block');
     $(".deleteBtn").css('display', 'block');
-    $(".messageFields").css('display', 'none');
-    $(".defaultFields").css('display', 'none');
-    $(".jobFields").css('display', 'none');
+    
 
     exportRule(4)
+    toggleHeading(id)
 
-    // setTimeout(function () {
-    //     mqttListen();
-    // }, 1000);
+    rightPanelDetails(".detailsBlock")
 }
 
 let editorLine = {};
 
 async function loadEditor(code, tabid) {
-
     editorChange = false;
 
     if (codeEditor) {
@@ -3436,10 +3055,7 @@ async function loadEditor(code, tabid) {
     codeEditor = ace.edit("codeEditor");
 
 
-    // codeEditor.setTheme("ace/theme/monokai");
-    // codeEditor.setTheme("ace/theme/solarized_light");
     codeEditor.setTheme("ace/theme/eclipse");
-    // codeEditor.setTheme("ace/theme/tomorrow_night");
     codeEditor.session.setMode("ace/mode/groovy");
     codeEditor.getSession().setUseWrapMode(true);
     codeEditor.setShowPrintMargin(false);
@@ -3447,7 +3063,7 @@ async function loadEditor(code, tabid) {
     let platfromSnippet = loadPlatformSnippet();
 
 
-    ace.config.loadModule("ace/ext/language_tools", function() {
+    ace.config.loadModule("ace/ext/language_tools", function () {
 
 
         codeEditor.setOptions({
@@ -3459,7 +3075,7 @@ async function loadEditor(code, tabid) {
         let snippetManager = ace.require("ace/snippets").snippetManager;
         let config = ace.require("ace/config");
 
-        ace.config.loadModule("ace/snippets/groovy", function(m) {
+        ace.config.loadModule("ace/snippets/groovy", function (m) {
             if (m) {
                 m.snippets = platfromSnippet;
                 snippetManager.register(m.snippets, m.scope);
@@ -3468,28 +3084,18 @@ async function loadEditor(code, tabid) {
 
     });
 
-    // let langTools = ace.require("ace/ext/language_tools");
-    //
-    // // codeEditor.setOptions({
-    // //     enableBasicAutocompletion: true,
-    // //     enableSnippets: true,
-    // //     enableLiveAutocompletion: true,
-    // // });
-    // langTools.setCompleters([langTools.snippetCompleter])
-
     let codeFormat = '';
 
-    if(code){
+    if (code) {
         codeEditor.setValue(code);
-    }else{
-        let currentRuleType = $("."+tabid).data("ruletype");
-        await $.get('controllers/rules_code_templates/'+rule_types[currentRuleType], function(data) {
+    } else {
+        let currentRuleType = $("." + tabid).data("ruletype");
+        await $.get('controllers/rules_code_templates/' + rule_types[currentRuleType], function (data) {
             codeFormat = data;
         });
         codeEditor.setValue(codeFormat);
     }
 
-    // code ? codeEditor.setValue(code) : codeEditor.setValue(codeFormat);
     codeEditor.clearSelection();
 
     codeEditor.focus();
@@ -3498,9 +3104,9 @@ async function loadEditor(code, tabid) {
     let count = session.getLength();
     //Go to end of the last line
 
-    if(editorLine[tabid]){
+    if (editorLine[tabid]) {
         codeEditor.gotoLine(editorLine[tabid]['row'], editorLine[tabid]['column']);
-    }else{
+    } else {
         codeEditor.gotoLine(count, session.getLine(count - 1).length);
     }
 
@@ -3513,7 +3119,7 @@ async function loadEditor(code, tabid) {
 
     codeEditor.on("change", function (obj) {
         editorChange = true;
-        $("#context").css('display','none')
+        $("#context").css('display', 'none')
     });
 
 
@@ -3664,18 +3270,6 @@ async function loadEditor(code, tabid) {
         }
     });
 
-    // codeEditor.commands.addCommand({
-    //     name: 'contextSearch',
-    //     bindKey: {
-    //         win: 'Ctrl-Space',
-    //         mac: 'Ctrl-Space',
-    //         sender: 'editor|cli'
-    //     },
-    //     exec: function (env, args, request) {
-    //         $("#context").css('display','block')
-    //     }
-    // });
-
     codeEditor.commands.addCommand({
         name: 'saveFile',
         bindKey: {
@@ -3685,514 +3279,424 @@ async function loadEditor(code, tabid) {
         },
         exec: function (env, args, request) {
 
-            // console.log(codeEditor.getSession().getValue())
-
             let consoleText = codeEditor.getSession().getValue();
-
-
-            if (CURRENT_TYPE === 0) {
-
-                let data = {
-                    lang: 'GROOVY',
-                    code: consoleText
-                }
-
-                updateDomainRuleCode(data, function (status, data) {
-                    if (status) {
-                        successMsg('Successfully saved!');
-                        domain_rule_obj = data;
-                    } else {
-                        errorMsg('Error in saving!')
-                    }
-                })
-
-            } else if (CURRENT_TYPE === 1) {
-
-
-                let data = {
-                    lang: 'GROOVY',
-                    code: consoleText,
-                    messageId: CURRENT_ID
-                }
-                updateMessageRuleCode(data, function (status, data) {
-                    if (status) {
-                        successMsg('Successfully saved!');
-                        loadMessageRulesList();
-                    } else {
-                        errorMsg('Error in saving!')
-                    }
-                })
-
-            } else if (CURRENT_TYPE === 2) {
-
-                let data = {
-                    lang: 'GROOVY',
-                    code: consoleText,
-                    name: CURRENT_ID
-                }
-                updateNamedRuleCode(data, function (status, data) {
-                    if (status) {
-                        successMsg('Successfully saved!');
-                        loadNamedRulesList();
-                    } else {
-                        errorMsg('Error in saving!')
-                    }
-                })
-
-            } else if (CURRENT_TYPE === 3) {
-
-                let obj = returnObj(CURRENT_ID, 3);
-
-                let data = {
-                    lang: 'GROOVY',
-                    code: consoleText,
-                    id: CURRENT_ID,
-                    pattern: obj.pattern
-                }
-                updateScheduleRuleCode(data, function (status, data) {
-                    if (status) {
-                        successMsg('Successfully saved!');
-                        loadScheduleRulesList();
-                    } else {
-                        errorMsg('Error in saving!')
-                    }
-                })
+            let obj = {}
+            let data = {
+                lang: 'GROOVY',
+                code: consoleText
             }
-            else if (CURRENT_TYPE === 6) {
+            switch (CURRENT_TYPE) {
+                case 0:
+                    updateDomainRuleCode(data, function (status, data) {
+                        if (status) {
+                            successMsg('Successfully saved!');
+                            domain_rule_obj = data;
+                        } else {
+                            errorMsg('Error in saving!')
+                        }
+                    })
+                    break;
 
-                let obj = returnObj(CURRENT_ID, 6);
+                case 1:
+                    data["messageId"] = CURRENT_ID
 
-                let data = {
-                    lang: 'GROOVY',
-                    code: consoleText,
-                    type: CURRENT_ID,
-                }
-                updateBinaryRuleCode(data, function (status, data) {
-                    if (status) {
-                        successMsg('Successfully saved!');
-                        loadBinaryRulesList();
-                    } else {
-                        errorMsg('Error in saving!')
+                    updateMessageRuleCode(data, function (status, data) {
+                        if (status) {
+                            successMsg('Successfully saved!');
+                            loadMessageRulesList();
+                        } else {
+                            errorMsg('Error in saving!')
+                        }
+                    })
+
+                    break;
+
+                case 2:
+                    data["name"] = CURRENT_ID
+
+                    updateNamedRuleCode(data, function (status, data) {
+                        if (status) {
+                            successMsg('Successfully saved!');
+                            loadNamedRulesList();
+                        } else {
+                            errorMsg('Error in saving!')
+                        }
+                    })
+
+                    break;
+                case 3:
+                    obj = returnObj(CURRENT_ID, 3);
+
+                    data['id'] = CURRENT_ID,
+                    data['pattern'] = obj.pattern
+                    updateScheduleRuleCode(data, function (status, data) {
+                        if (status) {
+                            successMsg('Successfully saved!');
+                            loadScheduleRulesList();
+                        } else {
+                            errorMsg('Error in saving!')
+                        }
+                    })
+                    break;
+                case 6:
+                    data["type"] = CURRENT_ID
+
+                    updateBinaryRuleCode(data, function (status, data) {
+                        if (status) {
+                            successMsg('Successfully saved!');
+                            loadBinaryRulesList();
+                        } else {
+                            errorMsg('Error in saving!')
+                        }
+                    })
+                    break;
+                case 7:
+
+                    obj = returnObj(CURRENT_ID, 7);
+
+                    let dataJobObj = {
+                        "domainKey": DOMAIN_KEY,
+                        "id": CURRENT_ID,
+                        "name": "",
+                        "jobType": obj.jobType,
+                        "jobState": obj.jobState,
+                        "jobLanguage": obj.jobLanguage,
+                        "code": consoleText,
+                        "instances": obj.instances,
+                        "startOnBoot": obj.startOnBoot,
+                        "systemJob": obj.systemJob,
+                        "resartOnChange": obj.resartOnChange,
                     }
-                })
-            }
-            else if (CURRENT_TYPE === 8) {
+                    updateJobRuleCode(dataJobObj, function (status, data) {
+                        if (status) {
+                            successMsg('Successfully saved!');
+                            loadJobRulesList();
+                            loadJobDetails(CURRENT_ID, obj)
+                        } else {
+                            errorMsg('Error in saving!')
+                        }
+                    })
+                    break;
+                case 8:
 
-                let obj = returnObj(CURRENT_ID, 8);
+                    data["type"] = CURRENT_ID
+                    updateFileRuleCode(data, function (status, data) {
+                        if (status) {
+                            successMsg('Successfully saved!');
+                            loadFileRulesList();
+                        } else {
+                            errorMsg('Error in saving!')
+                        }
+                    })
+                    break;
 
-                let data = {
-                    lang: 'GROOVY',
-                    code: consoleText,
-                    type: CURRENT_ID,
-                }
-                updateFileRuleCode(data, function (status, data) {
-                    if (status) {
-                        successMsg('Successfully saved!');
-                        loadFileRulesList();
-                    } else {
-                        errorMsg('Error in saving!')
-                    }
-                })
-            }
-            else if (CURRENT_TYPE === 7) {
+                case 9:
 
-                let obj = returnObj(CURRENT_ID, 7);
+                    obj = returnObj(CURRENT_ID, 9);
+                    obj['code'] = consoleText;
 
-                let data = {
-                    "domainKey": DOMAIN_KEY,
-                    "id": CURRENT_ID,
-                    "name": "",
-                    "jobType": obj.jobType,
-                    "jobState": obj.jobState,
-                    "jobLanguage": obj.jobLanguage,
-                    "code": consoleText,
-                    "instances": obj.instances,
-                    "startOnBoot": obj.startOnBoot,
-                    "systemJob": obj.systemJob,
-                    "resartOnChange": obj.resartOnChange,
-                }
-                updateJobRuleCode(data, function (status, data) {
-                    if (status) {
-                        successMsg('Successfully saved!');
-                        loadJobRulesList();
-                        setTimeout(function () {
-                            loadJobDetails(CURRENT_ID,obj)
-                        },500)
-                    } else {
-                        errorMsg('Error in saving!')
-                    }
-                })
-            }
-            else if (CURRENT_TYPE === 9) {
+                    delete obj._id;
 
-                let obj = returnObj(CURRENT_ID, 9);
+                    updateProcessRuleCode(obj, function (status, data) {
+                        if (status) {
+                            successMsg('Successfully saved!');
+                            loadProcessRulesList();
+                            loadProcessDetails(CURRENT_ID, obj)
+                        } else {
+                            errorMsg('Error in saving!')
+                        }
+                    })
+                    break;
+                case 10:
 
-                obj['code'] = consoleText;
+                    obj = returnObj(CURRENT_ID, 10);
+                    obj['code'] = consoleText;
+                    delete obj._id;
 
-                delete obj._id;
-
-                updateProcessRuleCode(obj, function (status, data) {
-                    if (status) {
-                        successMsg('Successfully saved!');
-                        loadProcessRulesList();
-                        setTimeout(function () {
-                            loadProcessDetails(CURRENT_ID,obj)
-                        },500)
-                    } else {
-                        errorMsg('Error in saving!')
-                    }
-                })
-            }
-            else if (CURRENT_TYPE === 10) {
-
-                let obj = returnObj(CURRENT_ID, 10);
-
-                obj['code'] = consoleText;
-                delete obj._id;
-
-                updateInputRuleCode('SFTP',obj, function (status, data) {
-                    if (status) {
-                        successMsg('Successfully saved!');
-                        // loadSftpRulesList();
-                        setTimeout(function () {
-                            // loadTabbar(dataObj.id, 10);
+                    updateInputRuleCode('SFTP', obj, function (status, data) {
+                        if (status) {
+                            successMsg('Successfully saved!');
                             loadSftpRulesList();
-                            setTimeout(function () {
-                                loadSftpDetails(CURRENT_ID,obj)
-                            },500)
-                        },500)
-                    } else {
-                        errorMsg('Error in saving!')
-                    }
-                })
-            }
+                            loadSftpDetails(CURRENT_ID, obj)
 
-            else if (CURRENT_TYPE === 11) {
+                        } else {
+                            errorMsg('Error in saving!')
+                        }
+                    })
+                    break;
+                case 11:
 
-                let obj = returnObj(CURRENT_ID, 11);
+                    obj = returnObj(CURRENT_ID, 11);
+                    obj['code'] = consoleText;
+                    delete obj._id;
 
-                obj['code'] = consoleText;
-                delete obj._id;
-
-                updateInputRuleCode('MQTT',obj, function (status, data) {
-                    if (status) {
-                        successMsg('Successfully saved!');
-                        // loadSftpRulesList();
-                        setTimeout(function () {
-                            // loadTabbar(dataObj.id, 10);
+                    updateInputRuleCode('MQTT', obj, function (status, data) {
+                        if (status) {
+                            successMsg('Successfully saved!');
                             loadMqttRulesList();
-                            setTimeout(function () {
-                                loadMqttDetails(CURRENT_ID,obj)
-                            },500)
-                        },500)
-                    } else {
-                        errorMsg('Error in saving!')
-                    }
-                })
-            }
-            else if (CURRENT_TYPE === 12) {
+                            loadMqttDetails(CURRENT_ID, obj)
+                        } else {
+                            errorMsg('Error in saving!')
+                        }
+                    })
+                    break;
+                case 12:
 
-                let obj = returnObj(CURRENT_ID, 12);
+                    obj = returnObj(CURRENT_ID, 12);
+                    obj['code'] = consoleText;
+                    delete obj._id;
 
-                obj['code'] = consoleText;
-                delete obj._id;
-
-                updateInputRuleCode('UDP',obj, function (status, data) {
-                    if (status) {
-                        successMsg('Successfully saved!');
-                        // loadSftpRulesList();
-                        setTimeout(function () {
-                            // loadTabbar(dataObj.id, 10);
+                    updateInputRuleCode('UDP', obj, function (status, data) {
+                        if (status) {
+                            successMsg('Successfully saved!');
                             loadUdpRulesList();
-                            setTimeout(function () {
-                                loadUdpDetails(CURRENT_ID,obj)
-                            },500)
-                        },500)
-                    } else {
-                        errorMsg('Error in saving!')
-                    }
-                })
-            }
-            else if (CURRENT_TYPE === 13) {
+                            loadUdpDetails(CURRENT_ID, obj)
 
-                let obj = returnObj(CURRENT_ID, 13);
+                        } else {
+                            errorMsg('Error in saving!')
+                        }
+                    })
+                    break;
+                case 13:
 
-                obj['code'] = consoleText;
-                delete obj._id;
+                    obj = returnObj(CURRENT_ID, 13);
+                    obj['code'] = consoleText;
+                    delete obj._id;
 
-                updateInputRuleCode('TCP',obj, function (status, data) {
-                    if (status) {
-                        successMsg('Successfully saved!');
-                        // loadSftpRulesList();
-                        setTimeout(function () {
-                            // loadTabbar(dataObj.id, 10);
+                    updateInputRuleCode('TCP', obj, function (status, data) {
+                        if (status) {
+                            successMsg('Successfully saved!');
                             loadTcpRulesList();
-                            setTimeout(function () {
-                                loadTcpDetails(CURRENT_ID,obj)
-                            },500)
-                        },500)
-                    } else {
-                        errorMsg('Error in saving!')
-                    }
-                })
-            }
-            else if (CURRENT_TYPE === 14) {
+                            loadTcpDetails(CURRENT_ID, obj)
 
-                let obj = returnObj(CURRENT_ID, 14);
+                        } else {
+                            errorMsg('Error in saving!')
+                        }
+                    })
+                    break;
+                case 14:
 
-                obj['code'] = consoleText;
-                delete obj._id;
+                    obj = returnObj(CURRENT_ID, 14);
+                    obj['code'] = consoleText;
+                    delete obj._id;
 
-                updateInputRuleCode('EMAIL',obj, function (status, data) {
-                    if (status) {
-                        successMsg('Successfully saved!');
-                        // loadSftpRulesList();
-                        setTimeout(function () {
-                            // loadTabbar(dataObj.id, 10);
+                    updateInputRuleCode('EMAIL', obj, function (status, data) {
+                        if (status) {
+                            successMsg('Successfully saved!');
                             loadEmailRulesList();
-                            setTimeout(function () {
-                                loadEmailDetails(CURRENT_ID,obj)
-                            },500)
+                            loadEmailDetails(CURRENT_ID, obj)
 
-                        },500)
+                        } else {
+                            errorMsg('Error in saving!')
+                        }
+                    })
+                    break;
+                case 15:
 
-                    } else {
-                        errorMsg('Error in saving!')
+                    obj = returnObj(CURRENT_ID, 15);
+
+                    let dataMicroObj = {
+                        name: obj.name,
+                        code: consoleText,
+                        authType: obj.authType,
+                        apiKey: obj.apiKey ? obj.apiKey : null,
+                        props: obj.props,
                     }
-                })
-            }
-            else if (CURRENT_TYPE === 15) {
-
-                let obj = returnObj(CURRENT_ID, 15);
-
-
-                let dataObj = {
-                    name : obj.name,
-                    code : consoleText,
-                    authType : obj.authType,
-                    apiKey : obj.apiKey ? obj.apiKey : null,
-                    props : obj.props,
-                }
-                updateMicroRuleCode(dataObj, function (status, data) {
-                    if (status) {
-                        successMsg('Successfully saved!');
-                        // loadSftpRulesList();
-                        setTimeout(function () {
-                            // loadTabbar(dataObj.id, 10);
+                    updateMicroRuleCode(dataMicroObj, function (status, data) {
+                        if (status) {
+                            successMsg('Successfully saved!');
                             loadMicroRulesList();
+                            loadMicroDetails(CURRENT_ID, obj)
 
-                            setTimeout(function () {
-                               loadMicroDetails(CURRENT_ID,obj)
-                            },500)
-
-                        },500)
-                    } else {
-                        errorMsg('Error in saving!')
-                    }
-                })
+                        } else {
+                            errorMsg('Error in saving!')
+                        }
+                    })
+                    break;
             }
         }
     });
 }
 
 
-function resizeEditor() {
-    // if(!editorToggle){
-    //
-    //     $('#codeEditor').height(($(".ui-layout-center").height() - 40) + 'px');
-    // }else{
-    //     $('#codeEditor').height(($(".ui-layout-center").height() - 40) + 'px');
-    // }
-    // setTimeout(function () {
-    //     codeEditor.resize();
-    // },1000)
-
-}
-
 let MSG_FIELD_COUNT = 0;
 let CRON_JOB = null;
 
 function openModal(e) {
     let id = e ? e : $("#rulesType").val() * 1
+    switch (id) {
+        case 1:
 
-    if (id === 1) {
+            MSG_FIELD_COUNT = 0;
 
-        MSG_FIELD_COUNT = 0;
+            $("#addMessageRule form")[0].reset();
 
-        $("#addMessageRule form")[0].reset();
+            $(".msgFieldBody").html("");
+            if (LicenseDetails.maxMessageSpecs <= message_spec_list.length) {
+                warningMsg('Your plan have ' + LicenseDetails.maxMessageSpecs + ' message rule.')
+                return
+            } else {
+                $("#addMessageRule").modal('show');
+            }
+            addMessageField();
+            break;
+        case 2:
+            $("#addNamedRule form")[0].reset();
+            $("#addNamedRule").modal('show');
+            break;
+        case 3:
 
-        // $("#msg_id").attr('min', USER_OBJ.domain.startId)
-        // $("#msg_id").attr('max', USER_OBJ.domain.startId + ID_RANGE_COUNT)
-        $(".msgFieldBody").html("");
-        $("#addMessageRule").modal('show');
-
-        addMessageField();
-    } else if (id === 2) {
-        $("#addNamedRule form")[0].reset();
-        $("#addNamedRule").modal('show');
-    } else if (id === 3) {
-
-        // if(ADMIN_ACCESS) {
             $("#addScheduleRule form")[0].reset();
             $('#pattren_desc').html("");
-            // $("#sch_id").attr('min', USER_OBJ.domain.startId)
-            // $("#sch_id").attr('max', USER_OBJ.domain.startId + ID_RANGE_COUNT)
             $("#addScheduleRule").modal('show');
-        // }else{
-        //     errorMsg('Access Denied!')
-        // }
-    } else if (id === 4) {
-        $("#addGroovyClass").modal('show');
-    } else if (id === 5) {
-        $("#addJarClass").modal('show');
-    }else if (id === 6) {
-        $("#addBinaryRule form")[0].reset();
-        $("#addBinaryRule").modal('show');
-    }else if (id === 8) {
-        $("#addFileRule form")[0].reset();
-        $("#addFileRule").modal('show');
-    }
-    else if (id === 9) {
-        $(".tempAction").html('Add');
-        $("#processName").removeAttr('disabled')
+            break;
+        case 6:
+            $("#addBinaryRule form")[0].reset();
+            $("#addBinaryRule").modal('show');
+            break;
+        case 7:
 
-        $("#addProcessRule form")[0].reset();
+            if (ADMIN_ACCESS) {
+                $(".systemTemplate").css('display', 'block')
+                $("#job_system").val('1')
+            } else {
+                $(".systemTemplate").css('display', 'none')
+                $("#job_system").val('0')
+            }
+            $(".jAction").html('Add');
+            $("#job_rule").removeAttr('disabled')
 
-        $("#processId").html('')
-        uploadImage = 'images/generate_claim.svg';
-        $(".process_img").attr('src', uploadImage);
-        $("#processColor").spectrum({
-            showPaletteOnly: true,
-            togglePaletteOnly: true,
-            togglePaletteMoreText: 'more',
-            togglePaletteLessText: 'less',
-            showInput: true,
-            color: 'blanchedalmond',
-            palette: [
-                ["#000","#444","#666","#999","#ccc","#eee","#f3f3f3","#fff"],
-                ["#f00","#f90","#ff0","#0f0","#0ff","#00f","#90f","#f0f"],
-                ["#f4cccc","#fce5cd","#fff2cc","#d9ead3","#d0e0e3","#cfe2f3","#d9d2e9","#ead1dc"],
-                ["#ea9999","#f9cb9c","#ffe599","#b6d7a8","#a2c4c9","#9fc5e8","#b4a7d6","#d5a6bd"],
-                ["#e06666","#f6b26b","#ffd966","#93c47d","#76a5af","#6fa8dc","#8e7cc3","#c27ba0"],
-                ["#c00","#e69138","#f1c232","#6aa84f","#45818e","#3d85c6","#674ea7","#a64d79"],
-                ["#900","#b45f06","#bf9000","#38761d","#134f5c","#0b5394","#351c75","#741b47"],
-                ["#600","#783f04","#7f6000","#274e13","#0c343d","#073763","#20124d","#4c1130"]
-            ]
-        });
-        $("#processColor").spectrum("set", '#ccc');
+            $("#addJobRule form").attr("onsubmit", "addJobRule()");
+            $("#addJobRule form")[0].reset();
+            $("#addJobRule").modal('show');
+            checkJobInstance()
+            break;
+        case 8:
+            $("#addFileRule form")[0].reset();
+            $("#addFileRule").modal('show');
+            break;
+        case 9:
+            $(".tempAction").html('Add');
+            $("#processName").removeAttr('disabled')
 
-        $("#addProcessRule form").attr('onsubmit','addProcessRule()')
+            $("#addProcessRule form")[0].reset();
 
-        $("#addProcessRule").modal('show');
-    }
-    else if (id === 7) {
+            $("#processId").html('')
+            uploadImage = 'images/generate_claim.svg';
+            $(".process_img").attr('src', uploadImage);
+            $("#processColor").spectrum({
+                showPaletteOnly: true,
+                togglePaletteOnly: true,
+                togglePaletteMoreText: 'more',
+                togglePaletteLessText: 'less',
+                showInput: true,
+                color: 'blanchedalmond',
+                palette: [
+                    ["#000", "#444", "#666", "#999", "#ccc", "#eee", "#f3f3f3", "#fff"],
+                    ["#f00", "#f90", "#ff0", "#0f0", "#0ff", "#00f", "#90f", "#f0f"],
+                    ["#f4cccc", "#fce5cd", "#fff2cc", "#d9ead3", "#d0e0e3", "#cfe2f3", "#d9d2e9", "#ead1dc"],
+                    ["#ea9999", "#f9cb9c", "#ffe599", "#b6d7a8", "#a2c4c9", "#9fc5e8", "#b4a7d6", "#d5a6bd"],
+                    ["#e06666", "#f6b26b", "#ffd966", "#93c47d", "#76a5af", "#6fa8dc", "#8e7cc3", "#c27ba0"],
+                    ["#c00", "#e69138", "#f1c232", "#6aa84f", "#45818e", "#3d85c6", "#674ea7", "#a64d79"],
+                    ["#900", "#b45f06", "#bf9000", "#38761d", "#134f5c", "#0b5394", "#351c75", "#741b47"],
+                    ["#600", "#783f04", "#7f6000", "#274e13", "#0c343d", "#073763", "#20124d", "#4c1130"]
+                ]
+            });
+            $("#processColor").spectrum("set", '#ccc');
 
-        if(ADMIN_ACCESS){
-            $(".systemTemplate").css('display','block')
-            $("#job_system").val('1')
-        }else{
-            $(".systemTemplate").css('display','none')
-            $("#job_system").val('0')
-        }
-        $(".jAction").html('Add');
-        $("#job_rule").removeAttr('disabled')
+            $("#addProcessRule form").attr('onsubmit', 'addProcessRule()')
 
-        $("#addJobRule form").attr("onsubmit","addJobRule()");
-        $("#addJobRule form")[0].reset();
-        $("#addJobRule").modal('show');
-        checkJobInstance()
-    }
-    else if (id === 10) {
+            $("#addProcessRule").modal('show');
+            break;
+        case 10:
 
-        $("#sftp_name").removeAttr('disabled')
+            $("#sftp_name").removeAttr('disabled')
 
-        $(".sftp_privateKeyFilePath").css('display','none')
-        $(".sftp_publicKeyFilePath").css('display','none')
-        $("#sftp_privateKeyFilePath").removeAttr('required')
+            $(".sftp_privateKeyFilePath").css('display', 'none')
+            $(".sftp_publicKeyFilePath").css('display', 'none')
+            $("#sftp_privateKeyFilePath").removeAttr('required')
 
-        $("#addSftpInputRule form").attr("onsubmit","addSftpRule()");
-        $("#addSftpInputRule form")[0].reset();
+            $("#addSftpInputRule form").attr("onsubmit", "addSftpRule()");
+            $("#addSftpInputRule form")[0].reset();
 
-        $("#sftp_connectTimeOut").val(30000)
-        $("#sftp_listRecursive").val(-1)
-        $("#sftp_pollInterval").val(30000)
-        $(".configBody").html('')
-        // addConfigBody();
-        $("#addSftpInputRule").modal('show');
+            $("#sftp_connectTimeOut").val(30000)
+            $("#sftp_listRecursive").val(-1)
+            $("#sftp_pollInterval").val(30000)
+            $(".configBody").html('')
+            $("#addSftpInputRule").modal('show');
 
 
 
-    }
-    else if (id === 11) {
+            break;
+        case 11:
 
-        $("#mqtt_name").removeAttr('disabled')
-        $(".mqtt_ssl_block").css('display','none')
-        $(".mqtt_ssl").css('display','none')
+            $("#mqtt_name").removeAttr('disabled')
+            $(".mqtt_ssl_block").css('display', 'none')
+            $(".mqtt_ssl").css('display', 'none')
 
-        $(".configBody").html('')
-        $(".mqttBody").html('')
-        // addConfigBody();
+            $(".configBody").html('')
+            $(".mqttBody").html('')
 
-        $("#addMqttInputRule form").attr("onsubmit","addMqttRule()");
-        $("#addMqttInputRule form")[0].reset();
-        $("#addMqttInputRule").modal('show');
+            $("#addMqttInputRule form").attr("onsubmit", "addMqttRule()");
+            $("#addMqttInputRule form")[0].reset();
+            $("#addMqttInputRule").modal('show');
 
-    }
-    else if (id === 12) {
+            break;
+        case 12:
 
-        $("#udp_name").removeAttr('disabled')
+            $("#udp_name").removeAttr('disabled')
 
-        $(".configBody").html('')
-        // addConfigBody();
-        $("#addUdpInputRule form").attr("onsubmit","addUdpRule()");
-        $("#addUdpInputRule form")[0].reset();
-        $("#addUdpInputRule").modal('show');
+            $(".configBody").html('')
+            $("#addUdpInputRule form").attr("onsubmit", "addUdpRule()");
+            $("#addUdpInputRule form")[0].reset();
+            $("#addUdpInputRule").modal('show');
 
-    }
-    else if (id === 13) {
+            break;
+        case 13:
 
-        $("#tcp_name").removeAttr('disabled')
+            $("#tcp_name").removeAttr('disabled')
 
-        $(".configBody").html('')
-        // addConfigBody();
-        $(".tcp_ssl_block").css('display','none')
-        $(".tcp_ssl").css('display','none')
-        $("#addTcpInputRule form").attr("onsubmit","addTcpRule()");
-        $("#addTcpInputRule form")[0].reset();
-        $("#addTcpInputRule").modal('show');
+            $(".configBody").html('')
+            $(".tcp_ssl_block").css('display', 'none')
+            $(".tcp_ssl").css('display', 'none')
+            $("#addTcpInputRule form").attr("onsubmit", "addTcpRule()");
+            $("#addTcpInputRule form")[0].reset();
+            $("#addTcpInputRule").modal('show');
 
-    }
-    else if (id === 14) {
+            break;
+        case 14:
 
-        $("#email_name").removeAttr('disabled')
+            $("#email_name").removeAttr('disabled')
 
-        $(".configBody").html('')
-        $(".folderBody").html('')
+            $(".configBody").html('')
+            $(".folderBody").html('')
 
-        $("#addEmailInputRule form").attr("onsubmit","addEmailRule()");
-        $("#addEmailInputRule form")[0].reset();
-        $("#addEmailInputRule").modal('show');
+            $("#addEmailInputRule form").attr("onsubmit", "addEmailRule()");
+            $("#addEmailInputRule form")[0].reset();
+            $("#addEmailInputRule").modal('show');
 
-    }
-    else if (id === 15) {
+            break;
+        case 15:
 
-        $("#addMicroRule form")[0].reset();
-        $("#micro_id").removeAttr('disabled')
+            $("#addMicroRule form")[0].reset();
+            $("#micro_id").removeAttr('disabled')
 
-        $("#methodGet").prop('checked',true)
-        $("#methodPost").prop('checked',true)
-        $("#methodDelete").prop('checked',true)
-        $("#methodPut").prop('checked',true)
-        $("#methodUpload").prop('checked',true)
+            $("#methodGet").prop('checked', true)
+            $("#methodPost").prop('checked', true)
+            $("#methodDelete").prop('checked', true)
+            $("#methodPut").prop('checked', true)
+            $("#methodUpload").prop('checked', true)
 
-        $(".micro_apiKey").css('display','none')
-        $("#addMicroRule").modal('show');
+            $(".micro_apiKey").css('display', 'none')
+            $("#addMicroRule").modal('show');
+
+            break;
 
     }
 }
 
 function editJobModal() {
-    $("#job_rule").attr('disabled','disabled')
+    $("#job_rule").attr('disabled', 'disabled')
 
     let obj = {};
     for (let i = 0; i < job_rules_list.length; i++) {
@@ -4212,51 +3716,55 @@ function editJobModal() {
     $("#job_boot").val(obj.startOnBoot ? "1" : "0")
     $("#job_restart").val(obj.resartOnChange ? "1" : "0")
 
-    if(obj.jobType === 'ATOMIC'){
-        $("#job_boot").attr('disabled','disabled');
-    }else{
+    if (obj.jobType === 'ATOMIC') {
+        $("#job_boot").attr('disabled', 'disabled');
+    } else {
         $("#job_boot").removeAttr('disabled')
     }
 
-    if(ADMIN_ACCESS){
-        $(".systemTemplate").css('display','block')
+    if (ADMIN_ACCESS) {
+        $(".systemTemplate").css('display', 'block')
 
-        if(obj.jobType === 'ATOMIC'){
-            $("#job_system").attr('disabled','disabled')
-        }else{
+        if (obj.jobType === 'ATOMIC') {
+            $("#job_system").attr('disabled', 'disabled')
+        } else {
             $("#job_system").removeAttr('disabled')
         }
-    }else{
-        $(".systemTemplate").css('display','none')
+    } else {
+        $(".systemTemplate").css('display', 'none')
     }
     $(".jAction").html('Edit');
-    $("#addJobRule form").attr("onsubmit","addJobRule(1)");
+    $("#addJobRule form").attr("onsubmit", "addJobRule(1)");
     $("#addJobRule").modal('show');
 }
 
-function editInputModal(){
-    if(CURRENT_TYPE == 10){
-        editSftpModal()
-    }
-    else if(CURRENT_TYPE == 11){
-        editMqttModal()
-    }
-    else if(CURRENT_TYPE == 12){
-        editUdpModal()
-    }
-    else if(CURRENT_TYPE == 13){
-        editTcpModal()
-    }
-    else if(CURRENT_TYPE == 14){
-        editEmailModal()
-    }
-    else if(CURRENT_TYPE == 15){
-        editMicroModal()
+function editInputModal() {
+
+    switch (CURRENT_TYPE) {
+        case 10:
+        editSftpModal()    
+            break;
+        case 11:
+        editMqttModal()    
+            break;
+        case 12:
+        editUdpModal()    
+            break;
+        case 13:
+        editTcpModal()    
+            break;
+        case 14:
+        editEmailModal()    
+            break;
+        case 15:
+        editMicroModal()    
+            break;
+    
     }
 }
 
 function editSftpModal() {
-    $("#sftp_name").attr('disabled','disabled')
+    $("#sftp_name").attr('disabled', 'disabled')
 
     let obj = {};
     for (let i = 0; i < sftp_rules_list.length; i++) {
@@ -4292,18 +3800,18 @@ function editSftpModal() {
     checkKeyFile($("#sftp_keyFilesBuiltIn").val())
 
     $(".configBody").html('')
-    for(let i=0;i<obj.config.length;i++){
+    for (let i = 0; i < obj.config.length; i++) {
         let t = new Date().getTime()
-        $(".configBody").append('<tr class="'+t+'">' +
-            '<td><input type="text" value="'+obj.config[i].name+'" required class="conf_name form-control input-sm"></td>' +
-            '<td><input type="text" value="'+obj.config[i].value+'" class="conf_value form-control input-sm"></td>' +
-            '<td><button class="btn btn-sm" type="button" onclick="removeConfigBody(\''+t+'\')">' +
+        $(".configBody").append('<tr class="' + t + '">' +
+            '<td><input type="text" value="' + obj.config[i].name + '" required class="conf_name form-control input-sm"></td>' +
+            '<td><input type="text" value="' + obj.config[i].value + '" class="conf_value form-control input-sm"></td>' +
+            '<td><button class="btn btn-sm" type="button" onclick="removeConfigBody(\'' + t + '\')">' +
             '<i class="fa fa-trash"></i></button></td>' +
             '</tr>')
 
     }
 
-    $("#addSftpInputRule form").attr("onsubmit","addSftpRule(1)");
+    $("#addSftpInputRule form").attr("onsubmit", "addSftpRule(1)");
     $("#addSftpInputRule").modal('show');
 
 
@@ -4313,7 +3821,7 @@ function editSftpModal() {
 
 function editMqttModal() {
 
-    $("#mqtt_name").attr('disabled','disabled')
+    $("#mqtt_name").attr('disabled', 'disabled')
 
     let obj = {};
     for (let i = 0; i < mqtt_rules_list.length; i++) {
@@ -4360,12 +3868,12 @@ function editMqttModal() {
 
 
     $(".mqttBody").html('')
-    for(let i=0;i<obj.subscriptions.length;i++){
+    for (let i = 0; i < obj.subscriptions.length; i++) {
         let t = new Date().getTime()
-        $(".mqttBody").append('<tr class="'+t+'">' +
-            '<td><input type="text" value="'+obj.subscriptions[i].pattern+'" required class="mqtt_pattern form-control input-sm"></td>' +
-            '<td><input type="number" min="0" value="'+obj.subscriptions[i].qos+'" required class="mqtt_qos form-control input-sm"></td>' +
-            '<td><button class="btn btn-sm" type="button" onclick="removeMqttBody(\''+t+'\')">' +
+        $(".mqttBody").append('<tr class="' + t + '">' +
+            '<td><input type="text" value="' + obj.subscriptions[i].pattern + '" required class="mqtt_pattern form-control input-sm"></td>' +
+            '<td><input type="number" min="0" value="' + obj.subscriptions[i].qos + '" required class="mqtt_qos form-control input-sm"></td>' +
+            '<td><button class="btn btn-sm" type="button" onclick="removeMqttBody(\'' + t + '\')">' +
             '<i class="fa fa-trash"></i></button></td>' +
             '</tr>')
 
@@ -4373,25 +3881,25 @@ function editMqttModal() {
 
 
     $(".configBody").html('')
-    for(let i=0;i<obj.config.length;i++){
+    for (let i = 0; i < obj.config.length; i++) {
         let t = new Date().getTime()
-        $(".configBody").append('<tr class="'+t+'">' +
-            '<td><input type="text" value="'+obj.config[i].name+'" required class="conf_name form-control input-sm"></td>' +
-            '<td><input type="text" value="'+obj.config[i].value+'" class="conf_value form-control input-sm"></td>' +
-            '<td><button class="btn btn-sm" type="button" onclick="removeConfigBody(\''+t+'\')">' +
+        $(".configBody").append('<tr class="' + t + '">' +
+            '<td><input type="text" value="' + obj.config[i].name + '" required class="conf_name form-control input-sm"></td>' +
+            '<td><input type="text" value="' + obj.config[i].value + '" class="conf_value form-control input-sm"></td>' +
+            '<td><button class="btn btn-sm" type="button" onclick="removeConfigBody(\'' + t + '\')">' +
             '<i class="fa fa-trash"></i></button></td>' +
             '</tr>')
 
     }
 
 
-    $("#addMqttInputRule form").attr("onsubmit","addMqttRule(1)");
+    $("#addMqttInputRule form").attr("onsubmit", "addMqttRule(1)");
     $("#addMqttInputRule").modal('show');
 }
 
 function editUdpModal() {
 
-    $("#udp_name").attr('disabled','disabled')
+    $("#udp_name").attr('disabled', 'disabled')
 
     let obj = {};
     for (let i = 0; i < udp_rules_list.length; i++) {
@@ -4426,25 +3934,25 @@ function editUdpModal() {
 
 
     $(".configBody").html('')
-    for(let i=0;i<obj.config.length;i++){
+    for (let i = 0; i < obj.config.length; i++) {
         let t = new Date().getTime()
-        $(".configBody").append('<tr class="'+t+'">' +
-            '<td><input type="text" value="'+obj.config[i].name+'" required class="conf_name form-control input-sm"></td>' +
-            '<td><input type="text" value="'+obj.config[i].value+'" class="conf_value form-control input-sm"></td>' +
-            '<td><button class="btn btn-sm" type="button" onclick="removeConfigBody(\''+t+'\')">' +
+        $(".configBody").append('<tr class="' + t + '">' +
+            '<td><input type="text" value="' + obj.config[i].name + '" required class="conf_name form-control input-sm"></td>' +
+            '<td><input type="text" value="' + obj.config[i].value + '" class="conf_value form-control input-sm"></td>' +
+            '<td><button class="btn btn-sm" type="button" onclick="removeConfigBody(\'' + t + '\')">' +
             '<i class="fa fa-trash"></i></button></td>' +
             '</tr>')
 
     }
 
 
-    $("#addUdpInputRule form").attr("onsubmit","addUdpRule(1)");
+    $("#addUdpInputRule form").attr("onsubmit", "addUdpRule(1)");
     $("#addUdpInputRule").modal('show');
 }
 
 function editTcpModal() {
 
-    $("#tcp_name").attr('disabled','disabled')
+    $("#tcp_name").attr('disabled', 'disabled')
 
     let obj = {};
     for (let i = 0; i < tcp_rules_list.length; i++) {
@@ -4504,25 +4012,25 @@ function editTcpModal() {
     checkTcpKeyFile($("#tcp_ssslStoresBuiltIn").val())
 
     $(".configBody").html('')
-    for(let i=0;i<obj.config.length;i++){
+    for (let i = 0; i < obj.config.length; i++) {
         let t = new Date().getTime()
-        $(".configBody").append('<tr class="'+t+'">' +
-            '<td><input type="text" value="'+obj.config[i].name+'" required class="conf_name form-control input-sm"></td>' +
-            '<td><input type="text" value="'+obj.config[i].value+'" class="conf_value form-control input-sm"></td>' +
-            '<td><button class="btn btn-sm" type="button" onclick="removeConfigBody(\''+t+'\')">' +
+        $(".configBody").append('<tr class="' + t + '">' +
+            '<td><input type="text" value="' + obj.config[i].name + '" required class="conf_name form-control input-sm"></td>' +
+            '<td><input type="text" value="' + obj.config[i].value + '" class="conf_value form-control input-sm"></td>' +
+            '<td><button class="btn btn-sm" type="button" onclick="removeConfigBody(\'' + t + '\')">' +
             '<i class="fa fa-trash"></i></button></td>' +
             '</tr>')
 
     }
 
 
-    $("#addTcpInputRule form").attr("onsubmit","addTcpRule(1)");
+    $("#addTcpInputRule form").attr("onsubmit", "addTcpRule(1)");
     $("#addTcpInputRule").modal('show');
 }
 
 function editEmailModal() {
 
-    $("#email_name").attr('disabled','disabled')
+    $("#email_name").attr('disabled', 'disabled')
 
     let obj = {};
     for (let i = 0; i < email_rules_list.length; i++) {
@@ -4567,14 +4075,14 @@ function editEmailModal() {
     $("#email_password").val(obj.password ? obj.password : '')
 
     $(".configBody").html('')
-    for(let i=0;i<obj.config.length;i++){
+    for (let i = 0; i < obj.config.length; i++) {
         let t = new Date().getTime()
-        $(".configBody").append('<tr class="'+t+'">' +
-            '<td><input type="text" value="'+obj.config[i].name+'" required class="conf_name form-control input-sm"></td>' +
-            '<td><input type="text" value="'+obj.config[i].value+'" class="conf_value form-control input-sm"></td>' +
+        $(".configBody").append('<tr class="' + t + '">' +
+            '<td><input type="text" value="' + obj.config[i].name + '" required class="conf_name form-control input-sm"></td>' +
+            '<td><input type="text" value="' + obj.config[i].value + '" class="conf_value form-control input-sm"></td>' +
             '<td><button class="btn btn-sm" type="button" onclick="addConfigBody()">' +
             '<i class="fa fa-plus"></i></button>' +
-            '<button class="btn btn-sm" type="button" onclick="removeConfigBody(\''+t+'\')">' +
+            '<button class="btn btn-sm" type="button" onclick="removeConfigBody(\'' + t + '\')">' +
             '<i class="fa fa-trash"></i></button></td>' +
             '</tr>')
 
@@ -4583,10 +4091,10 @@ function editEmailModal() {
 
 
     $(".folderBody").html('')
-    for(let i=0;i<obj.folders.length;i++){
+    for (let i = 0; i < obj.folders.length; i++) {
         let t = new Date().getTime()
-        $(".folderBody").append('<tr class="'+t+'">' +
-            '<td><input type="text" value="'+obj.folders[i].name+'" required class="folder_name form-control input-sm"></td>' +
+        $(".folderBody").append('<tr class="' + t + '">' +
+            '<td><input type="text" value="' + obj.folders[i].name + '" required class="folder_name form-control input-sm"></td>' +
 
             '<td><select class="folder_markMessageAfterProcessing form-control input-sm">' +
             '<option value="NONE">NONE</option>' +
@@ -4603,17 +4111,17 @@ function editEmailModal() {
             '<option value="RECENT">RECENT</option>' +
             '</select></td>' +
 
-            '<td><input type="text" value="'+obj.folders[i].toMovedFolder+'" class="folder_toMovedFolder form-control input-sm"></td>' +
-            '<td class="text-center"><button class="btn btn-sm" type="button" onclick="removeFolderBody(\''+t+'\')">' +
+            '<td><input type="text" value="' + obj.folders[i].toMovedFolder + '" class="folder_toMovedFolder form-control input-sm"></td>' +
+            '<td class="text-center"><button class="btn btn-sm" type="button" onclick="removeFolderBody(\'' + t + '\')">' +
             '<i class="fa fa-trash"></i></button></td>' +
             '</tr>')
 
-        $("."+t+" .folder_markMessageAfterProcessing").val(obj.folders[i].markMessageAfterProcessing)
-        $("."+t+" .folder_proccessOnlyFlags").val(obj.folders[i].proccessOnlyFlags)
+        $("." + t + " .folder_markMessageAfterProcessing").val(obj.folders[i].markMessageAfterProcessing)
+        $("." + t + " .folder_proccessOnlyFlags").val(obj.folders[i].proccessOnlyFlags)
     }
 
 
-    $("#addEmailInputRule form").attr("onsubmit","addEmailRule(1)");
+    $("#addEmailInputRule form").attr("onsubmit", "addEmailRule(1)");
     $("#addEmailInputRule").modal('show');
 }
 
@@ -4633,13 +4141,12 @@ function editMicroModal() {
     $("#micro_apiKey").val(obj.apiKey ? obj.apiKey : '');
 
 
-    if(obj.allowedMethods)
-    {
-        $("#methodGet").prop('checked',false)
-        $("#methodPost").prop('checked',false)
-        $("#methodDelete").prop('checked',false)
-        $("#methodPut").prop('checked',false)
-        $("#methodUpload").prop('checked',false)
+    if (obj.allowedMethods) {
+        $("#methodGet").prop('checked', false)
+        $("#methodPost").prop('checked', false)
+        $("#methodDelete").prop('checked', false)
+        $("#methodPut").prop('checked', false)
+        $("#methodUpload").prop('checked', false)
 
         for (let i = 0; i < obj.allowedMethods.length; i++) {
             if (obj.allowedMethods[i].toLowercase() == 'get') {
@@ -4658,19 +4165,19 @@ function editMicroModal() {
                 $("#methodUpload").prop('checked', true)
             }
         }
-    }else{
-        $("#methodGet").prop('checked',true)
-        $("#methodPost").prop('checked',true)
-        $("#methodDelete").prop('checked',true)
-        $("#methodPut").prop('checked',true)
-        $("#methodUpload").prop('checked',true)
+    } else {
+        $("#methodGet").prop('checked', true)
+        $("#methodPost").prop('checked', true)
+        $("#methodDelete").prop('checked', true)
+        $("#methodPut").prop('checked', true)
+        $("#methodUpload").prop('checked', true)
     }
 
 
     $("#micro_properties").val(obj.properties ? JSON.stringify(obj.properties) : '{}')
 
 
-    $("#addMicroRule form").attr("onsubmit","addMicroRule(1)");
+    $("#addMicroRule form").attr("onsubmit", "addMicroRule(1)");
     $("#addMicroRule").modal('show');
 
 }
@@ -4678,63 +4185,72 @@ function editMicroModal() {
 function openDeleteModal() {
 
     if (CURRENT_TYPE > 0) {
-        if (CURRENT_TYPE === 1) {
-            $(".delete_rule_name").html('Message');
-            $(".delete_rule_id").html(CURRENT_ID);
-            $(".viewId").val("messageTab_"+CURRENT_ID);
-        } else if (CURRENT_TYPE === 2) {
-            $(".delete_rule_name").html('Named');
-            $(".delete_rule_id").html(CURRENT_ID);
-            $(".viewId").val("namedTab_"+CURRENT_ID);
-        } else if (CURRENT_TYPE === 3) {
-            $(".delete_rule_name").html('Schedule');
-            $(".delete_rule_id").html(CURRENT_ID);
-            $(".viewId").val("scheduleTab_"+CURRENT_ID);
-        }
-        else if (CURRENT_TYPE === 6) {
-            $(".delete_rule_name").html('Binary');
-            $(".delete_rule_id").html(CURRENT_ID);
-            $(".viewId").val("binaryTab_"+CURRENT_ID);
-        }
-        else if (CURRENT_TYPE === 8) {
-            $(".delete_rule_name").html('File');
-            $(".delete_rule_id").html(CURRENT_ID);
-            $(".viewId").val("fileTab_"+CURRENT_ID);
-        }
-        else if (CURRENT_TYPE === 7) {
-            $(".delete_rule_name").html('Job');
-            $(".delete_rule_id").html(CURRENT_ID);
-            $(".viewId").val("jobTab_"+CURRENT_ID);
-        }
-        else if (CURRENT_TYPE === 9) {
-            $(".delete_rule_name").html('Process');
-            $(".delete_rule_id").html(CURRENT_ID);
-            $(".viewId").val("processTab_"+CURRENT_ID);
-        }
-        else if (CURRENT_TYPE === 10) {
-            $(".delete_rule_name").html('SFTP');
-            $(".delete_rule_id").html(CURRENT_ID);
-            $(".viewId").val("sftpTab_"+CURRENT_ID);
-        } else if (CURRENT_TYPE === 11) {
-            $(".delete_rule_name").html('MQTT');
-            $(".delete_rule_id").html(CURRENT_ID);
-            $(".viewId").val("mqttTab_"+CURRENT_ID);
-        } else if (CURRENT_TYPE === 12) {
-            $(".delete_rule_name").html('UDP');
-            $(".delete_rule_id").html(CURRENT_ID);
-            $(".viewId").val("udpTab_"+CURRENT_ID);
-        } else if (CURRENT_TYPE === 13) {
-            $(".delete_rule_name").html('TCP');
-            $(".delete_rule_id").html(CURRENT_ID);
-            $(".viewId").val("tcpTab_"+CURRENT_ID);
-        } else if (CURRENT_TYPE === 14) {
-            $(".delete_rule_name").html('EMAIL');
-            $(".delete_rule_id").html(CURRENT_ID);
-            $(".viewId").val("emailTab_"+CURRENT_ID);
-        } else if (CURRENT_TYPE === 15) {
-            $(".delete_rule_name").html('Micro API');
-            $(".delete_rule_id").html(CURRENT_ID);
-            $(".viewId").val("microTab_"+CURRENT_ID);
+        switch (CURRENT_TYPE) {
+            case 1:
+                $(".delete_rule_name").html('Message');
+                $(".delete_rule_id").html(CURRENT_ID);
+                $(".viewId").val("messageTab_" + CURRENT_ID);
+                break;
+            case 2:
+                $(".delete_rule_name").html('Named');
+                $(".delete_rule_id").html(CURRENT_ID);
+                $(".viewId").val("namedTab_" + CURRENT_ID);
+                break;
+            case 3:
+                $(".delete_rule_name").html('Schedule');
+                $(".delete_rule_id").html(CURRENT_ID);
+                $(".viewId").val("scheduleTab_" + CURRENT_ID);
+                break;
+            case 6:
+                $(".delete_rule_name").html('Binary');
+                $(".delete_rule_id").html(CURRENT_ID);
+                $(".viewId").val("binaryTab_" + CURRENT_ID);
+                break;
+            case 7:
+                $(".delete_rule_name").html('Job');
+                $(".delete_rule_id").html(CURRENT_ID);
+                $(".viewId").val("jobTab_" + CURRENT_ID);
+                break;
+            case 8:
+                $(".delete_rule_name").html('File');
+                $(".delete_rule_id").html(CURRENT_ID);
+                $(".viewId").val("fileTab_" + CURRENT_ID);
+                break;
+            case 9:
+                $(".delete_rule_name").html('Process');
+                $(".delete_rule_id").html(CURRENT_ID);
+                $(".viewId").val("processTab_" + CURRENT_ID);
+                break;
+            case 10:
+                $(".delete_rule_name").html('SFTP');
+                $(".delete_rule_id").html(CURRENT_ID);
+                $(".viewId").val("sftpTab_" + CURRENT_ID);
+                break;
+            case 11:
+                $(".delete_rule_name").html('MQTT');
+                $(".delete_rule_id").html(CURRENT_ID);
+                $(".viewId").val("mqttTab_" + CURRENT_ID);
+                break;
+            case 12:
+                $(".delete_rule_name").html('UDP');
+                $(".delete_rule_id").html(CURRENT_ID);
+                $(".viewId").val("udpTab_" + CURRENT_ID);
+                break;
+            case 13:
+                $(".delete_rule_name").html('TCP');
+                $(".delete_rule_id").html(CURRENT_ID);
+                $(".viewId").val("tcpTab_" + CURRENT_ID);
+                break;
+            case 14:
+                $(".delete_rule_name").html('EMAIL');
+                $(".delete_rule_id").html(CURRENT_ID);
+                $(".viewId").val("emailTab_" + CURRENT_ID);
+                break;
+            case 15:
+                $(".delete_rule_name").html('Micro API');
+                $(".delete_rule_id").html(CURRENT_ID);
+                $(".viewId").val("microTab_" + CURRENT_ID);
+                break;
         }
         $("#deleteModal").modal('show');
     } else {
@@ -4756,210 +4272,171 @@ function openModalClasses() {
 
 
 function proceedDelete() {
-    if (CURRENT_TYPE === 1) {
-        deleteMessageDef(CURRENT_ID, function (status, data) {
-            if (status) {
-                deleteTab(CURRENT_ID, CURRENT_TYPE);
-                deleteMessagRule(CURRENT_ID, function (status, data) {
+    switch (CURRENT_TYPE) {
+        case 1:
+            deleteMessageDef(CURRENT_ID, function (status, data) {
+                if (status) {
+                    deleteMessagRule(CURRENT_ID, function (status, data) {
+                        deleteTab(CURRENT_ID, CURRENT_TYPE);
+                            successMsg('Successfully deleted');
+                            loadMessageRulesList();
+                            $("#deleteModal").modal('hide');
+                    });
+
+                } else {
+                    errorMsg('Error in delete')
+                }
+            })
+            break;
+        case 2:
+            deleteNamedRule(CURRENT_ID, function (status, data) {
+                if (status) {
+                    deleteTab(CURRENT_ID, CURRENT_TYPE);
                     successMsg('Successfully deleted');
-                });
-                setTimeout(function (){
-                    loadMessageRulesList();
-                },500)
-
-                $("#deleteModal").modal('hide');
-            } else {
-                errorMsg('Error in delete')
-            }
-        })
-    } else if (CURRENT_TYPE === 2) {
-
-        deleteNamedRule(CURRENT_ID, function (status, data) {
-            if (status) {
-                deleteTab(CURRENT_ID, CURRENT_TYPE);
-                successMsg('Successfully deleted');
-                setTimeout(function (){
                     loadNamedRulesList();
-                },500)
 
-                $("#deleteModal").modal('hide');
-            } else {
-                errorMsg('Error in delete')
-            }
-        })
-
-    } else if (CURRENT_TYPE === 3) {
-
-        deleteScheduleRule(CURRENT_ID, function (status, data) {
-            if (status) {
-                deleteTab(CURRENT_ID, CURRENT_TYPE);
-                successMsg('Successfully deleted');
-
-                setTimeout(function (){
+                    $("#deleteModal").modal('hide');
+                } else {
+                    errorMsg('Error in delete')
+                }
+            })
+            break;
+        case 3:
+            deleteScheduleRule(CURRENT_ID, function (status, data) {
+                if (status) {
+                    deleteTab(CURRENT_ID, CURRENT_TYPE);
+                    successMsg('Successfully deleted');
                     loadScheduleRulesList();
-                },500)
-                $("#deleteModal").modal('hide');
-            } else {
-                errorMsg('Error in delete')
-            }
-        })
-    } else if (CURRENT_TYPE === 6) {
-
-        deleteBinaryRule(CURRENT_ID, function (status, data) {
-            if (status) {
-                deleteTab(CURRENT_ID, CURRENT_TYPE);
-                successMsg('Successfully deleted');
-
-                setTimeout(function (){
+                    $("#deleteModal").modal('hide');
+                } else {
+                    errorMsg('Error in delete')
+                }
+            })
+            break;
+        case 6:
+            deleteBinaryRule(CURRENT_ID, function (status, data) {
+                if (status) {
+                    deleteTab(CURRENT_ID, CURRENT_TYPE);
+                    successMsg('Successfully deleted');
                     loadBinaryRulesList();
-                },500)
-                $("#deleteModal").modal('hide');
-            } else {
-                errorMsg('Error in delete')
-            }
-        })
-    }
-    else if (CURRENT_TYPE === 8) {
-
-        deleteFileRule(CURRENT_ID, function (status, data) {
-            if (status) {
-                deleteTab(CURRENT_ID, CURRENT_TYPE);
-                successMsg('Successfully deleted');
-                setTimeout(function (){
-                    loadFileRulesList();
-                },500)
-
-                $("#deleteModal").modal('hide');
-            } else {
-                errorMsg('Error in delete')
-            }
-        })
-    }
-    else if (CURRENT_TYPE === 7) {
-
-        deleteJobRule(CURRENT_ID, function (status, data) {
-            if (status) {
-                deleteTab(CURRENT_ID, CURRENT_TYPE);
-                successMsg('Successfully deleted');
-
-                setTimeout(function (){
+                    $("#deleteModal").modal('hide');
+                } else {
+                    errorMsg('Error in delete')
+                }
+            })
+            break;
+        case 7:
+            deleteJobRule(CURRENT_ID, function (status, data) {
+                if (status) {
+                    deleteTab(CURRENT_ID, CURRENT_TYPE);
+                    successMsg('Successfully deleted');
                     loadJobRulesList();
-                },500)
-                $("#deleteModal").modal('hide');
-            } else {
-                errorMsg('Error in delete')
-            }
-        })
-    }
-    else if (CURRENT_TYPE === 9) {
-
-        deleteProcessRule(CURRENT_ID, function (status, data) {
-            if (status) {
-                deleteTab(CURRENT_ID, CURRENT_TYPE);
-                successMsg('Successfully deleted');
-
-                setTimeout(function (){
-                    Cookies.set('pfGroup','')
+                    $("#deleteModal").modal('hide');
+                } else {
+                    errorMsg('Error in delete')
+                }
+            })
+            break;
+        case 8:
+            deleteFileRule(CURRENT_ID, function (status, data) {
+                if (status) {
+                    deleteTab(CURRENT_ID, CURRENT_TYPE);
+                    successMsg('Successfully deleted');
+                    loadFileRulesList();
+                    $("#deleteModal").modal('hide');
+                } else {
+                    errorMsg('Error in delete')
+                }
+            })
+            break;
+        case 9:
+            deleteProcessRule(CURRENT_ID, function (status, data) {
+                if (status) {
+                    deleteTab(CURRENT_ID, CURRENT_TYPE);
+                    successMsg('Successfully deleted');
+                    Cookies.set('pfGroup', '')
                     loadProcessRulesListAggs();
                     loadProcessRulesList();
-                },500)
-                $("#deleteModal").modal('hide');
-            } else {
-                errorMsg('Error in delete')
-            }
-        })
-    }
-    else if (CURRENT_TYPE === 10) {
-
-        deleteInputRule('SFTP',CURRENT_ID, function (status, data) {
-            if (status) {
-                deleteTab(CURRENT_ID, CURRENT_TYPE);
-                successMsg('Successfully deleted');
-
-                setTimeout(function (){
+                    $("#deleteModal").modal('hide');
+                } else {
+                    errorMsg('Error in delete')
+                }
+            })
+            break;
+        case 10:
+            deleteInputRule('SFTP', CURRENT_ID, function (status, data) {
+                if (status) {
+                    deleteTab(CURRENT_ID, CURRENT_TYPE);
+                    successMsg('Successfully deleted');
                     loadSftpRulesList();
-                },500)
-                $("#deleteModal").modal('hide');
-            } else {
-                errorMsg('Error in delete')
-            }
-        })
-    } else if (CURRENT_TYPE === 11) {
-
-        deleteInputRule('MQTT',CURRENT_ID, function (status, data) {
-            if (status) {
-                deleteTab(CURRENT_ID, CURRENT_TYPE);
-                successMsg('Successfully deleted');
-
-                setTimeout(function (){
+                    $("#deleteModal").modal('hide');
+                } else {
+                    errorMsg('Error in delete')
+                }
+            })
+            break;
+        case 11:
+            deleteInputRule('MQTT', CURRENT_ID, function (status, data) {
+                if (status) {
+                    deleteTab(CURRENT_ID, CURRENT_TYPE);
+                    successMsg('Successfully deleted');
                     loadMqttRulesList();
-                },500)
-                $("#deleteModal").modal('hide');
-            } else {
-                errorMsg('Error in delete')
-            }
-        })
-    }else if (CURRENT_TYPE === 12) {
-
-        deleteInputRule('UDP',CURRENT_ID, function (status, data) {
-            if (status) {
-                deleteTab(CURRENT_ID, CURRENT_TYPE);
-                successMsg('Successfully deleted');
-
-                setTimeout(function (){
+                    $("#deleteModal").modal('hide');
+                } else {
+                    errorMsg('Error in delete')
+                }
+            })
+            break;
+        case 12:
+            deleteInputRule('UDP', CURRENT_ID, function (status, data) {
+                if (status) {
+                    deleteTab(CURRENT_ID, CURRENT_TYPE);
+                    successMsg('Successfully deleted');
                     loadUdpRulesList();
-                },500)
-                $("#deleteModal").modal('hide');
-            } else {
-                errorMsg('Error in delete')
-            }
-        })
-    }else if (CURRENT_TYPE === 13) {
-
-        deleteInputRule('TCP',CURRENT_ID, function (status, data) {
-            if (status) {
-                deleteTab(CURRENT_ID, CURRENT_TYPE);
-                successMsg('Successfully deleted');
-
-                setTimeout(function (){
+                    $("#deleteModal").modal('hide');
+                } else {
+                    errorMsg('Error in delete')
+                }
+            })
+            break;
+        case 13:
+            deleteInputRule('TCP', CURRENT_ID, function (status, data) {
+                if (status) {
+                    deleteTab(CURRENT_ID, CURRENT_TYPE);
+                    successMsg('Successfully deleted');
                     loadTcpRulesList();
-                },500)
-                $("#deleteModal").modal('hide');
-            } else {
-                errorMsg('Error in delete')
-            }
-        })
-    }else if (CURRENT_TYPE === 14) {
-
-        deleteInputRule('EMAIL',CURRENT_ID, function (status, data) {
-            if (status) {
-                deleteTab(CURRENT_ID, CURRENT_TYPE);
-                successMsg('Successfully deleted');
-
-                setTimeout(function (){
+                    $("#deleteModal").modal('hide');
+                } else {
+                    errorMsg('Error in delete')
+                }
+            })
+            break;
+        case 14:
+            deleteInputRule('EMAIL', CURRENT_ID, function (status, data) {
+                if (status) {
+                    deleteTab(CURRENT_ID, CURRENT_TYPE);
+                    successMsg('Successfully deleted');
                     loadEmailRulesList();
-                },500)
-                $("#deleteModal").modal('hide');
-            } else {
-                errorMsg('Error in delete')
-            }
-        })
-    }else if (CURRENT_TYPE === 15) {
-
-        deleteMicroRule(CURRENT_ID, function (status, data) {
-            if (status) {
-                deleteTab(CURRENT_ID, CURRENT_TYPE);
-                successMsg('Successfully deleted');
-
-                setTimeout(function (){
+                    $("#deleteModal").modal('hide');
+                } else {
+                    errorMsg('Error in delete')
+                }
+            })
+            break;
+        case 15:
+            deleteMicroRule(CURRENT_ID, function (status, data) {
+                if (status) {
+                    deleteTab(CURRENT_ID, CURRENT_TYPE);
+                    successMsg('Successfully deleted');
                     loadMicroRulesList();
-                },500)
-                $("#deleteModal").modal('hide');
-            } else {
-                errorMsg('Error in delete')
-            }
-        })
+                    $("#deleteModal").modal('hide');
+                } else {
+                    errorMsg('Error in delete')
+                }
+            })
+            break;
     }
+   
 }
 
 
@@ -5010,7 +4487,10 @@ function addMessageField() {
 
 function addMessageRule() {
 
-    let flag = false;
+    if ($("#msg_id").val().length < 3) {
+        errorMsg('Message ID minimum 3 digits required')
+        return
+    }
 
     let fields = [];
 
@@ -5063,12 +4543,12 @@ function addMessageRule() {
             createUpdateMessageDef(msgObj, function (status, data) {
                 if (status) {
                     successMsg('Message Defined Successfully');
-                    loadMessageRulesList();
-                    setTimeout(function () {
-                        loadTabbar(msgObj.id, 1);
-                    }, 500);
-
-                    $("#addMessageRule").modal('hide');
+                    loadMessageRulesList(function (status) {
+                        if (status) {
+                            loadTabbar(msgObj.id, 1);
+                            $("#addMessageRule").modal('hide');
+                        }
+                    });
                 } else {
                     errorMsg('Error in Define Message')
                 }
@@ -5100,12 +4580,10 @@ function addNamedRule() {
     updateNamedRuleCode(dataObj, function (status, data) {
         if (status) {
             successMsg('Successfully saved!');
-            loadNamedRulesList();
-            setTimeout(function () {
+            loadNamedRulesList(function () {
                 loadTabbar(dataObj.name, 2);
-            },500)
-
-            $("#addNamedRule").modal('hide');
+                $("#addNamedRule").modal('hide');
+            });
         } else {
             errorMsg('Error in saving!')
         }
@@ -5123,12 +4601,10 @@ function addBinaryRule() {
     updateBinaryRuleCode(dataObj, function (status, data) {
         if (status) {
             successMsg('Successfully saved!');
-            loadBinaryRulesList();
-            setTimeout(function () {
+            loadBinaryRulesList(function () {
                 loadTabbar(dataObj.type, 6);
-            },500)
-
-            $("#addBinaryRule").modal('hide');
+                $("#addBinaryRule").modal('hide');
+            })
         } else {
             errorMsg('Error in saving!')
         }
@@ -5145,12 +4621,10 @@ function addFileRule() {
     updateFileRuleCode(dataObj, function (status, data) {
         if (status) {
             successMsg('Successfully saved!');
-            loadFileRulesList();
-            setTimeout(function () {
+            loadFileRulesList(function () {
                 loadTabbar(dataObj.type, 8);
-            },500)
-
-            $("#addFileRule").modal('hide');
+                $("#addFileRule").modal('hide');
+            })
         } else {
             errorMsg('Error in saving!')
         }
@@ -5183,17 +4657,17 @@ function addProcessRule() {
 
     let input = {};
 
-    let inputKey= $(".sftp_key").map(function() {
+    let inputKey = $(".sftp_key").map(function () {
         return $(this).val();
     }).get();
-    let inputValue= $(".sftp_value").map(function() {
+    let inputValue = $(".sftp_value").map(function () {
         return $(this).val();
     }).get();
 
-    for(let i=0;i<inputKey.length;i++){
+    for (let i = 0; i < inputKey.length; i++) {
 
-        if(inputKey[i]){
-            input[inputKey[i]] =  inputValue[i];
+        if (inputKey[i]) {
+            input[inputKey[i]] = inputValue[i];
         }
 
     };
@@ -5202,50 +4676,43 @@ function addProcessRule() {
 
     let output = {};
 
-    let outputKey= $(".output_key").map(function() {
+    let outputKey = $(".output_key").map(function () {
         return $(this).val();
     }).get();
 
-    if(outputKey.length === 0){
+    if (outputKey.length === 0) {
         errorMsg('Output is mandatory to get the process response')
         return false;
     }
 
-    $(".pBtn").attr('disabled','disabled')
+    $(".pBtn").attr('disabled', 'disabled')
     $(".pBtn").html('<i class="fa fa-spinner fa-spin"></i> Processing...')
 
-    let outputValue= $(".output_value").map(function() {
+    let outputValue = $(".output_value").map(function () {
         return $(this).val();
     }).get();
 
-    for(let i=0;i<outputKey.length;i++){
+    for (let i = 0; i < outputKey.length; i++) {
 
-        if(outputKey[i]){
-            output[outputKey[i]] =  outputValue[i];
+        if (outputKey[i]) {
+            output[outputKey[i]] = outputValue[i];
         }
 
     };
 
     data['output'] = output;
 
-
     updateProcessRuleCode(data, function (status, result) {
         $(".pBtn").removeAttr('disabled')
         $(".pBtn").html('Save Changes')
         if (status) {
             successMsg('Successfully saved!');
-            Cookies.set('pfGroup','')
-            setTimeout(() => {
-                loadProcessRulesListAggs();
-
-                loadProcessRulesList();
-                setTimeout(function () {
-                    loadTabbar(data.id, 9);
-                },1000)
-            }, 1000);
-            
-
-            $("#addProcessRule").modal('hide');
+            Cookies.set('pfGroup', '')
+            loadProcessRulesList(function () {
+                loadProcessRulesListAggs()
+                loadTabbar(data.id, 9);
+                $("#addProcessRule").modal('hide');
+            });
         } else {
             errorMsg('Error in saving!')
         }
@@ -5289,17 +4756,17 @@ function updateProcessRule(id) {
 
     let input = {};
 
-    let inputKey= $(".sftp_key").map(function() {
+    let inputKey = $(".sftp_key").map(function () {
         return $(this).val();
     }).get();
-    let inputValue= $(".sftp_value").map(function() {
+    let inputValue = $(".sftp_value").map(function () {
         return $(this).val();
     }).get();
 
-    for(let i=0;i<inputKey.length;i++){
+    for (let i = 0; i < inputKey.length; i++) {
 
-        if(inputKey[i]){
-            input[inputKey[i]] =  inputValue[i];
+        if (inputKey[i]) {
+            input[inputKey[i]] = inputValue[i];
         }
 
     };
@@ -5308,26 +4775,26 @@ function updateProcessRule(id) {
 
     let output = {};
 
-    let outputKey= $(".output_key").map(function() {
+    let outputKey = $(".output_key").map(function () {
         return $(this).val();
     }).get();
 
-    if(outputKey.length === 0){
+    if (outputKey.length === 0) {
         errorMsg('Output is mandatory to get the process response')
         return false;
     }
 
-    $(".pBtn").attr('disabled','disabled')
+    $(".pBtn").attr('disabled', 'disabled')
     $(".pBtn").html('<i class="fa fa-spinner fa-spin"></i> Processing...')
 
-    let outputValue= $(".output_value").map(function() {
+    let outputValue = $(".output_value").map(function () {
         return $(this).val();
     }).get();
 
-    for(let i=0;i<outputKey.length;i++){
+    for (let i = 0; i < outputKey.length; i++) {
 
-        if(outputKey[i]){
-            output[outputKey[i]] =  outputValue[i];
+        if (outputKey[i]) {
+            output[outputKey[i]] = outputValue[i];
         }
 
     };
@@ -5340,12 +4807,11 @@ function updateProcessRule(id) {
         $(".pBtn").html('Save Changes')
         if (status) {
             successMsg('Successfully saved!');
-            loadProcessRulesList();
-            setTimeout(function () {
+            loadProcessRulesList(function () {
                 loadTabbar(data.id, 9);
-            },500)
+                $("#addProcessRule").modal('hide');
+            })
 
-            $("#addProcessRule").modal('hide');
         } else {
             errorMsg('Error in saving!')
         }
@@ -5364,19 +4830,18 @@ function addJobRule(code) {
         "code": code ? codeEditor.getSession().getValue() : "",
         "instances": Number($("#job_instance").val() ? $("#job_instance").val() : 0),
         "startOnBoot": $("#job_boot").val() === "1" ? true : false,
-        "systemJob": ADMIN_ACCESS ?  ($("#job_system").val() === "1" ? true : false) : false,
+        "systemJob": ADMIN_ACCESS ? ($("#job_system").val() === "1" ? true : false) : false,
         "resartOnChange": $("#job_restart").val() === "1" ? true : false,
     };
 
     updateJobRuleCode(dataObj, function (status, data) {
         if (status) {
             successMsg('Successfully saved!');
-            loadJobRulesList();
-            setTimeout(function () {
+            loadJobRulesList(function () {
                 loadTabbar(dataObj.id, 7);
-            },500)
+                $("#addJobRule").modal('hide');
+            })
 
-            $("#addJobRule").modal('hide');
         } else {
             errorMsg('Error in saving!')
         }
@@ -5388,15 +4853,15 @@ function addSftpRule(code) {
 
     let configObj = [];
 
-    let cKey= $(".conf_name").map(function() {
+    let cKey = $(".conf_name").map(function () {
         return $(this).val();
     }).get();
-    let cValue= $(".conf_value").map(function() {
+    let cValue = $(".conf_value").map(function () {
         return $(this).val();
     }).get();
 
-    for(let i=0;i<cKey.length;i++){
-        if(cKey[i]){
+    for (let i = 0; i < cKey.length; i++) {
+        if (cKey[i]) {
             configObj.push({
                 name: cKey[i],
                 value: cValue[i],
@@ -5409,7 +4874,7 @@ function addSftpRule(code) {
         "id": $("#sftp_id").val(),
         "name": $("#sftp_name").val(),
         "code": code ? codeEditor.getSession().getValue() : "",
-        "description":"",
+        "description": "",
         instances: Number($("#sftp_instances").val()),
         instanceType: $("#sftp_instanceType").val(),
         lang: 'GROOVY',
@@ -5418,7 +4883,7 @@ function addSftpRule(code) {
         remotePort: $("#sftp_remotePort").val() ? Number($("#sftp_remotePort").val()) : null,
         userName: $("#sftp_userName").val() ? $("#sftp_userName").val() : null,
         password: $("#sftp_password").val() ? $("#sftp_password").val() : null,
-        remotePaths : $("#sftp_remotePaths").val() ? $("#sftp_remotePaths").val().split(",") : [],
+        remotePaths: $("#sftp_remotePaths").val() ? $("#sftp_remotePaths").val().split(",") : [],
         implementation: $("#sftp_implementation").val(),
         pollInterval: $("#sftp_pollInterval").val() ? Number($("#sftp_pollInterval").val()) : null,
         listPattern: $("#sftp_listPattern").val() ? $("#sftp_listPattern").val() : null,
@@ -5429,28 +4894,24 @@ function addSftpRule(code) {
         keyPassPhrase: $("#sftp_keyPassPhrase").val() ? $("#sftp_keyPassPhrase").val() : null,
         connectTimeOut: $("#sftp_connectTimeOut").val() ? Number($("#sftp_connectTimeOut").val()) : null,
         listRecursive: $("#sftp_listRecursive").val() ? Number($("#sftp_listRecursive").val()) : $("#sftp_listRecursive").val(),
-        config : configObj,
-        properties : $("#sftp_properties").val() ? JSON.parse($("#sftp_properties").val()) : {}
+        config: configObj,
+        properties: $("#sftp_properties").val() ? JSON.parse($("#sftp_properties").val()) : {}
 
     };
 
 
 
-    updateInputRuleCode('SFTP',dataObj, function (status, data) {
+    updateInputRuleCode('SFTP', dataObj, function (status, data) {
         if (status) {
             successMsg('Successfully saved!');
 
-            setTimeout(function(){
-                loadSftpRulesList();
-                setTimeout(function () {
-                    if(code){
+                loadSftpRulesList(function () {
+                    if (code) {
                         loadTabbar(dataObj.id, 10);
                     }
-                },500)
-            },1000)
+                    $("#addSftpInputRule").modal('hide');
+                })
 
-
-            $("#addSftpInputRule").modal('hide');
         } else {
             errorMsg('Error in saving!')
         }
@@ -5462,15 +4923,15 @@ function addMqttRule(code) {
 
     let configObj = []
 
-    let cKey= $(".conf_name").map(function() {
+    let cKey = $(".conf_name").map(function () {
         return $(this).val();
     }).get();
-    let cValue= $(".conf_value").map(function() {
+    let cValue = $(".conf_value").map(function () {
         return $(this).val();
     }).get();
 
-    for(let i=0;i<cKey.length;i++){
-        if(cKey[i]){
+    for (let i = 0; i < cKey.length; i++) {
+        if (cKey[i]) {
             configObj.push({
                 name: cKey[i],
                 value: cValue[i],
@@ -5481,15 +4942,15 @@ function addMqttRule(code) {
 
     let subsObj = []
 
-    let sKey= $(".mqtt_pattern").map(function() {
+    let sKey = $(".mqtt_pattern").map(function () {
         return $(this).val();
     }).get();
-    let sValue= $(".mqtt_qos").map(function() {
+    let sValue = $(".mqtt_qos").map(function () {
         return $(this).val();
     }).get();
 
-    for(let i=0;i<sKey.length;i++){
-        if(sKey[i]){
+    for (let i = 0; i < sKey.length; i++) {
+        if (sKey[i]) {
             subsObj.push({
                 pattern: sKey[i],
                 qos: Number(sValue[i]),
@@ -5504,7 +4965,7 @@ function addMqttRule(code) {
         "id": $("#mqtt_id").val(),
         "name": $("#mqtt_name").val(),
         "code": code ? codeEditor.getSession().getValue() : "",
-        "description":"",
+        "description": "",
         instances: Number($("#mqtt_instances").val()),
         instanceType: $("#mqtt_instanceType").val(),
 
@@ -5514,7 +4975,7 @@ function addMqttRule(code) {
         password: $("#mqtt_password").val() ? $("#mqtt_password").val() : null,
         clientId: $("#mqtt_clientId").val() ? $("#mqtt_clientId").val() : null,
 
-        serverUrls : $("#mqtt_serverUrls").val() ? $("#mqtt_serverUrls").val().split(",") : [],
+        serverUrls: $("#mqtt_serverUrls").val() ? $("#mqtt_serverUrls").val().split(",") : [],
         cleanSession: $("#mqtt_cleanSession").val() === "1" ? true : false,
         connectionTimeout: $("#mqtt_connectionTimeout").val() ? Number($("#mqtt_connectionTimeout").val()) : null,
         keepAliveInterval: $("#mqtt_keepAliveInterval").val() ? Number($("#mqtt_keepAliveInterval").val()) : null,
@@ -5527,29 +4988,24 @@ function addMqttRule(code) {
         sslKeyStorePassword: $("#mqtt_sslKeyStorePassword").val() ? $("#mqtt_sslKeyStorePassword").val() : null,
         sslTrustStorePath: $("#mqtt_sslTrustStorePath").val() ? $("#mqtt_sslTrustStorePath").val() : null,
         sslTrustStorePassword: $("#mqtt_sslTrustStorePassword").val() ? $("#mqtt_sslTrustStorePassword").val() : null,
-        config : configObj,
-        subscriptions : subsObj,
-        properties : $("#mqtt_properties").val() ? JSON.parse($("#mqtt_properties").val()) : {}
+        config: configObj,
+        subscriptions: subsObj,
+        properties: $("#mqtt_properties").val() ? JSON.parse($("#mqtt_properties").val()) : {}
 
     };
 
-    updateInputRuleCode('MQTT',dataObj, function (status, data) {
+    updateInputRuleCode('MQTT', dataObj, function (status, data) {
         if (status) {
             successMsg('Successfully saved!');
 
-
-
-            setTimeout(function(){
-                loadMqttRulesList();
-                setTimeout(function () {
-                    if(code){
+                loadMqttRulesList(function () {
+                    if (code) {
                         loadTabbar(dataObj.id, 11);
                     }
-                },500)
-            },1000)
+                    $("#addMqttInputRule").modal('hide');
+                })
 
 
-            $("#addMqttInputRule").modal('hide');
         } else {
             errorMsg('Error in saving!')
         }
@@ -5561,15 +5017,15 @@ function addUdpRule(code) {
 
     let configObj = []
 
-    let cKey= $(".conf_name").map(function() {
+    let cKey = $(".conf_name").map(function () {
         return $(this).val();
     }).get();
-    let cValue= $(".conf_value").map(function() {
+    let cValue = $(".conf_value").map(function () {
         return $(this).val();
     }).get();
 
-    for(let i=0;i<cKey.length;i++){
-        if(cKey[i]){
+    for (let i = 0; i < cKey.length; i++) {
+        if (cKey[i]) {
             configObj.push({
                 name: cKey[i],
                 value: cValue[i],
@@ -5584,14 +5040,14 @@ function addUdpRule(code) {
         "id": $("#udp_id").val(),
         "name": $("#udp_name").val(),
         "code": code ? codeEditor.getSession().getValue() : "",
-        "description":"",
+        "description": "",
         instances: Number($("#udp_instances").val()),
         instanceType: $("#udp_instanceType").val(),
         lang: 'GROOVY',
         "startAtBoot": $("#udp_startAtBoot").val() === "1" ? true : false,
 
         listenHost: $("#udp_listenHost").val(),
-        listenPort:  Number($("#udp_listenPort").val()),
+        listenPort: Number($("#udp_listenPort").val()),
 
         receiveBufferSize: $("#udp_receiveBufferSize").val() ? Number($("#udp_receiveBufferSize").val()) : null,
         sendBufferSize: $("#udp_sendBufferSize").val() ? Number($("#udp_sendBufferSize").val()) : null,
@@ -5602,27 +5058,22 @@ function addUdpRule(code) {
         "reuseAddress": $("#udp_reuseAddress").val() === "1" ? true : false,
         "multicast": $("#udp_multicast").val() === "1" ? true : false,
 
-        config : configObj,
-        properties : $("#udp_properties").val() ? JSON.parse($("#udp_properties").val()) : {}
+        config: configObj,
+        properties: $("#udp_properties").val() ? JSON.parse($("#udp_properties").val()) : {}
 
 
     };
 
-    updateInputRuleCode('UDP',dataObj, function (status, data) {
+    updateInputRuleCode('UDP', dataObj, function (status, data) {
         if (status) {
             successMsg('Successfully saved!');
-
-
-            setTimeout(function(){
-                loadUdpRulesList();
-                setTimeout(function () {
-                    if(code){
+                loadUdpRulesList(function () {
+                    if (code) {
                         loadTabbar(dataObj.id, 12);
                     }
-                },500)
-            },1000)
+                    $("#addUdpInputRule").modal('hide');
+                })
 
-            $("#addUdpInputRule").modal('hide');
         } else {
             errorMsg('Error in saving!')
         }
@@ -5634,15 +5085,15 @@ function addTcpRule(code) {
 
     let configObj = []
 
-    let cKey= $(".conf_name").map(function() {
+    let cKey = $(".conf_name").map(function () {
         return $(this).val();
     }).get();
-    let cValue= $(".conf_value").map(function() {
+    let cValue = $(".conf_value").map(function () {
         return $(this).val();
     }).get();
 
-    for(let i=0;i<cKey.length;i++){
-        if(cKey[i]){
+    for (let i = 0; i < cKey.length; i++) {
+        if (cKey[i]) {
             configObj.push({
                 name: cKey[i],
                 value: cValue[i],
@@ -5656,7 +5107,7 @@ function addTcpRule(code) {
         "id": $("#tcp_id").val(),
         "name": $("#tcp_name").val(),
         "code": code ? codeEditor.getSession().getValue() : "",
-        "description":"",
+        "description": "",
         instances: Number($("#tcp_instances").val()),
         instanceType: $("#tcp_instanceType").val(),
         lang: 'GROOVY',
@@ -5688,25 +5139,22 @@ function addTcpRule(code) {
         tcp_treadTimeout: $("#tcp_treadTimeout").val() ? Number($("#tcp_treadTimeout").val()) : null,
         execute: $("#tcp_execute").val() ? $("#tcp_execute").val() : null,
         delimiter: $("#tcp_delimiter").val() ? $("#tcp_delimiter").val() : null,
-        config : configObj,
-        properties : $("#tcp_properties").val() ? JSON.parse($("#tcp_properties").val()) : {}
+        config: configObj,
+        properties: $("#tcp_properties").val() ? JSON.parse($("#tcp_properties").val()) : {}
 
     };
 
-    updateInputRuleCode('TCP',dataObj, function (status, data) {
+    updateInputRuleCode('TCP', dataObj, function (status, data) {
         if (status) {
             successMsg('Successfully saved!');
-            setTimeout(function(){
-                loadTcpRulesList();
-                setTimeout(function () {
-                    if(code){
+                loadTcpRulesList(function () {
+                    if (code) {
                         loadTabbar(dataObj.id, 13);
                     }
-                },500)
-            },1000)
+                    $("#addTcpInputRule").modal('hide');
+                })
 
 
-            $("#addTcpInputRule").modal('hide');
         } else {
             errorMsg('Error in saving!')
         }
@@ -5718,15 +5166,15 @@ function addEmailRule(code) {
 
     let configObj = []
 
-    let cKey= $(".conf_name").map(function() {
+    let cKey = $(".conf_name").map(function () {
         return $(this).val();
     }).get();
-    let cValue= $(".conf_value").map(function() {
+    let cValue = $(".conf_value").map(function () {
         return $(this).val();
     }).get();
 
-    for(let i=0;i<cKey.length;i++){
-        if(cKey[i]){
+    for (let i = 0; i < cKey.length; i++) {
+        if (cKey[i]) {
             configObj.push({
                 name: cKey[i],
                 value: cValue[i],
@@ -5736,21 +5184,21 @@ function addEmailRule(code) {
 
     let folderObj = []
 
-    let fKey= $(".folder_name").map(function() {
+    let fKey = $(".folder_name").map(function () {
         return $(this).val();
     }).get();
-    let fVal1= $(".folder_markMessageAfterProcessing").map(function() {
+    let fVal1 = $(".folder_markMessageAfterProcessing").map(function () {
         return $(this).val();
     }).get();
-  let fVal2= $(".folder_proccessOnlyFlags").map(function() {
+    let fVal2 = $(".folder_proccessOnlyFlags").map(function () {
         return $(this).val() ? [$(this).val()] : [];
     }).get();
-  let fVal3= $(".folder_toMovedFolder").map(function() {
+    let fVal3 = $(".folder_toMovedFolder").map(function () {
         return $(this).val();
     }).get();
 
-    for(let i=0;i<fKey.length;i++){
-        if(fKey[i]){
+    for (let i = 0; i < fKey.length; i++) {
+        if (fKey[i]) {
             folderObj.push({
                 name: fKey[i],
                 markMessageAfterProcessing: fVal1[i],
@@ -5767,7 +5215,7 @@ function addEmailRule(code) {
         "id": $("#email_id").val(),
         "name": $("#email_name").val(),
         "code": code ? codeEditor.getSession().getValue() : "",
-        "description":"",
+        "description": "",
         instances: Number($("#email_instances").val()),
         instanceType: $("#email_instanceType").val(),
         lang: 'GROOVY',
@@ -5790,30 +5238,26 @@ function addEmailRule(code) {
         userName: $("#email_userName").val() ? $("#email_userName").val() : null,
         password: $("#email_password").val() ? $("#email_password").val() : null,
 
-        subjectPatterns : $("#email_subjectPatterns").val() ? $("#email_subjectPatterns").val().split(",") : [],
-        allowedContentTypes : $("#email_allowedContentTypes").val() ? $("#email_allowedContentTypes").val().split(",") : [],
-        allowedAttachmentFileExtensions : $("#email_allowedAttachmentFileExtensions").val() ? $("#email_allowedAttachmentFileExtensions").val().split(",") : [],
+        subjectPatterns: $("#email_subjectPatterns").val() ? $("#email_subjectPatterns").val().split(",") : [],
+        allowedContentTypes: $("#email_allowedContentTypes").val() ? $("#email_allowedContentTypes").val().split(",") : [],
+        allowedAttachmentFileExtensions: $("#email_allowedAttachmentFileExtensions").val() ? $("#email_allowedAttachmentFileExtensions").val().split(",") : [],
 
-        config : configObj,
-        folders : folderObj,
-        properties : $("#email_properties").val() ? JSON.parse($("#email_properties").val()) : {}
+        config: configObj,
+        folders: folderObj,
+        properties: $("#email_properties").val() ? JSON.parse($("#email_properties").val()) : {}
 
     };
 
 
-    updateInputRuleCode('EMAIL',dataObj, function (status, data) {
+    updateInputRuleCode('EMAIL', dataObj, function (status, data) {
         if (status) {
             successMsg('Successfully saved!');
-            setTimeout(function(){
-                loadEmailRulesList();
-                setTimeout(function () {
-                    if(code){
+                loadEmailRulesList(function () {
+                    if (code) {
                         loadTabbar(dataObj.id, 14);
                     }
-                },500)
-            },1000)
-
-            $("#addEmailInputRule").modal('hide');
+                    $("#addEmailInputRule").modal('hide');
+                })
         } else {
             errorMsg('Error in saving!')
         }
@@ -5822,7 +5266,7 @@ function addEmailRule(code) {
 }
 
 function addMicroRule(code) {
-    let sampleCode  =`
+    let sampleCode = `
 import io.boodskap.iot.MicroApi;
         
 @MicroApi(
@@ -5844,19 +5288,19 @@ def myApiMethod(def args) {
 
     let methods = [];
 
-    if($("#methodGet").prop('checked')){
+    if ($("#methodGet").prop('checked')) {
         methods.push('GET')
     }
-    if($("#methodPost").prop('checked')){
+    if ($("#methodPost").prop('checked')) {
         methods.push('POST')
     }
-    if($("#methodDelete").prop('checked')){
+    if ($("#methodDelete").prop('checked')) {
         methods.push('DELETE')
     }
-    if($("#methodPut").prop('checked')){
+    if ($("#methodPut").prop('checked')) {
         methods.push('PUT')
     }
-    if($("#methodUpload").prop('checked')){
+    if ($("#methodUpload").prop('checked')) {
         methods.push('UPLOAD')
     }
 
@@ -5864,30 +5308,20 @@ def myApiMethod(def args) {
         // lang: $("#micro_language").val(),
         "code": code ? codeEditor.getSession().getValue() : sampleCode,
         name: $("#micro_id").val(),
-        authType : $("#micro_authType").val(),
-        apiKey : $("#micro_apiKey").val() ? $("#micro_apiKey").val() : null,
-        props : $("#micro_properties").val() ? JSON.parse($("#micro_properties").val()) : {},
-        allowedMethods : methods
+        authType: $("#micro_authType").val(),
+        apiKey: $("#micro_apiKey").val() ? $("#micro_apiKey").val() : null,
+        props: $("#micro_properties").val() ? JSON.parse($("#micro_properties").val()) : {},
+        allowedMethods: methods
     };
     updateMicroRuleCode(dataObj, function (status, data) {
         if (status) {
             successMsg('Successfully saved!');
-
-            setTimeout(function(){
-                loadMicroRulesList();
-
-                setTimeout(function () {
-                    if(code){
-                        loadTabbar(dataObj.id, 15);
-                    }
-                },500)
-            },1000)
-
-            $("#addMicroRule").modal('hide');
-            // setTimeout(function () {
-            //     loadTabbar(dataObj.name, 15);
-            // },1000)
-
+            loadMicroRulesList(function () {
+                if (code) {
+                    loadTabbar(dataObj.id, 15);
+                }
+                $("#addMicroRule").modal('hide');
+            })
         } else {
             errorMsg('Error in saving!')
         }
@@ -5905,28 +5339,27 @@ function addScheduleRule() {
     };
     // if (validateCron()) {
 
-        /* retreiveScheduleRule(dataObj.id, function (status, data) {
-             if(status){
+    /* retreiveScheduleRule(dataObj.id, function (status, data) {
+         if(status){
 
-             }
-             else{
+         }
+         else{
 
-             }
-         });*/
+         }
+     });*/
 
-        updateScheduleRuleCode(dataObj, function (status, data) {
-            if (status) {
-                successMsg('Successfully saved!');
-                loadScheduleRulesList();
-                setTimeout(function () {
-                    loadTabbar(dataObj.id, 3);
-                },500)
-
+    updateScheduleRuleCode(dataObj, function (status, data) {
+        if (status) {
+            successMsg('Successfully saved!');
+            loadScheduleRulesList(function () {
+                loadTabbar(dataObj.id, 3);
                 $("#addScheduleRule").modal('hide');
-            } else {
-                errorMsg('Error in saving!')
-            }
-        })
+            })
+
+        } else {
+            errorMsg('Error in saving!')
+        }
+    })
 
     //
     // } else {
@@ -5989,7 +5422,7 @@ function uploadClassFile() {
         let isPublic = false; // $("#class_public").is(":checked");
         let isOpen = false; // $("#class_opensource").is(":checked");
 
-        if(ADMIN_ACCESS){
+        if (ADMIN_ACCESS) {
             isPublic = $("input[name='fileType']:checked").val() === 'PUBLIC_GROOVY' ? true : false;
 
         }
@@ -6070,7 +5503,7 @@ function loadCodeType() {
     let searchText = $.trim($("#searchText").val());
 
 
-    let domainKeyJson = {"match": {"domainKey": DOMAIN_KEY}};
+    let domainKeyJson = { "match": { "domainKey": DOMAIN_KEY } };
 
     let queryParams = {
         "query": {
@@ -6097,11 +5530,11 @@ function loadCodeType() {
 
     let searchType = $("input[name='fileType']:checked").val();
 
-    if(searchType === 'GROOVY'){
-        queryParams.query['bool']['must'].push({match:{isPublic: false}})
+    if (searchType === 'GROOVY') {
+        queryParams.query['bool']['must'].push({ match: { isPublic: false } })
         queryParams.query['bool']['must'].push(domainKeyJson)
-    }else{
-        queryParams.query['bool']['must'].push({match:{isPublic: true}})
+    } else {
+        queryParams.query['bool']['must'].push({ match: { isPublic: true } })
     }
 
 
@@ -6113,10 +5546,10 @@ function loadCodeType() {
     };
 
 
-    if(codeType === 'JAR'){
-        if(searchType === 'GROOVY'){
+    if (codeType === 'JAR') {
+        if (searchType === 'GROOVY') {
             searchType = 'GROOVY_JAR';
-        }else{
+        } else {
             searchType = 'PUBLIC_GROOVY_JAR';
         }
     }
@@ -6134,8 +5567,8 @@ function loadCodeType() {
         if (dataList.length > 0) {
             if (codeType === 'CLASS') {
 
-                for(let i=0;i<dataList.length;i++){
-                    for(let j=0;j<dataList[i].classes.length;j++){
+                for (let i = 0; i < dataList.length; i++) {
+                    for (let j = 0; j < dataList[i].classes.length; j++) {
                         dataList[i].classes[j]['code'] = dataList[i].code;
                         dataList[i].classes[j]['_id'] = dataList[i]._id;
                         dataList[i].classes[j]['packageName'] = dataList[i].packageName;
@@ -6153,29 +5586,28 @@ function loadCodeType() {
 
                 let resList = [];
 
-                for(let i=0;i<dpList.length;i++){
+                for (let i = 0; i < dpList.length; i++) {
 
                     let obj = pList[dpList[i]];
 
                     let classes = [];
 
-                    for(let j=0;j<obj.length;j++){
-                        for(let k=0;k<obj[j].classes.length;k++){
+                    for (let j = 0; j < obj.length; j++) {
+                        for (let k = 0; k < obj[j].classes.length; k++) {
                             classes.push(obj[j].classes[k])
                         }
                     }
 
-                    resList.push({domainKey:obj[i].domainKey,packageName:dpList[i], classes:classes, _id:guid()});
+                    resList.push({ domainKey: obj[i].domainKey, packageName: dpList[i], classes: classes, _id: guid() });
 
                 }
-                // console.log(resList)
                 groovy_class_list = resList;
 
 
-                $(".classFolder").html('<div id="groovy_tree" style=""></div>');
+                $(".classFolder").html('<div id="groovy_tree" ></div>');
                 loadGroovyTreeMenu(resList);
             } else {
-                $(".classFolder").html('<div id="jar_tree" style=""></div>');
+                $(".classFolder").html('<div id="jar_tree" ></div>');
                 loadJarTreeMenu(dataList);
             }
         } else {
@@ -6189,489 +5621,448 @@ function loadCodeType() {
 }
 
 
-function openSimulateModal(id,type) {
+function openSimulateModal(id, type) {
+    let str=""
+    switch (type) {
+        case 1:
+            str = '<div id="simulatorModal_' + id + '" class="w-100">' +
+                '<div data-role="body">\n' +
+                '<div class="row"><div class="col-md-12"><div class="form-group">' +
+                '<label class="inputLabel">Select Device</label>' +
+                '<select id="simulatorDeviceList_' + id + '" class="form-control input-sm col-12"><option>No Devices Found</option></select>' +
+                '</div></div></div>' +
+                '<div class="row msgFieldBlock_' + id + '"></div>' +
+                '<div class="row">' +
+                '<div class="col-md-12">' +
+                '<button class="btn btn-sm btn-success pull-right btn_' + id + '" onclick="simulateMessage(\'' + id + '\',' + type + ')">Send Message</button>' +
+                '<button class="btn btn-sm btn-default pull-right" onclick="closeSimulator(\'' + id + '\')" style="margin-right: 10px;">Close</button>' +
+                '</div> ' +
+                '<div class="col-md-12" style="clear:both;max-height: 200px;">' +//overflow: auto;overflow-x: hidden
+                '<code class="code_' + id + '" ></code>' +
+                '</div>' +
+                '</div></div>' +
+                '</div>'
+            
+            $(".simulatorModal").append(str);
 
-    if(type === 1){
-
-        let str = '<div id="simulatorModal_'+id+'" class="w-100">' +
-            '<div data-role="body">\n' +
-            '<div class="row"><div class="col-md-12"><div class="form-group">'+
-            '<label class="inputLabel">Select Device</label>'+
-            '<select id="simulatorDeviceList_'+id+'" class="form-control input-sm col-12"><option>No Devices Found</option></select>'+
-            '</div></div></div>'+
-            '<div class="row msgFieldBlock_'+id+'"></div>' +
-            '<div class="row">' +
-            '<div class="col-md-12">' +
-            '<button class="btn btn-sm btn-success pull-right btn_'+id+'" onclick="simulateMessage(\''+id+'\','+type+')">Send Message</button>' +
-            '<button class="btn btn-sm btn-default pull-right" onclick="closeSimulator(\''+id+'\')" style="margin-right: 10px;">Close</button>' +
-            '</div> ' +
-            '<div class="col-md-12" style="clear:both;max-height: 200px;">' +//overflow: auto;overflow-x: hidden
-            '<code class="code_'+id+'" ></code>' +
-            '</div>' +
-            '</div></div>' +
-            '</div>'
-
-
-        for(let i=0;i<message_spec_list.length;i++){
-            if(Number(id) === message_spec_list[i]['id']){
-                current_msg_obj = message_spec_list[i]
+            for (const iterator of message_spec_list) {
+                if (Number(id) === iterator['id']) {
+                    current_msg_obj = iterator
+                    break
+                }
             }
-        }
 
-        var queryParams = {
-            "method": "GET",
-            "extraPath": "",
-            "query": "{\"query\":{\"bool\":{\"must\":[{\"match\":{\"domainKey\":\""+DOMAIN_KEY+"\"}}],\"should\":[]}},\"sort\":[{\"reportedStamp\":{\"order\":\"desc\"}}],\"aggs\":{\"total_count\":{\"value_count\":{\"field\":\"reportedStamp\"}}},\"size\":100,\"from\":0}",
-            "params": [],
-            "type": "DEVICE"
-        }
+            fetchDeviceList(id, function (status, data) {
+                simulator[id] = current_msg_obj;
+                if (!simulatorModal[id]) {
 
-        async.waterfall([
-            async function (cbk) {
-                listAuthToken("DEVICE", function (status, data) {
-                    if (status) {
-                        cbk(null,data);
-                    }else{
-                        cbk(null,data);
+                    $(".msgFieldBlock_" + id).html('');
+
+                    for (let i = 0; i < current_msg_obj.fields.length; i++) {
+                        $(".msgFieldBlock_" + id).append(renderHtml(id, i, current_msg_obj.fields[i]))
                     }
+                    simulatorModal[id] = $("#simulatorModal_" + id).dialog({
+                        resizable: true,
+                        open: function () {
+                            let closeBtn = $('.ui-dialog-titlebar-close');
+                            closeBtn.html('X');
+                        },
+                        modal: false,
+                        closeText: "x",
+                        close: function (event, ui) {
+                            closeSimulator(id);
+                        },
+
+                        title: "Simulate -" + id + ' [' + current_msg_obj.name + ']',
+                    });
+
+                }
+            })
+
+            break;
+    
+        case 2:
+            let placeholder = '{\n"key":"value",\n"key":"value",\n"key":"value",\n"key":"value"\n}';
+
+            str = '<div id="simulatorModal_' + id + '" class="w-100">' +
+                '<div data-role="body">\n' +
+                '<div class="row>' +
+                '<div class="col-md-12">' +
+                '<p class="mb-0">Named Rule Arguments - <small>JSON value</small></p><textarea class="form-control form-control-sm mb-2" style="width:100%;height:200px" id="simulatorInput_' + id + '"' +
+                "placeholder='" + placeholder + "'></textarea></div>" +
+                '</div>' +
+                '<div class="row">' +
+                '<div class="col-md-12">' +
+                '<button class="btn btn-sm btn-success pull-right btn_' + id + '" onclick="simulateMessage(\'' + id + '\',' + type + ')">Invoke NamedRule</button>' +
+                '<button class="btn btn-sm btn-default pull-right" onclick="closeSimulator(\'' + id + '\')" style="margin-right: 10px;">Close</button>' +
+                '</div> ' +
+                '<div class="col-md-12" style="clear:both;max-height: 200px;">' +//overflow: auto;overflow-x: hidden
+                '<code class="code_' + id + '" ></code>' +
+                '</div>' +
+                '</div></div>' +
+                '</div>'
+            
+            for (const iterator of named_rules_list) {
+                if (id === iterator['name']) {
+                    current_namedrule_obj = iterator
+                    break
+                }
+            }
+
+            simulator[id] = current_namedrule_obj;
+
+
+            if (!simulatorModal[id]) {
+
+                $(".simulatorModal").append(str);
+
+                simulatorModal[id] = $("#simulatorModal_" + id).dialog({
+                    resizable: true,
+                    open: function () {
+                        let closeBtn = $('.ui-dialog-titlebar-close');
+                        closeBtn.html('X');
+                    },
+                    modal: false,
+                    closeText: "x",
+                    close: function (event, ui) {
+                        closeSimulator(id);
+                    },
+
+                    title: 'Simulate - ' + current_namedrule_obj.name,
                 });
-                
-            },
-            async function (deviceData, mcbk) {
-                searchDevice(queryParams, function (status, data) {
-                    if(status){
-                        var resultData = searchQueryFormatterNew(data).data;
-                        if(resultData.data.length === 0){
-                            errorMsg('No device list found!');
-                            mcbk(null, null);
-                        } else {
-                            $("#simulatorDeviceList_"+id).html("");
-                            var deviceOptionUI="";
-                            resultData.data.forEach(e => {
-                                if(e.name != null){
-                                    deviceData.forEach(element => {
-                                        if(element.entity == e.id){
-                                            deviceOptionUI+="<option value="+e.id+" token="+element.token+">"+e.name+"</option>";
-                                        }
-                                    });
-                                    
-                                }
-                            });
-                            $("#simulatorDeviceList_"+id).append(deviceOptionUI);
-                            mcbk(null, null);
-                        }
-                    }else{
-                        errorMsg('Error in fetching device list!')
-                        mcbk(null, null);
-                    }
-                });
 
-                
             }
-        ]);
 
-
-        simulator[id] = current_msg_obj;
-
-
-        if(!simulatorModal[id]){
+            break;
+    
+        case 3:
+            str = '<div id="simulatorModal_' + id + '" class="w-100">' +
+                '<div data-role="body">\n' +
+                '<div class="row"><div class="col-md-12"><div class="form-group">' +
+                '<label class="inputLabel">Select Device</label>' +
+                '<select id="simulatorDeviceList_' + id + '" class="form-control input-sm col-12"><option>No Devices Found</option></select>' +
+                '</div></div></div>' +
+                '<div class="row>' +
+                '<div class="col-md-12">' +
+                '<p class="mb-0"><label>Upload Binary File</label></p>' +
+                '<input type="file" class="form-control pb-3 mb-2"  id="simulatorInput_' + id + '"/>' +
+                '</div></div>' +
+                '<div class="row">' +
+                '<div class="col-md-12">' +
+                '<button class="btn btn-sm btn-success pull-right btn_' + id + '" onclick="simulateMessage(\'' + id + '\',' + type + ')">Upload File</button>' +
+                '<button class="btn btn-sm btn-default pull-right" onclick="closeSimulator(\'' + id + '\')" style="margin-right: 10px;">Close</button>' +
+                '</div> ' +
+                '<div class="col-md-12" style="clear:both;max-height: 200px;">' +//overflow: auto;overflow-x: hidden
+                '<code class="code_' + id + '" ></code>' +
+                '</div>' +
+                '</div></div>' +
+                '</div>'
 
             $(".simulatorModal").append(str);
 
-            $(".msgFieldBlock_"+id).html('');
-
-            for(let i=0;i<current_msg_obj.fields.length;i++){
-                $(".msgFieldBlock_"+id).append(renderHtml(id,i,current_msg_obj.fields[i]))
+            for (const iterator of binary_rules_list) {
+                if (id === iterator['type']) {
+                    current_binaryrule_obj = iterator
+                    break
+                }
             }
-            simulatorModal[id] = $("#simulatorModal_"+id).dialog({
-                resizable: true,
-                open: function(){
-                    let closeBtn = $('.ui-dialog-titlebar-close');
-                    closeBtn.html('X');
-                },
-                // minWidth: 200,
-                // maxWidth: 600,
-                // minHeight: 200,
-                // maxHeight: 450,
-                // width: 450,
-                // height: 300,
-                modal: false,
-                closeText: "x",
-                close: function( event, ui ) {
-                    closeSimulator(id);
-                },
-
-                title: "Simulate -"+ id + ' ['+current_msg_obj.name+']',
-
-                /*buttons: {
-                    Close: function() {
-                        $( this ).dialog( "close" );
-                        simulatorModal[id] = null;
-                        $("#simulatorModal_"+id).remove();
-                    }
 
 
-                }*/
-            });
+            simulator[id] = current_binaryrule_obj;
 
-        }
+            fetchDeviceList(id, function (status, data) {
+                if (!simulatorModal[id]) {
 
-    }
-    else if(type === 2){
+                    simulatorModal[id] = $("#simulatorModal_" + id).dialog({
+                        resizable: true,
+                        open: function () {
+                            let closeBtn = $('.ui-dialog-titlebar-close');
+                            closeBtn.html('X');
+                        },
+                       
+                        modal: false,
+                        closeText: "x",
+                        close: function (event, ui) {
+                            closeSimulator(id);
+                        },
 
-        let placeholder='{\n"key":"value",\n"key":"value",\n"key":"value",\n"key":"value"\n}';
+                        title: 'Simulate - ' + current_binaryrule_obj.type,
 
-        let str = '<div id="simulatorModal_'+id+'" class="w-100">' +
-            '<div data-role="body">\n' +
-            '<div class="row>' +
-            '<div class="col-md-12">' +
-            '<p class="mb-0">Named Rule Arguments - <small>JSON value</small></p><textarea class="form-control form-control-sm mb-2" style="width:100%;height:200px" id="simulatorInput_'+id+'"' +
-            "placeholder='"+placeholder+"'></textarea></div>" +
-            '</div>' +
-            '<div class="row">' +
-            '<div class="col-md-12">' +
-            '<button class="btn btn-sm btn-success pull-right btn_'+id+'" onclick="simulateMessage(\''+id+'\','+type+')">Invoke NamedRule</button>' +
-            '<button class="btn btn-sm btn-default pull-right" onclick="closeSimulator(\''+id+'\')" style="margin-right: 10px;">Close</button>' +
-            '</div> ' +
-            '<div class="col-md-12" style="clear:both;max-height: 200px;">' +//overflow: auto;overflow-x: hidden
-            '<code class="code_'+id+'" ></code>' +
-            '</div>' +
-            '</div></div>' +
-            '</div>'
+                    });
 
-        for(let i=0;i<named_rules_list.length;i++){
-            if(id === named_rules_list[i]['name']){
-                current_namedrule_obj = named_rules_list[i]
-            }
-        }
-
-        simulator[id] = current_namedrule_obj;
-
-
-        if(!simulatorModal[id]){
-
+                }
+            })
+            break;
+    
+        case 4:
+            str = '<div id="simulatorModal_' + id + '" class="w-100">' +
+                '<div data-role="body">\n' +
+                '<div class="row"><div class="col-md-12"><div class="form-group">' +
+                '<label class="inputLabel">Select Device</label>' +
+                '<select id="simulatorDeviceList_' + id + '" class="form-control input-sm col-12"><option>No Devices Found</option></select>' +
+                '</div></div></div>' +
+                '<div class="row>' +
+                '<div class="col-md-12">' +
+                '<p class="mb-0"><label>Upload File File</label></p>' +
+                '<input type="file" class="form-control pb-3 mb-2"  id="simulatorInput_' + id + '"/></div>' +
+                '</div>' +
+                '<div class="row">' +
+                '<div class="col-md-12">' +
+                '<button class="btn btn-sm btn-success pull-right btn_' + id + '" onclick="simulateMessage(\'' + id + '\',' + type + ')">Upload File</button>' +
+                '<button class="btn btn-sm btn-default pull-right" onclick="closeSimulator(\'' + id + '\')" style="margin-right: 10px;">Close</button>' +
+                '</div> ' +
+                '<div class="col-md-12" style="clear:both;max-height: 200px;">' +//overflow: auto;overflow-x: hidden
+                '<code class="code_' + id + '" ></code>' +
+                '</div>' +
+                '</div></div>' +
+                '</div>'
             $(".simulatorModal").append(str);
 
-            simulatorModal[id] = $("#simulatorModal_"+id).dialog({
-                resizable: true,
-                open: function(){
-                    let closeBtn = $('.ui-dialog-titlebar-close');
-                    closeBtn.html('X');
-                },
-                // minWidth: 200,
-                // maxWidth: 600,
-                // minHeight: 200,
-                // maxHeight: 450,
-                // width: 450,
-                // height: 300,
-                modal: false,
-                closeText: "x",
-                close: function( event, ui ) {
-                    closeSimulator(id);
-                },
-
-                title: 'Simulate - '+current_namedrule_obj.name,
-
-                /*buttons: {
-                    Close: function() {
-                        $( this ).dialog( "close" );
-                        simulatorModal[id] = null;
-                        $("#simulatorModal_"+id).remove();
-                    }
-
-
-                }*/
-            });
-
-        }
-
-    }
-    else if(type === 3){
-
-        let str = '<div id="simulatorModal_'+id+'" class="w-100">' +
-            '<div data-role="body">\n' +
-            '<div class="row>' +
-            '<div class="col-md-12">' +
-            '<p class="mb-0"><label>Upload Binary File</label></p>' +
-            '<input type="file" class="form-control pb-3 mb-2" style="" id="simulatorInput_'+id+'"/></div>' +
-            '</div>' +
-            '<div class="row">' +
-            '<div class="col-md-12">' +
-            '<button class="btn btn-sm btn-success pull-right btn_'+id+'" onclick="simulateMessage(\''+id+'\','+type+')">Upload File</button>' +
-            '<button class="btn btn-sm btn-default pull-right" onclick="closeSimulator(\''+id+'\')" style="margin-right: 10px;">Close</button>' +
-            '</div> ' +
-            '<div class="col-md-12" style="clear:both;max-height: 200px;">' +//overflow: auto;overflow-x: hidden
-            '<code class="code_'+id+'" ></code>' +
-            '</div>' +
-            '</div></div>' +
-            '</div>'
-
-        for(let i=0;i<binary_rules_list.length;i++){
-            if(id === binary_rules_list[i]['type']){
-                current_binaryrule_obj = binary_rules_list[i]
+            for (const iterator of file_rules_list) {
+                if (id === iterator['type']) {
+                    current_filerule_obj = iterator
+                    break
+                }
             }
-        }
 
-        simulator[id] = current_binaryrule_obj;
+            simulator[id] = current_filerule_obj;
 
+            fetchDeviceList(id, function (status, data) {
+                if (!simulatorModal[id]) {
 
-        if(!simulatorModal[id]){
+                    simulatorModal[id] = $("#simulatorModal_" + id).dialog({
+                        resizable: true,
+                        open: function () {
+                            let closeBtn = $('.ui-dialog-titlebar-close');
+                            closeBtn.html('X');
+                        },
+                       
+                        modal: false,
+                        closeText: "x",
+                        close: function (event, ui) {
+                            closeSimulator(id);
+                        },
 
-            $(".simulatorModal").append(str);
+                        title: 'Simulate - ' + current_filerule_obj.type,
 
-            simulatorModal[id] = $("#simulatorModal_"+id).dialog({
-                resizable: true,
-                open: function(){
-                    let closeBtn = $('.ui-dialog-titlebar-close');
-                    closeBtn.html('X');
-                },
-                // minWidth: 200,
-                // maxWidth: 600,
-                // minHeight: 200,
-                // maxHeight: 450,
-                // width: 450,
-                // height: 300,
-                modal: false,
-                closeText: "x",
-                close: function( event, ui ) {
-                    closeSimulator(id);
-                },
-
-                title: 'Simulate - '+current_binaryrule_obj.type,
-
-                /*buttons: {
-                    Close: function() {
-                        $( this ).dialog( "close" );
-                        simulatorModal[id] = null;
-                        $("#simulatorModal_"+id).remove();
-                    }
-
-
-                }*/
-            });
-
-        }
+                    });
+                }
+            })
+            break;
     }
-    else if(type === 4){
-
-        let str = '<div id="simulatorModal_'+id+'" class="w-100">' +
-            '<div data-role="body">\n' +
-            '<div class="row>' +
-            '<div class="col-md-12">' +
-            '<p class="mb-0"><label>Upload File File</label></p>' +
-            '<input type="file" class="form-control pb-3 mb-2" style="" id="simulatorInput_'+id+'"/></div>' +
-            '</div>' +
-            '<div class="row">' +
-            '<div class="col-md-12">' +
-            '<button class="btn btn-sm btn-success pull-right btn_'+id+'" onclick="simulateMessage(\''+id+'\','+type+')">Upload File</button>' +
-            '<button class="btn btn-sm btn-default pull-right" onclick="closeSimulator(\''+id+'\')" style="margin-right: 10px;">Close</button>' +
-            '</div> ' +
-            '<div class="col-md-12" style="clear:both;max-height: 200px;">' +//overflow: auto;overflow-x: hidden
-            '<code class="code_'+id+'" ></code>' +
-            '</div>' +
-            '</div></div>' +
-            '</div>'
-
-        for(let i=0;i<file_rules_list.length;i++){
-            if(id === file_rules_list[i]['type']){
-                current_filerule_obj = file_rules_list[i]
-            }
-        }
-
-        simulator[id] = current_filerule_obj;
-
-
-        if(!simulatorModal[id]){
-
-            $(".simulatorModal").append(str);
-
-            simulatorModal[id] = $("#simulatorModal_"+id).dialog({
-                resizable: true,
-                open: function(){
-                    let closeBtn = $('.ui-dialog-titlebar-close');
-                    closeBtn.html('X');
-                },
-                // minWidth: 200,
-                // maxWidth: 600,
-                // minHeight: 200,
-                // maxHeight: 450,
-                // width: 450,
-                // height: 300,
-                modal: false,
-                closeText: "x",
-                close: function( event, ui ) {
-                    closeSimulator(id);
-                },
-
-                title: 'Simulate - '+current_filerule_obj.type,
-
-                /*buttons: {
-                    Close: function() {
-                        $( this ).dialog( "close" );
-                        simulatorModal[id] = null;
-                        $("#simulatorModal_"+id).remove();
-                    }
-
-
-                }*/
-            });
-
-        }
-    }
-
-
-
-
-
 }
 
-function simulateMessage(id,type) {
 
-    if(type === 1){
+function fetchDeviceList(id, fbk) {
+
+    var queryParams = {
+        "method": "GET",
+        "extraPath": "",
+        "query": "{\"query\":{\"bool\":{\"must\":[{\"match\":{\"domainKey\":\"" + DOMAIN_KEY + "\"}}],\"should\":[]}},\"sort\":[{\"reportedStamp\":{\"order\":\"desc\"}}],\"aggs\":{\"total_count\":{\"value_count\":{\"field\":\"reportedStamp\"}}},\"size\":100,\"from\":0}",
+        "params": [],
+        "type": "DEVICE"
+    }
+
+    async.waterfall([
+        async function (cbk) {
+            listAuthToken("DEVICE", function (status, data) {
+                if (status) {
+                    cbk(null, data);
+                } else {
+                    cbk(null, data);
+                }
+            });
+
+        },
+        async function (deviceData, mcbk) {
+            searchDevice(queryParams, function (status, data) {
+                if (status) {
+                    var resultData = searchQueryFormatterNew(data).data;
+                    if (resultData.data.length === 0) {
+                        errorMsg('No device list found!');
+                        mcbk(null, null);
+                        fbk(true, null)
+                        return
+                    } 
+                        $("#simulatorDeviceList_" + id).html("");
+                        var deviceOptionUI = "";
+                        resultData.data.forEach(e => {
+                            if (e.name != null) {
+                                deviceData.forEach(element => {
+                                    if (element.entity == e.id) {
+                                        deviceOptionUI += "<option value=" + e.id + " token=" + element.token + ">" + e.name + "</option>";
+                                    }
+                                });
+                            }
+                        });
+                        $("#simulatorDeviceList_" + id).append(deviceOptionUI);
+                        mcbk(null, null);
+                        fbk(true, null)
+                    
+                } else {
+                    errorMsg('Error in fetching device list!')
+                    mcbk(null, null);
+                }
+            });
+        }
+    ]);
+}
+
+function simulateMessage(id, type) {
+
+    if (type === 1) {
         let obj = simulator[id];
 
         let jsonObj = {};
 
-        for(let i=0;i<obj.fields.length;i++){
+        for (let i = 0; i < obj.fields.length; i++) {
             let dataType = obj.fields[i].dataType.toUpperCase();
-            if(dataType === 'BOOLEAN'){
-                jsonObj[obj.fields[i].name] = $("#"+id+"_"+i).val() === 'true' ? true : false;
+            if (dataType === 'BOOLEAN') {
+                jsonObj[obj.fields[i].name] = $("#" + id + "_" + i).val() === 'true' ? true : false;
             }
-            else if(dataType === 'INTEGER' || dataType === 'FLOAT' || dataType === 'DOUBLE' || dataType === 'BIGINT' || dataType === 'TIMESTAMP'){
-                jsonObj[obj.fields[i].name] = $("#"+id+"_"+i).val() !== '' ? Number($("#"+id+"_"+i).val()) : '';
+            else if (dataType === 'INTEGER' || dataType === 'FLOAT' || dataType === 'DOUBLE' || dataType === 'BIGINT' || dataType === 'TIMESTAMP') {
+                jsonObj[obj.fields[i].name] = $("#" + id + "_" + i).val() !== '' ? Number($("#" + id + "_" + i).val()) : '';
             }
-            else if(dataType === 'DATE'){
-                jsonObj[obj.fields[i].name] = $("#"+id+"_"+i).val() !== '' ? new Date($("#"+id+"_"+i).val()) : '';
-            }else{
-                jsonObj[obj.fields[i].name] = $("#"+id+"_"+i).val()
+            else if (dataType === 'DATE') {
+                jsonObj[obj.fields[i].name] = $("#" + id + "_" + i).val() !== '' ? new Date($("#" + id + "_" + i).val()) : '';
+            } else {
+                jsonObj[obj.fields[i].name] = $("#" + id + "_" + i).val()
             }
 
         }
 
-        let devToken = $("#simulatorDeviceList_"+id+" option:selected").attr("token");
+        let devToken = $("#simulatorDeviceList_" + id + " option:selected").attr("token");
 
-        $(".code_"+id).append('<p>'+new Date() +' | '+JSON.stringify(jsonObj)+'</p>');
+        $(".code_" + id).append('<p>' + new Date() + ' | ' + JSON.stringify(jsonObj) + '</p>');
 
-        $(".btn_"+id).attr('disabled', 'disabled');
+        $(".btn_" + id).attr('disabled', 'disabled');
 
 
-        simulateDeviceMessage(id, jsonObj,devToken , function (status, data) {
-            $(".btn_"+id).removeAttr('disabled');
-            if(status){
-                $(".code_"+id).append('<p>'+new Date() +' | Message sent successfully</p>');
-            }else{
-                $(".code_"+id).append('<p>'+new Date() +' | Error in sent message</p>');
+        simulateDeviceMessage(id, jsonObj, devToken, function (status, data) {
+            $(".btn_" + id).removeAttr('disabled');
+            if (status) {
+                $(".code_" + id).append('<p>' + new Date() + ' | Message sent successfully</p>');
+            } else {
+                $(".code_" + id).append('<p>' + new Date() + ' | Error in sent message</p>');
             }
 
         });
     }
-    else if(type === 2){
+    else if (type === 2) {
 
-        let inputObj= $("#simulatorInput_"+id).val();
-        if(inputObj && isValidJson(inputObj)){
-            $(".btn_"+id).attr('disabled', 'disabled');
-            $(".code_"+id).append('<p>'+new Date() +' | '+inputObj+'</p>');
+        let inputObj = $("#simulatorInput_" + id).val();
+        if (inputObj && isValidJson(inputObj)) {
+            $(".btn_" + id).attr('disabled', 'disabled');
+            $(".code_" + id).append('<p>' + new Date() + ' | ' + inputObj + '</p>');
 
             simulateNamedRule(id, inputObj, function (status, data) {
 
-                $(".btn_"+id).removeAttr('disabled');
-                if(status){
-                    $(".code_"+id).append('<p>'+new Date() +' | Named Rule invoked successfully</p>');
-                    $(".code_"+id).append('<p>'+new Date() +' | Result => '+JSON.stringify(data)+'</p>');
-                }else{
-                    $(".code_"+id).append('<p>'+new Date() +' | Error in invoking named rule</p>');
+                $(".btn_" + id).removeAttr('disabled');
+                if (status) {
+                    $(".code_" + id).append('<p>' + new Date() + ' | Named Rule invoked successfully</p>');
+                    $(".code_" + id).append('<p>' + new Date() + ' | Result => ' + JSON.stringify(data) + '</p>');
+                } else {
+                    $(".code_" + id).append('<p>' + new Date() + ' | Error in invoking named rule</p>');
                 }
 
             });
 
-        }else{
-            errorMsgBorder("Empty JSON (or) Invalid JSON","simulatorInput_"+id)
+        } else {
+            errorMsgBorder("Empty JSON (or) Invalid JSON", "simulatorInput_" + id)
         }
 
     }
-    else if(type === 3){
+    else if (type === 3) {
 
 
-        let fileInput = document.getElementById("simulatorInput_"+id);
+        let fileInput = document.getElementById("simulatorInput_" + id);
 
         let files = fileInput.files;
 
         if (files.length === 0) {
-            errorMsgBorder('File not found. select a file to start upload',"simulatorInput_"+id);
+            errorMsgBorder('File not found. select a file to start upload', "simulatorInput_" + id);
             return false;
         }
-        $(".btn_"+id).attr('disabled', 'disabled');
-        uploadBinaryFile(files[0],id);
+        $(".btn_" + id).attr('disabled', 'disabled');
+        uploadBinaryFile(files[0], id);
 
     }
-    else if(type === 4){
+    else if (type === 4) {
 
 
-        let fileInput = document.getElementById("simulatorInput_"+id);
+        let fileInput = document.getElementById("simulatorInput_" + id);
 
         let files = fileInput.files;
 
         if (files.length === 0) {
-            errorMsgBorder('File not found. select a file to start upload',"simulatorInput_"+id);
+            errorMsgBorder('File not found. select a file to start upload', "simulatorInput_" + id);
             return false;
         }
-        $(".btn_"+id).attr('disabled', 'disabled');
-        uploadFileRule(files[0],id);
+        $(".btn_" + id).attr('disabled', 'disabled');
+        uploadFileRule(files[0], id);
 
     }
 
 }
-function uploadBinaryFile(file,id) {
+function uploadBinaryFile(file, id) {
 
     let xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
-            $(".btn_"+id).removeAttr('disabled');
+            $(".btn_" + id).removeAttr('disabled');
             if (xhr.status === 200) {
                 let result = JSON.parse(xhr.response);
 
-                $(".code_"+id).append('<p>'+new Date() +' | File upload successfully!</p>');
-                $(".code_"+id).append('<p>'+new Date() +' | Result => '+xhr.response+'</p>');
+                $(".code_" + id).append('<p>' + new Date() + ' | File upload successfully!</p>');
+                $(".code_" + id).append('<p>' + new Date() + ' | Result => ' + xhr.response + '</p>');
 
             } else {
-                $(".code_"+id).append('<p>'+new Date() +' | Error in binary file upload!</p>');
+                $(".code_" + id).append('<p>' + new Date() + ' | Error in binary file upload!</p>');
             }
         }
     };
-    xhr.open('POST', API_BASE_PATH + '/push/bin/file/' + DOMAIN_KEY+'/'+API_KEY+"/SIMULATOR/WEB/1.0/"+id, true);
+    // xhr.open('POST', API_BASE_PATH + '/push/bin/file/' + DOMAIN_KEY + '/' + API_KEY + "/SIMULATOR/WEB/1.0/" + id, true);
+    xhr.open('POST', API_BASE_PATH + '/push/file/' + id);
     let formData = new FormData();
-    formData.append("binfile", file, file.name);
+    let devToken = $("#simulatorDeviceList_" + id + " option:selected").attr("token");
+
+    formData.append("file", file, file.name);
+    xhr.setRequestHeader('token', devToken);
     xhr.send(formData);
 }
 
-function uploadFileRule(file,id) {
+function uploadFileRule(file, id) {
 
     let xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
-            $(".btn_"+id).removeAttr('disabled');
+            $(".btn_" + id).removeAttr('disabled');
             if (xhr.status === 200) {
                 let result = JSON.parse(xhr.response);
 
-                $(".code_"+id).append('<p>'+new Date() +' | File upload successfully!</p>');
-                $(".code_"+id).append('<p>'+new Date() +' | Result => '+xhr.response+'</p>');
+                $(".code_" + id).append('<p>' + new Date() + ' | File upload successfully!</p>');
+                $(".code_" + id).append('<p>' + new Date() + ' | Result => ' + xhr.response + '</p>');
 
             } else {
-                $(".code_"+id).append('<p>'+new Date() +' | Error in file rule upload!</p>');
+                $(".code_" + id).append('<p>' + new Date() + ' | Error in file rule upload!</p>');
             }
         }
     };
-    xhr.open('POST', API_BASE_PATH + '/push/file/' + DOMAIN_KEY+'/'+API_KEY+"/SIMULATOR/WEB/1.0/"+id, true);
+    // xhr.open('POST', API_BASE_PATH + '/push/file/' + DOMAIN_KEY + '/' + API_KEY + "/SIMULATOR/WEB/1.0/" + id, true);
+    xhr.open('POST', API_BASE_PATH + '/push/file/rule/' + id);
     let formData = new FormData();
-    formData.append("binfile", file, file.name);
+    formData.append("file", file, file.name);
+    let devToken = $("#simulatorDeviceList_" + id + " option:selected").attr("token");
+
+    xhr.setRequestHeader('token', devToken);
     xhr.send(formData);
 }
 
 function closeSimulator(id) {
 
-    $('#simulatorModal_'+id).dialog( "close" );
+    $('#simulatorModal_' + id).dialog("close");
     simulatorModal[id] = null;
-    $("#simulatorModal_"+id).remove();
+    $("#simulatorModal_" + id).remove();
 
 }
 
@@ -6680,7 +6071,7 @@ function renderHtml(id, index, obj) {
     let str = '';
     let dataType = obj.dataType.toUpperCase();
 
-    if(dataType === 'BOOLEAN') {
+    if (dataType === 'BOOLEAN') {
         str = `
           <div class="col-md-6">
             <div class="form-group">
@@ -6693,7 +6084,7 @@ function renderHtml(id, index, obj) {
             </div>
         </div>
         `;
-    }else if(dataType === 'INTEGER'){
+    } else if (dataType === 'INTEGER') {
         str = `
           <div class="col-md-6">
             <div class="form-group">
@@ -6703,7 +6094,7 @@ function renderHtml(id, index, obj) {
             </div>
         </div>
         `;
-    }else{
+    } else {
         str = `
           <div class="col-md-6">
             <div class="form-group">
@@ -6717,170 +6108,173 @@ function renderHtml(id, index, obj) {
     return str;
 }
 
-function sendTestMsg() {
-    
-}
-
 function exportRule(type) {
 
     let consoleText = codeEditor.getSession().getValue();
 
     let data = {};
     let rule_name = '';
+    let obj ={}
+    switch (type) {
 
-    if(type === 1){
-        console.log('Domain Rule...!');
-        rule_name = 'domain-rule';
-        data = {
-            lang: 'GROOVY',
-            code: consoleText
-        }
+        case 1:
+            console.log('Domain Rule...!');
+            rule_name = 'domain-rule';
+            data = {
+                lang: 'GROOVY',
+                code: consoleText
+            }
 
+            break;
 
-    }else if(type === 2){
-        console.log('Message Rule...!');
-        rule_name = 'message-rule-'+CURRENT_ID;
-        data = {
-            lang: 'GROOVY',
-            code: consoleText,
-            messageId: CURRENT_ID
-        }
-
-
-    }else if(type === 3){
-        console.log('Named Rule...!');
-        rule_name = 'named-rule-'+CURRENT_ID;
-        data = {
-            lang: 'GROOVY',
-            code: consoleText,
-            name: CURRENT_ID
-        }
+        case 2:
+            console.log('Message Rule...!');
+            rule_name = 'message-rule-' + CURRENT_ID;
+            data = {
+                lang: 'GROOVY',
+                code: consoleText,
+                messageId: CURRENT_ID
+            }
 
 
-    }else if(type === 4){
-        console.log('Schedule Rule...!');
-        rule_name = 'schedule-rule-'+CURRENT_ID;
-        let obj = returnObj(CURRENT_ID, 3);
+            break;
+        case 3:
+            console.log('Named Rule...!');
+            rule_name = 'named-rule-' + CURRENT_ID;
+            data = {
+                lang: 'GROOVY',
+                code: consoleText,
+                name: CURRENT_ID
+            }
 
-        data = {
-            lang: 'GROOVY',
-            code: consoleText,
-            id: CURRENT_ID,
-            pattern: obj.pattern
-        }
 
+            break;
+        case 4:
+            console.log('Schedule Rule...!');
+            rule_name = 'schedule-rule-' + CURRENT_ID;
+            obj = returnObj(CURRENT_ID, 3);
+
+            data = {
+                lang: 'GROOVY',
+                code: consoleText,
+                id: CURRENT_ID,
+                pattern: obj.pattern
+            }
+
+            break;
+        case 6:
+            console.log('Binary Rule...!');
+            rule_name = 'binary-rule-' + CURRENT_ID;
+
+            data = {
+                lang: 'GROOVY',
+                code: consoleText,
+                type: CURRENT_ID,
+            }
+
+            break;
+        case 7:
+            console.log('Job Rule...!');
+            rule_name = 'job-rule-' + CURRENT_ID;
+            obj = returnObj(CURRENT_ID, 7);
+
+            data = {
+                "domainKey": DOMAIN_KEY,
+                "id": CURRENT_ID,
+                "name": "",
+                "jobType": obj.jobType,
+                "jobState": obj.jobState,
+                "jobLanguage": obj.jobLanguage,
+                "code": consoleText,
+                "instances": obj.instances,
+                "startOnBoot": obj.startOnBoot,
+                "systemJob": obj.systemJob,
+                "resartOnChange": obj.resartOnChange,
+            }
+
+            break;
+        case 8:
+            console.log('File Rule...!');
+            rule_name = 'file-rule-' + CURRENT_ID;
+            obj = returnObj(CURRENT_ID, 8);
+
+            data = {
+                lang: 'GROOVY',
+                code: consoleText,
+                type: CURRENT_ID,
+                rootPath: obj.rootPath ? obj.rootPath : '',
+            }
+
+            break;
+        case 9:
+            console.log('Process Rule...!');
+            rule_name = 'process-rule-' + CURRENT_ID;
+            obj = returnObj(CURRENT_ID, 9);
+
+            delete obj._id;
+            obj['code'] = consoleText;
+
+            data = obj;
+
+            break;
+     
+        case 10:
+            console.log('SFTP Rule...!');
+            rule_name = 'sftp-rule-' + CURRENT_ID;
+            obj = returnObj(CURRENT_ID, 10);
+            delete obj._id;
+
+            data = obj;
+            break;
+        case 11:
+            console.log('MQTT Rule...!');
+            rule_name = 'mqtt-rule-' + CURRENT_ID;
+            obj = returnObj(CURRENT_ID, 11);
+            delete obj._id;
+
+            data = obj;
+            break;
+        case 12:
+            console.log('UDP Rule...!');
+            rule_name = 'udp-rule-' + CURRENT_ID;
+            obj = returnObj(CURRENT_ID, 12);
+            delete obj._id;
+
+            data = obj;
+            break;
+        case 13:
+            console.log('TCP Rule...!');
+            rule_name = 'tcp-rule-' + CURRENT_ID;
+            obj = returnObj(CURRENT_ID, 13);
+            delete obj._id;
+            data = obj;
+
+            break;
+        case 14:
+            console.log('EMAIL Rule...!');
+            rule_name = 'email-rule-' + CURRENT_ID;
+            obj = returnObj(CURRENT_ID, 14);
+            delete obj._id;
+
+            data = obj;
+
+
+            break;
+        case 15:
+            console.log('Micro API Rule...!');
+            rule_name = 'micro-rule-' + CURRENT_ID;
+            obj = returnObj(CURRENT_ID, 15);
+            delete obj._id;
+
+            data = obj;
+
+            break;
     }
 
-    else if(type === 6){
-        console.log('Binary Rule...!');
-        rule_name = 'binary-rule-'+CURRENT_ID;
-        let obj = returnObj(CURRENT_ID, 6);
-
-        data = {
-            lang: 'GROOVY',
-            code: consoleText,
-            type: CURRENT_ID,
-        }
-
-    }
-
-    else if(type === 8){
-        console.log('File Rule...!');
-        rule_name = 'file-rule-'+CURRENT_ID;
-        let obj = returnObj(CURRENT_ID, 8);
-
-        data = {
-            lang: 'GROOVY',
-            code: consoleText,
-            type: CURRENT_ID,
-            rootPath: obj.rootPath ? obj.rootPath: '',
-        }
-
-    }
-    else if(type === 9){
-        console.log('Process Rule...!');
-        rule_name = 'process-rule-'+CURRENT_ID;
-        let obj = returnObj(CURRENT_ID, 9);
-
-        delete obj._id;
-        obj['code'] = consoleText;
-
-        data = obj;
-
-    }
-
-    else if(type === 7){
-        console.log('Job Rule...!');
-        rule_name = 'job-rule-'+CURRENT_ID;
-        let obj = returnObj(CURRENT_ID, 7);
-
-         data = {
-            "domainKey": DOMAIN_KEY,
-            "id": CURRENT_ID,
-            "name": "",
-            "jobType": obj.jobType,
-            "jobState": obj.jobState,
-            "jobLanguage": obj.jobLanguage,
-            "code": consoleText,
-            "instances": obj.instances,
-            "startOnBoot": obj.startOnBoot,
-            "systemJob": obj.systemJob,
-            "resartOnChange": obj.resartOnChange,
-        }
-
-    }
-    else if(type === 10){
-        console.log('SFTP Rule...!');
-        rule_name = 'sftp-rule-'+CURRENT_ID;
-        let obj = returnObj(CURRENT_ID, 10);
-        delete obj._id;
-
-        data = obj;
-    }
-    else if(type === 11){
-        console.log('MQTT Rule...!');
-        rule_name = 'mqtt-rule-'+CURRENT_ID;
-        let obj = returnObj(CURRENT_ID, 11);
-        delete obj._id;
-
-        data = obj;
-    }else if(type === 12){
-        console.log('UDP Rule...!');
-        rule_name = 'udp-rule-'+CURRENT_ID;
-        let obj = returnObj(CURRENT_ID, 12);
-        delete obj._id;
-
-        data = obj;
-    }else if(type === 13){
-        console.log('TCP Rule...!');
-        rule_name = 'tcp-rule-'+CURRENT_ID;
-        let obj = returnObj(CURRENT_ID, 13);
-        delete obj._id;
-        data = obj;
-
-    }else if(type === 14){
-        console.log('EMAIL Rule...!');
-        rule_name = 'email-rule-'+CURRENT_ID;
-        let obj = returnObj(CURRENT_ID, 14);
-        delete obj._id;
-
-        data = obj;
-
-
-    }else if(type === 15){
-        console.log('Micro API Rule...!');
-        rule_name = 'micro-rule-'+CURRENT_ID;
-        let obj = returnObj(CURRENT_ID, 15);
-        delete obj._id;
-
-        data = obj;
-
-
-    }
 
     let dObj = {
-        type : type,
-        data : data
+        type: type,
+        data: data
     }
 
     createDownload(dObj, rule_name);
@@ -6890,9 +6284,9 @@ function exportRule(type) {
 }
 
 
-function createDownload(obj,name) {
+function createDownload(obj, name) {
 
-    saveAndDownload(JSON.stringify(obj), name+'-'+DOMAIN_KEY+'.json', 'application/json', 'exportMsg')
+    saveAndDownload(JSON.stringify(obj), name + '-' + DOMAIN_KEY + '.json', 'application/json', 'exportMsg')
 
 }
 
@@ -6904,260 +6298,218 @@ function uploadRuleModal() {
 
 function uploadRuleType(type, data) {
 
-    if (type === 1) {
 
-        updateDomainRuleCode(data, function (status, resdata) {
-            if (status) {
-                successMsg('Domain Rule Successfully Uploaded!');
-                domain_rule_obj = data;
-                loadDomainCode();
-                $("#importModal").modal('hide');
-            } else {
-                errorMsg('Error in saving!')
-            }
-
-        })
-
-    } else if (type === 2) {
-
-        updateMessageRuleCode(data, function (status, resdata) {
-            if (status) {
-                successMsg('Message Rule Successfully Uploaded!');
-                loadMessageRulesList();
-                setTimeout(function () {
-                    loadTabbar(data.messageId,1)
+    switch (type) {
+        case 1:
+            updateDomainRuleCode(data, function (status, resdata) {
+                if (status) {
+                    successMsg('Domain Rule Successfully Uploaded!');
+                    domain_rule_obj = data;
+                    loadDomainCode();
                     $("#importModal").modal('hide');
-                },1000)
+                } else {
+                    errorMsg('Error in saving!')
+                }
 
-            } else {
-                errorMsg('Error in saving!')
-            }
-
-        })
-
-    } else if (type === 3) {
-
-        updateNamedRuleCode(data, function (status, resdata) {
-            if (status) {
-                successMsg('Named Rule Successfully Uploaded!');
-                loadNamedRulesList();
-
-                setTimeout(function () {
-                    loadTabbar(data.name,2)
+            })
+            break;
+    
+        case 2:
+            updateMessageRuleCode(data, function (status, resdata) {
+                if (status) {
+                    loadMessageRulesList(function (status) {
+                        if (status) {
+                            successMsg('Message Rule Successfully Uploaded!');
+                            loadTabbar(data.messageId, 1)
+                            $("#importModal").modal('hide');
+                        }
+                    });
+                } else {
+                    errorMsg('Error in saving!')
                     $("#importModal").modal('hide');
-                },1000)
-            } else {
-                errorMsg('Error in saving!')
-            }
-            $("#importModal").modal('hide');
-        })
+                }
 
-    } else if (type === 4) {
+            })
+            break;
+        
+        case 3:
+            updateNamedRuleCode(data, function (status, resdata) {
+                if (status) {
+                    loadNamedRulesList(function () {
+                        successMsg('Named Rule Successfully Uploaded!');
+                        loadTabbar(data.name, 2)
+                        $("#importModal").modal('hide');
+                    });
 
-        updateScheduleRuleCode(data, function (status, resdata) {
-            if (status) {
-                successMsg('Schedule Rule Successfully Uploaded!');
-                loadScheduleRulesList();
-                setTimeout(function () {
-                    loadTabbar(data.id,3)
+                } else {
+                    errorMsg('Error in saving!')
                     $("#importModal").modal('hide');
-                },1000)
+                }
+            })
+            break;
+        
+        case 4:
+            updateScheduleRuleCode(data, function (status, resdata) {
+                if (status) {
+                    loadScheduleRulesList(function () {
+                        successMsg('Schedule Rule Successfully Uploaded!');
+                        loadTabbar(data.id, 3)
+                        $("#importModal").modal('hide');
+                    });
+                } else {
+                    errorMsg('Error in saving!')
+                    $("#importModal").modal('hide');
+                }
+            })
+            break;
+        
+        case 6:
+            updateBinaryRuleCode(data, function (status, resdata) {
+                if (status) {
+                    loadBinaryRulesList(function () {
+                        successMsg('Binary Rule Successfully Uploaded!');
+                        loadTabbar(data.type, 6)
+                        $("#importModal").modal('hide');
+                    });
+                } else {
+                    errorMsg('Error in saving!')
+                    $("#importModal").modal('hide');
+                }
+            })
+            break;
+        case 7:
+            updateJobRuleCode(data, function (status, resdata) {
+                if (status) {
+                    loadJobRulesList(function () {
+                        successMsg('Job Rule Successfully Uploaded!');
+                        loadTabbar(data.id, 7)
+                        $("#importModal").modal('hide');
+                    });
 
-            } else {
-                errorMsg('Error in saving!')
-            }
-            $("#importModal").modal('hide');
-        })
+                } else {
+                    errorMsg('Error in saving!')
+                    $("#importModal").modal('hide');
+                }
+            })
+            break;
+        case 8:
+            updateFileRuleCode(data, function (status, resdata) {
+                if (status) {
+                    loadFileRulesList(function () {
+                        successMsg('File Rule Successfully Uploaded!');
+                        loadTabbar(data.type, 8)
+                        $("#importModal").modal('hide');
+                    });
+                } else {
+                    errorMsg('Error in saving!')
+                    $("#importModal").modal('hide');
+                }
+            })
+            break;
+        case 9:
+            updateProcessRuleCode(data, function (status, resdata) {
+                if (status) {
+                    loadProcessRulesList(function () {
+                        successMsg('Process Rule Successfully Uploaded!');
+                        loadTabbar(data.type, 9)
+                        $("#importModal").modal('hide');
+                    });
+
+                } else {
+                    errorMsg('Error in saving!')
+                    $("#importModal").modal('hide');
+                }
+            })
+            break;
+        case 10:
+            updateInputRuleCode('SFTP', data, function (status, resdata) {
+                if (status) {
+                    loadSftpRulesList(function () {
+                        successMsg('SFTP Rule Successfully Uploaded!');
+                        loadTabbar(data.id, 10)
+                        $("#importModal").modal('hide');
+                    });
+                } else {
+                    errorMsg('Error in saving!')
+                    $("#importModal").modal('hide');
+                }
+            })
+            break;
+        case 11:
+            updateInputRuleCode('MQTT', data, function (status, resdata) {
+                if (status) {
+                    loadMqttRulesList(function () {
+                        successMsg('MQTT Rule Successfully Uploaded!');
+                        loadTabbar(data.id, 11)
+                        $("#importModal").modal('hide');
+                    });
+
+                } else {
+                    errorMsg('Error in saving!')
+                    $("#importModal").modal('hide');
+                }
+            })
+            break;
+        case 12:
+            updateInputRuleCode('UDP', data, function (status, resdata) {
+                if (status) {
+                    loadUdpRulesList(function () {
+                        successMsg('UDP Rule Successfully Uploaded!');
+                        loadTabbar(data.id, 12)
+                        $("#importModal").modal('hide');
+                    });
+
+                } else {
+                    errorMsg('Error in saving!')
+                    $("#importModal").modal('hide');
+                }
+            })
+            break;
+        case 13:
+            updateInputRuleCode('TCP', data, function (status, resdata) {
+                if (status) {
+                    loadTcpRulesList(function () {
+                        successMsg('TCP Rule Successfully Uploaded!');
+                        loadTabbar(data.id, 13)
+                        $("#importModal").modal('hide');
+                    });
+
+                } else {
+                    errorMsg('Error in saving!')
+                    $("#importModal").modal('hide');
+                }
+            })
+            break;
+        case 14:
+            updateInputRuleCode('EMAIL', data, function (status, resdata) {
+                if (status) {
+                    loadEmailRulesList(function () {
+                        successMsg('EMAIL Rule Successfully Uploaded!');
+                        loadTabbar(data.id, 14)
+                        $("#importModal").modal('hide');
+                    });
+
+                } else {
+                    errorMsg('Error in saving!')
+                    $("#importModal").modal('hide');
+                }
+            })
+            break;
+        case 15:
+            updateMicroRuleCode(data, function (status, resdata) {
+                if (status) {
+                    loadMicroRulesList(function () {
+                        successMsg('Micro API Rule Successfully Uploaded!');
+                        loadTabbar(data.name, 5)
+                        $("#importModal").modal('hide');
+                    });
+                } else {
+                    errorMsg('Error in saving!')
+                    $("#importModal").modal('hide');
+                }
+            })
+            break;
     }
-    else if (type === 6) {
-
-        updateBinaryRuleCode(data, function (status, resdata) {
-            if (status) {
-                successMsg('Binary Rule Successfully Uploaded!');
-                loadBinaryRulesList();
-                setTimeout(function () {
-                    loadTabbar(data.type,6)
-                    $("#importModal").modal('hide');
-                },1000)
-
-            } else {
-                errorMsg('Error in saving!')
-            }
-            $("#importModal").modal('hide');
-        })
-    }
-    else if (type === 8) {
-
-        updateFileRuleCode(data, function (status, resdata) {
-            if (status) {
-                successMsg('File Rule Successfully Uploaded!');
-                loadFileRulesList();
-                setTimeout(function () {
-                    loadTabbar(data.type,8)
-                    $("#importModal").modal('hide');
-                },1000)
-
-            } else {
-                errorMsg('Error in saving!')
-            }
-            $("#importModal").modal('hide');
-        })
-    }
-    else if (type === 9) {
-
-        updateProcessRuleCode(data, function (status, resdata) {
-            if (status) {
-                successMsg('Process Rule Successfully Uploaded!');
-                loadProcessRulesList();
-                setTimeout(function () {
-                    loadTabbar(data.type,9)
-                    $("#importModal").modal('hide');
-                },1000)
-
-            } else {
-                errorMsg('Error in saving!')
-            }
-            $("#importModal").modal('hide');
-        })
-    }
-    else if (type === 7) {
-
-        updateJobRuleCode(data, function (status, resdata) {
-            if (status) {
-                successMsg('Job Rule Successfully Uploaded!');
-                loadJobRulesList()();
-                setTimeout(function () {
-                    loadTabbar(data.id,7)
-                    $("#importModal").modal('hide');
-                },1000)
-
-            } else {
-                errorMsg('Error in saving!')
-            }
-            $("#importModal").modal('hide');
-        })
-    }
-    else if (type === 10) {
-
-        updateInputRuleCode('SFTP',data, function (status, resdata) {
-            if (status) {
-                successMsg('SFTP Rule Successfully Uploaded!');
-
-                setTimeout(function () {
-                    loadSftpRulesList();
-                    $("#importModal").modal('hide');
-                },500)
-                setTimeout(function (){
-                    loadTabbar(data.id,10)
-                },250)
-
-            } else {
-                errorMsg('Error in saving!')
-            }
-            $("#importModal").modal('hide');
-        })
-    }else if (type === 11) {
-
-        updateInputRuleCode('MQTT',data, function (status, resdata) {
-            if (status) {
-                successMsg('MQTT Rule Successfully Uploaded!');
-
-                setTimeout(function () {
-                    loadMqttRulesList();
-                    // loadTabbar(data.id,10)
-                    $("#importModal").modal('hide');
-                },500)
-                setTimeout(function (){
-                    loadTabbar(data.id,11)
-                },250)
-
-            } else {
-                errorMsg('Error in saving!')
-            }
-            $("#importModal").modal('hide');
-        })
-    }else if (type === 12) {
-
-        updateInputRuleCode('UDP',data, function (status, resdata) {
-            if (status) {
-                successMsg('UDP Rule Successfully Uploaded!');
-
-                setTimeout(function () {
-                    loadUdpRulesList();
-                    // loadTabbar(data.id,10)
-                    $("#importModal").modal('hide');
-                },500)
-                setTimeout(function (){
-                    loadTabbar(data.id,12)
-                },250)
-
-            } else {
-                errorMsg('Error in saving!')
-            }
-            $("#importModal").modal('hide');
-        })
-    }else if (type === 13) {
-
-        updateInputRuleCode('TCP',data, function (status, resdata) {
-            if (status) {
-                successMsg('TCP Rule Successfully Uploaded!');
-
-                setTimeout(function () {
-                    loadTcpRulesList();
-                    // loadTabbar(data.id,10)
-                    $("#importModal").modal('hide');
-                },500)
-                setTimeout(function (){
-                    loadTabbar(data.id,13)
-                },250)
-
-            } else {
-                errorMsg('Error in saving!')
-            }
-            $("#importModal").modal('hide');
-        })
-    }else if (type === 14) {
-
-        updateInputRuleCode('EMAIL',data, function (status, resdata) {
-            if (status) {
-                successMsg('EMAIL Rule Successfully Uploaded!');
-
-                setTimeout(function () {
-                    loadEmailRulesList();
-                    // loadTabbar(data.id,10)
-                    $("#importModal").modal('hide');
-                },500)
-                setTimeout(function (){
-                    loadTabbar(data.id,14)
-                },250)
-
-            } else {
-                errorMsg('Error in saving!')
-            }
-            $("#importModal").modal('hide');
-        })
-    }
-    else if (type === 15) {
-
-        updateMicroRuleCode(data, function (status, resdata) {
-            if (status) {
-                successMsg('Micro API Rule Successfully Uploaded!');
-
-                setTimeout(function () {
-                    loadMicroRulesList();
-                    // loadTabbar(data.id,10)
-                    $("#importModal").modal('hide');
-                },500)
-                setTimeout(function () {
-                    loadTabbar(data.name,5)
-                },250)
-            } else {
-                errorMsg('Error in saving!')
-            }
-            $("#importModal").modal('hide');
-        })
-    }
-
 }
 
 
@@ -7187,35 +6539,35 @@ function readFileContent(file) {
     const reader = new FileReader()
     return new Promise((resolve, reject) => {
         reader.onload = event => resolve(event.target.result)
-    reader.onerror = error => reject(error)
-    reader.readAsText(file)
-})
+        reader.onerror = error => reject(error)
+        reader.readAsText(file)
+    })
 }
 
 
 function checkJobInstance() {
-  let jType = $("#job_type").val();
+    let jType = $("#job_type").val();
 
-  if(jType === 'SCALABLE' || jType === 'DISTRIBUTED'){
-      $("#job_instance").removeAttr('disabled')
-      $("#job_instance").val(1);
-  }else{
-      $("#job_instance").attr('disabled','disabled');
-      $("#job_instance").val(1);
-  }
+    if (jType === 'SCALABLE' || jType === 'DISTRIBUTED') {
+        $("#job_instance").removeAttr('disabled')
+        $("#job_instance").val(1);
+    } else {
+        $("#job_instance").attr('disabled', 'disabled');
+        $("#job_instance").val(1);
+    }
 
-    if(ADMIN_ACCESS){
+    if (ADMIN_ACCESS) {
 
-        if(jType === 'ATOMIC'){
-            $("#job_system").attr('disabled','disabled')
-        }else{
+        if (jType === 'ATOMIC') {
+            $("#job_system").attr('disabled', 'disabled')
+        } else {
             $("#job_system").removeAttr('disabled')
         }
     }
 
-    if(jType === 'ATOMIC'){
-        $("#job_boot").attr('disabled','disabled');
-    }else{
+    if (jType === 'ATOMIC') {
+        $("#job_boot").attr('disabled', 'disabled');
+    } else {
         $("#job_boot").removeAttr('disabled')
     }
 }
@@ -7226,38 +6578,38 @@ function loadContextList() {
         url: API_BASE_PATH + "/global/context/list",
         type: 'GET',
         success: function (data) {
-           if(data){
-               $(".contextList").html('');
-               let result = data.classes;
+            if (data) {
+                $(".contextList").html('');
+                let result = data.classes;
 
-               context_list = result.length > 0 ? result : [];
+                context_list = result.length > 0 ? result : [];
 
-               renderContext();
+                renderContext();
 
-               for(let i=0;i<result.length;i++){
+                for (let i = 0; i < result.length; i++) {
 
-                   let methods = result[i].methods;
+                    let methods = result[i].methods;
 
-                   $(".contextList").append('<p style="text-transform: uppercase"><b>'+result[i].name+'</b></p>');
+                    $(".contextList").append('<p style="text-transform: uppercase"><b>' + result[i].name + '</b></p>');
 
-                   for(let j=0;j<methods.length;j++) {
+                    for (let j = 0; j < methods.length; j++) {
 
-                       $(".contextList").append('<p class="codeText" onclick="addContextMethod(\''+result[i].name+'\',\''+methods[j].signature+'\',\''+methods[j].help+'\')"><code>' + methods[j].signature + '</code><br>' +
-                           '<small>'+methods[j].help+'</small></p>');
-                   }
-               }
-           }
+                        $(".contextList").append('<p class="codeText" onclick="addContextMethod(\'' + result[i].name + '\',\'' + methods[j].signature + '\',\'' + methods[j].help + '\')"><code>' + methods[j].signature + '</code><br>' +
+                            '<small>' + methods[j].help + '</small></p>');
+                    }
+                }
+            }
         },
         error: function (e) {
-           errorMsg('Error in fetching context list')
+            errorMsg('Error in fetching context list')
 
         }
     });
 }
 
-function addContextMethod(nam, method,help) {
+function addContextMethod(nam, method, help) {
 
-    let text = '\n//Context Name: '+nam+'\n//Method: '+method+'\n//Description: '+help
+    let text = '\n//Context Name: ' + nam + '\n//Method: ' + method + '\n//Description: ' + help
     codeEditor.session.insert(codeEditor.getCursorPosition(), text)
 
 
@@ -7273,9 +6625,9 @@ function filterContext() {
 
         let txtValue = $(p[i]).html().toLowerCase();;
         if (txtValue.includes(input)) {
-            $(p[i]).css('display','block')
+            $(p[i]).css('display', 'block')
         } else {
-            $(p[i]).css('display','none')
+            $(p[i]).css('display', 'none')
         }
     }
 }
@@ -7294,9 +6646,9 @@ function openHelpModal() {
 
 
 
-function renderContext(search,id) {
+function renderContext(search, id) {
 
-    if(search || id){
+    if (search || id) {
         $(".contextBody").html('');
     }
     $(".cBody").html('')
@@ -7305,8 +6657,8 @@ function renderContext(search,id) {
 
         let val = context_list[i];
 
-        $(".cBody").append('<li class="ml-1 mr-1 '+(id== val.name ? 'helpHighlight' :'')+'" style="border: 1px solid #eee;padding: 10px 15px">' +
-            '<a class="text-dark" style="" href="javascript:void(0)" onclick="renderContext(\''+''+'\',\''+val.name+'\')">'+val.name+'</a></li>')
+        $(".cBody").append('<li class="ml-1 mr-1 ' + (id == val.name ? 'helpHighlight' : '') + '" style="border: 1px solid #eee;padding: 10px 15px">' +
+            '<a class="text-dark"  href="javascript:void(0)" onclick="renderContext(\'' + '' + '\',\'' + val.name + '\')">' + val.name + '</a></li>')
 
         let str = '';
 
@@ -7314,27 +6666,27 @@ function renderContext(search,id) {
 
         for (let j = 0; j < val.methods.length; j++) {
 
-            let cn = j%2 == 0 ? 'alternateRow2' : 'alternateRow1'
+            let cn = j % 2 == 0 ? 'alternateRow2' : 'alternateRow1'
 
             let methods = val.methods[j];
-            if(search){
+            if (search) {
 
-                if(val.name.toLowerCase().includes(search.toLowerCase())
+                if (val.name.toLowerCase().includes(search.toLowerCase())
                     || methods.help.toLowerCase().includes(search.toLowerCase())
-                    || methods.signature.toLowerCase().includes(search.toLowerCase())){
-                    flg=true
-                    str += '<p class="mt-2 "><code>'+val.name+'</code> '+methods.help+'</p><pre class="'+cn+' mb-2"><xmp style="font-size: 14px">'+methods.signature+'</xmp></pre>'
+                    || methods.signature.toLowerCase().includes(search.toLowerCase())) {
+                    flg = true
+                    str += '<p class="mt-2 "><code>' + val.name + '</code> ' + methods.help + '</p><pre class="' + cn + ' mb-2"><xmp style="font-size: 14px">' + methods.signature + '</xmp></pre>'
                 }
-            }else{
-                str += '<p class="mt-2"><code>'+val.name+'</code> '+methods.help+'</p><pre class="'+cn+' mb-2"><xmp style="font-size: 14px">'+methods.signature+'</xmp></pre>'
+            } else {
+                str += '<p class="mt-2"><code>' + val.name + '</code> ' + methods.help + '</p><pre class="' + cn + ' mb-2"><xmp style="font-size: 14px">' + methods.signature + '</xmp></pre>'
             }
-            if(methods.examples && methods.examples.length > 0) {
+            if (methods.examples && methods.examples.length > 0) {
 
                 str += '<div style="padding-left: 25px"><h6>Examples:</h6>'
 
                 for (let k = 0; k < methods.examples.length; k++) {
 
-                    str += '<pre class="mb-2"><xmp style="font-size: 12px">'+methods.examples[k]+'</xmp></pre>'
+                    str += '<pre class="mb-2"><xmp style="font-size: 12px">' + methods.examples[k] + '</xmp></pre>'
 
                 }
                 str += '</div><hr>'
@@ -7342,36 +6694,36 @@ function renderContext(search,id) {
 
 
         }
-        if(id){
+        if (id) {
 
-            if(id == val.name){
-                if(search){
-                    if(flg){
-                        $(".contextBody").append('<div class="col-md-12 mt-1 mb-2 c_'+val.name+'">' +
+            if (id == val.name) {
+                if (search) {
+                    if (flg) {
+                        $(".contextBody").append('<div class="col-md-12 mt-1 mb-2 c_' + val.name + '">' +
                             '<hr><h5 style="text-transform: capitalize">' + val.name + '</h5>' +
                             str +
                             '</div>');
 
                     }
-                }else{
-                    $(".contextBody").append('<div class="col-md-12 mt-1 mb-2 c_'+val.name+'">' +
+                } else {
+                    $(".contextBody").append('<div class="col-md-12 mt-1 mb-2 c_' + val.name + '">' +
                         '<hr><h5 style="text-transform: capitalize">' + val.name + '</h5>' +
                         str +
                         '</div>');
 
                 }
             }
-        }else{
-            if(search){
-                if(flg){
-                    $(".contextBody").append('<div class="col-md-12 mt-1 mb-2 c_'+val.name+'">' +
+        } else {
+            if (search) {
+                if (flg) {
+                    $(".contextBody").append('<div class="col-md-12 mt-1 mb-2 c_' + val.name + '">' +
                         '<hr><h5 style="text-transform: capitalize">' + val.name + '</h5>' +
                         str +
                         '</div>');
 
                 }
-            }else{
-                $(".contextBody").append('<div class="col-md-12 mt-1 mb-2 c_'+val.name+'">' +
+            } else {
+                $(".contextBody").append('<div class="col-md-12 mt-1 mb-2 c_' + val.name + '">' +
                     '<hr><h5 style="text-transform: capitalize">' + val.name + '</h5>' +
                     str +
                     '</div>');
@@ -7406,80 +6758,80 @@ function changeId(val) {
 }
 
 
-function inputId(source,target) {
-    $("."+target).html($.trim($("#"+source).val()).toUpperCase().replace(/\s/g, '_'))
-    $("#"+target).val($.trim($("#"+source).val()).toUpperCase().replace(/\s/g, '_'))
+function inputId(source, target) {
+    $("." + target).html($.trim($("#" + source).val()).toUpperCase().replace(/\s/g, '_'))
+    $("#" + target).val($.trim($("#" + source).val()).toUpperCase().replace(/\s/g, '_'))
 }
 
 function addBlock() {
-    if($(".tclass.active").hasClass('outClass')){
+    if ($(".tclass.active").hasClass('outClass')) {
         $(".outputBody").append($("#outputHtml").html());
-    }else{
+    } else {
         $(".inputBody").append($("#inputHtml").html());
     }
 
 }
 
-function checkKeyFile(val){
+function checkKeyFile(val) {
 
 
-    if(val == "1"){
-        $(".sftp_privateKeyFilePath").css('display','block')
-        $("#sftp_privateKeyFilePath").attr('required','required')
-        $(".sftp_publicKeyFilePath").css('display','block')
-    }else{
-        $(".sftp_privateKeyFilePath").css('display','none')
-        $(".sftp_publicKeyFilePath").css('display','none')
+    if (val == "1") {
+        $(".sftp_privateKeyFilePath").css('display', 'block')
+        $("#sftp_privateKeyFilePath").attr('required', 'required')
+        $(".sftp_publicKeyFilePath").css('display', 'block')
+    } else {
+        $(".sftp_privateKeyFilePath").css('display', 'none')
+        $(".sftp_publicKeyFilePath").css('display', 'none')
         $("#sftp_privateKeyFilePath").removeAttr('required')
     }
 }
 
-function checkTcpKeyFile(val){
+function checkTcpKeyFile(val) {
 
-    if(val == "1"){
-        $(".tcp_ssl").css('display','block')
-    }else{
-        $(".tcp_ssl").css('display','none')
+    if (val == "1") {
+        $(".tcp_ssl").css('display', 'block')
+    } else {
+        $(".tcp_ssl").css('display', 'none')
     }
 }
 
 
-function checkMqttKeyFile(val){
+function checkMqttKeyFile(val) {
 
 
-    if(val == "1"){
-        $(".mqtt_ssl").css('display','block')
-    }else{
-        $(".mqtt_ssl").css('display','none')
+    if (val == "1") {
+        $(".mqtt_ssl").css('display', 'block')
+    } else {
+        $(".mqtt_ssl").css('display', 'none')
     }
 }
 
-function checkTcpKeyFile(val){
+function checkTcpKeyFile(val) {
 
 
-    if(val == "1"){
-        $(".tcp_ssl").css('display','block')
-    }else{
-        $(".tcp_ssl").css('display','none')
+    if (val == "1") {
+        $(".tcp_ssl").css('display', 'block')
+    } else {
+        $(".tcp_ssl").css('display', 'none')
     }
 }
-function checkMqttSSL(val){
+function checkMqttSSL(val) {
 
 
-    if(val == "1"){
-        $(".mqtt_ssl_block").css('display','block')
-    }else{
-        $(".mqtt_ssl_block").css('display','none')
+    if (val == "1") {
+        $(".mqtt_ssl_block").css('display', 'block')
+    } else {
+        $(".mqtt_ssl_block").css('display', 'none')
     }
 }
 
-function checkTcpSSL(val){
+function checkTcpSSL(val) {
 
 
-    if(val == "1"){
-        $(".tcp_ssl_block").css('display','block')
-    }else{
-        $(".tcp_ssl_block").css('display','none')
+    if (val == "1") {
+        $(".tcp_ssl_block").css('display', 'block')
+    } else {
+        $(".tcp_ssl_block").css('display', 'none')
     }
 }
 
@@ -7495,13 +6847,13 @@ function uploadProcessFile(file) {
             if (xhr.status === 200) {
                 let result = JSON.parse(xhr.response);
                 uploadImage = API_BASE_PATH + '/files/public/download/' + result.id;
-                $(".process_img").attr('src', API_BASE_PATH + '/files/public/download/' + result.id+ '?' + new Date().getTime());
+                $(".process_img").attr('src', API_BASE_PATH + '/files/public/download/' + result.id + '?' + new Date().getTime());
             } else {
                 errorMsg('Error in image upload!');
             }
         }
     };
-    xhr.open('POST', API_BASE_PATH + '/files/upload/' + API_TOKEN_ALT+'?ispublic=true', true);
+    xhr.open('POST', API_BASE_PATH + '/files/upload/' + API_TOKEN_ALT + '?ispublic=true', true);
     let formData = new FormData();
     formData.append("binfile", file, file.name);
     formData.append("mediaType", file.type);
@@ -7525,8 +6877,8 @@ function uploadProcessImage() {
 
 }
 let pemFileId = null;
-function checkPemFile(id){
-    pemFileId=id;
+function checkPemFile(id) {
+    pemFileId = id;
     $("#pemFile").click()
 
 }
@@ -7556,14 +6908,14 @@ function uploadPem(file) {
 
             if (xhr.status === 200) {
                 let result = JSON.parse(xhr.response);
-                $("#"+pemFileId).val(result.id)
+                $("#" + pemFileId).val(result.id)
             } else {
                 errorMsg('Error in key file upload!');
             }
         }
     };
 
-    $("."+pemFileId+"_name").html(file.name)
+    $("." + pemFileId + "_name").html(file.name)
 
     xhr.open('POST', API_BASE_PATH + '/files/upload/' + API_TOKEN_ALT, true);
     let formData = new FormData();
@@ -7576,39 +6928,39 @@ function uploadPem(file) {
 
 
 
-function addConfigBody(){
+function addConfigBody() {
     let t = new Date().getTime();
-    $(".configBody").append('<tr class="'+t+'">' +
+    $(".configBody").append('<tr class="' + t + '">' +
         '<td><input type="text" required class="conf_name form-control input-sm"></td>' +
         '<td><input type="text" class="conf_value form-control input-sm"></td>' +
-        '<td><button class="btn btn-xs" type="button" onclick="removeConfigBody(\''+t+'\')">' +
+        '<td><button class="btn btn-xs" type="button" onclick="removeConfigBody(\'' + t + '\')">' +
         '<i class="fa fa-trash"></i></button></td>' +
         '</tr>')
 }
 
-function removeConfigBody(id){
-    $("."+id).remove();
+function removeConfigBody(id) {
+    $("." + id).remove();
 }
 
-function addMqttBody(){
+function addMqttBody() {
     let t = new Date().getTime();
-    $(".mqttBody").append('<tr class="'+t+'">' +
+    $(".mqttBody").append('<tr class="' + t + '">' +
         '<td><input type="text" required class="mqtt_pattern form-control input-sm"></td>' +
         '<td><input type="number" min="0" required class="mqtt_qos form-control input-sm"></td>' +
-        '<td><button class="btn btn-xs" type="button" onclick="removeMqttBody(\''+t+'\')">' +
+        '<td><button class="btn btn-xs" type="button" onclick="removeMqttBody(\'' + t + '\')">' +
         '<i class="fa fa-trash"></i></button></td>' +
         '</tr>')
 }
 
-function removeMqttBody(id){
-    $("."+id).remove();
+function removeMqttBody(id) {
+    $("." + id).remove();
 }
 
 
 
-function addFolderBody(){
+function addFolderBody() {
     let t = new Date().getTime();
-    $(".folderBody").append('<tr class="'+t+'">' +
+    $(".folderBody").append('<tr class="' + t + '">' +
         '<td><input type="text" required class="folder_name form-control input-sm"></td>' +
         '<td><select class="folder_markMessageAfterProcessing form-control input-sm">' +
         '<option value="NONE">NONE</option>' +
@@ -7625,44 +6977,44 @@ function addFolderBody(){
         '<option value="RECENT">RECENT</option>' +
         '</select></td>' +
         '<td><input type="text" class="folder_toMovedFolder form-control input-sm"></td>' +
-        '<td class="text-center"><button class="btn btn-xs" type="button" onclick="removeFolderBody(\''+t+'\')">' +
+        '<td class="text-center"><button class="btn btn-xs" type="button" onclick="removeFolderBody(\'' + t + '\')">' +
         '<i class="fa fa-trash"></i></button></td>' +
         '</tr>')
 }
 
-function removeFolderBody(id){
-    $("."+id).remove();
+function removeFolderBody(id) {
+    $("." + id).remove();
 }
 
-function checkAPI(val){
-    $(".micro_apiKey").css('display','none')
-    if(val === 'KEY'){
-        $(".micro_apiKey").css('display','block')
+function checkAPI(val) {
+    $(".micro_apiKey").css('display', 'none')
+    if (val === 'KEY') {
+        $(".micro_apiKey").css('display', 'block')
     }
 }
 
 let slugId = null;
 let methodName = null;
-function openAPIModal(mn){
+function openAPIModal(mn) {
 
     methodName = mn ? mn : null;
 
-    $(".micro_apiPath").html(API_BASE_PATH+"/micro/service/call/[METHOD]/")
+    $(".micro_apiPath").html(API_BASE_PATH + "/micro/service/call/[METHOD]/")
     $(".microRuleName").html(CURRENT_ID)
 
     $(".apiBody").html('');
 
-    let microBaseUrl = API_BASE_PATH+"/micro/service/";
+    let microBaseUrl = API_BASE_PATH + "/micro/service/";
 
-    getMicroAPISlug(function (status,data){
-        if(status){
+    getMicroAPISlug(function (status, data) {
+        if (status) {
             $("#micro_apiSlug").val(data)
             slugId = data;
-            microBaseUrl += slugId +"/";
-        }else{
+            microBaseUrl += slugId + "/";
+        } else {
             $("#micro_apiSlug").val(DOMAIN_KEY)
-            microBaseUrl += DOMAIN_KEY+"/";
-            slugId= DOMAIN_KEY;
+            microBaseUrl += DOMAIN_KEY + "/";
+            slugId = DOMAIN_KEY;
         }
         renderAPIBody(microBaseUrl)
 
@@ -7672,7 +7024,7 @@ function openAPIModal(mn){
 
 }
 
-function renderAPIBody(microBaseUrl){
+function renderAPIBody(microBaseUrl) {
     $(".apiBody").html('');
     let obj = {};
 
@@ -7686,11 +7038,11 @@ function renderAPIBody(microBaseUrl){
 
     let methodStr = ''
 
-    if(obj.allowedMethods){
+    if (obj.allowedMethods) {
 
 
 
-        for(let i=0;i<obj.allowedMethods.length;i++){
+        for (let i = 0; i < obj.allowedMethods.length; i++) {
 
             if (obj.allowedMethods[i].toLowercase() == 'get') {
                 methodStr += '<option value="get">GET</option>';
@@ -7708,7 +7060,7 @@ function renderAPIBody(microBaseUrl){
                 methodStr += '<option value="upload">UPLOAD</option>';
             }
         }
-    }else{
+    } else {
         methodStr = '<option value="post">POST</option>' +
             '<option value="get">GET</option>' +
             '<option value="put">PUT</option>' +
@@ -7716,46 +7068,46 @@ function renderAPIBody(microBaseUrl){
             '<option value="upload">UPLOAD</option>';
     }
 
-    for(let i=0;i<methods.length;i++){
+    for (let i = 0; i < methods.length; i++) {
 
         let bodyParams = {};
 
-        for(let j=0;j<methods[i].params.length;j++){
+        for (let j = 0; j < methods[i].params.length; j++) {
             bodyParams[methods[i].params[j].name] = methods[i].params[j].type;
         }
 
-        let str = '<form action="javascript:void(0)" onSubmit="simulateAPI(\''+methods[i].name+'\')"><div class="row mb-2" style="border: 1px solid #eee;padding-bottom: 10px;background-color: #eee"><div class="col-md-12 pt-2 alert alert-warning">' +
-            '<select class="'+methods[i].slug+'" onchange="methodChange(\''+methods[i].slug+'\')">'+methodStr+'</select> <label class="ml-2">' +
-            '/'+CURRENT_ID+"/"+methods[i].slug + '</label>' +
-            '<input type="file" id="f_'+methods[i].slug+'" style="float:right;display:none" /> ' +
+        let str = '<form action="javascript:void(0)" onSubmit="simulateAPI(\'' + methods[i].name + '\')"><div class="row mb-2" style="border: 1px solid #eee;padding-bottom: 10px;background-color: #eee"><div class="col-md-12 pt-2 alert alert-warning">' +
+            '<select class="' + methods[i].slug + '" onchange="methodChange(\'' + methods[i].slug + '\')">' + methodStr + '</select> <label class="ml-2">' +
+            '/' + CURRENT_ID + "/" + methods[i].slug + '</label>' +
+            '<input type="file" id="f_' + methods[i].slug + '" style="float:right;display:none" /> ' +
             '</div>' +
-            (obj.authType == 'TOKEN' ?   '<div class="col-md-3">' +
-             '<strong>TOKEN</strong><br><small>String (Header)</small>' +
-            '</div>' +
-            '<div class="col-md-6">' +
-            ' <input class="form-control form-control-sm" onkeyup="avoidSpaces(this)" placeholder=""' +
-            'type="text" id="m_'+methods[i].name+'_token" required value="'+API_TOKEN+'">' +
-            '</div>' : '') +
-            (obj.authType == 'KEY' ?  '<div class="col-md-3 mt-1">' +
-            '<strong>KEY</strong><br><small>String (Header)</small>' +
-            '</div>' +
-            '<div class="col-md-6">' +
-            ' <input class="form-control form-control-sm" onkeyup="avoidSpaces(this)" placeholder=""' +
-            'type="text" id="m_'+methods[i].name+'_key" required value="'+(obj.apiKey ? obj.apiKey : API_KEY)+'">' +
-            '</div>'  : '') +
-            '<div class="col-md-12 mt-1"><div style="display:none" class="mt_'+methods[i].name+'"><strong>Body Params:</strong><small></small>' +
-            '<textarea class="form-control form-control-sm" required  id="m_'+methods[i].name+'_params">'+JSON.stringify(bodyParams)+'</textarea>' +
+            (obj.authType == 'TOKEN' ? '<div class="col-md-3">' +
+                '<strong>TOKEN</strong><br><small>String (Header)</small>' +
+                '</div>' +
+                '<div class="col-md-6">' +
+                ' <input class="form-control form-control-sm" onkeyup="avoidSpaces(this)" placeholder=""' +
+                'type="text" id="m_' + methods[i].name + '_token" required value="' + API_TOKEN + '">' +
+                '</div>' : '') +
+            (obj.authType == 'KEY' ? '<div class="col-md-3 mt-1">' +
+                '<strong>KEY</strong><br><small>String (Header)</small>' +
+                '</div>' +
+                '<div class="col-md-6">' +
+                ' <input class="form-control form-control-sm" onkeyup="avoidSpaces(this)" placeholder=""' +
+                'type="text" id="m_' + methods[i].name + '_key" required value="' + (obj.apiKey ? obj.apiKey : API_KEY) + '">' +
+                '</div>' : '') +
+            '<div class="col-md-12 mt-1"><div style="display:none" class="mt_' + methods[i].name + '"><strong>Body Params:</strong><small></small>' +
+            '<textarea class="form-control form-control-sm" required  id="m_' + methods[i].name + '_params">' + JSON.stringify(bodyParams) + '</textarea>' +
             '<small>Content-Type: <label>application/json</label></small> </div>' +
             '<button type="submit" class="btn btn-sm btn-danger pull-right mt-2">Try It Out</button></div>' +
-            '<div class="col-md-12 mt-2 m_'+methods[i].name+'_result"></div> ' +
+            '<div class="col-md-12 mt-2 m_' + methods[i].name + '_result"></div> ' +
             '</div></form>'
 
-        if(methodName){
-           if(methodName == methods[i].name){
-               $(".apiBody").append(str);
-               methodChange(methods[i].name)
-           }
-        }else{
+        if (methodName) {
+            if (methodName == methods[i].name) {
+                $(".apiBody").append(str);
+                methodChange(methods[i].name)
+            }
+        } else {
             $(".apiBody").append(str);
             methodChange(methods[i].name)
         }
@@ -7763,23 +7115,23 @@ function renderAPIBody(microBaseUrl){
     }
 }
 
-function methodChange(nam){
+function methodChange(nam) {
 
-    let meth = $("."+nam).val();
-$(".m_"+nam+"_result").html('')
-    if(meth === 'upload'){
-        $("#f_"+nam).css('display','block')
-        $(".mt_"+nam).css('display','none')
-    } else if(meth === 'get'){
-        $("#f_"+nam).css('display','none')
-        $(".mt_"+nam).css('display','none')
-    }else{
-        $("#f_"+nam).css('display','none')
-        $(".mt_"+nam).css('display','block')
+    let meth = $("." + nam).val();
+    $(".m_" + nam + "_result").html('')
+    if (meth === 'upload') {
+        $("#f_" + nam).css('display', 'block')
+        $(".mt_" + nam).css('display', 'none')
+    } else if (meth === 'get') {
+        $("#f_" + nam).css('display', 'none')
+        $(".mt_" + nam).css('display', 'none')
+    } else {
+        $("#f_" + nam).css('display', 'none')
+        $(".mt_" + nam).css('display', 'block')
     }
 }
 
-function simulateAPI(nam){
+function simulateAPI(nam) {
 
     let obj = {};
 
@@ -7792,43 +7144,28 @@ function simulateAPI(nam){
     let methods = {};
 
 
-    for(let j=0;j<obj.methods.length;j++){
+    for (let j = 0; j < obj.methods.length; j++) {
         if (nam === obj.methods[j].name) {
             methods = obj.methods[j];
         }
     }
 
-    let dataObj = JSON.parse($("#m_"+nam+"_params").val())
+    let dataObj = JSON.parse($("#m_" + nam + "_params").val())
 
-    executeMicroAPI(slugId,obj.name,methods.slug,dataObj,$("#m_"+nam+"_key").val(),$("#m_"+nam+"_token").val(),obj,function (status,result){
+    executeMicroAPI(slugId, obj.name, methods.slug, dataObj, $("#m_" + nam + "_key").val(), $("#m_" + nam + "_token").val(), obj, function (status, result) {
 
-        $(".m_"+nam+"_result").html("<label>Response: </label><p class='break-word'>"+JSON.stringify(result)+"</p>")
+        $(".m_" + nam + "_result").html("<label>Response: </label><p class='break-word'>" + JSON.stringify(result) + "</p>")
     })
 
 }
 
-function updateAPISlug(){
-    let microBaseUrl = API_BASE_PATH+"/micro/service/call/[METHOD]/";
-    setMicroAPISlug($("#micro_apiSlug").val(),function (status,data){
-        if(status){
-            successMsg('Successfully updated')
-            slugId = $("#micro_apiSlug").val();
-            microBaseUrl += slugId +"/";
-            renderAPIBody(microBaseUrl)
-        }else{
-            errorMsg('Error in update')
-        }
-    })
-}
-
-
-function resetAPISlug(){
-    let microBaseUrl = API_BASE_PATH+"/micro/service/call/[METHOD]/";
-    deleteMicroAPISlug(slugId, function (status, data) {
+function updateAPISlug() {
+    let microBaseUrl = API_BASE_PATH + "/micro/service/call/[METHOD]/";
+    setMicroAPISlug($("#micro_apiSlug").val(), function (status, data) {
         if (status) {
             successMsg('Successfully updated')
-            $("#micro_apiSlug").val(DOMAIN_KEY)
-            microBaseUrl += DOMAIN_KEY +"/";
+            slugId = $("#micro_apiSlug").val();
+            microBaseUrl += slugId + "/";
             renderAPIBody(microBaseUrl)
         } else {
             errorMsg('Error in update')
@@ -7837,42 +7174,57 @@ function resetAPISlug(){
 }
 
 
-function toggleHandle(id){
-    if(id === 1){
-        $(".liveBlocks").css('display','none')
-        $(".bottomBar").css('height',0)
+function resetAPISlug() {
+    let microBaseUrl = API_BASE_PATH + "/micro/service/call/[METHOD]/";
+    deleteMicroAPISlug(slugId, function (status, data) {
+        if (status) {
+            successMsg('Successfully updated')
+            $("#micro_apiSlug").val(DOMAIN_KEY)
+            microBaseUrl += DOMAIN_KEY + "/";
+            renderAPIBody(microBaseUrl)
+        } else {
+            errorMsg('Error in update')
+        }
+    })
+}
+
+
+function toggleHandle(id) {
+    if (id === 1) {
+        $(".liveBlocks").css('display', 'none')
+        $(".bottomBar").css('height', 0)
         $(".btnHandle").html('Live Logs <i class="icon-chevron-up"></i>')
-        $(".btnHandle").attr('onclick','toggleHandle(2)')
-    }else{
+        $(".btnHandle").attr('onclick', 'toggleHandle(2)')
+    } else {
 
         $(".btnHandle").html('Live Logs <i class="icon-chevron-down"></i>')
-        $(".liveBlocks").css('display','block')
-        $(".bottomBar").css('height',175)
-        $(".btnHandle").attr('onclick','toggleHandle(1)')
+        $(".liveBlocks").css('display', 'block')
+        $(".bottomBar").css('height', 175)
+        $(".btnHandle").attr('onclick', 'toggleHandle(1)')
     }
 
 }
 
-function checkSimulateDevices(id,place){
+function checkSimulateDevices(id, place) {
     var queryParams = {
         "query": {
-          "bool": {
-            "must": [
-              {
-                "match": {
-                  "domainKey": DOMAIN_KEY
-                }
-              }
-            ],
-            "should": []
-          }
+            "bool": {
+                "must": [
+                    {
+                        "match": {
+                            "domainKey": DOMAIN_KEY
+                        }
+                    }
+                ],
+                "should": []
+            }
         },
         "sort": [
-          {
-            "registeredStamp": {
-              "order": "desc"
+            {
+                "registeredStamp": {
+                    "order": "desc"
+                }
             }
-          }
         ],
         "size": 100,
         "from": 0
@@ -7882,7 +7234,7 @@ function checkSimulateDevices(id,place){
         "extraPath": "",
         "query": JSON.stringify(queryParams),
         "params": [],
-        "type" : 'DEVICE'
+        "type": 'DEVICE'
     };
     $.ajax({
         "dataType": 'json',
@@ -7893,8 +7245,8 @@ function checkSimulateDevices(id,place){
         success: function (data) {
             var resData = searchQueryFormatterNew(data);
             var resultData = resData.data;
-            DEVICE_LIST =resultData.data;     
-            if(DEVICE_LIST.length == 0){
+            DEVICE_LIST = resultData.data;
+            if (DEVICE_LIST.length == 0) {
 
                 $("#addDevice").modal({
                     backdrop: 'static',
@@ -7904,12 +7256,12 @@ function checkSimulateDevices(id,place){
                 $("#addDevice form")[0].reset();
                 loadDeviceModels('');
                 $("#addDevice").modal('show');
-                $("#device_desc").css("height","90");
-                $("#addDevice form").attr('onsubmit','addDevice('+id+')');
+                $("#device_desc").css("height", "90");
+                $("#addDevice form").attr('onsubmit', 'addDevice(' + id + ')');
                 errorMsg('No Devices Added so far!')
 
-            }else{
-                openSimulateModal(id,place);
+            } else {
+                openSimulateModal(id, place);
             }
         }
     });
@@ -7917,168 +7269,180 @@ function checkSimulateDevices(id,place){
 }
 
 function addDevice(id) {
-      var device_model = "";
-      if(choosemodel){
-        device_model =$.trim($("#device_model").val() );
-      }else{
-        device_model =$.trim($("#new_device_model").val() );
-      }
-    
-      var device_id =$.trim($("#device_id").val() );
-      var device_name =$.trim($("#device_name").val() );
-      var device_version =$.trim($("#device_version").val() );
-      var device_desc =$.trim($("#device_desc").val() );
-  
-       if(device_id === "" ){
-          errorMsgBorder('Device ID is required', 'device_id');
-          return false;
-         
-      }else if(device_name === "" ){
-     
-          errorMsgBorder('Device Name is required', 'device_name');
-          return false;
-         
-      }else if(device_model === "" ){
-     
-          errorMsgBorder('Device Model is required', 'new_device_model');
-          return false;
-         
-      }else if(device_version === "" ){
-     
-          errorMsgBorder('Device Version is required', 'device_version');
-          return false;
-         
-      
-      }else if(device_desc === "" ){
-     
-          errorMsgBorder('Device Description is required', 'device_desc');
-          return false;
-         
-      }else{    
+    var device_model = "";
+    if (choosemodel) {
+        device_model = $.trim($("#device_model").val());
+    } else {
+        device_model = $.trim($("#new_device_model").val());
+    }
 
-          let modelstatus = true;
-          let modeltext;
-        
-         var modelObj = {
-              "id": device_model,
-              "version": $("#device_version").val(),
-              "description": $("#device_desc").val(),
-          }
-      
-          $(".add-device-proceed").html("<div class='d-flex'><i class='fa fa-spinner fa-spin'></i><p class='pl-2 m-0'>Processing</p></div>").attr("disabled",true);
+    var device_id = $.trim($("#device_id").val());
+    var device_name = $.trim($("#device_name").val());
+    var device_version = $.trim($("#device_version").val());
+    var device_desc = $.trim($("#device_desc").val());
 
-      async.series({
-          SameModelID: function (rmdcbk) {
-          if( modelmode === 'new'){
-           retreiveDeviceModel(modelObj.id, function (status, data) {
-              if (status) {
-                  modelstatus =false;
-                  $(".btnSubmit").removeAttr('disabled');
-                  errorMsgBorder('Device Model ID already exist', 'new_device_model');
-                  rmdcbk(null, true);
-              }else{
-                  modelstatus =true;
-                  rmdcbk(null, false);
-              }
-           }) 
-          }else{
-              rmdcbk(null, false); 
-          }
-          },
-          TriggerModelCreate: function (mdcbk){
-                // Allow if is not choose - Create Device Model  
-            if(modelmode !== 'choose' && modelstatus){
-              upsertDeviceModel(modelObj,function (status, data) {
-                if(modelmode === 'new'){
-                    modeltext = 'Creat'
-                 }
-                 else{
-                    modeltext = 'Updat'
-                 }           
-                if (status) {
-                    successMsg('Device Model '+modeltext+'ed Successfully');
-                    modelstatus =true;
-                    mdcbk(null, true);
+    if (device_id === "") {
+        errorMsgBorder('Device ID is required', 'device_id');
+        return false;
+
+    } else if (device_name === "") {
+
+        errorMsgBorder('Device Name is required', 'device_name');
+        return false;
+
+    } else if (device_model === "") {
+
+        errorMsgBorder('Device Model is required', 'new_device_model');
+        return false;
+
+    } else if (device_version === "") {
+
+        errorMsgBorder('Device Version is required', 'device_version');
+        return false;
+
+
+    } else if (device_desc === "") {
+
+        errorMsgBorder('Device Description is required', 'device_desc');
+        return false;
+
+    } else {
+
+        let modelstatus = true;
+        let modeltext;
+
+        var modelObj = {
+            "id": device_model,
+            "version": $("#device_version").val(),
+            "description": $("#device_desc").val(),
+        }
+
+        $(".add-device-proceed").html("<div class='d-flex'><i class='fa fa-spinner fa-spin'></i><p class='pl-2 m-0'>Processing</p></div>").attr("disabled", true);
+
+        async.series({
+            SameModelID: function (rmdcbk) {
+                if (modelmode === 'new') {
+                    retreiveDeviceModel(modelObj.id, function (status, data) {
+                        if (status) {
+                            modelstatus = false;
+                            $(".btnSubmit").removeAttr('disabled');
+                            errorMsgBorder('Device Model ID already exist', 'new_device_model');
+                            rmdcbk(null, true);
+                        } else {
+                            modelstatus = true;
+                            rmdcbk(null, false);
+                        }
+                    })
                 } else {
-                    errorMsg('Error in '+modeltext+'ing Device Model')
-                    modelstatus =false;
+                    rmdcbk(null, false);
+                }
+            },
+            TriggerModelCreate: function (mdcbk) {
+                // Allow if is not choose - Create Device Model  
+                if (modelmode !== 'choose' && modelstatus) {
+                    upsertDeviceModel(modelObj, function (status, data) {
+                        if (modelmode === 'new') {
+                            modeltext = 'Creat'
+                        }
+                        else {
+                            modeltext = 'Updat'
+                        }
+                        if (status) {
+                            successMsg('Device Model ' + modeltext + 'ed Successfully');
+                            modelstatus = true;
+                            mdcbk(null, true);
+                        } else {
+                            errorMsg('Error in ' + modeltext + 'ing Device Model')
+                            modelstatus = false;
+                            mdcbk(null, false);
+                        }
+                        $(".btnSubmit").removeAttr('disabled');
+                    })
+                } else {
                     mdcbk(null, false);
-                 }
-                $(".btnSubmit").removeAttr('disabled');
-               })
-             }else{
-              mdcbk(null, false);
-             }
-          },
-          CreateDevice: function(Dcbk){
+                }
+            },
+            CreateDevice: function (Dcbk) {
                 // Device Create  
-                if(modelstatus){
-                  var deviceObj = {
-                      "id": $("#device_id").val(),
-                      "name": $("#device_name").val(),
-                      "modelId": device_model,
-                      "version": $("#device_version").val(),
-                      "description": $("#device_desc").val(),
-                      }
-                      retreiveDevice(deviceObj.id, function (status, data) {
-                      if (status) {
-                          $(".btnSubmit").removeAttr('disabled');
-                          errorMsgBorder('Device ID already exist', 'device_id');
-                          $(".add-device-proceed").html("Proceed").attr("disabled",false);
-                          Dcbk(null, false);
-                      } else {
-                          upsertDevice(deviceObj,function (status, data) {
-                              if (status) {
-                                  successMsg('Device Created Successfully');
-                                  //loadDeviceList();
-                                  $("#addDevice").modal('hide');
-                                  openSimulateModal(id,1);
-                                  $(".add-device-proceed").html("Proceed").attr("disabled",false);
-                                  Dcbk(null, true);
-                              } else {
-                                
-                                  errorMsg('Error in Creating Device')
-                                  Dcbk(null, false);
-                              }
-                              $(".btnSubmit").removeAttr('disabled');
-                          })
-                      }
-                      })
-                  }else{
-                      $(".add-device-proceed").html("Proceed").attr("disabled",false);
-                      Dcbk(null, false);
-                  }
-          }
-  
-        })    
-      }  
-       
-  }
+                if (modelstatus) {
+                    var deviceObj = {
+                        "id": $("#device_id").val(),
+                        "name": $("#device_name").val(),
+                        "modelId": device_model,
+                        "version": $("#device_version").val(),
+                        "description": $("#device_desc").val(),
+                    }
+                    retreiveDevice(deviceObj.id, function (status, data) {
+                        if (status) {
+                            $(".btnSubmit").removeAttr('disabled');
+                            errorMsgBorder('Device ID already exist', 'device_id');
+                            $(".add-device-proceed").html("Proceed").attr("disabled", false);
+                            Dcbk(null, false);
+                        } else {
+                            upsertDevice(deviceObj, function (status, data) {
+                                if (status) {
+                                    successMsg('Device Created Successfully');
+                                    //loadDeviceList();
+                                    $("#addDevice").modal('hide');
+                                    openSimulateModal(id, 1);
+                                    $(".add-device-proceed").html("Proceed").attr("disabled", false);
+                                    Dcbk(null, true);
+                                } else {
 
-  function loadDeviceModels(check) {
+                                    errorMsg('Error in Creating Device')
+                                    Dcbk(null, false);
+                                }
+                                $(".btnSubmit").removeAttr('disabled');
+                            })
+                        }
+                    })
+                } else {
+                    $(".add-device-proceed").html("Proceed").attr("disabled", false);
+                    Dcbk(null, false);
+                }
+            }
+
+        })
+    }
+
+}
+
+function loadDeviceModels(check) {
     $("#device_model").html("");
     let devmodel;
-    getDeviceModel(1000,function (status, data) {
-        if(status && data.length > 0){
+    getDeviceModel(1000, function (status, data) {
+        if (status && data.length > 0) {
             device_model_list = data;
 
-           check === 'update' ? '' : $("#device_model").append('<option value="newmodel">- Create New Model</option>') ;
-            for(var i=0;i<data.length;i++){
-               $("#device_model").append('<option value="'+data[i].id+'">'+data[i].id+'</option>');  
-                if($("#device_model").val() === data[i].id){
-                $("#device_version").html(data[i].description)
-                $("#device_desc").html(data[i].description)
-                }           
+            check === 'update' ? '' : $("#device_model").append('<option value="newmodel">- Create New Model</option>');
+            for (var i = 0; i < data.length; i++) {
+                $("#device_model").append('<option value="' + data[i].id + '">' + data[i].id + '</option>');
+                if ($("#device_model").val() === data[i].id) {
+                    $("#device_version").html(data[i].description)
+                    $("#device_desc").html(data[i].description)
+                }
             }
-           
-            if($("#device_model").val() === 'newmodel' &&   check !== 'update'){
-                togglemodel('newmodel');      
-            }else{
+
+            if ($("#device_model").val() === 'newmodel' && check !== 'update') {
+                togglemodel('newmodel');
+            } else {
                 togglemodel('edit');
             }
-            
-        }else{
+
+        } else {
             device_model_list = [];
         }
     })
 }
+
+function toggleHeading(id) {
+    $(".rulesListli").removeClass("rules-list-active");
+    $(".rule_" + id).addClass("rules-list-active")
+}
+
+function rightPanelDetails(clsName) {
+    $(".detailsBlock,.processBlock,.inputBlock,.jobFields,.messageFields,.defaultFields").css('display', 'none')
+    if (clsName) $(clsName).css('display','block')
+}
+
+rightPanelDetails(".detailsBlock")

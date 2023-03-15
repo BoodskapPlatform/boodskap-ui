@@ -7,8 +7,10 @@ var dashboardMobileList = [];
 
 $(document).ready(function () {
 
-    loadTokenList('all');
+    loadTokenList('API');
     $("body").removeClass('bg-white');
+    $('.help-url').attr('href',HELP_URL+"pushauthtoken");
+
 });
 
 function loadTokenList(type) {
@@ -17,24 +19,23 @@ function loadTokenList(type) {
         tokenTable.destroy();
         $("#tokenTable").html("");
     }
-    if(type!="" && typeof(type)!="undefined"){
-        TOKEN_TYPE = "";
-        $("#authTokenTypes option[value='']").prop("selected", true);
-    }else{
-        TOKEN_TYPE = $("#authTokenTypes option:selected").val();
-    }
+    // if(type!="" && typeof(type)!="undefined"){
+    //     TOKEN_TYPE = "";
+    //     $("#authTokenTypes option[value='']").prop("selected", true);
+    // }else{
+    //     TOKEN_TYPE = $("#authTokenTypes option:selected").val();
+    // }
+    TOKEN_TYPE = $("#authTokenTypes option:selected").val();
     
     var fields = [
         {
             mData: 'token',
-            orderable: false,
             sTitle: 'Token',
             mRender: function (data, type, row) {
                 setCopyToken(data);
                 return  '<i class="icon-key2 pr-1" style="color: #666666;"></i> '+data+' <a href="javascript:void(0)" class="apiToken'+data+'" style="text-decoration: none;color: #363636;" title="Click here to copy the token" data-clipboard-text="'+data+'">' +
                     '<i class="pl-1 icon-copy2"></i>' +
                     '</a>';
-
             }
         },
         {
@@ -47,7 +48,8 @@ function loadTokenList(type) {
         },
         {
             mData: 'mode',
-            sTitle: 'Mode'
+            sTitle: 'Mode',
+            orderable: false,
         },
         {
             mData: 'accesses',
@@ -74,16 +76,14 @@ function loadTokenList(type) {
     ];
 
     var tableOption = {
-        fixedHeader: {
-            header: true,
-            headerOffset: -5
-        },
+        
         responsive: true,
         paging: true,
         searching: true,
         "ordering": true,
         scrollY: '100px',
         scrollCollapse: true,
+        aaSorting: [[0 , 'desc']],
         iDisplayLength: 10,
         lengthMenu: [[10, 50, 100], [10, 50, 100]],
         dom: '<"bskp-search-left" f> lrtip',
@@ -115,7 +115,7 @@ function loadTokenList(type) {
         tokenTable = $("#tokenTable").DataTable(tableOption);
         $("#tokenTable_filter").hide();
         $('.dataTables_filter input').attr('maxlength', 100);
-        if(type!="all"){
+        if(TOKEN_TYPE != "API"){
             $("#tokenTable_filter").show();
         }else{
             setTimeout(() => {
@@ -130,14 +130,6 @@ function loadTokenList(type) {
     });
 }
 
-function setCopyToken(row_id){
-
-    var tkey = new ClipboardJS('.apiToken'+row_id);
-    tkey.on('success', function (e) {
-        successMsg('Token Copied Successfully')
-    });
-}
-
 function openModal(type, id) {
     if (type === 1) {   //Expire Token Confirmation
         current_token_id = id;
@@ -146,6 +138,17 @@ function openModal(type, id) {
             backdrop: 'static',
             keyboard: false
         },'show');
+    }else if(type == 2){
+        $('#afterCreate').addClass('d-none')
+        $('.confirmation').removeClass('d-none')
+        $('#closeBtn').html('Close')
+        $('#proceedBtn').removeClass('d-none')
+        $("#AuthToken").modal({
+            backdrop: 'static',
+            keyboard: false
+        },'show');
+       
+     ;
     }
 }
 
@@ -311,4 +314,38 @@ function updateTokenProp(id, property, e) {
 
         })
     });
+}
+
+function createAPIToken(){
+    $('#AuthToken').modal({
+        backdrop: 'static',
+        keyboard: false
+    })
+
+    let requestObj ={
+        type : 'API',
+        entity : ''
+    }
+    createToken(requestObj, function(status, data){
+        if (status) {
+            $('.confirmation').addClass('d-none')
+            $('#afterCreate').removeClass('d-none')
+            $('#proceedBtn').addClass('d-none')
+            $('#closeBtn').html('Ok')
+            var tkey = new ClipboardJS('.apiToken'+data.token,{ 
+                container: document.getElementById('AuthToken')
+        });
+         tkey.on('success', function (e) {
+             successMsg('Token Copied Successfully')
+         });
+            $('#copyAPI').html('<i class="icon-key2 pr-1" style="color: #666666;"></i> <code>'+data.token+'</code> <a href="javascript:void(0)" class="apiToken'+data.token+'" style="text-decoration: none;color: #363636;" title="Click here to copy the token" data-clipboard-text="'+data.token+'">' +
+            '<i class="pl-1 icon-copy2"></i>' +
+            '</a>')
+            setTimeout(() => {
+                loadTokenList()
+            }, 1500);
+        } else {
+            errorMsg('Error in device token create');
+        }
+    })
 }

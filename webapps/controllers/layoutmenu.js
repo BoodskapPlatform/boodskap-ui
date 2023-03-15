@@ -2,41 +2,42 @@ var switchColor = '#9E9E9E';
 var LIVE_UPDATE_GLOBAL = Cookies.get('live_update_global') ? Cookies.get('live_update_global') : 'OFF';
 
 var userEventMenu = ' <li class="has-sub sideMain">\n' +
-    '        <a href="'+WEB_BASE_PATH+'/userevents">\n' +
+    '        <a href="' + WEB_BASE_PATH + '/userevents">\n' +
     '            <i class="icon-bell4"></i>\n' +
     '            <span>Event Subscriptions</span>\n' +
     '        </a>\n' +
-    '        <a href="'+WEB_BASE_PATH+'/alexa">\n' +
+    '        <a href="' + WEB_BASE_PATH + '/alexa">\n' +
     '            <i class="icon-microphone"></i>\n' +
     '            <span>Amazon Alexa</span>\n' +
     '        </a>\n' +
     '        </li>';
 
-    var rdata = [];
+var rdata = [];
 $(document).ready(function () {
 
-    $(".poweredBy").attr('src',DEFAULT_POWERED_BY);
+    $(".poweredBy").attr('src', DEFAULT_POWERED_BY);
     $(".currentYear").html(moment().format('YYYY'));
 
     if (USER_OBJ.user) {
 
         $(".user_profile_name").html((USER_OBJ.user.firstName ? USER_OBJ.user.firstName : 'Admin') + ' ' + (USER_OBJ.user.lastName ? USER_OBJ.user.lastName : ""));
-        $(".userRoles").html('<b>Your Role: </b><br>'+USER_OBJ.user.roles.join('<br>'));
+        $(".userRoles").html('<b>Your Role: </b><br>' + USER_OBJ.user.roles.join('<br>'));
         $(".domain_key").html(USER_OBJ.domainKey);
         $(".api_key").html(USER_OBJ.apiKey);
         $(".api_token").html(USER_OBJ.token);
         var emailId = USER_OBJ.domain.email ? USER_OBJ.domain.email : USER_OBJ.user.email;
-        $(".domain_email").html('<a href=mailto:'+emailId+' style="text-decoration: none;color:#666" title="Email to Domain Admin">'+emailId+'</a>');
-        $(".domainKey").attr('data-clipboard-text',USER_OBJ.domainKey);
-        $(".apiKey").attr('data-clipboard-text',USER_OBJ.apiKey);
-        $(".apiToken").attr('data-clipboard-text',USER_OBJ.token);
+        $(".domain_email").html('<a href=mailto:' + emailId + ' style="text-decoration: none;color:#666" title="Email to Domain Admin">' + emailId + '</a>');
+        $(".domainKey").attr('data-clipboard-text', USER_OBJ.domainKey);
+        $(".apiKey").attr('data-clipboard-text', USER_OBJ.apiKey);
+        $(".apiToken").attr('data-clipboard-text', USER_OBJ.token);
 
         $(".linked_domains").html("");
-        if(LINKED_DOMAINS) {
+        if (LINKED_DOMAINS) {
             for (var i = 0; i < LINKED_DOMAINS.length; i++) {
-                $(".linked_domains").append('<label class="label label-default" onclick="openLinkedDomain(\''+LINKED_DOMAINS[i].domainKey+'\')">' + LINKED_DOMAINS[i].label + '</label><br>')
+                $(".linked_domains").append('<label class="label label-default" onclick="openLinkedDomain(\'' + LINKED_DOMAINS[i].domainKey + '\')">' + LINKED_DOMAINS[i].label + '</label><br>')
             }
         }
+        
         recentUpdate();
 
         loadUserProfilePicture();
@@ -48,18 +49,19 @@ $(document).ready(function () {
         checkDomainSQLAccess();
         checkDomainDBAccess();
         getDevToken();
-        
+        checkLicense()
+
     }
 
     $(".api_server_status").html('<i class="fa fa-circle" style="color: green"></i>');
     $(".mqtt_server_status").html('<i class="fa fa-circle" style="color: green"></i>');
     $(".cluster_status").html('<i class="fa fa-circle" style="color: green"></i>');
 
-    if(USER_OBJ && USER_OBJ.domain) {
+    if (USER_OBJ && USER_OBJ.domain) {
         $(".idRange").html(USER_OBJ.domain.startId + ' to ' + (USER_OBJ.domain.startId + ID_RANGE_COUNT));
     }
 
-    $(".rightSideBarPanel").css('height',$(window).height());
+    $(".rightSideBarPanel").css('height', $(window).height());
 
 
     //Cookie & Tab
@@ -85,7 +87,7 @@ $(document).ready(function () {
 
 function restrictAccess() {
 
-    if (USER_ROLE.indexOf('admin') === -1){
+    if (USER_ROLE.indexOf('admin') === -1) {
         $(".adminMenu").remove();
     }
 
@@ -96,12 +98,12 @@ function restrictAccess() {
         // $(".domain_logo").removeAttr('onclick');
         $(".menulink").remove();
 
-        $(".sidenav ul").html('<li class="has-sub active sideMain homeMenu">'+
-        '<a href="'+WEB_BASE_PATH+'/dashboard">'+
-        '<i class="fa fa-home"></i>'+
-        '<span>Home</span>'+
-        '</a>'+
-        '</li>'+userEventMenu);
+        $(".sidenav ul").html('<li class="has-sub active sideMain homeMenu">' +
+            '<a href="' + WEB_BASE_PATH + '/dashboard">' +
+            '<i class="fa fa-home"></i>' +
+            '<span>Home</span>' +
+            '</a>' +
+            '</li>' + userEventMenu);
 
     }
 }
@@ -124,14 +126,14 @@ function removeCookies() {
 }
 
 function logout() {
-    loginOutCall(function (status,data) {
+    loginOutCall(function (status, data) {
         removeCookies();
-        if(Cookies.get('domain')){
+        if (Cookies.get('domain')) {
             var domainKey = Cookies.get('domain');
             Cookies.remove('domain');
-            document.location=BASE_PATH+'/'+domainKey;
-        }else{
-            document.location=BASE_PATH+'/login';
+            document.location = BASE_PATH + '/' + domainKey;
+        } else {
+            document.location = BASE_PATH + '/login';
         }
 
     });
@@ -147,10 +149,10 @@ function checkPrivacyPolicy() {
         getDomainProperty(PRIVACY_POLICY, function (status, data) {
             if (status) {
                 var val = data.value;
-                if(val === 'true'){
+                if (val === 'true') {
                     Cookies.set(PRIVACY_POLICY, "true");
                     checkDomainName();
-                }else{
+                } else {
                     $("#privacyModal").modal({
                         backdrop: 'static',
                         keyboard: false
@@ -164,7 +166,7 @@ function checkPrivacyPolicy() {
             }
 
         });
-    }else{
+    } else {
         checkDomainName();
     }
 }
@@ -181,8 +183,12 @@ function proceedPrivacy() {
             Cookies.set(PRIVACY_POLICY, "true");
             $("#privacyModal").modal('hide');
             checkDomainName();
-        }else{
-            errorMsg(data.message)
+        } else {console.log(data)   
+            if(data.code == "ACCESS_DENIED"){
+                warningMsg(data.message)
+            }else{
+                errorMsg(data.message)
+            }
         }
     })
 
@@ -209,7 +215,7 @@ function checkDomainName() {
 
         });
 
-    }else{
+    } else {
         $(".domain_name").html(Cookies.get('domain_name'))
     }
 }
@@ -223,7 +229,7 @@ function editDomainName() {
 }
 
 function saveDomainName() {
-    
+
     var data = {
         name: DOMAIN_UUID,
         value: $("#domainName").val()
@@ -234,7 +240,7 @@ function saveDomainName() {
             Cookies.set('domain_name', $("#domainName").val());
             $(".domain_name").html($("#domainName").val());
             $("#domainNameModal").modal('hide');
-        }else{
+        } else {
             errorMsg('Error Occurred! Please try again!')
         }
     })
@@ -266,13 +272,13 @@ function loadUserProfilePicture() {
 
 function loadLogoPicture() {
 
-    if(ADMIN_ACCESS){
+    if (ADMIN_ACCESS) {
         if (!Cookies.get('domain_logo')) {
 
             getGlobalProperty(ADMIN_DOMAIN_BRANDING_PROPERTY, function (status, data) {
                 if (status) {
                     var src = data.data;
-                    $(".domain_logo").attr('src', API_BASE_PATH + '/files/public/download/' +src).show();
+                    $(".domain_logo").attr('src', API_BASE_PATH + '/files/public/download/' + src).show();
                     Cookies.set('domain_logo', src);
                 } else {
                     $(".domain_logo").attr('src', DEFAULT_LOGO_PATH).show();
@@ -280,12 +286,11 @@ function loadLogoPicture() {
 
             })
 
-        }else{
-            $(".domain_logo").attr('src', API_BASE_PATH + '/files/public/download/'+ Cookies.get('domain_logo')).show();
+        } else {
+            $(".domain_logo").attr('src', API_BASE_PATH + '/files/public/download/' + Cookies.get('domain_logo')).show();
         }
-    }else{
+    } else {
         if (!Cookies.get('domain_logo')) {
-
             getDomainProperty(DOMAIN_BRANDING_PROPERTY, function (status, data) {
                 if (status) {
                     var src = JSON.parse(data.value);
@@ -299,7 +304,7 @@ function loadLogoPicture() {
                 }
 
             })
-        }else{
+        } else {
             $(".domain_logo").attr('src', API_BASE_PATH + '/files/download/' + USER_OBJ.token + '/' + Cookies.get('domain_logo')).show();
         }
     }
@@ -324,13 +329,13 @@ function rollThemeProp(obj) {
     $(".sidebar .nav li.active a i").css('color', obj.subHeaderBg);
     $(".sidebar .nav li.nav-header").css('color', obj.subHeaderBg);
 
-    if(obj.headerBg.toUpperCase() !== DEFAULT_THEME.headerBg.toUpperCase()){
+    if (obj.headerBg.toUpperCase() !== DEFAULT_THEME.headerBg.toUpperCase()) {
         $(".sidebar .nav li.active a i").css('color', obj.subHeaderBg);
         $(".sidebar .nav li.nav-header").css('color', obj.subHeaderBg);
         $(".sidebar .nav li a").css('color', '#eee');
 
     }
-    else{
+    else {
         $(".sidebar .nav li.active a i").css('color', DEFAULT_THEME.submenu.sidebarActiveITagColor);
         $(".sidebar .nav li.nav-header").css('color', DEFAULT_THEME.submenu.sidebarNavHeaderColor);
         $(".sidebar .nav li a").css('color', '#eee');
@@ -353,7 +358,7 @@ function geThemeProperty() {
                 Cookies.set('platform_theme', obj);
                 rollThemeProp(obj);
 
-            }else{
+            } else {
                 rollThemeProp(DEFAULT_THEME);
                 Cookies.set('platform_theme', DEFAULT_THEME);
             }
@@ -388,15 +393,15 @@ function QueryFormatter(data) {
         var tempData = []
 
         for (var i = 0; i < records.length; i++) {
-            if( records[i]['_id'] != '_search') {
+            if (records[i]['_id'] != '_search') {
                 records[i]['_source']['_id'] = records[i]['_id'];
                 tempData.push(records[i]['_source']);
-            }else{
+            } else {
                 count++;
             }
         }
 
-        totalRecords = totalRecords > 0 ? totalRecords-count : 0
+        totalRecords = totalRecords > 0 ? totalRecords - count : 0
         resultObj = {
             "total": totalRecords,
             "data": {
@@ -434,10 +439,10 @@ function liveUpdateGlobal(obj) {
 
     var flag = $(obj).is(':checked');
 
-    if(flag){
+    if (flag) {
         Cookies.set('live_update', 'ON');
         LIVE_UPDATE_GLOBAL = 'ON'
-    }else{
+    } else {
         Cookies.set('live_update', 'OFF');
         LIVE_UPDATE_GLOBAL = 'OFF'
     }
@@ -457,25 +462,25 @@ function mqttGlobalListen() {
 
             $(".liveMsg").remove();
 
-            $(".iconLiveStatus").css('color','#ffc107');
+            $(".iconLiveStatus").css('color', '#ffc107');
             setTimeout(function () {
-                $(".iconLiveStatus").css('color',switchColor);
-            },1000);
+                $(".iconLiveStatus").css('color', switchColor);
+            }, 1000);
 
-            if(LIVE_UPDATE_GLOBAL === 'ON' && message.payloadString.includes('deviceid')) {
+            if (LIVE_UPDATE_GLOBAL === 'ON' && message.payloadString.includes('deviceid')) {
 
 
                 var parsedData = JSON.parse(message.payloadString);
                 var topicName = message.destinationName;
 
-                console.log(topicName+" === ",parsedData)
+                console.log(topicName + " === ", parsedData)
 
                 var mid = parsedData.mid ? '<span class="label label-warning">' + parsedData.mid + '</span>' : '';
 
                 var str = `
                 <li>
                 <p style="font-size: 11px;">
-                    <label class="pull-left"> `+mid+`</label>
+                    <label class="pull-left"> `+ mid + `</label>
                     <label class="pull-right"><small>` + moment(parsedData.stamp).format('MM/DD/YYYY hh:mm:ss a') + `</small></label>
                 </p>
                 <p class="codeStyle">` + $.trim(parsedData.data) + `</p>
@@ -508,7 +513,7 @@ function mqttGlobalListen() {
 }
 
 
-function getDevToken(){
+function getDevToken() {
     listAuthToken("DEVICE", function (status, data) {
         if (status && data.length > 0) {
             DEVICE_API_TOKEN = data[0].token;
@@ -527,7 +532,7 @@ function clearTextData() {
 
 
 function getVerticalPermission(id, cbk) {
-    getDomainProperty('v_pem_'+id, function (status, data) {
+    getDomainProperty('v_pem_' + id, function (status, data) {
         if (status) {
             var resData = JSON.parse(data.value);
             cbk(resData);
@@ -545,9 +550,9 @@ function checkUserExist(groupId, userId, cbk) {
         "query": {
             "bool": {
                 "must": [
-                    { match: {domainKey: DOMAIN_KEY}},
-                    { match: {groupId: Number(groupId)}},
-                    { match: {userId: userId}},
+                    { match: { domainKey: DOMAIN_KEY } },
+                    { match: { groupId: Number(groupId) } },
+                    { match: { userId: userId } },
                 ]
             }
         },
@@ -565,14 +570,14 @@ function checkUserExist(groupId, userId, cbk) {
 
 
     searchByQuery('', 'DOMAIN_USER_GROUP_MEMBER', searchQuery, function (status, data) {
-        if(status){
+        if (status) {
             var result = QueryFormatter(data).total;
-            if(result > 0){
+            if (result > 0) {
                 cbk(true)
-            }else{
+            } else {
                 cbk(false)
             }
-        }else{
+        } else {
             cbk(false)
         }
     })
@@ -581,24 +586,24 @@ function checkUserExist(groupId, userId, cbk) {
 
 
 
- function checkDomainSQLAccess() {
-     if (USER_OBJ.sqlAccess) {
-         Cookies.set('sql_access', true);
-     }else{
-         $(".sqlquery").remove();
-         $(".sqlqueryhome").attr('onclick','errorMsg("Contact Administrator!")').children("a").attr("href","javascript:void(0);");
+function checkDomainSQLAccess() {
+    if (USER_OBJ.sqlAccess) {
+        Cookies.set('sql_access', true);
+    } else {
+        $(".sqlquery").remove();
+        $(".sqlqueryhome").attr('onclick', 'errorMsg("Contact Administrator!")').children("a").attr("href", "javascript:void(0);");
 
-     }
- }
+    }
+}
 
 
 
 function checkDomainDBAccess() {
     if (USER_OBJ.dbAccess) {
         Cookies.set('db_access', true);
-    }else{
+    } else {
         $(".dbquery").remove();
-        $(".dbqueryhome").attr('onclick','errorMsg("Contact Administrator!")').children("a").attr("href","javascript:void(0);");
+        $(".dbqueryhome").attr('onclick', 'errorMsg("Contact Administrator!")').children("a").attr("href", "javascript:void(0);");
 
     }
 }
@@ -607,9 +612,9 @@ function checkDomainDBAccess() {
 function checkDomainMongoAccess() {
     if (USER_OBJ.mongoAccess) {
         Cookies.set('mongo_access', true);
-    }else{
+    } else {
         $(".mongoquery").remove();
-        $(".mongoqueryhome").attr('onclick','errorMsg("Contact Administrator!")').children("a").attr("href","javascript:void(0);");
+        $(".mongoqueryhome").attr('onclick', 'errorMsg("Contact Administrator!")').children("a").attr("href", "javascript:void(0);");
 
     }
 }
@@ -618,9 +623,9 @@ function checkDomainMongoAccess() {
 function checkDomainCassandraAccess() {
     if (USER_OBJ.cassandraAccess) {
         Cookies.set('cassandra_access', true);
-    }else{
+    } else {
         $(".cassandraquery").remove();
-        $(".cassandraqueryhome").attr('onclick','errorMsg("")')
+        $(".cassandraqueryhome").attr('onclick', 'errorMsg("")')
 
     }
 }
@@ -641,17 +646,17 @@ function recentUpdate() {
                 if (rdata[0]) {
                     $(".recenthead").html(
                         // `<span onclick="recentUpdate()" class="underdash" >Recently</span>&nbsp;Visited  &nbsp;&nbsp;`
-                       `<span onclick="recentUpdate()" class="underdash" >Recently</span>&nbsp;Visited  &nbsp;&nbsp;<button class="btn bskp-clearvisit" title="Clear Recently visited" onclick="clickRecent('ClearRecent','','','')"> <i class="fa fa-trash-o" aria-hidden="true"></i> </button>`
+                        `<span onclick="recentUpdate()" class="underdash" >Recently</span>&nbsp;Visited  &nbsp;&nbsp;<button class="btn bskp-clearvisit" title="Clear Recently visited" onclick="clickRecent('ClearRecent','','','')"> <i class="fa fa-trash-o" aria-hidden="true"></i> </button>`
                     );
                     $(".recent-fram").removeClass('d-none');
                 } else {
                     $(".recenthead").html(
-                        `<span onclick="recentUpdate()" class="underdash">Features</span> `                        
+                        `<span onclick="recentUpdate()" class="underdash">Features</span> `
                     );
                     $(".recent-fram").addClass('d-none');
                 }
-               
-               rdata.sort(function x(x, y) {
+
+                rdata.sort(function x(x, y) {
                     return y.update_ts - x.update_ts;
                 });
 
@@ -673,7 +678,7 @@ function recentUpdate() {
                     if (res) {
                         $(".recenthead").html(
                             `<span class="underdash">Featured</span> `
-                        );                       
+                        );
                     }
                 },
                 error: function (err) {
@@ -687,16 +692,16 @@ function recentUpdate() {
 function clickRecent(tabname, tabid, loadmenu, cardno) {
     let newclick = true;
     for (i = 0; i < rdata.length; i++) {
-            if (tabid === rdata[i].id) {
+        if (tabid === rdata[i].id) {
             rdata[i].update_ts = Date.now();
             newclick = false;
         }
     }
 
-    if(tabname === 'ClearRecent'){
-        rdata=[];
+    if (tabname === 'ClearRecent') {
+        rdata = [];
     }
-    else{
+    else {
         if (newclick) {
             var inp = {
                 "name": tabname,
@@ -709,7 +714,7 @@ function clickRecent(tabname, tabid, loadmenu, cardno) {
         }
 
     }
-  var obj = {
+    var obj = {
         dataType: "VARCHAR",
         format: "AS_IS",
         name: USER_OBJ.user.email,
@@ -722,7 +727,7 @@ function clickRecent(tabname, tabid, loadmenu, cardno) {
         contentType: "application/json",
         type: "post",
         success: function (res) {
-            recentUpdate() 
+            recentUpdate()
         },
         error: function (err) {
             console.log("Error in execution");
@@ -734,39 +739,39 @@ function recentcard(rdata) {
     $("#recentMenuList").html("")
 
     if (rdata) {
-        let test;     
-        let ui="";
+        let test;
+        let ui = "";
         let idd = "";
-        let hideClass="";
-        for (let i = 0; i < (rdata.length >= 12 ? 12 : rdata.length ); i++) {
-            test = 'loadMenu('+rdata[i].loadmenu +')'
-            idd = rdata[i].id.replaceAll("_","-");
-            
-            if(rdata[i].id === 'dsql_templates' || rdata[i].id === 'dsql_query_console'  || rdata[i].id === 'dSQL_tables' ){
-                USER_OBJ.sqlAccess ?  test = 'loadMenu('+rdata[i].loadmenu +')' : test = "errorMsg('Contact Administrator!')" ;            
-            }else if(rdata[i].id === 'db-templates' || rdata[i].id === 'db-query-console' || rdata[i].id === 'db-tables' ){
-                USER_OBJ.dbAccess ?  test = 'loadMenu('+rdata[i].loadmenu +')' : test = "errorMsg('Contact Administrator!')" ;  
-            }else{
-                test = 'loadMenu('+rdata[i].loadmenu +')'
+        let hideClass = "";
+        for (let i = 0; i < (rdata.length >= 12 ? 12 : rdata.length); i++) {
+            test = 'loadMenu(' + rdata[i].loadmenu + ')'
+            idd = rdata[i].id.replaceAll("_", "-");
+
+            if (rdata[i].id === 'dsql_templates' || rdata[i].id === 'dsql_query_console' || rdata[i].id === 'dSQL_tables') {
+                USER_OBJ.sqlAccess ? test = 'loadMenu(' + rdata[i].loadmenu + ')' : test = "errorMsg('Contact Administrator!')";
+            } else if (rdata[i].id === 'db-templates' || rdata[i].id === 'db-query-console' || rdata[i].id === 'db-tables') {
+                USER_OBJ.dbAccess ? test = 'loadMenu(' + rdata[i].loadmenu + ')' : test = "errorMsg('Contact Administrator!')";
+            } else {
+                test = 'loadMenu(' + rdata[i].loadmenu + ')'
             }
-            if(i>7){
+            if (i > 7) {
                 hideClass = "hide-class";
             }
             if (i >= 0 && i <= 11) {
-                ui+=`<div class="w-25 w-sm-100 w-md-50 px-2 homecard  hmarketplace `+hideClass+`">
-                    <a href="`+WEB_BASE_PATH+"/"+idd+`" onclick="clickRecent('`+rdata[i].name+`','`+idd+`',`+rdata[i].loadmenu+`,`+rdata[i].cardno+`)">
+                ui += `<div class="w-25 w-sm-100 w-md-50 px-2 homecard  hmarketplace ` + hideClass + `">
+                    <a href="`+ WEB_BASE_PATH + "/" + idd + `" onclick="clickRecent('` + rdata[i].name + `','` + idd + `',` + rdata[i].loadmenu + `,` + rdata[i].cardno + `)">
                         <div class="card modules bskp-home-modules">
                             <div class="bskp-icon-frame">
-                                <div class="bskp-Dbg bskp-Dimg`+rdata[i].cardno+`"></div>
+                                <div class="bskp-Dbg bskp-Dimg`+ rdata[i].cardno + `"></div>
                             </div>
-                            <p class="mt-2"><label class="cardtitle">`+rdata[i].name+`</label></p>
+                            <p class="mt-2"><label class="cardtitle">`+ rdata[i].name + `</label></p>
                         </div>
                     </a>
                 </div>`
-            } 
+            }
         }
         $("#recentMenuList").html(ui);
-    }   
+    }
 }
 
 
@@ -901,33 +906,33 @@ var megasearch = {
     ) {
         $(search_home).keyup(function (e) {
             var query = $(this).val().toLowerCase().trim();
-           if (query) {
+            if (query) {
                 $(".sclose").removeClass("d-none");
                 $(".Megamore").hide();
                 // loop mega section
                 $.each($(head_class), function () {
                     var count = 0;
-                    var cardcount =0;
+                    var cardcount = 0;
                     cardcount = $(this).find(searchable_elements).length;
-                // inner loop mega current section    
+                    // inner loop mega current section    
                     $.each($(this).find(searchable_elements), function () {
                         var title = $(this)
                             .find(searchable_text_class)
                             .text()
                             .toLowerCase();
-                       if (title.indexOf(query) == -1) {
+                        if (title.indexOf(query) == -1) {
                             $(this).hide();
                             count++;
                         } else {
-                           $(this).show();
+                            $(this).show();
                         }
                     });
-                    if(cardcount === count ){
+                    if (cardcount === count) {
                         $(this).hide()
-                    }else{
+                    } else {
                         $(this).show()
                     }
-               }
+                }
                 );
             } else {
                 $(this).show();
@@ -946,32 +951,32 @@ var megasearch = {
 
 // HOME SEARCH FUNCTION
 var btsearch = {
-	init: function(search_home, searchable_elements, searchable_text_class) {
-		$(search_home).keyup(function(e){
-			var query = $(this).val().toLowerCase();
-         	if(query){
+    init: function (search_home, searchable_elements, searchable_text_class) {
+        $(search_home).keyup(function (e) {
+            var query = $(this).val().toLowerCase();
+            if (query) {
                 $('.sclose').removeClass('d-none')
                 $(".Homemore").hide();// home recent More... button 
                 // loop through all elements to find match
-				$.each($(searchable_elements), function(){
-                  var title = $(this).find(searchable_text_class).text().toLowerCase();
-                  if(title.indexOf(query) == -1){
-						$(this).hide();
-					} else {
-						$(this).show();
-					}
-				});
-			} else {
+                $.each($(searchable_elements), function () {
+                    var title = $(this).find(searchable_text_class).text().toLowerCase();
+                    if (title.indexOf(query) == -1) {
+                        $(this).hide();
+                    } else {
+                        $(this).show();
+                    }
+                });
+            } else {
                 $('.sclose').addClass('d-none')
-				// empty query so show cards column everything
-				$(searchable_elements).show();
+                // empty query so show cards column everything
+                $(searchable_elements).show();
                 $(".Homemore").show(); // home recent More... button 
                 $(".more-Hrecent").hide();  // home recent card minimize
-                $(".recentmore-title").text("More..."); 
+                $(".recentmore-title").text("More...");
                 $(".Homemore .dropR").removeClass("bskp-angleR");
-			}
-		});
-	}
+            }
+        });
+    }
 }
 
 // INIT
@@ -979,29 +984,29 @@ $(function () {
     // USAGE: btsearch.init(('search field element', 'searchable children elements', 'searchable text class');
     btsearch.init('#search_home', '.homecard', '.cardtitle');
     megasearch.init("#search_megahome", ".megacard", ".cardtitle", ".megdiv");
-   
+
 });
 
 function Rtogmore(x) {
     $(".hide-class").slideToggle();
     $(".showmore .dropR").toggleClass("bskp-angleR"); //toggle arrow
-   
+
 }
 function Mtogmore(x) {
     $(".more-Mrecent").toggle();
     $(".showmore .dropR").toggleClass("bskp-angleR");
-   
+
 }
 function Mrefresh() {
     $(".sclose").addClass("d-none");
     $("#search_megahome").val("");
     $(".megacard").show();
     $(".megdiv").show();
-    $(".Megamore").show(); 
+    $(".Megamore").show();
     $(".more-Mrecent").hide();
-    $(".Megamore-title").text("More..."); 
+    $(".Megamore-title").text("More...");
     $(".Megamore .dropR").removeClass("bskp-angleR");
-    
+
 }
 function refresh() {
     $('.sclose').addClass('d-none')
@@ -1009,6 +1014,69 @@ function refresh() {
     $('.homecard').show();
     $(".Homemore").show();// home recent More... button 
     $(".more-Hrecent").hide();  // home recent card minimize
-    $(".recentmore-title").text("More..."); 
+    $(".recentmore-title").text("More...");
     $(".Homemore .dropR").removeClass("bskp-angleR");
+}
+
+function checkLicense(){
+    getDomainLicense(function(status, data){
+        if(status){
+            LicenseDetails = data
+            let plan = "Free";
+            let plan_img ='images/plans/free-plan.png'
+            switch (data.plan) {
+                case 1:
+                    plan = "Free" 
+                    break;
+              case 2:
+                    plan = "Beginner" 
+                    plan_img = 'images/plans/beginner-plan.png'
+                    break;
+              case 3:
+                    plan = "Basic" 
+                    plan_img = 'images/plans/basic-plan.png'
+                    break;
+              case 4:
+                    plan = "Preferred" 
+                    plan_img = 'images/plans/preferred-plan.png'
+                    break;
+             case 5:
+                    plan = "Professional" 
+                    plan_img = 'images/plans/professional-plan.png'
+                    break;
+                default:
+                    break;
+            }
+            data.plan == 0 ? $("#userPlan").html("<span>Plan : </span><span class='pl-1 text-muted'>Free</span>") : $("#userPlan").text("Plan : "+plan);
+            $(".acc-id").text(data.accountId);
+            $(".plan-id").text(data.planId);
+            $(".acc-id-copy").attr("data-clipboard-text",data.accountId);
+            $(".plan-id-copy").attr("data-clipboard-text",data.planId);
+
+            if(data.apiHits < 500){
+                $('#notificationCount').html(`<span class="label">1</span>`)
+                $('#planDetails').html(`
+                <div class="alert alert-warning  d-flex justify-content-between align-items-center" role="alert">
+                <div id="" class="mb-0"><i class="fa fa-exclamation-triangle " aria-hidden="true"></i>
+                Your <img src="`+plan_img+`" height="20" alt="free-plan"> <span class="font-bold ">`+ plan + ` plan</span>
+                 have only  ` + data.apiHits + ` API Calls remaining. <a> Upgrade your plan</a>
+                 <a href="https://devbilling.boodskap.io/" target="_blank" class="btn btn-warning "><i class="fa fa-shopping-cart" aria-hidden="true"></i> Upgrade</a>
+                 </div>
+                <div class="close-alert">
+                <button type="button" class="close close-alert-btn" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+                </div>
+                </div>
+                `)
+                $('.header-style').css('box-shadow','none')
+            }else{
+                 $("#planDetails").html("");
+            }
+
+        }else{
+            $("#planDetails").html("");
+            $("#userPlan").html("<span>Plan : </span><span class='pl-1 text-muted'>N/A</span>");
+        }
+    });
 }

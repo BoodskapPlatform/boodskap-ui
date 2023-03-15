@@ -30,6 +30,7 @@ $(document).ready(function () {
     loadOTA();
 
     $('body').removeClass('bg-white');
+    $('.help-url').attr('href',HELP_URL+"getotabatchcount");
 
 });
 

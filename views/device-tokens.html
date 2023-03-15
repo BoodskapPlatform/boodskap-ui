@@ -3,15 +3,14 @@
     .bskp-container-frame {
       position: sticky;
   }
-
-  #expireTokenModal .modal-dialog {
+  #expireTokenModal .modal-dialog{
     max-width: 600px;
 }
   </style>
   
   <div class="row-fluid mt-4">
       <ul class="nav bskp-submenu2">
-        <li><a href="<%= basepath %>/dashboard">Dashboard</a></li>
+        <!-- <li><a href="<%= basepath %>/dashboard">Dashboard</a></li> -->
         <li ><a href="<%= basepath %>/device-management">Manage Devices</a></li>
         <li><a href="<%= basepath %>/device-models">Manage Device Models</a></li>
         <li class="active"><a href="<%= basepath %>/device-tokens">Manage Device Tokens</a></li>
@@ -28,11 +27,11 @@
         <!-- begin breadcrumb -->
       <ol class="breadcrumb pull-right  bskp-align-icon">
           <li class="breadcrumb-item"><a href="<%= basepath %>/home">Home</a></li>
-          <li class="breadcrumb-item"><a href="<%= basepath %>/device-management">Device Management</a></li>
-          <li class="breadcrumb-item active">Device Tokens</li>
+          <!-- <li class="breadcrumb-item"><a href="<%= basepath %>/device-management">Device Management</a></li> -->
+          <li class="breadcrumb-item active"><u>Device Management</u></li>
           <div class="ml-4">
               <a href="javascript:;" class="btn btn-sm btn-icon btn-circle  bskp-icon-bg" title="Expand" data-click="panel-expand"><em class="fa fa-expand"></em></a>
-              <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg" title="Help" ><em class="icon-help"></em></a>
+              <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg help-url" target="_blank" title="Help" ><em class="icon-help"></em></a>
           </div>
       </ol>
       <!-- end breadcrumb -->
@@ -48,14 +47,14 @@
       <div class="row m-0">
           <div class="col-12">
             <div class="btn-group btn-group-justified pull-right bskp-btn-group-align" >
-                <select class="form-control input-sm" id="authTokenTypes" onchange="loadTokenList()">
+                <!-- <select class="form-control input-sm" id="authTokenTypes" onchange="loadTokenList()">
                     <option value="" selected="">ALL</option>
                     <option value="API">API</option>
                     <option value="USER">USER</option>
                     <option value="DEVICE">DEVICE</option>
                     <option value="WEB">WEB</option>
                     <option value="ENGINE">ENGINE</option>
-                </select>
+                </select> -->
               <a class="btn bskp-refresh-bg"  onclick="loadTokenList()" title="Refresh"><em class="fa fa-refresh"></em></a>
             </div>
              

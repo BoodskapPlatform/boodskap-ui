@@ -1164,7 +1164,7 @@ margin-bottom: 10px  !important;
     opacity: 1;
 }
 .raw-message .switches-container {
-    max-width: 280px;
+    min-width: 280px;
 }
 .btn-bskp{
 color: white;
@@ -1378,4 +1378,10 @@ vertical-align: middle;
 }
 table.table-bordered.dataTable th, table.table-bordered.dataTable td{
     vertical-align: middle;
+}
+.gap-20{
+    gap: 20px;
+}
+.close-alert-btn:focus{
+    outline: none;
 }

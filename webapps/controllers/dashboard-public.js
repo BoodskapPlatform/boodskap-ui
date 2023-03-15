@@ -733,7 +733,6 @@ function loadDashboardUserMenu() {
 
 function loadPublicLogo() {
 
-
         getDomainProperty(DOMAIN_BRANDING_PROPERTY, function (status, data) {
             if (status) {
                 var src = JSON.parse(data.value);
