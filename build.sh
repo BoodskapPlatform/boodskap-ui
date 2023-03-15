@@ -3,7 +3,7 @@
 node build.js
 # Parse current version number
 JSON_FILE="package.json"
-myEnv=$(node -e "console.log(require('./conf.js').devops.env)")
+myEnv=$(node -e "console.log(require('./conf.js').devops.env1)")
 echo "$myEnv.............myEnv"
 #version=2.1.1
 version=$(cat $HOME/build/v5-boodskap-ui/$myEnv/version.txt)
