@@ -92,6 +92,7 @@ async.series({
             },
             googleAnalytics: getProperty('google.analytics.id') ? getProperty('google.analytics.id') : '',
             cdnPath: getProperty('boodskap.cdnPath'),
+            billing_api: getProperty("boodskap.billing_api")
         }
 
         let txt = 'var CONFIG=' + JSON.stringify(platform_config);
