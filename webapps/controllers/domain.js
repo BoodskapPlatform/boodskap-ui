@@ -1276,7 +1276,7 @@ function renderUsageCharts(chartObj, planUsage){
 
 function gotoBilling(){
     var pathapi = $("#billingApi").val();
-    $.ajax({
+    /* $.ajax({
         url: pathapi,
         data: JSON.stringify(USER_OBJ),
         contentType: "application/json",
@@ -1287,7 +1287,8 @@ function gotoBilling(){
         error: function (e) {
             
         }
-    });
+    }); */
+    window.open(pathapi+"/customer/session-check?session="+JSON.stringify(USER_OBJ),"_blank");
 }
 
 /* getProperty = (pty) => {
