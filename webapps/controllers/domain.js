@@ -762,10 +762,25 @@ function getElasticConfig() {
             }else{
                 addMoreHost();
             }
+
+            switchElasticAuth();
         } else {
             elastic_config_obj = null;
+            addMoreHost();
+
+            switchElasticAuth();
         }
     });
+}
+
+function switchElasticAuth(){
+
+    let flag = Boolean($("#elasticConfigCheck:checked").val());
+    if(flag){
+        $("#elasticConfigAuthView").show();
+    }else{
+        $("#elasticConfigAuthView").hide();
+    }
 }
 
 function renderHostList(hostObj, id){

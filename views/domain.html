@@ -178,16 +178,16 @@
     <div class="row">
       <div class="col-12">
         <div class="form-group d-flex">
-          <input type="checkbox" id="elasticConfigCheck" value="true"  /> 
+          <input type="checkbox" id="elasticConfigCheck" value="true" onclick="switchElasticAuth()" /> 
           <label class="mr-2" for="elasticConfigCheck" style="margin-left:5px;color: #666666;font-weight: normal;">
             Do you want to authenticate your Elasticsearch?
           </label>
         </div>
 
-        <div class="form-group row m-5">
+        <div class="form-group row m-5" id="elasticConfigAuthView" style="display:none;">
           <div class="form-group">
             <label class="mb-2" for="elasticAuthUser">User<span class="text-danger">*</span></label>
-            <input type="text" id="elasticAuthUser" maxlength="100" class="form-control input-sm" required autocomplete="off" />
+            <input type="text" id="elasticAuthUser" maxlength="100" class="form-control input-sm" required autocomplete="off" tabindex="1" />
           </div>
           <div class="form-group" style="margin-left:10px;">
             <label class="mb-2" for="elasticAuthPwd">Password <span class="text-danger">*</span>
@@ -195,7 +195,7 @@
               <i class="icon-eye4"></i>
             </a> 
             </label>
-            <input type="password" id="elasticAuthPwd" maxlength="100" class="form-control input-sm" required autocomplete="off" />
+            <input type="password" id="elasticAuthPwd" maxlength="100" class="form-control input-sm" required autocomplete="new-password" tabindex="2" />
           </div>
         </div>
       </div>
