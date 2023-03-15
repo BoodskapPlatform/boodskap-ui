@@ -3,7 +3,16 @@
 node build.js
 # Parse current version number
 JSON_FILE="package.json"
-myEnv=$(node -e "console.log(require('./conf.js').devops.env1)")
+# Get the current branch name
+BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
+if [ "$BRANCH_NAME" == "development" ]; then
+  myEnv="dev"
+elif [ "$BRANCH_NAME" == "test" ]; then
+  myEnv="test"
+else
+  myEnv="v5.0"
+fi
+
 echo "$myEnv.............myEnv"
 #version=2.1.1
 version=$(cat $HOME/build/v5-boodskap-ui/$myEnv/version.txt)
@@ -35,3 +44,4 @@ mv tmp.json "$JSON_FILE"
 lversion="$major.$minor.$patch"
 # Print new version number
 docker build -t boodskapiot/ui-$myEnv:$lversion . -f Dockerfile
+
