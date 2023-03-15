@@ -149,6 +149,7 @@ var GOOGLE_API_PROPERTY = "google.map.key";
 var OPENWEATHER_API_PROPERTY = "openweather.map.key";
 var DARKSKY_API_PROPERTY = "darksky.api.key";
 var BILLING_PROPERTY = "billing.property";
+var ELASTIC_CONFIG_PROPERTY = "elastic.config";
 
 var MOBILE_DOMAIN_THEME_PROPERTY = "domain.mobile.theme";
 var MOBILE_DASHBOARD_LIST_PROPERTY = "domain.mobile.dashboard.list";
