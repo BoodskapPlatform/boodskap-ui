@@ -762,14 +762,12 @@ function getElasticConfig() {
             }else{
                 addMoreHost();
             }
-
-            switchElasticAuth();
         } else {
             elastic_config_obj = null;
             addMoreHost();
-
-            switchElasticAuth();
         }
+
+        switchElasticAuth();
     });
 }
 
