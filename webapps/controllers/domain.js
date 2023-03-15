@@ -776,8 +776,12 @@ function switchElasticAuth(){
     let flag = Boolean($("#elasticConfigCheck:checked").val());
     if(flag){
         $("#elasticConfigAuthView").show();
+        $("#elasticAuthUser").attr("required", true);
+        $("#elasticAuthPwd").attr("required", true);
     }else{
         $("#elasticConfigAuthView").hide();
+        $("#elasticAuthUser").removeAttr("required");
+        $("#elasticAuthPwd").removeAttr("required");
     }
 }
 
