@@ -762,14 +762,12 @@ function getElasticConfig() {
             }else{
                 addMoreHost();
             }
-
-            switchElasticAuth();
         } else {
             elastic_config_obj = null;
             addMoreHost();
-
-            switchElasticAuth();
         }
+
+        switchElasticAuth();
     });
 }
 
@@ -778,8 +776,12 @@ function switchElasticAuth(){
     let flag = Boolean($("#elasticConfigCheck:checked").val());
     if(flag){
         $("#elasticConfigAuthView").show();
+        $("#elasticAuthUser").attr("required", true);
+        $("#elasticAuthPwd").attr("required", true);
     }else{
         $("#elasticConfigAuthView").hide();
+        $("#elasticAuthUser").removeAttr("required");
+        $("#elasticAuthPwd").removeAttr("required");
     }
 }
 
