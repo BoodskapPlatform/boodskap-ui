@@ -62,9 +62,18 @@
       wait_for:
         timeout: 10
       delegate_to: 127.0.0.1
+    
+    -
+      name: Docker push change mode to executable.
+      shell: "chmod +x push.sh"
+      args:
+        chdir: /home/ubuntu/build/v5-boodskap-ui/dev/boodskap-ui
+      register: change_pushscript_mode_output
+    - debug: msg="{{ change_pushscript_mode_output.stdout }}"
+
     -
       name: Docker Push the latest image.
-      shell: "sh push.sh"
+      shell: "./push.sh"
       args:
         chdir: /home/ubuntu/build/v5-boodskap-ui/dev/boodskap-ui
       register: run_push_script_output
