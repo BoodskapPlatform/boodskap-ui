@@ -1028,22 +1028,26 @@ function checkLicense(){
                 case 1:
                     plan = "Free" 
                     break;
-              case 2:
+                case 2:
                     plan = "Beginner" 
                     plan_img = 'images/plans/beginner-plan.png'
                     break;
-              case 3:
+                case 3:
                     plan = "Basic" 
                     plan_img = 'images/plans/basic-plan.png'
                     break;
-              case 4:
+                case 4:
                     plan = "Preferred" 
                     plan_img = 'images/plans/preferred-plan.png'
                     break;
-             case 5:
+                case 5:
                     plan = "Professional" 
                     plan_img = 'images/plans/professional-plan.png'
                     break;
+                case -1:
+                    plan = "Unlimited" 
+                    plan_img = 'images/plans/professional-plan.png'
+                    break;      
                 default:
                     break;
             }
