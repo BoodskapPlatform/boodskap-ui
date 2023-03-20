@@ -377,6 +377,7 @@ function loadDeviceModels(check,lbk) {
             device_model_list = data;
 
         //    check === 'update' ? '' : $("#device_model").append('<option value="newmodel">- Create New Model</option>') ;
+            $("#device_model").append('<option value="newmodel">- Create New Model</option>') ;
             for(var i=0;i<data.length;i++){
                $("#device_model").append('<option value="'+data[i].id+'">'+data[i].id+'</option>');  
                 if($("#device_model").val() === data[i].id){
@@ -562,11 +563,11 @@ function addDevice() {
         return false;
        
     
-    }else if(!device_desc){
+    }/* else if(!device_desc){
         showFeedback('Device Description is required', 'device_desc','logdevice_desc');
         return false;
        
-    }else{    
+    } */else{    
   
         let modelstatus = true;
         let modeltext;
@@ -577,10 +578,12 @@ function addDevice() {
             "version": device_version,
             "description": device_desc,
         }
+        console.log("modelObj----------->",modelObj);
+
         $(".btnSubmit").attr('disabled','disabled');
     
     async.series({
-        SameModelID: function (rmdcbk) {
+        /* SameModelID: function (rmdcbk) {
         if( modelmode === 'new'){
          retreiveDeviceModel(modelObj.id, function (status, data) {
             if (status) {
@@ -597,8 +600,8 @@ function addDevice() {
         }else{
             rmdcbk(null, false); 
         }
-        },
-        TriggerModelCreate: function (mdcbk){
+        } ,*/
+        /* TriggerModelCreate: function (mdcbk){
               // Allow if is not choose - Create Device Model  
           if(modelmode !== 'choose' && modelstatus){
             upsertDeviceModel(modelObj,function (status, data) {
@@ -659,7 +662,7 @@ function addDevice() {
                     Dcbk(null, false);
                 }
         }
-
+ */
     })    
         }  
      
