@@ -412,6 +412,8 @@ function loadDeviceModels(check,lbk) {
 
 function openModal(type,id) {
     if (type === 1) {
+        $(".error-msg").html("");
+        $(".form-control").removeClass("error-box");
         loadDeviceModels('');
         $(".new-model").removeClass('d-none');
         $(".new_device_model").val('');
@@ -435,6 +437,8 @@ function openModal(type,id) {
         
         
     }else if (type === 2) {
+        $(".error-msg").html("");
+        $(".form-control").removeClass("error-box");
         var obj ={};
         current_device_id = id;
         for(var i=0;i<device_list.length;i++){
@@ -530,18 +534,11 @@ function checkConfig() {
 
 
 function addDevice() {
+    var device_model="";
   if(choosemodel){
-    var device_model =$.trim($("#device_model").val() );
-    if(!$("#device_model").val()){
-        showSelectFeedback('Device Model is required', 'device_model','logdevice_model');
-        return false;
-    }
+    device_model =$.trim($("#device_model").val() );
   }else{
-    var device_model =$.trim($("#new_device_model").val() );
-    if(!device_model){
-        showFeedback('Device Model is required', 'new_device_model','lognew_device_model');
-        return false;
-    }
+    device_model =$.trim($("#new_device_model").val() );
   }
     var device_id =$.trim($("#device_id").val() );
     var device_name =$.trim($("#device_name").val() );
@@ -557,6 +554,14 @@ function addDevice() {
         showFeedback('Device Name is required', 'device_name','logdevice_name');
         return false;
        
+    }else if(!device_model){
+        if(choosemodel){
+            showSelectFeedback('Device Model is required', 'device_model','logdevice_model');
+            return false;
+        }else{
+            showFeedback('Device Model is required', 'new_device_model','lognew_device_model');
+            return false;
+        }
     }else if(!device_version){
    
         showFeedback('Device Version is required', 'device_version','logdevice_version');
