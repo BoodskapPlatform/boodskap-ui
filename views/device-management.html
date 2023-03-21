@@ -102,9 +102,7 @@
                         <div  class="form-group">
                             <label  class="inputLabel">Choose Device Model *</label>&nbsp; 
                             <div class="d-flex align-items-center">
-                            <select class="form-control input-sm" id="device_model" required onchange="assignVersion()">  
-                                </select>
-                                <a href="javascript:void(0)" class="btn togeditmodel ml-2 bskp-edit-inp" onclick="togglemodel('edit')" title="Edit device model"><img src="images/edit_icon.svg" alt="">  </a>
+                            <select class="form-control input-sm" id="device_model" required onchange="assignVersion()"></select>
                             </div> 
                             <span id="logdevice_model"></span>  
                        </div>  
@@ -131,9 +129,11 @@
                             <span id="logdevice_version" class="error-msg"></span>
                         </div>
                     </div>
+                    <a href="javascript:void(0)" class="btn togeditmodel ml-auto d-none" onclick="togglemodel('edit')" title="Edit device model"><img class="bskp-edit-inp" src="images/edit_icon.svg" alt="" style="height: 25px;">  </a>
+
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label class="inputLabel">Description *</label>
+                            <label class="inputLabel">Description</label>
                             <textarea class="form-control input-sm" id="device_desc" placeholder="Enter Description" maxlength="1000" autocomplete="off" required="" style="height: 90px;"></textarea>
                             <span id="logdevice_desc" class="error-msg"></span>
                         </div>
