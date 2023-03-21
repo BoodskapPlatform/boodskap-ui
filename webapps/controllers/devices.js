@@ -578,7 +578,6 @@ function addDevice() {
             "version": device_version,
             "description": device_desc,
         }
-        console.log("modelObj----------->",modelObj);
 
         $(".btnSubmit").attr('disabled','disabled');
     
@@ -601,7 +600,7 @@ function addDevice() {
             rmdcbk(null, false); 
         }
         } ,*/
-        /* TriggerModelCreate: function (mdcbk){
+        TriggerModelCreate: function (mdcbk){
               // Allow if is not choose - Create Device Model  
           if(modelmode !== 'choose' && modelstatus){
             upsertDeviceModel(modelObj,function (status, data) {
@@ -662,7 +661,7 @@ function addDevice() {
                     Dcbk(null, false);
                 }
         }
- */
+
     })    
         }  
      
