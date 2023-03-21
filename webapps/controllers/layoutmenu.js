@@ -1,5 +1,6 @@
 var switchColor = '#9E9E9E';
 var LIVE_UPDATE_GLOBAL = Cookies.get('live_update_global') ? Cookies.get('live_update_global') : 'OFF';
+var planUnlimited = "";
 
 var userEventMenu = ' <li class="has-sub sideMain">\n' +
     '        <a href="' + WEB_BASE_PATH + '/userevents">\n' +
@@ -1022,6 +1023,18 @@ function checkLicense(){
     getDomainLicense(function(status, data){
         if(status){
             LicenseDetails = data
+            let maxTenants = Number(data.maxTenants);
+            let dataPoints = Number(data.dataPoints);
+            let apiHits = Number(data.apiHits);
+            let devices = Number(data.devices);
+            let users = Number(data.users);
+            let connectedUsers = Number(data.connectedUsers);
+            let connectedDevices = Number(data.connectedDevices);
+            let dataRetention = Number(data.dataRetention);
+            if(maxTenants==-1||dataPoints==-1||apiHits==-1||devices==-1||users==-1||connectedUsers==-1||connectedDevices==-1||dataRetention==-1){
+                data.plan = -1;
+                planUnlimited = "Unlimited"
+            }
             let plan = "Free";
             let plan_img ='images/plans/free-plan.png'
             switch (data.plan) {
