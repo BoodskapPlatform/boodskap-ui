@@ -88,14 +88,14 @@
                             <div  class="form-group">
                                  <label  class="inputLabel">Device ID *</label><!--<span style="font-size: 16px;">&#42;</span> -->
                                 <input  class="form-control input-sm" placeholder="Enter Device ID" maxlength="100" min="1" autocomplete="off" type="text" id="device_id" required>
-                                <span id="logdevice_id"></span>
+                                <span id="logdevice_id" class="error-msg"></span>
                             </div>
                         </div>
                         <div  class="col-md-6">
                             <div  class="form-group">
                                 <label  class="inputLabel">Device Name *</label>
                                 <input  class="form-control input-sm" placeholder="Enter Device Name" maxlength="100" autocomplete="off" type="text" id="device_name" required>
-                                <span id="logdevice_name"></span>
+                                <span id="logdevice_name" class="error-msg"></span>
                             </div>
                         </div>
                         <div  class="col-md-6 modechoose">
@@ -104,7 +104,7 @@
                             <div class="d-flex align-items-center">
                             <select class="form-control input-sm" id="device_model" required onchange="assignVersion()"></select>
                             </div> 
-                            <span id="logdevice_model"></span>  
+                            <span id="logdevice_model" class="error-msg"></span>  
                        </div>  
                        </div>
                      </div>

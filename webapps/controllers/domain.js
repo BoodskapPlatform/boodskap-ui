@@ -1114,7 +1114,11 @@ function getPlanUsage(){
 }
 
 function chartTemplateLoader(){
-
+    let apihits = planUnlimited == "Unlimited" ? `<span class='pl-1'>&#8734;</span>` : active_plan_obj.details.api_hits;
+    let datapts = planUnlimited == "Unlimited" ? `<span class='pl-1'>&#8734;</span>` : active_plan_obj.details.data_points;
+    let tenants = planUnlimited == "Unlimited" ? `<span class='pl-1'>&#8734;</span>` : active_plan_obj.details.tenants;
+    let devices = planUnlimited == "Unlimited" ? `<span class='pl-1'>&#8734;</span>` : active_plan_obj.details.devices;
+    let connecteddevices = planUnlimited == "Unlimited" ? `<span class='pl-1'>&#8734;</span>` : active_plan_obj.details.connected_devices;
     let charts = [
         {
             chartId : 'apiHitsChart',
@@ -1123,7 +1127,7 @@ function chartTemplateLoader(){
                 { value: (active_plan_obj.details.api_hits - current_plan_usage.apiHits), name: 'Remaining' },
                 { value: current_plan_usage.apiHits, name: 'Used' }
             ],
-            subTitle: current_plan_usage.apiHits + `/ <i class='fa fa-cogs'></i> ` + active_plan_obj.details.api_hits,
+            subTitle: current_plan_usage.apiHits + `/ <i class='fa fa-cogs'></i> ` + apihits,
             title: "Api Hits"
         },
         {
@@ -1133,7 +1137,7 @@ function chartTemplateLoader(){
                 { value: (active_plan_obj.details.data_points - current_plan_usage.dataPoints), name: 'Remaining' },
                 { value: current_plan_usage.dataPoints, name: 'Used' }
               ],
-            subTitle: current_plan_usage.dataPoints + `/ <i class='fa fa-database'></i> ` + active_plan_obj.details.data_points,
+            subTitle: current_plan_usage.dataPoints + `/ <i class='fa fa-database'></i> ` + datapts,
             title: "Data Points"
         },
         {
@@ -1143,7 +1147,7 @@ function chartTemplateLoader(){
                 { value: (active_plan_obj.details.tenants - current_plan_usage.domains), name: 'Remaining' },
                 { value: current_plan_usage.domains, name: 'Used' }
               ],
-            subTitle: current_plan_usage.domains + `/ <i class='fa fa-globe'></i> ` + active_plan_obj.details.tenants,
+            subTitle: current_plan_usage.domains + `/ <i class='fa fa-globe'></i> ` + tenants,
             title: "Domains"
         },
         {
@@ -1153,7 +1157,7 @@ function chartTemplateLoader(){
                 { value: (active_plan_obj.details.devices - current_plan_usage.devices), name: 'Remaining' },
                 { value: current_plan_usage.devices, name: 'Used' }
               ],
-            subTitle: current_plan_usage.devices + `/ <i class='fa fa-hdd'></i> ` + active_plan_obj.details.devices,
+            subTitle: current_plan_usage.devices + `/ <i class='fa fa-hdd'></i> ` + devices,
             title: "Devices"
 
         },
@@ -1164,7 +1168,7 @@ function chartTemplateLoader(){
                 { value: (active_plan_obj.details.connected_devices - current_plan_usage.connectedDevices), name: 'Remaining' },
                 { value: current_plan_usage.connectedDevices, name: 'Used' }
               ],
-            subTitle: current_plan_usage.connectedDevices + `/ <i class='fa fa-wifi'></i> ` + active_plan_obj.details.connected_devices,
+            subTitle: current_plan_usage.connectedDevices + `/ <i class='fa fa-wifi'></i> ` + connecteddevices,
             title: "Connected Devices"
 
         }
