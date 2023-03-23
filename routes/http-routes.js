@@ -339,6 +339,9 @@ Routes.prototype.init = function () {
     self.router.get('/rules-engine', roleCheck, function (req, res) {
         res.render('rules-engine.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     });
+    self.router.get('/rules-engine-old', roleCheck, function (req, res) {
+        res.render('rules-engine-old.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
+    });
     self.router.get('/script-console', roleCheck, function (req, res) {
         res.render('script-console.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     });
