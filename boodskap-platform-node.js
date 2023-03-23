@@ -99,7 +99,7 @@ var server = require('http').Server(app,router);
 app.conf = conf;
 
 console.log("************************************************************");
-console.log(new Date() + ' | Boodskap Portal Listening on ' + conf['web']['port']);
+console.log(new Date() + ' | Boodskap Portal Listening on http://localhost:' + conf['web']['port']);
 console.log("************************************************************");
 
 server.listen(conf['web']['port']);

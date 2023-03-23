@@ -85,7 +85,16 @@ let PLANS_LIST = {
         }
     }
 }
-
+const LOG_LEVELS = {
+    "trace": "secondary",
+    "debug": "primary",
+    "info": "info",
+    "warn": "warning",
+    "error": "danger",
+    "fatal": "success",
+    "off": "dark",
+    "all": "dark"
+}
 if(CONFIG.development){
     API_BASE_PATH = CONFIG.api;
     WEB_BASE_PATH = CONFIG.web+BASE_PATH;

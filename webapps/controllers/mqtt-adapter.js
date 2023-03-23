@@ -15,6 +15,7 @@ function mqttConnect() {
         useSSL: MQTT_CONFIG.ssl,
         timeout: 3,
         onSuccess: function () {
+            $(".mqttStatus").html('<span class="badge badge-success badge-indicator" title="Connected"></span>')
             $(".serverStatus").html('<span class="label label-green"><i class="fa fa-dot-circle-o"></i> Connected</span>');
             $(".dashboardStatus").html('<span class="label label-green"><i class="fa fa-dot-circle-o"></i> Live</span>');
             MQTT_STATUS = true;
@@ -28,6 +29,7 @@ function mqttConnect() {
             // $(".mqttClass").css('background-color', '#37BC9B');
         },
         onFailure: function (message) {
+            $(".mqttStatus").html('<span class="badge badge-danger badge-indicator" title="Not Connected"></span>')
             $(".serverStatus").html('<span class="label label-danger">Reconnecting...</span>');
             $(".dashboardStatus").html('');
             console.log(new Date() + " | MQTT Connection failed: " + message.errorMessage);

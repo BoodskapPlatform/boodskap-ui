@@ -1,13 +1,11 @@
 <link href="css/layout-default-latest.css" rel=stylesheet>
 <link rel="stylesheet" media="screen" type="text/css" href="libraries/colorpicker/spectrum.css" />
-<link rel="stylesheet" href="libraries/jstree/themes/default/style.css" />
-<link href="css/jquery.terminal-1.12.1.css" rel=stylesheet>
+
 <link href="css/select2.min.css" rel=stylesheet>
 <link href="css/rules-engine.css?ver=1" rel=stylesheet>
 <link href="css/Aimara.css" rel=stylesheet>
 <link href="css/jsCronUI.css" rel=stylesheet>
 <link href="css/multiple-select.css" rel=stylesheet>
-<link rel="stylesheet" type="text/css" href="libraries/daterangepicker/daterangepicker.min.css" />
 
 <style>
     .ace_content {
@@ -57,8 +55,7 @@
     .ui-state-hover {
         text-decoration: none !important;
         background: transparent !important;
-        border: none !important;
-        ;
+        border: none !important;;
         margin-top: 0px !important;
         border-radius: 0;
         top: 10% !important;
@@ -90,7 +87,6 @@
     #codeEditor {
         position: absolute;
         top: 0;
-        /* top: 38px; */
         right: 0;
         bottom: 0;
         left: 0;
@@ -186,7 +182,7 @@
         border: 1px solid #2c2c78;
     }
 </style>
-<div id="sample"></div>
+
 <div style="position: relative" id="rulesBlock">
     <div class="row-fluid loaderBlock">
         <h1 style="color:#fff;text-align: center;margin-top: 15%"><i class="fa fa-spinner fa-spin"></i> <span
@@ -286,7 +282,7 @@
                                         Rules Details
 
                                     </div>
-                                    <div id="collapseOne" class="collapse show" data-parent="#accordion">
+                                    <div id="collapseOne" class="collapse show" data-parent="#accordion" >
                                         <div class="card-body">
                                             <table class="table msg-def-table mb-0">
                                                 <tbody>
@@ -339,7 +335,7 @@
                                         <a href="javascript:void(0)" class="pull-right text-white"
                                             onclick="openModal(9)"><i class="fa fa-edit"></i></a>
                                     </div>
-                                    <div id="collapseFour" class="collapse in show" data-parent="#accordion">
+                                    <div id="collapseFour" class="collapse in show" data-parent="#accordion" >
                                         <div class="card-body pBody">
 
 
@@ -353,7 +349,7 @@
                                         <a href="javascript:void(0)" class="pull-right text-white"
                                             onclick="editInputModal()"><i class="fa fa-edit"></i></a>
                                     </div>
-                                    <div id="collapseTwo11" class="collapse in show" data-parent="#accordion">
+                                    <div id="collapseTwo11" class="collapse in show" data-parent="#accordion" >
                                         <div class="card-body">
                                             <table class="table">
                                                 <tbody>
@@ -369,7 +365,7 @@
                                         <a href="javascript:void(0)" class="pull-right text-white"
                                             onclick="editJobModal()"><i class="fa fa-edit"></i></a>
                                     </div>
-                                    <div id="collapseTwo1" class="collapse in show" data-parent="#accordion">
+                                    <div id="collapseTwo1" class="collapse in show" data-parent="#accordion" >
                                         <div class="card-body">
                                             <a href="javascript:void(0)" class="btn btn-xs btn-default btn-block"
                                                 onclick="loadRunningCount()"><i class="fa fa-refresh"></i> Refresh Job
@@ -388,7 +384,7 @@
                                         data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false">
                                         Message Fields
                                     </div>
-                                    <div id="collapseTwo" class="collapse" data-parent="#accordion">
+                                    <div id="collapseTwo" class="collapse" data-parent="#accordion" >
                                         <div class="card-body">
                                             <table class="table">
                                                 <thead>
@@ -473,383 +469,151 @@
                 </div>
 
             </div>
-            <div class="ui-layout-west leftSide">
+            <div class="ui-layout-west leftSide" >
 
-            <div class="d-flex justify-content-between border-top border-bottom" style="padding: 5px 12px">
-                        <button type="button" class="btn btn-xs cursor-pointer commondisablebtn" style="background:0" title="Collapse All" onclick="$('#rules_tree').jstree('close_all');">
-                            <img src="images/collapse-all.svg" alt="" width="12px" class="expand" />
-                        </button>
-                        <button type="button" class="btn btn-xs cursor-pointer expandallbtn commondisablebtn" style="background:0" title="Expand All" onclick="loadRulesEngineTree('expand')">
-                            <img src="images/expand-all.svg" alt="" width="12px" class="expand" />
-                        </button>
-            
-                    <button type="button" class="btn btn-xs cursor-pointer commondisablebtn pt-1" style="background:0"title="Add Rule" onclick="openModal()">
-                        <img src="images/add.svg" alt="" width="12px" />
+                <div class="row-fluid">
+                    <button class="btn btn-sm pull-right re-tools-active-btn" onclick="openModal()"><i
+                            class="fa fa-plus"></i> Add Rule
                     </button>
-            
-                    <button type="button" onclick="uploadRuleModal()" class="btn btn-xs cursor-pointer exportall commondisablebtn pt-1" style="background:0" title="Import Rule">
-                        <img src="images/import.svg" alt="" width="14px" />
-                    </button>
-            
-                    <!-- <button type="button" onclick="exportRule('ALL')" class="btn btn-xs cursor-pointer exportall commondisablebtn pt-1" style="background:0" title="Export All Rules">
-                        <img src="images/export.svg" alt="" width="14px" />
-                    </button> -->
-                    <button onclick="loadRulesEngineTree()" type="button" class="btn btn-xs cursor-pointer commondisablebtn pt-1"
-                        style="padding-left:5px;background:0" title="Refresh">
-                        <img src="images/refresh.svg" alt="" width="15px" />
-                    </button>
-            </div>
-
-                <div class="transpernetProcessing hide">
-                    <div class="loader">
-                        <p style="font-size: 21px;"><i class="fa fa-spinner fa-spin"></i></p>
-                        <p class="p-2" style="font-size: 14px;font-weight: 600;"> Processing...</p>
-                        <p class="loader__label">Please wait,it will take a moment</p>
-                    </div>
+                    <button class="btn btn-sm pull-right re-tools-btn" onclick="reloadRules()"
+                        title="Refresh Rule"><span class="btnRefresh"><i class="fa fa-refresh"></i></span></button>
+                    <button class="btn btn-sm pull-right re-tools-btn" title="Upload Rule"
+                        onclick="uploadRuleModal()"><span class=""><i class="fa fa-upload"></i></span></button>
                 </div>
 
-                <div id="rules_tree" style="clear:both;margin-top:15px"></div>
+                <div class="" style="margin-bottom: 5px;">
+                    <label>Choose the rule</label>
+                    <select class="input-sm form-control" onchange="loadRules(this.value)" id="rulesType">
+                        <option value="1">Message Rules</option>
+                        <option value="2">Named Rules</option>
+                        <option value="3">Scheduled Rules</option>
+                        <option value="6">Binary Rules</option>
+                        <option value="7">Job Rules</option>
+                        <option value="8">File Rules</option>
+                        <option value="9">Process Rules</option>
+                        <option value="10">SFTP Rules</option>
+                        <option value="11">MQTT Rules</option>
+                        <option value="12">UDP Rules</option>
+                        <option value="13">TCP Rules</option>
+                        <option value="14">Email Rules</option>
+                        <option value="15">Micro API Rules</option>
+                    </select>
+                </div>
+
+                <div class="" style="clear: both;background-color: #dedefc;color: #fff;border: 1px solid #eee;">
+                    <label style="margin:5px;"><i class="fa fa-search"></i> Search</label>
+
+                    <a onclick="$('.pFilter').toggle()" href="javascript:void(0)" style="font-size: 1rem;"
+                        class="pOption pull-right ml-1 mr-1 text-dark"><i class="fa fa-filter"></i> </a>
+
+                    <select class="pull-right pOption" id="pType" onchange="loadProcessRulesList()">
+                        <option value="DOMAIN">Domain</option>
+                    </select>
+
+
+                    <input type="text" class="form-control input-sm" style="background-color: #fffded"
+                        placeholder="Search by ID or Name" id="searchInput" onkeyup="searchFunction()" />
+                </div>
+
+                <div class="pOption pFilter" style="padding:5px;display:none;width: 100%;background-color: #eee;">
+                    <strong class="pull-right" onclick="$('.pFilter').toggle()"><i class="fa fa-close"></i></strong>
+                    <label class="mb-0">Group</label><br>
+                    <select style="width: 100%" class="form-control form-control-sm" id="pfGroup"
+                        onchange="loadProcessRulesList()">
+                        <option value="">Select</option>
+                    </select>
+                    <label class="mb-0">Tags</label>
+                    <input type="text" class="form-control form-control-sm" id="pfTag"
+                        onkeyup="loadProcessRulesList()" />
+                </div>
+
+                <div class="listHeight"
+                    style="border:1px solid #4242424d;clear:both;background-color: #fff;overflow: auto;overflow-x: hidden;position: relative">
+                    <ul class="rulesList"></ul>
+
+
+                </div>
+
+
             </div>
         </div>
 
     </div>
 
+    <div class="row bottomBar"
+        style="margin:0px;z-index: 9;font-size: 11px !important;position: absolute;width:100%;bottom:0px;left:0px;background: #333;padding:10px;height: 0px">
 
-    <section id="statusContent" class="p-2 pt-0 d-none">
-        <div class="row p-1" style="border-bottom: 3px solid #2C2C78;background: #fff;">
-            <div class="col-md-6">
-                <p class="title text-dark font-weight-medium mb-1" style="font-size: 14px">
-                    Simulator
-                </p>
-            </div>
-            <div class="col-md-6">
+        <button class="btn btn-dark btnHandle" onclick="toggleHandle(2)">Live Logs <i
+                class="icon-chevron-up"></i></button>
 
-                <button title="Close" type="button" style="opacity: 1;" class="close ml-2 statuscontentClose"
-                    onclick="closeFooter()">
-                    <span aria-hidden="true">
-                        <img src="images/close.svg" width="20" alt="img">
-                    </span>
-                </button>
-                <div class="d-inline-block" style="float: right;position: relative" id="failiurelogsOptions">
-                </div>
+        <div class="col-md-2 liveBlocks" style="display: none">
 
-            </div>
+            <table style="width: 100%;border:0px">
+                <tr>
+                    <td style="width: 40%">
+                        <p style="margin-bottom: 5px;">Logs Filter:<br>
+
+                            <label style="color: #fff;display: block;margin-bottom: 0px"><input type="checkbox"
+                                    value="true" class="fatal mt-1"
+                                    onclick="Cookies.set('fatal', $('.fatal').is(':checked'));" checked>
+                                Fatal</label>
+                            <label style="color: #fff;display: block;margin-bottom: 0px"><input type="checkbox"
+                                    value="true" class="error mt-1"
+                                    onclick="Cookies.set('error', $('.error').is(':checked'));" checked>
+                                Error</label>
+                            <label style="color: #fff;display: block;margin-bottom: 0px"><input type="checkbox"
+                                    value="true" class="warn mt-1"
+                                    onclick="Cookies.set('warn', $('.warn').is(':checked'));" checked>
+                                Warn</label>
+                            <label style="color: #fff;display: block;margin-bottom: 0px"><input type="checkbox"
+                                    value="true" class="info mt-1"
+                                    onclick="Cookies.set('info', $('.info').is(':checked'));" checked>
+                                Info</label>
+                            <label style="color: #fff;display: block;margin-bottom: 0px"><input type="checkbox"
+                                    value="true" class="debug mt-1"
+                                    onclick="Cookies.set('debug', $('.debug').is(':checked'));">
+                                Debug</label>
+                            <label style="color: #fff;display: block;margin-bottom: 0px"><input type="checkbox"
+                                    value="true" class="trace mt-1"
+                                    onclick="Cookies.set('trace', $('.trace').is(':checked'));">
+                                Trace</label>
+
+                        </p>
+                    </td>
+                    <td style="vertical-align: text-top">
+                        <label style="color: #fff;"><input type="checkbox" value="true" class="allLogs mt-1" checked
+                                onclick="enableLogs()"> All rules logs </label>
+                        <p style="margin-bottom: 5px;">Fields Filter:<br>
+                            <label style="color: #fff;display: block;margin-bottom: 0px"><input type="checkbox"
+                                    value="true" class="node mt-1">
+                                Node</label>
+                            <label style="color: #fff;display: block;margin-bottom: 0px"><input type="checkbox"
+                                    value="true" class="session mt-1">
+                                Session</label>
+                        </p>
+                        <p class="mt-2">Live Status: <br><span class="serverStatus"><span class="label label-danger">Not
+                                    Connected</span></span>
+
+                        </p>
+                    </td>
+                </tr>
+            </table>
         </div>
-        <div class="row">
-            <div id="r_switch"></div>
-            <div class="col-md-12 bottomTab tab_1 hide" id="simulate_footer_tab" style="
-          
-            overflow: hidden;
-            background-color: #fff;
-            padding: 0 10px 10px 0px;
-          ">
-                <div class="row">
-                    <div class="col-md-2 p-0 mb-4 hchange"
-                        style="  height: 250px;border-right: 1px solid #ccc; height: 250px">
-                        <p class="simulate-line">Choose & Simulate Your Rules</p>
+        <div class="col-md-10 liveBlocks" style="position:relative;padding: 0px;display: none">
+            <span style="position: absolute;top: 2px;right: 2px;cursor: pointer;z-index:9999;">
+                <button class="btn btn-sm btn-icon btn-default" onclick="clearLogs()" title="Clear Logs"><i
+                        class="icon-trash-o"></i></button>
+                <button class="btn btn-sm btn-icon btn-default" onclick="toggleFullscreen('consoleBox')"
+                    title="Clear Logs"><i class="icon-maximize"></i></button>
+            </span>
+            <div class="consoleBox" id="consoleBox" style="position: relative;height:155px">
 
-                        <div class="just-padding">
-                            <div class="list-group list-group-root well p-0" id="list-tab" role="tablist">
-                                <select class="input-sm form-control border-0" style="padding: 0 25px" id="rulesType" onchange="footerSimulator()">
-                                    <option value="1">Message Rules</option>
-                                    <option value="2">Named Rules</option>
-                                    <option value="6">Binary Rules</option>
-                                    <option value="10">File Rules</option>
-                                </select>
-                            </div>
-                            <div class="row m-0">
-                                <div class="col-md-12 p-0">
-                                    <div style="
-                        clear: both;
-                        background-color: #fff;
-                        color: #fff;
-                        padding: 5px 7px 5px 30px;
-                        border: 1px solid #eee;
-                      ">
-                                        <input type="text" class="form-control" autocomplete="off" style="
-                          background-color: #fffded;
-                          padding: 10px;
-                          height: 35px;
-                        " placeholder="Search by ID or Name" id="searchSimulatorInput" onkeyup="searchFunction()" />
-                                    </div>
-                                </div>
-                                <div class="col-md-12 p-0">
-                                    <div class="rulesList" style="padding: 5px 7px 5px 30px">
-                                        <ul class="rulesList" id="rulesList">
-                                            <p class="pt-4 pb-4 pl-4">
-                                                <i class="fa fa-spinner fa-spin"></i> Loading...
-                                            </p>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-10 hchange" style="
-                height: 250px;
-                overflow: hidden;
-                background-color: #fff;
-                padding: 0 10px 10px 10px;
-              ">
-                        <div class="tab-content" id="nav-tabContent" style="
-                  max-height: 80%;
-                  height: 100%;
-                  overflow: auto;
-                  overflow-x: hidden;
-                  padding: 0 10px 10px 10px;
-                ">
-                            <div id="msgTab"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-12 bottomTab tab_2 hide" style="
-            
-            overflow: auto;
-            overflow-x: hidden;
-            background-color: #000;
-            padding: 10px;
-          ">
-                <ul class="liveMessages" style="height: 215px;" id="footer_live_msg"></ul>
-            </div>
-            <div class="col-md-12 bottomTab tab_3 hide" id="footer_rules_engine_console" style="
-            background-color: #000;
-            color: #fff;
-            overflow: auto;
-            overflow-x: hidden;
-          ">
-
-                <div class="row" style="background-color: #eee">
-                    <div class="col-md-6 m-auto">
-                        <div class="serverStatus mt-2"><span class="label label-green"><i
-                                    class="fa fa-dot-circle-o"></i> Connected</span></div>
-                    </div>
-                    <div class="col-md-6">
-
-
-                        <div class="form-group" style="float: left;margin-top: 5px;margin-bottom: 5px;">
-                            <label style="margin-right: 5px">Filter by Log Level</label>
-                            <select class="form-control-sm logLevelList" style="font-size: 12px;height: 35px;">
-                                <option value="ALL">All Logs</option>
-                                <option value="trace">TRACE</option>
-                                <option value="debug">DEBUG</option>
-                                <option value="info">INFO</option>
-                                <option value="warn">WARN</option>
-                                <option value="error">ERROR</option>
-                                <option value="fatal">FATAL</option>
-                                <option value="off">OFF</option>
-                            </select>
-                        </div>
-                        <div class="form-group"
-                            style="float: left;margin-left: 25px;margin-top: 5px;margin-bottom:5px;">
-                            <label style="margin-right: 5px">Filter by Nodes</label>
-                            <select class="form-control-sm nodesList" style="font-size: 12px;height: 35px;">
-
-                                <option value="ALL">All Nodes</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group" style="margin-top: 8px;margin-bottom: 5px;">
-
-                            <button class="btn btn-sm btn-default pull-right application-log" onclick="clearLogs1()"><i
-                                    class="icon-trash"></i> Clear Logs</button>
-                        </div>
-
-
-                    </div>
-                </div>
-                <div class="row mt-2 cdebug" style="clear: both;overflow-y: auto;height: 170px;">
-                    <div class="col-lg-12 logCard">
-                        <ul class="debugMessages nav">
-
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-12 bottomTab tab_4 hide" style="
-            background-color: #000;
-            padding: 10px;
-            position: relative;
-            overflow-y: auto;
-          ">
-                <div class="failiurelogProcess" style="
-          position: absolute;
-          width: 100%;
-          text-align: center;
-      ">
-                    <div style="
-          background: #fff;
-          display: inline-block;
-          padding: 5px 30px;
-          border-radius: 5px;
-      ">
-                        <p class="mb-0"><i class="fa fa-spinner fa-spin mr-1"></i>Processing</p>
-                    </div>
-                </div>
-                <div style="position: absolute; top: 10px; right: 10px">
-                    <input placeholder="Search" type="text" class="form-control form-control-sm mr-4"
-                        style="width: 400px" onkeyup="loadErrorLogs(this.value)" />
-                </div>
-                <div style="overflow-y: auto; overflow-x: hidden; clear: both" class="mt-2">
-                    <ul class="errorLogs pl-1" id="fullLogserror" style="height: 205px; overflow-y: auto;list-style:none"></ul>
-                </div>
-            </div>
-            <div class="col-md-12 bottomTab tab_5 hide" style=" overflow: hidden">
-                <div class="row tchange" style="height: 100%;height: 215px;background: #fff" id="footer_terminal_tab">
-                    <div class="col-md-9 pl-0 pr-0">
-                        <div id="scriptTerminal" class="terminal tchange" style="height: 100%;"></div>
-                    </div>
-                    <div class="col-md-3 command-console" style="background: #fff;">
-                        <h5 class="mt-3">How to execute command console?</h5>
-                        <ul class="mt-2">
-                            <li>
-                                Type any command then Press ENTER to add multiple line of commands
-                                then Press CTRL + ENTER to execute the commands
-                            </li>
-                        </ul>
-                        <p class="mt-3 mb-1"><strong>Example:</strong></p>
-                        <ul>
-                            <li>> help</li>
-                            <li>Press ENTER</li>
-                            <li>Press CTRL + ENTER</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-12 bottomTab tab_6 hide bg-white">
-                <div class="row" id="footer_script_executer_tab">
-                    <div class="col-md-7 p-0 text-right pr-1" style="position: relative">
-                        <a class="btn btn-xs btn-light" style="z-index: 9; position: absolute; right: 10px; top: 10px"
-                            href="javascript:void(0)" onclick="executeScript()"><i class="fa fa-flash"></i> Execute
-                            Command</a>
-                        <div id="scriptEditor"></div>
-                    </div>
-                    <div class="col-md-5 pl-1" style="background: #fff;">
-                        <p class="mb-0">Result:</p>
-                        <div style="
-                  height: 190px;
-                  overflow: auto;
-                  overflow-x: hidden;
-                  padding: 5px;
-                  font-size: 13px;
-                " class="bg-light scriptResult"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-12 bottomTab tab_7 hide" style="        
-            overflow: auto;
-            overflow-x: hidden;
-            background-color: #fff;
-            padding: 0 5px;
-          ">
-
-                <div id="livelogsec" class="mt-1" style="background-color: #fff;height: 250px;">
-                    <i class="fa fa-filter ml-3"></i> Logs:
-                    <label class="mr-1" style="display: inline-block"><input type="checkbox" value="true"
-                            id="livelog_fatal" class="fatal mt-1"
-                            onclick="Cookies.set('fatal', $('.fatal').is(':checked'));" checked>
-                        Fatal</label>
-                    <label class="mr-1" style="display: inline-block"><input type="checkbox" value="true"
-                            id="livelog_error" class="error mt-1"
-                            onclick="Cookies.set('error', $('.error').is(':checked'));" checked>
-                        Error</label>
-                    <label class="mr-1" style="display: inline-block"><input type="checkbox" value="true"
-                            id="livelog_warn" class="warn mt-1"
-                            onclick="Cookies.set('warn', $('.warn').is(':checked'));" checked>
-                        Warn</label>
-                    <label class="mr-1" style="display: inline-block"><input type="checkbox" value="true"
-                            id="livelog_info" class="info mt-1"
-                            onclick="Cookies.set('info', $('.info').is(':checked'));" checked>
-                        Info</label>
-                    <label class="mr-1" style="display: inline-block"><input type="checkbox" value="true"
-                            id="livelog_debug" class="debug mt-1"
-                            onclick="Cookies.set('debug', $('.debug').is(':checked'));"> Debug</label>
-                    <label class="mr-4" style="display: inline-block"><input type="checkbox" value="true"
-                            id="livelog_trace" class="trace mt-1"
-                            onclick="Cookies.set('trace', $('.trace').is(':checked'));"> Trace</label>
-
-                    <i class="fa fa-filter"></i> Fields:
-                    <label class="mr-1" style="display: inline-block"><input type="checkbox" value="true"
-                            class="node mt-1">
-                        Node</label>
-                    <label class="mr-1" style="display: inline-block"><input type="checkbox" value="true"
-                            class="session mt-1"> Session</label>
-                    <div style="height: 170px;overflow: auto;border-top:1px solid #eee;background-color: #000;"
-                        class="cdebug">
-                        <div class="ml-3 mr-3 mt-1" id="consoleBox">
-                            <div class="loggerHtml">
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="d-sm-none d-md-block" id="statusBar">
-        <div class="row h-100">
-            <div class="col-md-12 col-sm-12 col-12">
-                <ul class="nav nav-sm h-100">
-                    <li class="nav-item border-right text-center" style="width: 40px;padding: 7px;">
-                        <i class="fa fa-desktop"></i>
-                        <span class="mqttStatus"><span class="badge badge-success badge-indicator"
-                                title="Connected"></span></span>
-                    </li>
-
-                    <li class="nav-item border-right">
-                        <a href="javascript:void(0)" onclick="openBottomWindow(1)"
-                            class="nav-link text-dark bg-white fs_1">
-                            <img src="images/simulator.svg" alt="img" style="width: 12px;"> Simulator</a>
-                    </li>
-
-                    <li class="nav-item border-right">
-                        <a href="javascript:void(0)" onclick="openBottomWindow(2)"
-                            class="nav-link text-dark bg-white fs_2">
-                            <img src="images/chat.png" width="15"></i> Live Message</a>
-                    </li>
-
-                    <li class="nav-item border-right" id="rulesEngineConsole">
-                        <a href="javascript:void(0)" onclick="openBottomWindow(3)"
-                            class="nav-link text-dark bg-white fs_3">
-                            <i class="fa fa-bug"></i> Application Logs</a>
-                    </li>
-
-                    <li class="nav-item border-right">
-                        <a href="javascript:void(0)" onclick="openBottomWindow(5)"
-                            class="nav-link text-dark bg-white fs_5">
-                            <i class="fa fa-angle-right"></i> Command Console</a>
-                    </li>
-                    <li class="nav-item border-right">
-                        <a href="javascript:void(0)" onclick="openBottomWindow(6)"
-                            class="nav-link text-dark bg-white fs_6">
-                            <i class="fa fa-code"></i> Script Executor</a>
-                    </li>
-                    <li class="nav-item border-right">
-                        <a href="javascript:void(0)" onclick="openBottomWindow(4)"
-                            class="nav-link text-dark bg-white fs_4">
-                            <i class="fa fa-file" style="font-size: 13px;"></i> Failure Logs <span class="failiureLogCount"></span></a>
-                    </li>
-                    <li class="nav-item border-right">
-                        <a href="javascript:void(0)" onclick="openBottomWindow(7)"
-                            class="nav-link text-dark bg-white fs_7">
-                            <i class="fa fa-file-text" style="font-size: 13px;"></i> Live Logs</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="footerHideIcon">
-                <ul class="nav nav-sm">
-                    <li class="nav-item ml-1">
-                        <a href="javascript:void(0)" onclick="fooderHideFunction()"
-                            class="footerHide nav-link bg-white">
-                            <img src="images/close.svg" alt="img" width="13">
-                        </a>
-                    </li>
-                </ul>
+                <div class="loggerHtml"></div>
             </div>
 
         </div>
-    </section>
+
+    </div>
 
 </div>
 <script src="js/jquery.min.js"></script>
@@ -857,7 +621,6 @@
 <script src="js/jquery-ui-latest.js"></script>
 <script src="js/jquery.layout-latest.js"></script>
 <script type="text/javascript" src="libraries/colorpicker/spectrum.js"></script>
-<script type="text/javascript" src="libraries/jstree/jstree.js"></script>
 
 <script src="js/Aimara.js" type="text/javascript"></script>
 <script src="js/editor/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
@@ -869,103 +632,8 @@
 <script src="js/multiple-select.js" type="text/javascript" charset="utf-8"></script>
 <script src="controllers/folder-menu.js" type="text/javascript"></script>
 <script src="js/select2.min.js" type="text/javascript"></script>
-<script src="controllers/rules-engine.js" type="text/javascript"></script>
-<script type="text/javascript" src="libraries/daterangepicker/jquery.daterangepicker.min.js"></script>
-<script type="text/javascript" src="libraries/jquery.fullscreen-min.js"></script>
+<script src="controllers/rules-engine-old.js" type="text/javascript"></script>
 
-<div id="addRule" class="modal bskp-modal fade" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Add Rules</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="row" style="padding: 15px;">
-                <div class="col-md-4 col-sm-3 col-xs-6 rule-box">
-                    <div class="card modules" onclick="openModal(1)">
-                        <img src="images/rules-engine/message-rule.png" />
-                        <p class="mt-2 text-center"><label>Message Rule</label></p>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-3 col-xs-6 rule-box">
-                    <div class="card modules" onclick="openModal(2)">
-                        <img src="images/rules-engine/named-rule.png" />
-                        <p class="mt-2 text-center"><label>Named Rule</label></p>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-3 col-xs-6 rule-box">
-                    <div class="card modules" onclick="openModal(3)">
-                        <img src="images/rules-engine/schedule-rule.png" />
-                        <p class="mt-2 text-center"><label>Schedule Rule</label></p>
-                    </div>
-                </div>
-
-                <div class="col-md-4 col-sm-3 col-xs-6 rule-box">
-                    <div class="card modules" onclick="openModal(6)">
-                        <img src="images/rules-engine/binary-rule.png" />
-                        <p class="mt-2 text-center"><label>Binary Rule</label></p>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-3 col-xs-6 rule-box">
-                    <div class="card modules" onclick="openModal(7)">
-                        <img src="images/rules-engine/job-rule.png" />
-                        <p class="mt-2 text-center"><label>Job Rule</label></p>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-3 col-xs-6 rule-box">
-                    <div class="card modules" onclick="openModal(8)">
-                        <img src="images/rules-engine/file-rule.png" />
-                        <p class="mt-2 text-center"><label>File Rule</label></p>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-3 col-xs-6 rule-box">
-                    <div class="card modules" onclick="openModal(9)">
-                        <img src="images/rules-engine/process-rule.png" />
-                        <p class="mt-2 text-center"><label>Process Rule</label></p>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-3 col-xs-6 rule-box">
-                    <div class="card modules" onclick="openModal(10)">
-                        <img src="images/rules-engine/sftp-input.png" />
-                        <p class="mt-2 text-center"><label>SFTP Input</label></p>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-3 col-xs-6 rule-box">
-                    <div class="card modules" onclick="openModal(11)">
-                        <img src="images/rules-engine/mqtt-input.png" />
-                        <p class="mt-2 text-center"><label>MQTT Input</label></p>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-3 col-xs-6 rule-box">
-                    <div class="card modules" onclick="openModal(12)">
-                        <img src="images/rules-engine/UDP_Input.svg" />
-                        <p class="mt-2 text-center"><label>UDP Input</label></p>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-3 col-xs-6 rule-box">
-                    <div class="card modules" onclick="openModal(13)">
-                        <img src="images/rules-engine/TCP_Input.svg" />
-                        <p class="mt-2 text-center"><label>TCP Input</label></p>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-3 col-xs-6 rule-box">
-                    <div class="card modules" onclick="openModal(14)">
-                        <img src="images/rules-engine/Email_Input.svg" />
-                        <p class="mt-2 text-center"><label>Email Input</label></p>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-3 col-xs-6 rule-box">
-                    <div class="card modules" onclick="openModal(15)">
-                        <img src="images/rules-engine/Micro_Api_Rule.svg" />
-                        <p class="mt-2 text-center"><label>Micro API Rule</label></p>
-                    </div>
-                </div>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div>
 
 <div id="addMessageRule" class="modal bskp-modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
@@ -1413,7 +1081,7 @@
 
 <div id="importModal" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
+        <div class="modal-content" >
             <div class="modal-header">
                 <h4 class="modal-title">Import Rule</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
@@ -1837,7 +1505,7 @@
 
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="inputLabel">Server URL's *</label>
+                                        <label class="inputLabel">Server URL's</label>
                                         <input class="form-control input-sm" type="text" value="" id="mqtt_serverUrls"
                                             required>
                                         <small>Note: comma separated values</small>
@@ -3097,5 +2765,3 @@
         </td>
     </tr>
 </script>
-
-<script src="js/jquery.terminal-1.12.1.js" type="text/javascript"></script>
