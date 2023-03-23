@@ -11378,6 +11378,7 @@ function closeFooter() {
     }
     $('#statusContent').slideUp();
     prevOpenId = null;
+    $("#statusBar li,#statusBar li > a").removeClass("highlightFooterBtn")
 }
 
 
