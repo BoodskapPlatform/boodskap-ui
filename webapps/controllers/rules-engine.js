@@ -10917,22 +10917,22 @@ function openBottomWindow(id) {
     if (id == 1) {
         listRulesId(Number($('#rulesType').val())) // simulator click
         $("#statusContent .title").html('<i class="fa fa-chevron-right"></i><i class="fa fa-window-minimize"></i> Simulator')
-        var str = '<a href="javascript:void(0)" title="Full screen" class="ml-2 mr-2 expandscreenOption" fullScreen=false onclick="loadErrorLogsFullScreen()"><img src="images/fullscreen.svg" alt="img" width="12"> </a>'
+        var str = '<a href="javascript:void(0)" title="Full screen" class="ml-2 mr-2 expandscreenOption" fullScreen="false" onclick="loadErrorLogsFullScreen()"><img src="images/fullscreen.svg" alt="img" width="12"> </a>'
         $('#failiurelogsOptions').html(str)
     }
     else if (id == 2) {
         $("#statusContent .title").html('<i class="zmdi zmdi-comment-text"></i> Live Messages')
-        var str = '<a href="javascript:void(0)" title="Full screen" class="ml-2 mr-2 expandscreenOption" fullScreen=false onclick="loadErrorLogsFullScreen()"><img src="images/fullscreen.svg" alt="img" width="12"> </a>'
+        var str = '<a href="javascript:void(0)" title="Full screen" class="ml-2 mr-2 expandscreenOption" fullScreen="false" onclick="loadErrorLogsFullScreen()"><img src="images/fullscreen.svg" alt="img" width="12"> </a>'
         $('#failiurelogsOptions').html(str)
     }
     else if (id == 3) {
         $("#statusContent .title").html('<i class="fa fa-bug"></i> Rules Engine Console')
-        var str = '<a href="javascript:void(0)" title="Full screen" class="ml-2 mr-2 expandscreenOption" fullScreen=false onclick="loadErrorLogsFullScreen()"><img src="images/fullscreen.svg" alt="img" width="12"> </a>'
+        var str = '<a href="javascript:void(0)" title="Full screen" class="ml-2 mr-2 expandscreenOption" fullScreen="false" onclick="loadErrorLogsFullScreen()"><img src="images/fullscreen.svg" alt="img" width="12"> </a>'
         $('#failiurelogsOptions').html(str)
     }
     else if (id == 4) {
         $("#statusContent .title").html('<i class="fa fa-file" style="font-size: 13px;"></i> Failure Logs<span class="failiureLogCount"></span>')
-        var str = '<a href="javascript:void(0)" title="Full screen" class="ml-2 mr-2 expandscreenOption" fullScreen=false onclick="loadErrorLogsFullScreen()"><img src="images/fullscreen.svg" alt="img" width="12"> </a><a href="javascript:void(0)"  title="Refresh" class="ml-2 mr-2" onclick="loadErrorLogs()"><img src="images/refresh.svg" alt="img" width="15"> </a>'
+        var str = '<a href="javascript:void(0)" title="Full screen" class="ml-2 mr-2 expandscreenOption" fullScreen="false" onclick="loadErrorLogsFullScreen()"><img src="images/fullscreen.svg" alt="img" width="12"> </a><a href="javascript:void(0)"  title="Refresh" class="ml-2 mr-2" onclick="loadErrorLogs()"><img src="images/refresh.svg" alt="img" width="15"> </a>'
         var str1 = ' <div class="d-inline-flex mr-2"><div id="eventhistoryrange" class="datepicker-style cursor-pointer">' +
             '<img src="images/calender.svg" alt="img" width="12">&nbsp;' +
             '<span></span> <i class="fa fa-caret-down pull-right mt-1"></i>' +
@@ -10944,18 +10944,18 @@ function openBottomWindow(id) {
     }
     else if (id == 5) {
         $("#statusContent .title").html('<i class="fa fa-angle-right"></i> Command Console')
-        var str = '<a href="javascript:void(0)" title="Full screen" class="ml-2 mr-2 expandscreenOption" fullScreen=false onclick="loadErrorLogsFullScreen()"><img src="images/fullscreen.svg" alt="img" width="12"> </a>'
+        var str = '<a href="javascript:void(0)" title="Full screen" class="ml-2 mr-2 expandscreenOption" fullScreen="false" onclick="loadErrorLogsFullScreen()"><img src="images/fullscreen.svg" alt="img" width="12"> </a>'
         $('#failiurelogsOptions').html(str)
         $('.tchange').css('height', '219px')
     }
     else if (id == 6) {
         $("#statusContent .title").html('<i class="fa fa-code"></i> Script Executor')
-        var str = '<a href="javascript:void(0)" title="Full screen" class="ml-2 mr-2 expandscreenOption" fullScreen=false onclick="loadErrorLogsFullScreen()"><img src="images/fullscreen.svg" alt="img" width="12"> </a>'
+        var str = '<a href="javascript:void(0)" title="Full screen" class="ml-2 mr-2 expandscreenOption" fullScreen="false" onclick="loadErrorLogsFullScreen()"><img src="images/fullscreen.svg" alt="img" width="12"> </a>'
         $('#failiurelogsOptions').html(str)
     }
     else if (id == 7) {
         $("#statusContent .title").html('<i class="fa fa-file-text" style="font-size: 13px;"></i> Live Logs')
-        var str = '<a href="javascript:void(0)" title="Full screen" class="ml-2 mr-2 expandscreenOption" fullScreen=false onclick="loadErrorLogsFullScreen()"><img src="images/fullscreen.svg" alt="img" width="12"> </a>'
+        var str = '<a href="javascript:void(0)" title="Full screen" class="ml-2 mr-2 expandscreenOption" fullScreen="false" onclick="loadErrorLogsFullScreen()"><img src="images/fullscreen.svg" alt="img" width="12"> </a>'
         var str1 = '<a href="javascript:void(0)" title="Clear" class="ml-2 mr-2" onclick="clearLogs()"><img src="images/delete.svg" alt="img" width="15"></a>'
 
         $('#failiurelogsOptions').html(str1 + str)
@@ -11332,7 +11332,7 @@ function loadErrorLogsFullScreen() {
     $('#statusContent').bind('webkitfullscreenchange mozfullscreenchange fullscreenchange', function (e) {
         var state = document.fullScreen || document.mozFullScreen || document.webkitIsFullScreen;
         if (state) {
-            $('.expandscreenOption').attr('fullScreen', true)
+            $('.expandscreenOption').attr('fullScreen', "true")
             $('.hchange').css("height", "100vh")
             $('.cdebug').css("height", "100vh")
             $('.tchange').css("height", "100vh")
@@ -11344,6 +11344,7 @@ function loadErrorLogsFullScreen() {
             $('.errorLogs').css('height', '100vh')
             $("#livelogsec").css('height', '100vh')
         } else {
+            $('.expandscreenOption').attr('fullScreen', "false")
             $('.errorLogs').css('height', '250px')
             $("#livelogsec").css('height', '250px')
             $('.hchange').css("height", "250px")
@@ -11361,9 +11362,8 @@ function loadErrorLogsFullScreen() {
 }
 
 function closeFooter() {
-    $('#statusContent').slideUp();
-    if ($(".expandscreenOption").attr("fullScreen")) {
-        $('#statusContent').toggleFullScreen()
+    if ($(".expandscreenOption").attr("fullScreen") === "true") {
+        $('.expandscreenOption').attr('fullScreen', "false")
         $('.errorLogs').css('height', '250px')
         $("#livelogsec").css('height', '250px')
         $('.hchange').css("height", "250px")
@@ -11374,7 +11374,9 @@ function closeFooter() {
         $('#statusContent').css('height', '290px')
         $('.liveMessages').css('height', '215px')
         $('#scriptEditor').height('215px');
+        $('#statusContent').toggleFullScreen()
     }
+    $('#statusContent').slideUp();
     prevOpenId = null;
 }
 
