@@ -196,7 +196,7 @@
         <div class="col-lg-12 mainwindow" style="background-color: #3e3e3ee8;padding:5px; display: none">
             <div class="ui-layout-center centerBlock">
 
-                <div class="row-fluid">
+                <div class="row-fluid header-tab-div">
 
                     <button class="btn btn-xs btn-default" id="btnMax" style="position: absolute;right:12px;top:5px"
                         title="Full Screen">
@@ -524,12 +524,12 @@
             </div>
             <div class="col-md-6">
 
-                <button title="Close" type="button" style="opacity: 1;" class="close ml-2 statuscontentClose"
+                <div title="Close" type="button" style="opacity: 1;" class="close ml-2 statuscontentClose"
                     onclick="closeFooter()">
                     <span aria-hidden="true">
                         <img src="images/close.svg" width="20" alt="img">
                     </span>
-                </button>
+                </div>
                 <div class="d-inline-block" style="float: right;position: relative" id="failiurelogsOptions">
                 </div>
 
@@ -806,7 +806,7 @@
                     <li class="nav-item border-right">
                         <a href="javascript:void(0)" onclick="openBottomWindow(2)"
                             class="nav-link text-dark bg-white fs_2">
-                            <img src="images/chat.png" width="15"></i> Live Message</a>
+                            <img src="images/chat.png" width="15"></i> Live Messages</a>
                     </li>
 
                     <li class="nav-item border-right" id="rulesEngineConsole">
@@ -840,7 +840,7 @@
             <div class="footerHideIcon">
                 <ul class="nav nav-sm">
                     <li class="nav-item ml-1">
-                        <a href="javascript:void(0)" onclick="fooderHideFunction()"
+                        <a href="javascript:void(0)" onclick="footerToggleFunction('hide')"
                             class="footerHide nav-link bg-white">
                             <img src="images/close.svg" alt="img" width="13">
                         </a>
@@ -850,6 +850,7 @@
 
         </div>
     </section>
+  <i class="fa fa-angle-up fa-2x d-none" id="footerOpen" onclick="footerToggleFunction('show')" style="height: 35px;width: 44px;padding: 5px 14px;" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Open Console"></i>
 
 </div>
 <script src="js/jquery.min.js"></script>
@@ -884,80 +885,80 @@
             </div>
             <div class="row" style="padding: 15px;">
                 <div class="col-md-4 col-sm-3 col-xs-6 rule-box">
-                    <div class="card modules" onclick="openModal(1)">
+                    <div class="card rule-modules" onclick="openModal(1)">
                         <img src="images/rules-engine/message-rule.png" />
                         <p class="mt-2 text-center"><label>Message Rule</label></p>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-3 col-xs-6 rule-box">
-                    <div class="card modules" onclick="openModal(2)">
+                    <div class="card rule-modules" onclick="openModal(2)">
                         <img src="images/rules-engine/named-rule.png" />
                         <p class="mt-2 text-center"><label>Named Rule</label></p>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-3 col-xs-6 rule-box">
-                    <div class="card modules" onclick="openModal(3)">
+                    <div class="card rule-modules" onclick="openModal(3)">
                         <img src="images/rules-engine/schedule-rule.png" />
                         <p class="mt-2 text-center"><label>Schedule Rule</label></p>
                     </div>
                 </div>
 
                 <div class="col-md-4 col-sm-3 col-xs-6 rule-box">
-                    <div class="card modules" onclick="openModal(6)">
+                    <div class="card rule-modules" onclick="openModal(6)">
                         <img src="images/rules-engine/binary-rule.png" />
                         <p class="mt-2 text-center"><label>Binary Rule</label></p>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-3 col-xs-6 rule-box">
-                    <div class="card modules" onclick="openModal(7)">
+                    <div class="card rule-modules" onclick="openModal(7)">
                         <img src="images/rules-engine/job-rule.png" />
                         <p class="mt-2 text-center"><label>Job Rule</label></p>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-3 col-xs-6 rule-box">
-                    <div class="card modules" onclick="openModal(8)">
+                    <div class="card rule-modules" onclick="openModal(8)">
                         <img src="images/rules-engine/file-rule.png" />
                         <p class="mt-2 text-center"><label>File Rule</label></p>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-3 col-xs-6 rule-box">
-                    <div class="card modules" onclick="openModal(9)">
+                    <div class="card rule-modules" onclick="openModal(9)">
                         <img src="images/rules-engine/process-rule.png" />
                         <p class="mt-2 text-center"><label>Process Rule</label></p>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-3 col-xs-6 rule-box">
-                    <div class="card modules" onclick="openModal(10)">
+                    <div class="card rule-modules" onclick="openModal(10)">
                         <img src="images/rules-engine/sftp-input.png" />
                         <p class="mt-2 text-center"><label>SFTP Input</label></p>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-3 col-xs-6 rule-box">
-                    <div class="card modules" onclick="openModal(11)">
+                    <div class="card rule-modules" onclick="openModal(11)">
                         <img src="images/rules-engine/mqtt-input.png" />
                         <p class="mt-2 text-center"><label>MQTT Input</label></p>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-3 col-xs-6 rule-box">
-                    <div class="card modules" onclick="openModal(12)">
+                    <div class="card rule-modules" onclick="openModal(12)">
                         <img src="images/rules-engine/UDP_Input.svg" />
                         <p class="mt-2 text-center"><label>UDP Input</label></p>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-3 col-xs-6 rule-box">
-                    <div class="card modules" onclick="openModal(13)">
+                    <div class="card rule-modules" onclick="openModal(13)">
                         <img src="images/rules-engine/TCP_Input.svg" />
                         <p class="mt-2 text-center"><label>TCP Input</label></p>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-3 col-xs-6 rule-box">
-                    <div class="card modules" onclick="openModal(14)">
+                    <div class="card rule-modules" onclick="openModal(14)">
                         <img src="images/rules-engine/Email_Input.svg" />
                         <p class="mt-2 text-center"><label>Email Input</label></p>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-3 col-xs-6 rule-box">
-                    <div class="card modules" onclick="openModal(15)">
+                    <div class="card rule-modules" onclick="openModal(15)">
                         <img src="images/rules-engine/Micro_Api_Rule.svg" />
                         <p class="mt-2 text-center"><label>Micro API Rule</label></p>
                     </div>
