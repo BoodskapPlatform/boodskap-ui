@@ -243,10 +243,40 @@ function createMsgDef() {
         return false;
 
     }else{
-            var fields = []; 
-            var check = false;
+        var fields = []; 
+        var fieldValArr = [];
+        var check = false;
+
+        $.each($('.fieldrow'),function () {
+                    
+            if($(this).find('.mesg-field').val() === ""){ 
+                errorMsgBorder('Field Name is required', $(this).find('.mesg-field').attr('id'));
+                check = false;
+                return false;
+            }else if($(this).find('.mesg-type').val() === ""){ 
+                errorMsgBorder('Data Type is required', $(this).find('.mesg-type').attr('id'));
+                check = false;
+                return false;
+            }else if(fieldValArr.includes($(this).find(".mesg-field").val()) == true){
+                errorMsgBorder('Field Name cannot be duplicated', $(this).find('.mesg-field').attr('id'));
+                check = false;
+                return false;
+            }else{
+                    fieldValArr.push($(this).find(".mesg-field").val());
+                    var json = {
+                        "dataType":$(this).find('.mesg-type').val(),
+                        "format": "AS_IS",
+                        "label": "",
+                        "description": "",
+                        "name": $(this).find('.mesg-field').val()
+                    }
+                    fields.push(json);
+                    check = true;
+                    return true;
+            }
+        })
            
-            $.each($('.fieldrow'),function () {
+            /* $.each($('.fieldrow'),function () {
                  if($(this).find('.mesg-field').val() === ""){ 
                     errorMsgBorder('Field Name is required', $(this).find('.mesg-field').attr('id'));
                     check = false;
@@ -268,7 +298,7 @@ function createMsgDef() {
                         check = true;
                         return true;
                     }
-                       })
+                       }) */
      
     // console.log(fields.length);
         // for (var i = 0; i < fields.length; i++) {
@@ -327,7 +357,19 @@ function createMsgDef() {
                             $('.active-step.tab2').removeClass('d-none'); 
                             $('iframe').attr('src',"https://www.youtube.com/embed/MF8I4w2BcIQ"); 
                     } else {
-                        errorMsg('Error in Define Message');
+                        if(typeof(data)!="undefined"){
+                            if(data.message){
+                                var errmessage = data.message.replaceAll("_"," ")
+                                if(errmessage == "INVALID MESSAGE ID"){
+                                    errmessage = "Message ID minimum 3 digits required";
+                                }
+                                errorMsg(errmessage);
+                            }else{
+                                errorMsg('Error in Define Message');
+                            }
+                        }else{
+                            errorMsg('Error in Define Message');
+                        }
                     }
                 })
             }

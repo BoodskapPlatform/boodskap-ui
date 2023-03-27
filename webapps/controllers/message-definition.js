@@ -341,7 +341,7 @@ function addMessageRule(place) {
             var fields = []; 
             var fieldValArr = [];
             var check = false;
-            console.log(place);
+            
             if (place!="edit"){
                 
                 $.each($('.fieldrow'),function () {

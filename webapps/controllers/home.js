@@ -171,7 +171,9 @@ function openLinkModal() {
 function domainList() {
     $(".domainList").html("");
     $(".linked_domains").html("");
-    if(LINKED_DOMAINS) {
+    $("#noLinkedDomain").addClass("d-none");
+    $("#linkedDomainTable").removeClass("d-none");
+    if(LINKED_DOMAINS.length) {
         for (var i = 0; i < LINKED_DOMAINS.length; i++) {
 
             $(".linked_domains").append('<label class="label label-default" onclick="openLinkedDomain(\'' + LINKED_DOMAINS[i].domainKey + '\')">' + LINKED_DOMAINS[i].label + '</label><br>')
@@ -188,6 +190,9 @@ function domainList() {
                 '</td>' +
                 '</tr>')
         }
+    }else{
+        $("#linkedDomainTable").addClass("d-none");
+        $("#noLinkedDomain").removeClass("d-none");
     }
 }
 
@@ -241,7 +246,9 @@ function linkDomainCall() {
                 Cookies.set('user_details', USER_OBJ);
                 domainList();
                 $("#linkModal form")[0].reset();
-                successMsg('Domain Linked Successfully!')
+                successMsg('Domain Linked Successfully!');
+                $("#noLinkedDomain").addClass("d-none");
+                $("#linkedDomainTable").removeClass("d-none");
             } else {
                 errorMsg('Error in Linking Domain (or) Domain Not Exist');
                 $("#linkDomain").attr("disabled",false);
