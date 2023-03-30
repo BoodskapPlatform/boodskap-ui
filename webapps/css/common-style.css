@@ -30,6 +30,10 @@
     font-weight: bold;
 }
 
+.skiptranslate a:hover{
+    text-decoration: none !important;
+}
+
 @media (max-width: 679px) {
     .w-sm-100{
         width: 100% !important;

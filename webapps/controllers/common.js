@@ -121,7 +121,8 @@ function assignVersion() {
         
     }
     if($("#device_model").val() === 'newmodel'){
-        togglemodel('newmodel')     
+        togglemodel('newmodel');
+        $("#new_device_model").val("");
     }else if($("#device_model").val() === null){
         togglemodel('newmodel')     
     }else{
