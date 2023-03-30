@@ -90,7 +90,8 @@ function loadDBPool() {
             orderable: false,
             sWidth: '40%',
             mRender: function (data, type, row) {
-                var code = js_beautify(JSON.stringify(row[row['type'].toLowerCase() + 'Args']), { indent_size: 4 })
+                var datavalues = row['type'] != null ? row[row['type'].toLowerCase() + 'Args'] : "";
+                var code = datavalues != null || datavalues == "" ? js_beautify(JSON.stringify(datavalues), { indent_size: 4 }) : "No data found"  ;
 
                 return '<textarea class="form-control text-area" style="width: 100%;height: 250px;resize: none;background-color: #fff;color: #333;opacity: 0.8;" readonly>' + code + '</textarea>';
             

@@ -744,6 +744,7 @@ function recentcard(rdata) {
         let ui = "";
         let idd = "";
         let hideClass = "";
+        let golink="";let onclk="";
         for (let i = 0; i < (rdata.length >= 12 ? 12 : rdata.length); i++) {
             test = 'loadMenu(' + rdata[i].loadmenu + ')'
             idd = rdata[i].id.replaceAll("_", "-");
@@ -758,9 +759,17 @@ function recentcard(rdata) {
             if (i > 7) {
                 hideClass = "hide-class";
             }
+            if(rdata[i].name=="DSQL Tables"||rdata[i].name=="DB Tables"||rdata[i].name=="SQL Table"||rdata[i].name=="MongoDB"||rdata[i].name=="DSQL Templates"||
+            rdata[i].name=="DB Templates"||rdata[i].name=="DSQL Query Console"||rdata[i].name=="DB Query Console"||rdata[i].name=="Ignite SQL Query"||rdata[i].name=="Google Voice"){
+                golink = "javascript:void(0)";
+                onclk = "errorMsg('Contact Administrator!');"
+            }else{
+                golink = WEB_BASE_PATH + "/" + idd ;
+                onclk = "clickRecent('"+rdata[i].name+"','"+idd+"',"+rdata[i].loadmenu+","+rdata[i].cardno+")";
+            }
             if (i >= 0 && i <= 11) {
                 ui += `<div class="w-25 w-sm-100 w-md-50 px-2 homecard  hmarketplace ` + hideClass + `">
-                    <a href="`+ WEB_BASE_PATH + "/" + idd + `" onclick="clickRecent('` + rdata[i].name + `','` + idd + `',` + rdata[i].loadmenu + `,` + rdata[i].cardno + `)">
+                    <a href="`+ golink + `" onclick="`+onclk+`">
                         <div class="card modules bskp-home-modules">
                             <div class="bskp-icon-frame">
                                 <div class="bskp-Dbg bskp-Dimg`+ rdata[i].cardno + `"></div>
