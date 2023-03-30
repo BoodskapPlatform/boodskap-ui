@@ -87,7 +87,7 @@ var endDate = moment().endOf('day');
 var live_msg_count = 0;
 var debugger_count = 0;
 var scriptEditor = null;
-
+var otherHeight;
 
 
 $(".barMenu").removeClass('active');
@@ -177,10 +177,14 @@ $(document).ready(function () {
         $(".mainwindow").css('min-height', $(window).height() - 90 + 'px');
         setTimeout(() => {
             $('#codeEditor').height(($(".ui-layout-center").height() - 40) + 'px');
-        }, 250);
+            $('#scriptEditor').height('calc(100vh  - ' + otherHeight + ' + px');
+            scriptEditor.resize();
+        }, 300);
     });
 
     footerStsBar()
+    otherHeight = $("#header").outerHeight() + $("#header-tab-div").outerHeight() + $("#statusBar").outerHeight() + $(".footer").outerHeight()
+
 });
 
 function loadRulesEngineTree(type) {
@@ -416,7 +420,7 @@ function loadRulesEngineTree(type) {
                 const megname = data.node.original.messageName
                     ? data.node.original.messageName
                     : "";
-                loadTabbar(
+                loadTabbar( // gtab name and code
                     data.node.text,
                     data.node.li_attr.type,
                     data.node.id,
@@ -3359,8 +3363,26 @@ function loadMessageRulesList(simulator, lbk) {
                     if (lbk) lbk(true)
                 } else {
                     message_spec_list = []
-                    errorMsg('No Messages Defined so far!')
-                    $('.transpernetProcessing').addClass('hide')
+                    treeData.forEach(iterator => {
+                        if (iterator.id === 'MSG_RULE') {
+                            iterator.children = []
+                            $('#MSG_RULE .jstree-ocl').first().addClass('jstree-icon').removeClass('fa fa-spin fa-spinner spinadjust')
+                            $('#rules_tree').jstree(true).settings.core.data = treeData;
+                            $('#rules_tree').jstree(true).refresh(true);
+                            setTimeout(() => {
+                                $("#rules_tree").jstree("close_all");
+                                $('#MSG_RULE .jstree-ocl').first().click()
+                                $('.transpernetProcessing').addClass('hide')
+
+                            }, 50);
+                            setTimeout(() => {
+                                allRulesCalled()
+                            }, 600);
+                        }
+                    })
+                    if (!simulator) {
+                        errorMsg('No Messages Defined so far!')
+                    }
                     if (lbk) lbk(false)
                 }
 
@@ -3480,6 +3502,7 @@ function loadBinaryRulesList(simulator, lbk) {
     listBinaryRules(rules_page_size, null, null, function (status, data) {
         if (status && data.length > 0) {
             binary_rules_list = data;
+            console.log(binary_rules_list);
         } else {
             binary_rules_list = []
             errorMsg('No Binary Rules Found!')
@@ -4510,6 +4533,7 @@ function loadTabbar(id, type, uniqId) {
     }
     if (_.indexOf(tabbar_list, check) < 0) {
         const $editorBar = $(".editorBar")
+        console.log(type);
         switch (type) { // navbar
 
             case 1:
@@ -4641,12 +4665,12 @@ function loadTabbar(id, type, uniqId) {
 
             $(".ruleType").html('Message Rule');
             $(".ruleName").html(id + ' - <small style="color:#333;font-weight: normal">' + obj.name + '</small>');
-            $(".exportBtn").attr('onclick', 'exportRule(2)')
+            $(".exportBtn").attr('onclick', 'exportRule(' + type + ')')
             $(".messageFields tbody").html("");
             for (let i = 0; i < obj.fields.length; i++) {
                 $(".messageFields tbody").append('<tr><td>' + obj.fields[i].name + '</td><td><label class="label label-default">' + obj.fields[i].dataType + '</label></td></tr>')
             }
-            $(".simulateBtn").attr('onclick', 'checkSimulateDevices(\'' + id + '\',1)');
+            $(".simulateBtn").attr('onclick', 'checkSimulateDevices(\'' + id + '\',' + type + ')');
             break;
 
         case 2:
@@ -4654,8 +4678,8 @@ function loadTabbar(id, type, uniqId) {
             $(".namedTab_" + id).addClass('active');
             $(".ruleType").html('Named Rule');
             $(".ruleName").html(id);
-            $(".exportBtn").attr('onclick', 'exportRule(3)')
-            $(".simulateBtn").attr('onclick', 'openSimulateModal(\'' + id + '\',2)');
+            $(".exportBtn").attr('onclick', 'exportRule(' + type + ')')
+            $(".simulateBtn").attr('onclick', 'openSimulateModal(\'' + id + '\',' + type + ')');
             break;
 
         case 3:
@@ -4663,7 +4687,7 @@ function loadTabbar(id, type, uniqId) {
             $(".scheduleTab_" + id).addClass('active');
             $(".ruleType").html('Schedule Rule');
             $(".ruleName").html(id);
-            $(".exportBtn").attr('onclick', 'exportRule(4)')
+            $(".exportBtn").attr('onclick', 'exportRule(' + type + ')')
             break;
 
         case 6:
@@ -4671,8 +4695,8 @@ function loadTabbar(id, type, uniqId) {
             $(".binaryTab_" + id).addClass('active');
             $(".ruleType").html('Binary Rule');
             $(".ruleName").html(id);
-            $(".exportBtn").attr('onclick', 'exportRule(6)')
-            $(".simulateBtn").attr('onclick', 'openSimulateModal(\'' + id + '\',3)');
+            $(".exportBtn").attr('onclick', 'exportRule(' + type + ')')
+            $(".simulateBtn").attr('onclick', 'openSimulateModal(\'' + id + '\',' + type + ')');
             break;
 
         case 7:
@@ -4689,7 +4713,7 @@ function loadTabbar(id, type, uniqId) {
             $(".ruleType").html('Job Rule');
             $(".ruleName").html(obj.type);
 
-            $(".exportBtn").attr('onclick', 'exportRule(7)')
+            $(".exportBtn").attr('onclick', 'exportRule(' + type + ')')
 
             break;
 
@@ -4705,8 +4729,8 @@ function loadTabbar(id, type, uniqId) {
             $(".ruleType").html('File Rule');
             $(".ruleName").html(id + (obj.rootPath ? '<br><small>Rooth Path: ' + obj.rootPath + '</small>' : ''));
 
-            $(".exportBtn").attr('onclick', 'exportRule(8)')
-            $(".simulateBtn").attr('onclick', 'openSimulateModal(\'' + id + '\',4)');
+            $(".exportBtn").attr('onclick', 'exportRule(' + type + ')')
+            $(".simulateBtn").attr('onclick', 'openSimulateModal(\'' + id + '\',' + type + ')');
 
             break;
 
@@ -4724,7 +4748,7 @@ function loadTabbar(id, type, uniqId) {
             loadProcessDetails(uniqId, obj);
             $(".ruleType").html('Process Rule');
             $(".ruleName").html(obj.name);
-            $(".exportBtn").attr('onclick', 'exportRule(9)')
+            $(".exportBtn").attr('onclick', 'exportRule(' + type + ')')
 
             break;
 
@@ -4742,7 +4766,7 @@ function loadTabbar(id, type, uniqId) {
             loadSftpDetails(uniqId, obj);
             $(".ruleType").html('SFTP Rule');
             $(".ruleName").html(obj.name);
-            $(".exportBtn").attr('onclick', 'exportRule(10)')
+            $(".exportBtn").attr('onclick', 'exportRule(' + type + ')')
 
             break;
 
@@ -4760,7 +4784,7 @@ function loadTabbar(id, type, uniqId) {
             loadMqttDetails(uniqId, obj);
             $(".ruleType").html('MQTT Rule');
             $(".ruleName").html(obj.name);
-            $(".exportBtn").attr('onclick', 'exportRule(11)')
+            $(".exportBtn").attr('onclick', 'exportRule(' + type + ')')
 
             break;
 
@@ -4778,7 +4802,7 @@ function loadTabbar(id, type, uniqId) {
             rightPanelDetails(".detailsBlock,.inputBlock")
             $(".ruleType").html('UDP Rule');
             $(".ruleName").html(obj.name);
-            $(".exportBtn").attr('onclick', 'exportRule(12)')
+            $(".exportBtn").attr('onclick', 'exportRule(' + type + ')')
 
             break;
 
@@ -4796,7 +4820,7 @@ function loadTabbar(id, type, uniqId) {
             loadTcpDetails(uniqId, obj);
             $(".ruleType").html('TCP Rule');
             $(".ruleName").html(obj.name);
-            $(".exportBtn").attr('onclick', 'exportRule(13)')
+            $(".exportBtn").attr('onclick', 'exportRule(' + type + ')')
 
             break;
 
@@ -4814,7 +4838,7 @@ function loadTabbar(id, type, uniqId) {
             loadEmailDetails(uniqId, obj);
             $(".ruleType").html('Email Rule');
             $(".ruleName").html(obj.name);
-            $(".exportBtn").attr('onclick', 'exportRule(14)');
+            $(".exportBtn").attr('onclick', 'exportRule(' + type + ')');
 
             break;
 
@@ -4832,7 +4856,7 @@ function loadTabbar(id, type, uniqId) {
             loadMicroDetails(id, obj);
             $(".ruleType").html('Micro API Rule');
             $(".ruleName").html(obj.name);
-            $(".exportBtn").attr('onclick', 'exportRule(15)')
+            $(".exportBtn").attr('onclick', 'exportRule(' + type + ')')
 
             break;
     }
@@ -6183,7 +6207,7 @@ function loadDomainRule() {
     $(".ruleType").html('Domain Rule')
     $(".ruleLanguage").html('GROOVY')
 
-    exportRule(1);
+    exportRule(CURRENT_TYPE);
 
     $(".detailsBlock").css('display', 'block');
     $(".inputBlock").css('display', 'none');
@@ -6204,7 +6228,7 @@ function loadMessageRule(id) {
     CURRENT_ID = id;
     CURRENT_TYPE = 1;
 
-    exportRule(2)
+    exportRule(CURRENT_TYPE)
 
     let obj = {};
     for (let i = 0; i < message_spec_list.length; i++) {
@@ -6244,7 +6268,7 @@ function loadNamedRule(id) {
     CURRENT_ID = id;
     CURRENT_TYPE = 2;
 
-    exportRule(3)
+    exportRule(CURRENT_TYPE)
 
     let obj = {};
     for (let i = 0; i < named_rules_list.length; i++) {
@@ -6265,16 +6289,44 @@ function loadNamedRule(id) {
 }
 
 
+function loadScheduleRule(id) {
+    $(".simulateBtn").css('display', 'none');
+    // mqttCancelSubscribe(CURRENT_ID);
+    $("#editorContent").html('<div id="codeEditor"></div>');
+    let data = returnObj(id, 3);
+    $("#codeEditor").html('');
+    loadEditor(data ? data.code : '', 'scheduleTab_' + id);
+    CURRENT_ID = id;
+    CURRENT_TYPE = 3;
+
+    let obj = {};
+    for (let i = 0; i < schedule_rules_list.length; i++) {
+        if (id === schedule_rules_list[i].id) {
+            obj = schedule_rules_list[i];
+        }
+    }
+    $(".ruleType").html('Schedule Rule');
+    $(".ruleName").html(obj.id);
+
+    $(".deleteBtn").css('display', 'block');
+
+
+    exportRule(CURRENT_TYPE)
+    toggleHeading(id)
+
+    rightPanelDetails(".detailsBlock")
+}
+
 function loadBinaryRule(id) {
     //  mqttCancelSubscribe(CURRENT_ID);
     $("#editorContent").html('<div id="codeEditor"></div>');
-    let data = returnObj(id, 4);
+    let data = returnObj(id, 6);
     $("#codeEditor").html('');
     loadEditor(data ? data.code : '', 'binaryTab_' + id);
     CURRENT_ID = id;
-    CURRENT_TYPE = 4;
+    CURRENT_TYPE = 6;
 
-    exportRule(6)
+    exportRule(CURRENT_TYPE)
 
     let obj = {};
     for (let i = 0; i < binary_rules_list.length; i++) {
@@ -6296,6 +6348,32 @@ function loadBinaryRule(id) {
 }
 
 
+function loadJobRule(id) {
+    $(".simulateBtn").css('display', 'none');
+    //  mqttCancelSubscribe(CURRENT_ID);
+    $("#editorContent").html('<div id="codeEditor"></div>');
+    let data = returnObj(id, 7);
+    $("#codeEditor").html('');
+
+    loadEditor(data.code ? data.code : '', 'jobTab_' + id);
+
+    CURRENT_ID = id;
+    CURRENT_TYPE = 7;
+
+    exportRule(CURRENT_TYPE)
+
+    $(".ruleType").html('Job Rule');
+    $(".ruleName").html(data.id);
+
+
+    $(".deleteBtn").css('display', 'block');
+
+    loadJobDetails(id, data)
+    toggleHeading(id)
+
+    rightPanelDetails(".detailsBlock,.jobFields")
+}
+
 function loadFileRule(id) {
     //  mqttCancelSubscribe(CURRENT_ID);
     $("#editorContent").html('<div id="codeEditor"></div>');
@@ -6305,7 +6383,7 @@ function loadFileRule(id) {
     CURRENT_ID = id;
     CURRENT_TYPE = 8;
 
-    exportRule(8)
+    exportRule(CURRENT_TYPE)
 
     let obj = {};
     for (let i = 0; i < file_rules_list.length; i++) {
@@ -6325,30 +6403,32 @@ function loadFileRule(id) {
     rightPanelDetails(".detailsBlock")
 }
 
-function loadJobRule(id) {
+
+function loadProcessRule(id) {
     $(".simulateBtn").css('display', 'none');
     //  mqttCancelSubscribe(CURRENT_ID);
     $("#editorContent").html('<div id="codeEditor"></div>');
-    let data = returnObj(id, 7);
+    let data = returnObj(id, 9);
     $("#codeEditor").html('');
-
-    loadEditor(data.code ? data.code : '', 'jobTab_' + id);
+    loadEditor(data.code ? data.code : '', 'processTab_' + id);
 
     CURRENT_ID = id;
-    CURRENT_TYPE = 7;
+    CURRENT_TYPE = 9;
 
-    exportRule(7)
+    exportRule(CURRENT_TYPE)
 
-    $(".ruleType").html('Job Rule');
+    $(".ruleType").html('Process Rule');
     $(".ruleName").html(data.id);
 
 
     $(".deleteBtn").css('display', 'block');
 
-    loadJobDetails(id, data)
-    toggleHeading(id)
+    loadProcessDetails(id, data)
 
-    rightPanelDetails(".detailsBlock,.jobFields")
+    toggleHeading(id)
+    rightPanelDetails(".detailsBlock,.processBlock")
+
+
 }
 
 function loadSftpRule(id) {
@@ -6363,7 +6443,7 @@ function loadSftpRule(id) {
     CURRENT_ID = id;
     CURRENT_TYPE = 10;
 
-    exportRule(10)
+    exportRule(CURRENT_TYPE)
 
     $(".ruleType").html('SFTP Rule');
     $(".ruleName").html(data.name);
@@ -6391,7 +6471,7 @@ function loadMqttRule(id) {
     CURRENT_ID = id;
     CURRENT_TYPE = 11;
 
-    exportRule(11)
+    exportRule(CURRENT_TYPE)
 
     $(".ruleType").html('MQTT Rule');
     $(".ruleName").html(data.name);
@@ -6416,7 +6496,7 @@ function loadUdpRule(id) {
     CURRENT_ID = id;
     CURRENT_TYPE = 12;
 
-    exportRule(12)
+    exportRule(CURRENT_TYPE)
 
     $(".ruleType").html('UDP Rule');
     $(".ruleName").html(data.name);
@@ -6443,7 +6523,7 @@ function loadTcpRule(id) {
     CURRENT_ID = id;
     CURRENT_TYPE = 13;
 
-    exportRule(13)
+    exportRule(CURRENT_TYPE)
 
     $(".ruleType").html('TCP Rule');
     $(".ruleName").html(data.name);
@@ -6469,7 +6549,7 @@ function loadEmailRule(id) {
     CURRENT_ID = id;
     CURRENT_TYPE = 14;
 
-    exportRule(14)
+    exportRule(CURRENT_TYPE)
 
     $(".ruleType").html('EMAIL Rule');
     $(".ruleName").html(data.name);
@@ -6496,7 +6576,7 @@ function loadMicroRule(id) {
     CURRENT_ID = id;
     CURRENT_TYPE = 15;
 
-    exportRule(15)
+    exportRule(CURRENT_TYPE)
 
     $(".ruleType").html('Micro API Rule');
     $(".ruleName").html(data.name);
@@ -6510,60 +6590,6 @@ function loadMicroRule(id) {
 
 }
 
-function loadProcessRule(id) {
-    $(".simulateBtn").css('display', 'none');
-    //  mqttCancelSubscribe(CURRENT_ID);
-    $("#editorContent").html('<div id="codeEditor"></div>');
-    let data = returnObj(id, 9);
-    $("#codeEditor").html('');
-    loadEditor(data.code ? data.code : '', 'processTab_' + id);
-
-    CURRENT_ID = id;
-    CURRENT_TYPE = 9;
-
-    exportRule(9)
-
-    $(".ruleType").html('Process Rule');
-    $(".ruleName").html(data.id);
-
-
-    $(".deleteBtn").css('display', 'block');
-
-    loadProcessDetails(id, data)
-
-    toggleHeading(id)
-    rightPanelDetails(".detailsBlock,.processBlock")
-
-
-}
-
-function loadScheduleRule(id) {
-    $(".simulateBtn").css('display', 'none');
-    // mqttCancelSubscribe(CURRENT_ID);
-    $("#editorContent").html('<div id="codeEditor"></div>');
-    let data = returnObj(id, 3);
-    $("#codeEditor").html('');
-    loadEditor(data ? data.code : '', 'scheduleTab_' + id);
-    CURRENT_ID = id;
-    CURRENT_TYPE = 3;
-
-    let obj = {};
-    for (let i = 0; i < schedule_rules_list.length; i++) {
-        if (id === schedule_rules_list[i].id) {
-            obj = schedule_rules_list[i];
-        }
-    }
-    $(".ruleType").html('Schedule Rule');
-    $(".ruleName").html(obj.id);
-
-    $(".deleteBtn").css('display', 'block');
-
-
-    exportRule(4)
-    toggleHeading(id)
-
-    rightPanelDetails(".detailsBlock")
-}
 
 let editorLine = {};
 
@@ -7052,7 +7078,24 @@ function openModal(id) {
         setTimeout(() => {
             switch (id) {
                 case 1:
+                    if (message_spec_list.length === 0) {
+                        loadMessageRulesList(true, function (status) {
+                                MSG_FIELD_COUNT = 0;
 
+                                $("#addMessageRule form")[0].reset();
+
+                                $(".msgFieldBody").html("");
+                                if (LicenseDetails.maxMessageSpecs <= message_spec_list.length) {
+                                    warningMsg('Your plan have ' + LicenseDetails.maxMessageSpecs + ' message rule.')
+                                    return
+                                } else {
+                                    $("#addMessageRule").modal('show');
+                                }
+                                addMessageField();
+                        })
+                        return
+                    }
+                     
                     MSG_FIELD_COUNT = 0;
 
                     $("#addMessageRule form")[0].reset();
@@ -9036,7 +9079,6 @@ function openSimulateModal(id, type) {
                 '</div></div>' +
                 '</div>'
 
-            $(".simulatorModal").append(str);
 
             for (const iterator of message_spec_list) {
                 if (Number(id) === iterator['id']) {
@@ -9044,10 +9086,10 @@ function openSimulateModal(id, type) {
                     break
                 }
             }
-
+            simulator[id] = current_msg_obj;
+            if (!simulatorModal[id]) {
+                $(".simulatorModal").append(str);
             fetchDeviceList(id, function (status, data) {
-                simulator[id] = current_msg_obj;
-                if (!simulatorModal[id]) {
 
                     $(".msgFieldBlock_" + id).html('');
 
@@ -9069,8 +9111,8 @@ function openSimulateModal(id, type) {
                         title: "Simulate -" + id + ' [' + current_msg_obj.name + ']',
                     });
 
-                }
-            })
+                })
+            }
 
             break;
 
@@ -9128,7 +9170,7 @@ function openSimulateModal(id, type) {
 
             break;
 
-        case 3:
+        case 6:
             str = '<div id="simulatorModal_' + id + '" class="w-100">' +
                 '<div data-role="body">\n' +
                 '<div class="row"><div class="col-md-12"><div class="form-group">' +
@@ -9151,7 +9193,6 @@ function openSimulateModal(id, type) {
                 '</div></div>' +
                 '</div>'
 
-            $(".simulatorModal").append(str);
 
             for (const iterator of binary_rules_list) {
                 if (id === iterator['type']) {
@@ -9163,8 +9204,9 @@ function openSimulateModal(id, type) {
 
             simulator[id] = current_binaryrule_obj;
 
+            if (!simulatorModal[id]) {
+                $(".simulatorModal").append(str);
             fetchDeviceList(id, function (status, data) {
-                if (!simulatorModal[id]) {
 
                     simulatorModal[id] = $("#simulatorModal_" + id).dialog({
                         resizable: true,
@@ -9183,11 +9225,11 @@ function openSimulateModal(id, type) {
 
                     });
 
-                }
-            })
+                })
+            }
             break;
 
-        case 4:
+        case 8:
             str = '<div id="simulatorModal_' + id + '" class="w-100">' +
                 '<div data-role="body">\n' +
                 '<div class="row"><div class="col-md-12"><div class="form-group">' +
@@ -9209,7 +9251,6 @@ function openSimulateModal(id, type) {
                 '</div>' +
                 '</div></div>' +
                 '</div>'
-            $(".simulatorModal").append(str);
 
             for (const iterator of file_rules_list) {
                 if (id === iterator['type']) {
@@ -9220,8 +9261,9 @@ function openSimulateModal(id, type) {
 
             simulator[id] = current_filerule_obj;
 
+            if (!simulatorModal[id]) {
+                $(".simulatorModal").append(str);
             fetchDeviceList(id, function (status, data) {
-                if (!simulatorModal[id]) {
 
                     simulatorModal[id] = $("#simulatorModal_" + id).dialog({
                         resizable: true,
@@ -9239,8 +9281,8 @@ function openSimulateModal(id, type) {
                         title: 'Simulate - ' + current_filerule_obj.type,
 
                     });
-                }
-            })
+                })
+            }
             break;
     }
 }
@@ -9395,7 +9437,7 @@ function simulateMessage(id, type ,sbk) {
         uploadBinaryFile(files[0], id);
 
     }
-    else if (type === 10) {
+    else if (type === 8) {
 
 
         let fileInput = document.getElementById("simulatorInput_" + id);
@@ -9525,7 +9567,7 @@ function exportRule(type) {
     let obj ={}
     switch (type) {
 
-        case 1:
+        case 0:
             console.log('Domain Rule...!');
             rule_name = 'domain-rule';
             data = {
@@ -9535,7 +9577,7 @@ function exportRule(type) {
 
             break;
 
-        case 2:
+        case 1:
             console.log('Message Rule...!');
             rule_name = 'message-rule-' + CURRENT_ID;
             data = {
@@ -9546,7 +9588,7 @@ function exportRule(type) {
 
 
             break;
-        case 3:
+        case 2:
             console.log('Named Rule...!');
             rule_name = 'named-rule-' + CURRENT_ID;
             data = {
@@ -9557,7 +9599,7 @@ function exportRule(type) {
 
 
             break;
-        case 4:
+        case 3:
             console.log('Schedule Rule...!');
             rule_name = 'schedule-rule-' + CURRENT_ID;
             obj = returnObj(CURRENT_ID, 3);
@@ -11279,8 +11321,7 @@ function initiateEditor() {
 
     scriptEditor.setValue('');
     scriptEditor.clearSelection();
-
-    $('#scriptEditor').height('219px');
+    $('#scriptEditor').height('calc(100vh  - '+otherHeight+' + px');
 
     scriptEditor.resize();
 
@@ -11354,7 +11395,7 @@ function loadErrorLogsFullScreen() {
             $('.expandscreenOption img').attr('src', 'images/fullscreen.svg')
             $('#statusContent').css('height', '290px')
             $('.liveMessages').css('height', '215px')
-            $('#scriptEditor').height('215px');
+            $('#scriptEditor').height('calc(100vh  - ' + otherHeight + ' + px');
 
 
         }
@@ -11373,7 +11414,7 @@ function closeFooter() {
         $('.expandscreenOption img').attr('src', 'images/fullscreen.svg')
         $('#statusContent').css('height', '290px')
         $('.liveMessages').css('height', '215px')
-        $('#scriptEditor').height('215px');
+        $('#scriptEditor').height('calc(100vh  - ' + otherHeight + ' + px');
         $('#statusContent').toggleFullScreen()
     }
     $('#statusContent').slideUp();
@@ -11385,4 +11426,18 @@ function closeFooter() {
 function clearLogs1() {
     $(".debugMessages").html("");
     successMsg('Logs cleared successfully');
+}
+
+function footerToggleFunction(type) {
+    if (type === "hide") {
+        $('#statusContent').slideUp();
+        prevOpenId = null;
+        $("#statusBar").removeClass("d-md-block");
+        $("#statusBar").addClass("d-none");
+        $("#footerOpen").removeClass("d-none");
+    } else {
+        $("#statusBar").addClass("d-md-block");
+        $("#statusBar").removeClass("d-none");
+        $("#footerOpen").addClass("d-none");
+    }
 }

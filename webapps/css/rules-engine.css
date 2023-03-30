@@ -631,7 +631,7 @@
     margin-top: 51%;
 }
 
-.modules {
+.rule-modules {
     text-align: center;
     background-color: #eeeeee69;
     border: 1px solid #eee;
@@ -640,7 +640,7 @@
     display: block;
 }
 
-.modules img {
+.rule-modules img {
     width: 40px;
     height: auto;
     margin-top: 15px;
@@ -699,21 +699,22 @@
     background: #fff;
 }
 
-.command-console ul{
+.command-console ul {
     list-style: none;
 }
 
-.highlightFooterBtn{
+.highlightFooterBtn {
     background-color: #2C2C78 !important;
 }
 
-.highlightFooterBtn img{
+.highlightFooterBtn img {
     filter: invert(1);
 }
-.highlightFooterBtn > a,
+
+.highlightFooterBtn>a,
 .highlightFooterBtn>a:hover,
-.highlightFooterBtn>a:focus{
-    color: #fff !important;    
+.highlightFooterBtn>a:focus {
+    color: #fff !important;
 }
 
 .debugMessages li {
@@ -724,7 +725,7 @@
 .application-log,
 .application-log:focus,
 .application-log:active,
-.application-log:hover{
+.application-log:hover {
     background: none !important;
     border: 0;
 }
@@ -736,17 +737,19 @@
     min-width: 7px;
     width: 7px;
 }
+
 .mqttStatus .badge-success {
-    background:#28a745 !important
+    background: #28a745 !important
 }
 
-.simulate-line{
+.simulate-line {
     padding: 5px 25px;
     border-bottom: 1px solid #ccc !important;
     font-size: 11px;
     margin-bottom: 0;
 }
-.just-padding{
+
+.just-padding {
     max-height: 80%;
     height: 100%;
     overflow: auto
@@ -760,10 +763,24 @@
     border-radius: 2px;
     cursor: pointer;
 }
+
 .rules-style.active {
     padding: 7px 4px 7px 7px;
     background: #2C2C78;
     color: #fff;
     border: 1px solid #2C2C78;
     border-radius: 2px;
+}
+
+.expandscreenOption:hover {
+    text-decoration: none;
+}
+
+#footerOpen{
+    position: fixed;
+    bottom: 40px;
+    right: 5px;
+    background-color: #e1e1f7;
+    padding: 0 5px;
+    cursor: pointer;
 }

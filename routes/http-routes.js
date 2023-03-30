@@ -336,10 +336,10 @@ Routes.prototype.init = function () {
     self.router.get('/record-definition', roleCheck, function (req, res) {
         res.render('record-definition.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     });
-    self.router.get('/rules-engine', roleCheck, function (req, res) {
+    self.router.get('/rules-engine-v2', roleCheck, function (req, res) {
         res.render('rules-engine.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     });
-    self.router.get('/rules-engine-old', roleCheck, function (req, res) {
+    self.router.get('/rules-engine', roleCheck, function (req, res) {
         res.render('rules-engine-old.html',{layout:'',basepath: getBasePath(req), userRole:req.session.role, buildVersion: self.app.conf.buildVersion});
     });
     self.router.get('/script-console', roleCheck, function (req, res) {
