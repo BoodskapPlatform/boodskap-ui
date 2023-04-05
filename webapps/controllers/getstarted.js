@@ -465,7 +465,7 @@ function addDeviceModel(deviceModelObj, cbk) {
     retreiveDeviceModel(deviceModelObj.id, function (status1, data1) {
 
         if (status1) {
-            errorMsgBorder('Device Model ID already exist', 'device_id');
+            //errorMsgBorder('Device Model ID already exist', 'device_id');
             cbk(true,'Device Model ID Exist');
         } else {
             upsertDeviceModel(deviceModelObj,function (status2, data2) {

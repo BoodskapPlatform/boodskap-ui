@@ -1,5 +1,5 @@
 <link href="css/jquery.steps.css" type="text/css" rel="stylesheet" />
-<link rel="stylesheet" type="text/css" href="css/getstarted.css" />
+<link rel="stylesheet" type="text/css" href="css/getstarted.css?ver=1" />
 <!-- <link href="css/getstarted-modal.css" type="text/css" rel="stylesheet" /> -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1009,8 +1009,8 @@
                                        
                                             <div class="form-row justify-content-between">
                                                 <div class="form-group col-md-6 pr-md-4">
-                                                    <label for="msg_id">Message ld *</label>
-                                                    <input type="number" class="form-control" id="msg_id" min='1'placeholder="Enter Message ld" maxlength="50" autocomplete="off" required autofocus>
+                                                    <label for="msg_id">Message lD *</label>
+                                                    <input type="text" class="form-control" id="msg_id" min='1' onkeypress="return isNumber(event);" placeholder="Enter Message lD" maxlength="50" autocomplete="off" required autofocus>
                                                     <span id="logmsg_id"></span>
                                                 </div>
                                                 <div class="form-group col-md-6 pl-md-4">
@@ -1057,8 +1057,8 @@
                                         <p class="fs-25 content-head fw-900 fs-18 pt-2">Add your device(s) here</p>
                                             <div class="form-row justify-content-between">
                                                 <div class="form-group col-md-6 pr-lg-4">
-                                                    <label for="inputLabel">Device ld *</label>
-                                                    <input type="text" class="form-control" id="device_id" maxlength="50" placeholder="Enter Device ld" autocomplete="off" required>
+                                                    <label for="inputLabel">Device lD *</label>
+                                                    <input type="text" class="form-control" id="device_id" maxlength="50" placeholder="Enter Device lD" autocomplete="off" required>
                                                     <span id="logdevice_id"></span>
                                                 </div>
                                                 <div class="form-group col-md-6 pl-lg-4">
