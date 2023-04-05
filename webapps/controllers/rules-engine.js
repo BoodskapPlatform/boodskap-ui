@@ -6206,7 +6206,7 @@ function loadDomainRule() {
     $(".ruleName").html('Domain Rule')
     $(".ruleType").html('Domain Rule')
     $(".ruleLanguage").html('GROOVY')
-
+    $("#exportMsg").attr("onclick", "exportRule(" + CURRENT_TYPE +")")
     exportRule(CURRENT_TYPE);
 
     $(".detailsBlock").css('display', 'block');
@@ -6227,7 +6227,7 @@ function loadMessageRule(id) {
     loadEditor(data ? data.code : '', 'messageTab_' + id);
     CURRENT_ID = id;
     CURRENT_TYPE = 1;
-
+    $("#exportMsg").attr("onclick", "exportRule(" + CURRENT_TYPE + ")")
     exportRule(CURRENT_TYPE)
 
     let obj = {};
@@ -6267,6 +6267,7 @@ function loadNamedRule(id) {
     loadEditor(data ? data.code : '', 'namedTab_' + id);
     CURRENT_ID = id;
     CURRENT_TYPE = 2;
+    $("#exportMsg").attr("onclick", "exportRule(" + CURRENT_TYPE + ")")
 
     exportRule(CURRENT_TYPE)
 
@@ -6310,6 +6311,7 @@ function loadScheduleRule(id) {
 
     $(".deleteBtn").css('display', 'block');
 
+    $("#exportMsg").attr("onclick", "exportRule(" + CURRENT_TYPE + ")")
 
     exportRule(CURRENT_TYPE)
     toggleHeading(id)
@@ -6325,6 +6327,7 @@ function loadBinaryRule(id) {
     loadEditor(data ? data.code : '', 'binaryTab_' + id);
     CURRENT_ID = id;
     CURRENT_TYPE = 6;
+    $("#exportMsg").attr("onclick", "exportRule(" + CURRENT_TYPE + ")")
 
     exportRule(CURRENT_TYPE)
 
@@ -6359,6 +6362,7 @@ function loadJobRule(id) {
 
     CURRENT_ID = id;
     CURRENT_TYPE = 7;
+    $("#exportMsg").attr("onclick", "exportRule(" + CURRENT_TYPE + ")")
 
     exportRule(CURRENT_TYPE)
 
@@ -6382,6 +6386,7 @@ function loadFileRule(id) {
     loadEditor(data ? data.code : '', 'fileTab_' + id);
     CURRENT_ID = id;
     CURRENT_TYPE = 8;
+    $("#exportMsg").attr("onclick", "exportRule(" + CURRENT_TYPE + ")")
 
     exportRule(CURRENT_TYPE)
 
@@ -6414,6 +6419,7 @@ function loadProcessRule(id) {
 
     CURRENT_ID = id;
     CURRENT_TYPE = 9;
+    $("#exportMsg").attr("onclick", "exportRule(" + CURRENT_TYPE + ")")
 
     exportRule(CURRENT_TYPE)
 
@@ -6437,11 +6443,12 @@ function loadSftpRule(id) {
     $("#editorContent").html('<div id="codeEditor"></div>');
     let data = returnObj(id, 10);
     $("#codeEditor").html('');
-
+    
     loadEditor(data.code ? data.code : '', 'sftpTab_' + id);
-
+    
     CURRENT_ID = id;
     CURRENT_TYPE = 10;
+    $("#exportMsg").attr("onclick", "exportRule(" + CURRENT_TYPE + ")")
 
     exportRule(CURRENT_TYPE)
 
@@ -6470,6 +6477,7 @@ function loadMqttRule(id) {
 
     CURRENT_ID = id;
     CURRENT_TYPE = 11;
+    $("#exportMsg").attr("onclick", "exportRule(" + CURRENT_TYPE + ")")
 
     exportRule(CURRENT_TYPE)
 
@@ -6495,6 +6503,7 @@ function loadUdpRule(id) {
 
     CURRENT_ID = id;
     CURRENT_TYPE = 12;
+    $("#exportMsg").attr("onclick", "exportRule(" + CURRENT_TYPE + ")")
 
     exportRule(CURRENT_TYPE)
 
@@ -6522,6 +6531,7 @@ function loadTcpRule(id) {
 
     CURRENT_ID = id;
     CURRENT_TYPE = 13;
+    $("#exportMsg").attr("onclick", "exportRule(" + CURRENT_TYPE + ")")
 
     exportRule(CURRENT_TYPE)
 
@@ -6548,6 +6558,7 @@ function loadEmailRule(id) {
 
     CURRENT_ID = id;
     CURRENT_TYPE = 14;
+    $("#exportMsg").attr("onclick", "exportRule(" + CURRENT_TYPE + ")")
 
     exportRule(CURRENT_TYPE)
 
@@ -6575,6 +6586,7 @@ function loadMicroRule(id) {
 
     CURRENT_ID = id;
     CURRENT_TYPE = 15;
+    $("#exportMsg").attr("onclick", "exportRule(" + CURRENT_TYPE + ")")
 
     exportRule(CURRENT_TYPE)
 
