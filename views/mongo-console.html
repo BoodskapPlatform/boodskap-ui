@@ -12,12 +12,12 @@
     <!-- begin breadcrumb -->
 
     <ol class="breadcrumb pull-right content">
-        <li class="breadcrumb-item "><a href="<%= basepath %>/home">Domain</a></li>
+        <li class="breadcrumb-item "><a href="<%= basepath %>/home">Home</a></li>
         <li class="breadcrumb-item active"><u>Mongodb Query Console</u></li>
         <div class="ml-3">
             <a href="javascript:;" class="btn btn-sm btn-icon btn-circle  bskp-icon-bg icon" title="Expand"
                 data-click="panel-expand"><img style="height:14px ;" src="images/menu/expand-icon.svg" alt=""></a>
-            <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg icon" title="Help">
+            <a href="https://developer.boodskap.io/reference/checkmongoaccess" target="_blank" class="btn btn-sm btn-icon btn-circle bskp-icon-bg icon" title="Help">
                 <img src="images/menu/Question_icon (2).png" alt=""></a>
                     
 
@@ -40,20 +40,20 @@
 
             <div class="row">
                 <div class="col-md-2">
-                    <div class="form-group">
-                        <label>Connection Pool</label>
+                    <div class="form-group mongo-db">
+                        <label>Connection Pool *</label>
                         <select id="pool_name" class="form-control option val1" onchange="setConnection(this.value)">
                         </select>
                         <small id="pool_url"></small>
                         <span id="pool-name" clas="index"></span>
                     </div>
-                    <div class="form-group">
-                        <label>Database Name</label>
+                    <div class="form-group mongo-db">
+                        <label>Database Name *</label>
                         <input type="text" class="form-control option" id="dbName"/>
                         <span id="database"clas="index"></span>
                     </div>
-                    <div class="form-group">
-                        <label>Collection Name</label>
+                    <div class="form-group mongo-db">
+                        <label>Collection Name *</label>
                         <select id="col_name" class="form-control option" onchange="">
                         </select>
                         <span id="collection"clas="index"></span>

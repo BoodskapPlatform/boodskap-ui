@@ -91,32 +91,30 @@ function executeQuery() {
 
 
     if($("#pool_name").val() === ""){
-        $("#pool-name").text("Connection Pool cannot be empty")
-        $("#database").text("Database Name cannot be empty")
-        $("#collection").text("Collection Name cannot be empty")
-        $("#query").text("Query Type cannot be empty")
+        $("#pool-name").text("Connection Pool is required")
+        $("#database").text("Database Name is required")
+        $("#collection").text("Collection Name is required")
+        //$("#query").text("Query Type is required")
 
 
         $("#pool-name").css({"color":"red","visibility":"visible"})
         $("#database").css({"color":"red","visibility":"visible"})
         $("#collection").css({"color":"red","visibility":"visible"})
-        $("#query").css({"color":"red","visibility":"visible"})
-
-        $(".select2-container--default, .select2-selection--single, #dbName").css({'border':'1px solid red',"border-radius":"10px"})
- setTimeout(function(){
-$(".select2-container--default, .select2-selection--single, #dbName").css('border','')
- $("#pool-name").text('')
- $("#database").text('')
- $("#collection").text('')
- $("#query").text('')
- $("#pool-name").css({"color":"","visibility":"hidden"})
- $("#database").css({"color":"","visibility":"hidden"})
- $("#collection").css({"color":"","visibility":"hidden"})
- $("#query").css({"color":"","visibility":"hidden"})
-
-
-
-},2500)
+        //$("#query").css({"color":"red","visibility":"visible"})
+        $(".mongo-db").children(".select2-container--default, .select2-selection--single").css({'border':'1px solid red',"border-radius":"10px"})
+        $("#dbName").css({'border':'1px solid red',"border-radius":"10px"})
+        
+        setTimeout(function(){
+            $(".select2-container--default, .select2-selection--single, #dbName").css('border','')
+            $("#pool-name").text('')
+            $("#database").text('')
+            $("#collection").text('')
+            $("#query").text('')
+            $("#pool-name").css({"color":"","visibility":"hidden"})
+            $("#database").css({"color":"","visibility":"hidden"})
+            $("#collection").css({"color":"","visibility":"hidden"})
+            $("#query").css({"color":"","visibility":"hidden"})
+        },2500)
 
 
         // errorMsgBorder('Connection Pool cannot be empty', 'pool_name')
