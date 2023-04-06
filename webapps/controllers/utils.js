@@ -146,13 +146,13 @@ function errorMsgBorder(msg, id,authvalue) {
     if(authvalue){
         $("#" + id).css("border-bottom", "1px solid red");
     }else{
-        $("#" + id).css("border", "1px solid red");
+        $("#" + id).css("border-bottom", "1px solid red");
     }
     
     $("#log"+id).css("display","block")
     setTimeout(function () {
         $("#" + id).css("border-bottom", "1px solid #ccc");
-        $("#" + id).css("border", "1px solid #ccc");
+        $("#" + id).css("border-bottom", "1px solid #ccc");
         $("#log"+id).css("display","none")
     }, 3000);
   

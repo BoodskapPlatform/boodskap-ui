@@ -116,29 +116,35 @@
                         <div class="caption-text py-2">Fill in the required details below</div>
                     </div>
                     <form action="javascript:void(0)" id="registerForm" novalidate class="mb-0 pt-4"  onsubmit="register()">
-                        
-                        <div class="wrap-input">
-                            <input type="text" class="input-text" maxlength="100" id="firstname" placeholder="First name" required/>
-                            <span class="loginput text-end" data-placeholder="">
-                                <img class="icon-position" src="images/person.png" style="width: 18px;position: absolute;right: 1px;top: -18px;">
-                            </span>
+                        <div>
+                            <div class="input-group input-border">
+                                <input type="text" class="form-control" maxlength="100" id="firstname" placeholder="First name" required>
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><img src="images/person.png" style="width: 18px"></span>
+                                </div>
+                            </div>
                             <div id="logfirstname" class="alertDiv"></div>
                         </div>
-                        <div class="wrap-input">
-                            <input type="text" class="input-text" maxlength="100" id="lastname" placeholder="Last name" required/>
-                            <span class="loginput text-end" data-placeholder="">
-                                <img class="icon-position" src="images/person.png" style="width: 18px;position: absolute;right: 1px;top: -18px;" alt="personicon">
-                            </span>
-                            <div id="loglastname" class="alertDiv"></div> 
+                        <div>
+                            <div class="input-group mt-3 input-border">
+                                <input type="text" class="form-control" maxlength="100" id="lastname" placeholder="Last name" required>
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><img src="images/person.png" style="width: 18px"></span>
+                                </div>
+                            </div>
+                            <div id="loglastname" class="alertDiv"></div>
                         </div>
-                        <div class="wrap-input">
-                            <input type="email" class="input-text" maxlength="100" id="email" placeholder="Email address" required/>
-                            <span class="loginput text-end" data-placeholder="">
-                                <img class="icon-position" src="images/email.png" style="width: 18px;position: absolute;right: 1px;top: -18px;" alt="email">
-                            </span>
+                        <div>
+                            <div class="input-group mt-3 input-border">
+                                <input type="email" class="form-control" maxlength="100" id="email" placeholder="Email address" required>
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><img src="images/email.png" style="width: 18px"></span>
+                                </div>
+                            </div>
                             <div id="logemail" class="alertDiv"></div>
                         </div>
-                        <div class="g-recaptcha" id="captchaFeedback" data-sitekey="6Lel4Z4UAAAAAOa8LO1Q9mqKRUiMYl_00o5mXJrR" data-callback="captchClicked"></div>
+                        
+                        <div class="g-recaptcha mt-3" id="captchaFeedback" data-sitekey="6Lel4Z4UAAAAAOa8LO1Q9mqKRUiMYl_00o5mXJrR" data-callback="captchClicked"></div>
                         <div id="logcaptchaFeedback" class="alertDiv"></div>
                         
                         <div class="form-group text-center text-dark mt-2" style="width:100%;">

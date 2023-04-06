@@ -133,19 +133,24 @@
                         <div class="caption-text py-2">Enter the account details below</div>
                     </div>
                     <form action="javascript:void(0)" novalidate class="mb-0 pt-4" onsubmit="login()">
-                        <div class="wrap-input">
-                            <input type="text" class="input-text" id="username" placeholder="Username" required/>
-                            <span class="loginput text-end" >
-                                <img class=" icon-position" src="images/person.png" style="width: 18px;position: absolute;right: 1px;top: -18px; alt: personicon;">
-                            </span>
+                        <div>
+                            <div class="input-group mt-3 input-border">
+                                <input type="text" class="form-control" maxlength="100" id="username" placeholder="Username" required>
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><img src="images/person.png" style="width: 18px"></span>
+                                </div>
+                            </div>
                             <div id="logusername"></div>
                         </div>
-                        <div class="wrap-input">
-                            <input type="password" class="input-text" id="password" placeholder="Password" required/>
-                            <span onclick="toggleBox()" class="material-symbols-outlined form-control-feedback passwordIcon icon-position">
+                        <div>
+                            <div class="input-group mt-3 input-border">
+                                <input type="password" class="form-control" maxlength="100" id="password" placeholder="Password" required>
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><span onclick="toggleBox()" class="material-symbols-outlined form-control-feedback passwordIcon icon-position">
                                 visibility
-                                </span>
-                            <!-- <em onclick="toggleBox()" class="fa fa-eye form-control-feedback passwordIcon icon-position" ></em> -->
+                                    </span></span>
+                                </div>
+                            </div>
                             <div id="logpassword"></div>
                         </div>
                             <div class="checkbox checkbox-css pt-1" style="line-height: 25px;">         <!--  -->

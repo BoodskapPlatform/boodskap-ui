@@ -172,3 +172,21 @@ input{
         width: 500px;
     }
 } */
+
+.input-border input{
+    border-right: 0;
+    border-left: 0;
+    border-top: 0;
+    border-radius: 0;
+}
+.input-border input:focus{
+    box-shadow:none;
+    border-color:#ced4da
+}
+
+.input-border .input-group-text{
+    background: white;
+    border-right: 0;
+        border-top: 0;
+        border-radius: 0;
+}
