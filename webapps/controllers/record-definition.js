@@ -26,6 +26,7 @@ function loadRecordDef() {
         recordTable.destroy();
         $("#recordTable").html("");
     }
+    $(".ref-btn").attr("onclick","");
 
     var fields = [
         {
@@ -109,10 +110,23 @@ function loadRecordDef() {
         } else {
             $(".recordCount").html(0)
             message_list = [];
-
+            $("#exportMsg").removeAttr("href").removeAttr("download");
         }
         
         recordTable = $("#recordTable").DataTable(tableOption);
+        $("#recordTable_filter").find("input").on("keyup",function(){
+            var len = $("#recordTable tbody tr").length;
+            if(len == 1){
+                if($("#recordTable tbody tr td").hasClass("dataTables_empty")==true){
+                    $(".recordCount").text(0);
+                }else{
+                    $(".recordCount").text(1);
+                }
+            }else{
+                $(".recordCount").text(len);
+            }
+        });
+        $(".ref-btn").attr("onclick","loadRecordDef()");
         $('.dataTables_filter input').attr('maxlength', 100)
     })
 
@@ -685,7 +699,7 @@ function checkAndInsert(obj, cbk) {
                     if(typeof(data) != "undefined"){
                         if(data.message){
                             var errmessage = data.message.replaceAll("_"," ")
-                            errorMsg(errmessage);
+                            warningMsg(errmessage);
                         }else{
                             errorMsg('Error in Define Record');
                         }

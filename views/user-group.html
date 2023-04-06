@@ -80,7 +80,7 @@
                         <div  class="col-md-6">
                             <div  class="form-group">
                                 <label  class="inputLabel">Group ID *</label>
-                                <input  class="form-control input-sm" placeholder="" type="number" id="group_id" min="100" required>
+                                <input  class="form-control input-sm" placeholder="" type="text" id="group_id" onkeypress="return isNumber(event);" min="100" required>
                                 <small>ID Range from <b><span class="idRange"></span></b></small>
                             </div>
                         </div>
@@ -142,7 +142,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
-                <h5>Are you sure want to remove <b><span class="removeUserCount"></span></b><span class="userText ml-1"></span> from the user group?</h5>
+                <h5>Are you sure want to remove <b><span class="removeUserCount"></span></b><span class="userText ml-1"></span> from <span id="groupName"></span> ?</h5>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn button-2" data-dismiss="modal">Close</button>

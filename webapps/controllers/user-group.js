@@ -247,12 +247,12 @@ function formatRow(d, cbk) {
     current_group_id = d.id;
     selected_user = [];
     var htmlStr = '<div class="group_' + d.id + ' eventRow"><h4 style="text-align: center"><i class="fa fa-spinner fa-spin"></i> <Loading></Loading></h4></div>';
-    loadUserGroupMembers(d.id);
+    loadUserGroupMembers(d.id,d.name);
     cbk(htmlStr);
 
 }
 
-function loadUserGroupMembers(id) {
+function loadUserGroupMembers(id,name) {
 
     $("#userGroupList_" + id).html('<div class="w-100" style="padding:5px 0px;"><div class="d-flex mx-auto" style="padding: 10px 20px;background-color: #F2F3F4;width: 10%;"><i class="fa fa-spinner fa-spin"></i><p class="pl-2 m-0">Processing</p></div><div></div></div>');
     listDomainUserGroupUsers(id, 1000, function (status, resdata) {
@@ -273,8 +273,8 @@ function loadUserGroupMembers(id) {
         }
 
         $(".group_" + id).html(' <div class="btn-group btn-group-justified left-right">' +
-            '<a class="btn btn-default btn-xs"  onclick="openUserModal(1,\'' + id + '\')"><i class="fa fa-plus-square"></i> <span class="hidden-xs">Add User</span></a>' +
-            '<a class="btn btn-default btn-xs"  onclick="openUserModal(2,\'' + id + '\')"><i class="icon-trash4"></i> <span class="hidden-xs">Delete</span></a>' +
+            '<a class="btn btn-default btn-xs"  onclick="openUserModal(1,\'' + id + '\',\''+name+'\')"><i class="fa fa-plus-square"></i> <span class="hidden-xs">Add User</span></a>' +
+            '<a class="btn btn-default btn-xs"  onclick="openUserModal(2,\'' + id + '\',\''+name+'\')"><i class="icon-trash4"></i> <span class="hidden-xs">Delete</span></a>' +
             '<a class="btn btn-default btn-xs"  onclick="loadUserGroupMembers(\'' + id + '\')" title="Refresh"><i class="fa fa-refresh"></i></a>' +
             '</div><hr style="clear:both">' +
             '<div id="userGroupList_'+id+'" class="row" style="clear: both;max-height: 300px;overflow: auto;overflow-x: hidden">' + bodyStr + '</div>');
@@ -328,7 +328,7 @@ function openModal(type, id) {
 }
 
 var addedMemListArr = [];
-function openUserModal(type, gid) {
+function openUserModal(type, gid,name) {
     user_group_id = gid;
     if (type === 1) {
         addedMemListArr=[];
@@ -358,9 +358,8 @@ function openUserModal(type, gid) {
         else{
             $(".userText").html("users")
         }
-     
 
-
+        $("#groupName").text(name)
         $("#deleteUserModal").modal('show');
     }
 
@@ -447,6 +446,19 @@ function loadUsersList() {
         userTable = $("#userTable").DataTable(tableOption);
         $("#addUserModal").modal('show');
         $("#userTable tr").css("cursor","pointer");
+
+        $("#userTable_filter").find("input").on("keyup",function(){
+            var len = $("#userTable tbody tr").length;
+            if(len == 1){
+                if($("#userTable tbody tr td").hasClass("dataTables_empty")==true){
+                    $(".userCount").text(0);
+                }else{
+                    $(".userCount").text(1);
+                }
+            }else{
+                $(".userCount").text(len);
+            }
+        });
 
         $('#userTable tbody').on('click', 'tr', function () {
             var data = $(this);
