@@ -617,7 +617,7 @@ function loadClassTemplate(id) {
                     </div> -->
                     <div  class="col-md-6">
                         <div  class="form-group">
-                            <label  class="inputLabel">Choose File</label>
+                            <label  class="inputLabel">Choose File *</label>
                             <input type="file" class="form-control input-sm choose" id="class_file />
                             <span style="color:red" id="ones"></span>
                             <span style="color:red;" id="file1"></span>
@@ -630,7 +630,7 @@ function loadClassTemplate(id) {
     } else if (id === 'JAR') {
         template = `<div  class="col-md-6">
                         <div  class="form-group">
-                            <label  class="inputLabel">Name</label>
+                            <label  class="inputLabel">Name *</label>
                             <input type="text" class="form-control input-sm text" id="class_name"  />
                             <span style="color:red" id="name_error"></span>
                         </div>
@@ -644,7 +644,7 @@ function loadClassTemplate(id) {
                     </div>
                     <div  class="col-md-6">
                         <div  class="form-group">
-                            <label  class="inputLabel">Choose File</label>
+                            <label  class="inputLabel">Choose File *</label>
                             <input type="file" class="form-control input-sm filetwo" id="class_file" />
                             <span style="color:red" id="file_error2"></span>
                         </div>

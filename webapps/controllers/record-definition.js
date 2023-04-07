@@ -510,17 +510,22 @@ function createDownload() {
 
 
 function importMsg() {
-    $("#importModal form")[0].reset();
-    $(".modal-title").html("Import Definition")
-    // $(".btnSubmit").attr('disabled','disabled')
-    $("#imported_content").val('')
-    $("#importFile").val('')
-    loadJsEditor('');
-    $("#importModal").modal({
-        backdrop: 'static',
-        keyboard: false
-    }
-    ,'show');
+    if(LicenseDetails.maxRecordSpecs <= message_list.length){
+        warningMsg('Your plan have '+LicenseDetails.maxRecordSpecs+' reocrd specification.')
+        return
+    }else{
+        $("#importModal form")[0].reset();
+        $(".modal-title").html("Import Definition")
+        // $(".btnSubmit").attr('disabled','disabled')
+        $("#imported_content").val('')
+        $("#importFile").val('')
+        loadJsEditor('');
+        $("#importModal").modal({
+            backdrop: 'static',
+            keyboard: false
+        }
+        ,'show');
+    }    
 }
 
 
