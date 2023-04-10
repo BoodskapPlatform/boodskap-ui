@@ -511,7 +511,7 @@ function createDownload() {
 
 function importMsg() {
     if(LicenseDetails.maxRecordSpecs <= message_list.length){
-        warningMsg('Your plan have '+LicenseDetails.maxRecordSpecs+' reocrd specification.')
+        warningMsg('Your plan have '+LicenseDetails.maxRecordSpecs+' record specification.')
         return
     }else{
         $("#importModal form")[0].reset();
