@@ -51,7 +51,7 @@ function loadUsersList() {
             orderable: false,
             mRender: function (data, type, row) {
                 
-                var inputs = [];
+                 var inputs = [];
                 data.map((word) => {
                     let capitalizedFirst = word.charAt(0).toUpperCase();
                     let rest = word.slice(1).toLowerCase();
@@ -778,6 +778,7 @@ function checkNewRole(obj){
         $(".new-role-input").hide();
     }
 }
+
 
 function passwordView(obj){
     if($(obj).hasClass("fa-eye")){

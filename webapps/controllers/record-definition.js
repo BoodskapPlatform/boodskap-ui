@@ -101,6 +101,7 @@ function loadRecordDef() {
     };
    
     listRecordSpec(1000, null, null, function (status, data) {
+        data.length <= 0 ? $("#exportMsg").css("cursor","not-allowed") :  $("#exportMsg").css("cursor","pointer");
         if (status && data.length > 0) {
             tableOption['data'] = data;
             $(".recordCount").html(data.length)

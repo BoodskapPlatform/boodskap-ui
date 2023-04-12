@@ -258,7 +258,7 @@ function loadSQLTable() {
                 "url": sSource,
                 "data": JSON.stringify(ajaxObj),
                 success: function (data) {
-
+                   data.length <= 0 ? $("#exportMsg").css("cursor","not-allowed") :  $("#exportMsg").css("cursor","pointer");
                     var resultData = QueryFormatter(data).data;
 
                     table_list = resultData['data'];
@@ -848,8 +848,6 @@ function checkSelectedData() {
 
 
 function exportTables() {
-
-
     var tmp = [];
     for (var i = 0; i < selectedData.length; i++) {
         tmp.push(selectedData[i]);

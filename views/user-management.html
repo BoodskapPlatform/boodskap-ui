@@ -29,6 +29,9 @@
     #deleteModal .modal-dialog{
         margin-top: 13%;
     }
+    /* .mdbg{
+        background: rgba(245, 245, 245, 0.479);
+    } */
 </style>
 
 
@@ -52,7 +55,7 @@
                 <li class="breadcrumb-item"><a href="<%= basepath %>/home">Home</a></li>
                 <li class="breadcrumb-item active"><u>Manage Users</u></li>
                 <div class="ml-4">
-                    <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg" data-click="panel-expand" title="Expand"><em class="fa fa-expand"></em></a>
+                    <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg" data-click="panel-expand" title="Expand" onclick="addBG()"><em class="fa fa-expand"></em></a>
                     <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg" title="Refresh" onclick="loadUsersList()"><em class="fa fa-redo"></em></a>
                     <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg help-url" target="_blank" title="Help"><em class="icon-help"></em></a>
                 </div>
@@ -95,12 +98,12 @@
 
 
 
-<div id="addUser" class="modal fade" tabindex="-1" role="dialog">
+<div id="addUser" class="modal bskp-modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title"><span class="templateAction"></span> User</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><img src="images/menu/xicon.svg" class="bg-secondary bskp-close"></button>
             </div>
             <form action="javascript:void(0)">
                 <div class="modal-body">
@@ -160,27 +163,27 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn button-2" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btnModal btnSubmit">Proceed</button>
+                    <button type="button" class="btn btn-close button-2" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btnModal btn-proceed btnSubmit">Proceed</button>
                 </div>
             </form>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-<div id="deleteModal" class="modal fade" tabindex="-1" role="dialog">
+<div id="deleteModal" class="modal bskp-modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Delete User</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><img src="images/menu/xicon.svg" class="bg-secondary bskp-close"></button>
             </div>
             <div class="modal-body">
                 <h5>Are you sure want to delete <b><span class="fullName"></span> user</b>?</h5>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn button-2" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btnModal" onclick="proceedDelete()">Proceed</button>
+                <button type="button" class="btn btn-close button-2" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-proceed btnModal" onclick="proceedDelete()">Proceed</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -190,14 +193,14 @@
 
 
 
-<div id="domainModal" class="modal fade" tabindex="-1" role="dialog">
+<div id="domainModal" class="modal bskp-modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document" >
         <div class="modal-content" >
             <div class="modal-header">
                 <h4 class="modal-title">Login As - <span class="loginAs"></span></h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            </div>
-            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><img src="images/menu/xicon.svg" class="bg-secondary bskp-close"></button>
+          </div>
+      <div class="modal-body">
 
                 <div class="row">
                     <div class="col-lg-6">
@@ -220,8 +223,8 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn button-2" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btnModal" onclick="loginAs()">Proceed</button>
+                <button type="button" class="btn btn-close button-2" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-proceed btnModal" onclick="loginAs()">Proceed</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

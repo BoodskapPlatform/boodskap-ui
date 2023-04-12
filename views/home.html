@@ -30,6 +30,33 @@
 #createDomain .modal-dialog{
     width: 500px;
 }
+#Dnamescroll::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgb(163 163 163);
+    border-radius: 10px;
+    background-color: #fafafa;
+}
+
+#Dnamescroll::-webkit-scrollbar
+{
+	width: 4px !important;
+    height: 4px;
+	background-color: #F5F5F5;
+}
+
+#Dnamescroll::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(84, 83, 83, 0.3);
+	background-color: #c0c0c0;
+}
+.D-info{
+    overflow-x: auto;
+    height: 24px;
+    min-width: 160px;
+    margin: 0px 6px;
+    display: block;
+}
 </style>
 <div id="planDetails"></div>
 
@@ -567,10 +594,13 @@
                             <div class="panel-body" style="background-color: white; border-radius: 0px 0px 10px 10px;">
                                 <ul class="nav">
 
-                                    <li class="col-lg-12 mb-2"><span class="domain_name blue-color v-top v-top" style="font-weight: 600;line-height: 24px;"></span>  
-                                        <i class="fa fa-user-o bskp-icon-bg mr-1 bskp-user-icon ml-auto blue-color v-top" style="background: #f2f6ff;" aria-hidden="true"></i>
-                                        <a href="javascript:void(0)" onclick="editDomainName()" style="text-decoration: none" title="Edit Domain Name">
-                                        &nbsp;&nbsp;  <i class="icon-edit2 blue-color v-top"></i></a></li>
+                                    <li class="col-lg-12 d-flex justify-content-between" style="margin-bottom: 8px !important;height: 23px;">  
+                                    
+                                        <i class="fa fa-user-o bskp-icon-bg m-0 bskp-user-icon ml-auto blue-color v-top" style="background: #f2f6ff;" aria-hidden="true"></i>
+                                        <span class="domain_name mr-auto blue-color v-top D-info" style="font-weight: 600;" id="Dnamescroll"></span>
+                                        
+                                        <a href="javascript:void(0)" class="ml-1 position-relative" onclick="editDomainName()" style="text-decoration: none" title="Edit Domain Name" style="width:20px">
+                                        &nbsp;&nbsp;  <i class="icon-edit2 blue-color pt-1 v-top position-absolute"></i></a></li>
                                 </ul>
                                 
                                 <ul class="nav">

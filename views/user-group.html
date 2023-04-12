@@ -25,9 +25,10 @@
             <!-- begin breadcrumb -->
             <ol class="breadcrumb pull-right bskp-align-icon">
                 <li class="breadcrumb-item"><a href="<%= basepath %>/home">Home</a></li>
-                <li class="breadcrumb-item active"><u>Manage Users Group</u></li>
+                <li class="breadcrumb-item"><a href="<%= basepath %>/user-management">User Management</a></li>
+                <li class="breadcrumb-item active"><u>User Group</u></li>
                 <div class="ml-4">
-                    <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg" data-click="panel-expand" title="Expand"><em class="fa fa-expand"></em></a>
+                    <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg" data-click="panel-expand" title="Expand" onclick="addBG()"><em class="fa fa-expand"></em></a>
                     <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg" title="Refresh" onclick="loadUserGroup()"><em class="fa fa-redo"></em></a>
                     <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg help-url" target="_blank" title="Help"><em class="icon-help"></em></a>
                 </div>

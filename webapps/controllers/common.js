@@ -168,3 +168,16 @@ function disableFn(id){
     $('#'+id).attr('disabled',true)
 }
 
+//  Modal Backdrop when it Expand
+var isExpand = false;
+
+$('a[data-click=panel-expand]').on('click', function() {
+    isExpand = !isExpand 
+    isExpand? $('.modal').addClass('mdbg') : $('.modal').removeClass('mdbg')
+  });
+
+  function addBG(){
+    isExpand = !isExpand 
+    isExpand? $('.modal').addClass('mdbg') : $('.modal').removeClass('mdbg')
+ 
+   }

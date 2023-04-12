@@ -100,7 +100,8 @@ function loadMessageDef() {
     };
 
     listMessageSpec(1000, null, null, function (status, data) {
-        if (status && data.length > 0) {
+        data.length <= 0 ? $("#exportMsg").css("cursor","not-allowed") : $("#exportMsg").css("cursor","pointer");
+       if (status && data.length > 0) {
             tableOption['data'] = data;
             message_list = data;
             createDownload();

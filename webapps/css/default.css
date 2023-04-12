@@ -360,7 +360,6 @@ div::-webkit-scrollbar-thumb {
 }
 
 .deviceListUl {
-    height: 250px;
     overflow: auto;
     overflow-x: hidden;
 }

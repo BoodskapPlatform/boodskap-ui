@@ -23,7 +23,11 @@
     <meta property="og:description" content="Boodskap is a disruptive (IoT) Platform helps to quickly connect any hardware devices and to rapidly build connected applications in a cost efficient manner" />
     <meta property="og:image" content="https://boodskap.io/images/boodskap-logo.png" />
 
-
+<style>
+   .input-group > img{
+      background: white;
+    }
+</style>
     <script type="application/ld+json">
         {
             "@context": "http://schema.org",
@@ -136,12 +140,12 @@
                         </div>
                         <div>
                             <div class="input-group mt-3 input-border">
-                                <input type="email" class="form-control" maxlength="100" id="email" placeholder="Email address" required>
+                                <input type="email" class="form-control" maxlength="100" id="email" placeholder="Email address" required style="border-bottom: 1px solid grey;">
                                 <div class="input-group-append">
                                     <span class="input-group-text"><img src="images/email.png" style="width: 18px"></span>
                                 </div>
                             </div>
-                            <div id="logemail" class="alertDiv"></div>
+                            <div id="logemail" class="alertDiv"> </div>
                         </div>
                         
                         <div class="g-recaptcha mt-3" id="captchaFeedback" data-sitekey="6Lel4Z4UAAAAAOa8LO1Q9mqKRUiMYl_00o5mXJrR" data-callback="captchClicked"></div>
