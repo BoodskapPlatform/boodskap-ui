@@ -35,7 +35,7 @@ function loadDeviceList() {
             sWidth: '10%',
             mRender: function (data, type, row) {
 
-               return '<div class="max-char max-scroll">'+data+'</div>' + '<small class="text-grey mt-2 max-scroll max-char">'+(row['name'] ? ''+row['name'] : '')+'</small>'
+               return '<div class="max-char max-scroll" title="'+data+'">'+data+'</div>' + '<small class="text-grey mt-2 max-scroll max-char"  title="'+row['name']+'">'+(row['name'] ? ''+row['name'] : '')+'</small>'
             }
         },
         {

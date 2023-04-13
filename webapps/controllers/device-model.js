@@ -267,10 +267,10 @@ function addDevice() {
         showFeedback('Model Version is required', 'device_version','logdevice_version');
         return false;
        
-    }else if(device_desc === "" ){
+    // }else if(device_desc === "" ){
    
-        showFeedback('Description is required', 'device_desc','logdevice_desc');
-        return false;
+    //     showFeedback('Description is required', 'device_desc','logdevice_desc');
+    //     return false;
        
     } else {
 
