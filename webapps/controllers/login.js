@@ -279,7 +279,7 @@ function resetPasswordModal(){
 function forgetPassword() {
     var emailId = $.trim($("#emailId").val());
     if(emailId === ""){
-        errorMsgBorder('Email ID cannot be empty','emailId',1);
+        errorMsgBorder('Email ID is required','emailId',1);
         return false;
     }else{
         var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
