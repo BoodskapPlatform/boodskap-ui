@@ -22,18 +22,30 @@ function loadDeviceModelList() {
         {
             mData: 'id',
             sTitle: 'Model ID',
+            mRender: function (data, type, row) {
+
+                var val = data ? data : '-';
+                return "<div style='max-width: 150px;' class='text-truncate' title='"+val+"'>"+val+"</div>"
+            }
         },
         {
             mData: 'version',
             sTitle: 'Version',
+            orderable: false,
+            mRender: function (data, type, row) {
+
+                var val = data ? data : '-';
+                return "<div style='max-width: 150px;' class='text-truncate' title='"+val+"'>"+val+"</div>"
+            }
         },
         {
             mData: 'description',
             sTitle: 'Description',
+            orderable: false,
             mRender: function (data, type, row) {
 
                 var val = data ? data : '-';
-                return "<div style='max-width: 500px;' class='text-truncate' title='"+val+"'>"+val+"</div>"
+                return "<div style='max-width: 150px;' class='text-truncate' title='"+val+"'>"+val+"</div>"
             }
             
         },
@@ -61,7 +73,7 @@ function loadDeviceModelList() {
     ];
 
     var domainKeyJson = {"match": {"domainKey": DOMAIN_KEY}};
-    
+    var defaultSorting = [{"reportedStamp": {"order": "desc"}}];
     var queryParams = {
         query: {
             "bool": {
@@ -84,7 +96,7 @@ function loadDeviceModelList() {
             responsive: true,
             paging: true,
             searching: true,
-            aaSorting: [[2, 'desc']],
+            aaSorting: [[3, 'asc']],
             "ordering": true,
             scrollY: '100px',
             scrollCollapse: true,   
