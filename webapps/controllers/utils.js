@@ -62,7 +62,7 @@ if (USER_OBJ) {
 
 function showNotification(msg, type, time) {
 
-    if (!time) time = 2500;
+    if (!time) time = 25000000;
 
     // create the notification
     var notification = new NotificationFx({

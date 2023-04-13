@@ -123,10 +123,10 @@ function loadDeviceModelList() {
                 queryParams.query['bool']['should'] = [];
                 delete queryParams.query['bool']["minimum_should_match"];
                 
-                var keyName = fields[oSettings.aaSorting[0][0]]
-                var sortingJson = {};
-                sortingJson[keyName['mData']] = {"order": oSettings.aaSorting[0][1]};
-                queryParams.sort = [sortingJson];        
+                // var keyName = fields[oSettings.aaSorting[0][0]]
+                // var sortingJson = {};
+                // sortingJson[keyName['mData']] = {"order": oSettings.aaSorting[0][1]};
+                // queryParams.sort = [sortingJson];        
 
                 queryParams['size'] = oSettings._iDisplayLength;
                 queryParams['from'] = oSettings._iDisplayStart;
@@ -279,10 +279,10 @@ function addDevice() {
         showFeedback('Model Version is required', 'device_version','logdevice_version');
         return false;
        
-    }else if(device_desc === "" ){
+    // }else if(device_desc === "" ){
    
-        showFeedback('Description is required', 'device_desc','logdevice_desc');
-        return false;
+    //     showFeedback('Description is required', 'device_desc','logdevice_desc');
+    //     return false;
        
     } else {
 
