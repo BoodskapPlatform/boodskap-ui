@@ -22,16 +22,13 @@ function loadDeviceModelList() {
         {
             mData: 'id',
             sTitle: 'Model ID',
-            orderable: true,
         },
         {
             mData: 'version',
             sTitle: 'Version',
-            orderable: true,
         },
         {
             mData: 'description',
-            orderable: false,
             sTitle: 'Description',
             mRender: function (data, type, row) {
 
@@ -43,6 +40,7 @@ function loadDeviceModelList() {
         {
             mData: 'registeredStamp',
             sTitle: 'Created Time',
+            orderable: true,
             mRender: function (data, type, row) {
                 return moment(data).format('MM/DD/YYYY hh:mm a')
             }
@@ -63,7 +61,7 @@ function loadDeviceModelList() {
     ];
 
     var domainKeyJson = {"match": {"domainKey": DOMAIN_KEY}};
-    var defaultSorting = [{"reportedStamp": {"order": "desc"}}];
+    
     var queryParams = {
         query: {
             "bool": {
@@ -86,10 +84,10 @@ function loadDeviceModelList() {
             responsive: true,
             paging: true,
             searching: true,
-            aaSorting: [[3, 'desc']],
+            aaSorting: [[2, 'desc']],
             "ordering": true,
             scrollY: '100px',
-            scrollCollapse: true,
+            scrollCollapse: true,   
             iDisplayLength: 10,
             lengthMenu: [[10, 50, 100], [10, 50, 100]],
             dom: '<"bskp-search-left" f> lrtip',
@@ -112,21 +110,18 @@ function loadDeviceModelList() {
                 queryParams.query['bool']['must'] = [];
                 queryParams.query['bool']['should'] = [];
                 delete queryParams.query['bool']["minimum_should_match"];
-
-                /* var keyName = fields[oSettings.aaSorting[0][0]]
-console.log(fields[oSettings.aaSorting]);
+                
+                var keyName = fields[oSettings.aaSorting[0][0]]
                 var sortingJson = {};
                 sortingJson[keyName['mData']] = {"order": oSettings.aaSorting[0][1]};
-                queryParams.sort = [sortingJson]; */
+                queryParams.sort = [sortingJson];        
 
                 queryParams['size'] = oSettings._iDisplayLength;
                 queryParams['from'] = oSettings._iDisplayStart;
 
                 var searchText = oSettings.oPreviousSearch.sSearch;
-
+                
                 if (searchText) {
-
-
                     queryParams.query['bool']['should'].push({ "wildcard": { "id": "*" + searchText.toLowerCase() + "*" } });
                     queryParams.query['bool']['should'].push({ "wildcard": { "id": "*" + searchText.toUpperCase() + "*" } });
                     queryParams.query['bool']['should'].push({ "wildcard": { "id": "*" + capitalizeFLetter(searchText) + "*" } })
@@ -171,7 +166,7 @@ console.log(fields[oSettings.aaSorting]);
                         resultData['draw'] = oSettings.iDraw;
 
                         // $(".deviceCount").html(resData.aggregations.total_count.value);
-                        $(".deviceCount").html(resData.total);
+                        $(".deviceModelCount").html(resData.total);
 
                         fnCallback(resultData);
                     },
@@ -182,7 +177,7 @@ console.log(fields[oSettings.aaSorting]);
             }
 
         };
-
+   
         deviceModelTable = $("#deviceModelTable").DataTable(tableOption);
         $('.dataTables_filter input').attr('maxlength', 100);
         $(".dataTables_scrollBody").removeAttr("style").css({"min-height":"calc(100vh - 425px)","position":"relative","width":"100%","border-bottom":"0px"});

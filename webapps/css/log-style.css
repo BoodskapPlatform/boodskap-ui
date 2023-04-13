@@ -87,6 +87,7 @@ input{
 }
 .input-text{
     font-size: 14px;
+    padding-right: 26px;
     color: #555;
     line-height: 1.6;
     border: none ;
@@ -107,8 +108,8 @@ input{
 }
 .icon-position{
     position: absolute;
-    right: 11px;
-    top: -1px;
+    right: 2px;
+    top: -3px;
     color: #817777;
     font-size: 16px;
 }

@@ -143,10 +143,10 @@ function errorMsgBorder(msg, id,authvalue) {
     $(".errorFeedBack").css('top', 105);
 
     $(".errorFeedBack").show().delay(2500).fadeOut();
-    if(authvalue){
+   if(authvalue){
         $("#" + id).css("border-bottom", "1px solid red");
     }else{
-        $("#" + id).css("border-bottom", "1px solid red");
+        $("#" + id).css("border", "1px solid red");
     }
     
     $("#log"+id).css("display","block")
@@ -154,9 +154,9 @@ function errorMsgBorder(msg, id,authvalue) {
         if(authvalue){
             $("#" + id).css("border-bottom", "1px solid #ccc");
         }else{
-            $("#" + id).css("border-bottom", "1px solid #ccc");
+            $("#" + id).css("border", "1px solid #d3d8de");
         }
-        $("#" + id).css("border-bottom", "1px solid #ccc");
+       
         $("#log"+id).css("display","none")
     }, 3000);
   

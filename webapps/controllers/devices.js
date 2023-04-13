@@ -32,17 +32,15 @@ function loadDeviceList() {
         {
             mData: 'id',
             sTitle: 'Device ID',
-            "orderable": false,
             sWidth: '10%',
             mRender: function (data, type, row) {
 
-               return data + '<br><small class="text-grey">'+(row['name'] ? ''+row['name'] : '')+'</small>'
+               return '<div class="max-char max-scroll">'+data+'</div>' + '<small class="text-grey mt-2 max-scroll max-char">'+(row['name'] ? ''+row['name'] : '')+'</small>'
             }
         },
         {
             mData: 'modelId',
             sTitle: 'Device Model',
-            "orderable": false,
             sWidth: '10%',
             mRender: function (data, type, row) {
                 return data ? data : '-';
@@ -87,7 +85,6 @@ function loadDeviceList() {
         {
             mData: 'registeredStamp',
             sTitle: 'Created Time',
-            "orderable": false,
             sWidth: '12%',
             mRender: function (data, type, row) {
                 return moment(data).format('MM/DD/YYYY hh:mm a')
@@ -133,7 +130,7 @@ function loadDeviceList() {
             responsive: true,
             paging: true,
             searching: true,
-            aaSorting: [[6, 'desc']],
+            aaSorting: [[1,'desc'],[6, 'desc'],[7, 'desc']],
             "ordering": true,
             scrollY: '100px',
             scrollCollapse: true,

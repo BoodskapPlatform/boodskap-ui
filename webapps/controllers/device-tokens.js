@@ -38,7 +38,7 @@ function loadTokenList() {
         },
         {
             mData: 'entity',
-            sTitle: 'Entity',
+            sTitle: 'Entity'
         },
         {
             mData: 'mode',
