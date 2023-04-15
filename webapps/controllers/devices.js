@@ -40,7 +40,7 @@ function loadDeviceList() {
                var desc = data ? data : '-';
                var name = row['name'] ? ''+row['name'] : '';
 
-                return '<div style="max-width: 300px;" class="text-truncate" title="'+desc+'">'+desc + '<br><small class="text-grey" title='+name+'>'+name+'</small>'+'</div>';
+                return '<div style="max-width: 150px;" class="text-truncate" title="'+desc+'">'+desc + '<br><small class="text-grey" title='+name+'>'+name+'</small>'+'</div>';
             }
         },
         {
@@ -49,7 +49,9 @@ function loadDeviceList() {
             "orderable": false,
             sWidth: '10%',
             mRender: function (data, type, row) {
-                return data ? data : '-';
+                var data = data ? data : '-';
+                return '<div style="max-width: 150px;" class="text-truncate" title="'+data+'">'+data + '</div>';
+
                 
             }
         },
@@ -59,7 +61,8 @@ function loadDeviceList() {
             "orderable": false,
             sWidth: '5%',
             mRender: function (data, type, row) {
-                return data ? data : '-';
+                var data = data ? data : '-';
+                return '<div style="max-width: 150px;" class="text-truncate" title="'+data+'">'+data + '</div>';
             }
         },
         {
@@ -68,7 +71,8 @@ function loadDeviceList() {
             "orderable": false,
             sWidth: '5%',
             mRender: function (data, type, row) {
-                return data ? data : '-';
+                var data = data ? data : '-';
+                return '<div style="max-width: 150px;" class="text-truncate" title="'+data+'">'+data + '</div>';
             }
         },
         {
