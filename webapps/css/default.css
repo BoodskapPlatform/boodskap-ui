@@ -596,7 +596,7 @@ table.table tr.shown td.details-control {
     font-size: 14px;
 }
 .modal{
-    z-index: 10000;
+    z-index: 100000;
 }
 .bskp-submenu2 li a:hover{
     text-decoration: none;
@@ -615,7 +615,7 @@ table.table tr.shown td.details-control {
     border-radius: 2px; /* Rounded borders */
     padding: 16px; /* Padding */
     position: fixed; /* Sit on top of the screen */
-    z-index: 1000; /* Add a z-index if needed */
+    z-index: 10000; /* Add a z-index if needed */
     left: 0;
     right: 0;
     margin: 0 auto;
