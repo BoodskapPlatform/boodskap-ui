@@ -108,7 +108,11 @@ function loadTemplates() {
     };
 
     listTemplates(1000, $("input[name='systemFlag']:checked").val(), function (status, data) {
-        data.length <= 0 ? $("#exportMsg").css("cursor","not-allowed") :  $("#exportMsg").css("cursor","pointer");
+        if (data.length <= 0) {
+            $("#exportMsg").css("cursor", "not-allowed").removeAttr("onclick")
+        } else {
+            $("#exportMsg").css("cursor", "pointer").attr("onclick","openModal(3)")
+        }
         if (status && data.length > 0) {
             tableOption['data'] = data;  
             template_list = data;   

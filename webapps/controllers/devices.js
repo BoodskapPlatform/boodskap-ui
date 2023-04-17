@@ -817,7 +817,7 @@ function proceedDelete() {
             successMsg('Device Deleted Successfully');
             setTimeout(function () {
                 loadDeviceList();
-            },500)
+            },1000)
             $("#deleteModal").modal('hide');
         } else {
             errorMsg('Error in delete')

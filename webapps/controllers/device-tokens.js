@@ -100,20 +100,29 @@ function loadTokenList() {
             },
             aaSorting: [[2, 'desc']],
             aoColumns: fields,
-            data: []
+            "bProcessing": true,
+            "bServerSide": true,
+            "sAjaxSource": API_BASE_PATH + '/auth/token/list?type=DEVICE',
+            "fnServerData": function (sSource, aoData, fnCallback, oSettings) { 
+                oSettings.jqXHR = $.ajax({
+                    "type": "GET",
+                    "url": sSource,
+                    success: function (data) {
+                        token_list = data;
+                        $(".totalCount").html(data.length);
+                        resultObj = {
+                                "recordsTotal": data.length,
+                                "recordsFiltered": data.length,
+                                "data": data
+                        }
+                        resultObj['draw'] = oSettings.iDraw;
+                        fnCallback(resultObj);
+                    }
+                });
+            }
         };
     
-        listAuthToken("DEVICE", function (status, data) {
-            if (status && data.length > 0) {
-                tableOption['data'] = data;
-                token_list = data;
-            } else {
-                $(".tokenCount").html(0)
-                token_list = [];
-            }
-            $(".totalCount").html(data.length);
-
-            tokenTable = $("#tokenTable").DataTable(tableOption);
+           tokenTable = $("#tokenTable").DataTable(tableOption);
             $('.dataTables_filter input').attr('maxlength', 100)
             $("#tokenTable_filter").hide();
 
@@ -121,7 +130,6 @@ function loadTokenList() {
                 $('.dataTables_filter input').attr('maxlength', 100).attr("autocomplete","off").attr("type","text").val("");
                 $("#tokenTable_filter").show();
             }, 1000);
-        });
 }
 
 function openModal(type, id) {
