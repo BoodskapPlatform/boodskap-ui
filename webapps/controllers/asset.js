@@ -29,8 +29,8 @@ function loadAssetList() {
             orderable: true,
             mRender: function (data, type, row) {
 
-                return data + '<button class="btn bskp-edit-btn mr-2 bskp-greyicon pull-right" onclick="openModal(4,\'' + row["id"] + '\')" title="Link Device">' +
-                    '<em class="icon-eye2"></em></button>';
+                return '<div class="d-flex justify-content-between"><div style="max-width: 200px;" class="text-truncate" title="'+data+'">'+data+'</div><button class="btn bskp-edit-btn mr-2 ml-2 bskp-greyicon pull-right" onclick="openModal(4,\'' + row["id"] + '\')" title="Link Device">' +
+                '<em class="icon-eye2"></em></button></div>';
             }
         },
         {
@@ -38,6 +38,9 @@ function loadAssetList() {
             sTitle: 'Asset Name',
             sWidth: '20%',
             orderable: false,
+            mRender: function (data, type, row) {
+                return '<div style="max-width: 200px;" class="text-truncate" title="'+data+'">'+data+'</div>';
+            }
         },
         {
             mData: 'description',
@@ -293,7 +296,7 @@ function loadLinkedDevices(id) {
             if(device_list.length > 0){
                 for (const element of device_list) {
                     $("#linkedTable tbody").append('<tr>' +
-                        '<td>' + element.id + '</td>' +
+                        '<td>' + element.id + '<br><small class="text-grey">'+element.name+'</small></td>' +
                         '<td>' + element.modelId + '</td>' +
                         '<td>' + element.version + '</td>' +
                         '<td><button class="btn bskp-edit-btn  bskp-greyicon mr-2" title="Unlink device" onclick="unlinkDevice(\'' + element.id + '\',\''+id+'\')"><em class="icon-unlink"></em></button> </td>' +
