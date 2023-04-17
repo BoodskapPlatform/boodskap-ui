@@ -23,7 +23,11 @@
     <meta property="og:description" content="Boodskap is a disruptive (IoT) Platform helps to quickly connect any hardware devices and to rapidly build connected applications in a cost efficient manner" />
     <meta property="og:image" content="https://boodskap.io/images/boodskap-logo.png" />
 
-
+<style>
+   .input-group > img{
+      background: white;
+    }
+</style>
     <script type="application/ld+json">
         {
             "@context": "http://schema.org",
@@ -116,7 +120,6 @@
                         <div class="caption-text py-2">Fill in the required details below</div>
                     </div>
                     <form action="javascript:void(0)" id="registerForm" novalidate class="mb-0 pt-4"  onsubmit="register()">
-                        
                         <div class="wrap-input">
                             <input type="text" class="input-text" maxlength="100" id="firstname" placeholder="First name" required/>
                             <span class="loginput text-end" data-placeholder="">
@@ -138,9 +141,10 @@
                             </span>
                             <div id="logemail" class="alertDiv"></div>
                         </div>
+                        
                         <div class="g-recaptcha" id="captchaFeedback" data-sitekey="6Lel4Z4UAAAAAOa8LO1Q9mqKRUiMYl_00o5mXJrR" data-callback="captchClicked"></div>
                         <div id="logcaptchaFeedback" class="alertDiv"></div>
-                        
+
                         <div class="form-group text-center text-dark mt-2" style="width:100%;">
                              <small class=" ">By clicking Register, you agree to our Terms & Conditions and Privacy Policy.
                             </small>

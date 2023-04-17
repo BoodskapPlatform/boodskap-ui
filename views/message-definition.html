@@ -20,7 +20,7 @@
                 <li class="breadcrumb-item"><a href="<%= basepath %>/home">Home</a></li>
                 <li class="breadcrumb-item active"><u>Message Definition</u></li>
                <div class="ml-4">
-                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle  bskp-icon-bg" title="Expand" data-click="panel-expand"><em class="fa fa-expand"></em></a>
+                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle  bskp-icon-bg" title="Expand" data-click="panel-expand" onclick="addBG()"><em class="fa fa-expand"></em></a>
                 <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg help-url" target="_blank" title="Help"><em class="icon-help"></em></a>  
             </div>
             </ol>
@@ -144,7 +144,7 @@
                     </button>
             </div>
             <div class="modal-body">
-                <h5>Are you sure want to delete <b><span class="delete_rule_id"></span> <span class="delete_rule_name"></span></b> Rule?</h5>
+                <h5>Are you sure want to delete <b><span class="delete_rule_id" style="word-wrap: break-word;"></span> <span class="delete_rule_name" style="word-wrap: break-word;"></span></b> Rule?</h5>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn button-2 btn-close" data-dismiss="modal">Close</button>

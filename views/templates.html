@@ -10,7 +10,7 @@
                 <li class="breadcrumb-item"><a href="<%= basepath %>/home">Home</a></li>
                 <li class="breadcrumb-item active"><u>Templates</u></li>
                 <div class="ml-4 mr-1">
-                    <a href="javascript:;" class="btn btn-sm btn-icon btn-circle  bskp-icon-bg" title="Expand" data-click="panel-expand" ><img height="14px" src="images/menu/expand-icon.svg" alt="expand-icon"></a>
+                    <a href="javascript:;" class="btn btn-sm btn-icon btn-circle  bskp-icon-bg" title="Expand" data-click="panel-expand"onclick="addBG()" ><img height="14px" src="images/menu/expand-icon.svg" alt="expand-icon"></a>
                      <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg help-url" target="_blank" title="Help"  > <img src="images/menu/Question_icon.png" alt="help_icon"> </a>
                    </div>
             </ol>
@@ -34,7 +34,7 @@
                     </div>
                     <div class=" btn-group-justified pull-right">
                         <a class="btn mr-3 btn_add_Templates"  onclick="openModal(1)"><img class="pb-1" src="images/menu/plusicon.svg" width="18px" height="18px" alt="add"> <span class="hidden-xs">Add Template</span></a>
-                        <a class="btn mr-2 bskp-radius-btn" title="Export" onclick="openModal(3)"><img src="images/menu/download.svg" width="15px"height="15px" alt="download"><span class="hidden-xs"></span></a>
+                        <a class="btn mr-2 bskp-radius-btn" title="Export" id="exportMsg" onclick="openModal(3)"><img src="images/menu/download.svg" width="15px"height="15px" alt="download"><span class="hidden-xs"></span></a>
                         <a class="btn mr-2 bskp-radius-btn" title="Import" onclick="openModal(2)"><img src="images/menu/upload.svg" width="15px"height="15px" alt="upload"> <span class="hidden-xs"></span></a>
 
                         <a  class="btn  mr-2 btn bskp-refresh-bg"  title="Refresh" data-click="panel-reload" onclick="loadTemplates()"><img class="refresh-button"  src="images/menu/refresh-button.png" alt=""></a>
@@ -127,7 +127,7 @@
                     </button>
             </div>
             <div class="modal-body">
-                <h5>Are you sure want to delete <b><span class="templateName"></span> template</b>?</h5>
+                <h5>Are you sure want to delete <b><span class="templateName" style="word-wrap: break-word;"></span> template</b>?</h5>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn button-2 btn-close" data-dismiss="modal">Close</button>

@@ -36,7 +36,11 @@ function loadDeviceList() {
             sWidth: '10%',
             mRender: function (data, type, row) {
 
-               return data + '<br><small class="text-grey">'+(row['name'] ? ''+row['name'] : '')+'</small>'
+               
+               var desc = data ? data : '-';
+               var name = row['name'] ? ''+row['name'] : '';
+
+                return '<div style="max-width: 150px;" class="text-truncate" title="'+desc+'">'+desc + '<br><small class="text-grey" title='+name+'>'+name+'</small>'+'</div>';
             }
         },
         {
@@ -45,7 +49,10 @@ function loadDeviceList() {
             "orderable": false,
             sWidth: '10%',
             mRender: function (data, type, row) {
-                return data ? data : '-';
+                var data = data ? data : '-';
+                return '<div style="max-width: 150px;" class="text-truncate" title="'+data+'">'+data + '</div>';
+
+                
             }
         },
         {
@@ -54,7 +61,8 @@ function loadDeviceList() {
             "orderable": false,
             sWidth: '5%',
             mRender: function (data, type, row) {
-                return data ? data : '-';
+                var data = data ? data : '-';
+                return '<div style="max-width: 150px;" class="text-truncate" title="'+data+'">'+data + '</div>';
             }
         },
         {
@@ -63,7 +71,8 @@ function loadDeviceList() {
             "orderable": false,
             sWidth: '5%',
             mRender: function (data, type, row) {
-                return data ? data : '-';
+                var data = data ? data : '-';
+                return '<div style="max-width: 150px;" class="text-truncate" title="'+data+'">'+data + '</div>';
             }
         },
         {
@@ -225,36 +234,44 @@ function loadDeviceList() {
                     }
                 });
 
-                $('#deviceTable tbody').on('click', 'td.details-control', function () {
-                    var tr = $(this).closest('tr');
-                    var row = deviceTable.row(tr);
-                    var obj = row.data();
-                    let tableDiv = `<table class="table table-bordered no-wrap" id="deviceTokens_` + obj.id + `" cellspacing="0" width="100%"></table>`
-
-                    if (row.child.isShown()) {
-                        // This row is already open - close it
-                        row.child.hide();
-                        tr.removeClass('shown');
-                    } else {
-                        row.child(tableDiv).show();
-                        getTokenList(obj.id)
-                        tr.addClass('shown');
-
-                    }
-                });
+                
             }
 
         };
 
     deviceTable = $("#deviceTable").DataTable(tableOption);
+
+    $('#deviceTable tbody').on('click', 'td.details-control', function () {
+        var tr = $(this).closest('tr');
+        var row = deviceTable.row(tr);
+        var obj = row.data();
+        var id = obj.id.replaceAll(" ", "_");
+        let tableDiv = `<table class="table table-bordered no-wrap token-lists" id="deviceTokens_` + id + `" cellspacing="0" width="100%"></table>`
+
+        if (row.child.isShown()) {
+            // This row is already open - close it
+            row.child.hide();
+            tr.removeClass('shown');
+        } else {
+            row.child(tableDiv).show();
+            getTokenList(obj.id)
+            tr.addClass('shown');
+
+        }
+    });
+
     $('.dataTables_filter input').attr('maxlength', 100)
     $(".dataTables_scrollBody").removeAttr("style").css({"min-height":"calc(100vh - 425px)","position":"relative","width":"100%","border-bottom":"0px"});
 
 }
 function getTokenList(deviceId) {
+    deviceId = deviceId.replaceAll(" ", "_");
     if (tokenTable) {
-        tokenTable.destroy()
+        tokenTable.destroy();
+        
     }
+    $('<div class="spinnerRow"><h4 style="text-align: center"><i class="fa fa-spinner fa-spin"></i> <Loading></Loading></h4></div>').insertAfter("#deviceTokens_"+deviceId);
+    
 
     var fields = [
         {
@@ -308,14 +325,17 @@ function getTokenList(deviceId) {
         aaSorting: [[2, 'desc']],
         dom: 'rt',
         aoColumns: fields,
-        "bProcessing": true,
-        data: []
+        "bProcessing": true
     };
     
     const params = '?type=DEVICE&entity=' + deviceId
     ajaxCall('/auth/token/list', 'GET', params, function (status, data) {
+        $(".spinnerRow").remove();
         if (status) {
-            if (data.length > 0) {  
+            if($("#deviceTokens_"+deviceId).html()!=""){
+                $("#deviceTokens_"+deviceId).html("");
+            }
+            if (data.length > 0) {  console.log(data);
                 tableOption['data'] = data;
             }
             tokenTable = $('#deviceTokens_' + deviceId).DataTable(tableOption);

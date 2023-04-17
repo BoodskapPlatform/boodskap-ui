@@ -62,7 +62,7 @@ if (USER_OBJ) {
 
 function showNotification(msg, type, time) {
 
-    if (!time) time = 2500;
+    if (!time) time = 25000000;
 
     // create the notification
     var notification = new NotificationFx({
@@ -143,7 +143,7 @@ function errorMsgBorder(msg, id,authvalue) {
     $(".errorFeedBack").css('top', 105);
 
     $(".errorFeedBack").show().delay(2500).fadeOut();
-    if(authvalue){
+   if(authvalue){
         $("#" + id).css("border-bottom", "1px solid red");
     }else{
         $("#" + id).css("border", "1px solid red");
@@ -151,12 +151,15 @@ function errorMsgBorder(msg, id,authvalue) {
     
     $("#log"+id).css("display","block")
     setTimeout(function () {
-        $("#" + id).css("border-bottom", "1px solid #ccc");
-        $("#" + id).css("border", "1px solid #ccc");
+        if(authvalue){
+            $("#" + id).css("border-bottom", "1px solid #ccc");
+        }else{
+            $("#" + id).css("border", "1px solid #d3d8de");
+        }
+       
         $("#log"+id).css("display","none")
     }, 3000);
   
-
 }
 
 function successMsg(feedText,id) {

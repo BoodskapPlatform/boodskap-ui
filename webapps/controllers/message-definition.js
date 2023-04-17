@@ -23,6 +23,8 @@ function loadMessageDef() {
         $("#messageTable").html("");
     }
 
+    $(".ref-btn").attr("onclick","");
+
     var fields = [
         {
             mData: 'id',
@@ -65,8 +67,8 @@ function loadMessageDef() {
             sWidth: '10%',
             mRender: function (data, type, row) {
 
-                return '<button class="btn bskp-edit-btn mr-2" onclick="openEditModal(' + row['id'] + ')"> <img src="images/edit_icon.svg" alt="">  </button>' +
-                    '<button class="btn bskp-trash-btn" onclick="openDeleteModal(' + row['id'] + ')"> <img src="images/delete.svg" alt=""> </button>';
+                return '<button class="btn bskp-edit-btn mr-2" onclick="openEditModal(' + row['id'] + ')"> <img src="images/edit_icon.svg" title="Edit" alt="">  </button>' +
+                    '<button class="btn bskp-trash-btn" onclick="openDeleteModal(' + row['id'] + ')"> <img src="images/delete.svg" title="Delete" alt=""> </button>';
             }
         }
 
@@ -98,7 +100,8 @@ function loadMessageDef() {
     };
 
     listMessageSpec(1000, null, null, function (status, data) {
-        if (status && data.length > 0) {
+        data.length <= 0 ? $("#exportMsg").css("cursor","not-allowed") : $("#exportMsg").css("cursor","pointer");
+       if (status && data.length > 0) {
             tableOption['data'] = data;
             message_list = data;
             createDownload();
@@ -106,15 +109,30 @@ function loadMessageDef() {
         } else {
             $(".messageCount").html(0)
             message_list = [];
+            $("#exportMsg").removeAttr("href").removeAttr("download");
         }
-
         messageTable = $("#messageTable").DataTable(tableOption);
-      
+
+        $("#messageTable_filter").find("input").on("keyup",function(){
+            var len = $("#messageTable tbody tr").length;
+            if(len == 1){
+                if($("#messageTable tbody tr td").hasClass("dataTables_empty")==true){
+                    $(".messageCount").text(0);
+                }else{
+                    $(".messageCount").text(1);
+                }
+            }else{
+                $(".messageCount").text(len);
+            }
+        });
+        $(".ref-btn").attr("onclick","loadMessageDef()");
         $('.dataTables_filter input').attr('maxlength', 100)
     })    
 
 
 }
+
+
 
 
 function loadRowClicks() {
@@ -190,6 +208,9 @@ function openModal() {
     $("#msg_desc").css('height','90px');
     // $("#msg_id").attr('min', USER_OBJ.domain.startId)
     // $("#msg_id").attr('max', USER_OBJ.domain.startId + ID_RANGE_COUNT)
+    if(typeof LicenseDetails == "undefined"){
+        warningMsg('API Hits Exhausted')
+    }else
     if(LicenseDetails.maxMessageSpecs <= message_list.length){
         warningMsg('Your plan have '+LicenseDetails.maxMessageSpecs+' message specification.')
         return
@@ -329,12 +350,12 @@ function addMessageRule(place) {
    // }
     else if(msg_name === ""){
 
-        errorMsgBorder('Message name is required', 'msg_name');
+        errorMsgBorder('Message Name is required', 'msg_name');
         return false;
 
     }else if(msg_desc === ""){
 
-        errorMsgBorder('Message description is required', 'msg_desc');
+        errorMsgBorder('Message Description is required', 'msg_desc');
         return false;
 
     }else{
@@ -639,19 +660,24 @@ function createDownload() {
 
 
 function importMsg() {
-    $("#importModal form")[0].reset();
-    
-    $(".modal-title").html("Import Definition")
-    // $(".btnSubmit").attr('disabled','disabled')
-    $("#imported_content").val('')
-    $("#importFile").val('')
-    loadJsEditor('');
-    $("#importModal").modal(
-        {
-            backdrop: 'static',
-            keyboard: false
-        }
-        ,'show')
+    if(LicenseDetails.maxMessageSpecs <= message_list.length){
+        warningMsg('Your plan have '+LicenseDetails.maxMessageSpecs+' message specification.')
+        return
+    }else{
+        $("#importModal form")[0].reset();
+        
+        $(".modal-title").html("Import Definition")
+        // $(".btnSubmit").attr('disabled','disabled')
+        $("#imported_content").val('')
+        $("#importFile").val('')
+        loadJsEditor('');
+        $("#importModal").modal(
+            {
+                backdrop: 'static',
+                keyboard: false
+            }
+            ,'show')
+    }        
 }
 
 
@@ -841,7 +867,7 @@ function checkAndInsert(obj, cbk) {
                     if(typeof(data)!="undefined"){
                         if(data.message){
                             var errmessage = data.message.replaceAll("_"," ")
-                            errorMsg(errmessage);
+                            warningMsg(errmessage);
                         }else{
                             errorMsg('Error in Define Message');
                         }

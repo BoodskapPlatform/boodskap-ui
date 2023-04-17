@@ -6,6 +6,13 @@
 #deleteModal .modal-dialog {
     max-width: 600px;
 }
+.max-char{
+    overflow: hidden;
+    height: 18px;
+    display: block;
+    width: 150px !important;
+    text-overflow: ellipsis;
+}
 </style>
 <link rel="stylesheet" type="text/css" href="css/select2.min.css">
 <link href="css/device-management.css" rel="stylesheet"/>
@@ -33,7 +40,7 @@
             <!-- <li class="breadcrumb-item"><a href="<%= basepath %>/device-management">Device Management</a></li> -->
             <li class="breadcrumb-item active"><u>Device Management</u></li>
             <div class="ml-4">
-                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle  bskp-icon-bg" title="Expand" data-click="panel-expand"><em class="fa fa-expand"></em></a>
+                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle  bskp-icon-bg" title="Expand" data-click="panel-expand" onclick="addBG()"><em class="fa fa-expand"></em></a>
                 <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg help-url" target="_blank" title="Help" ><em class="icon-help"></em></a>
             </div>
         </ol>
@@ -165,7 +172,7 @@
                     </button>
             </div>
             <div class="modal-body">
-                <h5>Are you sure want to delete <b><span class="deviceId"></span> device</b>?</h5>
+                <h5>Are you sure want to delete <b><span class="deviceId" style="word-wrap: break-word;"></span> device</b>?</h5>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn button-2 btn-close" data-dismiss="modal">Close</button>

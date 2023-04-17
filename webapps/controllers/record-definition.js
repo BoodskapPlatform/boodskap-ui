@@ -26,6 +26,7 @@ function loadRecordDef() {
         recordTable.destroy();
         $("#recordTable").html("");
     }
+    $(".ref-btn").attr("onclick","");
 
     var fields = [
         {
@@ -100,6 +101,7 @@ function loadRecordDef() {
     };
    
     listRecordSpec(1000, null, null, function (status, data) {
+        data.length <= 0 ? $("#exportMsg").css("cursor","not-allowed") :  $("#exportMsg").css("cursor","pointer");
         if (status && data.length > 0) {
             tableOption['data'] = data;
             $(".recordCount").html(data.length)
@@ -109,10 +111,23 @@ function loadRecordDef() {
         } else {
             $(".recordCount").html(0)
             message_list = [];
-
+            $("#exportMsg").removeAttr("href").removeAttr("download");
         }
         
         recordTable = $("#recordTable").DataTable(tableOption);
+        $("#recordTable_filter").find("input").on("keyup",function(){
+            var len = $("#recordTable tbody tr").length;
+            if(len == 1){
+                if($("#recordTable tbody tr td").hasClass("dataTables_empty")==true){
+                    $(".recordCount").text(0);
+                }else{
+                    $(".recordCount").text(1);
+                }
+            }else{
+                $(".recordCount").text(len);
+            }
+        });
+        $(".ref-btn").attr("onclick","loadRecordDef()");
         $('.dataTables_filter input').attr('maxlength', 100)
     })
 
@@ -496,17 +511,22 @@ function createDownload() {
 
 
 function importMsg() {
-    $("#importModal form")[0].reset();
-    $(".modal-title").html("Import Definition")
-    // $(".btnSubmit").attr('disabled','disabled')
-    $("#imported_content").val('')
-    $("#importFile").val('')
-    loadJsEditor('');
-    $("#importModal").modal({
-        backdrop: 'static',
-        keyboard: false
-    }
-    ,'show');
+    if(LicenseDetails.maxRecordSpecs <= message_list.length){
+        warningMsg('Your plan have '+LicenseDetails.maxRecordSpecs+' record specification.')
+        return
+    }else{
+        $("#importModal form")[0].reset();
+        $(".modal-title").html("Import Definition")
+        // $(".btnSubmit").attr('disabled','disabled')
+        $("#imported_content").val('')
+        $("#importFile").val('')
+        loadJsEditor('');
+        $("#importModal").modal({
+            backdrop: 'static',
+            keyboard: false
+        }
+        ,'show');
+    }    
 }
 
 
@@ -685,7 +705,7 @@ function checkAndInsert(obj, cbk) {
                     if(typeof(data) != "undefined"){
                         if(data.message){
                             var errmessage = data.message.replaceAll("_"," ")
-                            errorMsg(errmessage);
+                            warningMsg(errmessage);
                         }else{
                             errorMsg('Error in Define Record');
                         }

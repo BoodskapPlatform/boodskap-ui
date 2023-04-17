@@ -30,7 +30,7 @@
                 <!-- <li class="breadcrumb-item"><a href="<%= basepath %>/device-management">Device Management</a></li> -->
                 <li class="breadcrumb-item active"><u>Device Management</u></li>
                 <div class="ml-4">
-                    <a href="javascript:;" class="btn btn-sm btn-icon btn-circle  bskp-icon-bgt" title="Expand"  data-click="panel-expand"><em class="fa fa-expand"></em></a>
+                    <a href="javascript:;" class="btn btn-sm btn-icon btn-circle  bskp-icon-bg" title="Expand"  data-click="panel-expand" onclick="addBG()"><em class="fa fa-expand"></em></a>
                     <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg help-url" target="_blank" title="Help" ><em class="icon-help"></em></a>
                 </div>
             </ol>
@@ -97,7 +97,7 @@
                     <div  class="row">
                         <div  class="col-md-12">
                             <div  class="form-group">
-                                <label  class="inputLabel">Description *</label>
+                                <label  class="inputLabel">Description</label>
                                 <textarea class="form-control input-sm" id="device_desc" placeholder="Enter Description" maxlength="1000" autocomplete="off" required ></textarea>
                                 <span id="logdevice_desc" class="error-msg"></span>
                             </div>
@@ -126,7 +126,7 @@
                 
             </div>
             <div class="modal-body">
-                <h5>Are you sure want to delete <b><span class="deviceId"></span> device model</b>?</h5>
+                <h5>Are you sure want to delete <b><span class="deviceId" style="word-wrap: break-word;"></span> device model</b>?</h5>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn button-2 btn-close" data-dismiss="modal">Close</button>

@@ -51,7 +51,7 @@ function loadUsersList() {
             orderable: false,
             mRender: function (data, type, row) {
                 
-                var inputs = [];
+                 var inputs = [];
                 data.map((word) => {
                     let capitalizedFirst = word.charAt(0).toUpperCase();
                     let rest = word.slice(1).toLowerCase();
@@ -293,6 +293,8 @@ function openModal(type, id) {
         $("#addUser form").attr('onsubmit', 'addUser()');
         $(".new-role-input").hide();
         $("#otherRoleInput").val("");
+        $("#password").attr("type","password");
+        $("#password").next().addClass("fa-eye").removeClass("fa-eye-slash");
     } else if (type === 2) {
         $(".templateAction").html('Update');
         var obj = {};
@@ -339,7 +341,8 @@ function openModal(type, id) {
         $("#deleteModal").modal('show');
     } else if (type === 4) {
         current_user_id = id;
-        $(".loginAs").html(id)
+        $(".loginAs").html(id);
+        $("#adminPwd").val("");
         $("#domainModal").modal('show')
     }
 }
@@ -775,6 +778,7 @@ function checkNewRole(obj){
         $(".new-role-input").hide();
     }
 }
+
 
 function passwordView(obj){
     if($(obj).hasClass("fa-eye")){

@@ -108,15 +108,29 @@ function loadTemplates() {
     };
 
     listTemplates(1000, $("input[name='systemFlag']:checked").val(), function (status, data) {
+        data.length <= 0 ? $("#exportMsg").css("cursor","not-allowed") :  $("#exportMsg").css("cursor","pointer");
         if (status && data.length > 0) {
-            tableOption['data'] = data;
-            template_list = data;
+            tableOption['data'] = data;  
+            template_list = data;   
             $(".templateCount").html(data.length)
         } else {
             $(".templateCount").html(0)
+            $("#exportMsg").removeAttr("href").removeAttr("download");
         }
 
         templateTable = $("#templateTable").DataTable(tableOption);
+        $("#templateTable_filter").find("input").on("keyup",function(){
+            var len = $("#templateTable tbody tr").length;
+            if(len == 1){
+                if($("#templateTable tbody tr td").hasClass("dataTables_empty")==true){
+                    $(".templateCount").text(0);
+                }else{
+                    $(".templateCount").text(1);
+                }
+            }else{
+                $(".templateCount").text(len);
+            }
+        });
         $('.dataTables_filter input').attr('maxlength', 100)
 
         $(".dataTables_scrollBody").removeAttr("style").css({"min-height":"calc(100vh - 425px)","position":"relative","width":"100%"});
@@ -170,13 +184,13 @@ function openModal(type,id) {
                 // var blob = new Blob([data], {type: 'application/json'}),
                 //   url = window.URL.createObjectURL(blob);
                 var url = 'data:application/json;charset=utf-8,' + encodeURIComponent(data);
-
                 a.href = url;
                 a.download = USER_OBJ.domainKey + "_templates.json";
                 a.click();
                 window.URL.revokeObjectURL(url);
             }else{
                 errorMsg('Error in download')
+
             }
         })
         
@@ -186,7 +200,6 @@ function openModal(type,id) {
         current_template_name = id;
         $(".templateName").html(id)
         $("#deleteModal").modal('show');
-        
 
         
 
@@ -241,7 +254,7 @@ function addTemplate() {
 
         }
         else if($("#template_name").val()==""){
-            $("#template_error").text("Please Enter the Name !");
+            $("#template_error").text("Please Enter the Name");
             $("#template_name").css({"border-color":"red"})
     
             setTimeout(function(){
@@ -298,6 +311,7 @@ function proceedDelete() {
             successMsg('Template Deleted Successfully');
             loadTemplates();
             $("#deleteModal").modal('hide');
+            $("#downloadFile").remove();
         } else {
             errorMsg('Error in delete')
         }

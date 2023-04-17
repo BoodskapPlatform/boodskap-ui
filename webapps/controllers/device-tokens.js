@@ -39,6 +39,10 @@ function loadTokenList() {
         {
             mData: 'entity',
             sTitle: 'Entity',
+            mRender: function (data, type, row) {
+                var data = data ? data : "" ;
+                return '<div style="max-width: 300px;" class="text-truncate" title="'+data+'">'+data+'</div>';
+            }
         },
         {
             mData: 'mode',
