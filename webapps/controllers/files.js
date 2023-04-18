@@ -247,12 +247,12 @@ function renderHtml(obj) {
 
     var str = `
             <div class="col-sm-12 col-md-6 col-lg-3" style="margin-top:15px;margin-bottom: 35px;" id="card-data">
-                <span id="img-name" title=`+ obj.description +` style = "font-size:18px;margin-top:5px;margin-left:32px;font-weight: 600;color:black;">`+ fileName + `</span> <input id="check-box_`+obj.id+`" class="card-check" onchange="checkboxes('` + obj.id + `',this)" style="position: absolute;right: 9%;top: 12%;height: 17px;width: 17px;" type="checkbox">
-                <div class="colBase" onclick="toggleBtn(1,'`+ obj.id + `')" style="height: 113%;border-radius: 15px;box-shadow: 0px 0px 3px 3px #ededed;">
+                <span id="img-name" title=`+ obj.description +` style = "font-size:18px;margin-top:5px;margin-left:32px;font-weight: 600;color:black;">`+ fileName + `</span> 
+                <div class="colBase" onclick="toggleBtn(1,'`+ obj.id + `')" id="card_`+obj.id+`" style="height: 113%;border-radius: 15px;box-shadow: 0px 0px 3px 3px #ededed;">
                         `+ fileType + `
                        `+ imgTag + `
-
-                </div>
+                       <input id="check-box_`+obj.id+`" class="card-check" onchange="checkboxes('` + obj.id + `',this)" style="position: absolute;right: 9%;top: 12%;height: 17px;width: 17px;" type="checkbox">
+                 </div>
               
               <p class="btn-group btn-group-justified `+ obj.id + ` " style="top:86%;left:24%;position:absolute;" id="action-buttons">
               <a class="btn btn-default btn-xs" id="download-btn" title="Download" onclick="downloadFile('` + obj.id + `','`+ obj.isPublic +`')" data-clipboard-text="` + srcPath + `" style="font-size:15px;background-color:white;border: none;font-size: 16px;padding-right: 9px;margin-top: 6px;"><img id="download-img" style="width: 27px;height: 27px;filter: brightness(0.5);" src="images/Download2.svg" alt=""></a> 
@@ -637,15 +637,29 @@ function expand() {
 }
 
 function checkboxes(objid, obj) {
+    console.log(document.querySelectorAll('input[type="checkbox"]:checked').length, $("#check-box_"+objid).is(":checked"));
 if (document.querySelectorAll('input[type="checkbox"]:checked').length > 0) {
-        $("#selected-files").css("display", "block");
-        $("#checked-count").html(document.querySelectorAll('input[type="checkbox"]:checked').length);
+    $("#selected-files").css("display", "block");
+    $("#checked-count").html(document.querySelectorAll('input[type="checkbox"]:checked').length);
+   
+    if($("#check-box_"+objid).is(":checked")){  console.log("iflog");
+        $("#card_"+objid).addClass("activeCard")
         $(obj).parent().children(".colBase").css("border", "1px solid #167EE6");
         $(obj).parent().children().children().children("#download-img").css("filter", "invert(165%) sepia(124%) saturate(1176%) hue-rotate(562deg) brightness(85%) contrast(159%)");
         $(obj).parent().children().children().children("#copy-img").css("filter", "invert(165%) sepia(124%) saturate(1176%) hue-rotate(562deg) brightness(85%) contrast(159%)");
         $(obj).parent().children().children().children("#edit-img").css("filter", "invert(100%) sepia(100%) saturate(1176%) hue-rotate(575deg) brightness(122%) contrast(159%)");
         $(obj).parent().children().children().children("#delete-img").css("filter", "invert(13%) sepia(94%) saturate(7466%) hue-rotate(0deg) brightness(94%) contrast(115%)");
 
+    }else{ console.log("elselog");
+        $("#card_"+objid).removeClass("activeCard")
+        $(obj).parent().children(".colBase").css("border", "1px solid #eee");
+        $(obj).parent().children().children().children("#download-img").css("filter", "brightness(0.5)");
+        $(obj).parent().children().children().children("#copy-img").css("filter", "brightness(0.5)");
+        $(obj).parent().children().children().children("#edit-img").css("filter",  "brightness(0.8)");
+        $(obj).parent().children().children().children("#delete-img").css("filter",  "brightness(0.8)");
+    } 
+       
+      
         if (bulkId.includes(objid)) {
             bulkId.pop(objid);
         }
@@ -670,7 +684,7 @@ if (document.querySelectorAll('input[type="checkbox"]:checked').length > 0) {
             $('[id="copy-img"]').css("filter", "brightness(0.5)");
             $('[id="edit-img"]').css("filter", "brightness(0.8)");
             $(obj).parent().children().children().children("#delete-img").css("filter", "brightness(0.8)");
-            loadFiles();
+            // loadFiles();
     }
 
 
