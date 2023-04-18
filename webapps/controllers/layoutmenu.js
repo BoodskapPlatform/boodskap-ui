@@ -22,6 +22,7 @@ $(document).ready(function () {
     if (USER_OBJ.user) {
 
         $(".user_profile_name").html((USER_OBJ.user.firstName ? USER_OBJ.user.firstName : 'Admin') + ' ' + (USER_OBJ.user.lastName ? USER_OBJ.user.lastName : ""));
+        $(".user_profile_name").attr("title", (USER_OBJ.user.firstName ? USER_OBJ.user.firstName : 'Admin') + ' ' + (USER_OBJ.user.lastName ? USER_OBJ.user.lastName : ""));
         $(".userRoles").html('<b>Your Role: </b><br>' + USER_OBJ.user.roles.join('<br>'));
         $(".domain_key").html(USER_OBJ.domainKey);
         $(".api_key").html(USER_OBJ.apiKey);

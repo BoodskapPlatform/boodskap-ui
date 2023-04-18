@@ -478,3 +478,19 @@ top: 12px;
     background-color: #2D2F79;
     color: white;
 }
+
+.download{
+    filter:invert(165%) sepia(124%) saturate(1176%) hue-rotate(562deg) brightness(85%) contrast(159%)
+}
+
+.copy{
+    filter: invert(165%) sepia(124%) saturate(1176%) hue-rotate(562deg) brightness(85%) contrast(159%);
+}
+
+.edit{
+    filter: invert(100%) sepia(100%) saturate(1176%) hue-rotate(575deg) brightness(122%) contrast(159%);
+}
+
+.delete{
+    filter:invert(13%) sepia(94%) saturate(7466%) hue-rotate(0deg) brightness(94%) contrast(115%);
+}

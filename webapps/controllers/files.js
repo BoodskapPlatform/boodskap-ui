@@ -136,7 +136,7 @@ function loadFiles(fileType) {
             var clipboard = new ClipboardJS('.cpyBtn');
 
             clipboard.on('success', function (e) {
-                successMsg('Link copied successfuly')
+                successMsg('Link copied successfully')
                 e.clearSelection();
             });
 
@@ -247,7 +247,7 @@ function renderHtml(obj) {
 
     var str = `
             <div class="col-sm-12 col-md-6 col-lg-3" style="margin-top:15px;margin-bottom: 35px;" id="card-data">
-                <span id="img-name" title=`+ obj.description +` style = "font-size:18px;margin-top:5px;margin-left:32px;font-weight: 600;color:black;">`+ fileName + `</span> <input id="check-box" onchange="checkboxes('` + obj.id + `',this)" style="position: absolute;right: 9%;top: 12%;height: 17px;width: 17px;" type="checkbox">
+                <span id="img-name" title=`+ obj.description +` style = "font-size:18px;margin-top:5px;margin-left:32px;font-weight: 600;color:black;">`+ fileName + `</span> <input id="check-box_`+obj.id+`" class="card-check" onchange="checkboxes('` + obj.id + `',this)" style="position: absolute;right: 9%;top: 12%;height: 17px;width: 17px;" type="checkbox">
                 <div class="colBase" onclick="toggleBtn(1,'`+ obj.id + `')" style="height: 113%;border-radius: 15px;box-shadow: 0px 0px 3px 3px #ededed;">
                         `+ fileType + `
                        `+ imgTag + `
@@ -637,9 +637,7 @@ function expand() {
 }
 
 function checkboxes(objid, obj) {
-
-
-    if (document.querySelectorAll('input[type="checkbox"]:checked').length > 0) {
+if (document.querySelectorAll('input[type="checkbox"]:checked').length > 0) {
         $("#selected-files").css("display", "block");
         $("#checked-count").html(document.querySelectorAll('input[type="checkbox"]:checked').length);
         $(obj).parent().children(".colBase").css("border", "1px solid #167EE6");
@@ -671,7 +669,7 @@ function checkboxes(objid, obj) {
             $('[id="download-img"]').css("filter", "brightness(0.5)");
             $('[id="copy-img"]').css("filter", "brightness(0.5)");
             $('[id="edit-img"]').css("filter", "brightness(0.8)");
-            $('[id="delete-img"]').css("filter", "brightness(0.8)");
+            $(obj).parent().children().children().children("#delete-img").css("filter", "brightness(0.8)");
             loadFiles();
     }
 
@@ -690,7 +688,7 @@ function selectAll(event) {
         event.target.attributes.class.value = "active"
         
             $(".colBase").css("border","1px solid #167EE6");
-            $('[id="check-box"]').attr('checked', 'checked');
+            $('.card-check').attr('checked', 'checked');
             $("#checked-count").html(document.querySelectorAll('input[type="checkbox"]:checked').length);
             $("#selected-files").css("display","block");
             $("#select-all").css("border","1px solid #61629A");

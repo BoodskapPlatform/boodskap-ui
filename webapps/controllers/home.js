@@ -45,7 +45,7 @@ $(document).ready(function () {
     var fullName = (USER_OBJ.user.firstName ? USER_OBJ.user.firstName : 'Admin') + ' ' + (USER_OBJ.user.lastName ? USER_OBJ.user.lastName : "");
 
     if (!Cookies.get('greetings')) {
-        showNotification('<label>Greetings from Boodskap,</label><p>Hey <b>' + fullName + '</b>, Welcome back!</p>', 'platform', 3000);
+        showNotification('<label>Greetings from Boodskap,</label><p>Hey <b class="name-overflow">' + fullName + '</b>, Welcome back!</p>', 'platform', 300000000);
         Cookies.set('greetings', 'true');
         playSound();
     }
