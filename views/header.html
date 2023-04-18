@@ -155,7 +155,7 @@
                 <img src="images/avatar.png" alt="" class="user_profile_picture">
                 <span class="d-none d-md-inline"></span><span class="user_profile_name name-overflow"></span> <b class="caret"></b>
             </a>
-            <div class="dropdown-menu dropdown-menu-right" style="border-top: 0px;padding-top: 0px;">
+            <div class="dropdown-menu dropdown-menu-right clr-change" style="border-top: 0px;padding-top: 0px;">
                 <div class="userRoles menulink" style="padding: 5px;text-transform: capitalize;border-top: 1px solid #dddddd;border-bottom: 1px solid #dddddd;">
                 </div>
                 <a href="<%= basepath %>/profile" class="dropdown-item"><i class="icon-edit2"></i> Edit Profile</a>
@@ -195,7 +195,7 @@
                 <!-- <div><a href="javascript:;" data-dismiss="modal" aria-label="Close" style="border: 1px solid #ffc5c5 !important;background: #ffe5e5 !important;" class="btn bskp-btnsize btn-icon btn-circle bskp-icon-bg" > 
                         <img src="images/redclose.svg" height="16" alt="" style="vertical-align: baseline;  margin-top: 5px;"></span> </a>
                 </div> -->
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="clearInput()">
                     <img src="images/menu/xicon.svg" class="bg-secondary bskp-close" >
                     </button>
             </div>

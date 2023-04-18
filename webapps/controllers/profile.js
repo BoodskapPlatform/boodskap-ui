@@ -90,10 +90,10 @@ function proceedUpdate() {
     let lastName =$.trim($("#lastName").val() );
     let mobileNo =$.trim($("#mobileNo").val() );
     if(firstName===""){
-        errorMsgBorder('First Name should not be empty', 'firstName');
+        errorMsgBorder('First Name is required', 'firstName');
         return false;
     } else if(lastName===""){
-        errorMsgBorder('Last Name should not be empty', 'lastName');
+        errorMsgBorder('Last Name is required', 'lastName');
         return false;
     }
     if(mobileNo!=""){

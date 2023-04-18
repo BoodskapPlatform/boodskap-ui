@@ -48,7 +48,9 @@
     border-radius: 1rem 1rem 0rem 0rem!important;
     background: white !important;
 }
-
+.clr-change .dropdown-item:active{
+    color: #000 !important;
+}
 @media (max-width: 767px){
     .navbar-header {
         border-bottom: none !important;

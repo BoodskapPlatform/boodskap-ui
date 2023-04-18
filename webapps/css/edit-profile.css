@@ -10,7 +10,7 @@ body {
 }
 
 .modules:hover {
-   background-color: #ffc10754;
+   /* background-color: #ffc10754; */
    cursor: pointer;
 }
 
