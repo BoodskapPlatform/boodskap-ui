@@ -769,12 +769,12 @@ function recentcard(rdata) {
             }
             if (i >= 0 && i <= 11) {
                 ui += `<div class="w-25 w-sm-100 w-md-50 px-2 homecard  hmarketplace ` + hideClass + `">
-                    <a href="`+ golink + `" onclick="`+onclk+`">
+                    <a href="`+ golink + `" onclick="` + onclk + `">
                         <div class="card modules bskp-home-modules">
                             <div class="bskp-icon-frame">
                                 <div class="bskp-Dbg bskp-Dimg`+ rdata[i].cardno + `"></div>
                             </div>
-                            <p class="mt-2"><label class="cardtitle">`+ rdata[i].name + `</label></p>
+                            <p class="mt-2"><label class="cardtitle">`+ ((rdata[i].name === 'Search Query Console') ? 'Elastic Search Query' : rdata[i].name) + `</label></p>
                         </div>
                     </a>
                 </div>`
@@ -899,7 +899,9 @@ for (let i = 0; i < (rdata.length >= 6 ? 6 : rdata.length ); i++) {
         }
     } */
 
-
+function clearInput() {
+    $("#search_megahome").val("").trigger('keyup')
+}
 function openmegamenu() {
     $("#megaMenu").modal({
         keyboard: true,
