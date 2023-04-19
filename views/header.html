@@ -1,3 +1,10 @@
+<style>
+      @media (max-width:500px) {
+        .xs-flex-wrap{
+            flex-wrap: wrap;
+        }
+    }
+</style>
 <link href="css/header.css" rel="stylesheet" />
 
 <div id="header" class="header header-style" >  
@@ -6,13 +13,13 @@
 
         <span class="barmenu bskp-bardiv bskp-frame-shadow" onclick="openNav()" ><i class="icon-bars" style="font-size: 19px;"></i></span>
 
-        <div class="d-flex" style="justify-content: space-between;">
+        <div class="d-flex xs-flex-wrap" style="justify-content: space-between;">
            
     
             <a href="javascript:void(0)" class="navbar-brand" style="padding: 2px 5px;width: 130px;">
                 <img src="image" class="domain_logo" style="height:45px;display:none;"  alt="menu" onclick="openNav()" > </a>
       
-                <div class="d-flex" >
+                <div class="d-flex ml-auto">
                     <ul class="dropdown navbar-user mb-0 btnMobile">
                         <a href="javascript:;" class="dropdown-toggle mt-0 navbar-toggle mb-0 btn btn-circle btn-sm btnMobile" style="padding: 12px 2px;margin-right: 10px;"  data-toggle="dropdown">
                             <img src="images/avatar.png" alt="" class="user_profile_picture">
@@ -34,7 +41,7 @@
                     <i class="icon-user"></i>
                    </a>
 
-                   <button type="button"  class="mt-2 btn btn-circle btn-danger btn-sm btnMobile" onclick="logout()" style="height:30px;margin-right: 10px;">
+                   <button type="button"  class="navbar-toggle mt-2 btn btn-circle btn-danger btn-sm btnMobile" onclick="logout()" style="height:30px;margin: 0px 0px 0px 4px;">
                     <i class="icon-sign-out"></i>
                   </button>
                 </div>

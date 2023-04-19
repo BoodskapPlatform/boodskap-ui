@@ -13,14 +13,26 @@
         .m-xs-0{
             margin: 0px;
         }
+        .text-xs-center{
+            text-align: center;
+        }
+    }
+    @media (max-width:500px) {
+        .xs-flex-wrap{
+            flex-wrap: wrap;
+        }
+        .px-xs-2{
+            padding-left: 0.5rem !important;
+            padding-right: 0.5rem !important;
+        }
     }
 </style>
 <link href="css/edit-profile.css" rel="stylesheet"/>
-<div class="container mt-4 platformBody">
+<div class="container mt-4 platformBody px-xs-2">
     
 
     <div class="panel panel-inverse bskp-container-frame m-xs-0">
-        <div>
+        <!-- <div>
             <ol class="breadcrumb pull-right bskp-align-icon" style="justify-content: center;">
                 
                 <li class="breadcrumb-item"><a href="<%= basepath %>/dashboard">Home</a></li>
@@ -30,10 +42,24 @@
                     <a class="btn bskp-refresh-bg" data-click="panel-reload" title="Refresh" onclick="loadProfile()"><img class="refresh-button" src="images/menu/refresh-button.png" alt=""></a>
                 </div>
            </ol>
-        </div>
+        </div> -->
 
-        <div class="page-header bskp-page-topic page-header-bg"><img src="images/person.png" width="40" alt="person">
+        <div class="page-header d-flex xs-flex-wrap bskp-page-topic page-header-bg justify-content-between">
+           <div>
+            <img src="images/person.png" width="40" alt="person">
             My Profile
+           </div>
+            <div class="ml-auto">
+                <ol class="breadcrumb bskp-align-icon" style="justify-content: center;margin: 5px 30px 0px 0px;">
+                    
+                    <li class="breadcrumb-item"><a href="<%= basepath %>/dashboard">Home</a></li>
+                    <li class="breadcrumb-item active">My Profile</li>
+                    <div class="ml-4">
+                        
+                        <a class="btn bskp-refresh-bg" data-click="panel-reload" title="Refresh" onclick="loadProfile()"><img class="refresh-button" src="images/menu/refresh-button.png" alt=""></a>
+                    </div>
+               </ol>
+            </div>
         </div>
         <div class="panel-body" >
 
@@ -49,7 +75,7 @@
                                         <div class="col-lg-4 d-flex mob-wrap">
                                             <div class="upload_profile_pic col-lg-5">
                                                 <div class="outer-border mx-xs-auto">
-                                                    <div class="circle mx-sm-auto">
+                                                    <div class="circle mx-sm-auto" style="overflow: inherit;">
                                                         <img src="" class="user_profile_picture profile_pic" alt="profile Image">
                                                         <div class="upload-file">
                                                             <div class="img-bg">
@@ -62,7 +88,7 @@
                                                 
                                                
                                             </div>
-                                            <div class=" pt-md-5 col-lg-6">
+                                            <div class="text-xs-center pt-md-5 col-lg-6">
                                                 <p class="fullName"></p>
                                                 <p class="emailId"></p>
                                             </div>
@@ -105,10 +131,10 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-4">
-                                                        <div class="form-group">
+                                                        <div class="form-group position-relative">
                                                             <label>Email</label>
                                                             <input type="text" id="emailId" readonly class="form-control input-sm read-email"required/>
-                                                            <img src="images/tick-right.svg" class="tick-right" alt="&#10003;">
+                                                            <img src="images/tick-right.svg" class="tick-right" alt="&#10003;" style="right: 35px;">
                                                             <span id="logemailId"></span>   
                                                            
                                                         </div>
