@@ -1,21 +1,10 @@
-
-<style>
-    @media (max-width:600px){
-        .mob-wrap{
-           flex-wrap: wrap; 
-        }
-        .mx-sm-auto{
-            margin: auto;
-        }
-    }
-</style>
 <link href="css/edit-profile.css" rel="stylesheet"/>
 <div class="container mt-4 platformBody">
     
 
     <div class="panel panel-inverse bskp-container-frame">
         <div>
-            <ol class="breadcrumb pull-right bskp-align-icon" style="justify-content: center;">
+            <ol class="breadcrumb pull-right bskp-align-icon">
                 
                 <li class="breadcrumb-item"><a href="<%= basepath %>/dashboard">Home</a></li>
                 <li class="breadcrumb-item active">My Profile</li>
@@ -37,13 +26,13 @@
                     <div class="panel panel-inverse" data-sortable-id="index-1">
                         <div class="">
 
-                            <div class="row px-md-5">
+                            <div class="row px-5">
                                 <div class="col-lg-12">
                                     <div class="row form-group ">
-                                        <div class="col-lg-4 d-flex mob-wrap">
+                                        <div class="col-lg-4 d-flex">
                                             <div class="upload_profile_pic col-lg-5">
                                                 <div class="outer-border">
-                                                    <div class="circle mx-sm-auto">
+                                                    <div class="circle">
                                                         <img src="" class="user_profile_picture profile_pic" alt="profile Image">
                                                     </div>
                                                 </div>
@@ -55,7 +44,7 @@
                                                     <input type="file" class="file-upload" id="profileFile" accept="image/*" onchange="uploadImage()" required/>
                                                 </div>
                                             </div>
-                                            <div class=" pt-md-5 col-lg-6">
+                                            <div class=" pt-5 col-lg-6">
                                                 <p class="fullName"></p>
                                                 <p class="emailId"></p>
                                             </div>

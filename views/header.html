@@ -1,45 +1,21 @@
 <link href="css/header.css" rel="stylesheet" />
 
-<div id="header" class="header header-style" >  
+<div id="header" class="header header-style" >
     <!-- begin navbar-header -->
     <div class="navbar-header ">
 
         <span class="barmenu bskp-bardiv bskp-frame-shadow" onclick="openNav()" ><i class="icon-bars" style="font-size: 19px;"></i></span>
 
-        <div class="d-flex" style="justify-content: space-between;">
-           
-    
-            <a href="javascript:void(0)" class="navbar-brand" style="padding: 2px 5px;width: 130px;">
-                <img src="image" class="domain_logo" style="height:45px;display:none;"  alt="menu" onclick="openNav()" > </a>
-      
-                <div class="d-flex" >
-                    <ul class="dropdown navbar-user mb-0 mr-3 btnMobile">
-                        <a href="javascript:;" class="dropdown-toggle mt-0 navbar-toggle mb-0 btn btn-circle btn-sm btnMobile" style="padding: 12px 2px;float: right;"  data-toggle="dropdown">
-                            <img src="images/avatar.png" alt="" class="user_profile_picture">
-                         </span> 
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right" style="border-top: 0px;padding-top: 0px;">
-                            <div class="userRoles menulink" style="padding: 5px;text-transform: capitalize;border-top: 1px solid #dddddd;border-bottom: 1px solid #dddddd;">
-                            </div>
-                            <a href="<%= basepath %>/profile" class="dropdown-item"><i class="icon-edit2"></i> Edit Profile</a>
-                            <!--<a href="<%= basepath %>/myaccount" class="dropdown-item">My Account</a>-->
-                            <a href="<%= basepath %>/domain" class="dropdown-item menulink"><i class="icon-globe"></i> Domain Settings</a>
-                            <a href="#" class="dropdown-item menulink"><i class="icon-question-circle"></i> Help & Support</a>
-                            <div class="dropdown-divider"></div>
-                            <a href="javascript:;" class="dropdown-item" onclick="logout()"><i class="icon-sign-out"></i> Log Out</a>
-                        </div>
-                    </ul>
-        
-                <button type="button"  class="navbar-toggle btn btn-circle btn-danger btn-sm btnMobile" onclick="logout()" style="height:30px;margin-right: 10px;">
-                    <i class="icon-sign-out"></i>
-                </button>
-                <a  class="navbar-toggle btn btn-circle btn-warning btn-sm btnMobile ml-1"  href="<%= basepath %>/profile" style="height:30px;margin-right: 10px;">
-                    <i class="icon-user"></i>
-                </a>
-                </div>
-        </div>
+        <a href="javascript:void(0)" class="navbar-brand" style="padding: 2px 5px;width: 130px;">
+            <img src="image" class="domain_logo" style="height:45px;display:none;"  alt="menu" onclick="openNav()" > </a>
 
-       
+        <button type="button"  class="navbar-toggle btn btn-circle btn-danger btn-sm btnMobile" onclick="logout()">
+            <i class="icon-sign-out"></i>
+        </button>
+
+        <a  class="navbar-toggle btn btn-circle btn-warning btn-sm btnMobile" style="right:20px;" href="<%= basepath %>/profile">
+            <i class="icon-user"></i>
+        </a>
     </div>
     <!-- end navbar-header -->
 
