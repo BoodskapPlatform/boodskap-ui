@@ -775,10 +775,9 @@ function switchElasticAuth(){
 
     let flag = Boolean($("#elasticConfigCheck:checked").val());
     if(flag){
-        $("#elasticAuthUser, #elasticAuthPwd").val("");
+        $("#elasticAuthUser").val(typeof(elastic_config_obj.user) != "undefined" ? elastic_config_obj.user : "").attr("required", true);
+        $("#elasticAuthPwd").val(typeof(elastic_config_obj.password) != "undefined" ? elastic_config_obj.password : "").attr("required", true);
         $("#elasticConfigAuthView").show();
-        $("#elasticAuthUser").attr("required", true);
-        $("#elasticAuthPwd").attr("required", true);
     }else{
         $("#elasticConfigAuthView").hide();
         $("#elasticAuthUser").removeAttr("required");
