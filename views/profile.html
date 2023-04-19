@@ -1,13 +1,30 @@
+
+<style>
+    @media (max-width:600px){
+        .mob-wrap{
+           flex-wrap: wrap; 
+        }
+        .mx-sm-auto{
+            margin: auto;
+        }
+        .mx-xs-auto{
+            margin: auto;
+        }
+        .m-xs-0{
+            margin: 0px;
+        }
+    }
+</style>
 <link href="css/edit-profile.css" rel="stylesheet"/>
 <div class="container mt-4 platformBody">
     
 
-    <div class="panel panel-inverse bskp-container-frame">
+    <div class="panel panel-inverse bskp-container-frame m-xs-0">
         <div>
-            <ol class="breadcrumb pull-right bskp-align-icon">
+            <ol class="breadcrumb pull-right bskp-align-icon" style="justify-content: center;">
                 
                 <li class="breadcrumb-item"><a href="<%= basepath %>/dashboard">Home</a></li>
-                <li class="breadcrumb-item active"><u>My Profile</u></li>
+                <li class="breadcrumb-item active">My Profile</li>
                 <div class="ml-4">
                     
                     <a class="btn bskp-refresh-bg" data-click="panel-reload" title="Refresh" onclick="loadProfile()"><img class="refresh-button" src="images/menu/refresh-button.png" alt=""></a>
@@ -26,25 +43,26 @@
                     <div class="panel panel-inverse" data-sortable-id="index-1">
                         <div class="">
 
-                            <div class="row px-5">
+                            <div class="row px-md-5">
                                 <div class="col-lg-12">
                                     <div class="row form-group ">
-                                        <div class="col-lg-4 d-flex">
+                                        <div class="col-lg-4 d-flex mob-wrap">
                                             <div class="upload_profile_pic col-lg-5">
-                                                <div class="outer-border">
-                                                    <div class="circle">
+                                                <div class="outer-border mx-xs-auto">
+                                                    <div class="circle mx-sm-auto">
                                                         <img src="" class="user_profile_picture profile_pic" alt="profile Image">
+                                                        <div class="upload-file">
+                                                            <div class="img-bg">
+                                                                <img src="images/camera.svg" class="upload-image" alt="">
+                                                            </div>
+                                                            <input type="file" class="file-upload" id="profileFile" accept="image/*" onchange="uploadImage()" required/>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 
-                                                <div class="upload-file">
-                                                    <div class="img-bg">
-                                                        <img src="images/camera.svg" class="upload-image" alt="">
-                                                    </div>
-                                                    <input type="file" class="file-upload" id="profileFile" accept="image/*" onchange="uploadImage()" required/>
-                                                </div>
+                                               
                                             </div>
-                                            <div class=" pt-5 col-lg-6">
+                                            <div class=" pt-md-5 col-lg-6">
                                                 <p class="fullName"></p>
                                                 <p class="emailId"></p>
                                             </div>
@@ -72,7 +90,7 @@
                                                     <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label>First Name *</label>
-                                                            <input type="text" id="firstName" maxlength="100" class="form-control input-sm"required placeholder="Enter your first name"/>
+                                                            <input type="text" id="firstName" maxlength="100" class="form-control input-sm"required/>
                                                             <span id="logfirstName"></span>    
                                                                 
                                                         </div>
@@ -80,7 +98,7 @@
                                                     <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label>Last Name *</label>
-                                                            <input type="text" id="lastName" maxlength="100" class="form-control input-sm"required placeholder="Enter your last name"/>
+                                                            <input type="text" id="lastName" maxlength="100" class="form-control input-sm"required/>
                                                             <span id="loglastName"></span>   
                                                         </div>
                                                     </div>
@@ -89,7 +107,7 @@
                                                     <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label>Email</label>
-                                                            <input type="text" id="emailId" readonly class="form-control input-sm read-email"required placeholder="Enter your email"/>
+                                                            <input type="text" id="emailId" readonly class="form-control input-sm read-email"required/>
                                                             <img src="images/tick-right.svg" class="tick-right" alt="&#10003;">
                                                             <span id="logemailId"></span>   
                                                            
@@ -99,7 +117,7 @@
                                                     <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label>Mobile No </label>
-                                                            <input type="text" id="mobileNo" class="form-control input-sm" onkeypress="return onlyNumeric(event);" maxlength="15" placeholder="Enter your mobile number"/>
+                                                            <input type="text" id="mobileNo" class="form-control input-sm" onkeypress="return onlyNumeric(event);" maxlength="15"/>
                                                             <small>Eg, +19876543210 (Including + & country code)</small>
                                                             <span id="logmobileNo"></span>
                                                         </div>
