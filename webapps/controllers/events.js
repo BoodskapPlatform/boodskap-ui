@@ -41,26 +41,30 @@ function loadEvents() {
         {
             mData: 'id',
             sTitle: 'Event ID',
-            "class": "details-expand",
+            "class": "details-expand text-truncate",
             "orderable": true,
             sWidth: '10%',
         },
         {
             mData: 'name',
             sTitle: 'Event  Name',
-            "class": "details-expand",
+            "class": "details-expand text-truncate",
             "orderable": false,
         },
         {
             mData: 'subject',
             sTitle: 'Subject',
-            "class": "details-expand",
+            "class": "details-expand text-truncate",
             orderable: false,
+            mRender: function (data, type, row) {
+                return '<div class="text-truncate" title="' + data + '">' + data + '</div>';
+
+            }
         },
         {
             mData: 'content',
             sTitle: 'Content',
-            "class": "details-expand",
+            "class": "details-expand text-truncate",
             orderable: false,
             mRender: function (data, type, row) {
 
@@ -68,7 +72,7 @@ function loadEvents() {
                 data = data.replace(/</g, "&lt");
                 data = data.replace(/>/g, "&gt");
 
-                return '<div style="max-width: 500px;" class="text-truncate" title="'+data+'">'+data+'</div>';
+                return '<div class="text-truncate" title="'+data+'">'+data+'</div>';
 
             }
         },
@@ -80,8 +84,8 @@ function loadEvents() {
             mRender: function (data, type, row) {
 
 
-                return '<button class="btn bskp-edit-btn mr-2" onclick="openModal(2,' + row["id"] + ')"><img src="images/edit.svg" alt=""></button>' +
-                    '<button class="btn bskp-trash-btn" onclick="openModal(3,' + row['id'] + ')"><img src="images/delete.svg" alt=""></button>';
+                return '<button class="btn bskp-edit-btn mr-2" title="Edit" onclick="openModal(2,' + row["id"] + ')"><img src="images/edit.svg" alt=""></button>' +
+                    '<button class="btn bskp-trash-btn" title="Delete" onclick="openModal(3,' + row['id'] + ')"><img src="images/delete.svg" alt=""></button>';
             }
         }
 
@@ -540,23 +544,41 @@ function addEvent() {
 
 function updateEvent() {
 
-    $(".btnSubmit").attr('disabled','disabled');
 
+    var event_id = $.trim($("#event_id").val());
+    var event_name = $.trim($("#event_name").val());
+    var event_subject = $.trim($("#event_subject").val());
+    var event_content = $.trim($("#event_content").val());
 
-    var eventObj = {
-        "id": $("#event_id").val(),
-        "name": $("#event_name").val(),
-        "subject": $("#event_subject").val(),
-        "content": $("#event_content").val(),
+    if (event_id == "") {
+        showFeedback('Event ID is required', 'event_id', 'logevent_id');
+        return false;
+    } else if (event_name == "") {
+        showFeedback('Event Name is required', 'event_name', 'logevent_name');
+        return false;
+    } else if (event_subject == "") {
+        showFeedback('Event Subject is required', 'event_subject', 'logevent_subject');
+        return false;
+    } else if (event_content == "") {
+        showFeedback('Content is required', 'event_content', 'logevent_content');
+        return false;
     }
+    var eventObj = {
+        "id": event_id,
+        "name": event_name,
+        "subject": event_subject,
+        "content": event_content,
+    }
+   
+    $(".btnSubmit").attr('disabled', 'disabled');
 
     upsertEvent(eventObj, function (status, data) {
         if (status) {
-            successMsg('Event Updated Successfully');
             setTimeout(() => {
+                successMsg('Event Updated Successfully');
                 loadEvents();
+                $("#addEvent").modal('hide');
             }, 1500);
-            $("#addEvent").modal('hide');
         } else {
             errorMsg('Error in Updating Event')
         }

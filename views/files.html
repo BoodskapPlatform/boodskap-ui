@@ -17,7 +17,7 @@
 
                 <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-default" data-click="panel-expand" onclick="expand()" style="background-color: #EAF2F9;width: 25px; height: 25px; padding-top: 1px;"><i class="fa fa-expand" title="Expand"></i></a>
                 <a href="https://developer.boodskap.io/docs" class="btn btn-sm btn-icon btn-circle btn-warning" title="Help" target="_blank" style="background-color: #cee2f2;;    width: 25px;height: 25px;padding-top: 1px;color: black;"><i class="icon-help"></i></a>
-                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-success" data-click="panel-reload"onclick="loadFiles()" style="background-color: #90A1B7;width: 25px;height: 25px;padding-top: 1px;"><i class="fa fa-refresh" title="Refresh"></i></a>
+                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-success" data-click="panel-reload"onclick="refresh()" style="background-color: #90A1B7;width: 25px;height: 25px;padding-top: 1px;"><i class="fa fa-refresh" title="Refresh"></i></a>
 
 
             </div>
@@ -65,7 +65,7 @@
 
                     <div class="col-sm-12 col-md-2 col-lg-1">
                         <div id="views" >
-                           <button onclick="gridView()" title="Grid View" id="grid-btn" ><img id="grid-img"  src="images/Grid.svg" alt=""></button>
+                           <button onclick="gridView()" title="Grid View" id="grid-btn" class="selected" ><img id="grid-img"  src="images/Grid.svg" alt=""></button>
                            <button onclick="listView()" title="List View" id="list-btn" ><img id="list-img"  src="images/List.svg" alt=""></button>
                         </div>
                     </div>
@@ -142,7 +142,7 @@
                     <div class="row mt-3">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="inputLabel">Choose file</label> <br>
+                                <label class="inputLabel">Choose file <span class="text-danger">*</span></label> <br>
                                 <input type="file" id="uploadFile" required  style="border-radius: 0px !important;">
                             </div>
                             <div class="form-group">

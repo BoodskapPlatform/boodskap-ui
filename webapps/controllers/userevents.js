@@ -46,6 +46,11 @@ function loadEvents() {
             sTitle: 'Subject',
             "class": "details-expand",
             orderable: false,
+            mRender: function (data, type, row) {
+
+                return '<div style="max-width: 300px;" class="text-truncate" title="' + data + '">' + data + '</div>';
+
+            }
         },
         {
             mData: 'content',
@@ -58,7 +63,7 @@ function loadEvents() {
                 data = data.replace(/</g, "&lt");
                 data = data.replace(/>/g, "&gt");
 
-                return '<div style="max-width: 500px;" class="text-truncate" title="'+data+'">'+data+'</div>';
+                return '<div style="max-width: 700px;" class="text-truncate" title="'+data+'">'+data+'</div>';
 
             }
         }

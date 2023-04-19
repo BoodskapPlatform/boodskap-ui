@@ -106,12 +106,8 @@ function proceedUpdate() {
 
         obj['firstName'] =  $("#firstName").val();
     obj['lastName'] =  $("#lastName").val();
-    obj['primaryPhone'] =  $("#mobileNo").val();
-    if (confirm("Are you sure to update your profile information?") == true) {
-        updateProfile(obj);
-    } else {
-        location.reload();  
-    }
+    obj['primaryPhone'] = $("#mobileNo").val();
+    updateProfile(obj);
     }
 
 
@@ -123,16 +119,21 @@ function updatePassword() {
     var obj = USER_OBJ.user;
 
     if(password == ""){
-        errorMsgBorder('Password cannot be empty','password');
+        errorMsgBorder('New Password is required','password');
         return false;
     }
     if(conf_password == ""){
-        errorMsgBorder('Confirm Password cannot be empty','conf_password');
+        errorMsgBorder('Confirm Password is required','conf_password');
         return false;
     }
 
-    if(captchaStatus === ""){
-        errorMsgBorder('Please verify the captcha!','captchaFeedback');
+    if (captchaStatus === "") {
+        $("#captchaFeedback").css('border', '1px solid red')
+        $("#logcaptchaFeedback").html("<i class='fa fa-exclamation-triangle'></i> Please verify the captcha!").css({ "color": "red", "font-weight": "600" });
+        setTimeout(function () { 
+            $("#captchaFeedback").removeAttr('style')
+            $("#logcaptchaFeedback").css({ "display": "none" });
+        },3000)
         return false;
     }
     if(password!=conf_password){
@@ -155,10 +156,9 @@ function updateProfile(obj) {
             USER_OBJ.user = obj;
             Cookies.set('user_details', USER_OBJ);
             $(".user_profile_name").html((USER_OBJ.user.firstName ? USER_OBJ.user.firstName : 'Admin') + ' ' + (USER_OBJ.user.lastName ? USER_OBJ.user.lastName : ""));
-            successMsg('Successfully updated');
-            loadProfile();
             setTimeout(() => {
-                location.reload();
+                $("#password,#conf_password").val("")
+                successMsg('Successfully updated');
             },500);
               
         }else{
@@ -238,6 +238,7 @@ function updatePrimaryDomain() {
     upsertDomainProperty(data, function (status, data) {
         if (status) {
             Cookies.set('domain_name', $("#primaryDomain").val());
+            successMsg('Successfully updated');
             // $(".primary_domain").html($("#primaryDomain").val());
             // $("#domainNameModal").modal('hide');
         }else{
