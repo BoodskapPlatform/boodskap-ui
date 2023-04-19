@@ -24,8 +24,7 @@ function loadDeviceModels() {
 
     getDeviceModel(1000, function (status, data) {
         if (status && data.length > 0) {
-            $("#f_device_model").html('');
-            $("#f_device_model").html('<option>Select Model</option>');
+            $("#f_device_model").html('<option value="" selected>Select Model</option>');
 
             for (var i = 0; i < data.length; i++) {
                 $("#deviceModel").append('<option value="' + data[i].id + '">' + data[i].id + ' | ' + data[i].version + '</option>')
@@ -345,6 +344,7 @@ function openModal(type, id) {
         $('#addFirmware').modal({ backdrop: 'static', keyboard: false })
     } else if (type === 2) {
         $(".templateAction").html('Upload to')
+        $("#deviceID").val("")
         loadDeviceList();
         $(".modelId").html(current_firmware_obj.deviceModel);
         $(".firmwareVersion").html(current_firmware_version);
@@ -471,8 +471,8 @@ function addFirmware() {
             $("#f_device_model").css('border-color', '')
 
         }, 2000);
+        return;
     }
-    else{}
     if ($("#firmware_version").val() === "") {
         $("#firmware-version-span").text("Please enter the Firmware Version")
         $("#firmware_version").css('border-color', 'red')
@@ -482,8 +482,8 @@ function addFirmware() {
             $("#firmware_version").css('border-color', '')
 
         }, 2000);
+        return;
     }
-    else{}
     if ($("#firmwareFile").val() === "") {
         $("#choose-file-span").text("Please select the file")
         $("#firmwareFile").css('border-color', 'red')
@@ -493,11 +493,11 @@ function addFirmware() {
             $("#firmwareFile").css('border-color', '')
 
         }, 2000);
+        return;
     }
-    else{}
     if (files.length === 0) {
         // errorMsg('File not found. select a file to start upload');
-        return this.system;
+        return;
     }
 
     uploadFile(files[0]);

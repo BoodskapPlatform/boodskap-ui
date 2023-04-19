@@ -31,10 +31,6 @@
     outline: none !important;
 }
 
-.active {
-    text-decoration: underline;
-}
-
 .panel.panel-loading .panel-body .panel-loader {
     opacity: 1 !important;
 }
@@ -53,7 +49,9 @@ box-shadow: -3px 3px 8px #eee;
 button:focus {
 outline: none;
 }
-
+ .modal-backdrop.fade.show {
+     z-index: 9999;
+ }
 
 @media (min-width:320) and (max-width: 475px) {
 #card-data{
@@ -313,13 +311,7 @@ top: 12px;
     /* margin-right: 3%; */
     font-weight: 100;
 }
-.breadcrumb>li a {
-    color: #525252;
-    font-size: 14px;
-}
-.breadcrumb-item.active {
-    font-size: 13px;
-}
+
 .bskp-align-icon {
     align-items: center;
     margin: 7px 30px 0px 0px;

@@ -18,7 +18,10 @@ $(document).ready(function () {
     $("body").removeClass('bg-white');
 });
 
-
+function refresh() {
+    $("#searchText").val("");
+    loadFiles();
+}
 function loadFiles(fileType) {
     var searchText = $("#searchText").val();
 
@@ -38,11 +41,9 @@ function loadFiles(fileType) {
         $("#public-btn").css({ "background-color": "white", "color": "black" });
         $("#private-btn").css({ "background-color": "white", "color": "black" });
     }
-
-    $("#grid-btn").css({ "background-color": "#2C2F79", "color": "white" });
-    $("#list-btn").css({ "background-color": "white", "color": "black", "border": "none" });
-    $("#grid-img").css("filter", "brightness(4.5)");
-    $("#list-img").removeAttr("style", "filter");
+    $("#selected-files").css("display", "none");
+    $("#select-all").html("Select All")
+   
     getId = [];
     deleteId = [];
     bulkId = [];
@@ -125,6 +126,11 @@ function loadFiles(fileType) {
 
             }
 
+            if ($("#grid-btn").hasClass('selected')) {
+                gridView()
+            } else {
+                listView()
+            }
             // condition to display load more
 
             if (totalCount > tCount) {
@@ -247,7 +253,7 @@ function renderHtml(obj) {
 
     var str = `
             <div class="col-sm-12 col-md-6 col-lg-3" style="margin-top:15px;margin-bottom: 35px;" id="card-data">
-                <span id="img-name" title=`+ obj.description +` style = "font-size:18px;margin-top:5px;margin-left:32px;font-weight: 600;color:black;">`+ fileName + `</span> 
+                <span id="img-name" title=`+ obj.description +` style = "font-size:15px;margin-top:5px;margin-left:32px;font-weight: 600;color:black;">`+ fileName + `</span> 
                 <div class="colBase" onclick="toggleBtn(1,'`+ obj.id + `')" id="card_`+obj.id+`" style="height: 113%;border-radius: 15px;box-shadow: 0px 0px 3px 3px #ededed;">
                         `+ fileType + `
                        `+ imgTag + `
@@ -637,12 +643,11 @@ function expand() {
 }
 
 function checkboxes(objid, obj) {
-    console.log(document.querySelectorAll('input[type="checkbox"]:checked').length, $("#check-box_"+objid).is(":checked"));
 if (document.querySelectorAll('input[type="checkbox"]:checked').length > 0) {
     $("#selected-files").css("display", "block");
     $("#checked-count").html(document.querySelectorAll('input[type="checkbox"]:checked').length);
    
-    if($("#check-box_"+objid).is(":checked")){  console.log("iflog");
+    if ($("#check-box_" + objid).is(":checked")) {
         $("#card_"+objid).addClass("activeCard")
         $(obj).parent().children(".colBase").css("border", "1px solid #167EE6");
         $(obj).parent().children().children().children("#download-img").css("filter", "invert(165%) sepia(124%) saturate(1176%) hue-rotate(562deg) brightness(85%) contrast(159%)");
@@ -650,7 +655,7 @@ if (document.querySelectorAll('input[type="checkbox"]:checked').length > 0) {
         $(obj).parent().children().children().children("#edit-img").css("filter", "invert(100%) sepia(100%) saturate(1176%) hue-rotate(575deg) brightness(122%) contrast(159%)");
         $(obj).parent().children().children().children("#delete-img").css("filter", "invert(13%) sepia(94%) saturate(7466%) hue-rotate(0deg) brightness(94%) contrast(115%)");
 
-    }else{ console.log("elselog");
+    }else{ 
         $("#card_"+objid).removeClass("activeCard")
         $(obj).parent().children(".colBase").css("border", "1px solid #eee");
         $(obj).parent().children().children().children("#download-img").css("filter", "brightness(0.5)");
@@ -674,11 +679,11 @@ if (document.querySelectorAll('input[type="checkbox"]:checked').length > 0) {
             deleteId = del;
         }
     }
-    else {
+else {
              bulkId = [];
             $("#selected-files").css("display", "none");
             $("#select-all").css({"border":"none","text-decoration": "none"});
-            $("#select-all").removeClass("active");
+            $("#select-all").removeClass("active").html("Select All");
             $(".colBase").css("border","");
             $('[id="download-img"]').css("filter", "brightness(0.5)");
             $('[id="copy-img"]').css("filter", "brightness(0.5)");
@@ -687,6 +692,11 @@ if (document.querySelectorAll('input[type="checkbox"]:checked').length > 0) {
             // loadFiles();
     }
 
+    if ($(".card-check").length === $(".card-check:checked").length) {
+        $("#select-all").html("Unselect All").addClass('active')
+    } else {
+        $("#select-all").html("Select All").removeClass('active')
+    }
 
 }
 
@@ -696,39 +706,24 @@ function selectAll(event) {
     deleteId = [];
     bulkId = [];
 
-    let uniqueChars = [...new Set(getId)];
     
     if (classValue == "") {
         event.target.attributes.class.value = "active"
-        
-            $(".colBase").css("border","1px solid #167EE6");
-            $('.card-check').attr('checked', 'checked');
+        $("#select-all").html("Unselect All")
+        $('.card-check').prop('checked', true);
             $("#checked-count").html(document.querySelectorAll('input[type="checkbox"]:checked').length);
             $("#selected-files").css("display","block");
-            $("#select-all").css("border","1px solid #61629A");
-            $('[id="download-img"]').css("filter", "invert(165%) sepia(124%) saturate(1176%) hue-rotate(562deg) brightness(85%) contrast(159%)");
-            $('[id="copy-img"]').css("filter", "invert(165%) sepia(124%) saturate(1176%) hue-rotate(562deg) brightness(85%) contrast(159%)");
-            $('[id="edit-img"]').css("filter", "invert(100%) sepia(100%) saturate(1176%) hue-rotate(575deg) brightness(122%) contrast(159%)");
-            $('[id="delete-img"]').css("filter", "invert(13%) sepia(94%) saturate(7466%) hue-rotate(0deg) brightness(94%) contrast(115%)");
-  
-            uniqueChars.forEach((id)=>{
-            deleteId.push(id);
-         })         
+        deleteId = getId         
         
     }
     else {
         event.target.attributes.class.value = ""
-
+        $("#select-all").html("Select All")
      $("#selected-files").css("display","none");
-        $("#select-all").css("border","none");
         $('[class="colBase"]').css("border","");
-        $('[id="download-img"]').css("filter", "brightness(0.5)");
-        $('[id="copy-img"]').css("filter", "brightness(0.5)");
-        $('[id="edit-img"]').css("filter", "brightness(0.8)");
-        $('[id="delete-img"]').css("filter", "brightness(0.8)");
-        $('[id="check-box"]').removeAttr('checked');
+        $('.card-check').prop('checked', false);
         $("#checked-count").html(document.querySelectorAll('input[type="checkbox"]:checked').length);
-        deleteId.splice(0, deleteId.length);    
+        deleteId=[]    
     }
 
 }
@@ -736,14 +731,14 @@ function selectAll(event) {
 function listView() {
 
     $('[id="action-buttons"]').removeAttr('style');
-    $("#grid-btn").css({ "background-color": "white", "color": "black", "border": "none" });
-    $("#list-btn").css({ "background-color": "#2C2F79", "color": "white" });
+    $("#grid-btn").css({ "background-color": "white", "color": "black", "border": "none" }).removeClass("selected");
+    $("#list-btn").css({ "background-color": "#2C2F79", "color": "white" }).addClass("selected");
     $("#grid-img").css("filter", "brightness(0.5)");
     $("#list-img").css("filter", "invert(100%) sepia(100%) saturate(0%) hue-rotate(282deg) brightness(142%) contrast(102%);");
     $('[id="download-btn"]').css("display", "none");
 
 
-    event.preventDefault();
+    // event.preventDefault();
     $('[id="card-data"]').removeClass("col-sm-12 col-md-6 col-lg-3");
     $('[id="card-data"]').addClass("col-12");
     $('[id="card-data"]').css({ "height": "74px", "margin-bottom": "25px" });
@@ -751,7 +746,7 @@ function listView() {
 
 
 
-    $('[id="check-box"]').css({
+    $('[id^="check-box_"]').css({
         "float": "left",
         "left":"1%",
         "width": "17px",
@@ -804,9 +799,9 @@ function listView() {
 
 function gridView() {
 
-    event.preventDefault();
-    $("#grid-btn").css({ "background-color": "#2C2F79", "color": "white" });
-    $("#list-btn").css({ "background-color": "white", "color": "black", "border": "none" });
+    // event.preventDefault();
+    $("#grid-btn").css({ "background-color": "#2C2F79", "color": "white" }).addClass("selected");
+    $("#list-btn").css({ "background-color": "white", "color": "black", "border": "none" }).removeClass("selected");
     $("#grid-img").css("filter", "invert(100%) sepia(100%) saturate(0%) hue-rotate(282deg) brightness(142%) contrast(102%);");
     $("#list-img").removeAttr("style", "filter");
     $('[id="download-btn"]').css("display", "block");
@@ -817,15 +812,15 @@ function gridView() {
     $('[id="card-data"]').removeClass("col-12");
     $('[id="card-data"]').addClass("col-sm-12 col-md-6 col-lg-3");
     $('[id="card-data"]').css({"margin-top": "15px","margin-bottom": "35px","height": "186px"})
-    $('[id="check-box"]').removeAttr('style');
+    $('[id^="check-box"]').removeAttr('style');
     $('[class="img-fluid"]').removeAttr('style');
 
-    $('[id="check-box"]').css({
+    $('[id^="check-box"]').css({
         "position": "absolute","right": "9%", "top": "12%","height": "17px", "width": "17px"
     });
 
     $('[id="img-name"]').css({
-        "font-size":"18px","margin-top":"5px","margin-left":"32px","font-weight": "600","color":"black"
+        "font-size":"15px","margin-top":"5px","margin-left":"32px","font-weight": "600","color":"black"
     });
 
     $('[class="img-fluid"]').css({

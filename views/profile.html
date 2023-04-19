@@ -63,8 +63,8 @@
         <!-- <div>
             <ol class="breadcrumb pull-right bskp-align-icon" style="justify-content: center;">
                 
-                <li class="breadcrumb-item"><a href="<%= basepath %>/dashboard">Home</a></li>
-                <li class="breadcrumb-item active">My Profile</li>
+                <li class="breadcrumb-item"><a href="<%= basepath %>/home">Home</a></li>
+                <li class="breadcrumb-item active"><u>My Profile</u></li>
                 <div class="ml-4">
                     
                     <a class="btn bskp-refresh-bg" data-click="panel-reload" title="Refresh" onclick="loadProfile()"><img class="refresh-button" src="images/menu/refresh-button.png" alt=""></a>
@@ -80,8 +80,8 @@
             <div class="ml-auto">
                 <ol class="breadcrumb bskp-align-icon mr-xs-0" style="justify-content: center;margin: 5px 30px 0px 0px;">
                     
-                    <li class="breadcrumb-item"><a href="<%= basepath %>/dashboard">Home</a></li>
-                    <li class="breadcrumb-item active">My Profile</li>
+                    <li class="breadcrumb-item"><a href="<%= basepath %>/home">Home</a></li>
+                    <li class="breadcrumb-item active"><u>My Profile</u></li>
                     <div class="ml-4">
                         
                         <a class="btn bskp-refresh-bg" data-click="panel-reload" title="Refresh" onclick="loadProfile()"><img class="refresh-button" src="images/menu/refresh-button.png" alt=""></a>
@@ -144,7 +144,7 @@
                                                     <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label>First Name *</label>
-                                                            <input type="text" id="firstName" maxlength="100" class="form-control input-sm"required/>
+                                                            <input type="text" id="firstName" maxlength="100" class="form-control input-sm" required placeholder="Enter your first name"/>
                                                             <span id="logfirstName"></span>    
                                                                 
                                                         </div>
@@ -152,7 +152,7 @@
                                                     <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label>Last Name *</label>
-                                                            <input type="text" id="lastName" maxlength="100" class="form-control input-sm"required/>
+                                                            <input type="text" id="lastName" maxlength="100" class="form-control input-sm" required placeholder="Enter your last name"/>
                                                             <span id="loglastName"></span>   
                                                         </div>
                                                     </div>
@@ -161,7 +161,7 @@
                                                     <div class="col-md-4">
                                                         <div class="form-group position-relative">
                                                             <label>Email</label>
-                                                            <input type="text" id="emailId" readonly class="form-control input-sm read-email"required/>
+                                                            <input type="text" id="emailId" readonly class="form-control input-sm read-email" required placeholder="Enter your email"/>
                                                             <img src="images/tick-right.svg" class="tick-right" alt="&#10003;" style="right: 35px;">
                                                             <span id="logemailId"></span>   
                                                            
@@ -171,7 +171,7 @@
                                                     <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label>Mobile No </label>
-                                                            <input type="text" id="mobileNo" class="form-control input-sm" onkeypress="return onlyNumeric(event);" maxlength="15"/>
+                                                            <input type="text" id="mobileNo" class="form-control input-sm" onkeypress="return onlyNumeric(event);" maxlength="15" placeholder="Enter your mobile number"/>
                                                             <small>Eg, +19876543210 (Including + & country code)</small>
                                                             <span id="logmobileNo"></span>
                                                         </div>
@@ -194,14 +194,14 @@
                                                     <div class="col-lg-4">
                                                         <div class="form-group">
                                                             <label>New Passsword</label>
-                                                            <input type="password" class="form-control form-control-sm input-text" id="password" placeholder="New Password" required/>
+                                                            <input type="password" class="form-control form-control-sm input-text" id="password" maxlength="50" placeholder="New Password" required/>
                                                                 <em onclick="toggleBox()" class="fa fa-eye form-control-feedback passwordIcon icon-position" ></em>
                                                                 <span id="logpassword"></span>
                                                                 
                                                         </div>
                                                         <div class="form-group">
                                                             <label>Confirm Passsword</label>
-                                                            <input type="password" class="form-control form-control-sm input-text" id="conf_password" placeholder="Confirm Password" required/>
+                                                            <input type="password" class="form-control form-control-sm input-text" id="conf_password" maxlength="50" placeholder="Confirm Password" required/>
                                                                 <em onclick="toggles()" class="fa fa-eye form-control-feedback conf_passwordIcon icon-position" ></em>
                                                                 <span id="logconf_password"></span>
                                                                 
@@ -230,7 +230,7 @@
                                                     <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label>Primary Domain</label>
-                                                            <input type="text" class="form-control form-control-sm primary_domain" id="primaryDomain">
+                                                            <input type="text"maxlength="100" placeholder="Enter Primary Domain" class="form-control form-control-sm primary_domain" id="primaryDomain">
                                                             
                                                             <span id="logprimaryDomain"></span>
                                                             <button class="btn mt-4 btn-size btn-background px-4"
