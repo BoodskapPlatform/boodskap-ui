@@ -775,6 +775,7 @@ function switchElasticAuth(){
 
     let flag = Boolean($("#elasticConfigCheck:checked").val());
     if(flag){
+        $("#elasticAuthUser, #elasticAuthPwd").val("");
         $("#elasticConfigAuthView").show();
         $("#elasticAuthUser").attr("required", true);
         $("#elasticAuthPwd").attr("required", true);
@@ -864,7 +865,12 @@ function addMoreHost(){
 
     all_host_list.push(id);
     $("#addMoreHostForm").append(addHtml);
-    $(".host-remove-btn").show();
+    
+    if($(".add-more-host").length > 1){
+        $(".host-remove-btn").show();
+    }else{
+        $(".host-remove-btn").hide();
+    }
 }
 
 function removeHost(id){
@@ -1041,7 +1047,7 @@ function getLicenseDetails(){
             dom_lic_obj = data;
             active_plan_obj = PLANS_LIST[dom_lic_obj.plan];
             renderPlanCard(active_plan_obj);
-            getPlanUsage(dom_lic_obj);
+            getPlanUsage();
         }
     });
 }
@@ -1253,11 +1259,11 @@ function renderUsageCharts(chartObj, planUsage){
                     }
                 },
                 emphasis: {
-                  label: {
-                    show: true,
-                    fontSize: 12,
-                    fontWeight: 'bold'
-                  }
+                    label: {
+                      show: true,
+                      fontSize: 12,
+                      fontWeight: 'bold'
+                    }
                 },
                 labelLine: {
                   show: false
