@@ -5657,7 +5657,6 @@ function openSimulateModal(id, type) {
                 '</div></div>' +
                 '</div>'
             
-            $(".simulatorModal").append(str);
 
             for (const iterator of message_spec_list) {
                 if (Number(id) === iterator['id']) {
@@ -5666,9 +5665,10 @@ function openSimulateModal(id, type) {
                 }
             }
 
+            simulator[id] = current_msg_obj;
+            if (!simulatorModal[id]) {
+            $(".simulatorModal").append(str);
             fetchDeviceList(id, function (status, data) {
-                simulator[id] = current_msg_obj;
-                if (!simulatorModal[id]) {
 
                     $(".msgFieldBlock_" + id).html('');
 
@@ -5690,8 +5690,8 @@ function openSimulateModal(id, type) {
                         title: "Simulate -" + id + ' [' + current_msg_obj.name + ']',
                     });
 
-                }
-            })
+                })
+            }
 
             break;
     
@@ -5772,7 +5772,6 @@ function openSimulateModal(id, type) {
                 '</div></div>' +
                 '</div>'
 
-            $(".simulatorModal").append(str);
 
             for (const iterator of binary_rules_list) {
                 if (id === iterator['type']) {
@@ -5784,8 +5783,9 @@ function openSimulateModal(id, type) {
 
             simulator[id] = current_binaryrule_obj;
 
+            if (!simulatorModal[id]) {
+            $(".simulatorModal").append(str);
             fetchDeviceList(id, function (status, data) {
-                if (!simulatorModal[id]) {
 
                     simulatorModal[id] = $("#simulatorModal_" + id).dialog({
                         resizable: true,
@@ -5804,8 +5804,8 @@ function openSimulateModal(id, type) {
 
                     });
 
-                }
-            })
+                })
+            }
             break;
     
         case 4:
@@ -5830,7 +5830,6 @@ function openSimulateModal(id, type) {
                 '</div>' +
                 '</div></div>' +
                 '</div>'
-            $(".simulatorModal").append(str);
 
             for (const iterator of file_rules_list) {
                 if (id === iterator['type']) {
@@ -5841,8 +5840,9 @@ function openSimulateModal(id, type) {
 
             simulator[id] = current_filerule_obj;
 
+            if (!simulatorModal[id]) {
+            $(".simulatorModal").append(str);
             fetchDeviceList(id, function (status, data) {
-                if (!simulatorModal[id]) {
 
                     simulatorModal[id] = $("#simulatorModal_" + id).dialog({
                         resizable: true,
@@ -5860,10 +5860,11 @@ function openSimulateModal(id, type) {
                         title: 'Simulate - ' + current_filerule_obj.type,
 
                     });
-                }
-            })
+                })
+            }
             break;
     }
+    $(".simulateBtn").prop("disabled", false)
 }
 
 
@@ -7220,6 +7221,7 @@ function toggleHandle(id) {
 }
 
 function checkSimulateDevices(id, place) {
+    $(".simulateBtn").prop("disabled", true)
     var queryParams = {
         "query": {
             "bool": {
@@ -7273,7 +7275,7 @@ function checkSimulateDevices(id, place) {
                 $("#device_desc").css("height", "90");
                 $("#addDevice form").attr('onsubmit', 'addDevice(' + id + ')');
                 errorMsg('No Devices Added so far!')
-
+                $(".simulateBtn").prop("disabled", false)
             } else {
                 openSimulateModal(id, place);
             }

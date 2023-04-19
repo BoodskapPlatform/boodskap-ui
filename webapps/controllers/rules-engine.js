@@ -4533,7 +4533,6 @@ function loadTabbar(id, type, uniqId) {
     }
     if (_.indexOf(tabbar_list, check) < 0) {
         const $editorBar = $(".editorBar")
-        console.log(type);
         switch (type) { // navbar
 
             case 1:
@@ -9297,6 +9296,7 @@ function openSimulateModal(id, type) {
             }
             break;
     }
+    $(".simulateBtn").prop("disabled", false)
 }
 
 
@@ -10708,6 +10708,7 @@ function toggleHandle(id) {
 }
 
 function checkSimulateDevices(id, place) {
+    $(".simulateBtn").prop("disabled",true)
     var queryParams = {
         "query": {
             "bool": {
@@ -10761,7 +10762,7 @@ function checkSimulateDevices(id, place) {
                 $("#device_desc").css("height", "90");
                 $("#addDevice form").attr('onsubmit', 'addDevice(' + id + ')');
                 errorMsg('No Devices Added so far!')
-
+                $(".simulateBtn").prop("disabled", false)
             } else {
                 openSimulateModal(id, place);
             }
@@ -11048,7 +11049,7 @@ function loadFooterDateRanges() {
     }
 
     $('#eventhistoryrange').daterangepicker({
-        opens: 'right',
+        opens: 'bottom',
         startDate: startDate,
         endDate: endDate,
         ranges: {

@@ -455,9 +455,6 @@ top: 12px;
 .panel.panel-expand>.panel-heading+div {
     margin-top: 63px;
 }
-#deleteModal{
-    margin-top: 10%;
-}
 
 .close-btn{
     background-color: white;
