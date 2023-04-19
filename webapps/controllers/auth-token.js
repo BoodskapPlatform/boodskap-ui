@@ -19,6 +19,8 @@ function loadTokenList(type) {
         tokenTable.destroy();
         $("#tokenTable").html("");
     }
+    $(".ref-btn").attr("onclick","");
+    $(".totalCount").text(0);
     // if(type!="" && typeof(type)!="undefined"){
     //     TOKEN_TYPE = "";
     //     $("#authTokenTypes option[value='']").prop("selected", true);
@@ -45,6 +47,12 @@ function loadTokenList(type) {
         {
             mData: 'entity',
             sTitle: 'Entity',
+            mRender: function (data, type, row) {
+                var data = data ? data : '-';
+                return '<div style="max-width: 150px;" class="text-truncate" title="'+data+'">'+data + '</div>';
+
+                
+            }
         },
         {
             mData: 'mode',
@@ -106,13 +114,29 @@ function loadTokenList(type) {
         if (status && data.length > 0) {
             tableOption['data'] = data;
             token_list = data;
-            $(".totalCount").html(data.length)
         } else {
-            $(".tokenCount").html(0)
             token_list = [];
         }
-
+        $(".totalCount").text(data.length)
         tokenTable = $("#tokenTable").DataTable(tableOption);
+
+        $("#tokenTable_filter").find("input").on("keyup",function(){
+           /*  var len = $("#tokenTable tbody tr").length;
+            console.log(len,"----------------------------------------");
+            if(len == 1){
+                if($("#tokenTable tbody tr td").hasClass("dataTables_empty")==true){
+                    $(".totalCount").text(0);
+                }else{
+                    $(".totalCount").text(1);
+                }
+            }else{
+                $(".totalCount").text(len);
+            } */
+            var len = $("#tokenTable_info").text()
+            len = len.split(" ")[5];
+            $(".totalCount").text(len);
+        });
+
         $("#tokenTable_filter").hide();
         $('.dataTables_filter input').attr('maxlength', 100);
         if(TOKEN_TYPE != "API"){
@@ -125,6 +149,7 @@ function loadTokenList(type) {
         }
         $(".dataTables_scrollBody").removeAttr("style").css({"min-height":"calc(100vh - 425px)","position":"relative","width":"100%","border-bottom":"0px"});
         
+        $(".ref-btn").attr("onclick","loadTokenList('all')");
         
         //$("#tokenTable_filter").find("input").attr("autocomplete","off").val("");
     });
