@@ -16,7 +16,7 @@ $(document).ready(function () {
         // $(".billingManagement").append($("#billingManagement").html());
         // $(".siteNoop").append($("#siteNoop").html());
     }
-
+  
     var dkey = new ClipboardJS('.domainKey');
     var akey = new ClipboardJS('.apiKey');
     var tkey = new ClipboardJS('.apiToken');
