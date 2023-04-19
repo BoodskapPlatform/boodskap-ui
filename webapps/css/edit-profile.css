@@ -99,6 +99,13 @@ a.nav-link.small.active{
    width: 90%;
    height: 30px;
 }
+@media(max-width:600px){
+   .form-control{
+      border-radius: 10px;
+      width: 100% !important;
+      height: 30px;
+   }
+}
 #emailId:read-only{
    background-color: #fff;
    opacity: 0.5;
@@ -118,11 +125,11 @@ a.nav-link.small.active{
 .file-upload{
    display: none;
 }
-.upload-file{
-    position: relative;
-    top: -20px;
-    left: 55px;
-}
+.upload-file {
+   position: absolute !important;
+   bottom: -10px !important;
+   left: 52px !important;
+   }
 
 .upload-image{
     width: 16px;
