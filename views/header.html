@@ -1,9 +1,11 @@
 <style>
       @media (max-width:500px) {
-        .xs-flex-wrap{
-            flex-wrap: wrap;
+        .mr-xs-2{
+           margin-right:10px !important;
         }
     }
+
+ 
 </style>
 <link href="css/header.css" rel="stylesheet" />
 
@@ -11,7 +13,7 @@
     <!-- begin navbar-header -->
     <div class="navbar-header ">
 
-        <span class="barmenu bskp-bardiv bskp-frame-shadow" onclick="openNav()" ><i class="icon-bars" style="font-size: 19px;"></i></span>
+        <span class="barmenu bskp-bardiv mr-xs-2  bskp-frame-shadow" onclick="openNav()" ><i class="icon-bars" style="font-size: 19px;"></i></span>
 
         <div class="d-flex xs-flex-wrap" style="justify-content: space-between;">
            
@@ -21,8 +23,8 @@
       
                 <div class="d-flex ml-auto">
                     <ul class="dropdown navbar-user mb-0 btnMobile">
-                        <a href="javascript:;" class="dropdown-toggle mt-0 navbar-toggle mb-0 btn btn-circle btn-sm btnMobile" style="padding: 12px 2px;margin-right: 10px;"  data-toggle="dropdown">
-                            <img src="images/avatar.png" alt="" class="user_profile_picture">
+                        <a href="javascript:;" class="dropdown-toggle mt-0 navbar-toggle mb-0 btn btn-circle btn-sm btnMobile" style="padding: 12px 2px;margin-right: 6px;"  data-toggle="dropdown">
+                            <img src="images/avatar.png" alt="" class="user_profile_picture" style="margin: -5px 5px 0 0;">
                          </span> 
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" style="border-top: 0px;padding-top: 0px;">
@@ -185,7 +187,7 @@
         <li class="dropdown navbar-user mr-3">
             <a href="javascript:;" class="dropdown-toggle" style="padding: 15px 2px;"  data-toggle="dropdown">
                 <img src="images/avatar.png" alt="" class="user_profile_picture">
-                <span class="d-none d-md-inline"></span><span class="user_profile_name"></span> <b class="caret"></b>
+                <span class="d-none d-md-inline"></span><span class="user_profile_name name-overflow"></span> <b class="caret"></b>
             </a>
             <div class="dropdown-menu dropdown-menu-right" style="border-top: 0px;padding-top: 0px;">
                 <div class="userRoles menulink" style="padding: 5px;text-transform: capitalize;border-top: 1px solid #dddddd;border-bottom: 1px solid #dddddd;">

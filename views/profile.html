@@ -16,7 +16,25 @@
         .text-xs-center{
             text-align: center;
         }
+        .mr-xs-0{
+            margin: 0px !important;
+        }
+        .pageheader-xs{
+            font-size: 16px !important;
+            padding: 12px 15px !important;
+        }
+        .w-xs-38{
+            width:38px !important;
+        }
     }
+
+   @media(max-width:640px){
+    .navtab-xs{
+    flex-direction: column !important;
+    width: 100% !important;
+    position: initial !important;
+    }
+   }
     @media (max-width:500px) {
         .xs-flex-wrap{
             flex-wrap: wrap;
@@ -44,13 +62,13 @@
            </ol>
         </div> -->
 
-        <div class="page-header d-flex xs-flex-wrap bskp-page-topic page-header-bg justify-content-between">
+        <div class="page-header pageheader-xs d-flex xs-flex-wrap bskp-page-topic page-header-bg justify-content-between" style="border-radius: 0px;">
            <div>
-            <img src="images/person.png" width="40" alt="person">
+            <img src="images/person.png" width="40" alt="person" class="w-xs-38">
             My Profile
            </div>
             <div class="ml-auto">
-                <ol class="breadcrumb bskp-align-icon" style="justify-content: center;margin: 5px 30px 0px 0px;">
+                <ol class="breadcrumb bskp-align-icon mr-xs-0" style="justify-content: center;margin: 5px 30px 0px 0px;">
                     
                     <li class="breadcrumb-item"><a href="<%= basepath %>/dashboard">Home</a></li>
                     <li class="breadcrumb-item active">My Profile</li>
@@ -99,7 +117,7 @@
                                 <div class="col-sm-12">
                                     <div class="tabbable-responsive">
                                         <div class="tabbable">
-                                            <ul id="tabs" class="nav nav-tabs">
+                                            <ul id="tabs" class="nav nav-tabs navtab-xs">
                                                 <li class="nav-item"><a href="" data-target="#profileInformation" data-toggle="tab" class="nav-link small text-capitalize pr-5 py-2 active">Profile Information</a></li>
                                                 <li class="nav-item"><a href="" data-target="#changePassword" data-toggle="tab" class="nav-link small text-capitalize pr-5 py-2">Change Password</a></li>
                                                 <li class="nav-item"><a href="" data-target="#domainInformaion" data-toggle="tab" class="nav-link small text-capitalize pr-5 py-2">Domain Information</a></li>

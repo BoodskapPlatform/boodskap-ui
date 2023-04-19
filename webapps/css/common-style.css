@@ -122,3 +122,13 @@
 	-webkit-box-shadow: inset 0 0 6px rgba(84, 83, 83, 0.3);
 	background-color: #c0c0c0;
 }
+
+.name-overflow{
+    text-overflow: ellipsis;
+    max-width: 160px !important;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    display: inline-block;
+    height: 17.8px;
+    vertical-align: middle;
+}
