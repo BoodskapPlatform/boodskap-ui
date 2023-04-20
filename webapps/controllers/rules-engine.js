@@ -9099,9 +9099,9 @@ function openSimulateModal(id, type) {
             }
             simulator[id] = current_msg_obj;
             if (!simulatorModal[id]) {
+                $(".simulatorModal").addClass('d-none');
                 $(".simulatorModal").append(str);
             fetchDeviceList(id, function (status, data) {
-
                     $(".msgFieldBlock_" + id).html('');
 
                     for (let i = 0; i < current_msg_obj.fields.length; i++) {
@@ -9121,8 +9121,10 @@ function openSimulateModal(id, type) {
 
                         title: "Simulate -" + id + ' [' + current_msg_obj.name + ']',
                     });
-
+                $(".simulateBtn").prop("disabled", false)
                 })
+            } else {
+                $(".simulateBtn").prop("disabled", false)
             }
 
             break;
@@ -9159,7 +9161,7 @@ function openSimulateModal(id, type) {
 
 
             if (!simulatorModal[id]) {
-
+                $(".simulatorModal").addClass('d-none');
                 $(".simulatorModal").append(str);
 
                 simulatorModal[id] = $("#simulatorModal_" + id).dialog({
@@ -9176,7 +9178,10 @@ function openSimulateModal(id, type) {
 
                     title: 'Simulate - ' + current_namedrule_obj.name,
                 });
+                $(".simulateBtn").prop("disabled", false)
 
+            } else {
+                $(".simulateBtn").prop("disabled", false)
             }
 
             break;
@@ -9216,6 +9221,7 @@ function openSimulateModal(id, type) {
             simulator[id] = current_binaryrule_obj;
 
             if (!simulatorModal[id]) {
+                $(".simulatorModal").addClass('d-none');
                 $(".simulatorModal").append(str);
             fetchDeviceList(id, function (status, data) {
 
@@ -9235,8 +9241,11 @@ function openSimulateModal(id, type) {
                         title: 'Simulate - ' + current_binaryrule_obj.type,
 
                     });
+                $(".simulateBtn").prop("disabled", false)
 
                 })
+            } else {
+                $(".simulateBtn").prop("disabled", false)
             }
             break;
 
@@ -9273,6 +9282,7 @@ function openSimulateModal(id, type) {
             simulator[id] = current_filerule_obj;
 
             if (!simulatorModal[id]) {
+                $(".simulatorModal").addClass('d-none');
                 $(".simulatorModal").append(str);
             fetchDeviceList(id, function (status, data) {
 
@@ -9292,11 +9302,14 @@ function openSimulateModal(id, type) {
                         title: 'Simulate - ' + current_filerule_obj.type,
 
                     });
+                $(".simulateBtn").prop("disabled", false)
+
                 })
+            } else {
+                $(".simulateBtn").prop("disabled", false)
             }
             break;
     }
-    $(".simulateBtn").prop("disabled", false)
 }
 
 
