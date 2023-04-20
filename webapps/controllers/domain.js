@@ -783,8 +783,10 @@ function proceedSave() {
 
         upsertDomainProperty(data, function (status, data) {
             if (status) {
-                successMsg('Successfully updated')
+                successMsg('Successfully updated');
                 $("#domainModal").modal('hide');
+                $("#elasticAuthUser").val(user);
+                $("#elasticAuthPwd").val(password);
             } else {
                 errorMsg('Error in elastic config update')
             }
