@@ -155,10 +155,17 @@ function getGoogleMapApiKey() {
                 successMsg('Google Map API Key Copied Successfully')
                 
             });
-
+            $("#saveGoogleGateway").addClass("c-none").attr("disabled",true);
             $("#apiKey").val(obj.apiKey);
         } else {
-
+            $(".apiKey").attr('data-clipboard-text', $("#apiKey").val());
+            var apiKey = new ClipboardJS('.apiKey', {
+                container: document.getElementById('domainmodal')
+            });
+            apiKey.on('success', function (e) {
+                successMsg('Google Map API Key Copied Successfully')
+                
+            });
         }
         $("#domainModal").modal('show');
 
@@ -180,10 +187,17 @@ function getOpenMapApiKey() {
             apiKey.on('success', function (e) {
                 successMsg('Open Weather Map API Key Copied Successfully')
             });
-
+            $("#saveWeatherGateway").addClass("c-none").attr("disabled",true);
             $("#apiKey").val(obj.apiKey);
         } else {
-
+            $(".apiKey").attr('data-clipboard-text', $("#apiKey").val());
+            var apiKey = new ClipboardJS('.apiKey', {
+                container: document.getElementById('domainmodal')
+            });
+            apiKey.on('success', function (e) {
+                successMsg('Open Weather Map API Key Copied Successfully')
+                
+            });
         }
         $("#domainModal").modal('show');
 
@@ -234,7 +248,8 @@ function getGatewaySettings(id, cbk) {
                 data.ssl ? $("#ssl").attr('checked', 'checked') : '';
                 data.tls ? $("#tls").attr('checked', 'checked') : '';
                 data.debug ? $("#debug").attr('checked', 'checked') : '';
-
+                $("#saveEmailGateway").addClass("c-none").attr("disabled",true);
+                
             }
             else if (id === 'twilio') {
 
@@ -250,6 +265,7 @@ function getGatewaySettings(id, cbk) {
                 $("#token").val(data.token);
                 $("#primaryPhone").val(data.primaryPhone);
                 data.debug ? $("#debug").attr('checked', 'checked') : '';
+                $("#saveTwilioGateway").addClass("c-none").attr("disabled",true);
 
             }
             else if (id === 'fcm') {
@@ -264,12 +280,48 @@ function getGatewaySettings(id, cbk) {
 
                 $("#apiKey").val(data.apiKey);
                 data.debug ? $("#debug").attr('checked', 'checked') : '';
+                $("#saveFCMGateway").addClass("c-none").attr("disabled",true);
             }
             else if (id === 'udp') {
 
                 $("#decoderCode").val(data.decoderCode);
                 $("#portNo").val(data.port);
                 $("#threads").val(data.threads);
+                $("#saveUDPGateway").addClass("c-none").attr("disabled",true);
+
+            }
+        }else{
+            if (id === 'email') {
+
+                $(".emailpwd").attr('data-clipboard-text', $("#epassword").val());
+                var emailpwd = new ClipboardJS('.emailpwd', {
+                    container: document.getElementById('domainmodal')
+                });
+                emailpwd.on('success', function (e) {
+                    successMsg('Email Password Copied Successfully')
+                });
+                
+            }
+            else if (id === 'twilio') {
+
+                $(".tokenKey").attr('data-clipboard-text', $("#token").val());
+                var tokenKey = new ClipboardJS('.tokenKey', {
+                    container: document.getElementById('domainmodal')
+                });
+                tokenKey.on('success', function (e) {
+                    successMsg('Twilio Token Copied Successfully')
+                });
+
+            }
+            else if (id === 'fcm') {
+
+                $(".fcmKey").attr('data-clipboard-text', $("#token").val());
+                var fcmKey = new ClipboardJS('.fcmKey', {
+                    container: document.getElementById('domainmodal')
+                });
+                fcmKey.on('success', function (e) {
+                    successMsg('FCM API Key Copied Successfully')
+                });
 
             }
         }
@@ -705,11 +757,13 @@ function proceedSave() {
 
     } else if (selectedId === 'elastic-config') {
 
+        let user = $("#elasticConfigCheck").is(":checked")==true ? $("#elasticAuthUser").val() : "";
+        let password = $("#elasticConfigCheck").is(":checked")==true ? $("#elasticAuthPwd").val() : "";
         let domainObj = {};
 
         domainObj["authenticate"] = Boolean($("#elasticConfigCheck:checked").val());
-        domainObj["user"] = $("#elasticAuthUser").val();
-        domainObj["password"] = $("#elasticAuthPwd").val();
+        domainObj["user"] = user;
+        domainObj["password"] = password;
         domainObj["hosts"] = [];
     
         for(let i=0;i<all_host_list.length;i++){
@@ -1303,3 +1357,24 @@ function gotoBilling(){
 /* getProperty = (pty) => {
     return prop.get(pty);
 } */
+
+function checkThouched(obj,id){
+
+    if($(obj).val() != ""){
+        $("#"+id).removeClass("c-none").removeAttr("disabled");
+    }
+    var pass = "";
+    if(id == "saveEmailGateway"){
+        pass = $("#epassword").val();
+    }else if(id == "saveTwilioGateway"){
+        pass = $("#token").val();
+    }else if(id == "saveFCMGateway"){
+        pass = $("#apiKey").val();
+    }else if(id == "saveGoogleGateway"){
+        pass = $("#apiKey").val();
+    }else if(id == "saveWeatherGateway"){
+        pass = $("#apiKey").val();
+    }
+    $("#"+id+"Copy").attr("data-clipboard-text",pass);
+
+}
