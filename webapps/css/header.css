@@ -28,15 +28,6 @@
     font-weight: 600;
 }
 
-.name-overflow{
-    text-overflow: ellipsis;
-    max-width: 160px !important;
-    overflow-y: hidden;
-    overflow-x: hidden;
-    display: inline-block;
-    height: 19.8px;
-}
-
 .header-style{
     background: white !important;
      padding: 2px 38px ;

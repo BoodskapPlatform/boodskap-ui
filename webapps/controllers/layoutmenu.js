@@ -50,6 +50,7 @@ $(document).ready(function () {
         mqttConnectGlobal();
         checkDomainSQLAccess();
         checkDomainDBAccess();
+        checkDomainMongoAccess();
         getDevToken();
         checkLicense()
 
