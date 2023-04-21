@@ -637,3 +637,7 @@ table.table tr.shown td.details-control {
     text-decoration: underline;
     color: #7b4e0e !important;
 }
+
+.c-none{
+    cursor: no-drop !important;
+}
