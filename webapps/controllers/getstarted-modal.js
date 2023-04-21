@@ -363,7 +363,7 @@ function createDevice() {
 
         errorMsgBorder('Device description is required', 'device_desc');
         return false;
-
+       
     }else{
 
         var deviceObj = {

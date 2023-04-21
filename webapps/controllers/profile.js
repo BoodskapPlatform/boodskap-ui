@@ -67,8 +67,21 @@ function loadProfile() {
     $("#lastName").val(user.lastName ? user.lastName : '')
     $("#emailId").val(user.email)
     $(".fullName").html(user.firstName+" "+ user.lastName)
+    $(".fullName").attr("title",user.firstName+" "+ user.lastName)   
     $(".fullName").css({"font-weight":"bolder","font-size":"16px"})
     $(".emailId").html(user.email)
+    $("#password").val('')
+    $("#conf_password").val('')
+   try {
+    grecaptcha.reset();
+   } catch (error) {
+   }
+    $(".passwordIcon").removeClass('fa-eye-slash')
+    $(".passwordIcon").addClass('fa-eye')
+    $("#password").attr('type','password')
+    $(".conf_passwordIcon").removeClass('fa-eye-slash')
+    $(".conf_passwordIcon").addClass('fa-eye')
+    $("#conf_password").attr('type','password')
     $("#mobileNo").val(user.primaryPhone ? user.primaryPhone : '')
     $("#primaryDomain").val(Cookies.get('domain_name'))
 }
@@ -111,7 +124,7 @@ function proceedUpdate() {
     }
 
 
-function updatePassword() {
+function updatePassword() {  
     var password = $.trim($("#password").val());
     var conf_password = $.trim($("#conf_password").val());
     var captchaStatus = grecaptcha.getResponse();
@@ -127,9 +140,9 @@ function updatePassword() {
         return false;
     }
 
-    if (captchaStatus === "") {
+    if (captchaStatus === "") {  
         $("#captchaFeedback").css('border', '1px solid red')
-        $("#logcaptchaFeedback").html("<i class='fa fa-exclamation-triangle'></i> Please verify the captcha!").css({ "color": "red", "font-weight": "600" });
+        $("#logcaptchaFeedback").html("<i class='fa fa-exclamation-triangle'></i> Please verify the captcha!").css({ "color": "red", "font-weight": "600" ,"display": "block" });
         setTimeout(function () { 
             $("#captchaFeedback").removeAttr('style')
             $("#logcaptchaFeedback").css({ "display": "none" });
@@ -149,7 +162,6 @@ function updatePassword() {
 
 function updateProfile(obj) {
     // console.log(obj)
-
     upsertUser(obj,function (status, data) {
         if(status){
             delete obj.password;
@@ -159,6 +171,7 @@ function updateProfile(obj) {
             setTimeout(() => {
                 $("#password,#conf_password").val("")
                 successMsg('Successfully updated');
+                location.reload(true);
             },500);
               
         }else{

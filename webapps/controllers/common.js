@@ -1,10 +1,10 @@
 
 var themeProp = {};
 $(document).ready(function () {
-    // getDomainTheme()
+    // getDomainTheme() 
     setTimeout(() => {
         $(".VIpgJd-ZVi9od-xl07Ob-lTBxed").attr("href","javascript:void(0);")
-       }, 0);
+       },1000);
 });
 
 function getDomainTheme() {

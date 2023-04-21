@@ -3,6 +3,7 @@
     @media (max-width:600px){
         .mob-wrap{
            flex-wrap: wrap; 
+           justify-content: center;
         }
         .mx-sm-auto{
             margin: auto;
@@ -29,9 +30,18 @@
         .mb-xs-4{
             margin-bottom: 1.5rem !important;
         }
+        .justify-content-xs-center{
+            justify-content: center;
+        }
+        .icon-position{
+        position: relative;
+        float: right;
+        top: -20px;
+        right: 6% !important;
+        }
     }
 
-   @media(max-width:640px){
+   @media(max-width:768px){
     .navtab-xs{
     flex-direction: column !important;
     width: 100% !important;
@@ -53,9 +63,27 @@
     bottom: -10px !important;
     left: 52px !important;
     }
+    .pr-40{
+        padding-right: 40px;
+    }
 
+    @media (max-width: 575px){ 
+     .g-recaptcha {
+        transform:scale(0.77);
+        -webkit-transform:scale(0.77);
+        transform-origin:0 0;
+        -webkit-transform-origin:0 0;
+        
+      }
+     }
+     .g-recaptcha {
+        width: 303px;
+    border-radius: 4px;
+     }
+  
 </style>
 <link href="css/edit-profile.css" rel="stylesheet"/>
+
 <div class="container mt-4 platformBody px-xs-2">
     
 
@@ -101,7 +129,7 @@
                                 <div class="col-lg-12">
                                     <div class="row form-group ">
                                         <div class="col-lg-4 d-flex mob-wrap">
-                                            <div class="upload_profile_pic mb-xs-4 col-lg-5">
+                                            <div class="upload_profile_pic mb-xs-4">
                                                 <div class="outer-border mx-xs-auto">
                                                     <div class="circle mx-sm-auto position-relative" style="overflow: inherit;">
                                                         <img src="images/avatar.png" class="user_profile_picture profile_pic" alt="profile Image">
@@ -116,9 +144,9 @@
                                                 
                                                
                                             </div>
-                                            <div class="text-xs-center pt-md-5 col-lg-6">
-                                                <p class="fullName"></p>
-                                                <p class="emailId"></p>
+                                            <div class="text-xs-center pt-md-5 pl-md-4">
+                                                <p class="fullName text-capitalize name-overflow"></p>
+                                                 <p class="d-flex justify-content-xs-center"> <img src="images/tick-right.svg" class="tick-left" alt="&#10003;" style="left: 35px;"><span class="emailId pl-1"></span></p>
                                             </div>
                                         </div>
                                         
@@ -128,9 +156,9 @@
                                     <div class="tabbable-responsive">
                                         <div class="tabbable">
                                             <ul id="tabs" class="nav nav-tabs navtab-xs">
-                                                <li class="nav-item"><a href="" data-target="#profileInformation" data-toggle="tab" class="nav-link small text-capitalize pr-5 py-2 active">Profile Information</a></li>
-                                                <li class="nav-item"><a href="" data-target="#changePassword" data-toggle="tab" class="nav-link small text-capitalize pr-5 py-2">Change Password</a></li>
-                                                <li class="nav-item"><a href="" data-target="#domainInformaion" data-toggle="tab" class="nav-link small text-capitalize pr-5 py-2">Domain Information</a></li>
+                                                <li class="nav-item"><a href="" data-target="#profileInformation" onclick="loadProfile()" data-toggle="tab" class="nav-link small text-capitalize pr-5 py-2 active">Profile Information</a></li>
+                                                <li class="nav-item"><a href="" data-target="#changePassword" onclick="loadProfile()" data-toggle="tab" class="nav-link small text-capitalize pr-5 py-2">Change Password</a></li>
+                                                <li class="nav-item"><a href="" data-target="#domainInformaion" onclick="loadProfile()" data-toggle="tab" class="nav-link small text-capitalize pr-5 py-2">Domain Information</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -158,20 +186,11 @@
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-md-4">
-                                                        <div class="form-group position-relative">
-                                                            <label>Email</label>
-                                                            <input type="text" id="emailId" readonly class="form-control input-sm read-email" required placeholder="Enter your email"/>
-                                                            <img src="images/tick-right.svg" class="tick-right" alt="&#10003;" style="right: 35px;">
-                                                            <span id="logemailId"></span>   
-                                                           
-                                                        </div>
-                                                    </div>
                                                     
                                                     <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label>Mobile No </label>
-                                                            <input type="text" id="mobileNo" class="form-control input-sm" onkeypress="return onlyNumeric(event);" maxlength="15" placeholder="Enter your mobile number"/>
+                                                            <input type="tel" id="mobileNo" class="form-control input-sm" onkeypress="return onlyNumeric(event);" maxlength="15" id="telephone" placeholder="Enter your mobile number"/>
                                                             <small>Eg, +19876543210 (Including + & country code)</small>
                                                             <span id="logmobileNo"></span>
                                                         </div>
@@ -192,16 +211,16 @@
                                             <form class="changePassword" action="javascript:void(0)" novalidate onsubmit="updatePassword()">
                                                 <div class="row">
                                                     <div class="col-lg-4">
-                                                        <div class="form-group">
+                                                        <div class="form-group position-relative">
                                                             <label>New Passsword</label>
-                                                            <input type="password" class="form-control form-control-sm input-text" id="password" maxlength="50" placeholder="New Password" required/>
+                                                            <input type="password" class="form-control form-control-sm input-text pr-40" id="password"  maxlength="50" placeholder="New Password" required/>
                                                                 <em onclick="toggleBox()" class="fa fa-eye form-control-feedback passwordIcon icon-position" ></em>
                                                                 <span id="logpassword"></span>
                                                                 
                                                         </div>
-                                                        <div class="form-group">
+                                                        <div class="form-group position-relative">
                                                             <label>Confirm Passsword</label>
-                                                            <input type="password" class="form-control form-control-sm input-text" id="conf_password" maxlength="50" placeholder="Confirm Password" required/>
+                                                            <input type="password" class="form-control form-control-sm input-text pr-40" id="conf_password"  maxlength="50" placeholder="Confirm Password" required/>
                                                                 <em onclick="toggles()" class="fa fa-eye form-control-feedback conf_passwordIcon icon-position" ></em>
                                                                 <span id="logconf_password"></span>
                                                                 
@@ -272,6 +291,7 @@
 
 <script src="/third-party-config.js"></script>
 <script src="controllers/profile.js"></script>
+<script src="build/js/intlTelInput-jquery.min.js"></script> 
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <script>
     $("body").removeClass('bg-white');
@@ -279,4 +299,14 @@
     function onSubmit(token) {
      document.getElementById("registerForm").submit();
    }
+
+   var input = document.querySelector("#telephone");
+window.intlTelInput(input,({
+  // options here
+}));
+
+// jQuery 
+$("#telephone").intlTelInput({
+  // options here
+});
 </script>

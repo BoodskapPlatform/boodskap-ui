@@ -1,4 +1,4 @@
-var deviceTable = null;device_list
+var deviceTable = null;
 var device_list = [];
 var device_model_list = [];
 var current_device_id = {};
