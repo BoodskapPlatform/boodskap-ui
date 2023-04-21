@@ -787,6 +787,8 @@ function proceedSave() {
                 $("#domainModal").modal('hide');
                 $("#elasticAuthUser").val(user);
                 $("#elasticAuthPwd").val(password);
+                elastic_config_obj["user"]=user;
+                elastic_config_obj["password"]=password;
             } else {
                 errorMsg('Error in elastic config update')
             }
