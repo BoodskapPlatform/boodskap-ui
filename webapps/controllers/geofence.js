@@ -1519,10 +1519,13 @@ function geofenceMapManagement() {
                 val.location["coordinates"] = val.location.coordinates;
                 val["description"] = val.description;
 
-                var center = {
-                    lat: val.location.coordinates[0],
-                    lng: val.location.coordinates[1]
-                };
+                var center ={}
+                if(val.location.coordinates != ""){
+                    center = {
+                        lat: val.location.coordinates[0],
+                        lng: val.location.coordinates[1]
+                    };
+                }  
 
                 var icon = {
                     url: "images/map/marker_red.png"
@@ -1558,10 +1561,13 @@ function geofenceMapManagement() {
 
                 val.location["coordinates"] = val.location.coordinates;
 
-                var center = {
-                    lat: val.location.coordinates[0],
-                    lng: val.location.coordinates[1]
-                };
+                var center ={}
+                if(val.location.coordinates != ""){
+                    center = {
+                        lat: val.location.coordinates[0],
+                        lng: val.location.coordinates[1]
+                    };
+                }  
 
                 var icon = {
                     url: "images/map/marker_red.png"
@@ -1607,11 +1613,13 @@ function geofenceMapManagement() {
 
 
                 val.location["coordinates"] = val.location.coordinates;
-
-                var center = {
-                    lat: val.location.coordinates[0][0],
-                    lng: val.location.coordinates[0][1]
-                };
+                var center ={}
+                if(val.location.coordinates != ""){
+                    center = {
+                        lat: val.location.coordinates[0],
+                        lng: val.location.coordinates[1]
+                    };
+                }  
 
                 var icon = {
                     url: "images/map/marker_red.png"
@@ -1665,10 +1673,13 @@ function geofenceMapManagement() {
 
                 val.location["coordinates"] = val.location.coordinates;
 
-                var center = {
-                    lat: val.location.coordinates[0][0][0],
-                    lng: val.location.coordinates[0][0][1]
-                };
+                var center ={}
+                if(val.location.coordinates != ""){
+                    center = {
+                        lat: val.location.coordinates[0],
+                        lng: val.location.coordinates[1]
+                    };
+                }  
 
                 var icon = {
                     url: "images/map/marker_red.png"

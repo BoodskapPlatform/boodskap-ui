@@ -216,10 +216,17 @@ function getDarkSkyApiKey() {
             apiKey.on('success', function (e) {
                 successMsg('Dark Sky API Key Copied Successfully')
             });
-
+            $("#saveDarkskyGateway").addClass("c-none").attr("disabled",true);
             $("#apiKey").val(obj.apiKey);
         } else {
-
+            $(".apiKey").attr('data-clipboard-text', $("#apiKey").val());
+            var apiKey = new ClipboardJS('.apiKey', {
+                container: document.getElementById('domainmodal')
+            });
+            apiKey.on('success', function (e) {
+                successMsg('Dark Sky API Key Copied Successfully')
+                
+            });
         }
         $("#domainModal").modal('show');
 
@@ -1372,11 +1379,7 @@ function checkThouched(obj,id){
         pass = $("#epassword").val();
     }else if(id == "saveTwilioGateway"){
         pass = $("#token").val();
-    }else if(id == "saveFCMGateway"){
-        pass = $("#apiKey").val();
-    }else if(id == "saveGoogleGateway"){
-        pass = $("#apiKey").val();
-    }else if(id == "saveWeatherGateway"){
+    }else if(id == "saveFCMGateway" || id == "saveGoogleGateway" || id == "saveWeatherGateway" || id == "saveDarkskyGateway"){
         pass = $("#apiKey").val();
     }
     $("#"+id+"Copy").attr("data-clipboard-text",pass);
