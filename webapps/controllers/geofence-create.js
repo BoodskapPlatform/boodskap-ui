@@ -1431,7 +1431,10 @@ function googleMapDrawingTool(){
             geofenceObj.coordinatesGroup = temp;
             $('#polygonCoordinates').val(JSON.stringify(temp));
 
-            drawingManager.setDrawingMode(null)
+            drawingManager.setDrawingMode(null);
+
+            $("#polygonCoordinatesAlert").html("");
+            $("#polygonCoordinates").removeClass("error-input-box");
 
         }
         else if(geofenceObj.geoType == "LINESTRING"){ //LINESTRING
