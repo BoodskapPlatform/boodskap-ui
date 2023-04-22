@@ -2,7 +2,8 @@ var profilePathId = '';
 var locationPath = window.location.href;
 var responseObj = {};
 var primaryDomainID =  'primary.domain'
-
+var countryCode = 0;
+var country = '';
 $(document).ready(function () {
 
     // if(locationPath.split("#")[1]){
@@ -19,6 +20,36 @@ $(document).ready(function () {
     // }else{
     //     getFitbitBand();
     // }
+     var input = document.querySelector("#mobileNo");
+    var iti = window.intlTelInput(input, {
+      initialCountry: "auto",
+      separateDialCode:true,
+      nationalMode: true, // Set nationalMode option to true
+    //   nationalMode: false,
+      autoInsertDialCode:false,
+      geoIpLookup: function(success, failure) {
+        $.get("https://ipinfo.io", function() {}, "jsonp").always(function(resp) {
+            var Code = (resp && resp.country) ? resp.country : "";
+            console.log(Code);
+           // Set the country flag based on the user's location
+           console.log(USER_OBJ.user.country,Code);
+           iti.setCountry(USER_OBJ.user.country);    
+            success(Code); 
+        });
+    },
+    
+      preferredCountries: ["in","us", "gb", "ca", "au"],
+    //   utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.1.3/js/utils.js"
+    });
+   input.addEventListener("countrychange", function() {   
+      var countryData = iti.getSelectedCountryData();   
+      countryCode = countryData.dialCode; 
+      country = countryData.iso2;   
+      console.log(countryData.dialCode,countryData);   
+    //  var phoneNum = iti.getNumber(intlTelInputUtils);
+     console.log(USER_OBJ);
+      $('#mobileNo').val(USER_OBJ.user.primaryPhone);
+    });
 
     loadProfile();
     getPrimaryDomain();
@@ -109,17 +140,19 @@ function proceedUpdate() {
         errorMsgBorder('Last Name is required', 'lastName');
         return false;
     }
-    if(mobileNo!=""){
-        if(mobileNo=="0" || mobileNo=="00" || mobileNo=="000" || mobileNo=="0000" || mobileNo=="00000" || mobileNo=="000000" || mobileNo=="0000000" || mobileNo=="00000000"
+    if(mobileNo!=""){  console.log(mobileNo.length);
+        if(mobileNo.length <= 9 ||mobileNo=="0" || mobileNo=="00" || mobileNo=="000" || mobileNo=="0000" || mobileNo=="00000" || mobileNo=="000000" || mobileNo=="0000000" || mobileNo=="00000000"
     || mobileNo=="000000000" || mobileNo=="0000000000" || mobileNo=="000000000000" || mobileNo=="000000000000" || mobileNo=="0000000000000" || mobileNo=="000000000000000" || mobileNo=="000000000000000"){
         errorMsgBorder('Invalid Mobile Number', 'mobileNo');
         return false;
     }
 }
 
-        obj['firstName'] =  $("#firstName").val();
+    obj['firstName'] =  $("#firstName").val();
     obj['lastName'] =  $("#lastName").val();
     obj['primaryPhone'] = $("#mobileNo").val();
+    obj['country'] = country;
+    obj['countryCode'] = countryCode;
     updateProfile(obj);
     }
 

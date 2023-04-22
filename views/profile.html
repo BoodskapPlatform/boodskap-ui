@@ -3,6 +3,7 @@
     @media (max-width:600px){
         .mob-wrap{
            flex-wrap: wrap; 
+           flex-direction: column;
            justify-content: center;
         }
         .mx-sm-auto{
@@ -39,6 +40,10 @@
         top: -20px;
         right: 6% !important;
         }
+
+        .iti {
+         width: 100% !important;
+         }
     }
 
    @media(max-width:768px){
@@ -81,9 +86,15 @@
     border-radius: 4px;
      }
   
+     .iti {
+         width: 90% ;
+     }
+     .iti input{
+        width: 100% !important;
+     }
 </style>
 <link href="css/edit-profile.css" rel="stylesheet"/>
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.1.3/css/intlTelInput.css" integrity="sha512-Ky9SFgkYYIAWfFbsz+Tvrs+kpW7mgyQu+glUEnVV60+nxDPe64w0CrYRSMKsmTwJtN2jXNmU5SBgcyzKOwsn3w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <div class="container mt-4 platformBody px-xs-2">
     
 
@@ -101,7 +112,7 @@
         </div> -->
 
         <div class="page-header pageheader-xs d-flex xs-flex-wrap bskp-page-topic page-header-bg justify-content-between" style="border-radius: 0px;">
-           <div>
+           <div >
             <img src="images/person.png" width="40" alt="person" class="w-xs-38">
             My Profile
            </div>
@@ -131,7 +142,7 @@
                                         <div class="col-lg-4 d-flex mob-wrap">
                                             <div class="upload_profile_pic mb-xs-4">
                                                 <div class="outer-border mx-xs-auto">
-                                                    <div class="circle mx-sm-auto position-relative" style="overflow: inherit;">
+                                                    <div class="circle mx-sm-auto position-relative d-flex" style="overflow: inherit;">
                                                         <img src="images/avatar.png" class="user_profile_picture profile_pic" alt="profile Image">
                                                         <div class="upload-file">
                                                             <div class="img-bg">
@@ -189,8 +200,9 @@
                                                     
                                                     <div class="col-md-4">
                                                         <div class="form-group">
-                                                            <label>Mobile No </label>
-                                                            <input type="tel" id="mobileNo" class="form-control input-sm" onkeypress="return onlyNumeric(event);" maxlength="15" id="telephone" placeholder="Enter your mobile number"/>
+                                                            <label>Mobile No </label>  <br>
+                                                            <input type="tel"  onkeypress="return onlyNumeric(event);" class="form-control input-sm" maxlength="10" id="mobileNo" placeholder="Enter your mobile number"/>
+                                                            <br>
                                                             <small>Eg, +19876543210 (Including + & country code)</small>
                                                             <span id="logmobileNo"></span>
                                                         </div>
@@ -288,10 +300,10 @@
     </div>
 
 </div>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="/third-party-config.js"></script>
 <script src="controllers/profile.js"></script>
-<script src="build/js/intlTelInput-jquery.min.js"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.1.3/js/intlTelInput.min.js" integrity="sha512-8XuX34GV5xacR9b/Co1BXl4mwi6G/8Ro0iRE8lP1OL2wloXCnFQ4gEBk7lv3qTRVGKoT+pT9X1GH/LRp/Vqg5Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <script>
     $("body").removeClass('bg-white');
@@ -300,13 +312,4 @@
      document.getElementById("registerForm").submit();
    }
 
-   var input = document.querySelector("#telephone");
-window.intlTelInput(input,({
-  // options here
-}));
-
-// jQuery 
-$("#telephone").intlTelInput({
-  // options here
-});
 </script>

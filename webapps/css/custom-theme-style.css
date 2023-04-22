@@ -880,6 +880,7 @@ margin-bottom: 10px  !important;
 .bskp-sidenav span{
     font-size: 14px;
     color: #1a1a1a;
+    vertical-align: middle;
 }
 .barwidth {
     width: 250px !important;
