@@ -89,6 +89,7 @@ function loadGoogleApiKey() {
             loadGoogleMaps(obj.apiKey);
         } else {
             $("#snackbar").html("<i class='fa fa-exclamation-triangle'></i> Please update the Google Api Key in Domain Settings").addClass('show');
+            $("#maskLayer").show();
             //errorMsg('Please update the Google Api Key in Domain Settings')
         }
 
@@ -888,9 +889,12 @@ function loadDeviceGeofenceList() {
                     geofence_list = resultData.data;
 
                     geodata = resultData.data;
-                    geofenceMapManagement();
-                    google.maps.event.trigger(geoMapio, 'resize'); // Refresh Map
-                    restoreRecord();
+                    if (!searchText){
+                        geofenceMapManagement();
+                        google.maps.event.trigger(geoMapio, 'resize'); // Refresh Map
+                        restoreRecord();
+                    }
+                    
 
                     $(".geofenceCount").html(fullObj.total);
 

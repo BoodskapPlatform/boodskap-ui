@@ -1317,14 +1317,14 @@ function renderUsageCharts(chartObj, planUsage){
                         rich: {
                             textt:{
                                 backgroundColor: '#fff',
-                                width: 80,
+                                width: 90,
                                 overflow: 'truncate'
                             },
                             boldValue: {
                                 fontWeight: 'bold',
                                 fontSize: 19,
                                 backgroundColor: '#fff',
-                                width: 80
+                                width: 90
                             }
                         }
                     }

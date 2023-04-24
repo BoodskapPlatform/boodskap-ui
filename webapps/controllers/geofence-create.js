@@ -87,6 +87,7 @@ function loadGoogleApiKey() {
             loadGoogleMaps(obj.apiKey);
         } else {
             $("#snackbar").html("<i class='fa fa-exclamation-triangle'></i> Please update the Google Api Key in Domain Settings").addClass('show');
+            $("#maskLayer").show();
             //errorMsg('Please update the Google Api Key in Domain Settings')
         }
 
