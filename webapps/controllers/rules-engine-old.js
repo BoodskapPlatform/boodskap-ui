@@ -174,9 +174,7 @@ $(document).ready(function () {
 
     $(window).resize(function () {
         $(".mainwindow").css('min-height', $(window).height() - 90 + 'px');
-        setTimeout(() => {
-            $('#codeEditor').height(($(".ui-layout-center").height() - 40) + 'px');
-        }, 250);
+        $('#codeEditor').height($(window).height() - 170 + 'px');
     });
     
 });
