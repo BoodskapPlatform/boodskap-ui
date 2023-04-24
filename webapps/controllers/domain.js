@@ -1310,14 +1310,21 @@ function renderUsageCharts(chartObj, planUsage){
                     position: 'center',
                     formatter: function (data) {
                         var percentage = (data.value / total * 100).toFixed(1);
-                        return '\n{boldValue|' + percentage + '%}'+ '\n\n' +data.name;
+                        return '\n{boldValue|' + percentage + '%}'+ '\n\n{textt|' +data.name+'}';
                     },
                     textStyle: {
                         fontSize: 12,
                         rich: {
+                            textt:{
+                                backgroundColor: '#fff',
+                                width: 80,
+                                overflow: 'truncate'
+                            },
                             boldValue: {
                                 fontWeight: 'bold',
-                                fontSize: 19
+                                fontSize: 19,
+                                backgroundColor: '#fff',
+                                width: 80
                             }
                         }
                     }

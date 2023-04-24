@@ -88,7 +88,8 @@ function loadGoogleApiKey() {
             var obj = JSON.parse(data.value);
             loadGoogleMaps(obj.apiKey);
         } else {
-            errorMsg('Please update the Google Api Key in Domain Settings')
+            $("#snackbar").html("<i class='fa fa-exclamation-triangle'></i> Please update the Google Api Key in Domain Settings").addClass('show');
+            //errorMsg('Please update the Google Api Key in Domain Settings')
         }
 
     })
@@ -904,12 +905,12 @@ function loadDeviceGeofenceList() {
 
     geofenceTable = $("#geofenceTable").DataTable(tableOption);
 
-    geofenceTable.on('draw', function() {
+    /* geofenceTable.on('draw', function() {
         var body = $(geofenceTable.table().body());
 
         body.unhighlight();
         body.highlight(geofenceTable.search());
-    });
+    }); */
 }
 
 function geofenceNavigate(geoCreateType) {
