@@ -88,7 +88,7 @@ var live_msg_count = 0;
 var debugger_count = 0;
 var scriptEditor = null;
 var otherHeight;
-
+var fullScreenEnable = true 
 
 $(".barMenu").removeClass('active');
 $(".menuEditor").addClass('active');
@@ -11062,7 +11062,7 @@ function loadFooterDateRanges() {
     }
 
     $('#eventhistoryrange').daterangepicker({
-        opens: 'bottom',
+        opens: 'left',
         startDate: startDate,
         endDate: endDate,
         ranges: {
@@ -11395,37 +11395,38 @@ function executeScript() {
 }
 
 function loadErrorLogsFullScreen() {
-    $('#statusContent').toggleFullScreen()
-    $('#statusContent').bind('webkitfullscreenchange mozfullscreenchange fullscreenchange', function (e) {
-        var state = document.fullScreen || document.mozFullScreen || document.webkitIsFullScreen;
-        if (state) {
-            $('.expandscreenOption').attr('fullScreen', "true")
-            $('.hchange').css("height", "100vh")
-            $('.cdebug').css("height", "100vh")
-            $('.tchange').css("height", "100vh")
-            $('#consoleBox').css("height", "100vh")
-            $('#statusContent').css('height', '100vh')
-            $('#scriptEditor').height('100vh');
-            $('.expandscreenOption img').attr('src', 'images/fitzoom.svg')
-            $('.liveMessages').css('height', '100vh')
-            $('.errorLogs').css('height', '100vh')
-            $("#livelogsec").css('height', '100vh')
-        } else {
-            $('.expandscreenOption').attr('fullScreen', "false")
-            $('.errorLogs').css('height', '250px')
-            $("#livelogsec").css('height', '250px')
-            $('.hchange').css("height", "250px")
-            $('.cdebug').css("height", "170px")
-            $('.tchange').css("height", "215px")
-            $('#consoleBox').css("height", "250px")
-            $('.expandscreenOption img').attr('src', 'images/fullscreen.svg')
-            $('#statusContent').css('height', '290px')
-            $('.liveMessages').css('height', '215px')
-            $('#scriptEditor').height('calc(100vh  - ' + otherHeight + ' + px');
 
-
-        }
-    });
+    if (fullScreenEnable) {
+        fullScreenEnable = false
+        $('.expandscreenOption').attr('fullScreen', "true")
+        $('.hchange').css("height", "100vh")
+        $('.cdebug').css("height", "100vh")
+        $('.tchange').css("height", "100vh")
+        $('#consoleBox').css("height", "100vh")
+        $('#statusContent').css('height', '100vh').addClass('full-screen')
+        $('#scriptEditor').height('100vh');
+        $('.expandscreenOption img').attr('src', 'images/fitzoom.svg')
+        $('.liveMessages').css('height', '100vh')
+        $('.errorLogs').css('height', '100vh')
+        $("#livelogsec").css('height', '100vh')
+    } else {
+        fullScreenEnable = true
+        $('.expandscreenOption').attr('fullScreen', "false")
+        $('.errorLogs').css('height', '250px')
+        $("#livelogsec").css('height', '250px')
+        $('.hchange').css("height", "250px")
+        $('.cdebug').css("height", "170px")
+        $('.tchange').css("height", "215px")
+        $('#consoleBox').css("height", "250px")
+        $('.expandscreenOption img').attr('src', 'images/fullscreen.svg')
+        $('#statusContent').css('height', '290px').removeClass('full-screen')
+        $('.liveMessages').css('height', '215px')
+        $('#scriptEditor').height('calc(100vh  - ' + otherHeight + ' + px');
+    }
+    // $('#statusContent').toggleFullScreen()
+    // $('#statusContent').bind('webkitfullscreenchange mozfullscreenchange fullscreenchange', function (e) {
+    //     var state = document.fullScreen || document.mozFullScreen || document.webkitIsFullScreen;
+    // });
 }
 
 function closeFooter() {
