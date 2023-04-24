@@ -543,7 +543,7 @@ function loadLogs() {
 
     if(type === 'RULES'){
         type = 'RULE_FAILURE';
-        $(".eventType").html('Rule_Failure');
+        $(".eventType").html('Rule ');
     }
 
 

@@ -813,7 +813,7 @@ function warningMsg(msg){
     if(msg === 'API hits exhausted'){
         alertMsg = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
         `+msg+` Go to buy here <a href="https://devbilling.boodskap.io/" class="text-warning" target="_blank">upgrade </a>
-        / <a href="javascript:;" class="text-warning" onclick="logout()"> logout</a>
+        / to <a href="javascript:;" class="text-warning" onclick="logout()"> logout</a>
         <button type="button" class="close close-alert-btn mt-1" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
