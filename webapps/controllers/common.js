@@ -2,6 +2,7 @@
 var themeProp = {};
 $(document).ready(function () {
     // getDomainTheme() 
+    $(".VIpgJd-ZVi9od-xl07Ob-lTBxed").attr("href","javascript:void(0);")
     setTimeout(() => {
         $(".VIpgJd-ZVi9od-xl07Ob-lTBxed").attr("href","javascript:void(0);")
        },1000);

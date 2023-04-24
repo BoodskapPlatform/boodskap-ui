@@ -119,7 +119,7 @@ function loadProfile() {
 
 function onlyNumeric(event) {
     // let regex = new RegExp("^[0-9-+]");
-    let regex = /^[0-9-+]/;
+    let regex = /^[0-9]/;
     let key = String.fromCharCode(event.charCode ? event.which : event.charCode);
     if (!regex.test(key)) {
         event.preventDefault();
@@ -188,6 +188,10 @@ function updatePassword() {
     }else{
 
     obj['password'] = $("#password").val();
+    try {
+        grecaptcha.reset();
+       } catch (error) {
+       }
     updateProfile(obj);
     // $('.changePassword')[0].reset();
     }
