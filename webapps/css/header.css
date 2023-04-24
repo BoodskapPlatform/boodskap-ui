@@ -39,7 +39,8 @@
     border-radius: 1rem 1rem 0rem 0rem!important;
     background: white !important;
 }
-.clr-change .dropdown-item:active{
+.clr-change .dropdown-item:active,
+.user-popover .dropdown-item:active{
     color: #000 !important;
 }
 @media (max-width: 767px){
