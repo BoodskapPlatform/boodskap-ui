@@ -28,13 +28,13 @@
                             <img src="images/avatar.png" alt="" class="user_profile_picture" style="margin: -5px 5px 0 0;">
                          </span> 
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right" style="border-top: 0px;padding-top: 0px;">
+                        <div class="dropdown-menu dropdown-menu-right user-popover" style="border-top: 0px;padding-top: 0px;">
                             <div class="userRoles menulink" style="padding: 5px;text-transform: capitalize;border-top: 1px solid #dddddd;border-bottom: 1px solid #dddddd;">
                             </div>
                             <a href="<%= basepath %>/profile" class="dropdown-item"><i class="icon-edit2"></i> Edit Profile</a>
                             <!--<a href="<%= basepath %>/myaccount" class="dropdown-item">My Account</a>-->
                             <a href="<%= basepath %>/domain" class="dropdown-item menulink"><i class="icon-globe"></i> Domain Settings</a>
-                            <a href="#" class="dropdown-item menulink"><i class="icon-question-circle"></i> Help & Support</a>
+                            <a href="https://developer.boodskap.io/" target="_blank" class="dropdown-item menulink"><i class="icon-question-circle"></i> Help & Support</a>
                             <div class="dropdown-divider"></div>
                             <a href="javascript:;" class="dropdown-item" onclick="logout()"><i class="icon-sign-out"></i> Log Out</a>
                         </div>
@@ -188,13 +188,13 @@
                 <img src="images/avatar.png" alt="" class="user_profile_picture">
                 <span class="d-none d-md-inline"></span><span class="user_profile_name name-overflow"></span> <b class="caret"></b>
             </a>
-            <div class="dropdown-menu dropdown-menu-right" style="border-top: 0px;padding-top: 0px;">
+            <div class="dropdown-menu dropdown-menu-right user-popover" style="border-top: 0px;padding-top: 0px;">
                 <div class="userRoles menulink" style="padding: 5px;text-transform: capitalize;border-top: 1px solid #dddddd;border-bottom: 1px solid #dddddd;">
                 </div>
                 <a href="<%= basepath %>/profile" class="dropdown-item"><i class="icon-edit2"></i> Edit Profile</a>
                 <!--<a href="<%= basepath %>/myaccount" class="dropdown-item">My Account</a>-->
                 <a href="<%= basepath %>/domain" class="dropdown-item menulink"><i class="icon-globe"></i> Domain Settings</a>
-                <a href="#" class="dropdown-item menulink"><i class="icon-question-circle"></i> Help & Support</a>
+                <a href="https://developer.boodskap.io/" target="_blank" class="dropdown-item menulink"><i class="icon-question-circle"></i> Help & Support</a>
                 <div class="dropdown-divider"></div>
                 <a href="javascript:;" class="dropdown-item" onclick="logout()"><i class="icon-sign-out"></i> Log Out</a>
             </div>
@@ -228,7 +228,7 @@
                 <!-- <div><a href="javascript:;" data-dismiss="modal" aria-label="Close" style="border: 1px solid #ffc5c5 !important;background: #ffe5e5 !important;" class="btn bskp-btnsize btn-icon btn-circle bskp-icon-bg" > 
                         <img src="images/redclose.svg" height="16" alt="" style="vertical-align: baseline;  margin-top: 5px;"></span> </a>
                 </div> -->
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="Mrefresh()">
                     <img src="images/menu/xicon.svg" class="bg-secondary bskp-close" >
                     </button>
             </div>
