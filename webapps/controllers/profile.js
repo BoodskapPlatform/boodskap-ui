@@ -204,7 +204,7 @@ function updateProfile(obj) {
             setTimeout(() => {
                 $("#password,#conf_password").val("")
                 successMsg('Successfully updated');
-                location.reload(true);
+                // location.reload(true);
             },500);
               
         }else{
