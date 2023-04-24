@@ -180,7 +180,7 @@
         <div class="form-group d-flex">
           <input type="checkbox" id="elasticConfigCheck" value="true" onclick="switchElasticAuth()" /> 
           <label class="mr-2" for="elasticConfigCheck" style="margin-left:5px;color: #666666;font-weight: normal;">
-            Do you want to authenticate your Elasticsearch?
+            Do you want to authenticate your Elastic search?
           </label>
         </div>
 
@@ -220,16 +220,16 @@
     <div class="col-md-4">
       <div class="form-group">
         <label class="mb-2">Host <span class="text-danger">*</span></label>
-        <input type="text" id="hostName" maxlength="100" class="form-control input-sm" required autocomplete="off" />
+        <input type="text" id="hostName" maxlength="100" class="form-control input-sm" onkeyup="checkThouched(this,'saveEmailGateway');" required autocomplete="off" />
       </div>
       <div class="form-group">
         <label class="mb-2">Password <span class="text-danger">*</span><a href="javascript:void(0)" style="color:#333" onclick="toggleBox('epassword',this)" class="btn btn-icon btn-xs">
           <i class="icon-eye4"></i>
-        </a> <a href="javascript:void(0)" class="emailpwd" style="text-decoration: none" title="Click here to copy Email Password">
+        </a> <a href="javascript:void(0)"  id="saveEmailGatewayCopy" class="emailpwd" style="text-decoration: none" title="Click here to copy Email Password">
             <i class="icon-copy2"></i>
           </a>
         </label>
-        <input type="password" id="epassword" maxlength="100" class="form-control input-sm" required autocomplete="off" />
+        <input type="password" id="epassword" maxlength="100" class="form-control input-sm" onkeyup="checkThouched(this,'saveEmailGateway');" required autocomplete="new-password" />
       </div>
       <div class="form-group row">
         <div class="col-md-2 d-flex">
@@ -249,24 +249,24 @@
     <div class="col-md-4">
       <div class="form-group">
         <label class="mb-2">Port <span class="text-danger">*</span></label>
-        <input type="number" id="portNo" onKeyPress="if(this.value.length==5) return false;" maxlength="5" class="form-control input-sm" required />
+        <input type="number" id="portNo" onKeyPress="if(this.value.length==5) return false;" onkeyup="checkThouched(this,'saveEmailGateway');" maxlength="5" class="form-control input-sm" required />
       </div>
       <div class="form-group">
         <label class="mb-2">Primary Email <span class="text-danger">*</span></label>
-        <input type="email" id="primaryEmail" maxlength="100" class="form-control input-sm" required />
+        <input type="email" id="primaryEmail" maxlength="100" class="form-control input-sm" onkeyup="checkThouched(this,'saveEmailGateway');" required />
       </div>
     </div>
     <div class="col-md-4">
       <div class="form-group">
         <label class="mb-2">Username <span class="text-danger">*</span></label>
-        <input type="email" id="euserName" maxlength="100" class="form-control input-sm" required autocomplete="off" />
+        <input type="email" id="euserName" maxlength="100" class="form-control input-sm" onkeyup="checkThouched(this,'saveEmailGateway');" required autocomplete="off" />
       </div>
       <div class="form-group">
         <label class="mb-2">Bounce Email <span class="text-danger">*</span></label>
-        <input type="email" id="bounceEmail" maxlength="100" class="form-control input-sm" required />
+        <input type="email" id="bounceEmail" maxlength="100" class="form-control input-sm" onkeyup="checkThouched(this,'saveEmailGateway');" required />
       </div>
       <div class="text-right mt-5">
-        <button type="submit" class="btn btn-proceed btnModal">
+        <button id="saveEmailGateway" type="submit" class="btn btn-proceed btnModal">
           <i class="icon-save"></i> Save </button>
       </div>
     </div>
@@ -279,7 +279,7 @@
     <div class="col-md-4">
       <div class="form-group">
         <label class="mb-2">SID <span class="text-danger">*</span></label>
-        <input type="text" id="sid" class="form-control input-sm" maxlength="100" required autocomplete="off" />
+        <input type="text" id="sid" class="form-control input-sm" maxlength="100" onkeyup="checkThouched(this,'saveTwilioGateway');" required autocomplete="off" />
       </div>
     </div>
     <div class="col-md-4">
@@ -287,17 +287,17 @@
         <label class="mb-2">Token <span class="text-danger">*</span><a href="javascript:void(0)" style="color:#333" onclick="toggleBox('token',this)" class="btn btn-icon btn-xs">
             <i class="icon-eye4"></i>
           </a>
-          <a href="javascript:void(0)" class="tokenKey" style="text-decoration: none" title="Click here to copy Twilio Token">
+          <a href="javascript:void(0)" id="saveTwilioGatewayCopy" class="tokenKey" style="text-decoration: none" title="Click here to copy Twilio Token">
             <i class="icon-copy2"></i>
           </a>
         </label>
-        <input type="password" id="token" maxlength="100" class="form-control input-sm" required autocomplete="off" />
+        <input type="password" id="token" maxlength="100" class="form-control input-sm" onkeyup="checkThouched(this,'saveTwilioGateway');" required autocomplete="new-password" />
       </div>
     </div>
     <div class="col-md-4">
       <div class="form-group">
         <label class="mb-2">Primary Phone <span class="text-danger">*</span></label>
-        <input type="text" id="primaryPhone" class="form-control input-sm" maxlength="100" required />
+        <input type="text" id="primaryPhone" class="form-control input-sm" maxlength="100" onkeypress="return isNumber(event);" onkeyup="checkThouched(this,'saveTwilioGateway');" required />
       </div>
     </div>
   </div>
@@ -306,10 +306,10 @@
       <div class="form-group d-flex">
         <label class="mr-2">Debug</label>
         <br>
-        <input type="checkbox" id="debug" value="true" />
+        <input type="checkbox" id="debug" onclick="checkThouched(this,'saveTwilioGateway');" value="true" />
       </div>
       <div class="text-right">
-        <button type="submit" class="btn btn-proceed btnModal">
+        <button id="saveTwilioGateway" type="submit" class="btn btn-proceed btnModal">
           <i class="icon-save"></i> Save </button>
       </div>
     </div>
@@ -320,24 +320,24 @@
   <div class="row ml-2">
     <div class="col-md-4">
       <div class="form-group">
-        <label class="mb-2">API Key <a href="javascript:void(0)" style="color:#333" onclick="toggleBox('apiKey',this)" class="btn btn-icon btn-xs">
+        <label class="mb-2">API Key <span class="text-danger">*</span><a href="javascript:void(0)" style="color:#333" onclick="toggleBox('apiKey',this)" class="btn btn-icon btn-xs">
             <i class="icon-eye4"></i>
           </a>
-          <a href="javascript:void(0)" class="fcmKey" style="text-decoration: none" title="Click here to copy FCM API Key">
+          <a href="javascript:void(0)" id="saveFCMGatewayCopy" class="fcmKey" style="text-decoration: none" title="Click here to copy FCM API Key">
             <i class="icon-copy2"></i>
           </a>
         </label>
-        <input type="password" id="apiKey" class="form-control input-sm" required autocomplete="off" />
+        <input type="password" id="apiKey" class="form-control input-sm" onkeyup="checkThouched(this,'saveFCMGateway');" required autocomplete="off" />
       </div>
     </div>
     <div class="col-md-12">
       <div class="form-group d-flex">
         <label class="mr-2">Debug</label>
         <br>
-        <input type="checkbox" id="debug" value="true" />
+        <input type="checkbox" id="debug" value="true" onclick="checkThouched(this,'saveFCMGateway');"/>
       </div>
       <div class="text-right">
-        <button type="submit" class="btn btn-proceed btnModal">
+        <button type="submit" id="saveFCMGateway" class="btn btn-proceed btnModal">
           <i class="icon-save"></i> Save </button>
       </div>
     </div>
@@ -348,13 +348,13 @@
   <div class="row ml-2">
     <div class="col-md-4">
       <div class="form-group">
-        <label class="mb-2">Host</label>
+        <label class="mb-2">Host <span class="text-danger">*</span></label>
         <input type="number" id="portNo" class="form-control input-sm" readonly required />
       </div>
     </div>
     <div class="col-md-4">
       <div class="form-group">
-        <label class="mb-2">Port</label>
+        <label class="mb-2">Port <span class="text-danger">*</span></label>
         <input type="number" id="threads" class="form-control input-sm" readonly required />
       </div>
     </div>
@@ -364,10 +364,10 @@
       <div class="form-group">
         <label class="mb-2">Decorder Code</label>
         <small>(Groovy Code)</small>
-        <textarea id="decoderCode" class="form-control" style="height: 200px;"></textarea>
+        <textarea id="decoderCode" class="form-control" style="height: 200px;" onkeyup="checkThouched(this,'saveUDPGateway');"></textarea>
       </div>
       <div class="text-right">
-        <button type="submit" class="btn btn-proceed btnModal">
+        <button type="submit" id="saveUDPGateway" class="btn btn-proceed btnModal">
           <i class="icon-save"></i> Save </button>
       </div>
     </div>
@@ -586,16 +586,16 @@
   <div class="row ml-2">
     <div class="col-md-4">
       <div class="form-group">
-        <label class="mb-2">API Key <a href="javascript:void(0)" style="color:#333" onclick="toggleBox('apiKey',this)" class="btn btn-icon btn-xs">
+        <label class="mb-2">API Key <span class="text-danger">*</span><a href="javascript:void(0)" style="color:#333" onclick="toggleBox('apiKey',this)" class="btn btn-icon btn-xs">
             <i class="icon-eye4"></i>
           </a>
-          <a href="javascript:void(0)" class="apiKey" style="text-decoration: none" title="Click here to copy Google API Key">
+          <a href="javascript:void(0)" id="saveGoogleGatewayCopy" class="apiKey" style="text-decoration: none" title="Click here to copy Google API Key">
             <i class="icon-copy2"></i>
           </a>
         </label>
-        <input type="password" id="apiKey" class="form-control input-sm" required autocomplete="off" />
+        <input type="password" id="apiKey" class="form-control input-sm" onkeyup="checkThouched(this,'saveGoogleGateway');" required autocomplete="off" />
         <div class="text-right mt-4">
-          <button type="submit" class="btn btn-proceed btnModal">
+          <button type="submit" id="saveGoogleGateway" class="btn btn-proceed btnModal">
             <i class="icon-save"></i> Save </button>
         </div>
       </div>
@@ -607,17 +607,17 @@
   <div class="row ml-2">
     <div class="col-md-4">
       <div class="form-group">
-        <label class="mb-2">API Key <a href="javascript:void(0)" style="color:#333" onclick="toggleBox('apiKey',this)" class="btn btn-icon btn-xs">
+        <label class="mb-2">API Key  <span class="text-danger">*</span><a href="javascript:void(0)" style="color:#333" onclick="toggleBox('apiKey',this)" class="btn btn-icon btn-xs">
             <i class="icon-eye4"></i>
           </a>
-          <a href="javascript:void(0)" class="apiKey" style="text-decoration: none" title="Click here to copy Open Weather Map API Key">
+          <a href="javascript:void(0)" id="saveWeatherGatewayCopy" class="apiKey" style="text-decoration: none" title="Click here to copy Open Weather Map API Key">
             <i class="icon-copy2"></i>
           </a>
         </label>
-        <input type="password" id="apiKey" class="form-control input-sm" required autocomplete="off" />
+        <input type="password" id="apiKey" class="form-control input-sm" onkeyup="checkThouched(this,'saveWeatherGateway');" required autocomplete="off" />
       </div>
       <div class="text-right mt-4">
-        <button type="submit" class="btn btn-proceed btnModal">
+        <button type="submit" id="saveWeatherGateway" class="btn btn-proceed btnModal">
           <i class="icon-save"></i> Save </button>
       </div>
     </div>
@@ -628,17 +628,17 @@
   <div class="row ml-2">
     <div class="col-md-4">
       <div class="form-group">
-        <label class="mb-2">API Key <a href="javascript:void(0)" style="color:#333" onclick="toggleBox('apiKey',this)" class="btn btn-icon btn-xs">
+        <label class="mb-2">API Key <span class="text-danger">*</span><a href="javascript:void(0)" style="color:#333" onclick="toggleBox('apiKey',this)" class="btn btn-icon btn-xs">
             <i class="icon-eye4"></i>
           </a>
-          <a href="javascript:void(0)" class="apiKey" style="text-decoration: none" title="Click here to copy Dark Sky API Key">
+          <a href="javascript:void(0)" id="saveDarkskyGatewayCopy" class="apiKey" style="text-decoration: none" title="Click here to copy Dark Sky API Key">
             <i class="icon-copy2"></i>
           </a>
         </label>
-        <input type="password" id="apiKey" class="form-control input-sm" required autocomplete="off" />
+        <input type="password" id="apiKey" class="form-control input-sm"  onkeyup="checkThouched(this,'saveDarkskyGateway');" required autocomplete="off" />
       </div>
       <div class="text-right mt-4">
-        <button type="submit" class="btn btn-proceed btnModal">
+        <button type="submit" id="saveDarkskyGateway" class="btn btn-proceed btnModal">
           <i class="icon-save"></i> Save </button>
       </div>
     </div>

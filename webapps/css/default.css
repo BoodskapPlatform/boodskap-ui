@@ -347,7 +347,7 @@ div::-webkit-scrollbar-thumb {
         z-index: 1030;
     }
     .sidebar .nav{
-        margin-top: 50px;
+        margin-top: 16px;
     }
 }
 
@@ -626,7 +626,7 @@ table.table tr.shown td.details-control {
 
 #warningsnackbar.show {
     visibility: visible; /* Show the snackbar */
-
+    z-index: 999999;
     /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
     However, delay the fade out process for 2.5 seconds */
     -webkit-animation: fadein 0.5s;
@@ -636,4 +636,8 @@ table.table tr.shown td.details-control {
     font-weight: bold;
     text-decoration: underline;
     color: #7b4e0e !important;
+}
+
+.c-none{
+    cursor: no-drop !important;
 }

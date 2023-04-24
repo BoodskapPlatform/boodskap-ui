@@ -46,6 +46,11 @@ function loadEvents() {
             sTitle: 'Subject',
             "class": "details-expand",
             orderable: false,
+            mRender: function (data, type, row) {
+
+                return '<div style="max-width: 300px;" class="text-truncate" title="' + data + '">' + data + '</div>';
+
+            }
         },
         {
             mData: 'content',

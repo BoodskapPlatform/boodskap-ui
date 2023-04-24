@@ -8,6 +8,9 @@
     #deleteModal .modal-dialog{
         margin-top: 13%;
     }
+    table.dataTable thead>tr>th.sorting_asc, table.dataTable thead>tr>th.sorting_desc, table.dataTable thead>tr>th.sorting, table.dataTable thead>tr>td.sorting_asc, table.dataTable thead>tr>td.sorting_desc, table.dataTable thead>tr>td.sorting{
+        padding-right: 10px !important;
+    }
 </style>
 <div class="row-fluid">
     <ul class="nav bskp-submenu2">
@@ -155,8 +158,8 @@
 
 
 <div id="addUserModal" class="modal fade" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document" style="max-width: 800px !important;margin: 1.75rem 25rem !important;">
-        <div class="modal-content" >
+    <div class="modal-dialog mx-auto" role="document" style="max-width: 800px !important;">
+        <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Add User To Group</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>

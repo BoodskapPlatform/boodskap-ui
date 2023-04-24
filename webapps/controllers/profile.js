@@ -2,7 +2,8 @@ var profilePathId = '';
 var locationPath = window.location.href;
 var responseObj = {};
 var primaryDomainID =  'primary.domain'
-
+var countryCode = 0;
+var country = '';
 $(document).ready(function () {
 
     // if(locationPath.split("#")[1]){
@@ -19,6 +20,36 @@ $(document).ready(function () {
     // }else{
     //     getFitbitBand();
     // }
+     var input = document.querySelector("#mobileNo");
+    var iti = window.intlTelInput(input, {
+      initialCountry: "auto",
+      separateDialCode:true,
+      nationalMode: true, // Set nationalMode option to true
+    //   nationalMode: false,
+      autoInsertDialCode:false,
+      geoIpLookup: function(success, failure) {
+        $.get("https://ipinfo.io", function() {}, "jsonp").always(function(resp) {
+            var Code = (resp && resp.country) ? resp.country : "";
+            console.log(Code);
+           // Set the country flag based on the user's location
+           console.log(USER_OBJ.user.country,Code);
+           iti.setCountry(USER_OBJ.user.country);    
+            success(Code); 
+        });
+    },
+    
+      preferredCountries: ["in","us", "gb", "ca", "au"],
+    //   utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.1.3/js/utils.js"
+    });
+   input.addEventListener("countrychange", function() {   
+      var countryData = iti.getSelectedCountryData();   
+      countryCode = countryData.dialCode; 
+      country = countryData.iso2;   
+      console.log(countryData.dialCode,countryData);   
+    //  var phoneNum = iti.getNumber(intlTelInputUtils);
+     console.log(USER_OBJ);
+      $('#mobileNo').val(USER_OBJ.user.primaryPhone);
+    });
 
     loadProfile();
     getPrimaryDomain();
@@ -67,8 +98,21 @@ function loadProfile() {
     $("#lastName").val(user.lastName ? user.lastName : '')
     $("#emailId").val(user.email)
     $(".fullName").html(user.firstName+" "+ user.lastName)
+    $(".fullName").attr("title",user.firstName+" "+ user.lastName)   
     $(".fullName").css({"font-weight":"bolder","font-size":"16px"})
     $(".emailId").html(user.email)
+    $("#password").val('')
+    $("#conf_password").val('')
+   try {
+    grecaptcha.reset();
+   } catch (error) {
+   }
+    $(".passwordIcon").removeClass('fa-eye-slash')
+    $(".passwordIcon").addClass('fa-eye')
+    $("#password").attr('type','password')
+    $(".conf_passwordIcon").removeClass('fa-eye-slash')
+    $(".conf_passwordIcon").addClass('fa-eye')
+    $("#conf_password").attr('type','password')
     $("#mobileNo").val(user.primaryPhone ? user.primaryPhone : '')
     $("#primaryDomain").val(Cookies.get('domain_name'))
 }
@@ -90,32 +134,30 @@ function proceedUpdate() {
     let lastName =$.trim($("#lastName").val() );
     let mobileNo =$.trim($("#mobileNo").val() );
     if(firstName===""){
-        errorMsgBorder('First Name should not be empty', 'firstName');
+        errorMsgBorder('First Name is required', 'firstName');
         return false;
     } else if(lastName===""){
-        errorMsgBorder('Last Name should not be empty', 'lastName');
+        errorMsgBorder('Last Name is required', 'lastName');
         return false;
     }
-    if(mobileNo!=""){
-        if(mobileNo=="0" || mobileNo=="00" || mobileNo=="000" || mobileNo=="0000" || mobileNo=="00000" || mobileNo=="000000" || mobileNo=="0000000" || mobileNo=="00000000"
+    if(mobileNo!=""){  console.log(mobileNo.length);
+        if(mobileNo.length <= 9 ||mobileNo=="0" || mobileNo=="00" || mobileNo=="000" || mobileNo=="0000" || mobileNo=="00000" || mobileNo=="000000" || mobileNo=="0000000" || mobileNo=="00000000"
     || mobileNo=="000000000" || mobileNo=="0000000000" || mobileNo=="000000000000" || mobileNo=="000000000000" || mobileNo=="0000000000000" || mobileNo=="000000000000000" || mobileNo=="000000000000000"){
         errorMsgBorder('Invalid Mobile Number', 'mobileNo');
         return false;
     }
 }
 
-        obj['firstName'] =  $("#firstName").val();
+    obj['firstName'] =  $("#firstName").val();
     obj['lastName'] =  $("#lastName").val();
-    obj['primaryPhone'] =  $("#mobileNo").val();
-    if (confirm("Are you sure to update your profile information?") == true) {
-        updateProfile(obj);
-    } else {
-        location.reload();  
-    }
+    obj['primaryPhone'] = $("#mobileNo").val();
+    obj['country'] = country;
+    obj['countryCode'] = countryCode;
+    updateProfile(obj);
     }
 
 
-function updatePassword() {
+function updatePassword() {  
     var password = $.trim($("#password").val());
     var conf_password = $.trim($("#conf_password").val());
     var captchaStatus = grecaptcha.getResponse();
@@ -123,16 +165,21 @@ function updatePassword() {
     var obj = USER_OBJ.user;
 
     if(password == ""){
-        errorMsgBorder('Password cannot be empty','password');
+        errorMsgBorder('New Password is required','password');
         return false;
     }
     if(conf_password == ""){
-        errorMsgBorder('Confirm Password cannot be empty','conf_password');
+        errorMsgBorder('Confirm Password is required','conf_password');
         return false;
     }
 
-    if(captchaStatus === ""){
-        errorMsgBorder('Please verify the captcha!','captchaFeedback');
+    if (captchaStatus === "") {  
+        $("#captchaFeedback").css('border', '1px solid red')
+        $("#logcaptchaFeedback").html("<i class='fa fa-exclamation-triangle'></i> Please verify the captcha!").css({ "color": "red", "font-weight": "600" ,"display": "block" });
+        setTimeout(function () { 
+            $("#captchaFeedback").removeAttr('style')
+            $("#logcaptchaFeedback").css({ "display": "none" });
+        },3000)
         return false;
     }
     if(password!=conf_password){
@@ -148,17 +195,16 @@ function updatePassword() {
 
 function updateProfile(obj) {
     // console.log(obj)
-
     upsertUser(obj,function (status, data) {
         if(status){
             delete obj.password;
             USER_OBJ.user = obj;
             Cookies.set('user_details', USER_OBJ);
             $(".user_profile_name").html((USER_OBJ.user.firstName ? USER_OBJ.user.firstName : 'Admin') + ' ' + (USER_OBJ.user.lastName ? USER_OBJ.user.lastName : ""));
-            successMsg('Successfully updated');
-            loadProfile();
             setTimeout(() => {
-                location.reload();
+                $("#password,#conf_password").val("")
+                successMsg('Successfully updated');
+                location.reload(true);
             },500);
               
         }else{
@@ -238,6 +284,7 @@ function updatePrimaryDomain() {
     upsertDomainProperty(data, function (status, data) {
         if (status) {
             Cookies.set('domain_name', $("#primaryDomain").val());
+            successMsg('Successfully updated');
             // $(".primary_domain").html($("#primaryDomain").val());
             // $("#domainNameModal").modal('hide');
         }else{

@@ -68,12 +68,12 @@ function login(){
     var password = $.trim($("#password").val());
 
     if(emailId == ""){
-        errorMsgBorder('Username cannot be empty','username',1);
+        errorMsgBorder('Username is required','username',1);
         return false;
     }
 
     if(password == ""){
-        errorMsgBorder('Password cannot be empty','password',1);
+        errorMsgBorder('Password is required','password',1);
         return false;
     }
 

@@ -4,7 +4,7 @@ var MENU_LINKS = [BASE_PATH+'/home', BASE_PATH+'/dashboard', BASE_PATH+'/message
     BASE_PATH+"/device-management", BASE_PATH+"/firmware-management", BASE_PATH+"/asset-management", BASE_PATH+"/user-management", BASE_PATH+"/dashboard-editor", BASE_PATH+"/event-logs",
     BASE_PATH+"/messages", BASE_PATH+"/log-console", BASE_PATH+"/marketplacev4", BASE_PATH+"/domain-audit", BASE_PATH+"/files", BASE_PATH+"/code-editor", BASE_PATH+"/alexa", BASE_PATH+"/query-console", BASE_PATH+"/sql-query-console",
     BASE_PATH+"/sql-templates",BASE_PATH+"/sql-table",BASE_PATH+"/db-table",BASE_PATH+"/db-query-console",BASE_PATH+"/db-templates",BASE_PATH+"/plugin-management",BASE_PATH+"/manage-billing",BASE_PATH+"/site-noop",BASE_PATH+"/widgets",
-    BASE_PATH+"/mongodb",BASE_PATH+"/mongo-console",BASE_PATH+"/token-management",BASE_PATH+"/device-tokens"]
+    BASE_PATH+"/mongodb",BASE_PATH+"/mongo-console",BASE_PATH+"/token-management",BASE_PATH+"/device-tokens",BASE_PATH+"/rules-engine-v2"]
 
 
 $(document).ready(function () {
@@ -16,7 +16,7 @@ $(document).ready(function () {
         // $(".billingManagement").append($("#billingManagement").html());
         // $(".siteNoop").append($("#siteNoop").html());
     }
-
+  
     var dkey = new ClipboardJS('.domainKey');
     var akey = new ClipboardJS('.apiKey');
     var tkey = new ClipboardJS('.apiToken');
@@ -45,7 +45,7 @@ $(document).ready(function () {
     var fullName = (USER_OBJ.user.firstName ? USER_OBJ.user.firstName : 'Admin') + ' ' + (USER_OBJ.user.lastName ? USER_OBJ.user.lastName : "");
 
     if (!Cookies.get('greetings')) {
-        showNotification('<label>Greetings from Boodskap,</label><p>Hey <b>' + fullName + '</b>, Welcome back!</p>', 'platform', 3000);
+        showNotification('<label>Greetings from Boodskap,</label><p>Hey <b class="name-overflow">' + fullName + '</b>, Welcome back!</p>', 'platform', 3000);
         Cookies.set('greetings', 'true');
         playSound();
     }

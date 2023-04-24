@@ -28,9 +28,9 @@ function loadAssetList() {
             sWidth: '15%',
             orderable: true,
             mRender: function (data, type, row) {
-
-                return '<div class="d-flex justify-content-between"><div style="max-width: 200px;" class="text-truncate" title="'+data+'">'+data+'</div><button class="btn bskp-edit-btn mr-2 ml-2 bskp-greyicon pull-right" onclick="openModal(4,\'' + row["id"] + '\')" title="Link Device">' +
-                '<em class="icon-eye2"></em></button></div>';
+                var data = data ? data : '-';
+                return '<div class="d-flex justify-content-between" style="max-width: 225px;"><div style="max-width: 200px;" class="text-truncate" title="'+data+'">'+data + '</div><button class="btn bskp-edit-btn mr-2 bskp-greyicon pull-right" onclick="openModal(4,\'' + row["id"] + '\')" title="Link Device">' +
+                    '<em class="icon-eye2"></em></button></div>';
             }
         },
         {
@@ -39,7 +39,10 @@ function loadAssetList() {
             sWidth: '20%',
             orderable: false,
             mRender: function (data, type, row) {
-                return '<div style="max-width: 200px;" class="text-truncate" title="'+data+'">'+data+'</div>';
+                var data = data ? data : '-';
+                return '<div style="max-width: 225px;" class="text-truncate" title="'+data+'">'+data + '</div>';
+
+                
             }
         },
         {
@@ -53,7 +56,7 @@ function loadAssetList() {
                 data = data.replace(/</g, "&lt");
                 data = data.replace(/>/g, "&gt");
 
-                return '<div style="max-width: 500px;" class="text-truncate" title="'+data+'">'+data+'</div>';
+                return '<div style="max-width: 350px;" class="text-truncate" title="'+data+'">'+data+'</div>';
 
             }
         },
@@ -296,10 +299,10 @@ function loadLinkedDevices(id) {
             if(device_list.length > 0){
                 for (const element of device_list) {
                     $("#linkedTable tbody").append('<tr>' +
-                        '<td>' + element.id + '<br><small class="text-grey">'+element.name+'</small></td>' +
-                        '<td>' + element.modelId + '</td>' +
-                        '<td>' + element.version + '</td>' +
-                        '<td><button class="btn bskp-edit-btn  bskp-greyicon mr-2" title="Unlink device" onclick="unlinkDevice(\'' + element.id + '\',\''+id+'\')"><em class="icon-unlink"></em></button> </td>' +
+                        '<td style="max-width: 50px;" class="text-truncate" title="'+element.id+'">' + element.id + '</td>' +
+                        '<td style="max-width: 50px;" class="text-truncate" title="'+element.modelId+'">' + element.modelId + '</td>' +
+                        '<td style="max-width: 50px;" class="text-truncate" title="'+element.version+'">' + element.version + '</td>' +
+                        '<td style="max-width: 50px;" class="text-truncate"><button class="btn bskp-edit-btn  bskp-greyicon mr-2" title="Unlink device" onclick="unlinkDevice(\'' + element.id + '\',\''+id+'\')"><em class="icon-unlink"></em></button> </td>' +
                         '</tr>');
                 }
             }else{
@@ -371,7 +374,9 @@ function updateAsset() {
     upsertAsset(assetObj, function (status, data) {
         if (status) {
             successMsg('Asset Updated Successfully');
-            loadAssetList();
+            setTimeout(() => {
+                loadAssetList();
+            }, 2000);
             $("#addAsset").modal('hide');
         } else {
             errorMsg('Error in Updating Asset')
@@ -385,7 +390,9 @@ function proceedDelete() {
     deleteAsset(current_asset_id, function (status, data) {
         if (status) {
             successMsg('Asset Deleted Successfully');
-            loadAssetList();
+            setTimeout(() => {
+                loadAssetList();
+            }, 2000);
             $("#deleteModal").modal('hide');
         } else {
             errorMsg('Error in delete')
@@ -473,8 +480,8 @@ function loadDeviceList(searchText) {
             $(".deviceListUl").html('');
             if(device_list.length > 0){
                 for (const element of device_list) {
-                    $(".deviceListUl").append('<li class="deviceListLi" onclick="setDeviceId(\'' + element.id + '\')">' +
-                        (element.name ? element.name : element.id) + ' | ' + element.modelId + ' | <b>' +
+                    $(".deviceListUl").append('<li class="deviceListLi" style="word-wrap: break-word;width: auto;" onclick="setDeviceId(\'' + element.id + '\')">' +
+                    element.id + '|' +(element.name ? element.name : element.id) + ' | ' + element.modelId + ' | <b>' +
                         element.version +
                         '</b></li>');
                 }

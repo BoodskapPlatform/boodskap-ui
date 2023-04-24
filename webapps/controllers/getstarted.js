@@ -3,8 +3,10 @@
 var current_msgdef_obj = null;
 var current_dev_obj = null;
 var current_dev_token = null;
+var device_list_length = 0;
 var message_obj = {};
 var MSG_FIELD_COUNT = 0;
+var  device_list = [];
 var TEMP_MSG_FIELD_COUNT = 0;
 $(document).ready(function(){
     initialChecks();
@@ -43,6 +45,7 @@ function initialChecks(){
                 searchDevice(queryParams, function (status, data) {
                     if(status){
                         var resultData = searchQueryFormatterNew(data).data;
+                        device_list_length = resultData.data.length;
                         if(resultData.data.length === 0){
                             dcbk(null, true);
                         } else {
@@ -63,7 +66,6 @@ function initialChecks(){
             }
         });
 }
-
 
 
 function openGetStartedModal() {
@@ -400,6 +402,9 @@ function createDevice() {
         errorMsgBorder('Device version is required', 'device_version');
         return false;
 
+    }else if(LicenseDetails.devices <= device_list_length){   console.log("In");
+        warningMsg('Your plan have '+LicenseDetails.devices+' devices.')
+        return
     }else{
 
         var deviceObj = {

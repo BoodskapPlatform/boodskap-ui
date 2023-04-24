@@ -122,7 +122,7 @@ function snackBar(id) {
 
 function errorMsgBorder(msg, id,authvalue) {
  if(id){
-    $("#log"+id).html(msg).css({"color":"red","font-weight":"600"});
+    $("#log"+id).html("<i class='fa fa-exclamation-triangle'></i> " +msg).css({"color":"#ff0000","font-weight":"600"});
   }
   else{
     $("#snackbar").html("<i class='fa fa-exclamation-triangle'></i> " + msg);
@@ -809,12 +809,23 @@ function onlyNumber(e) {
 }
 
 function warningMsg(msg){
-    let alertMsg = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    let alertMsg = null;
+    if(msg === 'API hits exhausted'){
+        alertMsg = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+        `+msg+` Go to buy here <a href="https://devbilling.boodskap.io/" class="text-warning" target="_blank">upgrade </a>
+        / <a href="javascript:;" class="text-warning" onclick="logout()"> logout</a>
+        <button type="button" class="close close-alert-btn mt-1" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>`;
+    }else{
+     alertMsg = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
     `+msg+` Go to buy here <a href="https://devbilling.boodskap.io/" class="text-warning" target="_blank">upgrade</a>
     <button type="button" class="close close-alert-btn mt-1" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
-  </div>`
+  </div>`;
+    }
   $("#warningsnackbar").addClass('show');
   $('#warningsnackbar').html(alertMsg)
 }

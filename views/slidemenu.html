@@ -2,7 +2,7 @@
 
 <div id="mySidenav" class="sidenav bskp-sidenav" style="background-color:white">
     <div class="sidebar" style="width: 250px;padding-top: 60px;">
-    <ul class="nav" style="margin-bottom: 50px">
+    <ul class="nav" style="padding-bottom: 50px;">
         <li class="has-sub active sideMain homeMenu">
             <a href="<%= basepath %>/home">
                 <img src="images/menu/home_icon.svg" alt="">
@@ -74,8 +74,8 @@
                 <span>Record Definition</span>
             </a>
         </li>
-        <li class="has-sub sideMain recordDefMenu dbquery">
-            <a href="javascript:void(0)" onclick="errorMsg('Contact Administrator!');"><!-- href="<%= basepath %>/db-table"> -->
+        <li class="has-sub sideMain recordDefMenu dbqueryhome">
+            <a href="<%= basepath %>/db-table"> <!-- href="<%= basepath %>/db-table"> -->
                 <img src="images/menu/db-table.svg" alt="">
                 <span>DB Tables</span>
             </a>
@@ -98,6 +98,12 @@
                 <span>Rules Engine</span>
             </a>
         </li>
+        <li class="has-sub sideMain rulesMenu">
+            <a href="<%= basepath %>/rules-engine-v2">
+                <img src="images/menu/rules-engine-fanta-bskp.svg" alt="">
+                <span>Rules Engine -v2</span>
+            </a>
+        </li>
         <li class="has-sub sideMain codeEditor">
             <a href="<%= basepath %>/code-editor">
                 <img src="images/menu/code-editor.svg" alt="">
@@ -117,15 +123,26 @@
             </a>
         </li>
 
-        <li class="has-sub sideMain sqlquery">
-            <a href="javascript:void(0)" onclick="errorMsg('Contact Administrator!');"><!-- href="<%= basepath %>/sql-templates" -->
+        <li class="has-sub sideMain dsqlquery">
+            <a href="javascript:void(0)" onclick="errorMsg('404 Page not found!');"><!-- href="<%= basepath %>/sql-templates" -->
                 <img src="images/menu/dsql-temp.svg" alt="">
                 <span>DSQL Templates</span>
             </a>
         </li>
-
-        <li class="has-sub sideMain dbquery">
-            <a href="javascript:void(0)" onclick="errorMsg('Contact Administrator!');" ><!-- href="<%= basepath %>/db-templates" -->
+        <li class="has-sub sideMain marketMenu dsqlquery">
+            <a href="javascript:void(0)" onclick="errorMsg('404 Page not found!');" > <!--  href="<%= basepath %>/sql-query-console" -->
+                <img src="images/menu/dsql-console.svg" alt="">
+                <span>DSQL Query Console</span>
+            </a>
+        </li>
+        <li class="has-sub sideMain marketMenu dsqlquery">
+            <a href="javascript:void(0)" onclick="errorMsg('404 Page not found!');" > <!--  href="<%= basepath %>/sql-query-console" -->
+                <img src="images/menu/sql-table.svg" alt="">
+                <span>DSQL Tables</span>
+            </a>
+        </li>
+        <li class="has-sub sideMain dbqueryhome">
+            <a href="<%= basepath %>/db-templates"> <!-- href="<%= basepath %>/db-templates" -->
                 <img src="images/menu/db-templates.svg" alt="">
                 <span>DB Templates</span>
             </a>
@@ -256,6 +273,12 @@
                 <span>Amazon Alexa</span>
             </a>
         </li>
+        <li class="has-sub sideMain alexaMenu">
+            <a href="javascript:void(0)" onclick="errorMsg('404 Page not found!');">
+                <img src="images/menu/amaz-mic.svg" alt="">
+                <span>Google Voice</span>
+            </a>
+        </li>
 
 
         <li class="nav-header">Utilities</li>
@@ -273,20 +296,32 @@
                 <span>Elastic Search Query</span>
             </a>
         </li>
-        <li class="has-sub sideMain marketMenu dbquery">
-            <a href="javascript:void(0)" onclick="errorMsg('Contact Administrator!');" ><!-- href="<%= basepath %>/db-query-console" -->
+        <li class="has-sub sideMain marketMenu">
+            <a href="<%= basepath %>/sql-query-console" >
+                <img src="images/menu/dsql-console.svg" alt="">
+                <span>Ignite SQL Query</span>
+            </a>
+        </li>
+        <li class="has-sub sideMain marketMenu dbqueryhome">
+            <a href="<%= basepath %>/db-query-console">
                 <img src="images/menu/db-query.svg" alt="">
                 <span>DB Query Console</span>
             </a>
         </li>
-        <li class="has-sub sideMain marketMenu dbquery">
-            <a href="<%= basepath %>/mongo-console" ><!-- href="<%= basepath %>/db-query-console" -->
-                <img src="images/menu/mongodb-query.svg" alt="">
-                <span>Mongo Query Console</span>
+        <li class="has-sub sideMain marketMenu mongoqueryhome">
+            <a href="<%= basepath %>/mongodb">
+                <img src="images/menu/mongodb.svg" alt="">
+                <span>MongoDB</span>
             </a>
         </li>
-        <li class="has-sub sideMain marketMenu sqlquery">
-            <a href="javascript:void(0)" onclick="errorMsg('Contact Administrator!');" ><!--  href="<%= basepath %>/sql-query-console" -->
+        <li class="has-sub sideMain marketMenu mongoqueryhome">
+            <a href="<%= basepath %>/mongo-console" >
+                <img src="images/menu/mongodb-query.svg" alt=""> 
+                <span>MongoDB Query Console</span>
+            </a>
+        </li>
+        <li class="has-sub sideMain marketMenu sqlqueryhome">
+            <a  href="<%= basepath %>/sql-query-console" >
                 <img src="images/menu/dsql-console.svg" alt="">
                 <span>Ignite SQL Query</span>
             </a>

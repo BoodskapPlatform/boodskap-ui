@@ -124,3 +124,6 @@ ol li{
     overflow-y:auto;
     max-height: 170px;
 }
+.bskp-trash-btn{
+    border: 1px solid #bbc4d1;
+}

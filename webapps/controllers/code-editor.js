@@ -487,8 +487,7 @@ function loadEdtior(code, isPublic) {
 
 function openModalClasses() {
     $(".logResult").html("");
-    $("#class_type").val("");
-    loadClassTemplate("");
+    loadClassTemplate('GROOVY');
     $("#addClass").modal({
         backdrop: 'static',
         keyboard: false

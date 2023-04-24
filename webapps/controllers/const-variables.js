@@ -9,6 +9,21 @@ var CDN_PATH =  CONFIG.cdnPath;
 var ENV = CONFIG.development ? CONFIG.development : false;
 var BASE_PATH = CONFIG.basepath;
 let PLANS_LIST = {
+    "0" : {
+        "plan_title" : "Free",
+        "price" : 0,
+        "currency" : "dollar",
+        "details" : {
+            "data_points" : 100000,
+            "api_hits" : 10000,
+            "devices" : 5,
+            "connected_devices" : 1,
+            "tenants" : 1,
+            "data_retentions" : 1500000,
+            "add_on_subscription" : false,
+            "support" : "community"
+        }
+    },
     "1" : {
         "plan_title" : "Free",
         "price" : 0,
@@ -72,6 +87,21 @@ let PLANS_LIST = {
     "5" : {
         "plan_title" : "Professional",
         "price" : 149,
+        "currency" : "dollar",
+        "details" : {
+            "data_points" : 5000000,
+            "api_hits" : 500000,
+            "devices" : 10000,
+            "connected_devices" : 100,
+            "tenants" : 1,
+            "data_retentions" : 600000000,
+            "add_on_subscription" : true,
+            "support" : "Email - in 4 hrs"
+        }
+    },
+    "-1" : {
+        "plan_title" : "Unlimited",
+        "price" : "Unlimited",
         "currency" : "dollar",
         "details" : {
             "data_points" : 5000000,

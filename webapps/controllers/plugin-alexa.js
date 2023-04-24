@@ -68,8 +68,8 @@ function loadAlexa() {
 
                 if(row['createdBy'] === USER_OBJ.user.email) {
                     return '' +
-                        '<button class="btn btn-sm btn-icon btn-default" onclick="openModal(2,\'' + row["id"] + '\')"><i class="icon-edit2"></i></button>' +
-                        '<button class="btn btn-sm btn-icon btn-default" onclick="openModal(3,\'' + row['id'] + '\')"><i class="icon-trash-o"></i></button>';
+                        '<button class="btn btn-sm btn-icon btn-default" title="Edit" onclick="openModal(2,\'' + row["id"] + '\')"><i class="icon-edit2"></i></button>' +
+                        '<button class="btn btn-sm btn-icon btn-default" title="Delete" onclick="openModal(3,\'' + row['id'] + '\')"><i class="icon-trash-o"></i></button>';
                 }else{
                     return '-';
                 }
@@ -175,7 +175,7 @@ function loadNamedRulesList() {
     listNamedRules(1000, null, null, function (status, data) {
 
 
-        $("#rule_name").html('<option value=""></option>');
+        $("#rule_name").html('');
 
 
         if (status && data.length > 0) {

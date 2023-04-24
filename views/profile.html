@@ -1,22 +1,132 @@
+
+<style>
+    @media (max-width:600px){
+        .mob-wrap{
+           flex-wrap: wrap; 
+           flex-direction: column;
+           justify-content: center;
+        }
+        .mx-sm-auto{
+            margin: auto;
+        }
+        .mx-xs-auto{
+            margin: auto;
+        }
+        .m-xs-0{
+            margin: 0px;
+        }
+        .text-xs-center{
+            text-align: center;
+        }
+        .mr-xs-0{
+            margin: 0px !important;
+        }
+        .pageheader-xs{
+            font-size: 16px !important;
+            padding: 12px 15px !important;
+        }
+        .w-xs-38{
+            width:38px !important;
+        }
+        .mb-xs-4{
+            margin-bottom: 1.5rem !important;
+        }
+        .justify-content-xs-center{
+            justify-content: center;
+        }
+        .icon-position{
+        position: relative;
+        float: right;
+        top: -20px;
+        right: 6% !important;
+        }
+
+        .iti {
+         width: 100% !important;
+         }
+    }
+
+   @media(max-width:768px){
+    .navtab-xs{
+    flex-direction: column !important;
+    width: 100% !important;
+    position: initial !important;
+    }
+   }
+    @media (max-width:500px) {
+        .xs-flex-wrap{
+            flex-wrap: wrap;
+        }
+        .px-xs-2{
+            padding-left: 0.5rem !important;
+            padding-right: 0.5rem !important;
+        }
+    }
+
+    .upload-file {
+    position: absolute !important;
+    bottom: -10px !important;
+    left: 52px !important;
+    }
+    .pr-40{
+        padding-right: 40px;
+    }
+
+    @media (max-width: 575px){ 
+     .g-recaptcha {
+        transform:scale(0.77);
+        -webkit-transform:scale(0.77);
+        transform-origin:0 0;
+        -webkit-transform-origin:0 0;
+        
+      }
+     }
+     .g-recaptcha {
+        width: 303px;
+    border-radius: 4px;
+     }
+  
+     .iti {
+         width: 90% ;
+     }
+     .iti input{
+        width: 100% !important;
+     }
+</style>
 <link href="css/edit-profile.css" rel="stylesheet"/>
-<div class="container mt-4 platformBody">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.1.3/css/intlTelInput.css" integrity="sha512-Ky9SFgkYYIAWfFbsz+Tvrs+kpW7mgyQu+glUEnVV60+nxDPe64w0CrYRSMKsmTwJtN2jXNmU5SBgcyzKOwsn3w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<div class="container mt-4 platformBody px-xs-2">
     
 
-    <div class="panel panel-inverse bskp-container-frame">
-        <div>
-            <ol class="breadcrumb pull-right bskp-align-icon">
+    <div class="panel panel-inverse bskp-container-frame m-xs-0">
+        <!-- <div>
+            <ol class="breadcrumb pull-right bskp-align-icon" style="justify-content: center;">
                 
-                <li class="breadcrumb-item"><a href="<%= basepath %>/dashboard">Home</a></li>
-                <li class="breadcrumb-item active">My Profile</li>
+                <li class="breadcrumb-item"><a href="<%= basepath %>/home">Home</a></li>
+                <li class="breadcrumb-item active"><u>My Profile</u></li>
                 <div class="ml-4">
                     
                     <a class="btn bskp-refresh-bg" data-click="panel-reload" title="Refresh" onclick="loadProfile()"><img class="refresh-button" src="images/menu/refresh-button.png" alt=""></a>
                 </div>
            </ol>
-        </div>
+        </div> -->
 
-        <div class="page-header bskp-page-topic page-header-bg"><img src="images/person.png" width="40" alt="person">
+        <div class="page-header pageheader-xs d-flex xs-flex-wrap bskp-page-topic page-header-bg justify-content-between" style="border-radius: 0px;">
+           <div >
+            <img src="images/person.png" width="40" alt="person" class="w-xs-38">
             My Profile
+           </div>
+            <div class="ml-auto">
+                <ol class="breadcrumb bskp-align-icon mr-xs-0" style="justify-content: center;margin: 5px 30px 0px 0px;">
+                    
+                    <li class="breadcrumb-item"><a href="<%= basepath %>/home">Home</a></li>
+                    <li class="breadcrumb-item active"><u>My Profile</u></li>
+                    <div class="ml-4">
+                        
+                        <a class="btn bskp-refresh-bg" data-click="panel-reload" title="Refresh" onclick="loadProfile()"><img class="refresh-button" src="images/menu/refresh-button.png" alt=""></a>
+                    </div>
+               </ol>
+            </div>
         </div>
         <div class="panel-body" >
 
@@ -26,27 +136,28 @@
                     <div class="panel panel-inverse" data-sortable-id="index-1">
                         <div class="">
 
-                            <div class="row px-5">
+                            <div class="row px-md-5">
                                 <div class="col-lg-12">
                                     <div class="row form-group ">
-                                        <div class="col-lg-4 d-flex">
-                                            <div class="upload_profile_pic col-lg-5">
-                                                <div class="outer-border">
-                                                    <div class="circle">
-                                                        <img src="" class="user_profile_picture profile_pic" alt="profile Image">
+                                        <div class="col-lg-4 d-flex mob-wrap">
+                                            <div class="upload_profile_pic mb-xs-4">
+                                                <div class="outer-border mx-xs-auto">
+                                                    <div class="circle mx-sm-auto position-relative d-flex" style="overflow: inherit;">
+                                                        <img src="images/avatar.png" class="user_profile_picture profile_pic" alt="profile Image">
+                                                        <div class="upload-file">
+                                                            <div class="img-bg">
+                                                                <img src="images/camera.svg" class="upload-image" alt="">
+                                                            </div>
+                                                            <input type="file" class="file-upload" id="profileFile" accept="image/*" onchange="uploadImage()" required/>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 
-                                                <div class="upload-file">
-                                                    <div class="img-bg">
-                                                        <img src="images/camera.svg" class="upload-image" alt="">
-                                                    </div>
-                                                    <input type="file" class="file-upload" id="profileFile" accept="image/*" onchange="uploadImage()" required/>
-                                                </div>
+                                               
                                             </div>
-                                            <div class=" pt-5 col-lg-6">
-                                                <p class="fullName"></p>
-                                                <p class="emailId"></p>
+                                            <div class="text-xs-center pt-md-5 pl-md-4">
+                                                <p class="fullName text-capitalize name-overflow"></p>
+                                                 <p class="d-flex justify-content-xs-center"> <img src="images/tick-right.svg" class="tick-left" alt="&#10003;" style="left: 35px;"><span class="emailId pl-1"></span></p>
                                             </div>
                                         </div>
                                         
@@ -55,10 +166,10 @@
                                 <div class="col-sm-12">
                                     <div class="tabbable-responsive">
                                         <div class="tabbable">
-                                            <ul id="tabs" class="nav nav-tabs">
-                                                <li class="nav-item"><a href="" data-target="#profileInformation" data-toggle="tab" class="nav-link small text-capitalize pr-5 py-2 active">Profile Information</a></li>
-                                                <li class="nav-item"><a href="" data-target="#changePassword" data-toggle="tab" class="nav-link small text-capitalize pr-5 py-2">Change Password</a></li>
-                                                <li class="nav-item"><a href="" data-target="#domainInformaion" data-toggle="tab" class="nav-link small text-capitalize pr-5 py-2">Domain Information</a></li>
+                                            <ul id="tabs" class="nav nav-tabs navtab-xs">
+                                                <li class="nav-item"><a href="" data-target="#profileInformation" onclick="loadProfile()" data-toggle="tab" class="nav-link small text-capitalize pr-5 py-2 active">Profile Information</a></li>
+                                                <li class="nav-item"><a href="" data-target="#changePassword" onclick="loadProfile()" data-toggle="tab" class="nav-link small text-capitalize pr-5 py-2">Change Password</a></li>
+                                                <li class="nav-item"><a href="" data-target="#domainInformaion" onclick="loadProfile()" data-toggle="tab" class="nav-link small text-capitalize pr-5 py-2">Domain Information</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -72,7 +183,7 @@
                                                     <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label>First Name *</label>
-                                                            <input type="text" id="firstName" maxlength="100" class="form-control input-sm"required/>
+                                                            <input type="text" id="firstName" maxlength="100" class="form-control input-sm" required placeholder="Enter your first name"/>
                                                             <span id="logfirstName"></span>    
                                                                 
                                                         </div>
@@ -80,26 +191,18 @@
                                                     <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label>Last Name *</label>
-                                                            <input type="text" id="lastName" maxlength="100" class="form-control input-sm"required/>
+                                                            <input type="text" id="lastName" maxlength="100" class="form-control input-sm" required placeholder="Enter your last name"/>
                                                             <span id="loglastName"></span>   
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label>Email</label>
-                                                            <input type="text" id="emailId" readonly class="form-control input-sm read-email"required/>
-                                                            <img src="images/tick-right.svg" class="tick-right" alt="&#10003;">
-                                                            <span id="logemailId"></span>   
-                                                           
-                                                        </div>
-                                                    </div>
                                                     
                                                     <div class="col-md-4">
                                                         <div class="form-group">
-                                                            <label>Mobile No </label>
-                                                            <input type="text" id="mobileNo" class="form-control input-sm" onkeypress="return onlyNumeric(event);" maxlength="15"/>
+                                                            <label>Mobile No </label>  <br>
+                                                            <input type="tel"  onkeypress="return onlyNumeric(event);" class="form-control input-sm" maxlength="10" id="mobileNo" placeholder="Enter your mobile number"/>
+                                                            <br>
                                                             <small>Eg, +19876543210 (Including + & country code)</small>
                                                             <span id="logmobileNo"></span>
                                                         </div>
@@ -120,16 +223,16 @@
                                             <form class="changePassword" action="javascript:void(0)" novalidate onsubmit="updatePassword()">
                                                 <div class="row">
                                                     <div class="col-lg-4">
-                                                        <div class="form-group">
+                                                        <div class="form-group position-relative">
                                                             <label>New Passsword</label>
-                                                            <input type="password" class="form-control form-control-sm input-text" id="password" placeholder="New Password" required/>
+                                                            <input type="password" class="form-control form-control-sm input-text pr-40" id="password"  maxlength="50" placeholder="New Password" required/>
                                                                 <em onclick="toggleBox()" class="fa fa-eye form-control-feedback passwordIcon icon-position" ></em>
                                                                 <span id="logpassword"></span>
                                                                 
                                                         </div>
-                                                        <div class="form-group">
+                                                        <div class="form-group position-relative">
                                                             <label>Confirm Passsword</label>
-                                                            <input type="password" class="form-control form-control-sm input-text" id="conf_password" placeholder="Confirm Password" required/>
+                                                            <input type="password" class="form-control form-control-sm input-text pr-40" id="conf_password"  maxlength="50" placeholder="Confirm Password" required/>
                                                                 <em onclick="toggles()" class="fa fa-eye form-control-feedback conf_passwordIcon icon-position" ></em>
                                                                 <span id="logconf_password"></span>
                                                                 
@@ -158,7 +261,7 @@
                                                     <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label>Primary Domain</label>
-                                                            <input type="text" class="form-control form-control-sm primary_domain" id="primaryDomain">
+                                                            <input type="text"maxlength="100" placeholder="Enter Primary Domain" class="form-control form-control-sm primary_domain" id="primaryDomain">
                                                             
                                                             <span id="logprimaryDomain"></span>
                                                             <button class="btn mt-4 btn-size btn-background px-4"
@@ -197,9 +300,10 @@
     </div>
 
 </div>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="/third-party-config.js"></script>
 <script src="controllers/profile.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.1.3/js/intlTelInput.min.js" integrity="sha512-8XuX34GV5xacR9b/Co1BXl4mwi6G/8Ro0iRE8lP1OL2wloXCnFQ4gEBk7lv3qTRVGKoT+pT9X1GH/LRp/Vqg5Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <script>
     $("body").removeClass('bg-white');
@@ -207,4 +311,5 @@
     function onSubmit(token) {
      document.getElementById("registerForm").submit();
    }
+
 </script>

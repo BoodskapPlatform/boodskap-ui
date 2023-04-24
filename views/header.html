@@ -1,21 +1,56 @@
+<style>
+      @media (max-width:500px) {
+        .mr-xs-2{
+           margin-right:10px !important;
+        }
+    }
+
+ 
+</style>
 <link href="css/header.css" rel="stylesheet" />
 
-<div id="header" class="header header-style" >
+<div id="header" class="header header-style" >  
     <!-- begin navbar-header -->
     <div class="navbar-header ">
 
-        <span class="barmenu bskp-bardiv bskp-frame-shadow" onclick="openNav()" ><i class="icon-bars" style="font-size: 19px;"></i></span>
+        <span class="barmenu bskp-bardiv mr-xs-2  bskp-frame-shadow" onclick="openNav()" ><i class="icon-bars" style="font-size: 19px;"></i></span>
 
-        <a href="javascript:void(0)" class="navbar-brand" style="padding: 2px 5px;width: 130px;">
-            <img src="image" class="domain_logo" style="height:45px;display:none;"  alt="menu" onclick="openNav()" > </a>
+        <div class="d-flex xs-flex-wrap" style="justify-content: space-between;">
+           
+    
+            <a href="javascript:void(0)" class="navbar-brand" style="padding: 2px 5px;width: 130px;">
+                <img src="image" class="domain_logo" style="height:45px;display:none;"  alt="menu" onclick="openNav()" > </a>
+      
+                <div class="d-flex ml-auto">
+                    <ul class="dropdown navbar-user mb-0 btnMobile">
+                        <a href="javascript:;" class="dropdown-toggle mt-0 navbar-toggle mb-0 btn btn-circle btn-sm btnMobile" style="padding: 12px 2px;margin-right: 6px;"  data-toggle="dropdown">
+                         <span>   
+                            <img src="images/avatar.png" alt="" class="user_profile_picture" style="margin: -5px 5px 0 0;">
+                         </span> 
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" style="border-top: 0px;padding-top: 0px;">
+                            <div class="userRoles menulink" style="padding: 5px;text-transform: capitalize;border-top: 1px solid #dddddd;border-bottom: 1px solid #dddddd;">
+                            </div>
+                            <a href="<%= basepath %>/profile" class="dropdown-item"><i class="icon-edit2"></i> Edit Profile</a>
+                            <!--<a href="<%= basepath %>/myaccount" class="dropdown-item">My Account</a>-->
+                            <a href="<%= basepath %>/domain" class="dropdown-item menulink"><i class="icon-globe"></i> Domain Settings</a>
+                            <a href="#" class="dropdown-item menulink"><i class="icon-question-circle"></i> Help & Support</a>
+                            <div class="dropdown-divider"></div>
+                            <a href="javascript:;" class="dropdown-item" onclick="logout()"><i class="icon-sign-out"></i> Log Out</a>
+                        </div>
+                    </ul>
+        
+                   <a  class="navbar-toggle btn btn-circle btn-warning btn-sm btnMobile ml-1"  href="<%= basepath %>/profile" style="height:30px;margin-right: 10px;">
+                    <i class="icon-user"></i>
+                   </a>
 
-        <button type="button"  class="navbar-toggle btn btn-circle btn-danger btn-sm btnMobile" onclick="logout()">
-            <i class="icon-sign-out"></i>
-        </button>
+                   <button type="button"  class="navbar-toggle mt-2 btn btn-circle btn-danger btn-sm btnMobile" onclick="logout()" style="height:30px;margin: 0px 0px 0px 4px;">
+                    <i class="icon-sign-out"></i>
+                  </button>
+                </div>
+        </div>
 
-        <a  class="navbar-toggle btn btn-circle btn-warning btn-sm btnMobile" style="right:20px;" href="<%= basepath %>/profile">
-            <i class="icon-user"></i>
-        </a>
+       
     </div>
     <!-- end navbar-header -->
 
@@ -24,19 +59,17 @@
         <li class="googletranslate bskp-frame-shadow bskp-select-pad hidden-sm">
 
 
-            <div id="google_translate_element"  ></div><script type="text/javascript">
-            function googleTranslateElementInit() {
-                new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'da,de,en,es,fr,ga,hi,id,it,ja,ms,nl,pt,ro,ru,sv,ta,ur,zh-CN', layout: google.translate.TranslateElement.InlineLayout.SIMPLE, multilanguagePage: true}, 'google_translate_element');
-            }
-        </script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+        <div id="google_translate_element"  ></div>
+        <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'da,de,en,es,fr,ga,hi,id,it,ja,ms,nl,pt,ro,ru,sv,ta,ur,zh-CN', layout: google.translate.TranslateElement.InlineLayout.SIMPLE, multilanguagePage: true}, 'google_translate_element');
+        }
+        </script>
+        <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 
         </li>
-        <li class="verticalsolutions">
-
-
-
-        </li>
+     
         <li class="dropdown menulink">
             <a href="javascript:;" onclick="openmegamenu()" class="dropdown-toggle bskp-select-pad mr-3 bskp-frame-shadow"  style="font-weight:600; padding: 4px 8px 4px 8px !important;" >
                 <i class="fa fa-search mega-search pr-1" aria-hidden="true"></i> Boodskap Platform <b class="caret"></b>
@@ -153,7 +186,7 @@
         <li class="dropdown navbar-user mr-3">
             <a href="javascript:;" class="dropdown-toggle" style="padding: 15px 2px;"  data-toggle="dropdown">
                 <img src="images/avatar.png" alt="" class="user_profile_picture">
-                <span class="d-none d-md-inline"></span><span class="user_profile_name"></span> <b class="caret"></b>
+                <span class="d-none d-md-inline"></span><span class="user_profile_name name-overflow"></span> <b class="caret"></b>
             </a>
             <div class="dropdown-menu dropdown-menu-right" style="border-top: 0px;padding-top: 0px;">
                 <div class="userRoles menulink" style="padding: 5px;text-transform: capitalize;border-top: 1px solid #dddddd;border-bottom: 1px solid #dddddd;">
@@ -161,7 +194,7 @@
                 <a href="<%= basepath %>/profile" class="dropdown-item"><i class="icon-edit2"></i> Edit Profile</a>
                 <!--<a href="<%= basepath %>/myaccount" class="dropdown-item">My Account</a>-->
                 <a href="<%= basepath %>/domain" class="dropdown-item menulink"><i class="icon-globe"></i> Domain Settings</a>
-                <a href="https://developer.boodskap.io/" class="dropdown-item menulink" target="_blank"><i class="icon-question-circle"></i> Help & Support</a>
+                <a href="#" class="dropdown-item menulink"><i class="icon-question-circle"></i> Help & Support</a>
                 <div class="dropdown-divider"></div>
                 <a href="javascript:;" class="dropdown-item" onclick="logout()"><i class="icon-sign-out"></i> Log Out</a>
             </div>
@@ -309,16 +342,22 @@
                                         <span>Elastic Search Query</span>
                                     </a>
                                 </li>
-                                <li class="has-sub sideMain marketMenu">
-                                    <a href="javascript:void(0)" onclick="errorMsg('Contact Administrator!');" style="color: #2d2f79;"><!--  href="<%= basepath %>/sql-query-console" -->
+                                <li class="has-sub sideMain sqlqueryhome">
+                                    <a href="<%= basepath %>/sql-query-console" style="color: #2d2f79;">
                                         <img src="images/menu/dsql-console.svg" alt="">
                                         <span>Ignite SQL Query</span>
                                     </a>
-                                </li>
+                                </li>  
                                 <li class="has-sub sideMain marketMenu">
                                     <a href="<%= basepath %>/event-logs" style="color: #2d2f79;">
                                         <img src="images/menu/event-log.svg" alt="">
                                         <span>Event Logs</span>
+                                    </a>
+                                </li>
+                                <li class="has-sub sideMain marketMenu">
+                                    <a href="<%= basepath %>/log-console" style="color: #2d2f79;">
+                                        <img src="images/menu/app-log.svg" alt="">
+                                        <span>Application Logs</span>
                                     </a>
                                 </li>
                                 <li class="has-sub sideMain eventMenu">
@@ -352,6 +391,12 @@
                                         <span>Geofence Management</span>
                                     </a>
                                 </li> 
+                                <li class="has-sub sideMain googleVoice">
+                                    <a href="javascript:void(0)" onclick="errorMsg('404 Page not found!');">
+                                        <img src="images/menu/amaz-mic.svg" alt="">
+                                        <span>Google Voice</span>
+                                    </a>
+                                </li>
                                 <!-- <li class="has-sub sideMain billingMenu">
                                     <a href="<%= basepath %>/invoice" style="color: #2d2f79;">
                                         <i class="icon-coin-dollar"></i>
@@ -364,8 +409,8 @@
                                         <span>Message Definition</span>
                                     </a>
                                 </li>
-                                <li class="has-sub sideMain dbqueryMenu">
-                                    <a href="javascript:void(0)" onclick="errorMsg('Contact Administrator!');" style="color: #2d2f79;"><!--  href="<%= basepath %>/db-table" -->
+                                <li class="has-sub sideMain dbqueryhome">
+                                    <a href="<%= basepath %>/db-table" style="color: #2d2f79;">
                                         <img src="images/menu/db-table.svg" alt="">
                                         <span>DB Tables</span>
                                     </a>
@@ -388,19 +433,43 @@
                                         <span>Platform Templates</span>
                                     </a>
                                 </li>
-                                <li class="has-sub sideMain eventMenu">
-                                    <a href="javascript:void(0)" onclick="errorMsg('Contact Administrator!');" style="color: #2d2f79;"><!--  href="<%= basepath %>/dsql-templates" -->
+                                <li class="has-sub sideMain dsqlquery">
+                                    <a href="javascript:void(0)" onclick="errorMsg('404 Page not found!');">
                                         <img src="images/menu/dsql-temp.svg" alt="">
                                         <span>DSQL Templates</span>
                                     </a>
                                 </li>
-                                <li class="has-sub sideMain eventMenu">
-                                    <a href="javascript:void(0)" onclick="errorMsg('Contact Administrator!');" style="color: #2d2f79;"><!-- href="<%= basepath %>/db-templates" -->
+                                <li class="has-sub sideMain marketMenu dsqlquery">
+                                    <a href="javascript:void(0)" onclick="errorMsg('404 Page not found!');" >
+                                        <img src="images/menu/dsql-console.svg" alt="">
+                                        <span>DSQL Query Console</span>
+                                    </a>
+                                </li>
+                                <li class="has-sub sideMain marketMenu dsqlquery">
+                                    <a href="javascript:void(0)" onclick="errorMsg('404 Page not found!');" >
+                                        <img src="images/menu/sql-table.svg" alt="">
+                                        <span>DSQL Tables</span>
+                                    </a>
+                                </li>
+                                
+                                <li class="has-sub sideMain dbqueryhome">
+                                    <a href="<%= basepath %>/db-templates" style="color: #2d2f79;">
                                         <img src="images/menu/db-templates.svg" alt="">
                                         <span>DB Templates</span>
                                     </a>
                                 </li>
-                            
+                                <li class="has-sub sideMain marketMenu mongoqueryhome">
+                                    <a href="<%= basepath %>/mongodb">
+                                        <img src="images/menu/mongodb.svg" alt="">
+                                        <span>MongoDB</span>
+                                    </a>
+                                </li>
+                                <li class="has-sub sideMain marketMenu mongoqueryhome">
+                                    <a href="<%= basepath %>/mongo-console" >
+                                        <img src="images/menu/mongodb-query.svg" alt="">
+                                        <span>MongoDB Query Console</span>
+                                    </a>
+                                </li>
                                 <!-- <li class="has-sub sideMain pluginMenu">
                                     <a href="<%= basepath %>/plugin-management" style="color: #2d2f79;">
                                         <i class="icon-puzzle-piece"></i>
@@ -419,20 +488,26 @@
                                         <span>Rules Engine</span>
                                     </a>
                                 </li>
+                                <li class="has-sub sideMain rulesMenu">
+                                    <a href="<%= basepath %>/rules-engine-v2">
+                                        <img src="images/menu/rules-engine-fanta-bskp.svg" alt="">
+                                        <span>Rules Engine -v2</span>
+                                    </a>
+                                </li>
                                 <li class="has-sub sideMain scriptMenu">
                                     <a href="<%= basepath %>/script-console" style="color: #2d2f79;">
                                         <img src="images/menu/script-console-fanta-bskp.svg" alt="">
                                         <span>Script Console</span>
                                     </a>
                                 </li>
-                                <li class="has-sub sideMain scriptMenu">
-                                    <a href="javascript:void(0)" onclick="errorMsg('Contact Administrator!');" style="color: #2d2f79;"><!--  href="<%= basepath %>/db-query-console" -->
+                                <li class="has-sub sideMain dbqueryhome">
+                                    <a href="<%= basepath %>/db-query-console" style="color: #2d2f79;">
                                         <img src="images/menu/db-query.svg" alt="">
                                         <span>DB Query Console</span>
                                     </a>
                                 </li>
                                 <li class="has-sub sideMain scriptMenu">
-                                    <a href="javascript:void(0)" onclick="errorMsg('Contact Administrator!');" style="color: #2d2f79;"><!-- href="<%= basepath %>/sql-table" -->
+                                    <a href="<%= basepath %>/sql-table" style="color: #2d2f79;">
                                         <img src="images/menu/sql-table.svg" alt="">
                                         <span>SQL Tables</span>
                                     </a>
@@ -569,7 +644,7 @@
                             </a>
                         </div>-->
                         <div class="w-50 w-sm-100 w-md-50 px-2 megacard dbqueryhome" ><!-- onclick="loadMenu(29)" -->
-                            <a href="javascript:void(0)" onclick="errorMsg('Contact Administrator!');"><!-- href="<%= basepath %>/db-table" onclick="clickRecent('DB Tables','db-table',29,5)" -->
+                            <a href="<%= basepath %>/db-table" onclick="clickRecent('DB Tables','db-table',29,5)">
                                 <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('DB Tables','db-tables',29,5)" -->
                                     <div class="bskp-icon-frame">
                                         <div class="bskp-Dbg bskp-Dimg5"> </div>
@@ -579,7 +654,7 @@
                             </a>    
                         </div>
                         <div class="w-50 w-sm-100 w-md-50 px-2 megacard dbqueryhome" ><!-- onclick="loadMenu(31)" -->
-                            <a href="javascript:void(0)" onclick="errorMsg('Contact Administrator!');"><!-- href="<%= basepath %>/db-templates" onclick="clickRecent('DB Templates','db-templates',31,10)" -->
+                            <a href="<%= basepath %>/db-templates" onclick="clickRecent('DB Templates','db-templates',31,10)">
                                 <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('DB Templates','db-templates',31,10)" -->
                                     <div class="bskp-icon-frame">
                                         <div class="bskp-Dbg bskp-Dimg10"> </div>
@@ -589,7 +664,7 @@
                             </a>    
                         </div>
                         <div class="w-50 w-sm-100 w-md-50 px-2 megacard dbqueryhome" ><!-- onclick="loadMenu(30)" ccccccccccccccccccccccc -->
-                            <a href="javascript:void(0)" onclick="errorMsg('Contact Administrator!');"><!-- href="<%= basepath %>/db-query-console" onclick="clickRecent('DB Query Console','db-query-console',30,16)" -->
+                            <a href="<%= basepath %>/db-query-console" onclick="clickRecent('DB Query Console','db-query-console',30,16)">
                                 <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('DB Query Console','db-query-console',30,16)" -->
                                     <div class="bskp-icon-frame">
                                         <div class="bskp-Dbg bskp-Dimg16"> </div>
@@ -599,9 +674,9 @@
                             </a>    
                         </div>
 
-                        <div class="w-50 w-sm-100 w-md-50 px-2 megacard sqlqueryconsolehome" ><!-- onclick="loadMenu(30)" ccccccccccccccccccccccc -->
-                            <a href="javascript:void(0)" onclick="errorMsg('Contact Administrator!');"><!-- href="<%= basepath %>/sql-query-console" onclick="clickRecent('Ignite SQL Query','sql-query-console',54,40)" -->
-                                <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('DB Query Console','db-query-console',30,16)" -->
+                        <div class="w-50 w-sm-100 w-md-50 px-2 megacard sqlqueryhome" ><!-- onclick="loadMenu(30)" ccccccccccccccccccccccc -->
+                            <a href="<%= basepath %>/sql-query-console" onclick="clickRecent('Ignite SQL Query','sql-query-console',54,40)"> <!-- onclick="loadMenu(30)" ccccccccccccccccccccccc -->
+                                <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('Ignite SQL Query','sql-query-console',54,40)" -->
                                     <div class="bskp-icon-frame">
                                         <div class="bskp-Dbg bskp-Dimg40"> </div>
                                     </div>
@@ -650,6 +725,17 @@
                                 </div>
                             </a>    
                         </div>
+                        <div class="w-50 w-sm-100 w-md-50 px-2 megacard"><!-- onclick="loadMenu(4)"> -->
+                            <a href="<%= basepath %>/rules-engine-v2" onclick="clickRecent('Rules Engine -v2','rules-engine-v2',40,25)">
+                                <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('Rules Engine','rules_engine',4,25)" -->
+                                    <div class="bskp-icon-frame">
+                                        <div class="bskp-Dbg bskp-Dimg25"> </div>
+                                    </div>
+                                    <p class="mt-2"><label class="cardtitle">Rules Engine -v2</label></p>
+                                </div>
+                            </a>    
+                        </div>
+                       
                         <div class="w-50 w-sm-100 w-md-50 px-2 megacard" ><!-- onclick="loadMenu(23)" -->
                             <a href="<%= basepath %>/code-editor" onclick="clickRecent('Code Editor','code-editor',23,34)">
                                 <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('Code Editor','code_editor',23,34)" -->
@@ -785,7 +871,7 @@
                             </a>    
                         </div>
                         <div class="w-50 w-sm-100 w-md-50 px-2 megacard" >
-                            <a href="javascript:void(0)" onclick="errorMsg('Contact Administrator!');"><!--  href="<%= basepath %>/" onclick="clickRecent('Google Voice','google-voice','',33)" -->
+                            <a href="javascript:void(0)" onclick="errorMsg('404 Page not found!');">
                                 <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('Google Voice','google_voice','',33)" -->
                                     <div class="bskp-icon-frame">
                                         <div class="bskp-Dbg bskp-Dimg33"> </div>
@@ -816,12 +902,12 @@
                                     <div class="bskp-icon-frame">
                                         <div class="bskp-Dbg bskp-Dimg26"> </div>
                                     </div>
-                                    <p class="mt-2"><label class="cardtitle">Elastic Search Query</label></p>
+                                    <p class="mt-2"><label class="cardtitle">Query Console</label></p>
                                 </div>
                             </a>    
                         </div>
-                        <div class="w-50 w-sm-100 w-md-50 px-2 megacard sqlqueryhome" ><!-- onclick="loadMenu(26)" ccccccccccccccccccc -->
-                            <a href="javascript:void(0)" onclick="errorMsg('Contact Administrator!');"><!-- href="<%= basepath %>/" onclick="clickRecent('DSQL Query Console','dsql-query-console',26,15)" -->
+                        <div class="w-50 w-sm-100 w-md-50 px-2 megacard dsqlqueryhome" ><!-- onclick="loadMenu(26)" ccccccccccccccccccc -->
+                            <a href="javascript:void(0)" onclick="errorMsg('404 Page not found!');" >
                                 <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('DSQL Query Console','dsql_query_console',26,15)" -->
                                     <div class="bskp-icon-frame">
                                         <div class="bskp-Dbg bskp-Dimg15"> </div>
@@ -830,8 +916,8 @@
                                 </div>
                             </a>    
                         </div>
-                        <div class="w-50 w-sm-100 w-md-50 px-2 megacard" ><!-- onclick="loadMenu(36)" -->
-                            <a href="javascript:void(0)" onclick="errorMsg('Contact Administrator!');"><!--  href="<%= basepath %>/mongodb" onclick="clickRecent('MongoDB','mongodb',36,6)"s -->
+                        <div class="w-50 w-sm-100 w-md-50 px-2 megacard mongoqueryhome" ><!-- onclick="loadMenu(36)" -->
+                            <a href="<%= basepath %>/mongodb" onclick="clickRecent('MongoDB','mongodb',36,6)">
                                 <div class="card modules bskp-home-modules"  ><!-- onclick="clickRecent('MongoDB','mongoDB',36,6)" -->
                                     <div class="bskp-icon-frame">
                                         <div class="bskp-Dbg bskp-Dimg6"> </div>
@@ -840,18 +926,18 @@
                                 </div>
                             </a>    
                         </div>
-                        <div class="w-50 w-sm-100 w-md-50 px-2 megacard" ><!-- onclick="loadMenu(37)" -->
-                            <a href="javascript:void(0)" onclick="errorMsg('Contact Administrator!');"><!--  href="<%= basepath %>/mongo-console" onclick="clickRecent('Mongo Query Console','mongo-console',37,22)" -->
+                        <div class="w-50 w-sm-100 w-md-50 px-2 megacard mongoqueryhome" ><!-- onclick="loadMenu(37)" -->
+                            <a href="<%= basepath %>/mongo-console" onclick="clickRecent('MongoDB Query Console','mongo-console',37,22)">
                                 <div class="card modules bskp-home-modules"><!--  onclick="clickRecent('Mongo Query Console','mongo_query_console',37,22)" -->
                                     <div class="bskp-icon-frame">
                                         <div class="bskp-Dbg bskp-Dimg22"> </div>
                                     </div>
-                                    <p class="mt-2"><label class="cardtitle">Mongo Query Console</label></p>
+                                    <p class="mt-2"><label class="cardtitle">MongoDB Query Console</label></p>
                                 </div>
                             </a>    
                         </div>
-                        <div class="w-50 w-sm-100 w-md-50 px-2 megacard sqlqueryhome" ><!-- onclick="loadMenu(28)"cccccccccccccccccc -->
-                            <a href="javascript:void(0)" onclick="errorMsg('Contact Administrator!');"><!-- href="<%= basepath %>/dSQL-tables" onclick="clickRecent('DSQL Tables','dSQL-tables',28,4)" -->
+                        <div class="w-50 w-sm-100 w-md-50 px-2 megacard dsqlqueryhome" ><!-- onclick="loadMenu(28)"cccccccccccccccccc -->
+                            <a href="javascript:void(0)" onclick="errorMsg('404 Page not found!');"> <!-- href="<%= basepath %>/dSQL-tables -->
                                 <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('DSQL Tables','dSQL_tables',28,4)" -->
                                     <div class="bskp-icon-frame">
                                         <div class="bskp-Dbg bskp-Dimg4"> </div>
@@ -860,8 +946,8 @@
                                 </div>
                             </a>    
                         </div>
-                        <div class="w-50 w-sm-100 w-md-50 px-2 megacard sqlqueryhome" ><!-- onclick="loadMenu(27)" cccccccccccccccccccc -->
-                            <a href="javascript:void(0)" onclick="errorMsg('Contact Administrator!');"><!-- href="<%= basepath %>/sql-templates" onclick="clickRecent('DSQL Templates','dsql-templates',27,9)" -->
+                        <div class="w-50 w-sm-100 w-md-50 px-2 megacard dsqlqueryhome" ><!-- onclick="loadMenu(27)" cccccccccccccccccccc -->
+                            <a href="javascript:void(0)" onclick="errorMsg('404 Page not found!');"> <!-- href="<%= basepath %>/sql-templates -->
                                 <div class="card modules bskp-home-modules" ><!--  onclick="clickRecent('DSQL Templates','dsql_templates',27,9)" -->
                                     <div class="bskp-icon-frame">
                                         <div class="bskp-Dbg bskp-Dimg9"> </div>
@@ -870,9 +956,9 @@
                                 </div>
                             </a>    
                         </div>
-                        <div class="w-50 w-sm-100 w-md-50 px-2 megacard sqltablehome" ><!-- onclick="loadMenu(29)" -->
-                            <a href="javascript:void(0)" onclick="errorMsg('Contact Administrator!');"><!-- href="<%= basepath %>/sql-table" onclick="clickRecent('SQL Table','sql-table',53,39)" -->
-                                <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('DB Tables','db-tables',29,5)" -->
+                        <div class="w-50 w-sm-100 w-md-50 px-2 megacard sqlqueryhome" ><!-- onclick="loadMenu(29)" -->
+                            <a href="javascript:void(0)" onclick="clickRecent('SQL Table','sql-table',53,39)"> <!-- href="<%= basepath %>/sql-table -->
+                                <div class="card modules bskp-home-modules" ><!-- onclick="clickRecent('SQL Table','sql-table',53,39)" -->
                                     <div class="bskp-icon-frame">
                                         <div class="bskp-Dbg bskp-Dimg39"> </div>
                                     </div>
