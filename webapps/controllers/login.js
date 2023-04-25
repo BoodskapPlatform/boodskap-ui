@@ -68,7 +68,7 @@ function login(){
     var password = $.trim($("#password").val());
 
     if(emailId == ""){
-        errorMsgBorder('Username is required','username',1);
+        errorMsgBorder('#f071 Username is required','username',1);
         return false;
     }
 

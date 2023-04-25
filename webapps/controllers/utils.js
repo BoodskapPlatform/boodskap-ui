@@ -122,7 +122,10 @@ function snackBar(id) {
 
 function errorMsgBorder(msg, id,authvalue) {
  if(id){
-    $("#log"+id).html("<i class='fa fa-exclamation-triangle'></i> " +msg).css({"color":"#ff0000","font-weight":"600"});
+    setTimeout(() => {
+        $("#log"+id).html("<i class='fa fa-exclamation-triangle'></i> " +msg).css({"color":"#ff0000","font-weight":"600"});
+       }, 1500);
+  
   }
   else{
     $("#snackbar").html("<i class='fa fa-exclamation-triangle'></i> " + msg);
