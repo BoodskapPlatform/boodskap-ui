@@ -597,6 +597,7 @@ function simulateMessage() {
         closeLoading();
         $(".btn-proceed").removeAttr('disabled');
         if(status){
+            $("#liveDate").html(moment().format("DD/MM/YYYY"))
             $(".msgDefCode").append('<p>'+new Date() +' | Message sent successfully</p>');
             
             $('.right-content').addClass('d-none');
