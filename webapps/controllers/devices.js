@@ -627,27 +627,39 @@ function addDevice() {
         } ,*/
         TriggerModelCreate: function (mdcbk){
               // Allow if is not choose - Create Device Model  
-          if(modelmode !== 'choose' && modelstatus){
-            upsertDeviceModel(modelObj,function (status, data) {
-              if(modelmode === 'new'){
-                  modeltext = 'Creat'
-               }
-               else{
-                  modeltext = 'Updat'
-               }           
-              if (status) {
-                  successMsg('Device Model '+modeltext+'ed Successfully');
-                  modelstatus =true;
-                  mdcbk(null, true);
-              } else {
-                  errorMsg('Error in '+modeltext+'ing Device Model')
-                  modelstatus =false;
-                  mdcbk(null, false);
-               }
-             })
-           }else{
-            mdcbk(null, false);
-           }
+
+            var dId = $("#device_id").val()
+            retreiveDevice(dId, function (status, data) {
+                $(".btnSubmit").removeAttr('disabled');
+                if(status){
+                    errorMsgBorder('Device ID already exist', 'device_id');
+                    modelstatus =false;
+                    mdcbk(null, false);
+                }else{
+                    if(modelmode !== 'choose' && modelstatus){
+                        upsertDeviceModel(modelObj,function (status, data) {
+                          if(modelmode === 'new'){
+                              modeltext = 'Creat'
+                           }
+                           else{
+                              modeltext = 'Updat'
+                           }           
+                          if (status) {
+                              successMsg('Device Model '+modeltext+'ed Successfully');
+                              modelstatus =true;
+                              mdcbk(null, true);
+                          } else {
+                              errorMsg('Error in '+modeltext+'ing Device Model')
+                              modelstatus =false;
+                              mdcbk(null, false);
+                           }
+                         })
+                       }else{
+                        mdcbk(null, false);
+                    }
+                }
+            });
+          
         },
         CreateDevice: function(Dcbk){
               // Device Create  
@@ -659,13 +671,9 @@ function addDevice() {
                     "version": $("#device_version").val(),
                     "description": $("#device_desc").val(),
                     }
-                    retreiveDevice(deviceObj.id, function (status, data) {
-                        $(".btnSubmit").removeAttr('disabled');
+                    
+                    $(".btnSubmit").removeAttr('disabled');
 
-                    if (status) {
-                        errorMsgBorder('Device ID already exist', 'device_id');
-                        Dcbk(null, false);
-                    } else {
                         upsertDevice(deviceObj,function (status, data) {
                             if (status) {
                                 successMsg('Device Created Successfully');
@@ -679,9 +687,7 @@ function addDevice() {
                                 Dcbk(null, false);
                             }
                         })
-                    }
-
-                    })
+                    
                 }else{
                     Dcbk(null, false);
                 }
