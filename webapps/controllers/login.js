@@ -68,12 +68,16 @@ function login(){
     var password = $.trim($("#password").val());
 
     if(emailId == ""){
-        errorMsgBorder('Username is required','username',1);
+       setTimeout(() => {
+        errorMsgBorder("<i class='fa fa-exclamation-triangle'></i> Username is required",'username',1);
+       }, 500);
         return false;
     }
 
     if(password == ""){
-        errorMsgBorder('Password is required','password',1);
+        setTimeout(() => {
+            errorMsgBorder('Username is required','username',1);
+           }, 500);
         return false;
     }
 
