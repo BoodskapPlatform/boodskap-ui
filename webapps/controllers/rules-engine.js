@@ -175,7 +175,7 @@ $(document).ready(function () {
 
     $(window).resize(function () {
         $(".mainwindow").css('min-height', $(window).height() - 90 + 'px');
-        $('#codeEditor').height($(window).height() - 170 + 'px');
+        $('#codeEditor').height($(window).height() - 185 + 'px');
         setTimeout(() => {
             $('#scriptEditor').height('calc(100vh  - ' + otherHeight + ' + px');
             scriptEditor.resize();
@@ -6672,7 +6672,7 @@ async function loadEditor(code, tabid) {
     }
 
 
-    $('#codeEditor').height(($(".ui-layout-center").height() - 40) + 'px');
+    $('#codeEditor').height(($(".ui-layout-center").height() - 65) + 'px');
 
     codeEditor.resize();
 
@@ -11459,7 +11459,9 @@ function footerToggleFunction(type) {
         $("#statusBar").removeClass("d-md-block");
         $("#statusBar").addClass("d-none");
         $("#footerOpen").removeClass("d-none");
+        $('#codeEditor').height(($(".ui-layout-center").height() - 30) + 'px');
     } else {
+        $('#codeEditor').height(($(".ui-layout-center").height() - 65) + 'px');
         $("#statusBar").addClass("d-md-block");
         $("#statusBar").removeClass("d-none");
         $("#footerOpen").addClass("d-none");
