@@ -122,10 +122,8 @@ function snackBar(id) {
 
 function errorMsgBorder(msg, id,authvalue) {
  if(id){
-    setTimeout(() => {
-        $("#log"+id).html("<i class='fa fa-exclamation-triangle'></i> " +msg).css({"color":"#ff0000","font-weight":"600"});
-       }, 1500);
-  
+    $("#log"+id).html(msg).css({"color":"#ff0000","font-weight":"600"}); 
+    $("#log"+id).siblings("i").addClass("warn-exclamON")
   }
   else{
     $("#snackbar").html("<i class='fa fa-exclamation-triangle'></i> " + msg);
@@ -152,10 +150,11 @@ function errorMsgBorder(msg, id,authvalue) {
         $("#" + id).css("border", "1px solid red");
     }
     
-    $("#log"+id).css("display","block")
+    $("#log"+id).css("display","contents")
     setTimeout(function () {
         if(authvalue){
             $("#" + id).css("border-bottom", "1px solid #ccc");
+            $("#log"+id).siblings("i").removeClass("warn-exclamON")
         }else{
             $("#" + id).css("border", "1px solid #d3d8de");
         }
@@ -738,11 +737,16 @@ function onlyNumericSpecialChar(event) {
 } 
 
 
-function showFeedbackAlert(text,id,alertId) {
+function showFeedbackAlert(text,id,alertId,issignUp) {
    
     $("#"+alertId).html('')
-    $("#"+alertId).html('<div class="text-danger mt-1 font-14" role="alert"> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ' + text + '</div>')
-
+    if(issignUp){
+        $("#"+alertId).html( text).css({"color":"red"});
+        $("#"+alertId).siblings("i").addClass("warn-exclamON")
+    }else{
+        $("#"+alertId).html('<div class="text-danger mt-1 font-14" role="alert"> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ' + text + '</div>')
+    }
+   
     if ($("#"+alertId.alert).is(":visible")) {
         $("#"+alertId).hide();
     } else {
@@ -753,6 +757,7 @@ function showFeedbackAlert(text,id,alertId) {
         $('#'+id).on('keyup',function (_e) {
             if ($('#'+id).val() != "") {
                 $('#'+id).removeClass('error-input-box')
+                $("#"+alertId).siblings("i").removeClass("warn-exclamON")
                 defaultStyle(alertId)
             }
         })  

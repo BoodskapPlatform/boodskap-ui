@@ -68,7 +68,7 @@ function login(){
     var password = $.trim($("#password").val());
 
     if(emailId == ""){
-        errorMsgBorder('#f071 Username is required','username',1);
+        errorMsgBorder('Username is required','username',1);
         return false;
     }
 
@@ -198,12 +198,12 @@ function register(){
     var captchaStatus = grecaptcha.getResponse();
 
     if(firstname == ""){
-        showFeedbackAlert('First name is required','firstname','logfirstname');
+        showFeedbackAlert('First name is required','firstname','logfirstname',1);
         return false;
     }
 
     if(lastname === ""){
-        showFeedbackAlert('Last name is required','lastname','loglastname');
+        showFeedbackAlert('Last name is required','lastname','loglastname',1);
         return false;
     }
 
@@ -211,17 +211,17 @@ function register(){
     var eFlag = regex.test(email);
 
     if (email === "") {
-        showFeedbackAlert('Email address is required', 'email','logemail');
+        showFeedbackAlert('Email address is required', 'email','logemail',1);
         return false;
     }
     
     if(!eFlag){
-        showFeedbackAlert('Invalid Email ID', 'email','logemail');
+        showFeedbackAlert('Invalid Email ID', 'email','logemail',1);
         return false;
     }
    
     if(captchaStatus === ""){
-        showFeedbackAlert('Please verify the captcha!','','logcaptchaFeedback');
+        showFeedbackAlert('Please verify the captcha!','','logcaptchaFeedback',1);
         return false;
     }
 

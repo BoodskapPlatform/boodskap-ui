@@ -191,3 +191,17 @@ input{
         border-top: 0;
         border-radius: 0;
 }
+
+
+.warn-exclamOFF{
+    color: red;
+    visibility: hidden;
+    font-size: 0px;
+}
+.warn-exclamON{
+    visibility: visible;
+    font-size: 16px;
+}
+.warnbox{
+height: 0px;
+}
