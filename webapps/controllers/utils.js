@@ -738,7 +738,7 @@ function onlyNumericSpecialChar(event) {
 function showFeedbackAlert(text,id,alertId) {
    
     $("#"+alertId).html('')
-    $("#"+alertId).html('<div class="text-danger mt-1 font-14" role="alert"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ' + text + '</div>')
+    $("#"+alertId).html('<div class="text-danger mt-1 font-14" role="alert"> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ' + text + '</div>')
 
     if ($("#"+alertId.alert).is(":visible")) {
         $("#"+alertId).hide();
