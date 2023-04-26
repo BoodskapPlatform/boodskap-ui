@@ -118,8 +118,7 @@ function loadProfile() {
 }
 
 function onlyNumeric(event) {
-    // let regex = new RegExp("^[0-9-+]");
-    let regex = /^[0-9]/;
+    let regex = new RegExp("^[0-9-+]");
     let key = String.fromCharCode(event.charCode ? event.which : event.charCode);
     if (!regex.test(key)) {
         event.preventDefault();
@@ -338,9 +337,9 @@ function uploadImage() {
         return false;
     }
 
-    $(".user_profile_picture").attr('src',WEB_BASE_PATH+'/images/loader.png');
+     $(".user_profile_picture").attr('src',WEB_BASE_PATH+'/images/loader/loader-lg.gif');
 
-
+    // $(".user_profile_picture").html('<img src="images/loader/loader.png" style="margin-top:-2px;" border="0" alt=""> &nbsp;Loading...');
     uploadFile(files[0]);
 
 }
