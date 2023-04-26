@@ -2,7 +2,7 @@ var userObj = Cookies.get('user_details');
 var counter = 1;
 var sliderCtrl = null;
 $(document).ready(function () {
-
+    $('input').val('');
     if(userObj){
 
         userObj = JSON.parse(userObj);
@@ -308,6 +308,8 @@ function forgetPassword() {
 
 function captchClicked() {
     $("#logcaptchaFeedback").html("")
+    $("#logcaptchaFeedback").siblings("i").removeClass("warn-exclamON")
+    $("#logcaptchaFeedback").parent(".warnbox").css({"height":"0px"})
 }
 
 function toggleBox(){

@@ -738,11 +738,13 @@ function onlyNumericSpecialChar(event) {
 
 
 function showFeedbackAlert(text,id,alertId,issignUp) {
-   
+    console.log(text,id,alertId);
+    
     $("#"+alertId).html('')
     if(issignUp){
         $("#"+alertId).html( text).css({"color":"red"});
         $("#"+alertId).siblings("i").addClass("warn-exclamON")
+        $("#"+alertId).parent(".warnbox").css({"height":"20px"})
     }else{
         $("#"+alertId).html('<div class="text-danger mt-1 font-14" role="alert"> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ' + text + '</div>')
     }
@@ -757,7 +759,8 @@ function showFeedbackAlert(text,id,alertId,issignUp) {
         $('#'+id).on('keyup',function (_e) {
             if ($('#'+id).val() != "") {
                 $('#'+id).removeClass('error-input-box')
-                $("#"+alertId).siblings("i").removeClass("warn-exclamON")
+                $(".warn-exclamOFF").removeClass("warn-exclamON")
+                $(".warnbox").css({"height":"0px"})
                 defaultStyle(alertId)
             }
         })  
@@ -765,14 +768,13 @@ function showFeedbackAlert(text,id,alertId,issignUp) {
 }
 
 function defaultStyle(id) {
-    //$("input, select, textarea").removeClass('error-input-box')
-    $("input, select, textarea").removeClass('error-box')
+    $("input, select, textarea").removeClass('error-input-box')
     $("#" + id).hide();
+    $("#log"+id).siblings("i").removeClass("warn-exclamON")
     $('.alertDiv').html('')
 }
 
 function showFeedback(text,id,alertId) {
-   
     $("#"+alertId).html('')
     $("#"+alertId).html('<div class="text-danger mt-1 font-14" role="alert"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ' + text + '</div>')
 
@@ -793,7 +795,7 @@ function showFeedback(text,id,alertId) {
 }
 
 function showSelectFeedback(text,id,alertId){
-    $("#"+alertId).html('')
+   $("#"+alertId).html('')
     $('#'+id).next().children().find('.select2-selection--single').focus().addClass("error-box");
     $("#"+alertId).html('<div class="text-danger mt-1 font-14" role="alert"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ' + text + '</div>')
 
