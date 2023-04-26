@@ -122,8 +122,7 @@ function snackBar(id) {
 
 function errorMsgBorder(msg, id,authvalue) {
  if(id){
-    $("#log"+id).html(msg).css({"color":"#ff0000","font-weight":"600"}); 
-    $("#log"+id).siblings("i").addClass("warn-exclamON")
+    $("#log"+id).html("<i class='fa fa-exclamation-triangle'></i> " +msg).css({"color":"#ff0000","font-weight":"600"});
   }
   else{
     $("#snackbar").html("<i class='fa fa-exclamation-triangle'></i> " + msg);
@@ -150,11 +149,10 @@ function errorMsgBorder(msg, id,authvalue) {
         $("#" + id).css("border", "1px solid red");
     }
     
-    $("#log"+id).css("display","contents")
+    $("#log"+id).css("display","block")
     setTimeout(function () {
         if(authvalue){
             $("#" + id).css("border-bottom", "1px solid #ccc");
-            $("#log"+id).siblings("i").removeClass("warn-exclamON")
         }else{
             $("#" + id).css("border", "1px solid #d3d8de");
         }
@@ -737,18 +735,13 @@ function onlyNumericSpecialChar(event) {
 } 
 
 
-function showFeedbackAlert(text,id,alertId,issignUp) {
+function showFeedbackAlert(text,id,alertId) {
     console.log(text,id,alertId);
     
     $("#"+alertId).html('')
-    if(issignUp){
-        $("#"+alertId).html( text).css({"color":"red"});
-        $("#"+alertId).siblings("i").addClass("warn-exclamON")
-        $("#"+alertId).parent(".warnbox").css({"height":"20px"})
-    }else{
-        $("#"+alertId).html('<div class="text-danger mt-1 font-14" role="alert"> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ' + text + '</div>')
-    }
-   
+
+    $("#"+alertId).html('<div class="text-danger mt-1 font-14" role="alert"> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ' + text + '</div>')
+  
     if ($("#"+alertId.alert).is(":visible")) {
         $("#"+alertId).hide();
     } else {
@@ -759,8 +752,6 @@ function showFeedbackAlert(text,id,alertId,issignUp) {
         $('#'+id).on('keyup',function (_e) {
             if ($('#'+id).val() != "") {
                 $('#'+id).removeClass('error-input-box')
-                $(".warn-exclamOFF").removeClass("warn-exclamON")
-                $(".warnbox").css({"height":"0px"})
                 defaultStyle(alertId)
             }
         })  
@@ -770,7 +761,6 @@ function showFeedbackAlert(text,id,alertId,issignUp) {
 function defaultStyle(id) {
     $("input, select, textarea").removeClass('error-input-box')
     $("#" + id).hide();
-    $("#log"+id).siblings("i").removeClass("warn-exclamON")
     $('.alertDiv').html('')
 }
 

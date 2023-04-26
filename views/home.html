@@ -660,7 +660,7 @@
                                 
                                 <% if(userRole.toLowerCase() === 'admin'){ %>
                                 <div style="text-align: center" class="adminAccess">
-                                    <button class="btn btn-bskp w-xs-100 btn-proceed mt-3" onclick="createDomain()"><i class="fa fa-globe"></i> Create New Domain</button>
+                                    <button type="button" class="btn btn-bskp w-xs-100 btn-proceed mt-3" onclick="createDomain()"><i class="fa fa-globe"></i> Create New Domain</button>
                                     <br><small>Only visible to platform ADMIN</small>
                                 </div>
                                 <% }  %>
@@ -1092,8 +1092,8 @@
                                 </div>
                                 <div class="footer pt-4">
                                     <div class="row m-0 foot-sec-1 justify-content-between" style="padding:25px 0px 35px 0px;border-top: 1px solid #dedede;">
-                                        <button  class="btn-sm btn-secondary btn-previous w-xs-100" onclick="prevnavigate(1)"><i class="fa fa-angle-left" aria-hidden="true"></i>  Previous </button>
-                                        <button  class="btn-sm btn-secondary btn-proceed w-xs-100" onclick="modalnavigate(2)">Proceed <i class="fa fa-angle-right" aria-hidden="true"></i> </button>
+                                        <button type="button" class="btn-sm btn-secondary btn-previous w-xs-100" onclick="prevnavigate(1)"><i class="fa fa-angle-left" aria-hidden="true"></i>  Previous </button>
+                                        <button type="button"  class="btn-sm btn-secondary btn-proceed w-xs-100" onclick="modalnavigate(2)">Proceed <i class="fa fa-angle-right" aria-hidden="true"></i> </button>
                                     </div>
                                 </div>
                             </form>
@@ -1142,10 +1142,10 @@
                                 </div>
                                 <div class="footer pt-4">
                                     <div class="row m-0 foot-sec-1 justify-content-between" style="padding:25px 0px 35px 0px;border-top: 1px solid #dedede;">
-                                        <button  class="btn-sm btn-secondary btn-previous w-xs-100" onclick="prevnavigate(2)"><i class="fa fa-angle-left" aria-hidden="true"></i>  Previous </button>
+                                        <button  type="button" class="btn-sm btn-secondary btn-previous w-xs-100" onclick="prevnavigate(2)"><i class="fa fa-angle-left" aria-hidden="true"></i>  Previous </button>
                                        <div class="w-xs-100">
-                                        <button  class="btn-sm btn-secondary btn-proceed mr-3 w-xs-100" onclick="modalnavigate(0)"> Try Later </button>
-                                        <button  class="btn-sm btn-secondary btn-proceed btn-simulate w-xs-100" onclick="modalnavigate(3)"><i class="fa fa-play f-s-12" aria-hidden="true"></i> Simulate </button>
+                                        <button type="button"  class="btn-sm btn-secondary btn-proceed mr-3 w-xs-100" onclick="modalnavigate(0)"> Try Later </button>
+                                        <button type="button" class="btn-sm btn-secondary btn-proceed btn-simulate w-xs-100" onclick="modalnavigate(3)"><i class="fa fa-play f-s-12" aria-hidden="true"></i> Simulate </button>
                                        </div>
                                     </div>
                                 </div>
@@ -1168,8 +1168,8 @@
                                 </div>
                                 <div class="footer pt-4" >
                                     <div class="row m-0 foot-sec-1 justify-content-between" style="padding:25px 0px 35px 0px;border-top: 1px solid #dedede;">
-                                        <button  class="btn-sm btn-secondary w-xs-100 btn-previous" onclick="prevnavigate(3)"><i class="fa fa-angle-left" aria-hidden="true"></i>  Previous </button>
-                                        <button  class="btn-sm btn-secondary btn-proceed w-xs-100 btn-simulate" onclick="modalnavigate(0)">Finish <i class="fa fa-angle-right" aria-hidden="true"></i> </button>
+                                        <button  type="button" class="btn-sm btn-secondary w-xs-100 btn-previous" onclick="prevnavigate(3)"><i class="fa fa-angle-left" aria-hidden="true"></i>  Previous </button>
+                                        <button type="button"  class="btn-sm btn-secondary btn-proceed w-xs-100 btn-simulate" onclick="modalnavigate(0)">Finish <i class="fa fa-angle-right" aria-hidden="true"></i> </button>
                                     </div>
                                 </div>
                                 
@@ -1204,7 +1204,7 @@
                             <h3 style="margin-top: 15px;">Hurrah!</h3>
                             <h4 style="color: #565656;">You're off to a good start</h4>
                             <p style="font-size: 14px;">Now, you can start to create your applications</p>
-                            <button class="btn btn-warning" data-dismiss="modal">Ok, Thanks</button>
+                            <button type="button" class="btn btn-warning" data-dismiss="modal">Ok, Thanks</button>
                         </div>
                     </div>
                 </div>
