@@ -137,3 +137,7 @@
 .VIpgJd-ZVi9od-xl07Ob-OEVmcd{
     top: 58px !important; 
 }
+
+.fa-cog,.fa-link,.fa-eye,.fa-eye-slash,.fa-edit,.fa-question,.fa-expand-alt,.fa-redo {
+    font-size: 13px;
+}

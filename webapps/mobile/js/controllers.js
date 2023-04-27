@@ -663,7 +663,7 @@ function getVerticalVersion() {
 
 /*function loadDashboardlist() {
 
-    $(".fa-refresh").addClass("fa-spin");
+    $(".fa-redo").addClass("fa-spin");
 
     getDomainProperty(MOBILE_DASHBOARD_LIST_PROPERTY, function (status, data) {
         if (status) {
@@ -743,7 +743,7 @@ function getVerticalVersion() {
         }
 
         setTimeout(function () {
-            $(".fa-refresh").removeClass("fa-spin");
+            $(".fa-redo").removeClass("fa-spin");
         },500);
     });
 }
@@ -893,7 +893,7 @@ function loadWidgets(id) {
         MGRID_STACK.removeAll();
         MGRID_STACK = null
     }
-    $(".fa-refresh").addClass("fa-spin");
+    $(".fa-redo").addClass("fa-spin");
 
     getDomainProperty(id, function (status, data) {
         if (status) {
@@ -929,7 +929,7 @@ function loadWidgets(id) {
             }
         }
 
-        $(".fa-refresh").removeClass("fa-spin");
+        $(".fa-redo").removeClass("fa-spin");
     });
 
 }

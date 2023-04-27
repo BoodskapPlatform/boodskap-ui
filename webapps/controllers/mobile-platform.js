@@ -1014,7 +1014,7 @@ function codeLivePreview() {
         '        box-shadow: 0.5px 0.5px 4px #aaaaaa;">' +
         '<span style="float: left;"><i class="fa fa-chevron-left" style="font-size: 18px;cursor: pointer;"></i></span> ' +
         '<span>' + CURRENT_DASHBOARD.name + '</span>' +
-        '<span style="float: right;"><i class="fa fa-refresh" style="font-size: 18px;cursor: pointer;"></i></span></div>' +
+        '<span style="float: right;"><i class="fa fa-redo" style="font-size: 18px;cursor: pointer;"></i></span></div>' +
         '<div>' + htmlCode + '</div><script>' + resultData + '</script>');
 
     var mqtt_file = 'js/boodskap.ws.js';

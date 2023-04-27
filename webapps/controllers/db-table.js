@@ -70,7 +70,7 @@ function loadDBPool() {
                 var str = '<button style="float: right;font-size:12px" class="btn btn-xs btn-default" onclick="openModal(4,\'' + row["id"] + '\')"><i class="icon-reload"></i> sync pool</button>';
 
 
-                var astr = '<a style="font-size:12px !important;color: #333;text-decoration: none;font-size: 10px;display: block;text-align: center" href="javascript:void(0)" onclick="openModal(5,\'' + row["id"] + '\')"><i class="fa fa-eye mx-1" style="color: #3b3ea0;"></i> View DB MetaData</a>';
+                var astr = '<a style="font-size:12px !important;color: #333;text-decoration: none;font-size: 10px;display: block;text-align: center" href="javascript:void(0)" onclick="openModal(5,\'' + row["id"] + '\')"><i class="far fa-eye mx-1" style="color: #3b3ea0;"></i> View DB MetaData</a>';
                 return '<span style="font-weight: bold">' + data + '</span>' + str + '<hr>' + astr;
             }
 

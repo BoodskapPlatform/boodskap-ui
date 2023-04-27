@@ -118,14 +118,17 @@ function loadProfile() {
 }
 
 function onlyNumeric(event) {
-    let regex = new RegExp("^[0-9-+]");
-    let key = String.fromCharCode(event.charCode ? event.which : event.charCode);
+    let regex = new RegExp("^[0-9]");
+    let keyCode = event.keyCode || event.which;
+    console.log(event.keyCode, event.which);
+    let key = String.fromCharCode(keyCode);
     if (!regex.test(key)) {
-        event.preventDefault();
-        return false;
+      event.preventDefault();
+      return false;
     }
-    
 } 
+
+
 
 function proceedUpdate() {
     var obj = USER_OBJ.user;

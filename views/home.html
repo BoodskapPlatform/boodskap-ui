@@ -567,8 +567,8 @@
                                     <div class="col-6 p-0 text-wrap"><img src="images/globe.svg" class="pl-1" height="16" alt=""> <span> Domain Details</span></div>
                                     <div class="col-6 p-0">
                                         <!-- <a href="javascript:;" onclick="startTour()" class="pull-right btn btn-sm btn-icon btn-circle bskp-icon-bg bskp-bord-icon bskp-headbtn"  title="Help"><i class="icon-help"></i></a> -->
-                                        <a href="<%= basepath %>/domain"  class="pull-right btn btn-sm btn-icon btn-circle bskp-headbtn bskp-icon-bg bskp-bord-icon mr-1"  title="Domain Settings"><i class="fa fa-cog"></i></a>
-                                        <a href="javascript:void(0)" onclick="openLinkModal()" class="pull-right mr-1 btn btn-sm btn-icon btn-circle bskp-icon-bg bskp-bord-icon bskp-headbtn"  title="Link Domain"><i class="fa fa-link"></i></a>
+                                        <a href="<%= basepath %>/domain"  class="pull-right btn btn-sm btn-icon btn-circle bskp-headbtn bskp-icon-bg bskp-bord-icon mr-1"  title="Domain Settings"><i class="fas fa-cog"></i></a> 
+                                        <a href="javascript:void(0)" onclick="openLinkModal()" class="pull-right mr-1 btn btn-sm btn-icon btn-circle bskp-icon-bg bskp-bord-icon bskp-headbtn"  title="Link Domain"> <i class="fas fa-link"></i> </a> 
                                     </div>    
                                 </div>
                             </div>
@@ -577,16 +577,16 @@
 
                                     <li class="col-lg-12 d-flex justify-content-between" style="margin-bottom: 8px !important;height: 23px;">  
                                     
-                                        <i class="fa fa-user-o bskp-icon-bg m-0 bskp-user-icon ml-auto blue-color v-top" style="background: #f2f6ff;" aria-hidden="true"></i>
+                                        <i class="far fa-user bskp-icon-bg m-0 bskp-user-icon ml-auto blue-color v-top" style="background: #f2f6ff;" aria-hidden="true"></i>
                                         <span class="domain_name mr-auto blue-color max-scroll v-top D-info" style="font-weight: 600;"></span>
                                         
                                         <a href="javascript:void(0)" class="ml-1 position-relative" onclick="editDomainName()" style="text-decoration: none;width:14px" title="Edit Domain Name" style="width:20px">
-                                        &nbsp;&nbsp;  <i class="icon-edit2 blue-color pt-1 v-top position-absolute"></i></a></li>
+                                        &nbsp;&nbsp;  <i class="far fa-edit blue-color pt-1 v-top position-absolute"></i></a></li>
                                 </ul>
                                 
                                 <ul class="nav">
                                    
-                                    <li class="col-lg-12 mb-2">  <i class="fa fa-envelope-o mr-1 bskp-user-icon  ml-auto" style="color:black" aria-hidden="true"></i>
+                                    <li class="col-lg-12 mb-2">  <i class="far fa-envelope mr-1 bskp-user-icon  ml-auto" style="color: #666666;margin-top: 2px" aria-hidden="true"></i>
                                         <span class="domain_email" style="max-width: 100%;text-overflow: ellipsis;overflow: hidden;display: block;font-weight: 600; ">
                                         </span>
                                     </li>
@@ -594,7 +594,7 @@
 
                                 <ul class="nav">
                                     
-                                    <li class="col-lg-12 mb-2"> <i class="fa fa-id-card-o mr-1 pt-1 bskp-user-icon  ml-auto" style="color:rgb(70, 70, 70) ;" aria-hidden="true"></i>
+                                    <li class="col-lg-12 mb-2"> <i class="far fa-id-card mr-1 pt-1 bskp-user-icon  ml-auto" style="color:rgb(70, 70, 70) ;" aria-hidden="true"></i>
                                         <span id="userPlan" style="cursor: help;font-weight: 600;color:#595959; ">Developer License</span>
                                     </li>
                                 </ul>
@@ -604,7 +604,7 @@
                                     <li class="pr-2"><span class="acc-id-show">***********</span> <span
                                             class="acc-id hide"></span>
                                         <a href="javascript:void(0)" onclick="toggleKeys(1,'accIdTog')" class="accIdTog"><i
-                                                class="fa fa-eye blue-color v-top"></i></a>
+                                                class="far fa-eye blue-color v-top"></i></a>
                                         <a href="javascript:void(0)" class="acc-id-copy blue-color v-top"  style="text-decoration: none"
                                            title="Click here to copy Account Key"><i class="icon-copy2 blue-color v-top"></i></a>
                                     </li>
@@ -615,7 +615,7 @@
                                     <li class="pr-2"><span class="plan-id-show">***********</span> <span
                                             class="plan-id hide"></span>
                                         <a href="javascript:void(0)" onclick="toggleKeys(1,'planIdTog')" class="planIdTog"><i
-                                                class="fa fa-eye blue-color v-top"></i></a>
+                                                class="far fa-eye blue-color v-top"></i></a>
                                         <a href="javascript:void(0)" class="plan-id-copy blue-color v-top"  style="text-decoration: none"
                                            title="Click here to copy Plan Key"><i class="icon-copy2 blue-color v-top"></i></a>
                                     </li>
@@ -630,7 +630,7 @@
                                     <li class="pr-2"><span class="api_token_show">*********</span> <span
                                             class="api_token hide"></span>
                                         <a href="javascript:void(0)" onclick="toggleKeys(1,'tokenToggle')" class="tokenToggle">
-                                            <i class="fa fa-eye blue-color v-top"></i> </a>
+                                            <i class="far fa-eye blue-color v-top"></i> </a>
                                         <a href="javascript:void(0)" class="apiToken"  style="text-decoration: none" title="Click here to copy Current Session Token">
                                             <i class="icon-copy2 blue-color v-top"></i> </a>
                                         
@@ -641,7 +641,7 @@
                                     <li class="pr-2"><span class="domain_key_show">*********</span> <span
                                             class="domain_key hide"></span>
                                         <a href="javascript:void(0)" onclick="toggleKeys(1,'domainToggle')" class="domainToggle">
-                                            <i class="fa fa-eye blue-color v-top"></i></a>
+                                            <i class="far fa-eye blue-color v-top"></i></a>
                                         <a href="javascript:void(0)" class="domainKey" style="text-decoration: none"  title="Click here to copy Domain Key">
                                             <i class="icon-copy2 blue-color v-top" ></i></a>
                                     </li>
@@ -651,7 +651,7 @@
                                     <li class="pr-2"><span class="api_key_show">***********</span> <span
                                             class="api_key hide"></span>
                                         <a href="javascript:void(0)" onclick="toggleKeys(1,'apiToggle')" class="apiToggle"><i
-                                                class="fa fa-eye blue-color v-top"></i></a>
+                                                class="far fa-eye blue-color v-top"></i></a>
                                         <a href="javascript:void(0)" class="apiKey"  style="text-decoration: none"
                                            title="Click here to copy API Key"><i class="icon-copy2 blue-color v-top"></i></a>
                                     </li>
@@ -688,12 +688,12 @@
                         <div class="panel panel-inverse bskp-rightpanel bskp-rp-2  col-lg-12" data-sortable-id="ui-widget-1" style="background: none !important;">
                             <div class="panel-heading" style="padding: 10px 8px;">
                                 <!--<div class="panel-heading-btn">
-                                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default"><i class="fa fa-expand"></i></a>
-                                </div>-->
-                                <h4 class="panel-title"><i class="fa fa-code pl-1" style="font-size: 16px; color: black; vertical-align: middle;"></i> 
+                                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default"><i class="fa fa-expand-alt"></i></a>
+                                </div>--> 
+                                <h4 class="panel-title"><i class="fas fa-code pl-1" style="font-size: 13px; color: black; vertical-align: middle;"></i> 
                                     <span>Developers</span>
                                     <a href="http://developer.boodskap.io/" target="_blank"   class="pull-right btn btn-icon btn-sm btn-circle bskp-icon-bg bskp-bord-icon bskp-headbtn" title="Help Docs">
-                                        <i class="icon-help"></i> 
+                                      <i class="fas fa-question"></i>
                                     </a>
                                 </h4>
 
@@ -723,7 +723,7 @@
                                 <ul class="nav">
                                     <li class="col-lg-12"><a href="https://www.youtube.com/channel/UC1yOEmlV7mBfKI1aHSMk3GQ"
                                                             target="_blank">
-                                        <i class="fa fa-youtube"></i>&nbsp; <span>Video Tutorials</span> </a></li>
+                                       <i class="fab fa-youtube"></i>&nbsp; <span>Video Tutorials</span> </a></li>
                                 </ul>
                                 <!-- <ul class="nav">
                                     <li class="col-lg-12"><a href="https://github.com/BoodskapPlatform" target="_blank">
@@ -742,7 +742,7 @@
                                                 <div class="panel panel-inverse col-lg-12" data-sortable-id="ui-widget-1">
                                                     <div class="panel-heading">
                                                         &lt;!&ndash;<div class="panel-heading-btn">
-                                                            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default"><i class="fa fa-expand"></i></a>
+                                                            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default"><i class="fa fa-expand-alt"></i></a>
                                                         </div>&ndash;&gt;
                                                         <h4 class="panel-title"><i class="icon-video-camera2"></i> Quickstart Guide
 

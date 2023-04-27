@@ -2639,10 +2639,10 @@ function returnObj(id, type) {
 }
 
 function reloadRules() {
-    $(".btnRefresh").html('<i class="fa fa-refresh fa-spin"></i>');
+    $(".btnRefresh").html('<i class="fa fa-redo fa-spin"></i>');
     loadRules($("#rulesType").val());
     setTimeout(function () {
-        $(".btnRefresh").html('<i class="fa fa-refresh"></i>');
+        $(".btnRefresh").html('<i class="fa fa-redo"></i>');
     }, 1000)
 }
 

@@ -5516,7 +5516,7 @@ function returnObj(id, type) {
 
 function reloadRules() {
     $('.transpernetProcessing').removeClass('hide')
-    $(".btnRefresh").html('<i class="fa fa-refresh fa-spin"></i>');
+    $(".btnRefresh").html('<i class="fa fa-redo fa-spin"></i>');
     clickedObj = null;
     let treeData = [];
 
@@ -6182,7 +6182,7 @@ function reloadRules() {
             setTimeout(() => {
                 allRulesCalled()
                 $('.transpernetProcessing').addClass('hide')
-                $(".btnRefresh").html('<i class="fa fa-refresh"></i>');
+                $(".btnRefresh").html('<i class="fa fa-redo"></i>');
             }, 500);
 
         });

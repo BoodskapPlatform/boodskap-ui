@@ -104,7 +104,7 @@ function renderDomain(obj) {
                             <div class="row">
                             <div class="col-md-12 bg-white" style="padding: 10px;border:1px solid #eee">
                                <span class="pull-right">Total Billing Configured: <strong class="billCount_` + obj.domainKey + `">0</strong></span>
-                               <button class="btn btn-default btn-sm pull-right mr-2" onclick="loadDomainBilling('` + obj.domainKey + `')"><i class="fa fa-refresh"></i> Refresh</button>
+                               <button class="btn btn-default btn-sm pull-right mr-2" onclick="loadDomainBilling('` + obj.domainKey + `')"><i class="fa fa-redo"></i> Refresh</button>
                             
                                  <table class="table table-bordered responsive no-wrap" id="` + obj.domainKey + `"  cellspacing="0" width="100%">
     
