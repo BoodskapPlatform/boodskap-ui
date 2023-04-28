@@ -260,8 +260,7 @@ function loadUserGroupMembers(id,name) {
         if (status && resdata.length > 0) {
 
             for (var i = 0; i < resdata.length; i++) {
-                var data = resdata[i];
-                // console.log(data)
+                var data = resdata[i];  
                 bodyStr = bodyStr + '<div class="col-md-3" style="margin-top: 10px;">' +
                     '<label style="display: block;text-align: left"><input type="checkbox" class="ch_' + id + '" name="ch_' + id + '[]" value="' + data['email'] + '"/> ' + (data.firstName + ' ' + data.lastName) + '</label>' +
                     '<small class="added-emails">' + data.email + '</small>' +
@@ -275,7 +274,7 @@ function loadUserGroupMembers(id,name) {
         $(".group_" + id).html(' <div class="btn-group btn-group-justified left-right">' +
             '<a class="btn btn-default btn-xs"  onclick="openUserModal(1,\'' + id + '\',\''+name+'\')"><i class="fa fa-plus-square"></i> <span class="hidden-xs">Add User</span></a>' +
             '<a class="btn btn-default btn-xs"  onclick="openUserModal(2,\'' + id + '\',\''+name+'\')"><i class="icon-trash4"></i> <span class="hidden-xs">Delete</span></a>' +
-            '<a class="btn btn-default btn-xs"  onclick="loadUserGroupMembers(\'' + id + '\')" title="Refresh"><i class="fa fa-redo"></i></a>' +
+            '<a class="btn btn-default btn-xs"  onclick="loadUserGroupMembers(\'' + id + '\',\''+name+'\')" title="Refresh"><i class="fa fa-redo"></i></a>' +
             '</div><hr style="clear:both">' +
             '<div id="userGroupList_'+id+'" class="row" style="clear: both;max-height: 300px;overflow: auto;overflow-x: hidden">' + bodyStr + '</div>');
 

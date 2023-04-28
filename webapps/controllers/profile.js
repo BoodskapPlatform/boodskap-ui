@@ -30,9 +30,7 @@ $(document).ready(function () {
       geoIpLookup: function(success, failure) {
         $.get("https://ipinfo.io", function() {}, "jsonp").always(function(resp) {
             var Code = (resp && resp.country) ? resp.country : "";
-            console.log(Code);
            // Set the country flag based on the user's location
-           console.log(USER_OBJ.user.country,Code);
            iti.setCountry(USER_OBJ.user.country);    
             success(Code); 
         });
@@ -45,9 +43,7 @@ $(document).ready(function () {
       var countryData = iti.getSelectedCountryData();   
       countryCode = countryData.dialCode; 
       country = countryData.iso2;   
-      console.log(countryData.dialCode,countryData);   
     //  var phoneNum = iti.getNumber(intlTelInputUtils);
-     console.log(USER_OBJ);
       $('#mobileNo').val(USER_OBJ.user.primaryPhone);
     });
 
@@ -120,7 +116,6 @@ function loadProfile() {
 function onlyNumeric(event) {
         let regex = new RegExp("^[0-9]");
         let keyCode = event.keyCode || event.which;
-        console.log(event.keyCode, event.which);
         let key = String.fromCharCode(keyCode);
         if (!regex.test(key)) {
         event.preventDefault();
@@ -130,7 +125,6 @@ function onlyNumeric(event) {
 } 
 
 function onlyNumber(obj) {
-    console.log(obj,obj.value);
     var regex = /^[0-9]+$/;
     if (regex.test(obj.value) !== true) {
         obj.value = obj.value.replace(/[^0-9]+/, '');
@@ -149,7 +143,7 @@ function proceedUpdate() {
         errorMsgBorder('Last Name is required', 'lastName');
         return false;
     }
-    if(mobileNo!=""){  console.log(mobileNo.length);
+    if(mobileNo!=""){ 
         if(mobileNo.length <= 9 ||mobileNo=="0" || mobileNo=="00" || mobileNo=="000" || mobileNo=="0000" || mobileNo=="00000" || mobileNo=="000000" || mobileNo=="0000000" || mobileNo=="00000000"
     || mobileNo=="000000000" || mobileNo=="0000000000" || mobileNo=="000000000000" || mobileNo=="000000000000" || mobileNo=="0000000000000" || mobileNo=="000000000000000" || mobileNo=="000000000000000"){
         errorMsgBorder('Invalid Mobile Number', 'mobileNo');
