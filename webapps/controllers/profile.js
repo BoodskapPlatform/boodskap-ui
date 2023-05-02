@@ -211,6 +211,7 @@ function updateProfile(obj) {
             setTimeout(() => {
                 $("#password,#conf_password").val("")
                 successMsg('Successfully updated');
+                loadProfile()
                 // location.reload(true);
             },500);
               
@@ -335,16 +336,17 @@ function uploadImage() {
     var fileInput = document.getElementById("profileFile");
 
     var files = fileInput.files;
-
-    if (files.length === 0) {
+    if (files.length === 0 || !files[0])  {
         errorMsg('File not found. select a file to start upload');
         return false;
+    }else{      
+
+     $(".user_profile_picture").attr('src','/images/loader/loader-lg.gif')
+    setTimeout(() => {
+        uploadFile(files[0]); 
+    }, 1000);
     }
-
-     $(".user_profile_picture").attr('src',WEB_BASE_PATH+'/images/loader/loader-lg.gif');
-
     // $(".user_profile_picture").html('<img src="images/loader/loader.png" style="margin-top:-2px;" border="0" alt=""> &nbsp;Loading...');
-    uploadFile(files[0]);
 
 }
 

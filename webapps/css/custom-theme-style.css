@@ -1,5 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
-
+@font-face {
+    font-family: 'Font Awesome 5 Free';
+    src: url('/webfonts/fa-solid-900.woff2') format('woff2'),
+    url('/webfonts/fa-solid-900.eot') format('embedded-opentype'),
+    url('/webfonts/fa-solid-900.woff') format('“woff”'),
+    url('/webfonts/fa-solid-900.ttf') format('“truetype”'),
+    url('css/font-awesome.min') format('css');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap; 
+}
+  
+  
 
 .platformBody,
 .modal,

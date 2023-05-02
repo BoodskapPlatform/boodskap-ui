@@ -220,7 +220,14 @@ div::-webkit-scrollbar-thumb {
     top: 14%; /* 30px from the bottom */
     height: 50px;
 }
-
+@media (max-width:500px){
+    #snackbar {
+        left: 0; 
+        right: 0; 
+        margin-left: 4% ; 
+        margin-right: 4%; 
+    }
+}
 /* Show the snackbar when clicking on a button (class added with JavaScript) */
 #snackbar.show {
     visibility: visible; /* Show the snackbar */
