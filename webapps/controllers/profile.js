@@ -341,7 +341,7 @@ function uploadImage() {
         return false;
     }else{      
 
-     $(".user_profile_picture").attr('src','/images/loader/loader-lg.gif')
+     $(".user_profile_picture").attr('src','images/loader/loader-lg.gif')
     setTimeout(() => {
         uploadFile(files[0]); 
     }, 1000);
