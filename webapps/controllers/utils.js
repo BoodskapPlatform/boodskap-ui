@@ -814,18 +814,22 @@ function warningMsg(msg){
         alertMsg = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
         `+msg+` Go to buy here <a href="https://devbilling.boodskap.io/" class="text-warning" target="_blank">upgrade </a>
         / to <a href="javascript:;" class="text-warning" onclick="logout()"> logout</a>
-        <button type="button" class="close close-alert-btn mt-1" data-dismiss="alert" aria-label="Close">
+        <button type="button" class="close close-alert-btn mt-1" data-dismiss="alert" onclick="closeWarning()" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>`;
     }else{
      alertMsg = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
     `+msg+` Go to buy here <a href="https://devbilling.boodskap.io/" class="text-warning" target="_blank">upgrade</a>
-    <button type="button" class="close close-alert-btn mt-1" data-dismiss="alert" aria-label="Close">
+    <button type="button" class="close close-alert-btn mt-1" data-dismiss="alert"  onclick="closeWarning()" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>`;
     }
   $("#warningsnackbar").addClass('show');
   $('#warningsnackbar').html(alertMsg)
+}
+
+function closeWarning() {
+    $("#warningsnackbar").removeClass('show'); 
 }
