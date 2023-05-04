@@ -305,14 +305,14 @@ function updatePrimaryDomain() {
 
 
 function uploadFile(file) {
-
+    $(".user_profile_picture").attr('src','images/loader/loader-lg.gif')
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4) {
+        if (xhr.readyState === 4) {   
 
-            if (xhr.status === 200) {
-                var result = JSON.parse(xhr.response);
-                profilePathId = result.id;
+            if (xhr.status === 200) {  
+                var result = JSON.parse(xhr.response);   
+                profilePathId = result.id;   
                 $(".user_profile_picture").attr('src', API_BASE_PATH + '/files/download/' + USER_OBJ.token + '/' + profilePathId+'?'+new Date().getTime());
                 Cookies.set('user_picture', profilePathId);
                 updateProfilePicture();
@@ -344,7 +344,7 @@ function uploadImage() {
      $(".user_profile_picture").attr('src','images/loader/loader-lg.gif')
     setTimeout(() => {
         uploadFile(files[0]); 
-    }, 1000);
+    }, 1500);
     }
     // $(".user_profile_picture").html('<img src="images/loader/loader.png" style="margin-top:-2px;" border="0" alt=""> &nbsp;Loading...');
 
