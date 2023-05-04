@@ -13856,3 +13856,16 @@ a.text-lime:hover {
 .underline {
     border-bottom: 1px solid #e2e7eb !important
 }
+
+
+input:-moz-autofill {
+    -moz-box-shadow: none;
+    -moz-appearance: none;
+    background-color: #fff !important;
+}
+
+input:-moz-autofill,
+textarea:-moz-autofill {
+  filter: none !important;
+  background-color: #fff !important;
+}

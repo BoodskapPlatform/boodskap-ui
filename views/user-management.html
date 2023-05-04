@@ -35,6 +35,16 @@
             display: flex;
             height: 90vh;
     }
+    input:-moz-autofill {
+        -moz-box-shadow: none;
+        -moz-appearance: none;
+        background-color: #fff !important;
+    }
+    input:-moz-autofill,
+    textarea:-moz-autofill {
+        filter: none !important;
+        background-color: #fff !important;
+    }
     /* .mdbg{
         background: rgba(245, 245, 245, 0.479);
     } */
@@ -147,7 +157,7 @@
                         <div  class="col-md-6">
                             <div  class="form-group">
                                 <label  class="inputLabel">Password *</label>
-                                <input  class="form-control input-sm" placeholder="" type="password" id="password" style="padding: 2px 20px 2px 12px !important;" required>
+                                <input  class="form-control input-sm" placeholder="" type="password" id="password" style="padding: 2px 20px 2px 12px !important;" required autocomplete="new-password">
                                 <i class="far fa-eye user-mgt-password cursor-pointer" onclick="passwordView(this);"></i>
                             </div>
                         </div>
