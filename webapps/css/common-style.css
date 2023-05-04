@@ -138,6 +138,9 @@
     top: 58px !important; 
 }
 
-.fa-cog,.fa-link,.fa-eye,.fa-eye-slash,.fa-edit,.fa-question,.fa-expand-alt,.fa-redo {
+.fa-cog,.fa-link,.fa-eye,.fa-edit,.fa-question,.fa-expand-alt,.fa-redo {
     font-size: 13px;
+}
+.fa-eye-slash{
+    font-size: 12px;
 }
