@@ -175,14 +175,17 @@ div::-webkit-scrollbar-thumb {
 .gradient-enabled .sidebar .nav > li.active > a .caret {
 	color: rgba(0,0,0,0.5);
 }
-.pace-progress {
+/* .pace-progress {
     background: #f59c1a;
-}
+} */
 .pace .pace-activity {
     border-top-color: #f59c1a;
     border-left-color: #f59c1a;
 }
 
+.pace-progress {
+    background: #f59c1a;
+}
 
 /* Added in v1.7 */
 
