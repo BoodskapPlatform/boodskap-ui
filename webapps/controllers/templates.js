@@ -139,7 +139,9 @@ function loadTemplates() {
 
         $(".dataTables_scrollBody").removeAttr("style").css({"min-height":"calc(100vh - 425px)","position":"relative","width":"100%"});
         
-
+        if (navigator.userAgent.indexOf("Firefox") != -1) {
+            Pace.stop();    
+        }
     })
 
 

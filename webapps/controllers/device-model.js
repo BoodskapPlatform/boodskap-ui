@@ -193,7 +193,9 @@ function loadDeviceModelList() {
         deviceModelTable = $("#deviceModelTable").DataTable(tableOption);
         $('.dataTables_filter input').attr('maxlength', 100);
         $(".dataTables_scrollBody").removeAttr("style").css({"min-height":"calc(100vh - 425px)","position":"relative","width":"100%","border-bottom":"0px"});
-
+        if (navigator.userAgent.indexOf("Firefox") != -1) {
+            Pace.stop();    
+        }
 }
 
 

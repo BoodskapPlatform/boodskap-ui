@@ -125,6 +125,9 @@ function loadTokenList() {
            tokenTable = $("#tokenTable").DataTable(tableOption);
             $('.dataTables_filter input').attr('maxlength', 100)
             $("#tokenTable_filter").hide();
+            if (navigator.userAgent.indexOf("Firefox") != -1) {
+                Pace.stop();    
+            }
 
             setTimeout(() => {
                 $('.dataTables_filter input').attr('maxlength', 100).attr("autocomplete","off").attr("type","text").val("");

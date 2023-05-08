@@ -248,7 +248,6 @@ function loadUsersList() {
                     user_list = resultData.data;
                     $('.userCount').html(resultData.recordsTotal)
                     resultData['draw'] = oSettings.iDraw;
-
                     fnCallback(resultData);
                 }
             });
@@ -265,7 +264,9 @@ function loadUsersList() {
         $("#userTable_filter").show();
     }, 1000);
     $(".dataTables_scrollBody").removeAttr("style").css({"min-height":"calc(100vh - 425px)","position":"relative","width":"100%"});
-
+    if (navigator.userAgent.indexOf("Firefox") != -1) {
+        Pace.stop();    
+    }
     // $('#userTable tbody').on('click', 'td.details-control', function () {
     //     var tr = $(this).closest('tr');
     //     var row = userTable.row(tr);

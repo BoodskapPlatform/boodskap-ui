@@ -126,7 +126,11 @@ function loadMessageDef() {
             }
         });
         $(".ref-btn").attr("onclick","loadMessageDef()");
-        $('.dataTables_filter input').attr('maxlength', 100)
+        $('.dataTables_filter input').attr('maxlength', 100);
+        if (navigator.userAgent.indexOf("Firefox") != -1) {
+            Pace.stop();    
+        }
+        
     })    
 
 

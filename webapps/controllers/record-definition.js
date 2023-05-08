@@ -129,6 +129,9 @@ function loadRecordDef() {
         });
         $(".ref-btn").attr("onclick","loadRecordDef()");
         $('.dataTables_filter input').attr('maxlength', 100)
+        if (navigator.userAgent.indexOf("Firefox") != -1) {
+            Pace.stop();    
+        }
     })
 
 

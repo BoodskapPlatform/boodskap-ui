@@ -5,6 +5,12 @@ $(document).ready(function () {
     loadGoogleAnalytics();
     loadStatistics();
     getLicenseStatus();
+    if (navigator.userAgent.indexOf("Firefox") != -1) {
+        setTimeout(() => {
+           Pace.stop();
+        }, 3000);
+    }
+    
 });
 
 

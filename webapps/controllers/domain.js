@@ -125,6 +125,9 @@ function getDomainBranding() {
                 $(".domain_logo_m").attr('src', "/images/boodskap-logo.png");
             }
             //  $("#domainModal").modal('show');
+            if (navigator.userAgent.indexOf("Firefox") != -1) {
+                Pace.stop();    
+            }
 
         })
     }else{
@@ -137,7 +140,9 @@ function getDomainBranding() {
                 $(".domain_logo_m").attr('src', "/images/boodskap-logo.png");
             }
             // $("#domainModal").modal('show');
-
+            if (navigator.userAgent.indexOf("Firefox") != -1) {
+                Pace.stop();    
+            }
         })
     }
 }
@@ -168,7 +173,9 @@ function getGoogleMapApiKey() {
             });
         }
         $("#domainModal").modal('show');
-
+        if (navigator.userAgent.indexOf("Firefox") != -1) {
+            Pace.stop();    
+        }
 
     })
     
@@ -200,7 +207,9 @@ function getOpenMapApiKey() {
             });
         }
         $("#domainModal").modal('show');
-
+        if (navigator.userAgent.indexOf("Firefox") != -1) {
+            Pace.stop();    
+        }
     })
 }
 
@@ -229,7 +238,9 @@ function getDarkSkyApiKey() {
             });
         }
         $("#domainModal").modal('show');
-
+        if (navigator.userAgent.indexOf("Firefox") != -1) {
+            Pace.stop();    
+        }
     })
 }
 
@@ -334,6 +345,9 @@ function getGatewaySettings(id, cbk) {
         }
 
         $("#domainModal").modal('show');
+        if (navigator.userAgent.indexOf("Firefox") != -1) {
+            Pace.stop();    
+        }
     })
 }
 
@@ -400,6 +414,9 @@ function getLoginLogo() {
         });
 
         $("#domainModal").modal('show');
+        if (navigator.userAgent.indexOf("Firefox") != -1) {
+            Pace.stop();    
+        }
     });
 }
 
@@ -413,6 +430,9 @@ function getCustomURL() {
         successMsg('URL Address Copied Successfully')
     });
     $("#domainModal").modal('show');
+    if (navigator.userAgent.indexOf("Firefox") != -1) {
+        Pace.stop();    
+    }
 }
 
 
@@ -833,6 +853,9 @@ function getElasticConfig() {
         }
 
         switchElasticAuth();
+        if (navigator.userAgent.indexOf("Firefox") != -1) {
+            Pace.stop();    
+        }
     });
 }
 
@@ -1112,6 +1135,9 @@ function getLicenseDetails(){
             active_plan_obj = PLANS_LIST[dom_lic_obj.plan];
             renderPlanCard(active_plan_obj);
             getPlanUsage();
+        }
+        if (navigator.userAgent.indexOf("Firefox") != -1) {
+            Pace.stop();    
         }
     });
 }
