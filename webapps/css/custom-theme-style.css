@@ -1,24 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
 @font-face {
     font-family: 'Font Awesome 5 Free';
     src: url('/webfonts/fa-solid-900.woff2') format('woff2');
     font-weight: 900;
     font-style: normal;
-    font-display: swap; 
+    font-display: swap;
 }
-  
-  
+
+
 
 .platformBody,
 .modal,
-.montFont ,
-.bskp-submenu2 a
-{
+.montFont,
+.bskp-submenu2 a {
     /* font-family: 'Montserrat', sans-serif !important; */
 }
 
-.platformBody{
-padding-bottom: 50px !important;
+.platformBody {
+    padding-bottom: 50px !important;
 }
 
 ::selection {
@@ -26,12 +26,12 @@ padding-bottom: 50px !important;
     background: #007bff;
 }
 
-  
+
 /* Scrollbar Styling */
 ::-webkit-scrollbar {
     width: 6px;
 }
- 
+
 ::-webkit-scrollbar-track {
     background-color: #ebebeb;
     -webkit-border-radius: 10px;
@@ -41,8 +41,9 @@ padding-bottom: 50px !important;
 ::-webkit-scrollbar-thumb {
     -webkit-border-radius: 10px;
     border-radius: 10px;
-    background: #8a8a8a; 
+    background: #8a8a8a;
 }
+
 /* ------- Header -------*/
 .bskp-frame-shadow {
     /* padding: 4px 5px; */
@@ -54,12 +55,15 @@ padding-bottom: 50px !important;
     margin-top: 10px;
     margin-right: 1rem !important;
 }
-.bskp-text{
+
+.bskp-text {
     color: #2d2f79;
 }
-body{
-font-size: 14px;
+
+body {
+    font-size: 12px;
 }
+
 /* .panel.panel-expand > .panel-header{
     position: fixed;
     top: 0;
@@ -248,16 +252,20 @@ font-size: 14px;
     border: 1px solid #cccdeeca;
     cursor: pointer;
 }
+
 .bskp-home-modules:hover label {
-    color:#2d2f79 ;
+    color: #2d2f79;
 }
+
 .bskp-home-modules:hover .bskp-icon-frame {
     background: #2d2f79;
     border: 1px solid #c0c3e8;
 }
-.bskp-home-modules:hover i{
+
+.bskp-home-modules:hover i {
     color: rgb(198, 198, 198);
 }
+
 .bskp-home-modules img {
     width: auto;
     height: 42px;
@@ -266,66 +274,82 @@ font-size: 14px;
 .bskp-icon-frame {
     background: #f2f6ff;
     border: 1px solid #d2dfec;
-    border-radius:50%;
+    border-radius: 50%;
     padding: 8px;
-   
+
 }
-.bskp-rightpanel .panel-body > ul >li{
+
+.bskp-rightpanel .panel-body>ul>li {
     margin-bottom: 12px !important;
     padding-left: 8px;
 }
-.bskp-rightpanel .panel-heading ,.bskp-rightpanel .panel-body {
-   box-shadow: -1px 0px 8px 1px #cedeeccf;
-}
+
+.bskp-rightpanel .panel-heading,
 .bskp-rightpanel .panel-body {
-   
- border-right: 1px solid #dddddd !important;
- border-bottom: 1px solid #dddddd !important;
- border-left:   1px solid #dddddd !important;
- }
-.bskp-rightpanel .panel-heading{
+    box-shadow: -1px 0px 8px 1px #cedeeccf;
+}
+
+.bskp-rightpanel .panel-body {
+
+    border-right: 1px solid #dddddd !important;
+    border-bottom: 1px solid #dddddd !important;
+    border-left: 1px solid #dddddd !important;
+}
+
+.bskp-rightpanel .panel-heading {
     background-color: rgb(234 240 252) !important;
     color: #6d6d6d !important;
     border-radius: 15px 15px 0px 0px;
     border: 1px solid #dddddd;
 }
-.bskp-bord-icon{
+
+.bskp-bord-icon {
     border: 1px solid #cbd5e4 !important;
 }
-.bskp-bord-icon i{
-vertical-align: middle;
+
+.bskp-bord-icon i {
+    vertical-align: middle;
 }
-.bskp-rightpanel .panel-heading >h4 > span{
+
+.bskp-rightpanel .panel-heading>h4>span {
     font-size: 14px;
     color: #2e2e2e !important;
     vertical-align: middle;
     font-weight: 600;
 }
 
-.bskp-user-icon{
+.bskp-user-icon {
     float: left;
-    border-radius: 50%; 
+    border-radius: 50%;
     padding: 2px;
     font-size: 12px !important;
 }
-.bskp-rightpanel{
+
+.bskp-rightpanel {
     border-radius: 15px;
 }
-.bskp-rp-2 .nav > li >a{
-color: #1a1a1a !important;
+
+.bskp-rp-2 .nav>li>a {
+    color: #1a1a1a !important;
 }
-.bskp-rp-2 .nav > li >a > span{
+
+.bskp-rp-2 .nav>li>a>span {
     text-decoration: underline grey !important;
 }
-.bskp-px-4{
-    padding:9px 18px;
+
+.bskp-px-4 {
+    padding: 9px 18px;
 }
-@media(max-width:1025px){
-    .bskp-right-sec ,.bskp-main-sec{
+
+@media(max-width:1025px) {
+
+    .bskp-right-sec,
+    .bskp-main-sec {
         flex: 0 0 100%;
         max-width: 100% !important;
-    }    
+    }
 }
+
 /* @media(max-width:1441px) and (min-width:426px){
     .bskp-home-modules > p > label {
         white-space: nowrap;
@@ -343,20 +367,23 @@ color: #1a1a1a !important;
 } */
 
 
-@media (max-width:426px){
-    
-    .bskp-rightpanel{
+@media (max-width:426px) {
+
+    .bskp-rightpanel {
         padding: 0px !important;
-     }
-     .bskp-main-sec{
-        padding: 0px !important;
-     }
-     .bskp-px-4{
-        padding:15px !important;    
     }
+
+    .bskp-main-sec {
+        padding: 0px !important;
+    }
+
+    .bskp-px-4 {
+        padding: 15px !important;
+    }
+
     .bskp-dash-head {
         margin: 3px !important;
-       
+
     }
 }
 
@@ -399,7 +426,8 @@ color: #1a1a1a !important;
     background: #90a1b7;
     font-size: 16px !important;
 }
-.refresh-button{
+
+.refresh-button {
     padding-bottom: 3px;
     height: 22px;
 }
@@ -415,14 +443,14 @@ color: #1a1a1a !important;
     background: #eaf2f9;
     margin-left: 6px;
     border: 1px solid #dcebf7 !important;
-    line-height: 18px!important ;
+    line-height: 18px !important;
 }
 
 .bskp-refresh-bg {
     color: rgb(241, 241, 241) !important;
     background: #90a1b7;
     font-size: 16px;
-    padding: 6px 8px ;
+    padding: 6px 8px;
     height: 32px !important;
     border-radius: 10px !important;
     font-weight: 600;
@@ -486,8 +514,9 @@ color: #1a1a1a !important;
 .bskp-table tbody>tr>td {
     border: none !important;
 }
+
 .bskp-table {
-  width: 100% !important;
+    width: 100% !important;
 }
 
 .bskp-table thead {
@@ -503,7 +532,8 @@ color: #1a1a1a !important;
     background: #90a1b7 !important;
     color: #fff;
 }
-.bskp-table tbody{
+
+.bskp-table tbody {
     background: #ffffff !important;
 }
 
@@ -529,7 +559,7 @@ color: #1a1a1a !important;
     padding-left: 21px;
 }
 
-.bskp-modal tbody > tr > td:first-child {
+.bskp-modal tbody>tr>td:first-child {
     padding-left: 21px !important;
 }
 
@@ -624,7 +654,7 @@ color: #1a1a1a !important;
     font-size: 12px !important;
     color: #2a2a2a;
     font-weight: 600;
-}   
+}
 
 .bskp-modal label {
     color: #171717;
@@ -644,7 +674,8 @@ color: #1a1a1a !important;
     justify-content: center;
 }
 
-.bskp-modal .btn-proceed ,.btn-proceed {
+.bskp-modal .btn-proceed,
+.btn-proceed {
     background-color: #2D2F79;
     border-radius: 10px;
     border: none;
@@ -686,19 +717,24 @@ color: #1a1a1a !important;
     background-color: #fefefeba !important;
     opacity: .9 !important;
 }
-.bskp-btnsize{
-    width: 30px; 
+
+.bskp-btnsize {
+    width: 30px;
     height: 30px;
     font-size: 11px;
-     line-height: 30px;
+    line-height: 30px;
 }
-.bskp-mm-search{
-    background: #f2f9ffc2  !important;
+
+.bskp-mm-search {
+    background: #f2f9ffc2 !important;
     height: 32px !important;
 }
-.more-Hrecent,.more-Mrecent{
-   display: none; 
+
+.more-Hrecent,
+.more-Mrecent {
+    display: none;
 }
+
 .bskp-modal .modal-dialog {
     min-height: calc(100vh - 60px) !important;
     display: flex !important;
@@ -708,20 +744,23 @@ color: #1a1a1a !important;
 
 .bskp-modal .modal-dialog {
     max-width: 800px;
- margin: 1.75rem auto;
+    margin: 1.75rem auto;
 }
-@media(max-width:1024px){
+
+@media(max-width:1024px) {
     .bskp-modal .modal-dialog {
         max-width: 85%;
         margin: 1.75rem auto;
     }
 }
-@media(max-width:425px){
+
+@media(max-width:425px) {
     .bskp-modal .modal-dialog {
         max-width: 95%;
         margin: 1.75rem auto;
     }
 }
+
 /* - Modal end -*/
 
 /* - Mega-menu start -*/
@@ -734,89 +773,108 @@ color: #1a1a1a !important;
     transition: opacity 0.8s ease-out;
 } */
 
-.bskp-angleR{
-    transform: rotate(182deg) translate(0px,1px);  
+.bskp-angleR {
+    transform: rotate(182deg) translate(0px, 1px);
 }
-.showmore{
- cursor: pointer;
+
+.showmore {
+    cursor: pointer;
 }
 
 
-.bskp-fs-12{
-font-size: 12px !important;
+.bskp-fs-12 {
+    font-size: 12px !important;
 }
-.bskp-fs-14{
+
+.bskp-fs-14 {
     font-size: 14px !important;
-    }
-.bskp-mm-fullwin{
+}
+
+.bskp-mm-fullwin {
     font-size: 12px;
     vertical-align: text-top;
     margin-top: 2px;
 }
+
 .bskp-meganav span {
     font-size: 12px;
     color: #363636;
     font-weight: 600;
 }
-.bskp-meganav .sub-menu  a{
+
+.bskp-meganav .sub-menu a {
     font-size: 12px;
     color: #363636;
     font-weight: 600;
 }
+
 .bskp-mt-30 {
     margin-top: 30px;
-    
+
 }
-.bskp-mega-nav{
+
+.bskp-mega-nav {
     padding: 7px 12px;
     margin-bottom: 10px;
     background: #ffffff;
     border-radius: 10px;
     overflow: auto;
-   overflow-x: hidden;
-   max-height: 410px;
+    overflow-x: hidden;
+    max-height: 410px;
 }
-.searchcard{
+
+.searchcard {
     font-size: 12px !important;
     color: #1a1a1a;
     font-weight: 600;
 }
-.bskp-bb{
+
+.bskp-bb {
     padding-bottom: 4px;
     border-bottom: 3px solid #2d2f79bf;
 }
-.sideSub a{
-    color:#363636 !important;
+
+.sideSub a {
+    color: #363636 !important;
 }
-.sidebar .bskp-mega-nav >li>a {
+
+.sidebar .bskp-mega-nav>li>a {
     padding: 7px 0px !important;
 }
-.bskp-rad-10{
-    border-radius:10px !important;
+
+.bskp-rad-10 {
+    border-radius: 10px !important;
 }
-.bskp-mega-nav b{
+
+.bskp-mega-nav b {
     color: #2d377d;
 }
-.bskp-mega-head{
+
+.bskp-mega-head {
     margin-top: 16px;
     font-size: 14px;
     color: black;
     font-weight: 600;
 }
+
 .bskp-mega-modules .card {
     margin-bottom: 10px !important;
 }
+
 .megacard .bskp-home-modules {
-padding: 6px !important;
-margin-bottom: 10px  !important;
+    padding: 6px !important;
+    margin-bottom: 10px !important;
 }
+
 .megacard .cardtitle {
     font-size: 12px !important;
-    }
-.megacard .bskp-Dbg{
+}
+
+.megacard .bskp-Dbg {
     height: 20px !important;
     width: 20px !important;
 }
+
 /* - Mega-menu end -*/
 
 
@@ -883,206 +941,248 @@ margin-bottom: 10px  !important;
 .bskp-raw-mesg #reportrange {
     border-radius: 10px !important;
     height: 30px !important;
- }
+}
+
 /*  */
-.bskp-sidenav span{
+.bskp-sidenav span {
     font-size: 14px;
     color: #1a1a1a;
     vertical-align: middle;
 }
+
 .barwidth {
     width: 250px !important;
 }
 
 .sidebar .nav>li>a i {
-    color: #2d2f79  !important;
+    color: #2d2f79 !important;
 }
 
 /* Home-page ICONS */
-.bskp-Dbg{
+.bskp-Dbg {
     background-color: #2d2f79;
     height: 28px;
     width: 28px;
 }
 
-.bskp-home-modules:hover .bskp-Dbg{
+.bskp-home-modules:hover .bskp-Dbg {
     background-color: white;
 }
 
-   
+
 /* Home-page Icons start */
-.bskp-Dimg1{
-    mask: url(images/menu/market-place.svg) no-repeat center / contain ;
+.bskp-Dimg1 {
+    mask: url(images/menu/market-place.svg) no-repeat center / contain;
     -webkit-mask: url(images/menu/market-place.svg) no-repeat center / contain;
 }
-.bskp-Dimg2{
-   mask: url(images/menu/library.svg) no-repeat center / contain ;
-   -webkit-mask: url(images/menu/library.svg) no-repeat center / contain;
+
+.bskp-Dimg2 {
+    mask: url(images/menu/library.svg) no-repeat center / contain;
+    -webkit-mask: url(images/menu/library.svg) no-repeat center / contain;
 }
-.bskp-Dimg3{
-    mask: url(images/menu/message-definition_1-bskp.svg) no-repeat center / contain ;
+
+.bskp-Dimg3 {
+    mask: url(images/menu/message-definition_1-bskp.svg) no-repeat center / contain;
     -webkit-mask: url(images/menu/message-definition_1-bskp.svg) no-repeat center / contain;
- }
-.bskp-Dimg4{
-    mask: url(images/menu/sql-table.svg) no-repeat center / contain ;
-    -webkit-mask: url(images/menu/sql-table.svg) no-repeat center / contain;
- }
- .bskp-Dimg5{
-    mask: url(images/menu/db-table.svg) no-repeat center / contain ;
-    -webkit-mask: url(images/menu/db-table.svg) no-repeat center / contain;
- }
- .bskp-Dimg6{
-    mask: url(images/menu/mongodb.svg) no-repeat center / contain ;
-    -webkit-mask: url(images/menu/mongodb.svg) no-repeat center / contain;
- }
- .bskp-Dimg7{
-    mask: url(images/menu/widgets-bskp.svg) no-repeat center / contain ;
-    -webkit-mask: url(images/menu/widgets-bskp.svg) no-repeat center / contain;
- }
- .bskp-Dimg8{
-    mask: url(images/menu/record-definition-bskp.svg) no-repeat center / contain ;
-    -webkit-mask: url(images/menu/record-definition-bskp.svg) no-repeat center / contain;
- }
- .bskp-Dimg9{
-    mask: url(images/menu/dsql-temp.svg) no-repeat center / contain ;
-    -webkit-mask: url(images/menu/dsql-temp.svg) no-repeat center / contain;
- }
- .bskp-Dimg10{
-    mask: url(images/menu/db-templates.svg) no-repeat center / contain ;
-    -webkit-mask: url(images/menu/db-templates.svg) no-repeat center / contain;
- }
- .bskp-Dimg11{
-    mask: url(images/menu/hardware-fanta_1-bskp.svg) no-repeat center / contain ;
-    -webkit-mask: url(images/menu/hardware-fanta_1-bskp.svg) no-repeat center / contain;
- }
- .bskp-Dimg12{
-    mask: url(images/menu/folder.svg) no-repeat center / contain ;
-    -webkit-mask: url(images/menu/folder.svg) no-repeat center / contain;
- }
- .bskp-Dimg13{
-    mask: url(images/menu/dashboard-editor.svg) no-repeat center / contain ;
-    -webkit-mask: url(images/menu/dashboard-editor.svg) no-repeat center / contain;
- }
- .bskp-Dimg14{
-    mask: url(images/menu/events&notifications-bskp.svg) no-repeat center / contain ;
-    -webkit-mask: url(images/menu/events&notifications-bskp.svg) no-repeat center / contain;
- }
- .bskp-Dimg15{
-    mask: url(images/menu/dsql-console.svg) no-repeat center / contain ;
-    -webkit-mask: url(images/menu/dsql-console.svg) no-repeat center / contain;
- }
- .bskp-Dimg16{
-    mask: url(images/menu/db-query.svg) no-repeat center / contain ;
-    -webkit-mask: url(images/menu/db-query.svg) no-repeat center / contain;
- }
- .bskp-Dimg17{
-    mask: url(images/menu/assets-management-bskp.svg) no-repeat center / contain ;
-    -webkit-mask: url(images/menu/assets-management-bskp.svg) no-repeat center / contain;
- }
- .bskp-Dimg18{
-    mask: url(images/menu/event-log.svg) no-repeat center / contain ;
-    -webkit-mask: url(images/menu/event-log.svg) no-repeat center / contain;
- }
- .bskp-Dimg19{
-    mask: url(images/menu/mobile.svg) no-repeat center / contain ;
-    -webkit-mask: url(images/menu/mobile.svg) no-repeat center / contain;
- }
- .bskp-Dimg20{
-    mask: url(images/menu/script-console-fanta-bskp.svg) no-repeat center / contain ;
-    -webkit-mask: url(images/menu/script-console-fanta-bskp.svg) no-repeat center / contain;
- }
- .bskp-Dimg21{
-    mask: url(images/menu/messages.svg) no-repeat center / contain ;
-    -webkit-mask: url(images/menu/messages.svg) no-repeat center / contain;
- }
- .bskp-Dimg22{
-    mask: url(images/menu/mongodb-query.svg) no-repeat center / contain ;
-    -webkit-mask: url(images/menu/mongodb-query.svg) no-repeat center / contain;
- }
- .bskp-Dimg23{
-    mask: url(images/menu/firmware-management-fanta-bskp.svg) no-repeat center / contain ;
-    -webkit-mask: url(images/menu/firmware-management-fanta-bskp.svg) no-repeat center / contain;
- }
- .bskp-Dimg24{
-    mask: url(images/menu/app-log.svg) no-repeat center / contain ;
-    -webkit-mask: url(images/menu/app-log.svg) no-repeat center / contain;
- }
- .bskp-Dimg25{
-    mask: url(images/menu/rules-engine-fanta-bskp.svg) no-repeat center / contain ;
-    -webkit-mask: url(images/menu/rules-engine-fanta-bskp.svg) no-repeat center / contain;
- }
- .bskp-Dimg26{
-    mask: url(images/menu/Search.png) no-repeat center / contain ;
-    -webkit-mask: url(images/menu/Search.png) no-repeat center / contain;
- }
- .bskp-Dimg27{
-    mask: url(images/menu/templates-bskp.svg) no-repeat center / contain ;
-    -webkit-mask: url(images/menu/templates-bskp.svg) no-repeat center / contain;
- }
- .bskp-Dimg28{
-    mask: url(images/menu/cassandra.svg) no-repeat center / contain ;
-    -webkit-mask: url(images/menu/cassandra.svg) no-repeat center / contain;
- }
- .bskp-Dimg29{
-    mask: url(images/menu/geofence-fanta-bskp.svg) no-repeat center / contain ;
-    -webkit-mask: url(images/menu/geofence-fanta-bskp.svg) no-repeat center / contain;
- }
- .bskp-Dimg30{
-    mask: url(images/menu/user-management-fanta-bskp.svg) no-repeat center / contain ;
-    -webkit-mask: url(images/menu/user-management-fanta-bskp.svg) no-repeat center / contain;
- }
- .bskp-Dimg31{
-    mask: url(images/menu/machine-learning-bskp.svg) no-repeat center / contain ;
-    -webkit-mask: url(images/menu/machine-learning-bskp.svg) no-repeat center / contain;
- }
- .bskp-Dimg32{
-    mask: url(images/menu/goggle-mic.svg) no-repeat center / contain ;
-    -webkit-mask: url(images/menu/goggle-mic.svg) no-repeat center / contain;
- }
- .bskp-Dimg33{
-    mask: url(images/menu/amaz-mic.svg) no-repeat center / contain ;
-    -webkit-mask: url(images/menu/amaz-mic.svg) no-repeat center / contain;
- }
- .bskp-Dimg34{
-    mask: url(images/menu/code-editor.svg) no-repeat center / contain ;
-    -webkit-mask: url(images/menu/code-editor.svg) no-repeat center / contain;
- }
- .bskp-Dimg35{
-    mask: url(images/menu/templates-bskp.svg) no-repeat center / contain ;
-    -webkit-mask: url(images/menu/templates-bskp.svg) no-repeat center / contain;
- }
- .bskp-Dimg36{
-    mask: url(images/menu/Key.svg) no-repeat center / contain ;
-    -webkit-mask: url(images/menu/Key.svg) no-repeat center / contain;
- }
- .bskp-Dimg38{
-    mask: url(images/bell.svg) no-repeat center / contain ;
-    -webkit-mask: url(images/bell.svg) no-repeat center / contain;
- }
- .bskp-Dimg39{
-    mask: url(images/menu/sql-table.svg) no-repeat center / contain ;
-    -webkit-mask: url(images/menu/sql-table.svg) no-repeat center / contain;
- }
- .bskp-Dimg40{
-    mask: url(images/menu/dsql-console.svg) no-repeat center / contain ;
-    -webkit-mask: url(images/menu/dsql-console.svg) no-repeat center / contain;
- }
- .bskp-Dimg41{
-    mask: url(images/menu/messages.svg) no-repeat center / contain ;
-    -webkit-mask: url(images/menu/messages.svg) no-repeat center / contain;
- }
- /* Home-page Icons ends */
-
- /* Mega-menu start */
-.bskp-w-100{
-    width:100% !important;
 }
 
-  /* Mega-menu end */
+.bskp-Dimg4 {
+    mask: url(images/menu/sql-table.svg) no-repeat center / contain;
+    -webkit-mask: url(images/menu/sql-table.svg) no-repeat center / contain;
+}
+
+.bskp-Dimg5 {
+    mask: url(images/menu/db-table.svg) no-repeat center / contain;
+    -webkit-mask: url(images/menu/db-table.svg) no-repeat center / contain;
+}
+
+.bskp-Dimg6 {
+    mask: url(images/menu/mongodb.svg) no-repeat center / contain;
+    -webkit-mask: url(images/menu/mongodb.svg) no-repeat center / contain;
+}
+
+.bskp-Dimg7 {
+    mask: url(images/menu/widgets-bskp.svg) no-repeat center / contain;
+    -webkit-mask: url(images/menu/widgets-bskp.svg) no-repeat center / contain;
+}
+
+.bskp-Dimg8 {
+    mask: url(images/menu/record-definition-bskp.svg) no-repeat center / contain;
+    -webkit-mask: url(images/menu/record-definition-bskp.svg) no-repeat center / contain;
+}
+
+.bskp-Dimg9 {
+    mask: url(images/menu/dsql-temp.svg) no-repeat center / contain;
+    -webkit-mask: url(images/menu/dsql-temp.svg) no-repeat center / contain;
+}
+
+.bskp-Dimg10 {
+    mask: url(images/menu/db-templates.svg) no-repeat center / contain;
+    -webkit-mask: url(images/menu/db-templates.svg) no-repeat center / contain;
+}
+
+.bskp-Dimg11 {
+    mask: url(images/menu/hardware-fanta_1-bskp.svg) no-repeat center / contain;
+    -webkit-mask: url(images/menu/hardware-fanta_1-bskp.svg) no-repeat center / contain;
+}
+
+.bskp-Dimg12 {
+    mask: url(images/menu/folder.svg) no-repeat center / contain;
+    -webkit-mask: url(images/menu/folder.svg) no-repeat center / contain;
+}
+
+.bskp-Dimg13 {
+    mask: url(images/menu/dashboard-editor.svg) no-repeat center / contain;
+    -webkit-mask: url(images/menu/dashboard-editor.svg) no-repeat center / contain;
+}
+
+.bskp-Dimg14 {
+    mask: url(images/menu/events&notifications-bskp.svg) no-repeat center / contain;
+    -webkit-mask: url(images/menu/events&notifications-bskp.svg) no-repeat center / contain;
+}
+
+.bskp-Dimg15 {
+    mask: url(images/menu/dsql-console.svg) no-repeat center / contain;
+    -webkit-mask: url(images/menu/dsql-console.svg) no-repeat center / contain;
+}
+
+.bskp-Dimg16 {
+    mask: url(images/menu/db-query.svg) no-repeat center / contain;
+    -webkit-mask: url(images/menu/db-query.svg) no-repeat center / contain;
+}
+
+.bskp-Dimg17 {
+    mask: url(images/menu/assets-management-bskp.svg) no-repeat center / contain;
+    -webkit-mask: url(images/menu/assets-management-bskp.svg) no-repeat center / contain;
+}
+
+.bskp-Dimg18 {
+    mask: url(images/menu/event-log.svg) no-repeat center / contain;
+    -webkit-mask: url(images/menu/event-log.svg) no-repeat center / contain;
+}
+
+.bskp-Dimg19 {
+    mask: url(images/menu/mobile.svg) no-repeat center / contain;
+    -webkit-mask: url(images/menu/mobile.svg) no-repeat center / contain;
+}
+
+.bskp-Dimg20 {
+    mask: url(images/menu/script-console-fanta-bskp.svg) no-repeat center / contain;
+    -webkit-mask: url(images/menu/script-console-fanta-bskp.svg) no-repeat center / contain;
+}
+
+.bskp-Dimg21 {
+    mask: url(images/menu/messages.svg) no-repeat center / contain;
+    -webkit-mask: url(images/menu/messages.svg) no-repeat center / contain;
+}
+
+.bskp-Dimg22 {
+    mask: url(images/menu/mongodb-query.svg) no-repeat center / contain;
+    -webkit-mask: url(images/menu/mongodb-query.svg) no-repeat center / contain;
+}
+
+.bskp-Dimg23 {
+    mask: url(images/menu/firmware-management-fanta-bskp.svg) no-repeat center / contain;
+    -webkit-mask: url(images/menu/firmware-management-fanta-bskp.svg) no-repeat center / contain;
+}
+
+.bskp-Dimg24 {
+    mask: url(images/menu/app-log.svg) no-repeat center / contain;
+    -webkit-mask: url(images/menu/app-log.svg) no-repeat center / contain;
+}
+
+.bskp-Dimg25 {
+    mask: url(images/menu/rules-engine-fanta-bskp.svg) no-repeat center / contain;
+    -webkit-mask: url(images/menu/rules-engine-fanta-bskp.svg) no-repeat center / contain;
+}
+
+.bskp-Dimg26 {
+    mask: url(images/menu/Search.png) no-repeat center / contain;
+    -webkit-mask: url(images/menu/Search.png) no-repeat center / contain;
+}
+
+.bskp-Dimg27 {
+    mask: url(images/menu/templates-bskp.svg) no-repeat center / contain;
+    -webkit-mask: url(images/menu/templates-bskp.svg) no-repeat center / contain;
+}
+
+.bskp-Dimg28 {
+    mask: url(images/menu/cassandra.svg) no-repeat center / contain;
+    -webkit-mask: url(images/menu/cassandra.svg) no-repeat center / contain;
+}
+
+.bskp-Dimg29 {
+    mask: url(images/menu/geofence-fanta-bskp.svg) no-repeat center / contain;
+    -webkit-mask: url(images/menu/geofence-fanta-bskp.svg) no-repeat center / contain;
+}
+
+.bskp-Dimg30 {
+    mask: url(images/menu/user-management-fanta-bskp.svg) no-repeat center / contain;
+    -webkit-mask: url(images/menu/user-management-fanta-bskp.svg) no-repeat center / contain;
+}
+
+.bskp-Dimg31 {
+    mask: url(images/menu/machine-learning-bskp.svg) no-repeat center / contain;
+    -webkit-mask: url(images/menu/machine-learning-bskp.svg) no-repeat center / contain;
+}
+
+.bskp-Dimg32 {
+    mask: url(images/menu/goggle-mic.svg) no-repeat center / contain;
+    -webkit-mask: url(images/menu/goggle-mic.svg) no-repeat center / contain;
+}
+
+.bskp-Dimg33 {
+    mask: url(images/menu/amaz-mic.svg) no-repeat center / contain;
+    -webkit-mask: url(images/menu/amaz-mic.svg) no-repeat center / contain;
+}
+
+.bskp-Dimg34 {
+    mask: url(images/menu/code-editor.svg) no-repeat center / contain;
+    -webkit-mask: url(images/menu/code-editor.svg) no-repeat center / contain;
+}
+
+.bskp-Dimg35 {
+    mask: url(images/menu/templates-bskp.svg) no-repeat center / contain;
+    -webkit-mask: url(images/menu/templates-bskp.svg) no-repeat center / contain;
+}
+
+.bskp-Dimg36 {
+    mask: url(images/menu/Key.svg) no-repeat center / contain;
+    -webkit-mask: url(images/menu/Key.svg) no-repeat center / contain;
+}
+
+.bskp-Dimg38 {
+    mask: url(images/bell.svg) no-repeat center / contain;
+    -webkit-mask: url(images/bell.svg) no-repeat center / contain;
+}
+
+.bskp-Dimg39 {
+    mask: url(images/menu/sql-table.svg) no-repeat center / contain;
+    -webkit-mask: url(images/menu/sql-table.svg) no-repeat center / contain;
+}
+
+.bskp-Dimg40 {
+    mask: url(images/menu/dsql-console.svg) no-repeat center / contain;
+    -webkit-mask: url(images/menu/dsql-console.svg) no-repeat center / contain;
+}
+
+.bskp-Dimg41 {
+    mask: url(images/menu/messages.svg) no-repeat center / contain;
+    -webkit-mask: url(images/menu/messages.svg) no-repeat center / contain;
+}
+
+/* Home-page Icons ends */
+
+/* Mega-menu start */
+.bskp-w-100 {
+    width: 100% !important;
+}
+
+/* Mega-menu end */
 
 
-  /* View Toggle Raw-Message  */
-  /* container for all of the switch elements 
+/* View Toggle Raw-Message  */
+/* container for all of the switch elements 
     - adjust "width" to fit the content accordingly 
 */
 .raw-message .switches-container {
@@ -1144,8 +1244,8 @@ margin-bottom: 10px  !important;
     text-align: center;
     opacity: 0;
     display: block;
-    font-weight: 600;   
-    color: white ;
+    font-weight: 600;
+    color: white;
     transition: opacity .2s cubic-bezier(.77, 0, .175, 1) .125s;
     will-change: opacity;
     position: absolute;
@@ -1172,76 +1272,90 @@ margin-bottom: 10px  !important;
 .raw-message .switches-container input:nth-of-type(2):checked~.switch-wrapper .switch div:nth-of-type(2) {
     opacity: 1;
 }
+
 .raw-message .switches-container {
     min-width: 280px;
 }
-.btn-bskp{
-color: white;
-background: #2D2F79;
+
+.btn-bskp {
+    color: white;
+    background: #2D2F79;
 }
+
 /* button:hover {
     opacity: .9;
     cursor: pointer;
     border: none; 
 }*/
-input[type=file]{
+input[type=file] {
     font-size: 12px !important;
-   
+
 }
 
-.spinner-block{
+.spinner-block {
     position: absolute;
     top: 50%;
     left: 50%;
 }
+
 .panel-title {
     font-size: 14px;
     color: #242a30;
 }
+
 .breadcrumb>li a {
     color: #525252;
     font-size: 13px;
 }
+
 .breadcrumb>li a:hover {
     color: #348ee3 !important;
 }
-.bskp-plusvg{
+
+.bskp-plusvg {
     height: 14px;
     position: relative;
     top: -1px;
 }
-.bskp-expand{
+
+.bskp-expand {
     height: 16px;
 }
-.bskp-headbtn{
+
+.bskp-headbtn {
     color: #3b3ea0 !important;
     background: white !important;
 }
-.bskp-edit-btn em{
+
+.bskp-edit-btn em {
     color: grey;
     font-size: 16px;
     vertical-align: middle;
 }
-.minus-none{
+
+.minus-none {
     display: none;
 }
-.bskp-greyicon em{
+
+.bskp-greyicon em {
     font-size: 16px;
     color: #6d7279 !important;
     vertical-align: middle;
 }
-.bskp-dropborder{
+
+.bskp-dropborder {
     width: 100%;
     border: 1px solid #3e373738;
-    border-radius:10px;
+    border-radius: 10px;
 }
-.bskp-close{
-    border-radius: 13px; 
-     padding:3px; 
+
+.bskp-close {
+    border-radius: 13px;
+    padding: 3px;
 }
 
 
-.bskp-clearvisit{
+.bskp-clearvisit {
     color: #a0a0a0;
     padding: 0px 4px !important;
     background: #eaf1f6;
@@ -1249,7 +1363,7 @@ input[type=file]{
     border-radius: 6px !important;
 }
 
-.bskp-submenu2{
+.bskp-submenu2 {
     height: 35px;
     border-radius: 10px;
     margin: 30px 39px 0px 40px !important;
@@ -1257,6 +1371,7 @@ input[type=file]{
     position: relative;
     top: 4px;
 }
+
 .bskp-submenu2 li {
     line-height: 30px;
     border: 1px solid #e2e2e2;
@@ -1271,18 +1386,21 @@ input[type=file]{
     font-weight: 600;
     color: white;
 }
+
 .bskp-submenu2 li.active>a {
     color: white;
     background: inherit;
     font-weight: 500;
 }
-.small-text{
+
+.small-text {
     color: #2d2f79;
     font-weight: 600;
     font-size: 11px;
     padding-right: 3px;
     cursor: pointer;
 }
+
 /* code {
     padding: 2px 4px;
     font-size: 90%;
@@ -1291,18 +1409,20 @@ input[type=file]{
     border-radius: 4px;
 } */
 
-.bskp-icon-bg em , .bskp-icon-bg i{
-vertical-align: middle;
+.bskp-icon-bg em,
+.bskp-icon-bg i {
+    vertical-align: middle;
 }
 
-.bskp-add{
+.bskp-add {
     width: 28px;
     height: 28px;
     padding: 2px;
     border-radius: 50%;
     background: #2d2f79;
 }
-.bskp-minus{
+
+.bskp-minus {
     width: 28px;
     height: 28px;
     padding: 2px;
@@ -1310,46 +1430,53 @@ vertical-align: middle;
     background: #90a1b7;
 }
 
-.mega-search{
+.mega-search {
     top: 0px !important;
-    color:#2d2f79;
+    color: #2d2f79;
     position: relative !important;
     font-size: 14px !important;
 }
-.bskp-meganav{
-    position:relative;
-     background: #eaf1f6;
-       border-radius: 0rem 0rem 0rem 1rem;
+
+.bskp-meganav {
+    position: relative;
+    background: #eaf1f6;
+    border-radius: 0rem 0rem 0rem 1rem;
 }
-.bskp-edit-inp{
-   
+
+.bskp-edit-inp {
+
     padding: 3px 3px 3px 4px !important;
     background: white;
     border-radius: 6px !important;
     border: 1px solid #bbc4d1;
     box-shadow: 0px 0px 2px 2px #f4f4f4 !important;
 }
-.bskp-edit-inp > img{
+
+.bskp-edit-inp>img {
     width: 18px;
     height: 18px;
 }
+
 .ref-btn {
     padding: 6px 6px !important;
 }
-.ref-btn img{
+
+.ref-btn img {
     width: 18px;
     height: 18px;
     vertical-align: initial;
 }
 
-.bskp-noframe{
-    padding: 16px 15px!important;
+.bskp-noframe {
+    padding: 16px 15px !important;
 }
-.bskp-modelbtn:hover{
-    
+
+.bskp-modelbtn:hover {
+
     text-decoration: none;
 }
-.bskp-modelbtn{
+
+.bskp-modelbtn {
     padding: 5px 16px !important;
     border: 1px solid #2d2f79;
     border-radius: 10px !important;
@@ -1358,39 +1485,45 @@ vertical-align: middle;
     font-weight: 500;
     box-shadow: 0px 0px 2px 2px #e5e9f1 !important;
 }
-.bskp-dmodel-layer{
+
+.bskp-dmodel-layer {
     border: 1px solid #d3d8de;
     border-radius: 10px;
     padding: 8px 0px;
 }
 
-.recent-dash{
+.recent-dash {
     background: #dedcdc;
     margin: 0px;
     position: relative;
     top: -20px;
 }
 
-.showmore{
+.showmore {
     height: 24px;
-    padding:3px;
+    padding: 3px;
     background: white;
     position: relative;
     top: -7px;
     z-index: 100;
-     text-align: center; 
-     width: 24px;
-     margin: auto;    
+    text-align: center;
+    width: 24px;
+    margin: auto;
 }
-.btn-bskp:hover{
+
+.btn-bskp:hover {
     color: #fff !important;
 }
-table.table-bordered.dataTable th, table.table-bordered.dataTable td{
+
+table.table-bordered.dataTable th,
+table.table-bordered.dataTable td {
     vertical-align: middle;
 }
-.gap-20{
+
+.gap-20 {
     gap: 20px;
 }
-.close-alert-btn:focus{
+
+.close-alert-btn:focus {
     outline: none;
 }
