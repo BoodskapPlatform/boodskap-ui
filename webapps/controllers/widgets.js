@@ -235,7 +235,7 @@ function loadMore(id){
 }
 
 function renderWidgetDiv(obj){
-
+console.log("object",obj); 
     var tags ='';
 
     var tagObj = obj.tags.split(",");
@@ -243,7 +243,7 @@ function renderWidgetDiv(obj){
     for(var i=0;i<tagObj.length;i++){
         if(tagObj.length>3){
             if(i<=2){
-                tags+= '<i class="label label-default mr-2">'+tagObj[i]+'</i>'
+                tags+= '<i class="label label-default mr-1">'+tagObj[i]+'</i>'
                 moreTag ='<span class="tagEllipseMargin">...</span>'
             }
         }
@@ -280,18 +280,18 @@ function renderWidgetDiv(obj){
                                 </div>
                             </div>
                             <div class="col-lg-8 col-md-8 col-sm-12 pl-2">
-                                <a href="javascript:;" class="pull-right text-danger" onclick="deleteWid('`+obj.widgetid+`','`+obj.widgetname+`')"><i class="fa fa-close"></i></a>
-                                <h5 class="pull-left" style="width:100%;white-space: nowrap;text-overflow: ellipsis;  overflow: hidden;" title="`+obj.widgetname+`">`+obj.widgetname+`</h5>
+                                <a href="javascript:;" class="pull-right text-danger" onclick="deleteWid('`+obj.widgetid+`','`+obj.widgetname+`')"><i class="fas fa-times"></i></a>
+                                <h5 class="pull-left mb-0" style="width:100%;white-space: nowrap;text-overflow: ellipsis;  overflow: hidden ;" title="`+obj.widgetname+`">`+obj.widgetname+`</h5>
                                 <small class="mr-2">v`+obj.version+`</small> <small><i class="fa fa-folder"></i> `+obj.category+`</small> <br>
                                 <p class="" style="margin-top: 3px" title="`+obj.tags+`"><i class="fa fa-tags"></i>
-                                    `+tags+moreTag+`
+                                     `+tags+moreTag+`
                                 </p>
                                 <small class="mr-2"><i class="fa fa-user"></i> `+obj.createdby+`</small>
                                 
                                  <br><small><i class="fa fa-clock-o"></i> `+moment(obj.updatedtime).format('MM/DD/YYYY hh:mm a')+`</small><br>
                                 
                                 <div class="btn-`+obj.widgetid+`">
-                                    <button class="btn mt-2 btn-warning btn-sm action hide" onclick="importModal('`+obj.widgetid+`','`+obj.widgetname+`')"><i class="icon-plus-square"></i> <span class="hidden-xs">Add to Domain</span></button>
+                                    <button class="btn bskp-blue-bg mt-2 action hide" onclick="importModal('`+obj.widgetid+`','`+obj.widgetname+`')"><i class="icon-plus-square"></i> <span class="hidden-xs">Add to Domain</span></button>
                                 </div>
 
                             </div>
@@ -332,6 +332,8 @@ function deleteWid(id,nam){
 }
 
 function checkWidget(id,nam){
+    console.log("id check",id);
+    console.log("nam check",nam);
     var queryParams = {
         query: {
             "bool": {
@@ -350,10 +352,13 @@ function checkWidget(id,nam){
 
     };
     searchByQuery(null,'WIDGET_IMPORTED',ajaxObj,function (status,data){
+        console.log("searching");
+        console.log("Status of the search",status);
         if(status){
             var resultData = searchQueryFormatterNew(data);
 
             if(resultData.total > 0){
+                console.log("coming in");
                 // $(".btn-"+id+" .action").removeClass('hide').removeClass('btn-warning').addClass('btn-default');
                 // $(".btn-"+id+" .action").removeAttr('onclick')
                 // $(".btn-"+id+" .action").attr('disabled','disabled')
@@ -363,9 +368,11 @@ function checkWidget(id,nam){
                 $(".btn-"+id).append('<button class="mt-2 btn btn-outline-danger btn-sm delBtn" onclick="deleteImpWidget(\''+id+'\',\''+nam+'\')"><i class="fa fa-trash"></i> Uninstall</button>')
 
             }else{
+               
                 $(".btn-"+id+" .action").removeClass('hide')
             }
         }else{
+            console.log("not coming in");
             $(".btn-"+id+" .action").removeClass('hide')
         }
     })
@@ -432,6 +439,8 @@ function proceedDelete() {
 
 function importModal(id, name) {
     widgetId = id;
+ console.log("id",id);
+ console.log("name",name);
     // $(".widgetName").html(name);
     // $("#importModal").modal('show');
 
@@ -445,13 +454,17 @@ function importModal(id, name) {
     })
         .then(function (result) {
             if (result.value) {
+                console.log("result",result.value);
                 importWidget(id, function (status, data) {
+                    console.log("data",data);
+                    // console.log("id",id);
                     $(".btnModal").removeAttr('disabled');
                     $(".btnModal").html('Proceed')
                     if (status) {
                         $("#importModal").modal('hide');
                         successMsg('Widget successfully imported to your domain')
                     } else {
+                        // console.log("else");
                         errorMsg('Error in adding widget')
                     }
                 })
@@ -470,8 +483,10 @@ function proceedImport() {
     //         errorMsg('Widget already imported to your domain')
     //     }else{
     importWidget(widgetId, function (status, data) {
+        
         $(".btnModal").removeAttr('disabled');
         $(".btnModal").html('Proceed')
+        console.log("status",status);
         if (status) {
             $("#importModal").modal('hide');
             successMsg('Widget successfully imported to your domain')
