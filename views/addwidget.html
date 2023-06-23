@@ -61,7 +61,13 @@
 
     }
 .panel-heading{
-    background-color: #6d6d6d !important;
+    font-size: 20px;
+    font-weight: 600;
+    color: #3e3e3e;
+    padding: 8px 32px;
+    border-bottom: 1px solid rgb(231 231 231 / 74%);
+    box-shadow: 0px 1px 3px 0px #d0cfcf9c;
+
 }
     .nav-tabs {
         background: #4b4a49;
@@ -118,21 +124,31 @@
             <div class="panel-heading">
                 <div class="panel-heading-btn">
 
-                    <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-default" data-click="panel-expand"><i
+                    <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-default" style="    font-size: 14px !important;
+                    color: #2D2F79 !important;
+                    background: #eaf2f9;
+                    margin-left: 6px;
+                    border: 1px solid #dcebf7 !important;
+                    line-height: 18px !important;" data-click="panel-expand"><i
                             class="fa fa-expand-alt"></i></a>
-                    <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-warning" title="Help"><i
+                    <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-warning" style="    font-size: 14px !important;
+                    color: #2D2F79 !important;
+                    background: #eaf2f9;
+                    margin-left: 6px;
+                    border: 1px solid #dcebf7 !important;
+                    line-height: 18px !important;" title="Help"><i
                             class="icon-help"></i></a>
                     <a href="javascript:;" class="btn btn-sm btn-circle btn-danger btnDelete hide"
                        title="Delete Widget"><i
                             class="icon-trash2"></i> Delete</a>
 
                 </div>
-                <a class="btn btn-default btn-sm" href="<%= basepath %>/widgets"><i class="icon-chevron-left2"></i> Back</a>
+                <a class="btn btn-default  btn-sm" style="background: #2D2F79;border: #2D2F79; color: white;" href="<%= basepath %>/widgets"><i class="icon-chevron-left2"></i> Back</a>
                <!-- <button class="btn btn-default btn-sm" type="button"
                         onclick="document.location=BASE_PATH+'/widgets';"><i class="icon-chevron-left2"></i> Back
                 </button>-->
                 <!--<button class="btn btn-warning btn-sm btnPublish" type="submit" disabled onclick="publishWidget()"><i class="icon-globe"></i> Publish</button>-->
-                <button class="btn btn-warning btn-sm" type="submit"><i class="icon-save"></i> Save Widget</button>
+                <button style="background: #2D2F79;border: #2D2F79;" class="btn btn-warning btn-sm" type="submit"><i class="icon-save"></i> Save Widget</button>
 
             </div>
             <div class="panel-body" style="background-color: #eeeeee00;border: 1px solid #eee;padding-bottom: 30px;">
@@ -140,9 +156,10 @@
                 <div class="row">
                     <div class="col-lg-3">
                         <div class="form-group">
-                            <label class="inputLabel">Widget Name</label>
-                            <input class="form-control input-sm" placeholder="Widget Name" type="text" id="widgetName"
-                                   required>
+                            <label class="inputLabel">Widget Name *</label>
+                            <input class="form-control input-sm" placeholder="Widget Name" maxlength="30" type="text" id="widgetName"
+                                   >
+                                   <span id="widget_Error"></span>
                         </div>
                     </div>
                     <div class="col-lg-1" style="text-align: center">
@@ -183,8 +200,6 @@
                             <label class="inputLabel">Choose Category</label>
                             <select class="form-control input-sm" id="widgetCategory" required
                                     placeholder="Widget Category">
-
-
                             </select>
                         </div>
                     </div>
@@ -212,15 +227,16 @@
                 <div class="row" style="background-color: #eeeeee80;padding-bottom: 10px;">
                     <div class="col-lg-12">
                         <div class="form-group">
-                            <label class="inputLabel">Description</label>
+                            <label class="inputLabel">Description *</label>
                             <textarea class="form-control input-sm" placeholder="Widget Description" type="text"
-                                      id="widgetDesc" required
-                                      style="height: 100px"></textarea>
+                                      id="widgetDesc" 
+                                      style="height: 100px" maxlength="100"></textarea>
+                                      <span id="widgetDesc_Error"></span>
                         </div>
                     </div>
 
                     <div class="col-md-12 text-center">
-                        <button type="button" onclick="openEditorModal()"
+                        <button type="button" style="background-color: #2D2F79; color: white;" onclick="openEditorModal()"
                                 class="btn btn-sm btn-secondary"><i class="icon-edit2"></i> Widget Code
                             Editor
                         </button>

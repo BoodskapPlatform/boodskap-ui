@@ -1,20 +1,32 @@
 <style>
-    .panelHeader{
+    .panelHeader {
         padding: 10px 15px;
         border: none;
         border-top-left-radius: 3px;
         border-top-right-radius: 3px;
         background-color: #6d6d6d;
-        color:#fff
+        color: #fff
     }
-    .dashboardBody{
+
+    .dashboardBody {
         overflow: auto;
         overflow-x: hidden;
     }
-    body{
-        /*background-color: #9e9e9ea3 !important;*/
+
+    body {
+        /* background-color: #9e9e9ea3 !important; */
     }
-    .widgetHeader{
+
+    .panel-heading {
+        font-size: 20px;
+        font-weight: 600;
+        color: #3e3e3e;
+        padding: 10px 32px;
+        border-bottom: 1px solid rgb(231 231 231 / 74%);
+        box-shadow: 0px 1px 3px 0px #d0cfcf9c;
+    }
+
+    .widgetHeader {
         font-size: 13px;
         background-color: #6d6d6d;
         padding: 5px;
@@ -28,24 +40,26 @@
 
         /*border: 1px solid #eee;*/
     }
-    .grid-stack-item-content img{
+
+    .grid-stack-item-content img {
         width: 64px;
-        height:64px;
+        height: 64px;
     }
 
-    .widgetPanelHeader{
+    .widgetPanelHeader {
         position: absolute;
         width: 100%;
-        top:0px;left:0px;
+        top: 0px;
+        left: 0px;
         display: none;
     }
 
-    .widgetPanelHeader.panel-heading{
+    .widgetPanelHeader.panel-heading {
         background-color: #333333ed !important;
         background: #333333ed !important;
     }
 
-    .dashboardMenu{
+    .dashboardMenu {
         position: absolute;
         left: 0px;
         top: 0px;
@@ -58,44 +72,64 @@
         overflow-y: scroll;
     }
 
-    .dashboardMenu ul{
+    .dashmenuicon {
+        background-color: white !important;
+        border-radius: 6px;
+        font-size: 16px;
+        border: 1px solid #d8dce6 !important;
+        box-shadow: 0px 0px 1px 2px #f2f6ff !important;
+        margin-right: 1rem !important;
+        color: #336abd85 !important;
+        position: unset !important;
+    }
+
+    .dashboardMenu ul {
         list-style: none;
         margin-top: 10px;
         padding-left: 10px;
 
     }
 
-    .dashboardMenu ul li{
+    .dashboardMenu ul li {
         margin: 5px 0px;
         padding: 5px;
     }
-    .dashboardMenu ul li.nav-menu:hover{
+
+    /* .dashboardMenu ul li.nav-menu:hover {
         background-color: #eee;
         border-left: 2px solid #999;
         cursor: pointer;
-        color:#333;
-    }
+        color: #333;
+    } */
 
-    .dashboardMenu ul li.active{
+    /* .dashboardMenu ul li.active {
         background-color: #eee;
         border-left: 2px solid #FF9800;
-        color:#333;
-        /*font-weight: bold;*/
-    }
+        color: #333;
+        font-weight: bold;
+    } */
 
-    .dashboardMenu ul li a{
+    .dashboardMenu ul li a {
         padding-left: 10px;
         color: #6d6d6d;
         display: block;
         text-decoration: none;
     }
-    .dashboardMenu ul li a>i{
+
+    .dashboardMenu ul li a>i {
         margin-right: 5px;
     }
-    .dashboardMenu ul li.nav-header{
+
+    .dashboardMenu ul li.nav-header {
         font-weight: bold;
     }
 
+    .btn-default {
+        font-size: 14px !important;
+        color: #2D2F79 !important;
+        background: #eaf2f9 !important;
+
+    }
 </style>
 
 <input type="hidden" id="domainkey" value="<%= domainkey %> " />
@@ -103,8 +137,8 @@
 <input type="hidden" id="dashboardID" value="<%= dashboardId %> " />
 <input type="hidden" id="isPublic" value="<%= public %> " />
 
-<link rel="stylesheet" href="css/gridstack.css"/>
-<link rel="stylesheet" href="css/gridstack-extra.css"/>
+<link rel="stylesheet" href="css/gridstack.css" />
+<link rel="stylesheet" href="css/gridstack-extra.css" />
 
 <div class="container-fluid dashboardDIV platformBody" style="padding: 3px 5px;position: relative">
 
@@ -114,10 +148,14 @@
             <div class="panel-heading-btn hidden-xs">
                 <a href="javascript:;" style="text-decoration: none" class="dashboardStatus"></a>
                 <!--<a href="javascript:;" class="btn btn-xs btn-circle btn-default btnDash" onclick="getScreenshot()"><i class="icon-camera"></i></a>-->
-                <a href="javascript:;" class="btn btn-xs btn-circle btn-default btnDash" data-click="panel-expand"><i class="icon-expand2"></i></a>
-                <a href="javascript:;" class="btn btn-xs btn-circle btn-default btnDash" onclick="shareModal()"><i class="icon-share-alt"></i></a>
-                <a href="javascript:void(0)" onclick="loadEditor()" class="btn btn-xs btn-circle btn-default btnDash" ><i class="icon-edit2"></i></a>
-                <a href="javascript:;" class="btn btn-xs btn-circle btn-default" data-click="panel-reload" onclick="refreshDashboard()"><i class="fa fa-redo"></i></a>
+                <a href="javascript:;" class="btn btn-xs btn-circle btn-default btnDash" data-click="panel-expand"
+                    title="Expand"><i class="icon-expand2"></i></a>
+                <a href="javascript:;" class="btn btn-xs btn-circle btn-default btnDash" onclick="shareModal()"
+                    title="Share"><i class="icon-share-alt"></i></a>
+                <a href="javascript:void(0)" onclick="loadEditor()" class="btn btn-xs btn-circle btn-default btnDash"
+                    title="Editor"><i class="icon-edit2"></i></a>
+                <a href="javascript:;" class="btn btn-xs btn-circle btn-default" data-click="panel-reload"
+                    onclick="refreshDashboard()" title="Refresh"><i class="fa fa-redo"></i></a>
             </div>
             <h4 class="panel-title">
 
@@ -125,9 +163,9 @@
                     <i class="icon-bars"></i>
                 </button>
 
-                <span class="dashboardIcon"></span> <span class="dashboardName"></span>
+                <span class="dashboardIcon" style="color: #666;"></span> <span class="dashboardName" style="color: #666;"></span>
 
-                   <!-- <button onclick="document.location=BASE_PATH+'/dashboard'" class="btn btn-default btn-xs mr-2">
+                <!-- <button onclick="document.location=BASE_PATH+'/dashboard'" class="btn btn-default btn-xs mr-2">
                         <i class="icon-chevron-left2"></i> Go Back
                     </button>-->
 
@@ -153,7 +191,8 @@
 
             </h4>
         </div>
-        <div class="panel-body dashboardBody" style="background-color: #eeeeee00;border: 1px solid rgba(109, 109, 109, 0.16);padding:10px 0px;position: relative;overflow: auto;overflow-x: hidden">
+        <div class="panel-body dashboardBody"
+            style="background-color: #eeeeee00;border: 1px solid rgba(109, 109, 109, 0.16);padding:10px 0px;position: relative;overflow: auto;overflow-x: hidden">
 
             <div class="dashboardMenu">
                 <ul></ul>
@@ -183,11 +222,14 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Share Dashboard</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
-                <h5><label><input type="radio" id="enableBtn" name="shareBtn" onclick="shareDashboard()" value="enable"/> Enable</label></h5>
-                <h5><label><input type="radio" id="disableBtn" name="shareBtn" onclick="shareDashboard()" value="disbale"/> Disable</label></h5>
+                <h5><label><input type="radio" id="enableBtn" name="shareBtn" onclick="shareDashboard()"
+                            value="enable" /> Enable</label></h5>
+                <h5><label><input type="radio" id="disableBtn" name="shareBtn" onclick="shareDashboard()"
+                            value="disbale" /> Disable</label></h5>
 
                 <h5 class="mt-2 shareLink" style="width:100%;word-wrap:break-word"></h5>
             </div>

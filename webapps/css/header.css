@@ -2,6 +2,7 @@
 #header, .goog-te-menu-value > span ,.indicator > span{
     /* font-family: 'Montserrat', sans-serif !important; */
 }
+
 .priceLabel{
     display: block;
     text-align: center;
@@ -28,11 +29,12 @@
     font-weight: 600;
 }
 
-.header-style{
+
+.header-style {
     background: white !important;
-     padding: 2px 38px ;
-     box-shadow: 0px 2px 12px 2px #e7eefa; 
-     z-index: 400 !important;
+    padding: 8px 15px !important;
+    box-shadow: 0px 2px 12px 2px #e7eefa;
+    z-index: 400 !important;
 }
 #megaMenu > .modal-header{
     padding: 18px 12px 8px 12px !important;
@@ -52,7 +54,7 @@
         .header-style {
             background: white !important;
             padding: 8px 15px !important;
-            box-shadow: 0px 2px 12px 2px #e7eefa;
+            box-shadow: 0px 2px 0px 2px #e7eefa;
             z-index: 400 !important;
         }
     }

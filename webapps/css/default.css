@@ -97,9 +97,9 @@ div::-webkit-scrollbar-thumb {
     line-height: 28px;
     box-shadow: 1px -1px 1px 0px #f4f4f481;
 }
-.panel-heading{
+/* .panel-heading{
     background-color: #6d6d6d;
-}
+} */
 
 .header .navbar-nav>li.active {
     background-color: #eeeeee2e;

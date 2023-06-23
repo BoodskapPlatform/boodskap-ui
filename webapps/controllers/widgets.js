@@ -235,7 +235,7 @@ function loadMore(id){
 }
 
 function renderWidgetDiv(obj){
-
+console.log("obj",obj);
     var tags ='';
 
     var tagObj = obj.tags.split(",");
@@ -335,10 +335,10 @@ function checkWidget(id,nam){
     var queryParams = {
         query: {
             "bool": {
-                "must": [{match:{'clientDomainKey':DOMAIN_KEY}},{match:{'widgetid':id}}]
+                "must": [{match:{'domainKey':DOMAIN_KEY}},{match:{'widgetid':id}}]
             }
         },
-        size:1
+        size:1000
     };
 
 
@@ -352,7 +352,6 @@ function checkWidget(id,nam){
     searchByQuery(null,'WIDGET_IMPORTED',ajaxObj,function (status,data){
         if(status){
             var resultData = searchQueryFormatterNew(data);
-
             if(resultData.total > 0){
                 // $(".btn-"+id+" .action").removeClass('hide').removeClass('btn-warning').addClass('btn-default');
                 // $(".btn-"+id+" .action").removeAttr('onclick')
@@ -431,7 +430,9 @@ function proceedDelete() {
 }
 
 function importModal(id, name) {
-    widgetId = id;
+    console.log(id);
+    console.log(name);
+    widgetId = id;  
     // $(".widgetName").html(name);
     // $("#importModal").modal('show');
 
@@ -444,8 +445,12 @@ function importModal(id, name) {
         confirmButtonText: "Yes, Add it!",
     })
         .then(function (result) {
+            console.log(result);
             if (result.value) {
                 importWidget(id, function (status, data) {
+                    console.log(status);
+                    console.log(data);
+                    console.log(id,"id");
                     $(".btnModal").removeAttr('disabled');
                     $(".btnModal").html('Proceed')
                     if (status) {

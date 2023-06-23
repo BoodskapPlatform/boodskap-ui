@@ -3158,6 +3158,7 @@ function importWidget(id, cbk) {
         url: API_BASE_PATH + "/widget/import/" + API_TOKEN_ALT + '/' + id,
         type: 'GET',
         success: function (data) {
+            console.log("hgdhsdhj",data);
             //called when successful
             cbk(true, data);
         },

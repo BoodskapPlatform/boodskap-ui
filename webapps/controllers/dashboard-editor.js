@@ -45,7 +45,7 @@ $(document).ready(function () {
     loadImportedWidgets();
     // addIconList();
     loadImageList();
-
+    
     var options = {
         animate: true,
         cellHeight: 100,
@@ -150,6 +150,7 @@ function loadWidgets(property) {
 
 
     getDomainProperty(property, function (status, data) {
+        console.log("bkjdfg",data);
         if (status) {
 
             WIDGETS_LIST = JSON.parse(data.value);
@@ -718,7 +719,7 @@ function loadImportedWidgets() {
     var sText = $.trim($("#searchText").val());
 
     var clientDomainKey = {
-        match: {clientDomainKey: DOMAIN_KEY}
+        match:{'domainKey':DOMAIN_KEY}
     };
 
     var queryParams = {

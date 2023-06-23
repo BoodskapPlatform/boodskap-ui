@@ -397,7 +397,7 @@ body {
     font-size: 20px;
     font-weight: 600;
     color: #3e3e3e;
-    padding: 12px 30px;
+    padding: 8px 33px !important;
     border-bottom: 1px solid rgb(231 231 231 / 74%);
     box-shadow: 0px 1px 3px 0px #d0cfcf9c;
 }
