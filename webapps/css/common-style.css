@@ -144,3 +144,14 @@
 .fa-eye-slash{
     font-size: 12px;
 }
+.text-theme{
+    color: #2D2F79;
+}
+.bg-light{
+    background-color: #eaf2f9 !important;
+}
+
+.input-group:not(.has-validation)>.custom-file:not(:last-child) .custom-file-label, .input-group:not(.has-validation)>.custom-file:not(:last-child) .custom-file-label::after, .input-group:not(.has-validation)>.custom-select:not(:last-child), .input-group:not(.has-validation)>.form-control:not(:last-child) {
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+}
