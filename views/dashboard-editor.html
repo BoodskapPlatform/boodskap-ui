@@ -71,8 +71,8 @@
         background-color: #eeeeeec2;
         font-weight: bold;
         border: 1px solid #cccccc70;
-        border-left: 2px solid #FF9800;
-        border-right: 3px solid #FF9800;
+        border-left: 2px solid #2D2F79;
+        border-right: 3px solid #2D2F79;
     }
 
     .widgetsBox{
@@ -196,31 +196,32 @@
 
     <!-- begin panel -->
     <div class="panel panel-inverse">
-        <div class="panel-heading">
-            <div class="panel-heading-btn hidden-xs">
-                <a href="javascript:;" style="text-decoration: none" class="dashboardStatus"></a>
-                <a href="javascript:;" class="btn btn-xs btn-circle btn-default" data-click="panel-expand"><i class="icon-expand2"></i></a>
-                <a href="javascript:;" class="btn btn-xs btn-circle btn-default" data-click="panel-reload"><i class="fa fa-redo"></i></a>
-                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle btn-warning" title="Help"><i class="icon-help"></i></a>
-
-            </div>
+        <div class="page-header bskp-page-topic d-flex justify-content-between align-items-center m-0">
             <h4 class="panel-title">
                 <i class="icon-edit2"></i> Dashboard Editor Studio
             </h4>
+            <div class="panel-heading-btn">
+                <a href="javascript:;" style="text-decoration: none" class="dashboardStatus"></a>
+                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg" data-click="panel-expand" title="Expand"><i class="fa fa-expand"></i></a>
+                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg" data-click="panel-reload" title="Refresh"><i class="fa fa-redo"></i></a>
+                <a href="javascript:;" class="btn btn-sm btn-icon btn-circle bskp-icon-bg" title="Help"><i class="icon-help"></i></a>
+
+            </div>
+            
         </div>
         <div class="panel-body dashboardBody" style="background-color: #eeeeee00;border: 1px solid #eee;">
            <div class="row">
                <div class="col-lg-2" style="padding: 0px;">
                    <div class="panel panel-inverse col-lg-12" style="padding: 0px">
-                       <div class="panel-heading">
+                       <div class="page-header bskp-page-topic d-flex justify-content-between align-items-center m-0" >
+                        <h4 class="panel-title">Dashboard's</h4>
                            <div class="panel-heading-btn">
-                               <a href="javascript:;" onclick="openDashboardModal(1)" class="btn btn-sm btn-icon btn-circle btn-default"><i class="fa fa-plus"></i></a>
-                               <a href="javascript:void(0)" data-click="panel-reload" onclick="loadDashboardlist()" class="btn btn-sm btn-icon btn-circle btn-default">
+                               <a href="javascript:;" onclick="openDashboardModal(1)" class="btn btn-sm btn-icon btn-circle bskp-icon-bg"><i class="fa fa-plus"></i></a>
+                               <a href="javascript:void(0)" data-click="panel-reload" onclick="loadDashboardlist()" class="btn btn-sm btn-icon btn-circle bskp-icon-bg">
                                    <i class="fa fa-redo"></i></a>
                            </div>
-                           <h4 class="panel-title">Dashboard's</h4>
                        </div>
-                       <div class="panel-body dashboardListBody" style="border: 1px solid #eee;background-color: #eeeeee73;padding:1px;overflow: auto;overflow-x: hidden">
+                       <div class="panel-body dashboardListBody" style="border: 1px solid #eee;background-color: #eaf1f6;padding:1px;overflow: auto;overflow-x: hidden">
 
 
                            <ul class="dashboardList"></ul>
@@ -235,14 +236,14 @@
                        <div class="col-lg-12">
                            <h4 class=" pull-left" style="color:#666"><span class="dashboardIcon"></span> <span class="dashboardName"></span>
 
-                               <a href="javascript:void(0)" class="ml-3 btn btn-sm btn-icon btn-circle btn-default" onclick="openDashboardModal(2)"><i class="icon-edit2"></i></a>
-                               <a href="javascript:void(0)" class="btn btn-sm btn-icon btn-circle btn-default" onclick="openDashboardModal(3)"><i class="icon-trash4"></i></a>
+                               <a href="javascript:void(0)" class="ms-2 btn btn-sm btn-icon btn-circle bskp-icon-bg" onclick="openDashboardModal(2)"><i class="icon-edit2"></i></a>
+                               <a href="javascript:void(0)" class="btn btn-sm btn-icon btn-circle bskp-icon-bg" onclick="openDashboardModal(3)"><i class="icon-trash4"></i></a>
 
                            </h4>
 
                            <div class="btn-group btn-group-justified pull-right">
-                               <button class="btn btn-default" onclick="previewDashboard()"><i class="icon-eye4" ></i> Preview</button>
-                               <button class="btn btn-default" data-click="panel-reload" onclick="saveDashboard()"><i class="icon-save"></i> Save</button>
+                               <button class="btn btn-default bg-light" onclick="previewDashboard()"><i class="icon-eye4" ></i> Preview</button>
+                               <button class="btn btn-default bg-light" data-click="panel-reload" onclick="saveDashboard()"><i class="icon-save"></i> Save</button>
                            </div>
 
                        </div>
@@ -255,23 +256,22 @@
                    <div class="panel panel-inverse col-lg-12" style="padding: 0px">
                        <div class="panel-heading" >
                            <div class="panel-heading-btn">
-                               <!--<a href="<%= basepath %>/widgets" title="Add widgets from marketplace" target="_blank" class="btn btn-sm btn-icon btn-circle btn-default">-->
-                                   <!--<i class="icon-download4"></i></a>-->
-                               <a href="javascript:void(0)"  data-click="panel-reload" onclick="loadImportedWidgets()" class="btn btn-sm btn-icon btn-circle btn-default">
+                            
+                               <a href="javascript:void(0)"  data-click="panel-reload" onclick="loadImportedWidgets()" class="btn btn-sm btn-icon btn-circle bskp-icon-bg">
                                    <i class="fa fa-redo"></i></a>
                            </div>
                            <h4 class="panel-title"><i class="icon-th"></i> Imported Widgets</h4>
                        </div>
-                       <div class="panel-body " style="border: 1px solid #eee;overflow-x: hidden;overflow: auto;background-color: #f7f7f7;">
+                       <div class="panel-body " style="border: 1px solid #eee;overflow-x: hidden;overflow: auto;background-color: #eaf1f6;">
                            <div style="text-align: center;margin-bottom: 10px;">
-                               <a  href="<%= basepath %>/widget/addwidget" target="_blank" style="text-decoration: none;display: block" class="text-warning">
+                               <a  href="<%= basepath %>/widget/addwidget" target="_blank" style="text-decoration: none;display: block" class="text-theme">
                                    <i class="icon-plus-circle"></i> Add New Widget
                                </a>
 
                                <br>
                                <small>Install widgets from </small><br>
-                               <a  href="<%= basepath %>/marketplace" target="_blank" style="text-decoration: none" class="text-warning">
-                                   <img src="images/menu/market-place.png" style="width: 24px"> Boodskap Marketplace
+                               <a  href="<%= basepath %>/marketplace" target="_blank" style="text-decoration: none" class="text-theme">
+                                   <img src="images/menu/market-place.png" alt="market-place" style="width: 24px"> Boodskap Marketplace
                                </a>
 
 
@@ -317,19 +317,21 @@
 <script src="controllers/dashboard-editor.js"></script>
 
 
-<div id="addDashboard" class="modal fade" tabindex="-1" role="dialog">
+<div id="addDashboard" class="modal bskp-modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title"><span class="dashboardAction"></span> Dashboard</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <img src="images/menu/xicon.svg" alt="xicon" class="bg-secondary bskp-close">
+                </button>
             </div>
             <form action="javascript:void(0)">
                 <div class="modal-body">
                     <div  class="row">
                         <div  class="col-md-8">
                             <div  class="form-group">
-                                <label  class="inputLabel">Dashboard Name</label>
+                                <label  class="inputLabel">Dashboard Name <strong class="text-danger">*</strong></label>
                                 <input  class="form-control input-sm" placeholder="" type="text" id="dashboard_name" required>
                                 <small>Can embed <b>HTML</b> code also</small>
                             </div>
@@ -338,7 +340,7 @@
                     <div  class="row">
                         <div  class="col-md-8">
                             <div  class="form-group">
-                                <label  class="inputLabel">Dashboard Icon</label>
+                                <label  class="inputLabel">Dashboard Icon <strong class="text-danger">*</strong></label>
 
                                 <div class="dropdown">
                                     <div class="btn btn-sm dropdown-toggle" style="width: 100%;border: 1px solid #3e373738;" type="" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -396,7 +398,6 @@
                         <div  class="col-md-4">
                             <div  class="form-group">
                                 <label  class="inputLabel">Title Text Color</label> <br>
-                                <!--<input id="dashboard_bg" required></input>-->
                                 <div id="dashboard_title_text_bg" class="input-group colorpicker-component">
                                     <input type="text" value="" class="form-control" />
                                     <span class="input-group-addon"><i></i></span>
@@ -406,8 +407,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btnModal btnSubmit">Proceed</button>
+                    <button type="button" class="btn button-2 btn-close" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btnModal btn-secondary btn-proceed">Proceed</button>
                 </div>
             </form>
         </div><!-- /.modal-content -->
@@ -416,19 +417,20 @@
 
 
 
-<div id="deleteModal" class="modal fade" tabindex="-1" role="dialog">
+<div id="deleteModal" class="modal bskp-modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Delete Dashboard</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            </div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <img src="images/menu/xicon.svg" alt="xicon" class="bg-secondary bskp-close">
+                </button>            </div>
             <div class="modal-body">
                 <h5>Are you sure want to delete <b><span class="dashboardDeleteName" style="word-wrap: break-word;"></span> dashboard</b>?</h5>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btnModal" onclick="deleteDashboard()">Proceed</button>
+                <button type="button" class="btn button-2 btn-close" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btnModal btn-secondary btn-proceed" onclick="deleteDashboard()">Proceed</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -439,14 +441,15 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Delete Widget</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            </div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <img src="images/menu/xicon.svg" alt="xicon" class="bg-secondary bskp-close">
+                </button>            </div>
             <div class="modal-body">
                 <h5>Are you sure want to delete the <b><span class="widgetImportName" style="word-wrap: break-word;"></span></b> widget from the domain?</h5>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btnModal" onclick="deleteImportedWidget()">Proceed</button>
+                <button type="button" class="btn button-2 btn-close" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btnModal btn-secondary btn-proceed" onclick="deleteImportedWidget()">Proceed</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -742,8 +745,9 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Share Widget</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            </div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <img src="images/menu/xicon.svg" alt="xicon" class="bg-secondary bskp-close">
+                </button>            </div>
             <div class="modal-body">
                 <h5><label><input type="radio" id="enableBtn" name="shareBtn" onclick="shareWidget()" value="enable"/> Enable</label></h5>
                 <h5><label><input type="radio" id="disableBtn" name="shareBtn" onclick="shareWidget()" value="disbale"/> Disable</label></h5>
@@ -751,7 +755,7 @@
                 <h5 class="mt-2 shareLink" style="width:100%;word-wrap:break-word"></h5>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn button-2 btn-close" data-dismiss="modal">Close</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

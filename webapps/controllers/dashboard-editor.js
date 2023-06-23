@@ -718,7 +718,7 @@ function loadImportedWidgets() {
     var sText = $.trim($("#searchText").val());
 
     var clientDomainKey = {
-        match: {clientDomainKey: DOMAIN_KEY}
+        match: {domainKey: DOMAIN_KEY}
     };
 
     var queryParams = {
