@@ -346,7 +346,6 @@ function checkWidget(id,nam){
         query: {
             "bool": {
                 "must": [{match:{'domainKey':DOMAIN_KEY}},{match:{'widgetid':id}}]
-                "must": [{match:{'domainKey':DOMAIN_KEY}},{match:{'widgetid':id}}]
             }
         },
         size:1000
