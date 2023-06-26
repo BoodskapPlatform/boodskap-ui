@@ -235,6 +235,7 @@ function loadMore(id){
 }
 
 function renderWidgetDiv(obj){
+console.log("obj",obj);
 console.log("object",obj); 
     var tags ='';
 
@@ -345,9 +346,10 @@ function checkWidget(id,nam){
         query: {
             "bool": {
                 "must": [{match:{'domainKey':DOMAIN_KEY}},{match:{'widgetid':id}}]
+                "must": [{match:{'domainKey':DOMAIN_KEY}},{match:{'widgetid':id}}]
             }
         },
-        size:1
+        size:1000
     };
 
 
@@ -447,9 +449,9 @@ function proceedDelete() {
 }
 
 function importModal(id, name) {
-    widgetId = id;
- console.log("id",id);
- console.log("name",name);
+    console.log(id);
+    console.log(name);
+    widgetId = id;  
     // $(".widgetName").html(name);
     // $("#importModal").modal('show');
 
@@ -462,6 +464,7 @@ function importModal(id, name) {
         confirmButtonText: "Yes, Add it!",
     })
         .then(function (result) {
+            console.log(result);
             if (result.value) {
                 console.log("result",result.value);
                 importWidget(id, function (status, data) {

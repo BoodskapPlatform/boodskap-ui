@@ -15,7 +15,7 @@ var record_list = [];
 var device_list = [];
 var message_list = [];
 var current_device_id = '';
-var createdBy = (USER_OBJ.user.firstName ? USER_OBJ.user.firstName : 'Boodskap Admin') + (USER_OBJ.user.lastName ? ' ' + USER_OBJ.user.lastName : '') +'  | '+Cookies.get('domain_name');
+var createdBy = (USER_OBJ.user.firstName ? USER_OBJ.user.firstName : 'Boodskap Admin') + (USER_OBJ.user.lastName ? ' ' + USER_OBJ.user.lastName : '') +'  | '+ (USER_OBJ.user.firstName ? USER_OBJ.user.firstName : 'Boodskap Admin') + (USER_OBJ.user.lastName ? ' ' + USER_OBJ.user.lastName : '') ;
 var createdByEmail = USER_OBJ.user.email;
 
 $(document).ready(function () {
@@ -1076,9 +1076,31 @@ function saveCode() {
 
 
 function createWidget() {
-
+    const widgetName = $.trim($("#widgetName").val());
+    const widgetDesc = $.trim($("#widgetDesc").val());
+    
+    $("#widget_Error").html("");
+    $("#widgetName").css("border", "1px solid #ccc");
+    $("#widgetDesc").css("border", "1px solid #ccc");
+    if (widgetName == '') {
+        $("#widget_Error").html('<span style="font-size:13px;font-weight: 600;font-family: sans-serif;color:red;" >Please enter widget name </span>');
+        $("#widgetName").css("border", "1px solid red");
+        return false;
+     }
+     else {
+        $("#widget_Error").html("");
+     }
+     if (widgetDesc == '') {
+        $("#widgetDesc_Error").html('<span style="font-size:13px;font-weight: 600;font-family: sans-serif;color:red;" >Please enter widget description </span>');
+        $("#widgetDesc").css("border", "1px solid red");
+        return false;
+     }
+     else {
+        $("#widgetDesc_Error").html("");
+     }
     widgetObj = {
         domainKey : DOMAIN_KEY,
+        clientDomainKey:DOMAIN_KEY,
         category: $("#widgetCategory").val(),
         tags: $("#widgetTags").val(),
         widgetid: widgetID,

@@ -4132,9 +4132,9 @@ a.card-header-link {
     color: #fff
 }
 
-.panel-inverse>.panel-heading {
+/* .panel-inverse>.panel-heading {
     background: #6d6d6d
-}
+} */
 
 .panel-success>.panel-heading {
     background: #008a8a

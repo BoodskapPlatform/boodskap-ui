@@ -133,7 +133,6 @@ function loadMore(id){
 }
 
 function renderWidgetDiv(obj){
-
     var tags ='';
 
     var tagObj = obj.tags.split(",");

@@ -392,7 +392,6 @@ function loadDashboard(id, flag) {
 
     CURRENT_DASHBOARD_ID = CURRENT_DASHBOARD.id;
 
-
     $(".dashboardMenu .nav-menu").removeClass('active');
     $(".dashboardMenu .d_"+CURRENT_DASHBOARD_ID).addClass('active');
 
@@ -431,7 +430,7 @@ function loadWidgets(id) {
         if (status) {
 
             DASHBOARD_WIDGETS = JSON.parse(data.value);
-
+// console.log("dashboard",DASHBOARD_WIDGETS);
             for (var i = 0; i < DASHBOARD_WIDGETS.length; i++) {
 
                 var widget = DASHBOARD_WIDGETS[i];
