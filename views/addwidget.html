@@ -62,7 +62,7 @@
     }
 
     .nav-tabs {
-        background: #4b4a49;
+        background: white;
         border-radius: 0px;
     }
 
@@ -73,20 +73,20 @@
     }
 
     .nav-tabs .nav-link {
-        color: #d0d0d0;
+        color:#6e7179;
     }
 
     .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
-        color: #FFC107;
-        background-color: #272822;
-        border-color: #dee2e6 #dee2e6 #fff;
+        color: white;
+        background-color: #2d2f79;
+        /* border-color: #dee2e6 #dee2e6 #fff; */
         border-radius: 0px;
         font-weight: bold;
     }
 
     .nav-tabs .nav-link:hover {
-        color: #FFC107;
-        background-color: #272822;
+        /* color: white; */
+        /* background-color: transparent; */
         border-color: #dee2e6 #dee2e6 #fff;
         border-radius: 0px;
     }
@@ -314,9 +314,9 @@
             </div>
             <div class="modal-body" style="overflow: auto;overflow-x: hidden;background-color: #3e3b3c3d;padding: 13px 15px;">
 
-                <div class="row">
+                <div class="row g-2">
                     <div class="col-lg-6" style="position: relative">
-                        <button class="btn btn-sm btn-warning" onclick="codeLivePreview()"
+                        <button class="btn btn-sm bskp-blue-bg" onclick="codeLivePreview()"
                                 style="position: absolute;top: 5px;right: 15px;"><i class="icon-play"></i> Run
                         </button>
                         <ul class="nav nav-tabs">
@@ -394,7 +394,7 @@
                                                      style="width: 100%;border: 1px solid #3e373738;" type=""
                                                      id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
                                                      aria-expanded="true">
-                                                    <input type="text" style="" class="input-sm inputDevice" autocomplete="off"
+                                                    <input type="text"  class="input-sm inputDevice" autocomplete="off"
                                                            placeholder="Search by device id, name, model, version"
                                                            id="deviceID" onkeyup="loadDeviceList(this.value)">
                                                 </div>
@@ -517,7 +517,7 @@
                             <!-- end tab-pane -->
                         </div>
                     </div>
-                    <div class="col-lg-6" style="padding: 0px">
+                    <div class="col-lg-6" style="">
 
 
                         <div class="panel panel-inverse" style="margin-bottom: 0px;">

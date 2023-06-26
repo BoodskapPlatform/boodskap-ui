@@ -242,8 +242,8 @@ console.log("object",obj);
 
     for(var i=0;i<tagObj.length;i++){
         if(tagObj.length>3){
-            if(i<=2){
-                tags+= '<i class="label label-default mr-1">'+tagObj[i]+'</i>'
+            if(i<=1){
+                tags+= '<span class="label label-default mr-1">'+tagObj[i]+'</span>'
                 moreTag ='<span class="tagEllipseMargin">...</span>'
             }
         }
@@ -286,7 +286,13 @@ console.log("object",obj);
                                 <p class="" style="margin-top: 3px" title="`+obj.tags+`"><i class="fa fa-tags"></i>
                                      `+tags+moreTag+`
                                 </p>
-                                <small class="mr-2"><i class="fa fa-user"></i> `+obj.createdby+`</small>
+                                <small style="
+                                display: inline-block;
+                                width: 100%;
+                                white-space: nowrap;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                            "  class="mr-2" title="`+obj.createdby+`"><i class="fa fa-user"></i> `+obj.createdby+`</small>
                                 
                                  <br><small><i class="fa fa-clock-o"></i> `+moment(obj.updatedtime).format('MM/DD/YYYY hh:mm a')+`</small><br>
                                 
@@ -332,12 +338,13 @@ function deleteWid(id,nam){
 }
 
 function checkWidget(id,nam){
+
     console.log("id check",id);
     console.log("nam check",nam);
     var queryParams = {
         query: {
             "bool": {
-                "must": [{match:{'clientDomainKey':DOMAIN_KEY}},{match:{'widgetid':id}}]
+                "must": [{match:{'domainKey':DOMAIN_KEY}},{match:{'widgetid':id}}]
             }
         },
         size:1
@@ -352,23 +359,25 @@ function checkWidget(id,nam){
 
     };
     searchByQuery(null,'WIDGET_IMPORTED',ajaxObj,function (status,data){
-        console.log("searching");
-        console.log("Status of the search",status);
+        // console.log("searching");
+        // console.log("Status of the search",status);
         if(status){
-            var resultData = searchQueryFormatterNew(data);
 
+            var resultData = searchQueryFormatterNew(data);
+            console.log("result",resultData.total,resultData);
             if(resultData.total > 0){
-                console.log("coming in");
+        // console.log();
+                console.log("coming in",resultData.data.data);
                 // $(".btn-"+id+" .action").removeClass('hide').removeClass('btn-warning').addClass('btn-default');
                 // $(".btn-"+id+" .action").removeAttr('onclick')
                 // $(".btn-"+id+" .action").attr('disabled','disabled')
                 // $(".btn-"+id+" .action").html('<i class="fa fa-check"></i> Already Added')
 
 
-                $(".btn-"+id).append('<button class="mt-2 btn btn-outline-danger btn-sm delBtn" onclick="deleteImpWidget(\''+id+'\',\''+nam+'\')"><i class="fa fa-trash"></i> Uninstall</button>')
+                $(".btn-"+id).append('<button class="mt-2 btn btn-outline-danger btn delBtn" onclick="deleteImpWidget(\''+id+'\',\''+nam+'\')"><i class="fa fa-trash"></i> Uninstall</button>')
 
             }else{
-               
+               console.log("going to else");
                 $(".btn-"+id+" .action").removeClass('hide')
             }
         }else{
