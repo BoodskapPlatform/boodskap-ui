@@ -33,7 +33,6 @@
 .header-style {
     background: white !important;
     padding: 8px 15px !important;
-    box-shadow: 0px 2px 12px 2px #e7eefa;
     z-index: 400 !important;
 }
 #megaMenu > .modal-header{

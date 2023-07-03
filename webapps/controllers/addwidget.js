@@ -1148,6 +1148,8 @@ function createWidget() {
         }
     });
 
+    $("#widgetName").val("");
+    $("#widgetDesc").val("");
 
 }
 

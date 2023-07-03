@@ -235,8 +235,6 @@ function loadMore(id){
 }
 
 function renderWidgetDiv(obj){
-console.log("obj",obj);
-console.log("object",obj); 
     var tags ='';
 
     var tagObj = obj.tags.split(",");
@@ -339,13 +337,9 @@ function deleteWid(id,nam){
 }
 
 function checkWidget(id,nam){
-
-    console.log("id check",id);
-    console.log("nam check",nam);
     var queryParams = {
         query: {
             "bool": {
-                "must": [{match:{'domainKey':DOMAIN_KEY}},{match:{'widgetid':id}}]
                 "must": [{match:{'domainKey':DOMAIN_KEY}},{match:{'widgetid':id}}]
             }
         },
@@ -361,29 +355,19 @@ function checkWidget(id,nam){
 
     };
     searchByQuery(null,'WIDGET_IMPORTED',ajaxObj,function (status,data){
-        // console.log("searching");
-        // console.log("Status of the search",status);
         if(status){
-
             var resultData = searchQueryFormatterNew(data);
-            console.log("result",resultData.total,resultData);
             if(resultData.total > 0){
-        // console.log();
-                console.log("coming in",resultData.data.data);
                 // $(".btn-"+id+" .action").removeClass('hide').removeClass('btn-warning').addClass('btn-default');
                 // $(".btn-"+id+" .action").removeAttr('onclick')
                 // $(".btn-"+id+" .action").attr('disabled','disabled')
                 // $(".btn-"+id+" .action").html('<i class="fa fa-check"></i> Already Added')
-
-
                 $(".btn-"+id).append('<button class="mt-2 btn btn-outline-danger btn delBtn" onclick="deleteImpWidget(\''+id+'\',\''+nam+'\')"><i class="fa fa-trash"></i> Uninstall</button>')
 
             }else{
-               console.log("going to else");
                 $(".btn-"+id+" .action").removeClass('hide')
             }
         }else{
-            console.log("not coming in");
             $(".btn-"+id+" .action").removeClass('hide')
         }
     })
