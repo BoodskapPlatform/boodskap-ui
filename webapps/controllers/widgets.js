@@ -296,7 +296,7 @@ function renderWidgetDiv(obj){
                                  <br><small><i class="fa fa-clock-o"></i> `+moment(obj.updatedtime).format('MM/DD/YYYY hh:mm a')+`</small><br>
                                 
                                 <div class="btn-`+obj.widgetid+`">
-                                    <button class="btn bskp-blue-bg mt-2 action hide" onclick="importModal('`+obj.widgetid+`','`+obj.widgetname+`')"><i class="icon-plus-square"></i> <span class="hidden-xs">Add to Domain</span></button>
+                                    <button class="btn btn-sm bskp-blue-bg mt-2 action hide" onclick="importModal('`+obj.widgetid+`','`+obj.widgetname+`')"><i class="icon-plus-square"></i> <span class="hidden-xs">Add to Domain</span></button>
                                 </div>
 
                             </div>
@@ -362,7 +362,9 @@ function checkWidget(id,nam){
                 // $(".btn-"+id+" .action").removeAttr('onclick')
                 // $(".btn-"+id+" .action").attr('disabled','disabled')
                 // $(".btn-"+id+" .action").html('<i class="fa fa-check"></i> Already Added')
-                $(".btn-"+id).append('<button class="mt-2 btn btn-outline-danger btn delBtn" onclick="deleteImpWidget(\''+id+'\',\''+nam+'\')"><i class="fa fa-trash"></i> Uninstall</button>')
+
+
+                $(".btn-"+id).append('<button class="mt-2 btn btn-sm btn-outline-danger btn delBtn" onclick="deleteImpWidget(\''+id+'\',\''+nam+'\')"><i class="fa fa-trash"></i> Uninstall</button>')
 
             }else{
                 $(".btn-"+id+" .action").removeClass('hide')
