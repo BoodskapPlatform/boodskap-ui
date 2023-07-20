@@ -11,7 +11,7 @@ WORKDIR ${BOODSKAPUI_HOME}
 
 COPY / ${BOODSKAPUI_HOME}/
 
-RUN ls -la ${BOODSKAPUI_HOME}/
+RUN mkdir /etc/boodskapui && mv ${BOODSKAPUI_HOME}/conf.js /etc/boodskapui/ && ln -s /etc/boodskapui/conf.js
 
 EXPOSE 4201
 

@@ -1,0 +1,1 @@
+module.exports = {"web":{"port":4201},"devops":{"env1":"prod"},"basepath":"/console","protocol":"http","api":"/api","development":false,"billing_api":"https://billing.boodskap.io/customer/v1/session-check"}
